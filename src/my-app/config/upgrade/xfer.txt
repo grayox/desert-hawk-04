@@ -1,0 +1,16 @@
+public/assets/images/logos/fuse.svg
+src/@fuse/components/FuseAuthorization/FuseAuthorization.js
+src/auth/Auth.js
+src/auth/store/actions/login.actions.js
+src/auth/store/actions/user.actions.js
+src/auth/store/reducers/user.reducer.js
+src/firebaseService/firebaseService.js
+src/firebaseService/firebaseServiceConfig.js
+src/fuse-configs/fuseNavigationConfig.js
+src/fuse-configs/fuseRoutesConfig.js
+src/index.js
+src/main/content/components/ComponentsConfig.js
+src/main/content/login/Login.js
+src/store.js
+src/store/actions/index.js
+src/store/reducers/index.js
