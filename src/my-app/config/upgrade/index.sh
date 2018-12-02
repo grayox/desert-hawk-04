@@ -27,12 +27,12 @@ new=$2 # 04
 
 # step 1 of 9
 # init all scripts allows them to be executed
-chmod a+x "v$old/src/my-app/config/upgrade/index.sh"
-chmod a+x "v$old/src/my-app/config/upgrade/clone.sh"
-chmod a+x "v$old/src/my-app/config/upgrade/compare.sh"
-chmod a+x "v$old/src/my-app/config/upgrade/copy.sh"
-chmod a+x "v$old/src/my-app/config/upgrade/git.sh"
-chmod a+x "v$old/src/my-app/config/upgrade/update.sh"
+chmod a+x "v$old/$localpath/index.sh"
+chmod a+x "v$old/$localpath/clone.sh"
+chmod a+x "v$old/$localpath/compare.sh"
+chmod a+x "v$old/$localpath/copy.sh"
+chmod a+x "v$old/$localpath/git.sh"
+chmod a+x "v$old/$localpath/update.sh"
 
 # # step 2 of 9 (deprecated)
 # # make backup tar file in case of accidental overwrite or deletion
