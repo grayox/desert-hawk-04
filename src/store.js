@@ -26,6 +26,10 @@ const rrfConfig = {
 // error message:
 // Error: The Firebase auth state could not be found in the store under the attribute 'firebase.auth'. Make sure your react-redux-firebase reducer is correctly set in the store
 // the above error might also require correction by ensuring src/store/reducers/index.js has been correctly copied and updated
+// the latest occurence of this error was due to the file src/store/reducers/index.js in src/my-app/config/upgrade/xfer.txt
+// failing to be picked up by the IFS in the read command initiating the `while IFS= ...` loop in src/my-app/config/upgrade/copy.sh
+// this was fixed by changing the while loop to read `while IFS= read -r fullfile || [ -n "$fullfile" ];`
+// as described here: https://stackoverflow.com/a/12919766/1640892
 firebase.initializeApp(firebaseConfig) // <- new to v2.*.*
 // firebase.firestore() // <- needed if using firestore
 const firestore = firebase.firestore();

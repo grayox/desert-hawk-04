@@ -42,7 +42,7 @@ import firebase from '@firebase/app';
 import '@firebase/firestore';
 
 // misc
-import Album from 'my-app/layouts/Album'
+import Album from 'my-app/layouts/album/Album'
 
 const db = firebase.firestore();
 
