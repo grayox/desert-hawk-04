@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import { matchRoutes } from 'react-router-config';
+import { matchRoutes } from 'react-router-config';
 import { bindActionCreators } from 'redux';
 // import {withRouter} from 'react-router-dom';
 // begin my add
@@ -18,10 +18,10 @@ let redirect = false;
 
 class FuseAuthorization extends Component {
 
-  // constructor(props) {
-  //   super(props);
-  //   // this.checkAuth();
-  // }
+  constructor(props) {
+    super(props);
+    this.checkAuth();
+  }
 
   componentDidUpdate(prevProps) {
     /**
@@ -33,26 +33,26 @@ class FuseAuthorization extends Component {
     }
   }
 
-  // checkAuth() {
-  //   const matched = matchRoutes(this.props.routes, this.props.location.pathname)[0];
-  //   if (matched && matched.route.auth && matched.route.auth.length > 0) {
-  //     if (!matched.route.auth.includes(this.props.user.role)) {
-  //       redirect = true;
-  //       if (this.props.user.role === 'guest') {
-  //       // if (!this.props.loggedIn) { // my add
-  //         this.props.history.push({
-  //           pathname: '/login',
-  //           state: { redirectUrl: this.props.location.pathname }
-  //         });
-  //       }
-  //       else {
-  //         this.props.history.push({
-  //           pathname: '/'
-  //         });
-  //       }
-  //     }
-  //   }
-  // }
+  checkAuth() {
+    const matched = matchRoutes(this.props.routes, this.props.location.pathname)[0];
+    if (matched && matched.route.auth && matched.route.auth.length > 0) {
+      if (!matched.route.auth.includes(this.props.user.role)) {
+        redirect = true;
+        if (this.props.user.role === 'guest') {
+        // if (!this.props.loggedIn) { // my add
+          this.props.history.push({
+            pathname: '/login',
+            state: { redirectUrl: this.props.location.pathname }
+          });
+        }
+        else {
+          this.props.history.push({
+            pathname: '/'
+          });
+        }
+      }
+    }
+  }
 
   shouldComponentUpdate(nextProps) {
     if (redirect) {
