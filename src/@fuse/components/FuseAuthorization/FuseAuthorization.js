@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { matchRoutes } from 'react-router-config';
+// import { matchRoutes } from 'react-router-config';
 import { bindActionCreators } from 'redux';
 // import {withRouter} from 'react-router-dom';
 // begin my add
-// import { withRouter, Route, Redirect } from 'react-router-dom';
-import { Route, Switch, Redirect, withRouter } from "react-router-dom";
-import Error404Page from 'main/content/pages/errors/404/Error404Page'
+import { withRouter, Route, } from 'react-router-dom';
+// import { withRouter, Route, Redirect, } from 'react-router-dom';
+// import { withRouter, Route, Redirect, Switch, } from "react-router-dom";
+// import Error404Page from 'main/content/pages/errors/404/Error404Page'
 // end my add
 import { connect } from 'react-redux';
 import _ from '@lodash';
@@ -17,10 +18,10 @@ let redirect = false;
 
 class FuseAuthorization extends Component {
 
-  constructor(props) {
-    super(props);
-    // this.checkAuth();
-  }
+  // constructor(props) {
+  //   super(props);
+  //   // this.checkAuth();
+  // }
 
   componentDidUpdate(prevProps) {
     /**
@@ -66,7 +67,8 @@ class FuseAuthorization extends Component {
   render() {
     // uid forwards to dashboard,
     // loggedIn makes you login before forwarding after every reload
-    const { children, loggedIn, uid } = this.props; // loggedIn, uid: my add
+    const { children, uid, } = this.props; // loggedIn, uid: my add
+    // const { children, uid, loggedIn, } = this.props; // loggedIn, uid: my add
     // console.log('children\n', children);
     // debugger;
 

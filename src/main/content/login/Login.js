@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 // import { Link, withRouter } from 'react-router-dom';
 // import {withRouter} from 'react-router-dom';
 // begin my add
-import {withRouter, Redirect} from 'react-router-dom';
-import {connect} from 'react-redux';
+import { withRouter } from 'react-router-dom';
+// import { withRouter, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 // end my add
 import { withStyles } from '@material-ui/core/styles/index';
 // import { Card, CardContent, Typography, Icon, Tabs, Tab } from '@material-ui/core';

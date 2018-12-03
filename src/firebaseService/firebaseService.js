@@ -126,7 +126,7 @@ class firebaseService {
     const {
       userRef,
       saveDocToFirestore,
-      auth,
+      // auth,
       auth: { currentUser },
       auth: { currentUser: { uid } }, }
       = this;
