@@ -8,12 +8,11 @@ import firebaseService from 'firebaseService';
 class Auth extends Component {
   constructor(props) {
     super(props);
-    firebaseService.init();
-  }
-  componentDidMount() {
+    // firebaseService.init(); // factory deleted in v1.2.8 // moved from componentDidMount() to firebaseCheck()
     this.firebaseCheck();
   }
   firebaseCheck = () => {
+    firebaseService.init(); // factory added in v1.2.8
     firebaseService.onAuthStateChanged(authUser => {
       if (authUser) {
         console.log('authUser\n', authUser); // my add

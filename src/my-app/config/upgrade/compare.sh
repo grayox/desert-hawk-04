@@ -22,7 +22,10 @@ compareto=$4
 #   do [[ $(md5 v$old/"$filename-orig") = $(md5 v$new/"$filename") ]] || echo $filename differs; # boolean
 #   done < v$old/$localpath/$compareto
 # ref: https://stackoverflow.com/a/965072/1640892
-while IFS= read -r fullfile; # path/to/foo.bar
+# https://www.cyberciti.biz/faq/bash-loop-over-file/
+# while IFS= read -r fullfile; # path/to/foo.bar # does not read last line
+# solution: https://stackoverflow.com/a/12919766/1640892
+while IFS= read -r fullfile || [ -n "$fullfile" ]; # path/to/foo.bar
   do
     filename="${fullfile##*/}" # foo.bar
     pathto="${fullfile%/*}" # path/to
