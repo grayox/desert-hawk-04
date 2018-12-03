@@ -21,10 +21,11 @@ cd "v$new"
 # rename certain files in destination directory
 # ref: https://unix.stackexchange.com/a/481334/167174
 # while read ; do mv "vx/$REPLY" "v03/${REPLY%.js}-orig.js" ; done < v03/src/my-app/config/upgrade/xfer.txt # non-recurring update
-while read
+# while read
+while IFS= read -r fullfile || [ -n "$fullfile" ]; # path/to/foo.bar
   do
     # mv "$REPLY" "${REPLY%.js}-orig.js"
-    fullfile="$REPLY" # path/to/foo.bar
+    # fullfile="$REPLY" # path/to/foo.bar
     filename="${fullfile##*/}" # foo.bar
     pathto="${fullfile%/*}" # path/to
     prefix="${filename%.*}"; # foo

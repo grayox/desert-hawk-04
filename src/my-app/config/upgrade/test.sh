@@ -9,12 +9,14 @@
 # echo v$1
 # while IFS= read -r fullfile; # path/to/foo.bar
 while IFS= read -r fullfile || [ -n "$fullfile" ]; # path/to/foo.bar
+# while read
 # while read line || [ -n "$line" ]; do
 # https://stackoverflow.com/a/12919766/1640892
 # https://www.cyberciti.biz/faq/bash-loop-over-file/
 # files=/src/my-app/config/upgrade/xfer.txt
 # for fullfile in $files
   do
+    # fullfile="$REPLY" # path/to/foo.bar
     # filename="${fullfile##*/}" # foo.bar
     # pathto="${fullfile%/*}" # path/to
     # prefix="${filename%.*}"; # foo
