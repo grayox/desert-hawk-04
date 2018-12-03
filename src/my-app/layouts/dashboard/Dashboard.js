@@ -40,6 +40,10 @@ import { bizCategoryItems } from 'my-app/config/AppConfig';
 // firebase
 import firebase from '@firebase/app';
 import '@firebase/firestore';
+
+// misc
+import Album from 'my-app/layouts/Album'
+
 const db = firebase.firestore();
 
 const styles = theme => ({
@@ -287,6 +291,7 @@ class Dashboard extends Component {
         { ( show === 'greet' ) ? <SettingsMessage onClick={handleClickSettingsMessage} /> : null }
         { ( show === 'step'  ) ? <SettingsStepper onSave={handleSaveSettingsStepper}   /> : null }
         { ( show === 'main'  ) ? main                                                     : null }
+        <Album />
       </div>
     );
   }

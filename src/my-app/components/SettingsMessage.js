@@ -30,7 +30,7 @@ function SettingsMessage(props) {
     <div className={classNames(classes.root, "flex flex-col flex-1 items-center justify-center p-16")}>
       <div className="max-w-512 text-center">
         <FuseAnimate delay={100} animation="transition.slideDownIn">
-          <Typography variant="display2" color="inherit" className="font-medium mb-16">
+          <Typography variant="h3" color="inherit" className="font-medium mb-16">
             Howdy, pardner!
           </Typography>
         </FuseAnimate>
@@ -43,7 +43,7 @@ function SettingsMessage(props) {
           </Typography>
         </FuseAnimate>
         <FuseAnimate delay={300} animation="transition.expandIn">
-          <Typography variant="display4" color="inherit" className="font-medium mb-16">
+          <Typography variant="h1" color="inherit" className="font-medium mb-16">
             <span role="img" aria-label="smiling cowboy emoji">🤠</span>
           </Typography>
         </FuseAnimate>
