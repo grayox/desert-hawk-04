@@ -210,18 +210,16 @@ function updateUserData(user) {
       }
     case 'auth0':
       {
-        auth0Service(() => {
-          updateUserData({
-            settings: user.data.settings,
-            shortcuts: user.data.shortcuts
-          })
-            .then(() => {
-              store.dispatch(Actions.showMessage({ message: "User data saved to auth0" }));
-            })
-            .catch(error => {
-              store.dispatch(Actions.showMessage({ message: error.message }));
-            });
+        auth0Service.updateUserData({
+          settings: user.data.settings,
+          shortcuts: user.data.shortcuts
         })
+          .then(() => {
+            store.dispatch(Actions.showMessage({ message: "User data saved to auth0" }));
+          })
+          .catch(error => {
+            store.dispatch(Actions.showMessage({ message: error.message }));
+          });
         break;
       }
     default:

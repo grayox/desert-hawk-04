@@ -36,7 +36,7 @@ while IFS= read -r fullfile || [ -n "$fullfile" ]; # path/to/foo.bar
     # echo "filename: $filename"
     # echo "prefix: $prefix"
     # echo "extension: $extension"
-    derivative="$pathto/$prefix-orig.$extension"
+    derivative="$pathto/$prefix-orig.$extension" # path/to/foo-orig.bar
     oldfile="v$old/$derivative"
     newfile="v$new/$derivative"
     md5 "$oldfile"
