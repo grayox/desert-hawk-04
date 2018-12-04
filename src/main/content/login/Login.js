@@ -17,7 +17,7 @@ import { FuseAnimate } from '@fuse';
 
 import SlideShow from 'my-app/layouts/SlideShow';
 
-import LoginProviders from 'my-app/components/LoginProviders';
+import AuthProviders from 'my-app/components/AuthProviders';
 import { logoPath, tagLine, desc, } from 'my-app/config/AppConfig.js';
 
 const styles = theme => ({
@@ -94,7 +94,7 @@ class Login extends Component {
 
             <CardContent className="flex flex-col items-center justify-center p-32 md:p-48 md:pt-128 ">
 
-              <LoginProviders/>
+              <AuthProviders/>
 
               {/* <Typography variant="h6" className="text-center md:w-full mb-48">LOGIN TO YOUR ACCOUNT</Typography>
 

@@ -58,7 +58,7 @@ c3 = c1 then c2
     src/auth/store/actions/user.actions.js
     src/main/content/login/tabs/FirebaseLoginTab.js
     src/main/content/login/Login.js
-    src/my-app/components/LoginProviders.js
+    src/my-app/components/AuthProviders.js
  5. transfer files with terminal command
     ref: https://stackoverflow.com/a/53245169/1640892
     `xargs -I{} -a v02/src/my-app/config/xfer.txt cp v02/{} v03/{}` # does not work
@@ -223,7 +223,7 @@ c3 = c1 then c2
       save as... -orig
       a. left: modify intro and tag line
       b. right: modify form and function to signup using vendors: Google, Twitter, Facebook
-         `import LoginProviders from 'my-app/components/LoginProviders';`
+         `import AuthProviders from 'my-app/components/AuthProviders';`
   34. Add Onboarding
   35. src/auth/store/actions/login.actions.js
       save as... -orig
@@ -240,7 +240,7 @@ c3 = c1 then c2
       - src/firebaseService/firebaseService.js
       - src/main/content/login/tabs/FirebaseLoginTab.js
       - src/main/content/login/Login.js
-      - src/my-app/components/LoginProviders.js
+      - src/my-app/components/AuthProviders.js
   38. src/store.js
       Track state
       ```

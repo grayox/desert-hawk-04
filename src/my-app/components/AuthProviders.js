@@ -43,7 +43,7 @@ const items = [
   { label : 'GooglePlus' , icon : faGooglePlus , } ,
 ]
 
-class LoginProviders extends Component {
+class AuthProviders extends Component {
 
   handleClick = () => {
     // console.log('clicked!');
@@ -87,7 +87,7 @@ class LoginProviders extends Component {
 
 }
 
-LoginProviders.propTypes = {
+AuthProviders.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
@@ -105,5 +105,5 @@ function mapStateToProps({ auth }) {
   }
 }
 
-// export default withStyles(styles)(LoginProviders);
-export default withStyles(styles, {withTheme: true})(withRouter(connect(mapStateToProps, mapDispatchToProps)(LoginProviders)));
+// export default withStyles(styles)(AuthProviders);
+export default withStyles(styles, {withTheme: true})(withRouter(connect(mapStateToProps, mapDispatchToProps)(AuthProviders)));

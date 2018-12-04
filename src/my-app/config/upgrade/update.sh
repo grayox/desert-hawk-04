@@ -32,8 +32,10 @@ yarn add @fortawesome/free-solid-svg-icons # https://github.com/FortAwesome/reac
 yarn add @fortawesome/free-brands-svg-icons # https://github.com/FortAwesome/react-fontawesome#or-with-yarn
 yarn add @fortawesome/react-fontawesome # https://github.com/FortAwesome/react-fontawesome#or-with-yarn
 
-# install carousel solution
+# install carousel solutions
 yarn add nuka-carousel # https://www.npmjs.com/package/nuka-carousel
+yarn add material-auto-rotating-carousel # https://www.npmjs.com/package/material-auto-rotating-carousel
+yarn add react-swipeable-views # https://www.npmjs.com/package/react-swipeable-views
 
 # install other solutions
 yarn add react-chartist

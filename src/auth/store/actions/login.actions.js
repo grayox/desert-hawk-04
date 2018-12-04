@@ -93,10 +93,19 @@ export function googleAuthProvider() {
         // begin my add
         // console.log('token\n', token);
         console.log('user\n', user);
-        return dispatch({
+        // debugger;
+        dispatch(setUserData(user));
+        dispatch({
           type: LOGIN_SUCCESS,
+          // payload: user,
         });
-      }).catch(error => {
+        return user;
+      })
+      // .then(user => {
+      //   console.log('user', user);
+      //   debugger;
+      // })
+      .catch(error => {
         // // Handle Errors here.
         console.warn('error\n', error);
         // const errorCode = error.code;
