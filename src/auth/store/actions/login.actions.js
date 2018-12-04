@@ -3,6 +3,10 @@ import firebaseService from 'firebaseService';
 import { setUserData } from 'auth/store/actions/user.actions';
 import * as Actions from 'store/actions';
 
+// begin my add
+import { pickUserFromAuth } from 'my-app/config/AppConfig';
+// end my add
+
 export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 
@@ -92,9 +96,10 @@ export function googleAuthProvider() {
         // ...
         // begin my add
         // console.log('token\n', token);
-        console.log('user\n', user);
+        // console.log('user\n', user);
         // debugger;
-        dispatch(setUserData(user));
+        const picked = pickUserFromAuth(user);
+        dispatch(setUserData(picked));
         dispatch({
           type: LOGIN_SUCCESS,
           // payload: user,

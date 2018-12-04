@@ -4,7 +4,7 @@ import 'firebase/auth';
 import 'firebase/database';
 // begin insert from marioplan/src/config/firebaseConfig.js
 import 'firebase/firestore';
-import _ from '@lodash';
+import { pickUserFromAuth } from 'my-app/config/AppConfig';
 // end insert
 
 class firebaseService {
@@ -131,10 +131,7 @@ class firebaseService {
       auth: { currentUser: { uid } }, }
       = this;
     const timestamp = Date.now();
-    const picked = _.pick(currentUser, [
-      'uid', 'displayName', 'photoURL', 'email', 'emailVerified',
-      'phoneNumber', 'isAnonymous', 'providerData', 'lastLoginAt', 'createdAt',
-    ]);
+    const picked = pickUserFromAuth(currentUser);
     return userRef(picked) ? userRef(picked)
       .set({ ...picked, timestamp })
       :

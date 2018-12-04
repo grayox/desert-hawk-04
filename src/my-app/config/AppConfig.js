@@ -1,3 +1,5 @@
+import _ from '@lodash';
+
 // categoryItems
 import HomeIcon from '@material-ui/icons/Home';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
@@ -12,6 +14,12 @@ export const firebaseConfig = {
   storageBucket: "green-comet-e2c85.appspot.com",
   messagingSenderId: "682044250674"
 }
+
+export const pickUserFromAuth = auth => _.pick(auth, userFieldsToPick)
+export const userFieldsToPick = [
+  'uid', 'displayName', 'photoURL', 'email', 'emailVerified',
+  'phoneNumber', 'isAnonymous', 'providerData', 'lastLoginAt', 'createdAt',
+]
 
 // export const fuseLoadableConfig = {
 //   // import {fuseLoadableConfig} from 'my-app/config/AppConfig.js'
