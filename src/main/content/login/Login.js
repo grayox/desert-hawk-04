@@ -47,7 +47,7 @@ class Login extends Component {
     const { classes, user } = this.props;
     // const { tabValue } = this.state;
  
-    console.log('user\n', user);
+    // console.log('user\n', user);
     // if(user.uid) return <Redirect to='/' />
 
     return (

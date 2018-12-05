@@ -17,7 +17,7 @@ class Auth extends Component {
     firebaseService.init(); // factory added in v1.2.8
     firebaseService.onAuthStateChanged(authUser => {
       if (authUser) {
-        console.log('authUser\n', authUser); // my add
+        // console.log('authUser\n', authUser); // my add
         // debugger;
         this.props.showMessage({ message: 'Logging in' });
         // Retrieve user data from Firebase

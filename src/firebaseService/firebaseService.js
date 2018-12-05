@@ -47,7 +47,7 @@ class firebaseService {
         .collection('users')
         .doc(uid);
     } catch (e) {
-      console.log(e.message);
+      console.warn(e.message);
       return false;
     }
   }
@@ -77,15 +77,15 @@ class firebaseService {
           .then(doc => {
             if (doc.exists) {
               const data = doc.data();
-              console.log('Document data:\n', data);
+              // console.log('Document data:\n', data);
               // debugger;
               resolve(data);
             } else {
               // doc.data() will be undefined in this case
-              console.log('No such document!');
+              // console.log('No such document!');
               // begin my add
-              console.log('Beginning to update user data...');
-              console.log('user\n', user);
+              // console.log('Beginning to update user data...');
+              // console.log('user\n', user);
               // debugger;
               // this.updateUserData(user);
               resolve(user);
@@ -93,14 +93,14 @@ class firebaseService {
               // reject();
             }
           }).catch(error => {
-            console.log('Error getting document:\n', error);
-            console.log('user\n', user);
+            // console.log('Error getting document:\n', error);
+            // console.log('user\n', user);
             // debugger;
             this.updateUserData(user);
             reject();
           });
       } else {
-        console.log('Saving user to firebase: uid:\n', user.uid);
+        // console.log('Saving user to firebase: uid:\n', user.uid);
         this.saveDocToFirestore(user.uid, `users/user/${user.uid}`);
         resolve(user);
       }
@@ -170,7 +170,7 @@ class firebaseService {
     if (!this.auth) {
       return;
     }
-    console.log('auth\n', this.auth);
+    // console.log('auth\n', this.auth);
     // debugger;
     this.auth.onAuthStateChanged(callback);
   };

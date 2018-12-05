@@ -70,8 +70,8 @@ class FuseAuthorization extends Component {
     const { children, uid, loggedIn, } = this.props; // loggedIn, uid: my add
     // const { children, uid, loggedIn, } = this.props; // loggedIn, uid: my add
     // console.log('children\n', children);
-    console.log('uid\n', uid);
-    console.log('loggedIn\n', loggedIn);
+    // console.log('uid\n', uid);
+    // console.log('loggedIn\n', loggedIn);
     // debugger;
 
     // if (loggedIn) return <Redirect to='/' /> // my app

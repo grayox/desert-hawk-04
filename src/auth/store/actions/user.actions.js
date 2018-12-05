@@ -88,7 +88,7 @@ export function setUserData(user) {
     /*
     Set User Settings
      */
-    console.log('user', user);
+    // console.log('user', user);
     // debugger;
     dispatch(setDefaultSettings(user.data.settings));
 

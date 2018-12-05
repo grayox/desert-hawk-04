@@ -20,8 +20,8 @@ const initialState = {
 
 const user = function (state = initialState, action) {
   // begin my add
-  console.log('state\n', state);
-  console.log('action\n', action);
+  // console.log('state\n', state);
+  // console.log('action\n', action);
   // debugger;
   // end my add
   switch (action.type) {

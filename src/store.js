@@ -92,7 +92,7 @@ store.asyncReducers = {};
 //    https://stackoverflow.com/questions/38332912/how-do-i-access-store-state-in-react-redux
 //    This code implements the above links
 store.subscribe(() => {
-  console.log('state\n', store.getState());
+  // console.log('state\n', store.getState());
   // debugger;
 });
 // 2. To copy the state object from the console to the clipboard, follow these steps:

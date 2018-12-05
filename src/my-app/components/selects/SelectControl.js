@@ -59,7 +59,7 @@ function getFormContent(props) {
       );
       break;
     default:
-      console.log('default called');
+      console.warn('default called');
   }
   return out;
 }
