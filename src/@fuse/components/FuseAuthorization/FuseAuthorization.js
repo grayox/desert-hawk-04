@@ -67,9 +67,11 @@ class FuseAuthorization extends Component {
   render() {
     // uid forwards to dashboard,
     // loggedIn makes you login before forwarding after every reload
-    const { children, uid, } = this.props; // loggedIn, uid: my add
+    const { children, uid, loggedIn, } = this.props; // loggedIn, uid: my add
     // const { children, uid, loggedIn, } = this.props; // loggedIn, uid: my add
     // console.log('children\n', children);
+    console.log('uid\n', uid);
+    console.log('loggedIn\n', loggedIn);
     // debugger;
 
     // if (loggedIn) return <Redirect to='/' /> // my app
@@ -137,10 +139,12 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ fuse, auth }) {
   // begin my add
-  const { user, user: uid, login: {success: loggedIn}, } = auth;
+  // console.log('fuse\n', fuse);
+  // console.log('auth\n', auth);
+  // debugger;
+  const { user: { data: { uid } }, login: { success: loggedIn }, } = auth;
   return {
-    // user: auth.user,
-    user, uid, loggedIn,
+    uid, loggedIn,
   }
   // end my add
 }
