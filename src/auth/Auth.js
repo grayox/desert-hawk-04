@@ -5,6 +5,8 @@ import { bindActionCreators } from 'redux';
 import * as Actions from 'store/actions';
 import firebaseService from 'firebaseService';
 
+import { pickUserFromAuth } from 'my-app/config/AppConfig.js'; // my add
+
 class Auth extends Component {
   constructor(props) {
     super(props);
@@ -19,15 +21,17 @@ class Auth extends Component {
         // debugger;
         this.props.showMessage({ message: 'Logging in' });
         // Retrieve user data from Firebase
-        firebaseService.getUserData(authUser/*.uid*/)
+        const picked = pickUserFromAuth(authUser); // my add
+        firebaseService.getUserData(picked/*authUser*/.uid)
           .then(user => {
             // debugger;
-            this.props.setUserDataFirebase(user, authUser);
+            // this.props.setUserDataFirebase(user, authUser);
+            this.props.setUserDataFirebase(user, picked);  // my add
             this.props.showMessage({ message: 'Logged in' });
           })
           // begin my add
           .catch(error => {
-            console.error('error in firebaseCheck() in Auth.js\n', error);
+            console.error('error in firebaseCheck() in Auth.js (src/auth/Auth.js)\n', error);
           });
         // end my add
       }

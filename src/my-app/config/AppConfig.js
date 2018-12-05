@@ -15,10 +15,17 @@ export const firebaseConfig = {
   messagingSenderId: "682044250674"
 }
 
-export const pickUserFromAuth = auth => _.pick(auth, userFieldsToPick)
+export const pickUserFromAuth = auth => {
+  const picked = _.pick(auth, userFieldsToPick);
+  picked.photoURL = picked.providerData[0].photoURL; // don't know how to get subproperties from _.pick()
+  delete picked.providerData; // to prevent errors uploading to firebase
+  // console.log('picked', picked);
+  // debugger;
+  return picked;
+}
 export const userFieldsToPick = [
   'uid', 'displayName', 'photoURL', 'email', 'emailVerified',
-  'phoneNumber', 'isAnonymous', 'providerData', 'lastLoginAt', 'createdAt',
+  'phoneNumber', 'isAnonymous', 'lastLoginAt', 'createdAt', 'providerData',
 ]
 
 // export const fuseLoadableConfig = {
