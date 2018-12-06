@@ -6,10 +6,10 @@
 #
 # Usage:
 # non-recurring, make it executable
-# chmod a+x v03/src/my-app/config/upgrade/index.sh
-# run the following each time; in this case, to upgrade from v03 to v04
+# chmod a+x v04/src/my-app/config/upgrade/index.sh
+# run the following each time; in this case, to upgrade from v04 to v05
 # -----------------------------------------------------------------------------
-# ./v03/src/my-app/config/upgrade/index.sh 03 04
+# ./v04/src/my-app/config/upgrade/index.sh 04 05
 # -----------------------------------------------------------------------------
 # navigate to and run the script while in the following directory
 # cd dropbox/swap/fuse
@@ -22,8 +22,8 @@ compareto="xfer.txt"
 localpath="src/my-app/config/upgrade"
 remoterepo="https://github.com/grayox/desert-hawk"
 targetrepo="https://github.com/withinpixels/fuse-react"
-old=$1 # 03
-new=$2 # 04
+old=$1 # 04
+new=$2 # 05
 
 # step 1 of 9
 # init all scripts allows them to be executed
@@ -38,7 +38,7 @@ chmod a+x "v$old/$localpath/update.sh"
 # # make backup tar file in case of accidental overwrite or deletion
 # # ref: http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO-5.html
 # # ref: http://www.bic.mni.mcgill.ca/users/kate/Howto/tar_notes.html
-# # tar -xf myfile_20030617.tar # extract files
+# # tar -xf myfile_20040617.tar # extract files
 # # mkdir $backup-$timestamp
 # tar -cfzv backup-v$old-$timestamp.tgz v$old
 # # deprecate: use rsync instead
@@ -58,8 +58,8 @@ rsync -av --progress v$old "v$old-$backup-$timestamp/" \
 # # chmod a+x "v$old/$localpath/clone.sh"
 # # "./v$old/$localpath/clone.sh" $old $new $targetrepo
 # git clone "$targetrepo.git" "v$new"
-# git clone https://grayox@github.com/withinpixels/fuse-react v04
-# git clone https://withinpixels@github.com/withinpixels/fuse-react v04
+# git clone https://grayox@github.com/withinpixels/fuse-react v05
+# git clone https://withinpixels@github.com/withinpixels/fuse-react v05
 # git clone https://<username>:<password>@github.com/<ORG_NAME>/<PROJECT-NAME>.git
 # https://stackoverflow.com/q/53548940/1640892
 

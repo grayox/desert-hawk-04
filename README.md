@@ -1,32 +1,35 @@
 - - - - - BEGIN EDITS - - - - -
 
-#### update procedure - v04 - v1.2.7
 ----------------------------------------------
-./v03/src/my-app/config/upgrade/index.sh 03 04
+./v04/src/my-app/config/upgrade/index.sh 04 05
 ----------------------------------------------
 
 checklist
 1. manually create new git repo here... https://github.com/new
-2. name new repo incrementally (e.g., desert-hawk-04)
-3. download new upgrade target to local machine at dropbox/swap/fuse
-4. in mac finder, rename upgrade target incrementally (e.g., v04)
+2. name new repo incrementally (e.g., desert-hawk-05)
+3. download upgraded source code (new release, version) to local machine at dropbox/swap/fuse
+4. in mac finder
+   a. rename upgrade target incrementally (e.g., v05)
+   b. move directory to dropbox/swap/fuse
 5. in src/my-app/config/upgrade/index.sh, ensure all variables are named correctly
    e.g., and including: remoterepo="https://github.com/grayox/desert-hawk"
 6. edit final terminal command in three places to rename incrementally
    e.g.
-   ./v03/src/my-app/config/upgrade/index.sh 03 04
-   becomes...
    ./v04/src/my-app/config/upgrade/index.sh 04 05
+   becomes...
+   ./v05/src/my-app/config/upgrade/index.sh 05 06
 7. execute the below terminal commands   
    terminal commands
    --------------------
    cd dropbox/swap/fuse
    ----------------------------------------------
-   ./v03/src/my-app/config/upgrade/index.sh 03 04
+   ./v04/src/my-app/config/upgrade/index.sh 04 05
    ----------------------------------------------
 8. increment all commands here and in upgrade/index to avoid accidental overwrites
 
- #### update procedure - v03 - v1.2.6
+#### Updates
+v04 - v1.2.8
+v03 - v1.2.6
 
 `cd dropbox/swap/fuse # first, navigate to this directory`
 `./v03/src/my-app/config/upgrade.sh v03 v04 # then run this script to upgrade from v03 to v04`
