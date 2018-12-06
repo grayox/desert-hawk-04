@@ -44,7 +44,8 @@ class Login extends Component {
   };
 
   render() {
-    const { classes, user } = this.props;
+    const { classes } = this.props;
+    // const { classes, user } = this.props;
     // const { tabValue } = this.state;
  
     // console.log('user\n', user);

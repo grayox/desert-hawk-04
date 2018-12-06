@@ -22,7 +22,7 @@ class Auth extends Component {
         this.props.showMessage({ message: 'Logging in' });
         // Retrieve user data from Firebase
         const picked = pickUserFromAuth(authUser); // my add
-        firebaseService.getUserData(picked/*authUser*/.uid)
+        firebaseService.getUserData(picked/*authUser*v/.uid*/)
           .then(user => {
             // debugger;
             // this.props.setUserDataFirebase(user, authUser);

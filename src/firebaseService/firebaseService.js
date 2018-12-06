@@ -53,9 +53,10 @@ class firebaseService {
   }
 
   getUserData = user => {
+    // console.log('user', user);
+    // debugger;
     const { userRef } = this;
     // getUserData = userId =>
-    // console.log('userId', user.uid);
     // console.log('userId', userId);
     // console.log('firebase.apps\n', firebase.apps);
     return new Promise((resolve, reject) => {
