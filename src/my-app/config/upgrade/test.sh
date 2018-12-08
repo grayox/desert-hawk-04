@@ -36,3 +36,5 @@ while IFS= read -r fullfile || [ -n "$fullfile" ]; # path/to/foo.bar
 
   # chmod a+x "src/my-app/config/upgrade/test.sh"
   # ./src/my-app/config/upgrade/test.sh
+
+  rsync -ai --dry-run dir1/ dir2/

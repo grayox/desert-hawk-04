@@ -22,6 +22,7 @@ cd "v$new"
 # ref: https://unix.stackexchange.com/a/481334/167174
 # while read ; do mv "vx/$REPLY" "v03/${REPLY%.js}-orig.js" ; done < v03/src/my-app/config/upgrade/xfer.txt # non-recurring update
 # while read
+# loop over every file in the directory labeled "$temp"
 while IFS= read -r fullfile || [ -n "$fullfile" ]; # path/to/foo.bar
   do
     # mv "$REPLY" "${REPLY%.js}-orig.js"
@@ -38,9 +39,9 @@ while IFS= read -r fullfile || [ -n "$fullfile" ]; # path/to/foo.bar
     # echo "move from: $pathto/$prefix.$extension"
     # echo "move to: $pathto/$prefix-orig.$extension"
     mv "./$pathto/$prefix.$extension" "./$pathto/$prefix-orig.$extension"
-  done < $temp
+  done < "$temp"
 # cleanup
-rm $temp
+rm "$temp"
 # exit 1
 
 # deal with README which was left out of above loop because it's path is in the root directory
@@ -87,6 +88,7 @@ cd ..
 cp -r "v$old/src/my-app" "v$new/src/my-app"
 cp -r "v$old/src/store/actions/my-actions" "v$new/src/store/actions/my-actions"
 cp -r "v$old/src/store/reducers/my-reducers" "v$new/src/store/reducers/my-reducers"
+cp -r "v$new/src/main/content/apps" "v$new/src/my-app/apps-orig" # cp -r "src/main/content/apps" "src/my-app/apps-orig" # cp -r "src/main/content/apps" "src/my-app/apps1"
 
 #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   
 

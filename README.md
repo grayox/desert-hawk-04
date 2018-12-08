@@ -4,6 +4,9 @@
 ./v04/src/my-app/config/upgrade/index.sh 04 05
 ----------------------------------------------
 
+`cd dropbox/swap/fuse` # first, navigate to this directory
+`./v03/src/my-app/config/upgrade.sh v03 v04` # then run this script to upgrade from v03 to v04
+
 checklist
 1. manually create new git repo here... https://github.com/new
 2. name new repo incrementally (e.g., desert-hawk-05)
@@ -35,6 +38,20 @@ v03 - v1.2.6
 `./v03/src/my-app/config/upgrade.sh v03 v04 # then run this script to upgrade from v03 to v04`
 
 terminal commands above this line automate the following manual tasks...
+
+### v04
+
+desktop: no change
+inbox: src/main/content/apps/academy (disable view button to oldest lead in queue—FIFO)
+archive: src/main/content/apps/file-manager
+outbox: src/main/content/apps/todo
+contacts: src/main/content/apps/contacts
+feedback: src/main/content/apps/mail
+settings: src/main/MainToolbar.js > src/main/content/pages/profile/ProfilePage.js
+
+
+`cd dropbox/swap/fuse # first, navigate to this directory`
+`./v03/src/my-app/config/upgrade.sh v03 v04 # then run this script to upgrade from v03 to v04`
 
 note: terminal commands to compare files
 `while IFS= read -r filename; do diff v02/"$filename" v03/"$filename"; done < v03/src/my-app/config/compare.txt`

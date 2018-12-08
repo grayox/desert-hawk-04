@@ -25,6 +25,7 @@ compareto=$4
 # https://www.cyberciti.biz/faq/bash-loop-over-file/
 # while IFS= read -r fullfile; # path/to/foo.bar # does not read last line
 # solution: https://stackoverflow.com/a/12919766/1640892
+# # loop over every file in the directory labeled "v$old/$localpath/$compareto"
 while IFS= read -r fullfile || [ -n "$fullfile" ]; # path/to/foo.bar
   do
     filename="${fullfile##*/}" # foo.bar
@@ -41,10 +42,17 @@ while IFS= read -r fullfile || [ -n "$fullfile" ]; # path/to/foo.bar
     newfile="v$new/$derivative"
     md5 "$oldfile"
     md5 "$newfile"
+    # use the md5 hash checksum algorithm to compare each file in the list
     [[ $(md5 -q "$oldfile") == $(md5 -q "$newfile") ]] || echo "differs: $derivative"; # boolean
-  done < v$old/$localpath/$compareto
+  done < "v$old/$localpath/$compareto"
 
 #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   
+
+# compare the two directories for changes in the apps (original vs modified)
+dir1="src/main/content/apps/"
+dir2="src/my-app/apps-orig/"
+# rsync -ai --dry-run dir1 dir2
+rsync -ai --dry-run "$dir1/" "$dir2/"
 
 # make this script executable for next run
 chmod a+x "v$new/$localpath/compare.sh"
