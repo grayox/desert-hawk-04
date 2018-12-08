@@ -49,10 +49,20 @@ while IFS= read -r fullfile || [ -n "$fullfile" ]; # path/to/foo.bar
 #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   
 
 # compare the two directories for changes in the apps (original vs modified)
-dir1="src/main/content/apps/"
-dir2="src/my-app/apps-orig/"
+dir1="v$new/src/main/content/apps/"
+dir2="v$new/src/my-app/apps-orig/"
 # rsync -ai --dry-run dir1 dir2
 rsync -ai --dry-run "$dir1/" "$dir2/"
+# ref: https://stackoverflow.com/a/53679909/1640892
+# if [[ -n $(rsync -ai --dry-run dir1/ dir2/) ]]; then
+if rsync -ai --dry-run "$dir1/" "$dir2/" | grep -q "."
+then
+  echo "⚠️ The app files are different❗"
+  # do the following copy AFTER comparing the files for differences
+  # cp -r "v$new/src/main/content/apps" "v$new/src/my-app/apps-orig" # cp -r "src/main/content/apps" "src/my-app/apps-orig" # cp -r "src/main/content/apps" "src/my-app/apps1"
+else
+  echo "👍 The app files are the same.🚀"
+fi
 
 # make this script executable for next run
 chmod a+x "v$new/$localpath/compare.sh"
