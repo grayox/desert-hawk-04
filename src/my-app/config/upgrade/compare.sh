@@ -58,8 +58,10 @@ rsync -ai --dry-run "$dir1/" "$dir2/"
 if rsync -ai --dry-run "$dir1/" "$dir2/" | grep -q "."
 then
   echo "⚠️ The app files are different❗"
+  rsync -ai --dry-run "$dir1/" "$dir2/"
   # do the following copy AFTER comparing the files for differences
   # cp -r "v$new/src/main/content/apps" "v$new/src/my-app/apps-orig" # cp -r "src/main/content/apps" "src/my-app/apps-orig" # cp -r "src/main/content/apps" "src/my-app/apps1"
+  echo "⚠️ The app files are different❗"
 else
   echo "👍 The app files are the same.🚀"
 fi

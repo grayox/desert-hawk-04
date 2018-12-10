@@ -13,6 +13,8 @@ import Avatar from '@material-ui/core/Avatar';
 // import WorkIcon from '@material-ui/icons/Work';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 
+import AcademyApp from 'my-app/apps/academy/courses/Courses';
+
 const styles = theme => ({
   root: {
     width: '100%',
@@ -24,33 +26,34 @@ const styles = theme => ({
 function Inbox(props) {
   const { classes, items } = props;
   return (
-    <SplitScreen
-      left={
-        <div className={classes.root}>
-          <List component="nav">
-          {
-            items.map(item => (
-              <ListItem button key={item.timestamp}>
-                <Avatar>
-                  <BeachAccessIcon />
-                </Avatar>
-                <ListItemText primary="Vacation" secondary={item.name} />
-              </ListItem>
-            ))
-          }
-          </List>
-        </div>
-    }
-      // left={'hello world'}
-      right={
-        <UserMultiForm
-          withPhone
-          heading='Add new lead'
-          savePath='leads'
-          geoStepperLabel='Lead location'
-        />        
-      }
-    />
+    // <SplitScreen
+    //   left={
+    //     <div className={classes.root}>
+    //       <List component="nav">
+    //       {
+    //         items.map(item => (
+    //           <ListItem button key={item.timestamp}>
+    //             <Avatar>
+    //               <BeachAccessIcon />
+    //             </Avatar>
+    //             <ListItemText primary="Vacation" secondary={item.name} />
+    //           </ListItem>
+    //         ))
+    //       }
+    //       </List>
+    //     </div>
+    // }
+    //   // left={'hello world'}
+    //   right={
+    //     <UserMultiForm
+    //       withPhone
+    //       heading='Add new lead'
+    //       savePath='leads'
+    //       geoStepperLabel='Lead location'
+    //     />        
+    //   }
+    // />
+    <AcademyApp />
   );
 }
 
