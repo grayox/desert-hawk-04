@@ -18,7 +18,7 @@ function Outbox(props) {
     //     />
     //   }
     // />
-    <TodoApp />
+    <TodoApp/>
   );
 }
 

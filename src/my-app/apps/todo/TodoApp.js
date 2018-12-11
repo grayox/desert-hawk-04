@@ -44,9 +44,17 @@ class TodoApp extends Component {
                     contentToolbar={
                         <TodoToolbar/>
                     }
+                    // content={
+                    //     <TodoList/>
+                    // }
+                    // begin my add
                     content={
+                      <div>
+                        {this.props.user.data.displayName}
                         <TodoList/>
+                      </div>
                     }
+                    // end my add
                     leftSidebarHeader={
                         <TodoSidebarHeader/>
                     }
@@ -72,9 +80,11 @@ function mapDispatchToProps(dispatch)
     }, dispatch);
 }
 
-function mapStateToProps({todoApp})
+function mapStateToProps({auth, todoApp}) // my add: auth
 {
-    return {}
+  return {
+    user: auth.user, // my add
+  }
 }
 
 export default withReducer('todoApp', reducer)(withRouter(connect(mapStateToProps, mapDispatchToProps)(TodoApp)));

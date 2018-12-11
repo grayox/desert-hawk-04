@@ -17,7 +17,7 @@ function Contacts(props) {
     //     />
     //   }
     // />
-    <ContactsApp />
+    <ContactsApp/>
   );
 }
 

@@ -18,7 +18,7 @@ function Archive(props) {
     //     />        
     //   }
     // />
-    <FileManagerApp />
+    <FileManagerApp/>
   );
 }
 

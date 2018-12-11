@@ -53,7 +53,7 @@ function Inbox(props) {
     //     />        
     //   }
     // />
-    <AcademyApp />
+    <AcademyApp/>
   );
 }
 
