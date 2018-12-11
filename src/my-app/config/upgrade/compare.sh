@@ -49,27 +49,26 @@ while IFS= read -r fullfile || [ -n "$fullfile" ]; # path/to/foo.bar
 #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   
 
 # compare the two directories for changes in the apps (original vs modified)
-dir1="v$new/src/main/content/apps/"
-dir2="v$new/src/my-app/apps-orig/"
-# TODO start while loop
-# dir1="v$new/src/main/content/pages/profile"
-# dir2="v$new/src/my-app/profile-orig"
-# TODO end whild loop
-echo "Comparing $dir1 to $dir2..."
-# rsync -ai --dry-run dir1 dir2
-rsync -ai --dry-run "$dir1/" "$dir2/"
-# ref: https://stackoverflow.com/a/53679909/1640892
-# if [[ -n $(rsync -ai --dry-run dir1/ dir2/) ]]; then
-if rsync -ai --dry-run "$dir1/" "$dir2/" | grep -q "."
-then
-  echo "⚠️ The app files are different❗"
+dir1=("v$new/src/main/content/apps/" "v$new/src/main/content/pages/profile")
+dir2=("v$new/src/my-app/apps-orig/"  "v$new/src/my-app/profile-orig"       )
+for i in ${!dir1[@]}
+do
+  echo "Comparing ${dir1[i]} to ${dir2[i]}"
+  # rsync -ai --dry-run dir1 dir2
   rsync -ai --dry-run "$dir1/" "$dir2/"
-  # do the following copy AFTER comparing the files for differences
-  # cp -r "v$new/src/main/content/apps" "v$new/src/my-app/apps-orig" # cp -r "src/main/content/apps" "src/my-app/apps-orig" # cp -r "src/main/content/apps" "src/my-app/apps1"
-  echo "⚠️ The app files are different❗"
-else
-  echo "👍 The app files are the same.🚀"
-fi
+  # ref: https://stackoverflow.com/a/53679909/1640892
+  # if [[ -n $(rsync -ai --dry-run dir1/ dir2/) ]]; then
+  if rsync -ai --dry-run "$dir1/" "$dir2/" | grep -q "."
+  then
+    echo "⚠️ The app files are different❗"
+    rsync -ai --dry-run "$dir1/" "$dir2/"
+    # do the following copy AFTER comparing the files for differences
+    # cp -r "v$new/src/main/content/apps" "v$new/src/my-app/apps-orig" # cp -r "src/main/content/apps" "src/my-app/apps-orig" # cp -r "src/main/content/apps" "src/my-app/apps1"
+    echo "⚠️ The app files are different❗"
+  else
+    echo "👍 The app files are the same.🚀"
+  fi
+done
 
 # make this script executable for next run
 chmod a+x "v$new/$localpath/compare.sh"
