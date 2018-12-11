@@ -51,6 +51,11 @@ while IFS= read -r fullfile || [ -n "$fullfile" ]; # path/to/foo.bar
 # compare the two directories for changes in the apps (original vs modified)
 dir1="v$new/src/main/content/apps/"
 dir2="v$new/src/my-app/apps-orig/"
+# TODO start while loop
+# dir1="v$new/src/main/content/pages/profile"
+# dir2="v$new/src/my-app/profile-orig"
+# TODO end whild loop
+echo "Comparing $dir1 to $dir2..."
 # rsync -ai --dry-run dir1 dir2
 rsync -ai --dry-run "$dir1/" "$dir2/"
 # ref: https://stackoverflow.com/a/53679909/1640892
