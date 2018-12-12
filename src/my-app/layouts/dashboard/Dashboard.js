@@ -318,7 +318,9 @@ Dashboard.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Dashboard); // latest working
+export default withStyles(styles, {withTheme: true})(Dashboard); // latest working
+// export default withStyles(styles)(Dashboard); // working
+// export default withReducer('dashboard', reducer)(withStyles(styles, {withTheme: true})(withRouter(connect(mapStateToProps, mapDispatchToProps)(ContactsApp)))); // copied from ContactsApp
 // export default withStyles(dashboardStyle)(ViewDashboard); // test
 // export default connect(mapStateToProps)(ViewDashboard); // not working
 // export default withStyles(styles, {withTheme: true})(withRouter(connect(mapStateToProps, mapDispatchToProps)(FuseLayout))); // original from another part of this theme

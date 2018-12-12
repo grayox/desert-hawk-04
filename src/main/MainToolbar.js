@@ -109,7 +109,10 @@ class MainToolbar extends Component {
                             </React.Fragment>
                         ) : (
                             <React.Fragment>
-                                <MenuItem component={Link} to="/pages/profile" onClick={this.userMenuClose}>
+                                {/* <MenuItem component={Link} to="/pages/profile" onClick={this.userMenuClose}> */}
+                                {/* begin my add */}
+                                <MenuItem component={Link} to="/settings" onClick={this.userMenuClose}>
+                                {/* end my add */}
                                     <ListItemIcon>
                                         <Icon>account_circle</Icon>
                                     </ListItemIcon>

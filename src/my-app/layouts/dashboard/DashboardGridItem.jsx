@@ -21,6 +21,11 @@ import dashboardStyle from "my-app/vendors/creative-tim/assets/jss/material-dash
 
 const styles = theme => ({
   ...dashboardStyle,
+  root: {
+    width: '100%',
+    // maxWidth: 360,
+    backgroundColor: theme.palette.background.default,//paper,
+  },
 });
 
 function DashboardGridItem(props) {
@@ -56,4 +61,4 @@ DashboardGridItem.propTypes = {
   item: PropTypes.object.isRequired,
 };
  
-export default withStyles(styles)(DashboardGridItem);
+export default withStyles(styles, {withTheme: true})(DashboardGridItem);
