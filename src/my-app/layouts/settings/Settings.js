@@ -25,6 +25,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 import ProfilePage from 'my-app/profile-orig/ProfilePage.js'
 
+// note that we rolled src/my-app/profile-orig/ProfilePage.js into src/my-app/layouts/settings/Settings.js
+
 // firebase
 // import firebase from '@firebase/app';
 // import '@firebase/firestore';

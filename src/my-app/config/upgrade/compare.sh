@@ -50,6 +50,9 @@ while IFS= read -r fullfile || [ -n "$fullfile" ]; # path/to/foo.bar
 
 # compare the two directories for changes in the apps (original vs modified)
 
+# # attempt 1 of 3
+# # this works, but we need to keep the arguments together on the same line
+# # ref: https://stackoverflow.com/q/53723801/1640892\
 # dir1=("v$new/src/main/content/apps/" "v$new/src/main/content/pages/profile/")
 # dir2=("v$new/src/my-app/apps-orig/"  "v$new/src/my-app/profile-orig/"       )
 # for i in ${!dir1[@]}
@@ -71,29 +74,54 @@ while IFS= read -r fullfile || [ -n "$fullfile" ]; # path/to/foo.bar
 #   fi
 # done
 
-# ref: https://stackoverflow.com/q/53733286/16408922
-# https://ideone.com/73KVsN
-pair1=( "v$new/src/main/content/apps"          "v$new/src/my-app/apps-orig"    )
-pair2=( "v$new/src/main/content/pages/profile" "v$new/src/my-app/profile-orig" )
-declare -n currPair
-for currPair in "${!pair@}";
-do
-  echo "Comparing ${currPair[0]} to ${currPair[1]}"
-  # rsync -ai --dry-run dir1 dir2
-  rsync -ai --dry-run "${currPair[0]}/" "${currPair[1]}/"
+# # attempt 2 of 3
+# # this works, but there might be a simpler way
+# # ref: https://stackoverflow.com/q/53733286/16408922
+# # https://ideone.com/73KVsN
+# pair1=( "v$new/src/main/content/apps"          "v$new/src/my-app/apps-orig"    )
+# pair2=( "v$new/src/main/content/pages/profile" "v$new/src/my-app/profile-orig" )
+# declare -n currPair
+# for currPair in "${!pair@}";
+# do
+#   echo "Comparing ${currPair[0]} to ${currPair[1]}"
+#   # rsync -ai --dry-run dir1 dir2
+#   rsync -ai --dry-run "${currPair[0]}/" "${currPair[1]}/"
+#   # ref: https://stackoverflow.com/a/53679909/1640892
+#   # if [[ -n $(rsync -ai --dry-run {currPair[0]}/ {currPair[1]}/) ]]; then
+#   if rsync -ai --dry-run "${currPair[0]}/" "${currPair[1]}/" | grep -q "."
+#   then
+#     echo "⚠️ The app files are different❗"
+#     rsync -ai --dry-run "${currPair[0]}/" "${currPair[1]}/"
+#     # do the following copy AFTER comparing the files for differences
+#     # cp -r v$new/src/main/content/apps v$new/src/my-app/apps-orig # cp -r src/main/content/apps src/my-app/apps-orig # cp -r src/main/content/apps src/my-app/apps1 # cp -r src/my-app/profile-orig/* src/my-app/layouts/settings/
+#     echo "⚠️ The app files are different❗"
+#   else
+#     echo "👍 The app files are the same.🚀"
+#   fi
+# done
+
+# # attempt 3 of 3
+# ref: https://stackoverflow.com/a/32873452/1640892
+compareDir "v$new/src/main/content/apps"          "v$new/src/my-app/apps-orig"
+compareDir "v$new/src/main/content/pages/profile" "v$new/src/my-app/profile-orig"
+compareDir() {
+  dir1="$1"
+  dir2="$2"
+  echo "Comparing $dir1 to $dir2"
+  rsync -ai --dry-run "$dir1/" "$dir2/"
   # ref: https://stackoverflow.com/a/53679909/1640892
-  # if [[ -n $(rsync -ai --dry-run {currPair[0]}/ {currPair[1]}/) ]]; then
-  if rsync -ai --dry-run "${currPair[0]}/" "${currPair[1]}/" | grep -q "."
+  if rsync -ai --dry-run "$dir1/" "$dir2/" | grep -q "."
   then
     echo "⚠️ The app files are different❗"
-    rsync -ai --dry-run "${currPair[0]}/" "${currPair[1]}/"
+    rsync -ai --dry-run "$dir1/" "$dir2/"
     # do the following copy AFTER comparing the files for differences
-    # cp -r v$new/src/main/content/apps v$new/src/my-app/apps-orig # cp -r src/main/content/apps src/my-app/apps-orig # cp -r src/main/content/apps src/my-app/apps1 # cp -r src/my-app/profile-orig/* src/my-app/layouts/settings/
+    # cp -r "v$new/src/main/content/apps" "v$new/src/my-app/apps-orig" # cp -r "src/main/content/apps" "src/my-app/apps-orig" # cp -r "src/main/content/apps" "src/my-app/apps1"
     echo "⚠️ The app files are different❗"
+    # note that we rolled src/my-app/profile-orig/ProfilePage.js into src/my-app/layouts/settings/Settings.js
   else
     echo "👍 The app files are the same.🚀"
   fi
-done
+}
 
 # make this script executable for next run
 chmod a+x "v$new/$localpath/compare.sh"

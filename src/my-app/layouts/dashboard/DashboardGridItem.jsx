@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import classnames from 'classnames';
 
 // @material-ui/core
 import { Typography } from "@material-ui/core";
@@ -23,16 +24,25 @@ const styles = theme => ({
   ...dashboardStyle,
   root: {
     width: '100%',
+  },
+  card: {
+    width: '100%',
     // maxWidth: 360,
-    backgroundColor: theme.palette.background.default,//paper,
+    // backgroundColor: theme.palette.background.default
+    backgroundColor: theme.palette.background.paper,
   },
 });
 
 function DashboardGridItem(props) {
-  const { classes, item, onClickInfo } = props;
+  const { classes, item, onClickInfo, } = props;
+  const { label, backgroundColor } = props;
   return (
     <GridItem xs={12} sm={6} md={3} key={item.label}>
-      <Card>
+    {/* https://stackoverflow.com/a/48905261/1640892 */}
+      <Card className={classnames(classes.card)}
+            style={{ backgroundColor }}
+            label={label}
+        >
         <CardHeader color={item.color} stats icon>
           <CardIcon color={item.color}>{React.createElement(item.icon)}</CardIcon>
           <Typography className={classes.cardCategory}>{item.label}</Typography>
