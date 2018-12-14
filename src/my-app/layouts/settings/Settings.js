@@ -13,6 +13,10 @@ import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router-dom'
 
 import SettingsTab from './Settings1';
+import ContactTab from './tabs/ContactTab';
+import DetailsTab from './tabs/DetailsTab';
+import OptionsTab from './tabs/OptionsTab';
+import PreferencesTab from './tabs/PreferencesTab';
 // note: this page began as src/my-app/profile-orig/ProfilePage.js
 // interface: export class ProfilePage > import Settings ...
 // end my add
@@ -98,7 +102,7 @@ class ProfilePage extends Component {
               root: classes.tabsRoot
             }}
           >
-            <Tab
+            {/* <Tab
               classes={{
                 root: classes.tabRoot
               }} label="Timeline" />
@@ -109,18 +113,30 @@ class ProfilePage extends Component {
             <Tab
               classes={{
                 root: classes.tabRoot
-              }} label="Photos & Videos" />
+              }} label="Photos & Videos" /> */}
             {/* begin my add */}
             <Tab
               classes={{
                 root: classes.tabRoot
-              }} label="Category" />
+              }} label="Contact" />
+            <Tab
+              classes={{
+                root: classes.tabRoot
+              }} label="Details" />
+            <Tab
+              classes={{
+                root: classes.tabRoot
+              }} label="Options" />
+            <Tab
+              classes={{
+                root: classes.tabRoot
+              }} label="Preferences" />
             {/* end my add */}
           </Tabs>
         }
         content={
           <div className="p-16 sm:p-24">
-            {value === 0 && (
+            {/* {value === 0 && (
               <TimelineTab />
             )}
             {value === 1 && (
@@ -128,10 +144,24 @@ class ProfilePage extends Component {
             )}
             {value === 2 && (
               <PhotosVideosTab />
+            )} */}
+            {/* begin my add */}
+            {value === 0 && (
+              <ContactTab />
             )}
+            {/* end my add */}
+            {value === 1 && (
+              <DetailsTab />
+            )}
+            {/* end my add */}
+            {value === 2 && (
+              <OptionsTab />
+            )}
+            {/* end my add */}
             {value === 3 && (
-              <SettingsTab />
+              <PreferencesTab />
             )}
+            {/* end my add */}
           </div>
         }
       />

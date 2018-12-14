@@ -40,7 +40,7 @@ export const logoPath = 'assets/images/logos/fuse.svg' // public/assets/images/l
 
 export const tagLine = 'Give leads. Get leads.'
 
-export const desc = 'Real estate agents, mortgage brokers, insurance agents and financial planners need leads. Referrals are a good way to get them. Swap lets you turn your customers into referrals and get back referrals in exchange.'
+export const desc = 'Real estate agents, mortgage brokers, insurance agents and financial planners need leads. Referrals are a good way to get them. Swap lets you turn your clients into referrals and get back referrals in exchange.'
 
 export const bizCategoryItems = [
   { value: 'home', label: 'Home', icon: HomeIcon },
