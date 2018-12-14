@@ -1,132 +1,162 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-// import classNames from 'classnames';
-// import Typography from '@material-ui/core/Typography';
+import { FusePageSimple, FuseAnimate } from '@fuse';
+import { Avatar, Button, Tab, Tabs, Typography } from '@material-ui/core';
+import TimelineTab from 'main/content/pages/profile/tabs/TimelineTab';
+import PhotosVideosTab from 'main/content/pages/profile/tabs/PhotosVideosTab';
+import AboutTab from 'main/content/pages/profile/tabs/AboutTab';
 
-import SplitScreen from '../SplitScreen'
-import UserMultiForm from 'my-app/components/forms/UserMultiForm';
-import CreateLead from 'my-app/components/forms/CreateLead';
+// begin my add
+// import * as Actions from './store/actions';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {withRouter} from 'react-router-dom'
 
-import List from '@material-ui/core/List';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import ListItem from '@material-ui/core/ListItem';
-// import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-
-import TextField from '@material-ui/core/TextField';
-import SimpleListMenu from 'my-app/components/selects/SimpleListMenu';
-import ControlledExpansionPanel from 'my-app/components/expansion/ControlledExpansionPanel.js';
-import GeoStepper from 'my-app/components/steppers/GeoStepper';
-// import WifiIcon from '@material-ui/icons/Wifi';
-// import Switch from '@material-ui/core/Switch';
-import Checkbox from '@material-ui/core/Checkbox';
-
-import ProfilePage from 'my-app/profile-orig/ProfilePage.js'
-
-// note that we rolled src/my-app/profile-orig/ProfilePage.js into src/my-app/layouts/settings/Settings.js
-
-// firebase
-// import firebase from '@firebase/app';
-// import '@firebase/firestore';
-
-// const db = firebase.firestore();
-
-const username = 'userme';
-const path = ['users', username, 'settings',].join('/');
-// const location = 'users/userme/settings';
+import SettingsTab from './Settings1';
+// note: this page began as src/my-app/profile-orig/ProfilePage.js
+// interface: export class ProfilePage > import Settings ...
+// end my add
 
 const styles = theme => ({
-  root: {
-    width: '100%',
-    // maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
+  layoutRoot: {},
+  layoutToolbar: {
+    padding: 0
   },
+  layoutHeader: {
+    height: 320,
+    minHeight: 320,
+    background: "url('/assets/images/backgrounds/dark-material-bg.jpg') no-repeat",
+    backgroundSize: 'cover',
+    color: '#fff',
+    [theme.breakpoints.down('md')]: {
+      height: 240,
+      minHeight: 240
+    }
+  },
+  tabsRoot: {
+    height: 64,
+    width: '100%'
+  },
+  tabRoot: {
+    height: 64
+  }
 });
 
-const optionsBizType = [
-  // 'Show some love to Material-UI',
-  // 'Show all notification content',
-  // 'Hide sensitive notification content',
-  // 'Hide all notification content',
-  'Select one',
-  'Home',
-  'Mortgage',
-  'Insurance',
-  'Financial',
-];
+class ProfilePage extends Component {
 
-const optionsAutomation = [
-  'Email you',
-  'Text you',
-  'Email your prospect',
-  'Text your prospect',
-]
+  state = {
+    value: 0
+  };
 
-// function getSettings() {
-//   db.collection(path)
-//     .orderBy('timestamp', 'desc')
-//     .limit(1)
-//     .onSnapshot(snapshot => { // https://firebase.google.com/docs/firestore/query-data/listen
-//       snapshot.docChanges().forEach(change => {
-//         const data = change.doc.data();
-//         // console.log("Current data\n", data);
-//         this.setState({
-//           ...data,
-//           show: (typeof data === 'object' ? 'main' : 'greet'),
-//         });
-//         // if (change.type === "added") {
-//         //   console.log("New city: ", change.doc.data());
-//         // }
-//         // if (change.type === "modified") {
-//         //   console.log("Modified city: ", change.doc.data());
-//         // }
-//         // if (change.type === "removed") {
-//         //   console.log("Removed city: ", change.doc.data());
-//         // }
-//       });
-//     });
-// }
+  handleChange = (event, value) => {
+    this.setState({ value });
+  };
 
-const handleChange = name => event => {
-  this.setState({
-    [name]: event.target.value,
-  });
-};
+  render() {
+    const { classes, user } = this.props; // my add: user
+    const { value } = this.state;
 
-// handleToggle = value => () => {
-//   // const { checked } = this.state;
-//   const currentIndex = checked.indexOf(value);
-//   const newChecked = [...checked];
+    return (
+      <FusePageSimple
+        classes={{
+          root: classes.layoutRoot,
+          header: classes.layoutHeader,
+          toolbar: classes.layoutToolbar
+        }}
+        header={
+          <div className="p-24 flex flex-1 flex-col items-center justify-center md:flex-row md:items-end">
+            <div className="flex flex-1 flex-col items-center justify-center md:flex-row md:items-center md:justify-start">
+              <FuseAnimate animation="transition.expandIn" delay={300}>
+                {/* <Avatar className="w-96 h-96" src="assets/images/avatars/Velazquez.jpg" /> */}
+                {/* begin my add */}
+                <Avatar className="w-96 h-96" src={user.data.photoURL} />
+                {/* end my add */}
+              </FuseAnimate>
+              <FuseAnimate animation="transition.slideLeftIn" delay={300}>
+                {/* <Typography className="md:ml-24" variant="h4" color="inherit">John Doe</Typography> */}
+                {/* begin my add */}
+                <Typography className="md:ml-24" variant="h4" color="inherit">{user.data.displayName}</Typography>
+                {/* end my add */}
+              </FuseAnimate>
+            </div>
 
-//   if (currentIndex === -1) {
-//     newChecked.push(value);
-//   } else {
-//     newChecked.splice(currentIndex, 1);
-//   }
-
-//   // this.setState({
-//   //   checked: newChecked,
-//   // });
-// };
-
-function Settings(props) {
-  // const { left, right } = props;
-  const { classes } = props;
-
-  // componentDidMount() {
-  //   this.getSettings();
-  // }
-
-  return (
-    <ProfilePage/>
-  );
+            {/* <div className="flex items-center justify-end">
+              <Button className="mr-8 normal-case" variant="contained" color="secondary" aria-label="Follow">Follow</Button>
+              <Button className="normal-case" variant="contained" color="primary" aria-label="Send Message">Send Message</Button>
+            </div> */}
+          </div>
+        }
+        contentToolbar={
+          <Tabs
+            value={value}
+            onChange={this.handleChange}
+            indicatorColor="secondary"
+            textColor="secondary"
+            scrollable
+            scrollButtons="auto"
+            classes={{
+              root: classes.tabsRoot
+            }}
+          >
+            <Tab
+              classes={{
+                root: classes.tabRoot
+              }} label="Timeline" />
+            <Tab
+              classes={{
+                root: classes.tabRoot
+              }} label="About" />
+            <Tab
+              classes={{
+                root: classes.tabRoot
+              }} label="Photos & Videos" />
+            {/* begin my add */}
+            <Tab
+              classes={{
+                root: classes.tabRoot
+              }} label="Category" />
+            {/* end my add */}
+          </Tabs>
+        }
+        content={
+          <div className="p-16 sm:p-24">
+            {value === 0 && (
+              <TimelineTab />
+            )}
+            {value === 1 && (
+              <AboutTab />
+            )}
+            {value === 2 && (
+              <PhotosVideosTab />
+            )}
+            {value === 3 && (
+              <SettingsTab />
+            )}
+          </div>
+        }
+      />
+    )
+  };
 }
 
-Settings.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+// begin my add
 
-// export default Settings;
-export default withStyles(styles)(Settings);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    // getData: Actions.getData,
+    // getTodos: Actions.getTodos
+  }, dispatch);
+}
+
+function mapStateToProps({ auth }) {
+  return {
+    user: auth.user,
+  }
+}
+
+// export default withReducer('todoApp', reducer)(withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles, { withTheme: true })(ProfilePage))));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles, { withTheme: true })(ProfilePage));
+
+// end my add
+
+// export default withStyles(styles, { withTheme: true })(ProfilePage);

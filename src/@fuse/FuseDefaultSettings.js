@@ -33,9 +33,11 @@ const defaultSettings = {
     },
     customScrollbars: true,
     theme           : {
-        main   : 'default',
+        // main   : 'default', // my add
+        main   : 'mainThemeDark',
         navbar : 'mainThemeDark',
-        toolbar: 'mainThemeLight',
+        // toolbar: 'mainThemeLight', // my add
+        toolbar: 'mainThemeDark',
         footer : 'mainThemeDark'
     }
 };
