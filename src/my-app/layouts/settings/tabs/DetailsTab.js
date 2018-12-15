@@ -1,249 +1,304 @@
-import React, {Component} from 'react';
-import {withStyles} from '@material-ui/core/styles/index';
+import React, { Component } from 'react';
+import { withStyles } from '@material-ui/core/styles/index';
 import axios from 'axios/index';
-import {Avatar, AppBar, Button, Card, CardContent, Icon, IconButton, List, ListItem, ListItemSecondaryAction, ListItemText, Toolbar, Typography} from '@material-ui/core';
+import { Avatar, AppBar, Button, Card, CardContent, Icon, IconButton, List, ListItem, ListItemSecondaryAction, ListItemText, Toolbar, Typography } from '@material-ui/core';
 import classNames from 'classnames';
-import {FuseAnimateGroup} from '@fuse';
+import { FuseAnimateGroup } from '@fuse';
+
+import PropTypes from 'prop-types';
+
+import ImageIcon from '@material-ui/icons/Image';
+import WorkIcon from '@material-ui/icons/Work';
+import BeachAccessIcon from '@material-ui/icons/BeachAccess';
+
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
 
 // this page was copied from ./AboutTab
 
 const styles = theme => ({
-    root: {}
+  root: {
+    width: '100%',
+    // maxWidth: 360,
+    // backgroundColor: theme.palette.background.paper,
+  },
 });
+
+const optionsMenu1 = [
+  'Show some love to Material-UI',
+  'Show all notification content',
+  'Hide sensitive notification content',
+  'Hide all notification content',
+];
+
+const optionsMenu2 = [
+  'Select one',
+  'Home',
+  'Mortgage',
+  'Insurance',
+  'Financial',
+];
 
 class DetailsTab extends Component {
 
-    state = {
-        general: null,
-        work   : null,
-        contact: null,
-        groups : null,
-        friends: null
-    };
+  // state = {
+  //   general: null,
+  //   work: null,
+  //   contact: null,
+  //   groups: null,
+  //   friends: null
+  // };
 
-    componentDidMount()
-    {
-        axios.get('/api/profile/about').then(res => {
-            this.setState(res.data);
-        });
-    }
+  // componentDidMount() {
+  //   axios.get('/api/profile/about').then(res => {
+  //     this.setState(res.data);
+  //   });
+  // }
 
-    render()
-    {
-        const {classes} = this.props;
-        const {general, work, contact, groups, friends} = this.state;
+  state = {
+    anchorElMenu1: null,
+    anchorElMenu2: null,
+    selectedIndexMenu1: 1,
+    selectedIndexMenu2: 1,
+  };
 
-        return (
-            <div className={classNames(classes.root, "md:flex max-w-2xl")}>
+  handleClickListItemMenu1 = event => {
+    this.setState({ anchorElMenu1: event.currentTarget });
+  };
+  
+  handleMenuItemClickMenu1 = (event, index) => {
+    this.setState({ selectedIndexMenu1: index, anchorElMenu1: null });
+  };
 
-                <div className="flex flex-col flex-1 md:pr-32">
-                    <FuseAnimateGroup
-                        enter={{
-                            animation: "transition.slideUpBigIn"
-                        }}
+  handleCloseMenu1 = () => {
+    this.setState({ anchorElMenu1: null });
+  };
+
+  handleClickListItemMenu2 = event => {
+    this.setState({ anchorElMenu1: event.currentTarget });
+  };
+  
+  handleMenuItemClickMenu2 = (event, index) => {
+    this.setState({ selectedIndexMenu2: index, anchorElMenu2: null });
+  };
+
+  handleCloseMenu2 = () => {
+    this.setState({ anchorElMenu2: null });
+  };
+
+  render() {
+    const { classes } = this.props;
+    // const { general, work, contact, } = this.state;
+    const { anchorElMenu1, anchorElMenu2, } = this.state;
+
+    return (
+      <React.Fragment>
+        {/* <div className={classNames(classes.root, "md:flex max-w-2xl")}>
+
+          <div className="flex flex-col flex-1 md:pr-32">
+            <FuseAnimateGroup
+              enter={{
+                animation: "transition.slideUpBigIn"
+              }}
+            >
+              
+              <Card className="w-full mb-16">
+                <AppBar position="static" elevation={0}>
+                  <Toolbar className="pl-16 pr-8">
+                    <Typography variant="subtitle1" color="inherit" className="flex-1">
+                      Contact
+                      </Typography>
+                  </Toolbar>
+                </AppBar>
+
+                <CardContent>
+                  <div className="mb-24">
+                    <Typography className="font-bold mb-4 text-15">Name</Typography>
+                    <Typography>Maria Le</Typography>
+                  </div>
+
+                  <div className="mb-24">
+                    <Typography className="font-bold mb-4 text-15">Email</Typography>
+                    <Typography>maria.le.4@gmail.com</Typography>
+                  </div>
+
+                  <div className="mb-24">
+                    <Typography className="font-bold mb-4 text-15">Cell</Typography>
+                    <Typography>add &plus;</Typography>
+                  </div>
+                </CardContent>
+              </Card>
+            </FuseAnimateGroup>
+          </div>
+          
+          <div className="flex flex-col flex-1 md:pr-32">
+            <FuseAnimateGroup
+              enter={{
+                animation: "transition.slideLeftBigIn"
+              }}
+            >
+              <Card className="w-full">
+                <AppBar position="static" elevation={0}>
+                  <Toolbar className="pl-16 pr-8">
+                    <Typography variant="subtitle1" color="inherit" className="flex-1">
+                      Contact
+                    </Typography>
+                  </Toolbar>
+                </AppBar>
+
+                <CardContent className="px-0">
+                  <List component="nav">
+                    <ListItem
+                      button
+                      aria-haspopup="true"
+                      aria-controls="lock-menu"
+                      aria-label="When device is locked"
+                      onClick={this.handleClickListItem}
                     >
-                        {general && (
-                            <Card className="w-full mb-16">
-                                <AppBar position="static" elevation={0}>
-                                    <Toolbar className="pl-16 pr-8">
-                                        <Typography variant="subtitle1" color="inherit" className="flex-1">
-                                            General Information
-                                        </Typography>
-                                    </Toolbar>
-                                </AppBar>
+                      <ListItemText
+                        primary="When device is locked"
+                        secondary={options[this.state.selectedIndex]}
+                      />
+                    </ListItem>
+                  </List>
+                  <Menu
+                    id="lock-menu"
+                    anchorEl={anchorEl}
+                    open={Boolean(anchorEl)}
+                    onClose={this.handleClose}
+                  >
+                    {options.map((option, index) => (
+                      <MenuItem
+                        key={option}
+                        disabled={index === 0}
+                        selected={index === this.state.selectedIndex}
+                        onClick={event => this.handleMenuItemClick(event, index)}
+                      >
+                        {option}
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                </CardContent>
+              </Card>
+            </FuseAnimateGroup>
+          </div>
+          
+        </div> */}
 
-                                <CardContent>
-                                    <div className="mb-24">
-                                        <Typography className="font-bold mb-4 text-15">Gender</Typography>
-                                        <Typography>{general.gender}</Typography>
-                                    </div>
+        <div className={classNames(classes.root, "md:flex max-w-2xl")}>
 
-                                    <div className="mb-24">
-                                        <Typography className="font-bold mb-4 text-15">Birthday</Typography>
-                                        <Typography>{general.birthday}</Typography>
-                                    </div>
+          <div className="flex flex-col flex-1 md:pr-32">
+            <FuseAnimateGroup
+              enter={{
+                animation: "transition.slideLeftBigIn"
+              }}
+            >
+              <Card className="w-full mb-16">
+                <AppBar position="static" elevation={0}>
+                  <Toolbar className="pl-16 pr-8">
+                    <Typography variant="subtitle1" color="inherit" className="flex-1">
+                      Contact
+                    </Typography>
+                  </Toolbar>
+                </AppBar>
 
-                                    <div className="mb-24">
-                                        <Typography className="font-bold mb-4 text-15">Locations</Typography>
-
-                                        {general.locations.map((location) => (
-                                            <div className="flex items-center" key={location}>
-                                                <Typography>{location}</Typography>
-                                                <Icon className="text-16 ml-4" color="action">location_on</Icon>
-                                            </div>
-                                        ))}
-                                    </div>
-
-                                    <div className="mb-24">
-                                        <Typography className="font-bold mb-4 text-15">About Me</Typography>
-                                        <Typography>{general.about}</Typography>
-                                    </div>
-
-                                </CardContent>
-                            </Card>
-                        )}
-
-                        {work && (
-                            <Card className="w-full mb-16">
-                                <AppBar position="static" elevation={0}>
-                                    <Toolbar className="pl-16 pr-8">
-                                        <Typography variant="subtitle1" color="inherit" className="flex-1">
-                                            Work
-                                        </Typography>
-                                    </Toolbar>
-                                </AppBar>
-
-                                <CardContent>
-                                    <div className="mb-24">
-                                        <Typography className="font-bold mb-4 text-15">Occupation</Typography>
-                                        <Typography>{work.occupation}</Typography>
-                                    </div>
-
-                                    <div className="mb-24">
-                                        <Typography className="font-bold mb-4 text-15">Skills</Typography>
-                                        <Typography>{work.skills}</Typography>
-                                    </div>
-
-                                    <div className="mb-24">
-                                        <Typography className="font-bold mb-4 text-15">Jobs</Typography>
-                                        <table className="">
-                                            <tbody>
-                                                {work.jobs.map((job) => (
-                                                    <tr key={job.company}>
-                                                        <td className="pr-16">
-                                                            <Typography>{job.company}</Typography>
-                                                        </td>
-                                                        <td>
-                                                            <Typography color="textSecondary">{job.date}</Typography>
-                                                        </td>
-                                                    </tr>
-                                                ))}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        )}
-
-                        {contact && (
-                            <Card className="w-full mb-16">
-                                <AppBar position="static" elevation={0}>
-                                    <Toolbar className="pl-16 pr-8">
-                                        <Typography variant="subtitle1" color="inherit" className="flex-1">
-                                            Contact
-                                        </Typography>
-                                    </Toolbar>
-                                </AppBar>
-
-                                <CardContent>
-                                    <div className="mb-24">
-                                        <Typography className="font-bold mb-4 text-15">Address</Typography>
-                                        <Typography>{contact.address}</Typography>
-                                    </div>
-
-                                    <div className="mb-24">
-                                        <Typography className="font-bold mb-4 text-15">Tel.</Typography>
-
-                                        {contact.tel.map((tel) => (
-                                            <div className="flex items-center" key={tel}>
-                                                <Typography>{tel}</Typography>
-                                            </div>
-                                        ))}
-                                    </div>
-
-                                    <div className="mb-24">
-                                        <Typography className="font-bold mb-4 text-15">Website</Typography>
-
-                                        {contact.websites.map((website) => (
-                                            <div className="flex items-center" key={website}>
-                                                <Typography>{website}</Typography>
-                                            </div>
-                                        ))}
-                                    </div>
-
-                                    <div className="mb-24">
-                                        <Typography className="font-bold mb-4 text-15">Emails</Typography>
-
-                                        {contact.emails.map((email) => (
-                                            <div className="flex items-center" key={email}>
-                                                <Typography>{email}</Typography>
-                                            </div>
-                                        ))}
-                                    </div>
-
-                                </CardContent>
-                            </Card>
-                        )}
-                    </FuseAnimateGroup>
-                </div>
-
-                <div className="flex flex-col md:w-320">
-                    <FuseAnimateGroup
-                        enter={{
-                            animation: "transition.slideUpBigIn"
-                        }}
+                <CardContent className="px-0 mb-24">
+                  <List component="nav" className="px-0 mb-4">
+                    <ListItem
+                      button
+                      aria-haspopup="true"
+                      aria-controls="lock-menu"
+                      aria-label="When device is locked"
+                      onClick={this.handleClickListItemMenu1}
                     >
-                        <Card className="w-full mb-16">
-                            <AppBar position="static" elevation={0}>
-                                <Toolbar className="pl-16 pr-8">
-                                    <Typography variant="subtitle1" color="inherit" className="flex-1">
-                                        Friends
-                                    </Typography>
-                                    <Button className="normal-case" color="inherit" size="small">See 454 more</Button>
-                                </Toolbar>
-                            </AppBar>
-                            <CardContent className="p-0">
-                                <List className="p-8">
-                                    {friends && friends.map((friend) => (
-                                        <img key={friend.id} className="w-64 m-4" src={friend.avatar} alt={friend.name}/>
-                                    ))}
-                                </List>
-                            </CardContent>
-                        </Card>
+                      <ListItemText
+                        primary="When device is locked"
+                        secondary={optionsMenu1[this.state.selectedIndexMenu1]}
+                      />
+                    </ListItem>
+                  </List>
+                  <Menu
+                    id="lock-menu"
+                    anchorEl={anchorElMenu1}
+                    open={Boolean(anchorElMenu1)}
+                    onClose={this.handleClose}
+                  >
+                    {optionsMenu1.map((option, index) => (
+                      <MenuItem
+                        key={option}
+                        disabled={index === 0}
+                        selected={index === this.state.selectedIndexMenu1}
+                        onClick={event => this.handleMenuItemClickMenu1(event, index)}
+                      >
+                        {option}
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                </CardContent>
+              </Card>
+            </FuseAnimateGroup>
+          </div>
 
-                        <Card className="w-full mb-16">
-                            <AppBar position="static" elevation={0}>
-                                <Toolbar className="pl-16 pr-8">
-                                    <Typography variant="subtitle1" color="inherit" className="flex-1">
-                                        Joined Groups
-                                    </Typography>
-                                    <Button className="normal-case" color="inherit" size="small">See 6 more</Button>
-                                </Toolbar>
-                            </AppBar>
-                            <CardContent className="p-0">
-                                <List className="p-0">
-                                    {groups && groups.map((group) => (
-                                        <ListItem key={group.id}>
-                                            <Avatar alt={group.name}>{group.name[0]}</Avatar>
-                                            <ListItemText
-                                                primary={(
-                                                    <div className="">
-                                                        <Typography className="inline font-medium" color="primary" paragraph={false}>
-                                                            {group.name}
-                                                        </Typography>
+          <div className="flex flex-col flex-1 md:pr-32">
+            <FuseAnimateGroup
+              enter={{
+                animation: "transition.slideLeftBigIn"
+              }}
+            >
+              <Card className="w-full mb-16">
+                <AppBar position="static" elevation={0}>
+                  <Toolbar className="pl-16 pr-8">
+                    <Typography variant="subtitle1" color="inherit" className="flex-1">
+                      Business
+                    </Typography>
+                  </Toolbar>
+                </AppBar>
 
-                                                        <Typography className="inline ml-4" paragraph={false}>
-                                                            {group.category}
-                                                        </Typography>
-                                                    </div>
-                                                )}
-                                                secondary={group.members}
-                                            />
-                                            <ListItemSecondaryAction>
-                                                <IconButton>
-                                                    <Icon>more_vert</Icon>
-                                                </IconButton>
-                                            </ListItemSecondaryAction>
-                                        </ListItem>
-                                    ))}
-                                </List>
-                            </CardContent>
-                        </Card>
-                    </FuseAnimateGroup>
-                </div>
-            </div>
-        );
-    }
+                <CardContent className="px-0 mb-24">
+                  <List component="nav" className="px-0 mb-4">
+                    <ListItem
+                      button
+                      aria-haspopup="true"
+                      aria-controls="lock-menu"
+                      aria-label="Type"
+                      onClick={this.handleClickListItemMenu2}
+                    >
+                      <ListItemText
+                        primary="Type"
+                        secondary={optionsMenu2[this.state.selectedIndexMenu2]}
+                      />
+                    </ListItem>
+                  </List>
+                  <Menu
+                    id="lock-menu"
+                    anchorEl={anchorElMenu2}
+                    open={Boolean(anchorElMenu2)}
+                    onClose={this.handleCloseMenu2}
+                  >
+                    {optionsMenu2.map((option, index) => (
+                      <MenuItem
+                        key={option}
+                        disabled={index === 0}
+                        selected={index === this.state.selectedIndexMenu2}
+                        onClick={event => this.handleMenuItemClickMenu2(event, index)}
+                      >
+                        {option}
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                </CardContent>
+              </Card>
+            </FuseAnimateGroup>
+          </div>
+
+        </div>
+      </React.Fragment>
+    );
+  }
 }
 
-export default withStyles(styles, {withTheme: true})(DetailsTab);
+DetailsTab.propTypes = {
+  classes: PropTypes.object.isRequired,
+}
+
+export default withStyles(styles, { withTheme: true })(DetailsTab);

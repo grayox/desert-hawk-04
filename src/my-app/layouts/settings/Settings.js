@@ -13,9 +13,7 @@ import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router-dom'
 
 import SettingsTab from './Settings1';
-import ContactTab from './tabs/ContactTab';
 import DetailsTab from './tabs/DetailsTab';
-import OptionsTab from './tabs/OptionsTab';
 import PreferencesTab from './tabs/PreferencesTab';
 // note: this page began as src/my-app/profile-orig/ProfilePage.js
 // interface: export class ProfilePage > import Settings ...
@@ -118,19 +116,15 @@ class ProfilePage extends Component {
             <Tab
               classes={{
                 root: classes.tabRoot
-              }} label="Contact" />
-            <Tab
-              classes={{
-                root: classes.tabRoot
               }} label="Details" />
             <Tab
               classes={{
                 root: classes.tabRoot
-              }} label="Options" />
+              }} label="Preferences" />
             <Tab
               classes={{
                 root: classes.tabRoot
-              }} label="Preferences" />
+              }} label="Settings" />
             {/* end my add */}
           </Tabs>
         }
@@ -147,19 +141,13 @@ class ProfilePage extends Component {
             )} */}
             {/* begin my add */}
             {value === 0 && (
-              <ContactTab />
-            )}
-            {/* end my add */}
-            {value === 1 && (
               <DetailsTab />
             )}
-            {/* end my add */}
-            {value === 2 && (
-              <OptionsTab />
-            )}
-            {/* end my add */}
-            {value === 3 && (
+            {value === 1 && (
               <PreferencesTab />
+            )}
+            {value === 2 && (
+              <SettingsTab />
             )}
             {/* end my add */}
           </div>
