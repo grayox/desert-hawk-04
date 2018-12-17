@@ -14,6 +14,13 @@ import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
 // this page was copied from ./AboutTab
 
 const styles = theme => ({
@@ -60,12 +67,20 @@ class DetailsTab extends Component {
     anchorElMenu2: null,
     selectedIndexMenu1: 1,
     selectedIndexMenu2: 1,
+
+    name: 'Maria Le',
+    email: 'maria.le.4@gmail.com',
+    mobile: '555-123-4567',
+
+    nameDialogOpen: false,
+    emailDialogOpen: false,
+    mobileDialogOpen: false,
   };
 
   handleClickListItemMenu1 = event => {
     this.setState({ anchorElMenu1: event.currentTarget });
   };
-  
+
   handleMenuItemClickMenu1 = (event, index) => {
     this.setState({ selectedIndexMenu1: index, anchorElMenu1: null });
   };
@@ -75,9 +90,9 @@ class DetailsTab extends Component {
   };
 
   handleClickListItemMenu2 = event => {
-    this.setState({ anchorElMenu1: event.currentTarget });
+    this.setState({ anchorElMenu2: event.currentTarget });
   };
-  
+
   handleMenuItemClickMenu2 = (event, index) => {
     this.setState({ selectedIndexMenu2: index, anchorElMenu2: null });
   };
@@ -85,6 +100,15 @@ class DetailsTab extends Component {
   handleCloseMenu2 = () => {
     this.setState({ anchorElMenu2: null });
   };
+
+  handleClickListItemContact = event => {
+    this.setState({nameDialogOpen: true,});
+  }
+
+  handleCloseDialog = event => {
+    console.log('event\n', event.target);
+    this.setState({nameDialogOpen: false,});
+  }
 
   render() {
     const { classes } = this.props;
@@ -185,8 +209,40 @@ class DetailsTab extends Component {
           
         </div> */}
 
-        <div className={classNames(classes.root, "md:flex max-w-2xl")}>
+        <Dialog
+          open={this.state.nameDialogOpen}
+          onClose={this.handleClose}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">Name</DialogTitle>
+          <DialogContent>
+            {/* <DialogContentText>
+              To subscribe to this website, please enter your email address here. We will send
+              updates occasionally.
+            </DialogContentText> */}
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Email Address"
+              type="email"
+              variant="outlined"
+              fullWidth
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleCloseDialog} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={this.handleCloseDialog} color="secondary">
+              Save
+            </Button>
+          </DialogActions>
+        </Dialog>
 
+        {/* "Block-level" group of two cards on this row */}
+        <div className={classNames(classes.root, "md:flex max-w-2xl")}>
+          {/* 
           <div className="flex flex-col flex-1 md:pr-32">
             <FuseAnimateGroup
               enter={{
@@ -207,7 +263,7 @@ class DetailsTab extends Component {
                     <ListItem
                       button
                       aria-haspopup="true"
-                      aria-controls="lock-menu"
+                      aria-controls="menu1"
                       aria-label="When device is locked"
                       onClick={this.handleClickListItemMenu1}
                     >
@@ -218,7 +274,7 @@ class DetailsTab extends Component {
                     </ListItem>
                   </List>
                   <Menu
-                    id="lock-menu"
+                    id="menu1"
                     anchorEl={anchorElMenu1}
                     open={Boolean(anchorElMenu1)}
                     onClose={this.handleClose}
@@ -234,6 +290,66 @@ class DetailsTab extends Component {
                       </MenuItem>
                     ))}
                   </Menu>
+                </CardContent>
+              </Card>
+            </FuseAnimateGroup>
+          </div>
+ */}
+
+          <div className="flex flex-col flex-1 xw-screen xm-0 xp-0 md:pr-32">
+            <FuseAnimateGroup
+              enter={{
+                animation: "transition.slideLeftBigIn"
+              }}
+            >
+              <Card className="xw-screen xm-0 xmd:xmb-16 w-full mb-16">
+                <AppBar position="static" elevation={0}>
+                  <Toolbar className="pl-16 pr-8">
+                    <Typography variant="subtitle1" color="inherit" className="flex-1">
+                      Contact
+                    </Typography>
+                  </Toolbar>
+                </AppBar>
+
+                <CardContent className="px-0">
+                  <List component="nav" className="px-0 mb-4">
+                    <ListItem
+                      button
+                      aria-haspopup="false"
+                      aria-controls="username"
+                      aria-label="username"
+                      onClick={this.handleClickListItemContact}
+                    >
+                      <ListItemText
+                        primary="Name"
+                        secondary={this.state.name}
+                      />
+                    </ListItem>
+                    <ListItem
+                      button
+                      aria-haspopup="false"
+                      aria-controls="email"
+                      aria-label="email"
+                      onClick={this.handleClickListItemContact}
+                    >
+                      <ListItemText
+                        primary="Email"
+                        secondary={this.state.email}
+                      />
+                    </ListItem>
+                    <ListItem
+                      button
+                      aria-haspopup="true"
+                      aria-controls="mobile"
+                      aria-label="mobile"
+                      onClick={this.handleClickListItemContact}
+                    >
+                      <ListItemText
+                        primary="Mobile"
+                        secondary={this.state.mobile}
+                      />
+                    </ListItem>
+                  </List>
                 </CardContent>
               </Card>
             </FuseAnimateGroup>
@@ -254,12 +370,12 @@ class DetailsTab extends Component {
                   </Toolbar>
                 </AppBar>
 
-                <CardContent className="px-0 mb-24">
+                <CardContent className="px-0">
                   <List component="nav" className="px-0 mb-4">
                     <ListItem
                       button
                       aria-haspopup="true"
-                      aria-controls="lock-menu"
+                      aria-controls="menu2"
                       aria-label="Type"
                       onClick={this.handleClickListItemMenu2}
                     >
@@ -270,7 +386,7 @@ class DetailsTab extends Component {
                     </ListItem>
                   </List>
                   <Menu
-                    id="lock-menu"
+                    id="menu2"
                     anchorEl={anchorElMenu2}
                     open={Boolean(anchorElMenu2)}
                     onClose={this.handleCloseMenu2}
@@ -291,8 +407,8 @@ class DetailsTab extends Component {
             </FuseAnimateGroup>
           </div>
 
-        </div>
-      </React.Fragment>
+        </div >
+      </React.Fragment >
     );
   }
 }
