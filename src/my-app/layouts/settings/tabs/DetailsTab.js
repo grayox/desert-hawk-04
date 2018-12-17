@@ -21,6 +21,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+import GeoSelect from 'my-app/components/GeoSelect/GeoSelect';
+
 // this page was copied from ./AboutTab
 
 const styles = theme => ({
@@ -73,8 +75,9 @@ class DetailsTab extends Component {
     mobile: '555-123-4567',
 
     nameDialogOpen: false,
-    emailDialogOpen: false,
-    mobileDialogOpen: false,
+    // emailDialogOpen: false,
+    // mobileDialogOpen: false,
+    geoSelectDialogOpen: false,
   };
 
   handleClickListItemMenu1 = event => {
@@ -102,12 +105,21 @@ class DetailsTab extends Component {
   };
 
   handleClickListItemContact = event => {
-    this.setState({nameDialogOpen: true,});
+    this.setState({ nameDialogOpen: true, });
+  }
+
+  handleClickListItemGeoSelect = event => {
+    this.setState({ geoSelectDialogOpen: true, });
   }
 
   handleCloseDialog = event => {
-    console.log('event\n', event.target);
-    this.setState({nameDialogOpen: false,});
+    // console.log('event\n', event.target);
+    this.setState({ nameDialogOpen: false, });
+  }
+
+  handleGeoCloseDialog = event => {
+    // console.log('event\n', event.target);
+    this.setState({ geoSelectDialogOpen: false, });
   }
 
   render() {
@@ -235,6 +247,25 @@ class DetailsTab extends Component {
               Cancel
             </Button>
             <Button onClick={this.handleCloseDialog} color="secondary">
+              Save
+            </Button>
+          </DialogActions>
+        </Dialog>
+
+        <Dialog
+          open={this.state.geoSelectDialogOpen}
+          onClose={this.handleGeoClose}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">Business Location</DialogTitle>
+          <DialogContent>
+            <GeoSelect />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleCloseGeoDialog} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={this.handleCloseGeoDialog} color="secondary">
               Save
             </Button>
           </DialogActions>
@@ -384,28 +415,44 @@ class DetailsTab extends Component {
                         secondary={optionsMenu2[this.state.selectedIndexMenu2]}
                       />
                     </ListItem>
+                    <ListItem
+                      button
+                      aria-haspopup="true"
+                      aria-controls="menu2"
+                      aria-label="Type"
+                      onClick={this.handleClickListItemGeoSelect}
+                    >
+                      <ListItemText
+                        primary="Location"
+                        secondary="select"
+                      />
+                    </ListItem>
                   </List>
-                  <Menu
-                    id="menu2"
-                    anchorEl={anchorElMenu2}
-                    open={Boolean(anchorElMenu2)}
-                    onClose={this.handleCloseMenu2}
-                  >
-                    {optionsMenu2.map((option, index) => (
-                      <MenuItem
-                        key={option}
-                        disabled={index === 0}
-                        selected={index === this.state.selectedIndexMenu2}
-                        onClick={event => this.handleMenuItemClickMenu2(event, index)}
-                      >
-                        {option}
-                      </MenuItem>
-                    ))}
-                  </Menu>
+
+
                 </CardContent>
               </Card>
             </FuseAnimateGroup>
           </div>
+
+
+          <Menu
+            id="menu2"
+            anchorEl={anchorElMenu2}
+            open={Boolean(anchorElMenu2)}
+            onClose={this.handleCloseMenu2}
+          >
+            {optionsMenu2.map((option, index) => (
+              <MenuItem
+                key={option}
+                disabled={index === 0}
+                selected={index === this.state.selectedIndexMenu2}
+                onClick={event => this.handleMenuItemClickMenu2(event, index)}
+              >
+                {option}
+              </MenuItem>
+            ))}
+          </Menu>
 
         </div >
       </React.Fragment >
