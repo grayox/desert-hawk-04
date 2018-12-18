@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from "prop-types";
 
-// untilities
+// utilities
 import _ from 'lodash';
 import * as EmailValidator from 'email-validator';
 import NumberFormat from 'react-number-format';
@@ -16,7 +16,7 @@ import {
 import Paper from '@material-ui/core/Paper';
 
 import { bizCategoryItems } from 'my-app/config/AppConfig';
-import GeoStepper from 'my-app/components/steppers/GeoStepper'
+import GeoStepper from 'my-app/components/steppers/GeoStepper';
 
 // import classNames from 'classnames';
 
@@ -228,7 +228,7 @@ class UserMultiForm extends Component {
     const { isValidGeo, } = this.state;
     const valid1  = this.getNameIsValid();
     const valid2  = this.getEmailIsValid();
-    /*const valid2a =*/ this.getPhoneIsValid();
+    // const valid2a = this.getPhoneIsValid();
     const valid3  = this.getBizCategoryIsValid(); //!!bizCategory;
     const valid4  = isValidGeo; //this.getGeoIsValid(); // redundant; already set by handleValidGeoStepper()
     // console.log('valid-1', valid1);
@@ -246,7 +246,7 @@ class UserMultiForm extends Component {
       name, isErrorName, helperTextName,
       email, isErrorEmail, helperTextEmail,
       phone, isErrorPhone, helperTextPhone,
-      bizCategory, isValidForm, geoKey, // for reset purposes
+      bizCategory, isValidForm, geoKey, // needed to re-render after  reset
       // for transparent state display
       // geoNation, geoRegion, geoLocal,
       // isValidName, isValidEmail, isValidGeo, isValidBizCategory, 

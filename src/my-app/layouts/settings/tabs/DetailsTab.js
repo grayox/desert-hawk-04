@@ -21,7 +21,18 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import GeoSelect from 'my-app/components/GeoSelect/GeoSelect';
+// import SettingsStepper from 'my-app/components/steppers/SettingsStepper';
+import GeoStepper from 'my-app/components/steppers/GeoStepper'; // see 'class UserMultiForm' for more examples
+
+// utilities
+import _ from 'lodash';
+import * as EmailValidator from 'email-validator';
+import NumberFormat from 'react-number-format';
+
+// firebase
+import firebase from '@firebase/app';
+import '@firebase/firestore';
+const db = firebase.firestore();
 
 // this page was copied from ./AboutTab
 
@@ -33,12 +44,50 @@ const styles = theme => ({
   },
 });
 
-const optionsMenu1 = [
-  'Show some love to Material-UI',
-  'Show all notification content',
-  'Hide sensitive notification content',
-  'Hide all notification content',
-];
+const INITIAL_STATE = {
+  name: '',
+  email: '',
+  phone: '',
+  bizCategory: '',
+  geoNation: '',
+  geoRegion: '',
+  geoLocal: '',
+  geoKey: Date.now(), // necessary to re-render GeoSelect component after reset
+  
+  isValidName: false,
+  isValidEmail: false,
+  isValidPhone: false,
+  isValidBizCategory: false,
+  isValidGeo: false,
+  isValidForm: false,
+
+  isErrorName: false,
+  isErrorEmail: false,
+  helperTextName: '',
+  helperTextEmail: '',
+
+  anchorElMenu1: null,
+  anchorElMenu2: null,
+  selectedIndexMenu1: 1,
+  selectedIndexMenu2: 1,
+
+  name: 'Maria Le',
+  email: 'maria.le.4@gmail.com',
+  mobile: '555-123-4567',
+
+  nameDialogOpen: false,
+  // emailDialogOpen: false,
+  // mobileDialogOpen: false,
+  geoSelectDialogOpen: false,
+};
+
+
+// const optionsMenu1 = [
+//   'Show some love to Material-UI',
+//   'Show all notification content',
+//   'Hide sensitive notification content',
+//   'Hide all notification content',
+// ];
 
 const optionsMenu2 = [
   'Select one',
@@ -49,6 +98,56 @@ const optionsMenu2 = [
 ];
 
 class DetailsTab extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = INITIAL_STATE;
+  }
+
+  saveToFirebase = data => {
+    const collectionRef = db.collection(this.props.savePath);
+    console.info('submitting...', data);  
+    collectionRef.add(data)
+      .then(docRef => {
+        console.log("Document written with ID: ", docRef.id);
+      })
+      .catch(error => {
+        console.error("Error adding document: ", error);
+      });
+    console.info('submitted: ', data);
+  }
+
+  resetForm = () => {
+    this.setState(INITIAL_STATE);
+    this.setState({
+      geoKey: Date.now(), // resets geoStepper
+    });
+  }
+
+  // handleValidFormSubmit = model => {
+  //   const picked = _.pick(model, [ 'name', 'email', 'phone', 'bizCategory', 'geoNation', 'geoRegion', 'geoLocal', ]);
+  //   const newData = {
+  //     ...picked,
+  //     timestamp: Date.now(),
+  //   };
+  //   this.saveToFirebase(newData);
+  //   this.resetForm();
+  // };
+
+  handleValidGeoStepper = model => {
+    // handleSaveGeoStepper = model => {
+    const picked = _.pick(model, [ 'geoNation', 'geoRegion', 'geoLocal', ]);
+    const newState = {
+      ...picked,
+      isValidGeo: true,
+    };
+    this.setState(newState, () => {
+      console.log('newState', newState);
+      console.log('state', this.state);
+      // this.handleChangeForm();
+      // this.saveToFirebase(picked);
+    });
+  };
 
   // state = {
   //   general: null,
@@ -63,22 +162,6 @@ class DetailsTab extends Component {
   //     this.setState(res.data);
   //   });
   // }
-
-  state = {
-    anchorElMenu1: null,
-    anchorElMenu2: null,
-    selectedIndexMenu1: 1,
-    selectedIndexMenu2: 1,
-
-    name: 'Maria Le',
-    email: 'maria.le.4@gmail.com',
-    mobile: '555-123-4567',
-
-    nameDialogOpen: false,
-    // emailDialogOpen: false,
-    // mobileDialogOpen: false,
-    geoSelectDialogOpen: false,
-  };
 
   handleClickListItemMenu1 = event => {
     this.setState({ anchorElMenu1: event.currentTarget });
@@ -117,15 +200,20 @@ class DetailsTab extends Component {
     this.setState({ nameDialogOpen: false, });
   }
 
-  handleGeoCloseDialog = event => {
+  handleCloseGeoDialog = event => {
     // console.log('event\n', event.target);
     this.setState({ geoSelectDialogOpen: false, });
   }
 
+
   render() {
-    const { classes } = this.props;
+    const { classes, handleSaveSettingsStepper } = this.props;
     // const { general, work, contact, } = this.state;
-    const { anchorElMenu1, anchorElMenu2, } = this.state;
+    const {
+      anchorElMenu1, anchorElMenu2,
+      geoKey, isValidGeo, geoNation, geoRegion, geoLocal,
+    } = this.state;
+    const { handleValidGeoStepper } = this;
 
     return (
       <React.Fragment>
@@ -229,9 +317,9 @@ class DetailsTab extends Component {
           <DialogTitle id="form-dialog-title">Name</DialogTitle>
           <DialogContent>
             {/* <DialogContentText>
-              To subscribe to this website, please enter your email address here. We will send
-              updates occasionally.
-            </DialogContentText> */}
+To subscribe to this website, please enter your email address here. We will send
+updates occasionally.
+</DialogContentText> */}
             <TextField
               autoFocus
               margin="dense"
@@ -243,7 +331,7 @@ class DetailsTab extends Component {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleCloseDialog} color="primary">
+            <Button onClick={this.handleCloseDialog} color="secondary">
               Cancel
             </Button>
             <Button onClick={this.handleCloseDialog} color="secondary">
@@ -259,10 +347,17 @@ class DetailsTab extends Component {
         >
           <DialogTitle id="form-dialog-title">Business Location</DialogTitle>
           <DialogContent>
-            <GeoSelect />
+            <GeoStepper
+              key={geoKey} // reset with unique new key
+              // heading={geoStepperLabel}
+              heading={'Tell us your home market so we can send you leads'}
+              showSaveButton={false}
+              // onSave={handleSaveGeoStepper}
+              onValid={handleValidGeoStepper}
+            />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleCloseGeoDialog} color="primary">
+            <Button onClick={this.handleCloseGeoDialog} color="secondary">
               Cancel
             </Button>
             <Button onClick={this.handleCloseGeoDialog} color="secondary">
@@ -327,13 +422,13 @@ class DetailsTab extends Component {
           </div>
  */}
 
-          <div className="flex flex-col flex-1 xw-screen xm-0 xp-0 md:pr-32">
+          <div className="flex flex-col flex-1 xxw-screen xxm-0 xxp-0 md:pr-32">
             <FuseAnimateGroup
               enter={{
                 animation: "transition.slideLeftBigIn"
               }}
             >
-              <Card className="xw-screen xm-0 xmd:xmb-16 w-full mb-16">
+              <Card className="xxw-screen xxm-0 xxmd:xxmb-16 w-full mb-16">
                 <AppBar position="static" elevation={0}>
                   <Toolbar className="pl-16 pr-8">
                     <Typography variant="subtitle1" color="inherit" className="flex-1">
@@ -424,17 +519,17 @@ class DetailsTab extends Component {
                     >
                       <ListItemText
                         primary="Location"
-                        secondary="select"
+                        secondary={
+                          isValidGeo ? `${geoLocal}, ${geoRegion}, ${geoNation}`
+                          : 'Click to select...'
+                        }
                       />
                     </ListItem>
                   </List>
-
-
                 </CardContent>
               </Card>
             </FuseAnimateGroup>
           </div>
-
 
           <Menu
             id="menu2"
