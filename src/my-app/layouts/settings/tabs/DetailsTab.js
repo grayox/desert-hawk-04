@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles/index';
+import classNames from 'classnames';
+
 import axios from 'axios/index';
 import { Avatar, AppBar, Button, Card, CardContent, Icon, IconButton, List, ListItem, ListItemSecondaryAction, ListItemText, Toolbar, Typography } from '@material-ui/core';
-import classNames from 'classnames';
 import { FuseAnimateGroup } from '@fuse';
-
-import PropTypes from 'prop-types';
 
 import ImageIcon from '@material-ui/icons/Image';
 import WorkIcon from '@material-ui/icons/Work';
@@ -53,7 +53,7 @@ const INITIAL_STATE = {
   geoRegion: '',
   geoLocal: '',
   geoKey: Date.now(), // necessary to re-render GeoSelect component after reset
-  
+
   isValidName: false,
   isValidEmail: false,
   isValidPhone: false,
@@ -106,7 +106,7 @@ class DetailsTab extends Component {
 
   saveToFirebase = data => {
     const collectionRef = db.collection(this.props.savePath);
-    console.info('submitting...', data);  
+    console.info('submitting...', data);
     collectionRef.add(data)
       .then(docRef => {
         console.log("Document written with ID: ", docRef.id);
@@ -136,7 +136,7 @@ class DetailsTab extends Component {
 
   handleValidGeoStepper = model => {
     // handleSaveGeoStepper = model => {
-    const picked = _.pick(model, [ 'geoNation', 'geoRegion', 'geoLocal', ]);
+    const picked = _.pick(model, ['geoNation', 'geoRegion', 'geoLocal',]);
     const newState = {
       ...picked,
       isValidGeo: true,
@@ -205,15 +205,23 @@ class DetailsTab extends Component {
     this.setState({ geoSelectDialogOpen: false, });
   }
 
-
   render() {
-    const { classes, handleSaveSettingsStepper } = this.props;
+    const { classes, } = this.props;
     // const { general, work, contact, } = this.state;
     const {
       anchorElMenu1, anchorElMenu2,
+      nameDialogOpen, geoSelectDialogOpen,
+      selectedIndexMenu2,
+      name, email, mobile,
       geoKey, isValidGeo, geoNation, geoRegion, geoLocal,
     } = this.state;
-    const { handleValidGeoStepper } = this;
+    const {
+      handleValidGeoStepper, handleCloseDialog,
+      handleClose, handleClickListItemContact,
+      handleCloseGeoDialog, handleGeoClose,
+      handleClickListItemMenu2, handleClickListItemGeoSelect,
+      handleCloseMenu2, handleMenuItemClickMenu2,
+    } = this;
 
     return (
       <React.Fragment>
@@ -309,17 +317,35 @@ class DetailsTab extends Component {
           
         </div> */}
 
+        <Menu
+          id="menu2"
+          anchorEl={anchorElMenu2}
+          open={Boolean(anchorElMenu2)}
+          onClose={handleCloseMenu2}
+        >
+          {optionsMenu2.map((option, index) => (
+            <MenuItem
+              key={option}
+              disabled={index === 0}
+              selected={index === selectedIndexMenu2}
+              onClick={event => handleMenuItemClickMenu2(event, index)}
+            >
+              {option}
+            </MenuItem>
+          ))}
+        </Menu>
+
         <Dialog
-          open={this.state.nameDialogOpen}
-          onClose={this.handleClose}
+          open={nameDialogOpen}
+          onClose={handleClose}
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">Name</DialogTitle>
           <DialogContent>
             {/* <DialogContentText>
-To subscribe to this website, please enter your email address here. We will send
-updates occasionally.
-</DialogContentText> */}
+                To subscribe to this website, please enter your email address here. We will send
+                updates occasionally.
+              </DialogContentText> */}
             <TextField
               autoFocus
               margin="dense"
@@ -331,18 +357,18 @@ updates occasionally.
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleCloseDialog} color="secondary">
+            <Button onClick={handleCloseDialog} color="secondary">
               Cancel
             </Button>
-            <Button onClick={this.handleCloseDialog} color="secondary">
+            <Button onClick={handleCloseDialog} color="secondary">
               Save
             </Button>
           </DialogActions>
         </Dialog>
 
         <Dialog
-          open={this.state.geoSelectDialogOpen}
-          onClose={this.handleGeoClose}
+          open={geoSelectDialogOpen}
+          onClose={handleGeoClose}
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">Business Location</DialogTitle>
@@ -357,10 +383,10 @@ updates occasionally.
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleCloseGeoDialog} color="secondary">
+            <Button onClick={handleCloseGeoDialog} color="secondary">
               Cancel
             </Button>
-            <Button onClick={this.handleCloseGeoDialog} color="secondary">
+            <Button onClick={handleCloseGeoDialog} color="secondary">
               Save
             </Button>
           </DialogActions>
@@ -420,7 +446,7 @@ updates occasionally.
               </Card>
             </FuseAnimateGroup>
           </div>
- */}
+          */}
 
           <div className="flex flex-col flex-1 xxw-screen xxm-0 xxp-0 md:pr-32">
             <FuseAnimateGroup
@@ -444,11 +470,11 @@ updates occasionally.
                       aria-haspopup="false"
                       aria-controls="username"
                       aria-label="username"
-                      onClick={this.handleClickListItemContact}
+                      onClick={handleClickListItemContact}
                     >
                       <ListItemText
                         primary="Name"
-                        secondary={this.state.name}
+                        secondary={name}
                       />
                     </ListItem>
                     <ListItem
@@ -456,11 +482,11 @@ updates occasionally.
                       aria-haspopup="false"
                       aria-controls="email"
                       aria-label="email"
-                      onClick={this.handleClickListItemContact}
+                      onClick={handleClickListItemContact}
                     >
                       <ListItemText
                         primary="Email"
-                        secondary={this.state.email}
+                        secondary={email}
                       />
                     </ListItem>
                     <ListItem
@@ -468,11 +494,11 @@ updates occasionally.
                       aria-haspopup="true"
                       aria-controls="mobile"
                       aria-label="mobile"
-                      onClick={this.handleClickListItemContact}
+                      onClick={handleClickListItemContact}
                     >
                       <ListItemText
                         primary="Mobile"
-                        secondary={this.state.mobile}
+                        secondary={mobile}
                       />
                     </ListItem>
                   </List>
@@ -503,11 +529,11 @@ updates occasionally.
                       aria-haspopup="true"
                       aria-controls="menu2"
                       aria-label="Type"
-                      onClick={this.handleClickListItemMenu2}
+                      onClick={handleClickListItemMenu2}
                     >
                       <ListItemText
                         primary="Type"
-                        secondary={optionsMenu2[this.state.selectedIndexMenu2]}
+                        secondary={optionsMenu2[selectedIndexMenu2]}
                       />
                     </ListItem>
                     <ListItem
@@ -515,13 +541,13 @@ updates occasionally.
                       aria-haspopup="true"
                       aria-controls="menu2"
                       aria-label="Type"
-                      onClick={this.handleClickListItemGeoSelect}
+                      onClick={handleClickListItemGeoSelect}
                     >
                       <ListItemText
                         primary="Location"
                         secondary={
                           isValidGeo ? `${geoLocal}, ${geoRegion}, ${geoNation}`
-                          : 'Click to select...'
+                            : 'Click to select...'
                         }
                       />
                     </ListItem>
@@ -530,24 +556,6 @@ updates occasionally.
               </Card>
             </FuseAnimateGroup>
           </div>
-
-          <Menu
-            id="menu2"
-            anchorEl={anchorElMenu2}
-            open={Boolean(anchorElMenu2)}
-            onClose={this.handleCloseMenu2}
-          >
-            {optionsMenu2.map((option, index) => (
-              <MenuItem
-                key={option}
-                disabled={index === 0}
-                selected={index === this.state.selectedIndexMenu2}
-                onClick={event => this.handleMenuItemClickMenu2(event, index)}
-              >
-                {option}
-              </MenuItem>
-            ))}
-          </Menu>
 
         </div >
       </React.Fragment >

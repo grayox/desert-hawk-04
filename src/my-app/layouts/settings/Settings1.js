@@ -23,6 +23,10 @@ import GeoStepper from 'my-app/components/steppers/GeoStepper';
 // import Switch from '@material-ui/core/Switch';
 import Checkbox from '@material-ui/core/Checkbox';
 
+import ProfilePage from 'my-app/profile-orig/ProfilePage.js'
+
+// note that we rolled src/my-app/profile-orig/ProfilePage.js into src/my-app/layouts/settings/Settings.js
+
 // firebase
 // import firebase from '@firebase/app';
 // import '@firebase/firestore';
@@ -116,117 +120,7 @@ function Settings(props) {
   // }
 
   return (
-    <SplitScreen
-      left={
-        <div>
-          <List
-            component="nav"
-            subheader={
-              <ListSubheader component="div" className="uppercase">
-                YOUR DETAILS
-              </ListSubheader>
-            }
-          >
-          </List>
-          <List className={classes.root}>
-            <ControlledExpansionPanel
-              heading='Name'
-              secondaryHeading='Name'
-              content={
-                <TextField
-                  fullWidth
-                  id="standard-name"
-                  label="Name"
-                  className={classes.textField}
-                  // value={this.state.name}
-                  onChange={handleChange('name')}
-                  margin="normal"
-                />
-              }
-            />
-            <ControlledExpansionPanel
-              heading='Email'
-              secondaryHeading='Email'
-              content={
-                <TextField
-                  fullWidth
-                  id="standard-email"
-                  label="Email"
-                  className={classes.textField}
-                  // value={this.state.name}
-                  onChange={handleChange('email')}
-                  margin="normal"
-                />
-              }
-            />
-            <ControlledExpansionPanel
-              heading='Location'
-              secondaryHeading='Select'
-              content={<GeoStepper />}
-            />
-            <SimpleListMenu
-              heading='Business type'
-              options={optionsBizType}
-            />
-          </List>
-          <List
-            component="nav"
-            subheader={
-              <ListSubheader component="div" className="uppercase">
-                Automation Options
-              </ListSubheader>
-            }
-          >
-            {/* <ListItem>
-              <ListItemIcon>
-                <WifiIcon />
-              </ListItemIcon>
-              <ListItemText primary="Wi-Fi" />
-              <ListItemSecondaryAction>
-                <Switch
-                // onChange={this.handleToggle('wifi')}
-                // checked={this.state.checked.indexOf('wifi') !== -1}
-                />
-              </ListItemSecondaryAction>
-            </ListItem> */}
-          </List>
-          <List className={classes.root}>
-            {optionsAutomation.map(value => (
-              <ListItem
-                key={value}
-                // role={undefined}
-                // dense
-                button
-                // onClick={this.handleToggle(value)}
-                className={classes.listItem}
-              >
-                <Checkbox
-                  // checked={this.state.checked.indexOf(value) !== -1}
-                  tabIndex={-1}
-                  disableRipple
-                />
-                <ListItemText primary={value} />
-                <ListItemSecondaryAction>
-                  {/* <IconButton aria-label="Comments">
-                    <CommentIcon />
-                  </IconButton> */}
-                </ListItemSecondaryAction>
-              </ListItem>
-            ))}
-          </List>
-        </div>
-      }
-      right={
-        <div>
-          <CreateLead />
-          <UserMultiForm
-            heading='Settings'
-            savePath={path}
-            geoStepperLabel='Your location'
-          />
-        </div>
-      }
-    />
+    <ProfilePage/>
   );
 }
 

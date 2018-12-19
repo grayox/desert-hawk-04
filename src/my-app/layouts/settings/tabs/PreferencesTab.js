@@ -1,249 +1,240 @@
-import React, {Component} from 'react';
-import {withStyles} from '@material-ui/core/styles/index';
-import axios from 'axios/index';
-import {Avatar, AppBar, Button, Card, CardContent, Icon, IconButton, List, ListItem, ListItemSecondaryAction, ListItemText, Toolbar, Typography} from '@material-ui/core';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
-import {FuseAnimateGroup} from '@fuse';
 
-// this page was copied from ./AboutTab
+import { Avatar, AppBar, Button, Card, CardContent, Icon, IconButton, List, ListItem, ListItemSecondaryAction, ListItemText, Toolbar, Typography } from '@material-ui/core';
+import { FuseAnimateGroup } from '@fuse';
+
+// import List from '@material-ui/core/List';
+// import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+// import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+// import ListItemText from '@material-ui/core/ListItemText';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import Switch from '@material-ui/core/Switch';
+
+import WifiIcon from '@material-ui/icons/Wifi';
+import BluetoothIcon from '@material-ui/icons/Bluetooth';
 
 const styles = theme => ({
-    root: {}
+  root: {
+    width: '100%',
+    // maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
+  },
 });
 
-class PreferencesTab extends Component {
+class PreferencesTab extends React.Component {
+  state = {
+    checked: ['wifi'],
+  };
 
-    state = {
-        general: null,
-        work   : null,
-        contact: null,
-        groups : null,
-        friends: null
-    };
+  handleToggle = value => () => {
+    const { checked } = this.state;
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];
 
-    componentDidMount()
-    {
-        axios.get('/api/profile/about').then(res => {
-            this.setState(res.data);
-        });
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
     }
 
-    render()
-    {
-        const {classes} = this.props;
-        const {general, work, contact, groups, friends} = this.state;
+    this.setState({
+      checked: newChecked,
+    });
+  };
 
-        return (
-            <div className={classNames(classes.root, "md:flex max-w-2xl")}>
+  render() {
+    const { classes } = this.props;
 
-                <div className="flex flex-col flex-1 md:pr-32">
-                    <FuseAnimateGroup
-                        enter={{
-                            animation: "transition.slideUpBigIn"
-                        }}
+    return (
+      <React.Fragment>
+
+        {/* "Block-level" group of two cards on this row */}
+        <div className={classNames(classes.root, "md:flex max-w-2xl")}>
+
+          <div className="flex flex-col flex-1 md:pr-32">
+            <FuseAnimateGroup
+              enter={{
+                animation: "transition.slideLeftBigIn"
+              }}
+            >
+              <Card className="w-full mb-16">
+                <AppBar position="static" elevation={0}>
+                  <Toolbar className="pl-16 pr-8">
+                    <Typography variant="subtitle1" color="inherit" className="flex-1">
+                      Automation
+                    </Typography>
+                  </Toolbar>
+                </AppBar>
+
+                <CardContent className="px-0">
+                  <List
+                    className={classes.root}
+                    // subheader={<ListSubheader>Automation</ListSubheader>}
                     >
-                        {general && (
-                            <Card className="w-full mb-16">
-                                <AppBar position="static" elevation={0}>
-                                    <Toolbar className="pl-16 pr-8">
-                                        <Typography variant="subtitle1" color="inherit" className="flex-1">
-                                            General Information
-                                        </Typography>
-                                    </Toolbar>
-                                </AppBar>
+                    <ListItem>
+                      <ListItemIcon>
+                        <WifiIcon />
+                      </ListItemIcon>
+                      <ListItemText
+                        primary='Claim new leads'
+                        secondary={
+                          this.state.checked.indexOf('wifi') !== -1 ?
+                          'Automatic (send to archive)' :
+                          'Manual (inspect inbox)'
+                        }
+                      />
+                      <ListItemSecondaryAction>
+                        <Switch
+                          onChange={this.handleToggle('wifi')}
+                          checked={this.state.checked.indexOf('wifi') !== -1}
+                        />
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                  </List>
+                  <List subheader={<ListSubheader>Notify me</ListSubheader>} className={classes.root}>
+                    <ListItem>
+                      <ListItemIcon>
+                        <WifiIcon />
+                      </ListItemIcon>
+                      <ListItemText
+                        primary="Text"
+                        secondary={
+                          this.state.checked.indexOf('wifi') !== -1 ?
+                          'Automatic' :
+                          'Do not text'
+                        }
+                      />
+                      <ListItemSecondaryAction>
+                        <Switch
+                          onChange={this.handleToggle('wifi')}
+                          checked={this.state.checked.indexOf('wifi') !== -1}
+                        />
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                    <ListItem>
+                      <ListItemIcon>
+                        <BluetoothIcon />
+                      </ListItemIcon>
+                      <ListItemText
+                        primary="Email"
+                        secondary={
+                          this.state.checked.indexOf('bluetooth') !== -1 ?
+                          'Automatic' :
+                          'Do not email'
+                        }
+                      />
+                      <ListItemSecondaryAction>
+                        <Switch
+                          onChange={this.handleToggle('bluetooth')}
+                          checked={this.state.checked.indexOf('bluetooth') !== -1}
+                        />
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                  </List>
+                  <List subheader={<ListSubheader>Notify prospects</ListSubheader>} className={classes.root}>
+                    <ListItem>
+                      <ListItemIcon>
+                        <WifiIcon />
+                      </ListItemIcon>
+                      <ListItemText
+                        primary="Text"
+                        secondary={
+                          this.state.checked.indexOf('wifi') !== -1 ?
+                          'Automatic' :
+                          'Do not text'
+                        }
+                      />
+                      <ListItemSecondaryAction>
+                        <Switch
+                          onChange={this.handleToggle('wifi')}
+                          checked={this.state.checked.indexOf('wifi') !== -1}
+                        />
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                    <ListItem>
+                      <ListItemIcon>
+                        <BluetoothIcon />
+                      </ListItemIcon>
+                      <ListItemText
+                        primary="Email"
+                        secondary={
+                          this.state.checked.indexOf('bluetooth') !== -1 ?
+                          'Automatic' :
+                          'Do not email'
+                        }
+                      />
+                      <ListItemSecondaryAction>
+                        <Switch
+                          onChange={this.handleToggle('bluetooth')}
+                          checked={this.state.checked.indexOf('bluetooth') !== -1}
+                        />
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                  </List>
 
-                                <CardContent>
-                                    <div className="mb-24">
-                                        <Typography className="font-bold mb-4 text-15">Gender</Typography>
-                                        <Typography>{general.gender}</Typography>
-                                    </div>
+                </CardContent>
+              </Card>
+            </FuseAnimateGroup>
+          </div>
 
-                                    <div className="mb-24">
-                                        <Typography className="font-bold mb-4 text-15">Birthday</Typography>
-                                        <Typography>{general.birthday}</Typography>
-                                    </div>
+          <div className="flex flex-col flex-1 xxw-screen xxm-0 xxp-0 md:pr-32">
+            <FuseAnimateGroup
+              enter={{
+                animation: "transition.slideLeftBigIn"
+              }}
+            >
+              <Card className="xxw-screen xxm-0 xxmd:xxmb-16 w-full mb-16">
+                <AppBar position="static" elevation={0}>
+                  <Toolbar className="pl-16 pr-8">
+                    <Typography variant="subtitle1" color="inherit" className="flex-1">
+                      Display
+                    </Typography>
+                  </Toolbar>
+                </AppBar>
 
-                                    <div className="mb-24">
-                                        <Typography className="font-bold mb-4 text-15">Locations</Typography>
+                <CardContent className="px-0">
 
-                                        {general.locations.map((location) => (
-                                            <div className="flex items-center" key={location}>
-                                                <Typography>{location}</Typography>
-                                                <Icon className="text-16 ml-4" color="action">location_on</Icon>
-                                            </div>
-                                        ))}
-                                    </div>
 
-                                    <div className="mb-24">
-                                        <Typography className="font-bold mb-4 text-15">About Me</Typography>
-                                        <Typography>{general.about}</Typography>
-                                    </div>
+                  <List subheader={<ListSubheader>Background</ListSubheader>} className={classes.root}>
+                    <ListItem>
+                      <ListItemIcon>
+                        <WifiIcon />
+                      </ListItemIcon>
+                      <ListItemText
+                        primary='Background'
+                        secondary={
+                          this.state.checked.indexOf('wifi') !== -1 ?
+                          'Dark (saves battery)' :
+                          'Light'
+                        }
+                      />
+                      <ListItemSecondaryAction>
+                        <Switch
+                          onChange={this.handleToggle('wifi')}
+                          checked={this.state.checked.indexOf('wifi') !== -1}
+                        />
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                  </List>
 
-                                </CardContent>
-                            </Card>
-                        )}
+                </CardContent>
+              </Card>
+            </FuseAnimateGroup>
+          </div>
 
-                        {work && (
-                            <Card className="w-full mb-16">
-                                <AppBar position="static" elevation={0}>
-                                    <Toolbar className="pl-16 pr-8">
-                                        <Typography variant="subtitle1" color="inherit" className="flex-1">
-                                            Work
-                                        </Typography>
-                                    </Toolbar>
-                                </AppBar>
 
-                                <CardContent>
-                                    <div className="mb-24">
-                                        <Typography className="font-bold mb-4 text-15">Occupation</Typography>
-                                        <Typography>{work.occupation}</Typography>
-                                    </div>
-
-                                    <div className="mb-24">
-                                        <Typography className="font-bold mb-4 text-15">Skills</Typography>
-                                        <Typography>{work.skills}</Typography>
-                                    </div>
-
-                                    <div className="mb-24">
-                                        <Typography className="font-bold mb-4 text-15">Jobs</Typography>
-                                        <table className="">
-                                            <tbody>
-                                                {work.jobs.map((job) => (
-                                                    <tr key={job.company}>
-                                                        <td className="pr-16">
-                                                            <Typography>{job.company}</Typography>
-                                                        </td>
-                                                        <td>
-                                                            <Typography color="textSecondary">{job.date}</Typography>
-                                                        </td>
-                                                    </tr>
-                                                ))}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        )}
-
-                        {contact && (
-                            <Card className="w-full mb-16">
-                                <AppBar position="static" elevation={0}>
-                                    <Toolbar className="pl-16 pr-8">
-                                        <Typography variant="subtitle1" color="inherit" className="flex-1">
-                                            Contact
-                                        </Typography>
-                                    </Toolbar>
-                                </AppBar>
-
-                                <CardContent>
-                                    <div className="mb-24">
-                                        <Typography className="font-bold mb-4 text-15">Address</Typography>
-                                        <Typography>{contact.address}</Typography>
-                                    </div>
-
-                                    <div className="mb-24">
-                                        <Typography className="font-bold mb-4 text-15">Tel.</Typography>
-
-                                        {contact.tel.map((tel) => (
-                                            <div className="flex items-center" key={tel}>
-                                                <Typography>{tel}</Typography>
-                                            </div>
-                                        ))}
-                                    </div>
-
-                                    <div className="mb-24">
-                                        <Typography className="font-bold mb-4 text-15">Website</Typography>
-
-                                        {contact.websites.map((website) => (
-                                            <div className="flex items-center" key={website}>
-                                                <Typography>{website}</Typography>
-                                            </div>
-                                        ))}
-                                    </div>
-
-                                    <div className="mb-24">
-                                        <Typography className="font-bold mb-4 text-15">Emails</Typography>
-
-                                        {contact.emails.map((email) => (
-                                            <div className="flex items-center" key={email}>
-                                                <Typography>{email}</Typography>
-                                            </div>
-                                        ))}
-                                    </div>
-
-                                </CardContent>
-                            </Card>
-                        )}
-                    </FuseAnimateGroup>
-                </div>
-
-                <div className="flex flex-col md:w-320">
-                    <FuseAnimateGroup
-                        enter={{
-                            animation: "transition.slideUpBigIn"
-                        }}
-                    >
-                        <Card className="w-full mb-16">
-                            <AppBar position="static" elevation={0}>
-                                <Toolbar className="pl-16 pr-8">
-                                    <Typography variant="subtitle1" color="inherit" className="flex-1">
-                                        Friends
-                                    </Typography>
-                                    <Button className="normal-case" color="inherit" size="small">See 454 more</Button>
-                                </Toolbar>
-                            </AppBar>
-                            <CardContent className="p-0">
-                                <List className="p-8">
-                                    {friends && friends.map((friend) => (
-                                        <img key={friend.id} className="w-64 m-4" src={friend.avatar} alt={friend.name}/>
-                                    ))}
-                                </List>
-                            </CardContent>
-                        </Card>
-
-                        <Card className="w-full mb-16">
-                            <AppBar position="static" elevation={0}>
-                                <Toolbar className="pl-16 pr-8">
-                                    <Typography variant="subtitle1" color="inherit" className="flex-1">
-                                        Joined Groups
-                                    </Typography>
-                                    <Button className="normal-case" color="inherit" size="small">See 6 more</Button>
-                                </Toolbar>
-                            </AppBar>
-                            <CardContent className="p-0">
-                                <List className="p-0">
-                                    {groups && groups.map((group) => (
-                                        <ListItem key={group.id}>
-                                            <Avatar alt={group.name}>{group.name[0]}</Avatar>
-                                            <ListItemText
-                                                primary={(
-                                                    <div className="">
-                                                        <Typography className="inline font-medium" color="primary" paragraph={false}>
-                                                            {group.name}
-                                                        </Typography>
-
-                                                        <Typography className="inline ml-4" paragraph={false}>
-                                                            {group.category}
-                                                        </Typography>
-                                                    </div>
-                                                )}
-                                                secondary={group.members}
-                                            />
-                                            <ListItemSecondaryAction>
-                                                <IconButton>
-                                                    <Icon>more_vert</Icon>
-                                                </IconButton>
-                                            </ListItemSecondaryAction>
-                                        </ListItem>
-                                    ))}
-                                </List>
-                            </CardContent>
-                        </Card>
-                    </FuseAnimateGroup>
-                </div>
-            </div>
-        );
-    }
+        </div>
+      </React.Fragment>
+    );
+  }
 }
 
-export default withStyles(styles, {withTheme: true})(PreferencesTab);
+PreferencesTab.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(PreferencesTab);
