@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles/index';
 import classNames from 'classnames';
 
 import axios from 'axios/index';
-import { Avatar, AppBar, Button, Card, CardContent, Icon, IconButton, List, ListItem, ListItemSecondaryAction, ListItemText, Toolbar, Typography } from '@material-ui/core';
+import { Avatar, AppBar, Button, Card, CardContent, Icon, IconButton, List, ListItem, ListItemIcon, ListItemSecondaryAction, ListItemText, Toolbar, Typography } from '@material-ui/core';
 import { FuseAnimateGroup } from '@fuse';
 
 import ImageIcon from '@material-ui/icons/Image';
@@ -20,6 +20,12 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+
+import PersonIcon from '@material-ui/icons/Person';
+import EmailIcon from '@material-ui/icons/Email';
+import SmartphoneIcon from '@material-ui/icons/Smartphone';
+import ExtensionIcon from '@material-ui/icons/Extension';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
 
 // import SettingsStepper from 'my-app/components/steppers/SettingsStepper';
 import GeoStepper from 'my-app/components/steppers/GeoStepper'; // see 'class UserMultiForm' for more examples
@@ -472,6 +478,9 @@ class DetailsTab extends Component {
                       aria-label="username"
                       onClick={handleClickListItemContact}
                     >
+                      <ListItemIcon>
+                        <PersonIcon />
+                      </ListItemIcon>
                       <ListItemText
                         primary="Name"
                         secondary={name}
@@ -484,6 +493,9 @@ class DetailsTab extends Component {
                       aria-label="email"
                       onClick={handleClickListItemContact}
                     >
+                      <ListItemIcon>
+                        <EmailIcon />
+                      </ListItemIcon>
                       <ListItemText
                         primary="Email"
                         secondary={email}
@@ -496,6 +508,9 @@ class DetailsTab extends Component {
                       aria-label="mobile"
                       onClick={handleClickListItemContact}
                     >
+                      <ListItemIcon>
+                        <SmartphoneIcon />
+                      </ListItemIcon>
                       <ListItemText
                         primary="Mobile"
                         secondary={mobile}
@@ -531,6 +546,9 @@ class DetailsTab extends Component {
                       aria-label="Type"
                       onClick={handleClickListItemMenu2}
                     >
+                      <ListItemIcon>
+                        <ExtensionIcon />
+                      </ListItemIcon>
                       <ListItemText
                         primary="Type"
                         secondary={optionsMenu2[selectedIndexMenu2]}
@@ -543,6 +561,9 @@ class DetailsTab extends Component {
                       aria-label="Type"
                       onClick={handleClickListItemGeoSelect}
                     >
+                      <ListItemIcon>
+                        <LocationOnIcon />
+                      </ListItemIcon>
                       <ListItemText
                         primary="Location"
                         secondary={

@@ -14,8 +14,11 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import Switch from '@material-ui/core/Switch';
 
-import WifiIcon from '@material-ui/icons/Wifi';
-import BluetoothIcon from '@material-ui/icons/Bluetooth';
+import AddLocationIcon from '@material-ui/icons/AddLocation';
+import EmailIcon from '@material-ui/icons/Email';
+import TextsmsIcon from '@material-ui/icons/Textsms';
+import Brightness4Icon from '@material-ui/icons/Brightness4';
+import NotInterestedIcon from '@material-ui/icons/NotInterested';
 
 const styles = theme => ({
   root: {
@@ -27,7 +30,7 @@ const styles = theme => ({
 
 class PreferencesTab extends React.Component {
   state = {
-    checked: ['wifi'],
+    checked: [],
   };
 
   handleToggle = value => () => {
@@ -77,20 +80,24 @@ class PreferencesTab extends React.Component {
                     >
                     <ListItem>
                       <ListItemIcon>
-                        <WifiIcon />
+                        {
+                          this.state.checked.indexOf('claim') !== -1 ?
+                          <AddLocationIcon /> :
+                          <NotInterestedIcon />
+                        }
                       </ListItemIcon>
                       <ListItemText
                         primary='Claim new leads'
                         secondary={
-                          this.state.checked.indexOf('wifi') !== -1 ?
-                          'Automatic (send to archive)' :
+                          this.state.checked.indexOf('claim') !== -1 ?
+                          'Automatic (forward to archive)' :
                           'Manual (inspect inbox)'
                         }
                       />
                       <ListItemSecondaryAction>
                         <Switch
-                          onChange={this.handleToggle('wifi')}
-                          checked={this.state.checked.indexOf('wifi') !== -1}
+                          onChange={this.handleToggle('claim')}
+                          checked={this.state.checked.indexOf('claim') !== -1}
                         />
                       </ListItemSecondaryAction>
                     </ListItem>
@@ -98,39 +105,47 @@ class PreferencesTab extends React.Component {
                   <List subheader={<ListSubheader>Notify me</ListSubheader>} className={classes.root}>
                     <ListItem>
                       <ListItemIcon>
-                        <WifiIcon />
+                        {
+                          this.state.checked.indexOf('textMe') !== -1 ?
+                          <TextsmsIcon /> :
+                          <NotInterestedIcon />
+                        }
                       </ListItemIcon>
                       <ListItemText
                         primary="Text"
                         secondary={
-                          this.state.checked.indexOf('wifi') !== -1 ?
+                          this.state.checked.indexOf('textMe') !== -1 ?
                           'Automatic' :
-                          'Do not text'
+                          'Do not text me'
                         }
                       />
                       <ListItemSecondaryAction>
                         <Switch
-                          onChange={this.handleToggle('wifi')}
-                          checked={this.state.checked.indexOf('wifi') !== -1}
+                          onChange={this.handleToggle('textMe')}
+                          checked={this.state.checked.indexOf('textMe') !== -1}
                         />
                       </ListItemSecondaryAction>
                     </ListItem>
                     <ListItem>
                       <ListItemIcon>
-                        <BluetoothIcon />
+                        {
+                          this.state.checked.indexOf('emailMe') !== -1 ?
+                          <EmailIcon /> :
+                          <NotInterestedIcon />
+                        }
                       </ListItemIcon>
                       <ListItemText
                         primary="Email"
                         secondary={
-                          this.state.checked.indexOf('bluetooth') !== -1 ?
+                          this.state.checked.indexOf('emailMe') !== -1 ?
                           'Automatic' :
-                          'Do not email'
+                          'Do not email me'
                         }
                       />
                       <ListItemSecondaryAction>
                         <Switch
-                          onChange={this.handleToggle('bluetooth')}
-                          checked={this.state.checked.indexOf('bluetooth') !== -1}
+                          onChange={this.handleToggle('emailMe')}
+                          checked={this.state.checked.indexOf('emailMe') !== -1}
                         />
                       </ListItemSecondaryAction>
                     </ListItem>
@@ -138,39 +153,47 @@ class PreferencesTab extends React.Component {
                   <List subheader={<ListSubheader>Notify prospects</ListSubheader>} className={classes.root}>
                     <ListItem>
                       <ListItemIcon>
-                        <WifiIcon />
+                        {
+                          this.state.checked.indexOf('textProspect') !== -1 ?
+                          <TextsmsIcon /> :
+                          <NotInterestedIcon />
+                        }
                       </ListItemIcon>
                       <ListItemText
                         primary="Text"
                         secondary={
-                          this.state.checked.indexOf('wifi') !== -1 ?
+                          this.state.checked.indexOf('textProspect') !== -1 ?
                           'Automatic' :
-                          'Do not text'
+                          'Do not text prospect'
                         }
                       />
                       <ListItemSecondaryAction>
                         <Switch
-                          onChange={this.handleToggle('wifi')}
-                          checked={this.state.checked.indexOf('wifi') !== -1}
+                          onChange={this.handleToggle('textProspect')}
+                          checked={this.state.checked.indexOf('textProspect') !== -1}
                         />
                       </ListItemSecondaryAction>
                     </ListItem>
                     <ListItem>
                       <ListItemIcon>
-                        <BluetoothIcon />
+                        {
+                          this.state.checked.indexOf('emailProspect') !== -1 ?
+                          <EmailIcon /> :
+                          <NotInterestedIcon />
+                        }
                       </ListItemIcon>
                       <ListItemText
                         primary="Email"
                         secondary={
-                          this.state.checked.indexOf('bluetooth') !== -1 ?
+                          this.state.checked.indexOf('emailProspect') !== -1 ?
                           'Automatic' :
-                          'Do not email'
+                          'Do not email prospect'
                         }
                       />
                       <ListItemSecondaryAction>
                         <Switch
-                          onChange={this.handleToggle('bluetooth')}
-                          checked={this.state.checked.indexOf('bluetooth') !== -1}
+                          onChange={this.handleToggle('emailProspect')}
+                          checked={this.state.checked.indexOf('emailProspect') !== -1}
                         />
                       </ListItemSecondaryAction>
                     </ListItem>
@@ -199,23 +222,30 @@ class PreferencesTab extends React.Component {
                 <CardContent className="px-0">
 
 
-                  <List subheader={<ListSubheader>Background</ListSubheader>} className={classes.root}>
+                  <List
+                    className={classes.root}
+                    // subheader={<ListSubheader>Background</ListSubheader>}
+                  >
                     <ListItem>
                       <ListItemIcon>
-                        <WifiIcon />
+                        {
+                          this.state.checked.indexOf('dark') !== -1 ?
+                          <Brightness4Icon /> :
+                          <NotInterestedIcon />
+                        }
                       </ListItemIcon>
                       <ListItemText
                         primary='Background'
                         secondary={
-                          this.state.checked.indexOf('wifi') !== -1 ?
+                          this.state.checked.indexOf('dark') !== -1 ?
                           'Dark (saves battery)' :
                           'Light'
                         }
                       />
                       <ListItemSecondaryAction>
                         <Switch
-                          onChange={this.handleToggle('wifi')}
-                          checked={this.state.checked.indexOf('wifi') !== -1}
+                          onChange={this.handleToggle('dark')}
+                          checked={this.state.checked.indexOf('dark') !== -1}
                         />
                       </ListItemSecondaryAction>
                     </ListItem>
