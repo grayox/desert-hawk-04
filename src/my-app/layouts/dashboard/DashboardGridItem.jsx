@@ -58,7 +58,9 @@ function DashboardGridItem(props) {
               {React.createElement(InfoIconOutline)}
             </IconButton>
           </div>
-          <div className={classes.stats}>{item.btn}</div>
+          <div className={classes.stats}>
+            <Typography className="text-right">{item.btn}</Typography>
+          </div>
         </CardFooter>
       </Card>
     </GridItem>

@@ -171,7 +171,6 @@ function mapDispatchToProps(dispatch)
     }, dispatch);
 }
 
-
 function mapStateToProps({auth})
 {
     return {

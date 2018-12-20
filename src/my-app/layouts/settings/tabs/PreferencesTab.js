@@ -14,18 +14,18 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import Switch from '@material-ui/core/Switch';
 
-import AddLocationIcon from '@material-ui/icons/AddLocation';
 import EmailIcon from '@material-ui/icons/Email';
 import TextsmsIcon from '@material-ui/icons/Textsms';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
+import AddLocationIcon from '@material-ui/icons/AddLocation';
 import NotInterestedIcon from '@material-ui/icons/NotInterested';
 
 const styles = theme => ({
   root: {
     width: '100%',
     // maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
+    // backgroundColor: theme.palette.background.paper,
   },
 });
 
@@ -100,7 +100,6 @@ class PreferencesTab extends React.Component {
 
     const {
       anchorElMenu1, anchorElMenu2,
-      dialog1open, dialog2open,
       selectedIndexMenu1, selectedIndexMenu2,
     } = this.state;
 

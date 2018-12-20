@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles/index';
 import classNames from 'classnames';
 
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+
 import axios from 'axios/index';
 import { Avatar, AppBar, Button, Card, CardContent, Icon, IconButton, List, ListItem, ListItemIcon, ListItemSecondaryAction, ListItemText, Toolbar, Typography } from '@material-ui/core';
 import { FuseAnimateGroup } from '@fuse';
@@ -21,11 +24,12 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import PersonIcon from '@material-ui/icons/Person';
 import EmailIcon from '@material-ui/icons/Email';
-import SmartphoneIcon from '@material-ui/icons/Smartphone';
+import PersonIcon from '@material-ui/icons/Person';
 import ExtensionIcon from '@material-ui/icons/Extension';
+import SmartphoneIcon from '@material-ui/icons/Smartphone';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
+import PermContactCalendarIcon from '@material-ui/icons/PermContactCalendar';
 
 // import SettingsStepper from 'my-app/components/steppers/SettingsStepper';
 import GeoStepper from 'my-app/components/steppers/GeoStepper'; // see 'class UserMultiForm' for more examples
@@ -218,7 +222,7 @@ class DetailsTab extends Component {
   }
 
   render() {
-    const { classes, } = this.props;
+    const { classes, user, } = this.props;
     // const { general, work, contact, } = this.state;
     const {
       anchorElMenu1, anchorElMenu2,
@@ -369,7 +373,7 @@ class DetailsTab extends Component {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleCloseDialog} color="secondary">
+            <Button onClick={handleCloseDialog} color="primary">
               Cancel
             </Button>
             <Button onClick={handleCloseDialog} color="secondary">
@@ -395,7 +399,7 @@ class DetailsTab extends Component {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleCloseGeoDialog} color="secondary">
+            <Button onClick={handleCloseGeoDialog} color="primary">
               Cancel
             </Button>
             <Button onClick={handleCloseGeoDialog} color="secondary">
@@ -485,11 +489,13 @@ class DetailsTab extends Component {
                       onClick={handleClickListItemContact}
                     >
                       <ListItemIcon>
-                        <PersonIcon />
+                        {/* <PersonIcon /> */}
+                        <PermContactCalendarIcon />
                       </ListItemIcon>
                       <ListItemText
                         primary="Name"
-                        secondary={name}
+                        // secondary={name}
+                        secondary={user.data.displayName}
                       />
                     </ListItem>
                     <ListItem
@@ -504,7 +510,8 @@ class DetailsTab extends Component {
                       </ListItemIcon>
                       <ListItemText
                         primary="Email"
-                        secondary={email}
+                        // secondary={email}
+                        secondary={user.data.email}
                       />
                     </ListItem>
                     <ListItem
@@ -519,7 +526,8 @@ class DetailsTab extends Component {
                       </ListItemIcon>
                       <ListItemText
                         primary="Mobile"
-                        secondary={mobile}
+                        // secondary={mobile}
+                        secondary={ user.data.phoneNumber || 'Click to enter...' }
                       />
                     </ListItem>
                   </List>
@@ -594,4 +602,21 @@ DetailsTab.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles, { withTheme: true })(DetailsTab);
+function mapDispatchToProps(dispatch)
+{
+    return bindActionCreators({
+        // toggleQuickPanel: quickPanelActions.toggleQuickPanel,
+        // logout          : authActions.logoutUser,
+        // openChatPanel   : chatPanelActions.openChatPanel
+    }, dispatch);
+}
+
+function mapStateToProps({auth})
+{
+    return {
+        user: auth.user
+    }
+}
+
+// export default withStyles(styles, { withTheme: true })(DetailsTab);
+export default withStyles(styles, {withTheme: true})(connect(mapStateToProps, mapDispatchToProps)(DetailsTab));
