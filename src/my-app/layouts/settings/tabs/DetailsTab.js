@@ -68,13 +68,13 @@ const INITIAL_STATE = {
   isValidForm: false,
 
   isErrorName: false,
-  isErrorEmail: false,
   helperTextName: '',
+  isErrorEmail: false,
   helperTextEmail: '',
 
   anchorElMenu1: null,
-  anchorElMenu2: null,
   selectedIndexMenu1: 1,
+  anchorElMenu2: null,
   selectedIndexMenu2: 1,
 
   name: 'Maria Le',
@@ -169,6 +169,8 @@ class DetailsTab extends Component {
   //   });
   // }
 
+  // --------------------------------
+
   handleClickListItemMenu1 = event => {
     this.setState({ anchorElMenu1: event.currentTarget });
   };
@@ -180,6 +182,8 @@ class DetailsTab extends Component {
   handleCloseMenu1 = () => {
     this.setState({ anchorElMenu1: null });
   };
+
+  // --------------------------------
 
   handleClickListItemMenu2 = event => {
     this.setState({ anchorElMenu2: event.currentTarget });
@@ -193,17 +197,19 @@ class DetailsTab extends Component {
     this.setState({ anchorElMenu2: null });
   };
 
+  // --------------------------------
+
   handleClickListItemContact = event => {
     this.setState({ nameDialogOpen: true, });
-  }
-
-  handleClickListItemGeoSelect = event => {
-    this.setState({ geoSelectDialogOpen: true, });
   }
 
   handleCloseDialog = event => {
     // console.log('event\n', event.target);
     this.setState({ nameDialogOpen: false, });
+  }
+
+  handleClickListItemGeoSelect = event => {
+    this.setState({ geoSelectDialogOpen: true, });
   }
 
   handleCloseGeoDialog = event => {

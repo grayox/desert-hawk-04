@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 
-import { Avatar, AppBar, Button, Card, CardContent, Icon, IconButton, List, ListItem, ListItemSecondaryAction, ListItemText, Toolbar, Typography } from '@material-ui/core';
+import { Avatar, AppBar, Button, Card, CardContent, Icon, IconButton, List, ListItem, ListItemSecondaryAction, Menu, MenuItem, ListItemText, Toolbar, Typography } from '@material-ui/core';
 import { FuseAnimateGroup } from '@fuse';
 
 // import List from '@material-ui/core/List';
@@ -17,6 +17,7 @@ import Switch from '@material-ui/core/Switch';
 import AddLocationIcon from '@material-ui/icons/AddLocation';
 import EmailIcon from '@material-ui/icons/Email';
 import TextsmsIcon from '@material-ui/icons/Textsms';
+import DashboardIcon from '@material-ui/icons/Dashboard';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import NotInterestedIcon from '@material-ui/icons/NotInterested';
 
@@ -28,10 +29,55 @@ const styles = theme => ({
   },
 });
 
+const optionsMenu1 = [
+  'Light',
+  'Dark (saves battery)',
+];
+
+const optionsMenu2 = [
+  'Condensed',
+  'Expanded',
+];
+
 class PreferencesTab extends React.Component {
   state = {
     checked: [],
+
+    anchorElMenu1: null,
+    anchorElMenu2: null,
+    selectedIndexMenu1: 1,
+    selectedIndexMenu2: 1,
   };
+
+  // --------------------------------
+
+  handleCloseMenu1 = () => {
+    this.setState({ anchorElMenu1: null });
+  };
+
+  handleClickListItemMenu1 = event => {
+    this.setState({ anchorElMenu1: event.currentTarget });
+  };
+
+  handleMenuItemClickMenu1 = (event, index) => {
+    this.setState({ selectedIndexMenu1: index, anchorElMenu1: null });
+  };
+
+  // --------------------------------
+
+  handleCloseMenu2 = () => {
+    this.setState({ anchorElMenu2: null });
+  };
+
+  handleMenuItemClickMenu2 = (event, index) => {
+    this.setState({ selectedIndexMenu2: index, anchorElMenu2: null });
+  };
+
+  handleClickListItemMenu2 = event => {
+    this.setState({ anchorElMenu2: event.currentTarget });
+  };
+
+  // --------------------------------
 
   handleToggle = value => () => {
     const { checked } = this.state;
@@ -51,6 +97,16 @@ class PreferencesTab extends React.Component {
 
   render() {
     const { classes } = this.props;
+
+    const {
+      anchorElMenu1, anchorElMenu2,
+      dialog1open, dialog2open,
+      selectedIndexMenu1, selectedIndexMenu2,
+    } = this.state;
+
+    const {
+      handleClickListItemMenu1, handleClickListItemMenu2,
+    } = this;
 
     return (
       <React.Fragment>
@@ -198,7 +254,6 @@ class PreferencesTab extends React.Component {
                       </ListItemSecondaryAction>
                     </ListItem>
                   </List>
-
                 </CardContent>
               </Card>
             </FuseAnimateGroup>
@@ -220,13 +275,11 @@ class PreferencesTab extends React.Component {
                 </AppBar>
 
                 <CardContent className="px-0">
-
-
                   <List
                     className={classes.root}
                     // subheader={<ListSubheader>Background</ListSubheader>}
                   >
-                    <ListItem>
+                    {/* <ListItem>
                       <ListItemIcon>
                         {
                           this.state.checked.indexOf('dark') !== -1 ?
@@ -249,6 +302,93 @@ class PreferencesTab extends React.Component {
                         />
                       </ListItemSecondaryAction>
                     </ListItem>
+                    <ListItem>
+                      <ListItemIcon>
+                        {
+                          this.state.checked.indexOf('condensed') !== -1 ?
+                          <DashboardIcon /> :
+                          <NotInterestedIcon />
+                        }
+                      </ListItemIcon>
+                      <ListItemText
+                        primary='Dashboard'
+                        secondary={
+                          this.state.checked.indexOf('condensed') !== -1 ?
+                          'Condensed' :
+                          'Expanded'
+                        }
+                      />
+                      <ListItemSecondaryAction>
+                        <Switch
+                          onChange={this.handleToggle('condensed')}
+                          checked={this.state.checked.indexOf('condensed') !== -1}
+                        />
+                      </ListItemSecondaryAction>
+                    </ListItem> */}
+                    <ListItem
+                      button
+                      aria-haspopup="true"
+                      aria-controls="menu1"
+                      aria-label="Background"
+                      onClick={handleClickListItemMenu1}
+                    >
+                      <ListItemIcon>
+                        <Brightness4Icon /> 
+                      </ListItemIcon>
+                      <ListItemText
+                        primary="Background"
+                        secondary={optionsMenu1[selectedIndexMenu1]}
+                      />
+                    </ListItem>
+                    <Menu
+                      id="menu1"
+                      anchorEl={anchorElMenu1}
+                      open={Boolean(anchorElMenu1)}
+                      onClose={this.handleCloseMenu1}
+                    >
+                      {optionsMenu1.map((option, index) => (
+                        <MenuItem
+                          key={option}
+                          // disabled={index === 0}
+                          selected={index === this.state.selectedIndex}
+                          onClick={event => this.handleMenuItemClickMenu1(event, index)}
+                        >
+                          {option}
+                        </MenuItem>
+                      ))}
+                    </Menu>
+                    <ListItem
+                      button
+                      aria-haspopup="true"
+                      aria-controls="menu2"
+                      aria-label="Dashboard"
+                      onClick={handleClickListItemMenu2}
+                    >
+                      <ListItemIcon>
+                        <DashboardIcon />
+                      </ListItemIcon>
+                      <ListItemText
+                        primary="Dashboard"
+                        secondary={optionsMenu2[selectedIndexMenu2]}
+                      />
+                    </ListItem>
+                    <Menu
+                      id="menu2"
+                      anchorEl={anchorElMenu2}
+                      open={Boolean(anchorElMenu2)}
+                      onClose={this.handleCloseMenu2}
+                    >
+                      {optionsMenu2.map((option, index) => (
+                        <MenuItem
+                          key={option}
+                          // disabled={index === 0}
+                          selected={index === this.state.selectedIndex}
+                          onClick={event => this.handleMenuItemClickMenu2(event, index)}
+                        >
+                          {option}
+                        </MenuItem>
+                      ))}
+                    </Menu>
                   </List>
 
                 </CardContent>
