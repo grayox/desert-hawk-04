@@ -131,22 +131,22 @@ class PreferencesTab extends React.Component {
                 <CardContent className="px-0">
                   <List
                     className={classes.root}
-                    // subheader={<ListSubheader>Automation</ListSubheader>}
-                    >
+                  // subheader={<ListSubheader>Automation</ListSubheader>}
+                  >
                     <ListItem>
                       <ListItemIcon>
                         {
                           this.state.checked.indexOf('claim') !== -1 ?
-                          <AddLocationIcon /> :
-                          <NotInterestedIcon />
+                            <AddLocationIcon /> :
+                            <NotInterestedIcon />
                         }
                       </ListItemIcon>
                       <ListItemText
                         primary='Claim new leads'
                         secondary={
                           this.state.checked.indexOf('claim') !== -1 ?
-                          'Automatically (forward to archive)' :
-                          'Manually (inspect inbox)'
+                            'Automatically (forward to archive)' :
+                            'Manually (inspect inbox)'
                         }
                       />
                       <ListItemSecondaryAction>
@@ -162,16 +162,16 @@ class PreferencesTab extends React.Component {
                       <ListItemIcon>
                         {
                           this.state.checked.indexOf('textMe') !== -1 ?
-                          <TextsmsIcon /> :
-                          <NotInterestedIcon />
+                            <TextsmsIcon /> :
+                            <NotInterestedIcon />
                         }
                       </ListItemIcon>
                       <ListItemText
                         primary="Text"
                         secondary={
                           this.state.checked.indexOf('textMe') !== -1 ?
-                          'Automatic' :
-                          'Do not text me'
+                            'Automatic' :
+                            'Do not text me'
                         }
                       />
                       <ListItemSecondaryAction>
@@ -185,16 +185,16 @@ class PreferencesTab extends React.Component {
                       <ListItemIcon>
                         {
                           this.state.checked.indexOf('emailMe') !== -1 ?
-                          <EmailIcon /> :
-                          <NotInterestedIcon />
+                            <EmailIcon /> :
+                            <NotInterestedIcon />
                         }
                       </ListItemIcon>
                       <ListItemText
                         primary="Email"
                         secondary={
                           this.state.checked.indexOf('emailMe') !== -1 ?
-                          'Automatic' :
-                          'Do not email me'
+                            'Automatic' :
+                            'Do not email me'
                         }
                       />
                       <ListItemSecondaryAction>
@@ -210,16 +210,16 @@ class PreferencesTab extends React.Component {
                       <ListItemIcon>
                         {
                           this.state.checked.indexOf('textProspect') !== -1 ?
-                          <TextsmsIcon /> :
-                          <NotInterestedIcon />
+                            <TextsmsIcon /> :
+                            <NotInterestedIcon />
                         }
                       </ListItemIcon>
                       <ListItemText
                         primary="Text"
                         secondary={
                           this.state.checked.indexOf('textProspect') !== -1 ?
-                          'Automatic' :
-                          'Do not text prospect'
+                            'Automatic' :
+                            'Do not text prospect'
                         }
                       />
                       <ListItemSecondaryAction>
@@ -233,16 +233,16 @@ class PreferencesTab extends React.Component {
                       <ListItemIcon>
                         {
                           this.state.checked.indexOf('emailProspect') !== -1 ?
-                          <EmailIcon /> :
-                          <NotInterestedIcon />
+                            <EmailIcon /> :
+                            <NotInterestedIcon />
                         }
                       </ListItemIcon>
                       <ListItemText
                         primary="Email"
                         secondary={
                           this.state.checked.indexOf('emailProspect') !== -1 ?
-                          'Automatic' :
-                          'Do not email prospect'
+                            'Automatic' :
+                            'Do not email prospect'
                         }
                       />
                       <ListItemSecondaryAction>
@@ -276,7 +276,7 @@ class PreferencesTab extends React.Component {
                 <CardContent className="px-0">
                   <List
                     className={classes.root}
-                    // subheader={<ListSubheader>Background</ListSubheader>}
+                  // subheader={<ListSubheader>Background</ListSubheader>}
                   >
                     {/* <ListItem>
                       <ListItemIcon>
@@ -324,38 +324,7 @@ class PreferencesTab extends React.Component {
                         />
                       </ListItemSecondaryAction>
                     </ListItem> */}
-                    <ListItem
-                      button
-                      aria-haspopup="true"
-                      aria-controls="menu1"
-                      aria-label="Background"
-                      onClick={handleClickListItemMenu1}
-                    >
-                      <ListItemIcon>
-                        <Brightness4Icon /> 
-                      </ListItemIcon>
-                      <ListItemText
-                        primary="Background"
-                        secondary={optionsMenu1[selectedIndexMenu1]}
-                      />
-                    </ListItem>
-                    <Menu
-                      id="menu1"
-                      anchorEl={anchorElMenu1}
-                      open={Boolean(anchorElMenu1)}
-                      onClose={this.handleCloseMenu1}
-                    >
-                      {optionsMenu1.map((option, index) => (
-                        <MenuItem
-                          key={option}
-                          // disabled={index === 0}
-                          selected={index === this.state.selectedIndex}
-                          onClick={event => this.handleMenuItemClickMenu1(event, index)}
-                        >
-                          {option}
-                        </MenuItem>
-                      ))}
-                    </Menu>
+
                     <ListItem
                       button
                       aria-haspopup="true"
@@ -388,13 +357,45 @@ class PreferencesTab extends React.Component {
                         </MenuItem>
                       ))}
                     </Menu>
+
+                    <ListItem
+                      button
+                      aria-haspopup="true"
+                      aria-controls="menu1"
+                      aria-label="Background"
+                      onClick={handleClickListItemMenu1}
+                    >
+                      <ListItemIcon>
+                        <Brightness4Icon />
+                      </ListItemIcon>
+                      <ListItemText
+                        primary="Background"
+                        secondary={optionsMenu1[selectedIndexMenu1]}
+                      />
+                    </ListItem>
+                    <Menu
+                      id="menu1"
+                      anchorEl={anchorElMenu1}
+                      open={Boolean(anchorElMenu1)}
+                      onClose={this.handleCloseMenu1}
+                    >
+                      {optionsMenu1.map((option, index) => (
+                        <MenuItem
+                          key={option}
+                          // disabled={index === 0}
+                          selected={index === this.state.selectedIndex}
+                          onClick={event => this.handleMenuItemClickMenu1(event, index)}
+                        >
+                          {option}
+                        </MenuItem>
+                      ))}
+                    </Menu>
                   </List>
 
                 </CardContent>
               </Card>
             </FuseAnimateGroup>
           </div>
-
 
         </div>
       </React.Fragment>
