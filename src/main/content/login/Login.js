@@ -83,7 +83,7 @@ class Login extends Component {
           </FuseAnimate>
 
           <FuseAnimate animation="transition.slideDownIn">
-            <div className="mt-32">
+            <div className="my-16">
               <SlideShow/>
             </div>
           </FuseAnimate>

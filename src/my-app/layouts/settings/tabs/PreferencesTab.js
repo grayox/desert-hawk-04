@@ -119,7 +119,7 @@ class PreferencesTab extends React.Component {
                 animation: "transition.slideLeftBigIn"
               }}
             >
-              <Card className="w-full mb-16">
+              <Card className="w-full m-0 md:mb-16">
                 <AppBar position="static" elevation={0}>
                   <Toolbar className="pl-16 pr-8">
                     <Typography variant="subtitle1" color="inherit" className="flex-1">
@@ -145,8 +145,8 @@ class PreferencesTab extends React.Component {
                         primary='Claim new leads'
                         secondary={
                           this.state.checked.indexOf('claim') !== -1 ?
-                          'Automatic (forward to archive)' :
-                          'Manual (inspect inbox)'
+                          'Automatically (forward to archive)' :
+                          'Manually (inspect inbox)'
                         }
                       />
                       <ListItemSecondaryAction>
@@ -258,13 +258,13 @@ class PreferencesTab extends React.Component {
             </FuseAnimateGroup>
           </div>
 
-          <div className="flex flex-col flex-1 xxw-screen xxm-0 xxp-0 md:pr-32">
+          <div className="flex flex-col flex-1 md:pr-32">
             <FuseAnimateGroup
               enter={{
                 animation: "transition.slideLeftBigIn"
               }}
             >
-              <Card className="xxw-screen xxm-0 xxmd:xxmb-16 w-full mb-16">
+              <Card className="w-full m-0 md:mb-16">
                 <AppBar position="static" elevation={0}>
                   <Toolbar className="pl-16 pr-8">
                     <Typography variant="subtitle1" color="inherit" className="flex-1">

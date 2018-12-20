@@ -124,25 +124,27 @@ class ProfilePage extends Component {
           </Tabs>
         }
         content={
-          <div className="p-16 sm:p-24">
-            {/* {value === 0 && (
-              <TimelineTab />
-            )}
-            {value === 1 && (
-              <AboutTab />
-            )}
-            {value === 2 && (
-              <PhotosVideosTab />
-            )} */}
-            {/* begin my add */}
+          // <div className="p-16 sm:p-24">
+          //   {value === 0 && (
+          //     <TimelineTab />
+          //   )}
+          //   {value === 1 && (
+          //     <AboutTab />
+          //   )}
+          //   {value === 2 && (
+          //     <PhotosVideosTab />
+          //   )}
+          // </div>
+          // begin my add
+          <div className="p-0 md:p-24">
             {value === 0 && (
               <DetailsTab />
-            )}
+              )}
             {value === 1 && (
               <PreferencesTab />
-            )}
-            {/* end my add */}
+              )}
           </div>
+          // end my add
         }
       />
     )
