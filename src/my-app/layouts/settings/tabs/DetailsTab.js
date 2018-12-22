@@ -3,8 +3,12 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles/index';
 import classNames from 'classnames';
 
+import { Redirect } from 'react-router-dom'
+
+// for actions
 import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+// import {bindActionCreators} from 'redux';
+import { editName } from 'store/actions/my-actions'
 
 import axios from 'axios/index';
 import { Avatar, AppBar, Button, Card, CardContent, Icon, IconButton, List, ListItem, ListItemIcon, ListItemSecondaryAction, ListItemText, Toolbar, Typography } from '@material-ui/core';
@@ -679,21 +683,26 @@ DetailsTab.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-function mapDispatchToProps(dispatch)
-{
-    return bindActionCreators({
-        // toggleQuickPanel: quickPanelActions.toggleQuickPanel,
-        // logout          : authActions.logoutUser,
-        // openChatPanel   : chatPanelActions.openChatPanel
-    }, dispatch);
+function mapStateToProps({ auth }) {
+  return {
+    user: auth.user
+  }
 }
 
-function mapStateToProps({auth})
-{
-    return {
-        user: auth.user
-    }
+const mapDispatchToProps = dispatch => {
+  return {
+    editName: name => dispatch(editName(name)),
+  }
 }
+
+// function mapDispatchToProps(dispatch)
+// {
+//     return bindActionCreators({
+//         toggleQuickPanel: quickPanelActions.toggleQuickPanel,
+//         logout          : authActions.logoutUser,
+//         openChatPanel   : chatPanelActions.openChatPanel
+//     }, dispatch);
+// }
 
 // export default withStyles(styles, { withTheme: true })(DetailsTab);
 export default withStyles(styles, {withTheme: true})(connect(mapStateToProps, mapDispatchToProps)(DetailsTab));
