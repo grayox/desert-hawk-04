@@ -133,7 +133,7 @@ class PreferencesTab extends React.Component {
                     className={classes.root}
                   // subheader={<ListSubheader>Automation</ListSubheader>}
                   >
-                    <ListItem>
+                    <ListItem alignItems="flex-start">
                       <ListItemIcon>
                         {
                           this.state.checked.indexOf('claim') !== -1 ?
@@ -145,8 +145,23 @@ class PreferencesTab extends React.Component {
                         primary='Claim new leads'
                         secondary={
                           this.state.checked.indexOf('claim') !== -1 ?
-                            'Automatically (forward to archive)' :
-                            'Manually (inspect inbox)'
+                            <React.Fragment>
+                              <div>
+                                Automatically
+                              </div>
+                              <div>
+                                (forward to archive)
+                              </div>
+                            </React.Fragment>
+                            :
+                            <React.Fragment>
+                              <div>
+                                Manually
+                              </div>
+                              <div>
+                                (inspect inbox)
+                              </div>
+                            </React.Fragment>
                         }
                       />
                       <ListItemSecondaryAction>

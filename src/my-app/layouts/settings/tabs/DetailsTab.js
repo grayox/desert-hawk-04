@@ -85,10 +85,10 @@ const INITIAL_STATE = {
   email: 'maria.le.4@gmail.com',
   mobile: '555-123-4567',
 
-  nameDialogOpen: false,
-  // emailDialogOpen: false,
-  // mobileDialogOpen: false,
-  geoSelectDialogOpen: false,
+  dialog1isOpen: false,
+  dialog2isOpen: false,
+  dialog3isOpen: false,
+  dialog4isOpen: false,
 };
 
 
@@ -203,22 +203,36 @@ class DetailsTab extends Component {
 
   // --------------------------------
 
-  handleClickListItemContact = event => {
-    this.setState({ nameDialogOpen: true, });
+  handleClickListItemDialog1 = event => {
+    this.setState({ dialog1isOpen: true, });
   }
 
-  handleCloseDialog = event => {
-    // console.log('event\n', event.target);
-    this.setState({ nameDialogOpen: false, });
+  handleCloseDialog1 = event => {
+    this.setState({ dialog1isOpen: false, });
   }
 
-  handleClickListItemGeoSelect = event => {
-    this.setState({ geoSelectDialogOpen: true, });
+  handleClickListItemDialog2 = event => {
+    this.setState({ dialog2isOpen: true, });
   }
 
-  handleCloseGeoDialog = event => {
-    // console.log('event\n', event.target);
-    this.setState({ geoSelectDialogOpen: false, });
+  handleCloseDialog2 = event => {
+    this.setState({ dialog2isOpen: false, });
+  }
+
+  handleClickListItemDialog3 = event => {
+    this.setState({ dialog3isOpen: true, });
+  }
+
+  handleCloseDialog3 = event => {
+    this.setState({ dialog3isOpen: false, });
+  }
+
+  handleClickListItemDialog4 = event => {
+    this.setState({ dialog4isOpen: true, });
+  }
+
+  handleCloseDialog4 = event => {
+    this.setState({ dialog4isOpen: false, });
   }
 
   render() {
@@ -226,17 +240,18 @@ class DetailsTab extends Component {
     // const { general, work, contact, } = this.state;
     const {
       anchorElMenu1, anchorElMenu2,
-      nameDialogOpen, geoSelectDialogOpen,
+      dialog1isOpen, dialog2isOpen, dialog3isOpen, dialog4isOpen,
       selectedIndexMenu2,
-      name, email, mobile,
+      // name, email, mobile,
       geoKey, isValidGeo, geoNation, geoRegion, geoLocal,
     } = this.state;
     const {
-      handleValidGeoStepper, handleCloseDialog,
-      handleClose, handleClickListItemContact,
-      handleCloseGeoDialog, handleGeoClose,
-      handleClickListItemMenu2, handleClickListItemGeoSelect,
-      handleCloseMenu2, handleMenuItemClickMenu2,
+      handleValidGeoStepper, handleGeoClose,
+      handleCloseDialog1, handleClickListItemDialog1,
+      handleCloseDialog2, handleClickListItemDialog2,
+      handleCloseDialog3, handleClickListItemDialog3,
+      handleCloseDialog4, handleClickListItemDialog4,
+      handleClickListItemMenu2, handleMenuItemClickMenu2, handleCloseMenu2,
     } = this;
 
     return (
@@ -352,8 +367,8 @@ class DetailsTab extends Component {
         </Menu>
 
         <Dialog
-          open={nameDialogOpen}
-          onClose={handleClose}
+          open={dialog1isOpen}
+          onClose={handleCloseDialog1}
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">Name</DialogTitle>
@@ -366,24 +381,86 @@ class DetailsTab extends Component {
               autoFocus
               margin="dense"
               id="name"
-              label="Email Address"
-              type="email"
+              label="first and last"
+              type="text"
               variant="outlined"
               fullWidth
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleCloseDialog} color="primary">
+            <Button onClick={handleCloseDialog1} color="primary">
               Cancel
             </Button>
-            <Button onClick={handleCloseDialog} color="secondary">
+            <Button onClick={handleCloseDialog1} color="secondary">
               Save
             </Button>
           </DialogActions>
         </Dialog>
 
         <Dialog
-          open={geoSelectDialogOpen}
+          open={dialog2isOpen}
+          onClose={handleCloseDialog2}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">Email</DialogTitle>
+          <DialogContent>
+            {/* <DialogContentText>
+                To subscribe to this website, please enter your email address here. We will send
+                updates occasionally.
+              </DialogContentText> */}
+            <TextField
+              autoFocus
+              margin="dense"
+              id="email"
+              label="address"
+              type="email"
+              variant="outlined"
+              fullWidth
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseDialog2} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={handleCloseDialog2} color="secondary">
+              Save
+            </Button>
+          </DialogActions>
+        </Dialog>
+
+        <Dialog
+          open={dialog3isOpen}
+          onClose={handleCloseDialog3}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">Mobile</DialogTitle>
+          <DialogContent>
+            {/* <DialogContentText>
+                To subscribe to this website, please enter your email address here. We will send
+                updates occasionally.
+              </DialogContentText> */}
+            <TextField
+              autoFocus
+              margin="dense"
+              id="mobile"
+              label="number"
+              type="phone"
+              variant="outlined"
+              fullWidth
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseDialog3} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={handleCloseDialog3} color="secondary">
+              Save
+            </Button>
+          </DialogActions>
+        </Dialog>
+
+        <Dialog
+          open={dialog4isOpen}
           onClose={handleGeoClose}
           aria-labelledby="form-dialog-title"
         >
@@ -399,10 +476,10 @@ class DetailsTab extends Component {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleCloseGeoDialog} color="primary">
+            <Button onClick={handleCloseDialog4} color="primary">
               Cancel
             </Button>
-            <Button onClick={handleCloseGeoDialog} color="secondary">
+            <Button onClick={handleCloseDialog4} color="secondary">
               Save
             </Button>
           </DialogActions>
@@ -486,7 +563,7 @@ class DetailsTab extends Component {
                       aria-haspopup="false"
                       aria-controls="username"
                       aria-label="username"
-                      onClick={handleClickListItemContact}
+                      onClick={handleClickListItemDialog1}
                     >
                       <ListItemIcon>
                         {/* <PersonIcon /> */}
@@ -503,7 +580,7 @@ class DetailsTab extends Component {
                       aria-haspopup="false"
                       aria-controls="email"
                       aria-label="email"
-                      onClick={handleClickListItemContact}
+                      onClick={handleClickListItemDialog2}
                     >
                       <ListItemIcon>
                         <EmailIcon />
@@ -519,7 +596,7 @@ class DetailsTab extends Component {
                       aria-haspopup="true"
                       aria-controls="mobile"
                       aria-label="mobile"
-                      onClick={handleClickListItemContact}
+                      onClick={handleClickListItemDialog3}
                     >
                       <ListItemIcon>
                         <SmartphoneIcon />
@@ -573,7 +650,7 @@ class DetailsTab extends Component {
                       aria-haspopup="true"
                       aria-controls="menu2"
                       aria-label="Type"
-                      onClick={handleClickListItemGeoSelect}
+                      onClick={handleClickListItemDialog4}
                     >
                       <ListItemIcon>
                         <LocationOnIcon />
