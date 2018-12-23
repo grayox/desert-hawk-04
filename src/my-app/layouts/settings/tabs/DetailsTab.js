@@ -3,20 +3,19 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles/index';
 import classNames from 'classnames';
 
-import { Redirect } from 'react-router-dom'
+// import { Redirect } from 'react-router-dom'
 
 // for actions
 import {connect} from 'react-redux';
 // import {bindActionCreators} from 'redux';
-import { editName } from 'store/actions/my-actions'
+import { editName } from 'my-app/store/actions/my-actions'
 
-import axios from 'axios/index';
-import { Avatar, AppBar, Button, Card, CardContent, Icon, IconButton, List, ListItem, ListItemIcon, ListItemSecondaryAction, ListItemText, Toolbar, Typography } from '@material-ui/core';
+// import axios from 'axios/index';
+import {
+  // Avatar, Icon, IconButton, ListItemSecondaryAction,
+  AppBar, Button, Card, CardContent, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography,
+} from '@material-ui/core';
 import { FuseAnimateGroup } from '@fuse';
-
-import ImageIcon from '@material-ui/icons/Image';
-import WorkIcon from '@material-ui/icons/Work';
-import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
@@ -25,11 +24,14 @@ import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
+// import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+// import ImageIcon from '@material-ui/icons/Image';
+// import WorkIcon from '@material-ui/icons/Work';
+// import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import EmailIcon from '@material-ui/icons/Email';
-import PersonIcon from '@material-ui/icons/Person';
+// import PersonIcon from '@material-ui/icons/Person';
 import ExtensionIcon from '@material-ui/icons/Extension';
 import SmartphoneIcon from '@material-ui/icons/Smartphone';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
@@ -59,9 +61,11 @@ const styles = theme => ({
 });
 
 const INITIAL_STATE = {
-  name: '',
-  email: '',
-  phone: '',
+
+  // name: '',
+  // email: '',
+  // mobile: '',
+
   bizCategory: '',
   geoNation: '',
   geoRegion: '',
@@ -206,14 +210,26 @@ class DetailsTab extends Component {
   };
 
   // --------------------------------
-
+  
   handleClickListItemDialog1 = event => {
     this.setState({ dialog1isOpen: true, });
   }
-
+  
   handleCloseDialog1 = event => {
     this.setState({ dialog1isOpen: false, });
   }
+  
+  handleCancelDialog1 = event => {
+    this.setState({ dialog1isOpen: false, });
+    // this.setState({ name: '', });
+  }
+  
+  handleSaveDialog1 = event => {
+    this.setState({ dialog1isOpen: false, });
+    this.props.editName(this.state.name);
+  }
+  
+  // --------------------------------
 
   handleClickListItemDialog2 = event => {
     this.setState({ dialog2isOpen: true, });
@@ -241,6 +257,7 @@ class DetailsTab extends Component {
 
   render() {
     const { classes, user, } = this.props;
+    // if (!user.data.uid) return <Redirect to='/login' /> 
     // const { general, work, contact, } = this.state;
     const {
       anchorElMenu1, anchorElMenu2,
@@ -251,10 +268,10 @@ class DetailsTab extends Component {
     } = this.state;
     const {
       handleValidGeoStepper, handleGeoClose,
-      handleCloseDialog1, handleClickListItemDialog1,
-      handleCloseDialog2, handleClickListItemDialog2,
-      handleCloseDialog3, handleClickListItemDialog3,
-      handleCloseDialog4, handleClickListItemDialog4,
+      handleClickListItemDialog1, handleCancelDialog1, handleSaveDialog1, handleCloseDialog1,
+      handleClickListItemDialog2, handleCancelDialog2, handleSaveDialog2, handleCloseDialog2,
+      handleClickListItemDialog3, handleCancelDialog3, handleSaveDialog3, handleCloseDialog3,
+      handleClickListItemDialog4, handleCancelDialog4, handleSaveDialog4, handleCloseDialog4,
       handleClickListItemMenu2, handleMenuItemClickMenu2, handleCloseMenu2,
     } = this;
 
@@ -392,10 +409,10 @@ class DetailsTab extends Component {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleCloseDialog1} color="primary">
+            <Button onClick={handleCancelDialog1} color="primary">
               Cancel
             </Button>
-            <Button onClick={handleCloseDialog1} color="secondary">
+            <Button onClick={handleSaveDialog1} color="secondary">
               Save
             </Button>
           </DialogActions>

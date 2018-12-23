@@ -86,8 +86,11 @@ cd ..
 
 # remoterepo=$4# copy directories
 cp -r "v$old/src/my-app" "v$new/src/my-app"
-cp -r "v$old/src/store/actions/my-actions" "v$new/src/store/actions/my-actions"
-cp -r "v$old/src/store/reducers/my-reducers" "v$new/src/store/reducers/my-reducers"
+
+# moved the following into my-app/store/ directory which is copied in the above operation
+# cp -r "v$old/src/store/actions/my-actions" "v$new/src/store/actions/my-actions"
+# cp -r "v$old/src/store/reducers/my-reducers" "v$new/src/store/reducers/my-reducers"
+
 # see src/my-app/config/upgrade/compare.sh
 # do the following copy AFTER comparing the files for differences
 # cp -r "v$new/src/main/content/apps" "v$new/src/my-app/apps-orig" # cp -r "src/main/content/apps" "src/my-app/apps-orig" # cp -r "src/main/content/apps" "src/my-app/apps1"

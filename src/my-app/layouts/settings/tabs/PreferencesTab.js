@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 
-import { Avatar, AppBar, Button, Card, CardContent, Icon, IconButton, List, ListItem, ListItemSecondaryAction, Menu, MenuItem, ListItemText, Toolbar, Typography } from '@material-ui/core';
+import {
+  // Avatar, Button, Icon, IconButton,
+  AppBar, Card, CardContent, List, ListItem, ListItemSecondaryAction, Menu, MenuItem, ListItemText, Toolbar, Typography
+} from '@material-ui/core';
 import { FuseAnimateGroup } from '@fuse';
 
 // import List from '@material-ui/core/List';
