@@ -149,21 +149,15 @@ class PreferencesTab extends React.Component {
                         secondary={
                           this.state.checked.indexOf('claim') !== -1 ?
                             <React.Fragment>
-                              <div>
-                                Automatically
-                              </div>
-                              <div>
-                                (forward to archive)
-                              </div>
+                              Automatically
+                              <br />
+                              (forward to archive)
                             </React.Fragment>
                             :
                             <React.Fragment>
-                              <div>
-                                Manually
-                              </div>
-                              <div>
-                                (inspect inbox)
-                              </div>
+                              Manually
+                              <br />
+                              (inspect inbox)
                             </React.Fragment>
                         }
                       />

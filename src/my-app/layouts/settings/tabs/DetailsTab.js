@@ -225,7 +225,13 @@ class DetailsTab extends Component {
   }
   
   handleSaveDialog1 = event => {
-    this.setState({ dialog1isOpen: false, });
+    console.log('event.target\n', event.target);
+    this.setState({
+      // [e.target.id]: e.target.value
+      [event.target.id]: event.target.value,
+      dialog1isOpen: false,
+    });
+    // this.props.editName(event.target.value);
     this.props.editName(this.state.name);
   }
   
@@ -260,7 +266,8 @@ class DetailsTab extends Component {
     // if (!user.data.uid) return <Redirect to='/login' /> 
     // const { general, work, contact, } = this.state;
     const {
-      anchorElMenu1, anchorElMenu2,
+      // anchorElMenu1,
+      anchorElMenu2,
       dialog1isOpen, dialog2isOpen, dialog3isOpen, dialog4isOpen,
       selectedIndexMenu2,
       // name, email, mobile,
@@ -412,7 +419,7 @@ class DetailsTab extends Component {
             <Button onClick={handleCancelDialog1} color="primary">
               Cancel
             </Button>
-            <Button onClick={handleSaveDialog1} color="secondary">
+            <Button onClick={handleSaveDialog1} id="name" color="secondary">
               Save
             </Button>
           </DialogActions>

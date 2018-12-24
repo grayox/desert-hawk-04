@@ -41,11 +41,11 @@ const settings = function (state = initialState, action) {
 
 const projectReducer = (state = initState, action) => {
   switch (action.type) {
-    case 'CREATE_PROJECT_SUCCESS':
-      console.log('create project success');
+    case 'EDIT_NAME_SUCCESS':
+      console.log('edit name success');
       return state;
-    case 'CREATE_PROJECT_ERROR':
-      console.log('create project error');
+    case 'EDIT_NAME_ERROR':
+      console.log('edit name error');
       return state;
     default:
       return state;
