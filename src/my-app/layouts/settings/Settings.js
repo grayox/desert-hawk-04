@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { FusePageSimple, FuseAnimate } from '@fuse';
-import { Avatar, Button, Tab, Tabs, Typography } from '@material-ui/core';
-import TimelineTab from 'main/content/pages/profile/tabs/TimelineTab';
-import PhotosVideosTab from 'main/content/pages/profile/tabs/PhotosVideosTab';
-import AboutTab from 'main/content/pages/profile/tabs/AboutTab';
+import {
+  Avatar,
+  // Button,
+  Tab,
+  Tabs,
+  Typography
+} from '@material-ui/core';
+// import TimelineTab from 'main/content/pages/profile/tabs/TimelineTab';
+// import PhotosVideosTab from 'main/content/pages/profile/tabs/PhotosVideosTab';
+// import AboutTab from 'main/content/pages/profile/tabs/AboutTab';
 
 // begin my add
 // import * as Actions from './store/actions';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {withRouter} from 'react-router-dom'
+// import {withRouter} from 'react-router-dom'
 
 import DetailsTab from './tabs/DetailsTab';
 import PreferencesTab from './tabs/PreferencesTab';
