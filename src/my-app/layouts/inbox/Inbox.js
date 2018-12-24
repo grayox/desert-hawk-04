@@ -2,16 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
-import SplitScreen from '../SplitScreen'
-import UserMultiForm from 'my-app/components/forms/UserMultiForm';
+// import SplitScreen from '../SplitScreen'
+// import UserMultiForm from 'my-app/components/forms/UserMultiForm';
 
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Avatar from '@material-ui/core/Avatar';
+// import List from '@material-ui/core/List';
+// import ListItem from '@material-ui/core/ListItem';
+// import ListItemText from '@material-ui/core/ListItemText';
+// import Avatar from '@material-ui/core/Avatar';
 // import ImageIcon from '@material-ui/icons/Image';
 // import WorkIcon from '@material-ui/icons/Work';
-import BeachAccessIcon from '@material-ui/icons/BeachAccess';
+// import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 
 import AcademyApp from 'my-app/apps/academy/courses/Courses';
 
@@ -24,7 +24,7 @@ const styles = theme => ({
 });
 
 function Inbox(props) {
-  const { classes, items } = props;
+  // const { classes, items } = props;
   return (
     // <SplitScreen
     //   left={

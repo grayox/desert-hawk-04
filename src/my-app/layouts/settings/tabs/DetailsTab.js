@@ -42,8 +42,8 @@ import GeoStepper from 'my-app/components/steppers/GeoStepper'; // see 'class Us
 
 // utilities
 import _ from 'lodash';
-import * as EmailValidator from 'email-validator';
-import NumberFormat from 'react-number-format';
+// import * as EmailValidator from 'email-validator';
+// import NumberFormat from 'react-number-format';
 
 // firebase
 import firebase from '@firebase/app';
@@ -210,6 +210,17 @@ class DetailsTab extends Component {
   };
 
   // --------------------------------
+
+  handleChange = event => {
+    // console.log('event.target\n', event.target);
+    const val = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
+    // console.log('val\n', val);
+    const form = { [event.target.name] : val };
+    // console.log('form\n', form);
+    this.setState(form);
+  };
+
+  // --------------------------------
   
   handleClickListItemDialog1 = event => {
     this.setState({ dialog1isOpen: true, });
@@ -225,13 +236,8 @@ class DetailsTab extends Component {
   }
   
   handleSaveDialog1 = event => {
-    console.log('event.target\n', event.target);
-    this.setState({
-      // [e.target.id]: e.target.value
-      [event.target.id]: event.target.value,
-      dialog1isOpen: false,
-    });
-    // this.props.editName(event.target.value);
+    // console.log('state\n', this.state);
+    this.setState({ dialog1isOpen: false, });
     this.props.editName(this.state.name);
   }
   
@@ -274,7 +280,7 @@ class DetailsTab extends Component {
       geoKey, isValidGeo, geoNation, geoRegion, geoLocal,
     } = this.state;
     const {
-      handleValidGeoStepper, handleGeoClose,
+      handleValidGeoStepper, handleGeoClose, handleChange,
       handleClickListItemDialog1, handleCancelDialog1, handleSaveDialog1, handleCloseDialog1,
       handleClickListItemDialog2, handleCancelDialog2, handleSaveDialog2, handleCloseDialog2,
       handleClickListItemDialog3, handleCancelDialog3, handleSaveDialog3, handleCloseDialog3,
@@ -406,12 +412,14 @@ class DetailsTab extends Component {
                 updates occasionally.
               </DialogContentText> */}
             <TextField
-              autoFocus
-              margin="dense"
               id="name"
-              label="first and last"
+              name="name"
               type="text"
+              margin="dense"
               variant="outlined"
+              label="first and last"
+              onChange={handleChange}
+              autoFocus
               fullWidth
             />
           </DialogContent>
@@ -437,12 +445,14 @@ class DetailsTab extends Component {
                 updates occasionally.
               </DialogContentText> */}
             <TextField
-              autoFocus
-              margin="dense"
               id="email"
-              label="address"
-              type="email"
+              name="email"
+              type="text"
+              margin="dense"
               variant="outlined"
+              label="address"
+              onChange={handleChange}
+              autoFocus
               fullWidth
             />
           </DialogContent>
@@ -468,12 +478,14 @@ class DetailsTab extends Component {
                 updates occasionally.
               </DialogContentText> */}
             <TextField
-              autoFocus
-              margin="dense"
               id="mobile"
-              label="number"
-              type="phone"
+              name="mobile"
+              type="text"
+              margin="dense"
               variant="outlined"
+              label="number"
+              onChange={handleChange}
+              autoFocus
               fullWidth
             />
           </DialogContent>

@@ -1,6 +1,6 @@
 import React from 'react';
-import SplitScreen from '../SplitScreen'
-import UserMultiForm from 'my-app/components/forms/UserMultiForm';
+// import SplitScreen from '../SplitScreen'
+// import UserMultiForm from 'my-app/components/forms/UserMultiForm';
 
 import ContactsApp from 'my-app/apps/contacts/ContactsApp';
 
