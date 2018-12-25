@@ -24,7 +24,7 @@ import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
+// import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 // import ImageIcon from '@material-ui/icons/Image';
@@ -146,14 +146,10 @@ class DetailsTab extends Component {
       >
         <DialogTitle id="form-dialog-title">{props.dialogTitle}</DialogTitle>
         <DialogContent>
-          { props.dialogContentText &&
-            (
-              <DialogContentText className='mb-8'>
-                {/* To subscribe to this website, please enter your email address here. We will send updates occasionally. */}
-                {props.dialogContentText}
-              </DialogContentText>
-            )
-          }
+          {/* <DialogContentText>
+          To subscribe to this website, please enter your email address here. We will send
+          updates occasionally.
+        </DialogContentText> */}
           <TextField
             id={props.name}
             name={props.name}
@@ -169,10 +165,10 @@ class DetailsTab extends Component {
         <DialogActions>
           <Button onClick={this.handleCancelDialog} color="primary">
             Cancel
-          </Button>
+      </Button>
           <Button onClick={this.handleSaveDialog} id="name" color="secondary">
             Save
-          </Button>
+      </Button>
         </DialogActions>
       </Dialog>
     )
@@ -357,6 +353,97 @@ class DetailsTab extends Component {
 
     return (
       <React.Fragment>
+        {/* <div className={classNames(classes.root, "md:flex max-w-2xl")}>
+
+          <div className="flex flex-col flex-1 md:pr-32">
+            <FuseAnimateGroup
+              enter={{
+                animation: "transition.slideUpBigIn"
+              }}
+            >
+              
+              <Card className="w-full mb-16">
+                <AppBar position="static" elevation={0}>
+                  <Toolbar className="pl-16 pr-8">
+                    <Typography variant="subtitle1" color="inherit" className="flex-1">
+                      Contact
+                      </Typography>
+                  </Toolbar>
+                </AppBar>
+
+                <CardContent>
+                  <div className="mb-24">
+                    <Typography className="font-bold mb-4 text-15">Name</Typography>
+                    <Typography>Maria Le</Typography>
+                  </div>
+
+                  <div className="mb-24">
+                    <Typography className="font-bold mb-4 text-15">Email</Typography>
+                    <Typography>maria.le.4@gmail.com</Typography>
+                  </div>
+
+                  <div className="mb-24">
+                    <Typography className="font-bold mb-4 text-15">Cell</Typography>
+                    <Typography>add &plus;</Typography>
+                  </div>
+                </CardContent>
+              </Card>
+            </FuseAnimateGroup>
+          </div>
+          
+          <div className="flex flex-col flex-1 md:pr-32">
+            <FuseAnimateGroup
+              enter={{
+                animation: "transition.slideLeftBigIn"
+              }}
+            >
+              <Card className="w-full">
+                <AppBar position="static" elevation={0}>
+                  <Toolbar className="pl-16 pr-8">
+                    <Typography variant="subtitle1" color="inherit" className="flex-1">
+                      Contact
+                    </Typography>
+                  </Toolbar>
+                </AppBar>
+
+                <CardContent className="px-0">
+                  <List component="nav">
+                    <ListItem
+                      button
+                      aria-haspopup="true"
+                      aria-controls="lock-menu"
+                      aria-label="When device is locked"
+                      onClick={this.handleClickListItem}
+                    >
+                      <ListItemText
+                        primary="When device is locked"
+                        secondary={options[this.state.selectedIndex]}
+                      />
+                    </ListItem>
+                  </List>
+                  <Menu
+                    id="lock-menu"
+                    anchorEl={anchorEl}
+                    open={Boolean(anchorEl)}
+                    onClose={this.handleClose}
+                  >
+                    {options.map((option, index) => (
+                      <MenuItem
+                        key={option}
+                        disabled={index === 0}
+                        selected={index === this.state.selectedIndex}
+                        onClick={event => this.handleMenuItemClick(event, index)}
+                      >
+                        {option}
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                </CardContent>
+              </Card>
+            </FuseAnimateGroup>
+          </div>
+          
+        </div> */}
 
         <Menu
           id="menu2"
@@ -379,7 +466,6 @@ class DetailsTab extends Component {
         {
           this.dialog({
             dialogTitle: 'Name',
-            // dialogContentText: 'To subscribe to this website, please enter your email address here. We will send updates occasionally.',
             label: 'first and last',
             name: 'name',
           })
