@@ -8,7 +8,7 @@ import classNames from 'classnames';
 // for actions
 import {connect} from 'react-redux';
 // import {bindActionCreators} from 'redux';
-import { editName } from 'my-app/store/actions/my-actions'
+import { editSetting } from 'my-app/store/actions/my-actions'
 
 // import axios from 'axios/index';
 import {
@@ -92,6 +92,8 @@ const INITIAL_STATE = {
   name: 'Maria Le',
   email: 'maria.le.4@gmail.com',
   mobile: '555-123-4567',
+
+  currentChange: {},
 
   dialog1isOpen: false,
   dialog2isOpen: false,
@@ -217,7 +219,7 @@ class DetailsTab extends Component {
     // console.log('val\n', val);
     const form = { [event.target.name] : val };
     // console.log('form\n', form);
-    this.setState(form);
+    this.setState({currentChange: form});
   };
 
   // --------------------------------
@@ -238,7 +240,7 @@ class DetailsTab extends Component {
   handleSaveDialog1 = event => {
     // console.log('state\n', this.state);
     this.setState({ dialog1isOpen: false, });
-    this.props.editName(this.state.name);
+    this.props.editSetting(this.state.currentChange);
   }
   
   // --------------------------------
@@ -727,7 +729,7 @@ function mapStateToProps({ auth }) {
 
 const mapDispatchToProps = dispatch => {
   return {
-    editName: name => dispatch(editName(name)),
+    editSetting: setting => dispatch(editSetting(setting)),
   }
 }
 
