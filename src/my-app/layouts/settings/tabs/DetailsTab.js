@@ -8,7 +8,7 @@ import classNames from 'classnames';
 // for actions
 import {connect} from 'react-redux';
 // import {bindActionCreators} from 'redux';
-import { editSetting } from 'my-app/store/actions/my-actions'
+import { updateSettings } from 'my-app/store/actions/my-actions'
 
 // import axios from 'axios/index';
 import {
@@ -62,14 +62,19 @@ const styles = theme => ({
 
 const INITIAL_STATE = {
 
-  // name: '',
-  // email: '',
-  // mobile: '',
+  settings: {
+    // name: '',
+    // email: '',
+    // mobile: '',
+    name: 'Maria Le',
+    email: 'maria.le.4@gmail.com',
+    mobile: '555-123-4567', 
+    bizCategory: '',
+    geoNation: '',
+    geoRegion: '',
+    geoLocal: '',
+  },
 
-  bizCategory: '',
-  geoNation: '',
-  geoRegion: '',
-  geoLocal: '',
   geoKey: Date.now(), // necessary to re-render GeoSelect component after reset
 
   isValidName: false,
@@ -88,12 +93,6 @@ const INITIAL_STATE = {
   selectedIndexMenu1: 1,
   anchorElMenu2: null,
   selectedIndexMenu2: 1,
-
-  name: 'Maria Le',
-  email: 'maria.le.4@gmail.com',
-  mobile: '555-123-4567',
-
-  currentChange: {},
 
   dialog1isOpen: false,
   dialog2isOpen: false,
@@ -161,12 +160,14 @@ class DetailsTab extends Component {
       ...picked,
       isValidGeo: true,
     };
-    this.setState(newState, () => {
-      console.log('newState', newState);
-      console.log('state', this.state);
-      // this.handleChangeForm();
-      // this.saveToFirebase(picked);
-    });
+    this.setState(
+      { settings: newState },
+      () => {
+        console.log('newState', newState);
+        console.log('state', this.state);
+        // this.handleChangeForm();
+        // this.saveToFirebase(picked);
+      });
   };
 
   // state = {
@@ -217,9 +218,9 @@ class DetailsTab extends Component {
     // console.log('event.target\n', event.target);
     const val = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
     // console.log('val\n', val);
-    const form = { [event.target.name] : val };
-    // console.log('form\n', form);
-    this.setState({currentChange: form});
+    const setting = { [event.target.name] : val };
+    // console.log('setting\n', setting);
+    this.setState({settings: setting});
   };
 
   // --------------------------------
@@ -240,7 +241,7 @@ class DetailsTab extends Component {
   handleSaveDialog1 = event => {
     // console.log('state\n', this.state);
     this.setState({ dialog1isOpen: false, });
-    this.props.editSetting(this.state.currentChange);
+    this.props.updateSettings(this.state.settings);
   }
   
   // --------------------------------
@@ -729,7 +730,7 @@ function mapStateToProps({ auth }) {
 
 const mapDispatchToProps = dispatch => {
   return {
-    editSetting: setting => dispatch(editSetting(setting)),
+    updateSettings: newSettings => dispatch(updateSettings(newSettings)),
   }
 }
 
