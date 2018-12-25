@@ -94,6 +94,7 @@ const INITIAL_STATE = {
   anchorElMenu2: null,
   selectedIndexMenu2: 1,
 
+  dialogIsOpen: false,
   dialog1isOpen: false,
   dialog2isOpen: false,
   dialog3isOpen: false,
@@ -134,6 +135,43 @@ class DetailsTab extends Component {
         console.error("Error adding document: ", error);
       });
     console.info('submitted: ', data);
+  }
+
+  dialog = props => {
+    return (
+      <Dialog
+        open={this.state.dialogIsOpen}
+        onClose={this.handleCloseDialog}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">{props.dialogTitle}</DialogTitle>
+        <DialogContent>
+          {/* <DialogContentText>
+          To subscribe to this website, please enter your email address here. We will send
+          updates occasionally.
+        </DialogContentText> */}
+          <TextField
+            id={props.name}
+            name={props.name}
+            type="text"
+            margin="dense"
+            variant="outlined"
+            label={props.label}
+            onChange={this.handleChange}
+            autoFocus
+            fullWidth
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={this.handleCancelDialog} color="primary">
+            Cancel
+      </Button>
+          <Button onClick={this.handleSaveDialog} id="name" color="secondary">
+            Save
+      </Button>
+        </DialogActions>
+      </Dialog>
+    )
   }
 
   resetForm = () => {
@@ -225,6 +263,27 @@ class DetailsTab extends Component {
 
   // --------------------------------
   
+  handleClickListItemDialog = event => {
+    this.setState({ dialogIsOpen: true, });
+  }
+  
+  handleCloseDialog = event => {
+    this.setState({ dialogIsOpen: false, });
+  }
+  
+  handleCancelDialog = event => {
+    this.setState({ dialogIsOpen: false, });
+    // this.setState({ name: '', });
+  }
+  
+  handleSaveDialog = event => {
+    // console.log('state\n', this.state);
+    this.setState({ dialogIsOpen: false, });
+    this.props.updateSettings(this.state.settings);
+  }
+  
+  // --------------------------------
+  
   handleClickListItemDialog1 = event => {
     this.setState({ dialog1isOpen: true, });
   }
@@ -284,6 +343,7 @@ class DetailsTab extends Component {
     } = this.state;
     const {
       handleValidGeoStepper, handleGeoClose, handleChange,
+      handleClickListItemDialog ,
       handleClickListItemDialog1, handleCancelDialog1, handleSaveDialog1, handleCloseDialog1,
       handleClickListItemDialog2, handleCancelDialog2, handleSaveDialog2, handleCloseDialog2,
       handleClickListItemDialog3, handleCancelDialog3, handleSaveDialog3, handleCloseDialog3,
@@ -402,6 +462,14 @@ class DetailsTab extends Component {
             </MenuItem>
           ))}
         </Menu>
+
+        {
+          this.dialog({
+            dialogTitle: 'Name',
+            label: 'first and last',
+            name: 'name',
+          })
+        }
 
         <Dialog
           open={dialog1isOpen}
@@ -606,6 +674,23 @@ class DetailsTab extends Component {
                       aria-haspopup="false"
                       aria-controls="username"
                       aria-label="username"
+                      onClick={handleClickListItemDialog}
+                    >
+                      <ListItemIcon>
+                        {/* <PersonIcon /> */}
+                        <PermContactCalendarIcon />
+                      </ListItemIcon>
+                      <ListItemText
+                        primary="Name"
+                        // secondary={name}
+                        secondary={user.data.displayName}
+                      />
+                    </ListItem>
+                    <ListItem
+                      button
+                      aria-haspopup="false"
+                      aria-controls="username"
+                      aria-label="username"
                       onClick={handleClickListItemDialog1}
                     >
                       <ListItemIcon>
@@ -730,7 +815,7 @@ function mapStateToProps({ auth }) {
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateSettings: newSettings => dispatch(updateSettings(newSettings)),
+    updateSettings: settings => dispatch(updateSettings(settings)),
   }
 }
 

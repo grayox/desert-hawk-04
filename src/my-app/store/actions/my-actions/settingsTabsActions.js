@@ -1,5 +1,5 @@
 // from marioplan...projectActions
-export const updateSettings = newSettings => {
+export const updateSettings = settings => {
   return (dispatch, getState, {getFirestore}) => {
     // console.log('Hello world from editSetting');
     // console.log('newSettings\n', newSettings);
@@ -8,7 +8,7 @@ export const updateSettings = newSettings => {
     // const profile = getState().firebase.profile;
     // const authorId = getState().firebase.auth.uid;
     firestore.collection('settings').add({
-      newSettings,
+      settings,
       createdAt: new Date(),
       timestamp: Date.now(),
     }).then(() => {
