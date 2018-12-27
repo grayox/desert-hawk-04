@@ -175,6 +175,8 @@ class DetailsTab extends Component {
     });
   }
 
+  // --------------------------------
+
   handleClickListItemMenu1 = event => {
     this.setState({ anchorElMenu1: event.currentTarget });
   };
@@ -289,21 +291,12 @@ class DetailsTab extends Component {
     // if (!user.data.uid) return <Redirect to='/login' /> 
     // const { general, work, contact, } = this.state;
     const {
-      // anchorElMenu1,
-      anchorElMenu2,
-      dialog1isOpen, dialog2isOpen, dialog3isOpen, dialog4isOpen,
-      selectedIndexMenu2,
-      // name, email, mobile,
-      geoKey, isValidGeo, geoNation, geoRegion, geoLocal,
+      dialog1isOpen, 
     } = this.state;
     const {
-      handleValidGeoStepper, handleGeoClose, handleChange, dialog,
+      handleChange, dialog,
       handleClickListItemDialog ,
-      handleClickListItemDialog1, handleCancelDialog1, handleSaveDialog1, handleCloseDialog1,
-      handleClickListItemDialog2, handleCancelDialog2, handleSaveDialog2, handleCloseDialog2,
-      handleClickListItemDialog3, handleCancelDialog3, handleSaveDialog3, handleCloseDialog3,
-      handleClickListItemDialog4, handleCancelDialog4, handleSaveDialog4, handleCloseDialog4,
-      handleClickListItemMenu2, handleMenuItemClickMenu2, handleCloseMenu2,
+      handleCancelDialog1, handleSaveDialog1, handleCloseDialog1,
     } = this;
 
     return (
@@ -376,13 +369,7 @@ class DetailsTab extends Component {
                       aria-haspopup="false"
                       aria-controls="username"
                       aria-label="username"
-                      onClick={handleClickListItemDialog(
-                        // {
-                        // dialogTitle: 'George',//'Name',
-                        // dialogLabel: 'first and last',
-                        // dialogName: 'name',
-                        // }
-                      )}
+                      onClick={handleClickListItemDialog}
                     >
                       <ListItemIcon>
                         {/* <PersonIcon /> */}
@@ -392,111 +379,6 @@ class DetailsTab extends Component {
                         primary="Name"
                         // secondary={name}
                         secondary={user.data.displayName}
-                      />
-                    </ListItem>
-                    <ListItem
-                      button
-                      aria-haspopup="false"
-                      aria-controls="username"
-                      aria-label="username"
-                      onClick={handleClickListItemDialog1}
-                    >
-                      <ListItemIcon>
-                        {/* <PersonIcon /> */}
-                        <PermContactCalendarIcon />
-                      </ListItemIcon>
-                      <ListItemText
-                        primary="Name"
-                        // secondary={name}
-                        secondary={user.data.displayName}
-                      />
-                    </ListItem>
-                    <ListItem
-                      button
-                      aria-haspopup="false"
-                      aria-controls="email"
-                      aria-label="email"
-                      onClick={handleClickListItemDialog2}
-                    >
-                      <ListItemIcon>
-                        <EmailIcon />
-                      </ListItemIcon>
-                      <ListItemText
-                        primary="Email"
-                        // secondary={email}
-                        secondary={user.data.email}
-                      />
-                    </ListItem>
-                    <ListItem
-                      button
-                      aria-haspopup="true"
-                      aria-controls="mobile"
-                      aria-label="mobile"
-                      onClick={handleClickListItemDialog3}
-                    >
-                      <ListItemIcon>
-                        <SmartphoneIcon />
-                      </ListItemIcon>
-                      <ListItemText
-                        primary="Mobile"
-                        // secondary={mobile}
-                        secondary={ user.data.phoneNumber || 'Click to enter...' }
-                      />
-                    </ListItem>
-                  </List>
-                </CardContent>
-              </Card>
-            </FuseAnimateGroup>
-          </div>
-
-          <div className="flex flex-col flex-1 md:pr-32">
-            <FuseAnimateGroup
-              enter={{
-                animation: "transition.slideLeftBigIn"
-              }}
-            >
-              <Card className="w-full m-0 md:mb-16">
-                <AppBar position="static" elevation={0}>
-                  <Toolbar className="pl-16 pr-8">
-                    <Typography variant="subtitle1" color="inherit" className="flex-1">
-                      Business
-                    </Typography>
-                  </Toolbar>
-                </AppBar>
-
-                <CardContent className="px-0">
-                  <List component="nav" className="px-0 mb-4">
-                    <ListItem
-                      button
-                      aria-haspopup="true"
-                      aria-controls="menu2"
-                      aria-label="Type"
-                      onClick={handleClickListItemMenu2}
-                    >
-                      <ListItemIcon>
-                        <ExtensionIcon />
-                      </ListItemIcon>
-                      <ListItemText
-                        primary="Type"
-                        secondary={optionsMenu2[selectedIndexMenu2]}
-                      />
-                    </ListItem>
-                    <ListItem
-                      button
-                      aria-haspopup="true"
-                      aria-controls="menu2"
-                      aria-label="Type"
-                      onClick={handleClickListItemDialog4}
-                    >
-                      <ListItemIcon>
-                        <LocationOnIcon />
-                      </ListItemIcon>
-                      <ListItemText
-                        primary="Location"
-                        secondary={
-                          isValidGeo ? `${geoLocal}, ${geoRegion}, ${geoNation}`
-                            : 'Click to select...'
-                        }
                       />
                     </ListItem>
                   </List>
@@ -527,14 +409,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-// function mapDispatchToProps(dispatch)
-// {
-//     return bindActionCreators({
-//         toggleQuickPanel: quickPanelActions.toggleQuickPanel,
-//         logout          : authActions.logoutUser,
-//         openChatPanel   : chatPanelActions.openChatPanel
-//     }, dispatch);
-// }
-
-// export default withStyles(styles, { withTheme: true })(DetailsTab);
 export default withStyles(styles, {withTheme: true})(connect(mapStateToProps, mapDispatchToProps)(DetailsTab));

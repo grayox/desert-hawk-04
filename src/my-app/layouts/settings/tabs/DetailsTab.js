@@ -94,11 +94,17 @@ const INITIAL_STATE = {
   anchorElMenu2: null,
   selectedIndexMenu2: 1,
 
+  // dialog1isOpen: false,
+  // dialog2isOpen: false,
+  // dialog3isOpen: false,
+  // dialog4isOpen: false,
+  
   dialogIsOpen: false,
-  dialog1isOpen: false,
-  dialog2isOpen: false,
-  dialog3isOpen: false,
-  dialog4isOpen: false,
+  dialogTitle: 'Name', //'Name',
+  // dialogContentText: '', //'To subscribe to this website, please enter your email address here. We will send updates occasionally.',
+  dialogLabel: 'first and last', //'first and last',
+  dialogName: 'name', //'name',
+
 };
 
 
@@ -116,6 +122,83 @@ const optionsMenu2 = [
   'Insurance',
   'Financial',
 ];
+
+class SettingsDialog extends Component {
+
+  handleChange = event => {
+    // console.log('event.target\n', event.target);
+    const val = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
+    // console.log('val\n', val);
+    const settings = { [event.target.name] : val };
+    // console.log('setting\n', setting);
+    this.setState({settings});
+  };
+
+  handleCloseDialog = event => {
+    this.setState({ dialogIsOpen: false, });
+  }
+  
+  handleCancelDialog = event => {
+    this.setState({ dialogIsOpen: false, });
+    // this.setState({ name: '', });
+  }
+  
+  handleSaveDialog = event => {
+    // console.log('state\n', this.state);
+    this.setState({ dialogIsOpen: false, });
+    this.props.updateSettings(this.state.settings);
+  }
+
+  // dialogTitle: 'George',//'Name',
+  // dialogLabel: 'first and last',
+  // dialogName: 'name',
+
+  render() {
+    const { dialogIsOpen, dialogTitle, dialogContentText, dialogName, dialogLabel, } = this.props;
+    const { handleChange, handleCloseDialog, handleCancelDialog, handleSaveDialog, } = this;
+    return (
+      <Dialog
+        open={dialogIsOpen}
+        onClose={handleCloseDialog}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">{dialogTitle}</DialogTitle>
+        <DialogContent>
+          {dialogContentText &&
+            (
+              <DialogContentText className='mb-8'>
+                {/* To subscribe to this website, please enter your email address here. We will send updates occasionally. */}
+                {dialogContentText}
+              </DialogContentText>
+            )
+          }
+          <TextField
+            // id={this.state.dialogName}
+            // name={this.state.dialogName}
+            id={dialogName}
+            name={dialogName}
+            type="text"
+            margin="dense"
+            variant="outlined"
+            // label={this.state.dialogLabel}
+            label={dialogLabel}
+            onChange={handleChange}
+            autoFocus
+            fullWidth
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCancelDialog} color="primary">
+            Cancel
+        </Button>
+          <Button onClick={handleSaveDialog} id="name" color="secondary">
+            Save
+        </Button>
+        </DialogActions>
+      </Dialog>
+    )
+  }
+}
 
 class DetailsTab extends Component {
 
@@ -135,47 +218,6 @@ class DetailsTab extends Component {
         console.error("Error adding document: ", error);
       });
     console.info('submitted: ', data);
-  }
-
-  dialog = props => {
-    return (
-      <Dialog
-        open={this.state.dialogIsOpen}
-        onClose={this.handleCloseDialog}
-        aria-labelledby="form-dialog-title"
-      >
-        <DialogTitle id="form-dialog-title">{props.dialogTitle}</DialogTitle>
-        <DialogContent>
-          { props.dialogContentText &&
-            (
-              <DialogContentText className='mb-8'>
-                {/* To subscribe to this website, please enter your email address here. We will send updates occasionally. */}
-                {props.dialogContentText}
-              </DialogContentText>
-            )
-          }
-          <TextField
-            id={props.name}
-            name={props.name}
-            type="text"
-            margin="dense"
-            variant="outlined"
-            label={props.label}
-            onChange={this.handleChange}
-            autoFocus
-            fullWidth
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={this.handleCancelDialog} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={this.handleSaveDialog} id="name" color="secondary">
-            Save
-          </Button>
-        </DialogActions>
-      </Dialog>
-    )
   }
 
   resetForm = () => {
@@ -198,15 +240,15 @@ class DetailsTab extends Component {
   handleValidGeoStepper = model => {
     // handleSaveGeoStepper = model => {
     const picked = _.pick(model, ['geoNation', 'geoRegion', 'geoLocal',]);
-    const newState = {
+    const settings = {
       ...picked,
       isValidGeo: true,
     };
     this.setState(
-      { settings: newState },
+      { settings },
       () => {
-        console.log('newState', newState);
-        console.log('state', this.state);
+        console.log('settings\n', settings);
+        console.log('state\n', this.state);
         // this.handleChangeForm();
         // this.saveToFirebase(picked);
       });
@@ -255,35 +297,13 @@ class DetailsTab extends Component {
   };
 
   // --------------------------------
-
-  handleChange = event => {
-    // console.log('event.target\n', event.target);
-    const val = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
-    // console.log('val\n', val);
-    const setting = { [event.target.name] : val };
-    // console.log('setting\n', setting);
-    this.setState({settings: setting});
-  };
-
-  // --------------------------------
   
+  // handleClickListItemDialog = ({dialogTitle, ˚dialogLabel, dialogName}) => {
   handleClickListItemDialog = event => {
-    this.setState({ dialogIsOpen: true, });
-  }
-  
-  handleCloseDialog = event => {
-    this.setState({ dialogIsOpen: false, });
-  }
-  
-  handleCancelDialog = event => {
-    this.setState({ dialogIsOpen: false, });
-    // this.setState({ name: '', });
-  }
-  
-  handleSaveDialog = event => {
-    // console.log('state\n', this.state);
-    this.setState({ dialogIsOpen: false, });
-    this.props.updateSettings(this.state.settings);
+    this.setState({ 
+      dialogIsOpen: true,
+      // dialogTitle: 'foo', dialogLabel: 'foo', dialogName: 'foo',
+    });
   }
   
   // --------------------------------
@@ -340,7 +360,7 @@ class DetailsTab extends Component {
     const {
       // anchorElMenu1,
       anchorElMenu2,
-      dialog1isOpen, dialog2isOpen, dialog3isOpen, dialog4isOpen,
+      dialogIsOpen, dialog1isOpen, dialog2isOpen, dialog3isOpen, dialog4isOpen,
       selectedIndexMenu2,
       // name, email, mobile,
       geoKey, isValidGeo, geoNation, geoRegion, geoLocal,
@@ -376,14 +396,13 @@ class DetailsTab extends Component {
           ))}
         </Menu>
 
-        {
-          this.dialog({
-            dialogTitle: 'Name',
-            // dialogContentText: 'To subscribe to this website, please enter your email address here. We will send updates occasionally.',
-            label: 'first and last',
-            name: 'name',
-          })
-        }
+        <SettingsDialog
+          dialogIsOpen={dialogIsOpen}
+          dialogTitle='Name'
+          // dialogContentText: 'To subscribe to this website, please enter your email address here. We will send updates occasionally.',
+          dialogName='name'
+          dialogLabel='first and last'
+        />
 
         <Dialog
           open={dialog1isOpen}
@@ -512,59 +531,6 @@ class DetailsTab extends Component {
 
         {/* "Block-level" group of two cards on this row */}
         <div className={classNames(classes.root, "md:flex max-w-2xl")}>
-          {/* 
-          <div className="flex flex-col flex-1 md:pr-32">
-            <FuseAnimateGroup
-              enter={{
-                animation: "transition.slideLeftBigIn"
-              }}
-            >
-              <Card className="w-full mb-16">
-                <AppBar position="static" elevation={0}>
-                  <Toolbar className="pl-16 pr-8">
-                    <Typography variant="subtitle1" color="inherit" className="flex-1">
-                      Contact
-                    </Typography>
-                  </Toolbar>
-                </AppBar>
-
-                <CardContent className="px-0 mb-24">
-                  <List component="nav" className="px-0 mb-4">
-                    <ListItem
-                      button
-                      aria-haspopup="true"
-                      aria-controls="menu1"
-                      aria-label="When device is locked"
-                      onClick={this.handleClickListItemMenu1}
-                    >
-                      <ListItemText
-                        primary="When device is locked"
-                        secondary={optionsMenu1[this.state.selectedIndexMenu1]}
-                      />
-                    </ListItem>
-                  </List>
-                  <Menu
-                    id="menu1"
-                    anchorEl={anchorElMenu1}
-                    open={Boolean(anchorElMenu1)}
-                    onClose={this.handleClose}
-                  >
-                    {optionsMenu1.map((option, index) => (
-                      <MenuItem
-                        key={option}
-                        disabled={index === 0}
-                        selected={index === this.state.selectedIndexMenu1}
-                        onClick={event => this.handleMenuItemClickMenu1(event, index)}
-                      >
-                        {option}
-                      </MenuItem>
-                    ))}
-                  </Menu>
-                </CardContent>
-              </Card>
-            </FuseAnimateGroup>
-          </div>
-          */}
 
           <div className="flex flex-col flex-1 md:pr-32">
             <FuseAnimateGroup
