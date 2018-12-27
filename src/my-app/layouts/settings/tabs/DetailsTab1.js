@@ -95,6 +95,11 @@ const INITIAL_STATE = {
   selectedIndexMenu1: 1,
   anchorElMenu2: null,
   selectedIndexMenu2: 1,
+
+  // dialog1isOpen: false,
+  // dialog2isOpen: false,
+  // dialog3isOpen: false,
+  // dialog4isOpen: false,
   
   dialogIsOpen: false,
   dialogTitle: 'Name', //'Name',
@@ -103,6 +108,7 @@ const INITIAL_STATE = {
   dialogFieldName: 'name', //'name',
 
 };
+
 
 // const optionsMenu1 = [
 //   'Show some love to Material-UI',
@@ -217,32 +223,6 @@ class DetailsTab extends Component {
 
   // --------------------------------
   
-  handleChangeDialog = event => {
-    // console.log('event.target\n', event.target);
-    const val = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
-    // console.log('val\n', val);
-    const settings = { [event.target.name] : val };
-    // console.log('setting\n', setting);
-    this.setState({settings});
-  };
-
-  handleCloseDialog = event => {
-    this.setState({ dialogIsOpen: false, });
-  }
-  
-  handleCancelDialog = event => {
-    this.setState({ dialogIsOpen: false, });
-    // this.setState({ name: '', });
-  }
-  
-  handleSaveDialog = event => {
-    // console.log('state\n', this.state);
-    this.setState({ dialogIsOpen: false, });
-    this.props.updateSettings(this.state.settings);
-  }
-
-  // --------------------------------
-  
   handleClickListItemDialog = ({dialogTitle, dialogLabel, dialogFieldName,}) => event => {
     this.setState({ 
       dialogIsOpen: true,
@@ -253,6 +233,43 @@ class DetailsTab extends Component {
   }
   
   // --------------------------------
+  
+  handleClickListItemDialog1 = event => {
+    this.setState({ dialog1isOpen: true, });
+  }
+  
+  handleCloseDialog1 = event => {
+    this.setState({ dialog1isOpen: false, });
+  }
+  
+  handleCancelDialog1 = event => {
+    this.setState({ dialog1isOpen: false, });
+    // this.setState({ name: '', });
+  }
+  
+  handleSaveDialog1 = event => {
+    // console.log('state\n', this.state);
+    this.setState({ dialog1isOpen: false, });
+    this.props.updateSettings(this.state.settings);
+  }
+  
+  // --------------------------------
+
+  handleClickListItemDialog2 = event => {
+    this.setState({ dialog2isOpen: true, });
+  }
+
+  handleCloseDialog2 = event => {
+    this.setState({ dialog2isOpen: false, });
+  }
+
+  handleClickListItemDialog3 = event => {
+    this.setState({ dialog3isOpen: true, });
+  }
+
+  handleCloseDialog3 = event => {
+    this.setState({ dialog3isOpen: false, });
+  }
 
   handleClickListItemDialog4 = event => {
     this.setState({ dialog4isOpen: true, });
@@ -270,17 +287,19 @@ class DetailsTab extends Component {
       // anchorElMenu1,
       anchorElMenu2,
       dialogIsOpen, dialogTitle, dialogFieldName, dialogLabel,
-      dialog4isOpen,
+      dialog1isOpen, dialog2isOpen, dialog3isOpen, dialog4isOpen,
       selectedIndexMenu2,
       // name, email, mobile,
       geoKey, isValidGeo, geoNation, geoRegion, geoLocal,
     } = this.state;
     const {
-      handleValidGeoStepper, handleGeoClose,
+      handleValidGeoStepper, handleGeoClose, handleChange,
       handleClickListItemDialog ,
+      handleClickListItemDialog1, handleCancelDialog1, handleSaveDialog1, handleCloseDialog1,
+      handleClickListItemDialog2, handleCancelDialog2, handleSaveDialog2, handleCloseDialog2,
+      handleClickListItemDialog3, handleCancelDialog3, handleSaveDialog3, handleCloseDialog3,
       handleClickListItemDialog4, handleCancelDialog4, handleSaveDialog4, handleCloseDialog4,
       handleClickListItemMenu2, handleMenuItemClickMenu2, handleCloseMenu2,
-      handleChangeDialog, handleCloseDialog, handleCancelDialog, handleSaveDialog,
     } = this;
 
     return (
@@ -305,15 +324,110 @@ class DetailsTab extends Component {
         </Menu>
 
         <SettingsDialog
-          onChange={handleChangeDialog}
-          onClose={handleCloseDialog}
-          onCancel={handleCancelDialog}
-          onSave={handleSaveDialog}    
           dialogIsOpen={dialogIsOpen}
           dialogTitle={dialogTitle} // dialogContentText: 'To subscribe to this website, please enter your email address here. We will send updates occasionally.',
           dialogFieldName={dialogFieldName}
           dialogLabel={dialogLabel}
         />
+
+        <Dialog
+          open={dialog1isOpen}
+          onClose={handleCloseDialog1}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">Name</DialogTitle>
+          <DialogContent>
+            {/* <DialogContentText>
+                To subscribe to this website, please enter your email address here. We will send
+                updates occasionally.
+              </DialogContentText> */}
+            <TextField
+              id="name"
+              name="name"
+              type="text"
+              margin="dense"
+              variant="outlined"
+              label="first and last"
+              onChange={handleChange}
+              autoFocus
+              fullWidth
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCancelDialog1} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={handleSaveDialog1} id="name" color="secondary">
+              Save
+            </Button>
+          </DialogActions>
+        </Dialog>
+
+        <Dialog
+          open={dialog2isOpen}
+          onClose={handleCloseDialog2}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">Email</DialogTitle>
+          <DialogContent>
+            {/* <DialogContentText>
+                To subscribe to this website, please enter your email address here. We will send
+                updates occasionally.
+              </DialogContentText> */}
+            <TextField
+              id="email"
+              name="email"
+              type="text"
+              margin="dense"
+              variant="outlined"
+              label="address"
+              onChange={handleChange}
+              autoFocus
+              fullWidth
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseDialog2} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={handleCloseDialog2} color="secondary">
+              Save
+            </Button>
+          </DialogActions>
+        </Dialog>
+
+        <Dialog
+          open={dialog3isOpen}
+          onClose={handleCloseDialog3}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">Mobile</DialogTitle>
+          <DialogContent>
+            {/* <DialogContentText>
+                To subscribe to this website, please enter your email address here. We will send
+                updates occasionally.
+              </DialogContentText> */}
+            <TextField
+              id="mobile"
+              name="mobile"
+              type="text"
+              margin="dense"
+              variant="outlined"
+              label="number"
+              onChange={handleChange}
+              autoFocus
+              fullWidth
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseDialog3} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={handleCloseDialog3} color="secondary">
+              Save
+            </Button>
+          </DialogActions>
+        </Dialog>
 
         <Dialog
           open={dialog4isOpen}
@@ -382,6 +496,23 @@ class DetailsTab extends Component {
                         secondary={user.data.displayName}
                       />
                     </ListItem>
+                    {/* <ListItem
+                      button
+                      aria-haspopup="false"
+                      aria-controls="username"
+                      aria-label="username"
+                      onClick={handleClickListItemDialog1}
+                    >
+                      <ListItemIcon>
+                        {/* <PersonIcon /> * /}
+                        <PermContactCalendarIcon />
+                      </ListItemIcon>
+                      <ListItemText
+                        primary="Name"
+                        // secondary={name}
+                        secondary={user.data.displayName}
+                      />
+                    </ListItem> */}
                     <ListItem
                       button
                       aria-haspopup="false"

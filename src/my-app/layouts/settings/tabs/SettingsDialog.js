@@ -21,38 +21,15 @@ const styles = theme => ({
 });
 
 class SettingsDialog extends Component {
-
-  handleChange = event => {
-    // console.log('event.target\n', event.target);
-    const val = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
-    // console.log('val\n', val);
-    const settings = { [event.target.name] : val };
-    // console.log('setting\n', setting);
-    this.setState({settings});
-  };
-
-  handleCloseDialog = event => {
-    this.setState({ dialogIsOpen: false, });
-  }
-  
-  handleCancelDialog = event => {
-    this.setState({ dialogIsOpen: false, });
-    // this.setState({ name: '', });
-  }
-  
-  handleSaveDialog = event => {
-    // console.log('state\n', this.state);
-    this.setState({ dialogIsOpen: false, });
-    this.props.updateSettings(this.state.settings);
-  }
-
   render() {
-    const { dialogIsOpen, dialogTitle, dialogContentText, dialogFieldName, dialogLabel, } = this.props;
-    const { handleChange, handleCloseDialog, handleCancelDialog, handleSaveDialog, } = this;
+    const {
+      dialogIsOpen, dialogTitle, dialogContentText, dialogFieldName, dialogLabel, 
+      onChange, onClose, onCancel, onSave,
+    } = this.props;
     return (
       <Dialog
         open={dialogIsOpen}
-        onClose={handleCloseDialog}
+        onClose={onClose}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">{dialogTitle}</DialogTitle>
@@ -71,18 +48,18 @@ class SettingsDialog extends Component {
             margin="dense"
             variant="outlined"
             label={dialogLabel}
-            onChange={handleChange}
+            onChange={onChange}
             autoFocus
             fullWidth
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCancelDialog} color="primary">
+          <Button onClick={onCancel} color="primary">
             Cancel
-        </Button>
-          <Button onClick={handleSaveDialog} id="name" color="secondary">
+          </Button>
+          <Button onClick={onSave} id="saveButton" color="secondary">
             Save
-        </Button>
+          </Button>
         </DialogActions>
       </Dialog>
     )
@@ -96,6 +73,10 @@ SettingsDialog.propTypes = {
   dialogIsOpen      : PropTypes.bool,   // false
   dialogLabel       : PropTypes.string, // 'first and last'
   dialogTitle       : PropTypes.string, // 'Name'
+  onChange          : PropTypes.func,
+  onClose           : PropTypes.func,
+  onCancel          : PropTypes.func,
+  onSave            : PropTypes.func,
 }
 
 export default withStyles(styles, { withTheme: true })(SettingsDialog);
