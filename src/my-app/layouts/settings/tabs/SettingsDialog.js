@@ -27,7 +27,11 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+// import ImageIcon from '@material-ui/icons/Image';
+// import WorkIcon from '@material-ui/icons/Work';
+// import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import EmailIcon from '@material-ui/icons/Email';
+// import PersonIcon from '@material-ui/icons/Person';
 import ExtensionIcon from '@material-ui/icons/Extension';
 import SmartphoneIcon from '@material-ui/icons/Smartphone';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
@@ -38,15 +42,21 @@ import GeoStepper from 'my-app/components/steppers/GeoStepper'; // see 'class Us
 
 // utilities
 import _ from 'lodash';
+// import * as EmailValidator from 'email-validator';
+// import NumberFormat from 'react-number-format';
 
 // firebase
 import firebase from '@firebase/app';
 import '@firebase/firestore';
 const db = firebase.firestore();
 
+// this page was copied from ./AboutTab
+
 const styles = theme => ({
   root: {
     width: '100%',
+    // maxWidth: 360,
+    // backgroundColor: theme.palette.background.paper,
   },
 });
 
@@ -83,6 +93,11 @@ const INITIAL_STATE = {
   selectedIndexMenu1: 1,
   anchorElMenu2: null,
   selectedIndexMenu2: 1,
+
+  // dialog1isOpen: false,
+  // dialog2isOpen: false,
+  // dialog3isOpen: false,
+  // dialog4isOpen: false,
   
   dialogIsOpen: false,
   dialogTitle: 'Name', //'Name',
@@ -92,6 +107,14 @@ const INITIAL_STATE = {
 
 };
 
+
+// const optionsMenu1 = [
+//   'Show some love to Material-UI',
+//   'Show all notification content',
+//   'Hide sensitive notification content',
+//   'Hide all notification content',
+// ];
+
 const optionsMenu2 = [
   'Select one',
   'Home',
@@ -99,6 +122,83 @@ const optionsMenu2 = [
   'Insurance',
   'Financial',
 ];
+
+class SettingsDialog extends Component {
+
+  handleChange = event => {
+    // console.log('event.target\n', event.target);
+    const val = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
+    // console.log('val\n', val);
+    const settings = { [event.target.name] : val };
+    // console.log('setting\n', setting);
+    this.setState({settings});
+  };
+
+  handleCloseDialog = event => {
+    this.setState({ dialogIsOpen: false, });
+  }
+  
+  handleCancelDialog = event => {
+    this.setState({ dialogIsOpen: false, });
+    // this.setState({ name: '', });
+  }
+  
+  handleSaveDialog = event => {
+    // console.log('state\n', this.state);
+    this.setState({ dialogIsOpen: false, });
+    this.props.updateSettings(this.state.settings);
+  }
+
+  // dialogTitle: 'George',//'Name',
+  // dialogLabel: 'first and last',
+  // dialogName: 'name',
+
+  render() {
+    const { dialogIsOpen, dialogTitle, dialogContentText, dialogName, dialogLabel, } = this.props;
+    const { handleChange, handleCloseDialog, handleCancelDialog, handleSaveDialog, } = this;
+    return (
+      <Dialog
+        open={dialogIsOpen}
+        onClose={handleCloseDialog}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">{dialogTitle}</DialogTitle>
+        <DialogContent>
+          {dialogContentText &&
+            (
+              <DialogContentText className='mb-8'>
+                {/* To subscribe to this website, please enter your email address here. We will send updates occasionally. */}
+                {dialogContentText}
+              </DialogContentText>
+            )
+          }
+          <TextField
+            // id={this.state.dialogName}
+            // name={this.state.dialogName}
+            id={dialogName}
+            name={dialogName}
+            type="text"
+            margin="dense"
+            variant="outlined"
+            // label={this.state.dialogLabel}
+            label={dialogLabel}
+            onChange={handleChange}
+            autoFocus
+            fullWidth
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCancelDialog} color="primary">
+            Cancel
+        </Button>
+          <Button onClick={handleSaveDialog} id="name" color="secondary">
+            Save
+        </Button>
+        </DialogActions>
+      </Dialog>
+    )
+  }
+}
 
 class DetailsTab extends Component {
 
@@ -120,60 +220,55 @@ class DetailsTab extends Component {
     console.info('submitted: ', data);
   }
 
-  // dialog = () => {
-  dialog = props => {
-    return (
-      <Dialog
-        open={this.state.dialogIsOpen}
-        onClose={this.handleCloseDialog}
-        aria-labelledby="form-dialog-title"
-      >
-        {/* <DialogTitle id="form-dialog-title">{this.state.dialogTitle}</DialogTitle> */}
-        <DialogTitle id="form-dialog-title">{props.dialogTitle}</DialogTitle>
-        <DialogContent>
-          {/* { this.state.dialogContentText && */}
-          { props.dialogContentText &&
-            (
-              <DialogContentText className='mb-8'>
-                {/* To subscribe to this website, please enter your email address here. We will send updates occasionally. */}
-                {/* {this.state.dialogContentText} */}
-                {props.dialogContentText}
-              </DialogContentText>
-            )
-          }
-          <TextField
-            // id={this.state.dialogName}
-            // name={this.state.dialogName}
-            id={props.dialogName}
-            name={props.dialogName}
-            type="text"
-            margin="dense"
-            variant="outlined"
-            // label={this.state.dialogLabel}
-            label={props.dialogLabel}
-            onChange={this.handleChange}
-            autoFocus
-            fullWidth
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={this.handleCancelDialog} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={this.handleSaveDialog} id="name" color="secondary">
-            Save
-          </Button>
-        </DialogActions>
-      </Dialog>
-    )
-  }
-
   resetForm = () => {
     this.setState(INITIAL_STATE);
     this.setState({
       geoKey: Date.now(), // resets geoStepper
     });
   }
+
+  // handleValidFormSubmit = model => {
+  //   const picked = _.pick(model, [ 'name', 'email', 'phone', 'bizCategory', 'geoNation', 'geoRegion', 'geoLocal', ]);
+  //   const newData = {
+  //     ...picked,
+  //     timestamp: Date.now(),
+  //   };
+  //   this.saveToFirebase(newData);
+  //   this.resetForm();
+  // };
+
+  handleValidGeoStepper = model => {
+    // handleSaveGeoStepper = model => {
+    const picked = _.pick(model, ['geoNation', 'geoRegion', 'geoLocal',]);
+    const settings = {
+      ...picked,
+      isValidGeo: true,
+    };
+    this.setState(
+      { settings },
+      () => {
+        console.log('settings\n', settings);
+        console.log('state\n', this.state);
+        // this.handleChangeForm();
+        // this.saveToFirebase(picked);
+      });
+  };
+
+  // state = {
+  //   general: null,
+  //   work: null,
+  //   contact: null,
+  //   groups: null,
+  //   friends: null
+  // };
+
+  // componentDidMount() {
+  //   axios.get('/api/profile/about').then(res => {
+  //     this.setState(res.data);
+  //   });
+  // }
+
+  // --------------------------------
 
   handleClickListItemMenu1 = event => {
     this.setState({ anchorElMenu1: event.currentTarget });
@@ -202,17 +297,6 @@ class DetailsTab extends Component {
   };
 
   // --------------------------------
-
-  handleChange = event => {
-    // console.log('event.target\n', event.target);
-    const val = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
-    // console.log('val\n', val);
-    const settings = { [event.target.name] : val };
-    // console.log('setting\n', setting);
-    this.setState({settings});
-  };
-
-  // --------------------------------
   
   // handleClickListItemDialog = ({dialogTitle, ˚dialogLabel, dialogName}) => {
   handleClickListItemDialog = event => {
@@ -220,21 +304,6 @@ class DetailsTab extends Component {
       dialogIsOpen: true,
       // dialogTitle: 'foo', dialogLabel: 'foo', dialogName: 'foo',
     });
-  }
-  
-  handleCloseDialog = event => {
-    this.setState({ dialogIsOpen: false, });
-  }
-  
-  handleCancelDialog = event => {
-    this.setState({ dialogIsOpen: false, });
-    // this.setState({ name: '', });
-  }
-  
-  handleSaveDialog = event => {
-    // console.log('state\n', this.state);
-    this.setState({ dialogIsOpen: false, });
-    this.props.updateSettings(this.state.settings);
   }
   
   // --------------------------------
@@ -291,13 +360,14 @@ class DetailsTab extends Component {
     const {
       // anchorElMenu1,
       anchorElMenu2,
+      dialogIsOpen, dialogTitle, dialogName, dialogLabel,
       dialog1isOpen, dialog2isOpen, dialog3isOpen, dialog4isOpen,
       selectedIndexMenu2,
       // name, email, mobile,
       geoKey, isValidGeo, geoNation, geoRegion, geoLocal,
     } = this.state;
     const {
-      handleValidGeoStepper, handleGeoClose, handleChange, dialog,
+      handleValidGeoStepper, handleGeoClose, handleChange,
       handleClickListItemDialog ,
       handleClickListItemDialog1, handleCancelDialog1, handleSaveDialog1, handleCloseDialog1,
       handleClickListItemDialog2, handleCancelDialog2, handleSaveDialog2, handleCloseDialog2,
@@ -309,14 +379,31 @@ class DetailsTab extends Component {
     return (
       <React.Fragment>
 
-        {
-          this.dialog({
-            dialogTitle: 'Name',
-            // dialogContentText: 'To subscribe to this website, please enter your email address here. We will send updates occasionally.',
-            label: 'first and last',
-            name: 'name',
-          })
-        }
+        <Menu
+          id="menu2"
+          anchorEl={anchorElMenu2}
+          open={Boolean(anchorElMenu2)}
+          onClose={handleCloseMenu2}
+        >
+          {optionsMenu2.map((option, index) => (
+            <MenuItem
+              key={option}
+              disabled={index === 0}
+              selected={index === selectedIndexMenu2}
+              onClick={event => handleMenuItemClickMenu2(event, index)}
+            >
+              {option}
+            </MenuItem>
+          ))}
+        </Menu>
+
+        <SettingsDialog
+          dialogIsOpen={dialogIsOpen}
+          dialogTitle={dialogTitle}
+          // dialogContentText: 'To subscribe to this website, please enter your email address here. We will send updates occasionally.',
+          dialogName={dialogName}
+          dialogLabel={dialogLabel}
+        />
 
         <Dialog
           open={dialog1isOpen}
@@ -351,6 +438,98 @@ class DetailsTab extends Component {
           </DialogActions>
         </Dialog>
 
+        <Dialog
+          open={dialog2isOpen}
+          onClose={handleCloseDialog2}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">Email</DialogTitle>
+          <DialogContent>
+            {/* <DialogContentText>
+                To subscribe to this website, please enter your email address here. We will send
+                updates occasionally.
+              </DialogContentText> */}
+            <TextField
+              id="email"
+              name="email"
+              type="text"
+              margin="dense"
+              variant="outlined"
+              label="address"
+              onChange={handleChange}
+              autoFocus
+              fullWidth
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseDialog2} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={handleCloseDialog2} color="secondary">
+              Save
+            </Button>
+          </DialogActions>
+        </Dialog>
+
+        <Dialog
+          open={dialog3isOpen}
+          onClose={handleCloseDialog3}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">Mobile</DialogTitle>
+          <DialogContent>
+            {/* <DialogContentText>
+                To subscribe to this website, please enter your email address here. We will send
+                updates occasionally.
+              </DialogContentText> */}
+            <TextField
+              id="mobile"
+              name="mobile"
+              type="text"
+              margin="dense"
+              variant="outlined"
+              label="number"
+              onChange={handleChange}
+              autoFocus
+              fullWidth
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseDialog3} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={handleCloseDialog3} color="secondary">
+              Save
+            </Button>
+          </DialogActions>
+        </Dialog>
+
+        <Dialog
+          open={dialog4isOpen}
+          onClose={handleGeoClose}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">Business Location</DialogTitle>
+          <DialogContent>
+            <GeoStepper
+              key={geoKey} // reset with unique new key
+              // heading={geoStepperLabel}
+              heading={'Tell us your home market so we can send you leads'}
+              showSaveButton={false}
+              // onSave={handleSaveGeoStepper}
+              onValid={handleValidGeoStepper}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseDialog4} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={handleCloseDialog4} color="secondary">
+              Save
+            </Button>
+          </DialogActions>
+        </Dialog>
+
         {/* "Block-level" group of two cards on this row */}
         <div className={classNames(classes.root, "md:flex max-w-2xl")}>
 
@@ -376,13 +555,7 @@ class DetailsTab extends Component {
                       aria-haspopup="false"
                       aria-controls="username"
                       aria-label="username"
-                      onClick={handleClickListItemDialog(
-                        // {
-                        // dialogTitle: 'George',//'Name',
-                        // dialogLabel: 'first and last',
-                        // dialogName: 'name',
-                        // }
-                      )}
+                      onClick={handleClickListItemDialog}
                     >
                       <ListItemIcon>
                         {/* <PersonIcon /> */}

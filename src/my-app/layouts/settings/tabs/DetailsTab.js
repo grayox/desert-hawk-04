@@ -40,6 +40,8 @@ import PermContactCalendarIcon from '@material-ui/icons/PermContactCalendar';
 // import SettingsStepper from 'my-app/components/steppers/SettingsStepper';
 import GeoStepper from 'my-app/components/steppers/GeoStepper'; // see 'class UserMultiForm' for more examples
 
+import SettingsDialog from './SettingsDialog';
+
 // utilities
 import _ from 'lodash';
 // import * as EmailValidator from 'email-validator';
@@ -122,83 +124,6 @@ const optionsMenu2 = [
   'Insurance',
   'Financial',
 ];
-
-class SettingsDialog extends Component {
-
-  handleChange = event => {
-    // console.log('event.target\n', event.target);
-    const val = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
-    // console.log('val\n', val);
-    const settings = { [event.target.name] : val };
-    // console.log('setting\n', setting);
-    this.setState({settings});
-  };
-
-  handleCloseDialog = event => {
-    this.setState({ dialogIsOpen: false, });
-  }
-  
-  handleCancelDialog = event => {
-    this.setState({ dialogIsOpen: false, });
-    // this.setState({ name: '', });
-  }
-  
-  handleSaveDialog = event => {
-    // console.log('state\n', this.state);
-    this.setState({ dialogIsOpen: false, });
-    this.props.updateSettings(this.state.settings);
-  }
-
-  // dialogTitle: 'George',//'Name',
-  // dialogLabel: 'first and last',
-  // dialogName: 'name',
-
-  render() {
-    const { dialogIsOpen, dialogTitle, dialogContentText, dialogName, dialogLabel, } = this.props;
-    const { handleChange, handleCloseDialog, handleCancelDialog, handleSaveDialog, } = this;
-    return (
-      <Dialog
-        open={dialogIsOpen}
-        onClose={handleCloseDialog}
-        aria-labelledby="form-dialog-title"
-      >
-        <DialogTitle id="form-dialog-title">{dialogTitle}</DialogTitle>
-        <DialogContent>
-          {dialogContentText &&
-            (
-              <DialogContentText className='mb-8'>
-                {/* To subscribe to this website, please enter your email address here. We will send updates occasionally. */}
-                {dialogContentText}
-              </DialogContentText>
-            )
-          }
-          <TextField
-            // id={this.state.dialogName}
-            // name={this.state.dialogName}
-            id={dialogName}
-            name={dialogName}
-            type="text"
-            margin="dense"
-            variant="outlined"
-            // label={this.state.dialogLabel}
-            label={dialogLabel}
-            onChange={handleChange}
-            autoFocus
-            fullWidth
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCancelDialog} color="primary">
-            Cancel
-        </Button>
-          <Button onClick={handleSaveDialog} id="name" color="secondary">
-            Save
-        </Button>
-        </DialogActions>
-      </Dialog>
-    )
-  }
-}
 
 class DetailsTab extends Component {
 
@@ -360,7 +285,8 @@ class DetailsTab extends Component {
     const {
       // anchorElMenu1,
       anchorElMenu2,
-      dialogIsOpen, dialog1isOpen, dialog2isOpen, dialog3isOpen, dialog4isOpen,
+      dialogIsOpen, dialogTitle, dialogName, dialogLabel,
+      dialog1isOpen, dialog2isOpen, dialog3isOpen, dialog4isOpen,
       selectedIndexMenu2,
       // name, email, mobile,
       geoKey, isValidGeo, geoNation, geoRegion, geoLocal,
@@ -398,10 +324,10 @@ class DetailsTab extends Component {
 
         <SettingsDialog
           dialogIsOpen={dialogIsOpen}
-          dialogTitle='Name'
+          dialogTitle={dialogTitle}
           // dialogContentText: 'To subscribe to this website, please enter your email address here. We will send updates occasionally.',
-          dialogName='name'
-          dialogLabel='first and last'
+          dialogName={dialogName}
+          dialogLabel={dialogLabel}
         />
 
         <Dialog
