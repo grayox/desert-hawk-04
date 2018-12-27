@@ -105,7 +105,7 @@ const INITIAL_STATE = {
   dialogTitle: 'Name', //'Name',
   // dialogContentText: '', //'To subscribe to this website, please enter your email address here. We will send updates occasionally.',
   dialogLabel: 'first and last', //'first and last',
-  dialogName: 'name', //'name',
+  dialogFieldName: 'name', //'name',
 
 };
 
@@ -223,11 +223,12 @@ class DetailsTab extends Component {
 
   // --------------------------------
   
-  // handleClickListItemDialog = ({dialogTitle, ˚dialogLabel, dialogName}) => {
-  handleClickListItemDialog = event => {
+  handleClickListItemDialog = ({dialogTitle, dialogLabel, dialogFieldName,}) => event => {
     this.setState({ 
       dialogIsOpen: true,
-      // dialogTitle: 'foo', dialogLabel: 'foo', dialogName: 'foo',
+      dialogTitle,
+      dialogLabel,
+      dialogFieldName,
     });
   }
   
@@ -285,7 +286,7 @@ class DetailsTab extends Component {
     const {
       // anchorElMenu1,
       anchorElMenu2,
-      dialogIsOpen, dialogTitle, dialogName, dialogLabel,
+      dialogIsOpen, dialogTitle, dialogFieldName, dialogLabel,
       dialog1isOpen, dialog2isOpen, dialog3isOpen, dialog4isOpen,
       selectedIndexMenu2,
       // name, email, mobile,
@@ -324,9 +325,8 @@ class DetailsTab extends Component {
 
         <SettingsDialog
           dialogIsOpen={dialogIsOpen}
-          dialogTitle={dialogTitle}
-          // dialogContentText: 'To subscribe to this website, please enter your email address here. We will send updates occasionally.',
-          dialogName={dialogName}
+          dialogTitle={dialogTitle} // dialogContentText: 'To subscribe to this website, please enter your email address here. We will send updates occasionally.',
+          dialogFieldName={dialogFieldName}
           dialogLabel={dialogLabel}
         />
 
@@ -480,7 +480,11 @@ class DetailsTab extends Component {
                       aria-haspopup="false"
                       aria-controls="username"
                       aria-label="username"
-                      onClick={handleClickListItemDialog}
+                      onClick={handleClickListItemDialog({
+                        dialogTitle: 'foo',
+                        dialogLabel: 'foo',
+                        dialogFieldName: 'foo',
+                      })}
                     >
                       <ListItemIcon>
                         {/* <PersonIcon /> */}
