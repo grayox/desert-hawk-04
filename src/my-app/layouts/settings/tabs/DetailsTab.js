@@ -97,10 +97,11 @@ const INITIAL_STATE = {
   selectedIndexMenu2: 1,
   
   dialogIsOpen: false,
-  dialogTitle: 'Name', //'Name',
-  // dialogContentText: '', //'To subscribe to this website, please enter your email address here. We will send updates occasionally.',
-  dialogLabel: 'first and last', //'first and last',
-  dialogFieldName: 'name', //'name',
+  dialogContent: '', //<GeoStepper .../>
+  dialogContentText: '', //'To subscribe to this website, please enter your email address here. We will send updates occasionally.',
+  dialogFieldName: '', //'name',
+  dialogTextFieldLabel: '', //'first and last',
+  dialogTitle: '', //'Name',
 
 };
 
@@ -243,12 +244,12 @@ class DetailsTab extends Component {
 
   // --------------------------------
   
-  handleClickListItemDialog = ({dialogTitle, dialogLabel, dialogFieldName,}) => event => {
+  handleClickListItemDialog = ({
+    dialogContent, dialogTitle, dialogTextField, dialogTextFieldLabel, dialogFieldName,
+  }) => event => {
     this.setState({ 
       dialogIsOpen: true,
-      dialogTitle,
-      dialogLabel,
-      dialogFieldName,
+      dialogContent, dialogTitle, dialogTextField, dialogTextFieldLabel, dialogFieldName,
     });
   }
   
@@ -269,7 +270,8 @@ class DetailsTab extends Component {
     const {
       // anchorElMenu1,
       anchorElMenu2,
-      dialogIsOpen, dialogTitle, dialogFieldName, dialogLabel,
+      dialogIsOpen, dialogTitle, dialogFieldName,
+      dialogTextFieldLabel, dialogContent, dialogContentText,
       dialog4isOpen,
       selectedIndexMenu2,
       // name, email, mobile,
@@ -277,7 +279,7 @@ class DetailsTab extends Component {
     } = this.state;
     const {
       handleValidGeoStepper, handleGeoClose,
-      handleClickListItemDialog ,
+      handleClickListItemDialog,
       handleClickListItemDialog4, handleCancelDialog4, handleSaveDialog4, handleCloseDialog4,
       handleClickListItemMenu2, handleMenuItemClickMenu2, handleCloseMenu2,
       handleChangeDialog, handleCloseDialog, handleCancelDialog, handleSaveDialog,
@@ -310,12 +312,13 @@ class DetailsTab extends Component {
           onCancel={handleCancelDialog}
           onSave={handleSaveDialog}    
           dialogIsOpen={dialogIsOpen}
-          dialogTitle={dialogTitle} // dialogContentText: 'To subscribe to this website, please enter your email address here. We will send updates occasionally.',
+          dialogTitle={dialogTitle}
+          dialogContentText={dialogContentText}
           dialogFieldName={dialogFieldName}
-          dialogLabel={dialogLabel}
+          dialogTextFieldLabel={dialogTextFieldLabel}
         />
 
-        <Dialog
+        {/* <Dialog
           open={dialog4isOpen}
           onClose={handleGeoClose}
           aria-labelledby="form-dialog-title"
@@ -339,7 +342,7 @@ class DetailsTab extends Component {
               Save
             </Button>
           </DialogActions>
-        </Dialog>
+        </Dialog> */}
 
         {/* "Block-level" group of two cards on this row */}
         <div className={classNames(classes.root, "md:flex max-w-2xl")}>
@@ -367,8 +370,9 @@ class DetailsTab extends Component {
                       aria-controls="username"
                       aria-label="username"
                       onClick={handleClickListItemDialog({
+                        dialogTextField: true,
                         dialogTitle: 'Name',
-                        dialogLabel: 'first and last',
+                        dialogTextFieldLabel: 'first and last',
                         dialogFieldName: 'name',
                       })}
                     >
@@ -388,8 +392,9 @@ class DetailsTab extends Component {
                       aria-controls="email"
                       aria-label="email"
                       onClick={handleClickListItemDialog({
+                        dialogTextField: true,
                         dialogTitle: 'Email',
-                        dialogLabel: 'address',
+                        dialogTextFieldLabel: 'address',
                         dialogFieldName: 'email',
                       })}
                     >
@@ -408,8 +413,9 @@ class DetailsTab extends Component {
                       aria-controls="mobile"
                       aria-label="mobile"
                       onClick={handleClickListItemDialog({
+                        dialogTextField: true,
                         dialogTitle: 'Mobile',
-                        dialogLabel: 'number',
+                        dialogTextFieldLabel: 'number',
                         dialogFieldName: 'mobile',
                       })}
                     >
@@ -465,7 +471,17 @@ class DetailsTab extends Component {
                       aria-haspopup="true"
                       aria-controls="menu2"
                       aria-label="Type"
-                      onClick={handleClickListItemDialog4}
+                      onClick={handleClickListItemDialog({
+                        dialogContent :
+                          <GeoStepper
+                            key={geoKey} // reset with unique new key
+                            // heading={geoStepperLabel}
+                            heading={'Tell us your home market so we can send you leads'}
+                            showSaveButton={false}
+                            // onSave={handleSaveGeoStepper}
+                            onValid={handleValidGeoStepper}
+                          />
+                      })}
                     >
                       <ListItemIcon>
                         <LocationOnIcon />
@@ -478,6 +494,24 @@ class DetailsTab extends Component {
                         }
                       />
                     </ListItem>
+                    {/* <ListItem
+                      button
+                      aria-haspopup="true"
+                      aria-controls="menu2"
+                      aria-label="Type"
+                      onClick={handleClickListItemDialog4}
+                    >
+                      <ListItemIcon>
+                        <LocationOnIcon />
+                      </ListItemIcon>
+                      <ListItemText
+                        primary="Location"
+                        secondary={
+                          isValidGeo ? `${geoLocal}, ${geoRegion}, ${geoNation}`
+                            : 'Click to select...'
+                        }
+                      />
+                    </ListItem> */}
                   </List>
                 </CardContent>
               </Card>

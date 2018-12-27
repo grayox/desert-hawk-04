@@ -23,7 +23,8 @@ const styles = theme => ({
 class SettingsDialog extends Component {
   render() {
     const {
-      dialogIsOpen, dialogTitle, dialogContentText, dialogFieldName, dialogLabel, 
+      dialogIsOpen, dialogTitle, dialogContent, dialogContentText,
+      dialogFieldName, dialogTextField, dialogTextFieldLabel, 
       onChange, onClose, onCancel, onSave,
     } = this.props;
     return (
@@ -41,17 +42,22 @@ class SettingsDialog extends Component {
               </DialogContentText>
             )
           }
-          <TextField
-            id={dialogFieldName}
-            name={dialogFieldName}
-            type="text"
-            margin="dense"
-            variant="outlined"
-            label={dialogLabel}
-            onChange={onChange}
-            autoFocus
-            fullWidth
-          />
+          {dialogTextField &&
+            (
+              <TextField
+                id={dialogFieldName}
+                name={dialogFieldName}
+                type="text"
+                margin="dense"
+                variant="outlined"
+                label={dialogTextFieldLabel}
+                onChange={onChange}
+                autoFocus
+                fullWidth
+              />
+            )
+          }
+          {dialogContent}
         </DialogContent>
         <DialogActions>
           <Button onClick={onCancel} color="primary">
@@ -67,16 +73,18 @@ class SettingsDialog extends Component {
 }
 
 SettingsDialog.propTypes = {
-  classes           : PropTypes.object.isRequired,
-  dialogContentText : PropTypes.string, // 'To subscribe to this website, please enter your email address here. We will send updates occasionally.'
-  dialogFieldName   : PropTypes.string, // 'name',
-  dialogIsOpen      : PropTypes.bool,   // false
-  dialogLabel       : PropTypes.string, // 'first and last'
-  dialogTitle       : PropTypes.string, // 'Name'
-  onChange          : PropTypes.func,
-  onClose           : PropTypes.func,
-  onCancel          : PropTypes.func,
-  onSave            : PropTypes.func,
+  classes              : PropTypes.object.isRequired,
+  dialogContent        : PropTypes.element, // <GeoStepper ... />
+  dialogContentText    : PropTypes.string,  // 'To subscribe to this website, please enter your email address here. We will send updates occasionally.'
+  dialogFieldName      : PropTypes.string,  // 'name',
+  dialogIsOpen         : PropTypes.bool,    // false
+  dialogTextField      : PropTypes.bool,    // true
+  dialogTextFieldLabel : PropTypes.string,  // 'first and last'
+  dialogTitle          : PropTypes.string,  // 'Name'
+  onChange             : PropTypes.func,
+  onClose              : PropTypes.func,
+  onCancel             : PropTypes.func,
+  onSave               : PropTypes.func,
 }
 
 export default withStyles(styles, { withTheme: true })(SettingsDialog);
