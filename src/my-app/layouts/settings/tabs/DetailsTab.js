@@ -190,13 +190,26 @@ class DetailsTab extends Component {
     }
   };
 
+  // handleChangeDialog = event => {
+  //   // console.log('event.target\n', event.target);
+  //   const val = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
+  //   // console.log('val\n', val);
+  //   const setting = { [event.target.name] : val };
+  //   console.log('setting\n', setting);
+  //   const settings = _.merge(this.state.settings, setting);
+  //   console.log('settings\n', settings);
+  //   this.setState({settings});
+  //   console.log('state\n', this.state);
+  // };
+
   handleChangeDialog = event => {
     // console.log('event.target\n', event.target);
     const val = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
     // console.log('val\n', val);
-    const settings = { [event.target.name] : val };
-    // console.log('setting\n', setting);
-    this.setState({settings});
+    const tempSetting = { [event.target.name] : val };
+    console.log('tempSetting\n', tempSetting);
+    this.setState({tempSetting});
+    console.log('state\n', this.state);
   };
 
   handleCloseDialog = event => {
@@ -210,6 +223,10 @@ class DetailsTab extends Component {
   handleSaveDialog = event => {
     // console.log('state\n', this.state);
     this.setState({ dialogIsOpen: false, });
+    const settings = _.merge(this.state.settings, this.state.tempSetting);
+    console.log('settings\n', settings);
+    this.setState({settings});
+    console.log('state\n', this.state);
     this.props.updateSettings(this.state.settings);
   }
 
