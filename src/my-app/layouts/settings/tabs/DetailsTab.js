@@ -62,6 +62,16 @@ const styles = theme => ({
   },
 });
 
+const INITIAL_STATE_SETTINGS_DIALOG = {
+  dialogIsOpen: false,
+  isDialogTextField: false,
+  dialogContent: '', //<GeoStepper .../>
+  dialogContentText: '', //'To subscribe to this website, please enter your email address here. We will send updates occasionally.',
+  dialogFieldName: '', //'name',
+  dialogTextFieldLabel: '', //'first and last',
+  dialogTitle: '', //'Name',
+}
+
 const INITIAL_STATE = {
 
   settings: {
@@ -95,13 +105,6 @@ const INITIAL_STATE = {
   selectedIndexMenu1: 1,
   anchorElMenu2: null,
   selectedIndexMenu2: 1,
-  
-  dialogIsOpen: false,
-  dialogContent: '', //<GeoStepper .../>
-  dialogContentText: '', //'To subscribe to this website, please enter your email address here. We will send updates occasionally.',
-  dialogFieldName: '', //'name',
-  dialogTextFieldLabel: '', //'first and last',
-  dialogTitle: '', //'Name',
 
 };
 
@@ -124,7 +127,10 @@ class DetailsTab extends Component {
 
   constructor(props) {
     super(props);
-    this.state = INITIAL_STATE;
+    this.state = {
+      ...INITIAL_STATE,
+      ...INITIAL_STATE_SETTINGS_DIALOG,
+    };
   }
 
   saveToFirebase = data => {
@@ -228,12 +234,11 @@ class DetailsTab extends Component {
   };
 
   handleCloseDialog = event => {
-    this.setState({ dialogIsOpen: false, });
+    this.setState({ ...INITIAL_STATE_SETTINGS_DIALOG });
   }
   
   handleCancelDialog = event => {
-    this.setState({ dialogIsOpen: false, });
-    // this.setState({ name: '', });
+    this.setState({ ...INITIAL_STATE_SETTINGS_DIALOG });
   }
   
   handleSaveDialog = event => {
@@ -244,12 +249,22 @@ class DetailsTab extends Component {
 
   // --------------------------------
   
-  handleClickListItemDialog = ({
-    dialogContent, dialogTitle, dialogTextField, dialogTextFieldLabel, dialogFieldName,
-  }) => event => {
-    this.setState({ 
+  // handleClickListItemDialog = ({
+  //   dialogContent, dialogContentText, dialogTitle,
+  //   isDialogTextField, dialogTextFieldLabel, dialogFieldName,
+  // }) => event => {
+  //   this.setState({
+  //     dialogIsOpen: true,
+  //     dialogContent, dialogContentText, dialogTitle,
+  //     isDialogTextField, dialogTextFieldLabel, dialogFieldName,
+  //   });
+  // }
+  
+  handleClickListItemDialog = ob => event => {
+    console.log('ob\n', ob);
+    this.setState({
       dialogIsOpen: true,
-      dialogContent, dialogTitle, dialogTextField, dialogTextFieldLabel, dialogFieldName,
+      ...ob,
     });
   }
   
@@ -270,8 +285,8 @@ class DetailsTab extends Component {
     const {
       // anchorElMenu1,
       anchorElMenu2,
-      dialogIsOpen, dialogTitle, dialogFieldName,
-      dialogTextFieldLabel, dialogContent, dialogContentText,
+      dialogIsOpen, dialogContent, dialogContentText, dialogTitle,
+      isDialogTextField, dialogTextFieldLabel, dialogFieldName,
       dialog4isOpen,
       selectedIndexMenu2,
       // name, email, mobile,
@@ -313,9 +328,11 @@ class DetailsTab extends Component {
           onSave={handleSaveDialog}    
           dialogIsOpen={dialogIsOpen}
           dialogTitle={dialogTitle}
+          dialogContent={dialogContent}
           dialogContentText={dialogContentText}
           dialogFieldName={dialogFieldName}
           dialogTextFieldLabel={dialogTextFieldLabel}
+          isDialogTextField={isDialogTextField}
         />
 
         {/* <Dialog
@@ -370,8 +387,8 @@ class DetailsTab extends Component {
                       aria-controls="username"
                       aria-label="username"
                       onClick={handleClickListItemDialog({
-                        dialogTextField: true,
                         dialogTitle: 'Name',
+                        isDialogTextField: true,
                         dialogTextFieldLabel: 'first and last',
                         dialogFieldName: 'name',
                       })}
@@ -392,8 +409,8 @@ class DetailsTab extends Component {
                       aria-controls="email"
                       aria-label="email"
                       onClick={handleClickListItemDialog({
-                        dialogTextField: true,
                         dialogTitle: 'Email',
+                        isDialogTextField: true,
                         dialogTextFieldLabel: 'address',
                         dialogFieldName: 'email',
                       })}
@@ -413,8 +430,8 @@ class DetailsTab extends Component {
                       aria-controls="mobile"
                       aria-label="mobile"
                       onClick={handleClickListItemDialog({
-                        dialogTextField: true,
                         dialogTitle: 'Mobile',
+                        isDialogTextField: true,
                         dialogTextFieldLabel: 'number',
                         dialogFieldName: 'mobile',
                       })}
@@ -472,15 +489,16 @@ class DetailsTab extends Component {
                       aria-controls="menu2"
                       aria-label="Type"
                       onClick={handleClickListItemDialog({
+                        dialogTitle: 'Location',
                         dialogContent :
-                          <GeoStepper
+                          (<GeoStepper
                             key={geoKey} // reset with unique new key
                             // heading={geoStepperLabel}
                             heading={'Tell us your home market so we can send you leads'}
                             showSaveButton={false}
                             // onSave={handleSaveGeoStepper}
                             onValid={handleValidGeoStepper}
-                          />
+                          />),
                       })}
                     >
                       <ListItemIcon>

@@ -22,9 +22,10 @@ const styles = theme => ({
 
 class SettingsDialog extends Component {
   render() {
+    console.log('props\n', this.props);
     const {
       dialogIsOpen, dialogTitle, dialogContent, dialogContentText,
-      dialogFieldName, dialogTextField, dialogTextFieldLabel, 
+      dialogFieldName, isDialogTextField, dialogTextFieldLabel, 
       onChange, onClose, onCancel, onSave,
     } = this.props;
     return (
@@ -42,7 +43,7 @@ class SettingsDialog extends Component {
               </DialogContentText>
             )
           }
-          {dialogTextField &&
+          {isDialogTextField &&
             (
               <TextField
                 id={dialogFieldName}
@@ -78,7 +79,7 @@ SettingsDialog.propTypes = {
   dialogContentText    : PropTypes.string,  // 'To subscribe to this website, please enter your email address here. We will send updates occasionally.'
   dialogFieldName      : PropTypes.string,  // 'name',
   dialogIsOpen         : PropTypes.bool,    // false
-  dialogTextField      : PropTypes.bool,    // true
+  isDialogTextField    : PropTypes.bool,    // true
   dialogTextFieldLabel : PropTypes.string,  // 'first and last'
   dialogTitle          : PropTypes.string,  // 'Name'
   onChange             : PropTypes.func,
