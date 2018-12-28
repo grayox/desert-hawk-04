@@ -22,11 +22,11 @@ const styles = theme => ({
 
 class SettingsDialog extends Component {
   render() {
-    console.log('props\n', this.props);
+    // console.log('props\n', this.props);
     const {
       dialogIsOpen, dialogTitle, dialogContent, dialogContentText,
       dialogFieldName, isDialogTextField, dialogTextFieldLabel, 
-      onChange, onClose, onCancel, onSave,
+      onKeyPress, onChange, onClose, onCancel, onSave,
     } = this.props;
     return (
       <Dialog
@@ -53,6 +53,7 @@ class SettingsDialog extends Component {
                 variant="outlined"
                 label={dialogTextFieldLabel}
                 onChange={onChange}
+                onKeyPress={onKeyPress}
                 autoFocus
                 fullWidth
               />

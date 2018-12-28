@@ -12,20 +12,13 @@ import { updateSettings } from 'my-app/store/actions/my-actions'
 
 // import axios from 'axios/index';
 import {
-  // Avatar, Icon, IconButton, ListItemSecondaryAction,
-  AppBar, Button, Card, CardContent, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography,
+  // Avatar, Button, Icon, IconButton, ListItemSecondaryAction,
+  AppBar, Card, CardContent, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography,
 } from '@material-ui/core';
 import { FuseAnimateGroup } from '@fuse';
 
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 
 // import ImageIcon from '@material-ui/icons/Image';
 // import WorkIcon from '@material-ui/icons/Work';
@@ -65,7 +58,7 @@ const styles = theme => ({
 const INITIAL_STATE_SETTINGS_DIALOG = {
   dialogIsOpen: false,
   isDialogTextField: false,
-  dialogContent: '', //<GeoStepper .../>
+  dialogContent: null, //<GeoStepper .../>
   dialogContentText: '', //'To subscribe to this website, please enter your email address here. We will send updates occasionally.',
   dialogFieldName: '', //'name',
   dialogTextFieldLabel: '', //'first and last',
@@ -100,22 +93,12 @@ const INITIAL_STATE = {
   helperTextName: '',
   isErrorEmail: false,
   helperTextEmail: '',
-
-  anchorElMenu1: null,
-  selectedIndexMenu1: 1,
-  anchorElMenu2: null,
-  selectedIndexMenu2: 1,
-
+  
+  anchorElMenu: null,
+  selectedIndexMenu: 1,
 };
 
-// const optionsMenu1 = [
-//   'Show some love to Material-UI',
-//   'Show all notification content',
-//   'Hide sensitive notification content',
-//   'Hide all notification content',
-// ];
-
-const optionsMenu2 = [
+const optionsMenu = [
   'Select one',
   'Home',
   'Mortgage',
@@ -153,16 +136,6 @@ class DetailsTab extends Component {
     });
   }
 
-  // handleValidFormSubmit = model => {
-  //   const picked = _.pick(model, [ 'name', 'email', 'phone', 'bizCategory', 'geoNation', 'geoRegion', 'geoLocal', ]);
-  //   const newData = {
-  //     ...picked,
-  //     timestamp: Date.now(),
-  //   };
-  //   this.saveToFirebase(newData);
-  //   this.resetForm();
-  // };
-
   handleValidGeoStepper = model => {
     // handleSaveGeoStepper = model => {
     const picked = _.pick(model, ['geoNation', 'geoRegion', 'geoLocal',]);
@@ -196,34 +169,27 @@ class DetailsTab extends Component {
 
   // --------------------------------
 
-  handleClickListItemMenu1 = event => {
-    this.setState({ anchorElMenu1: event.currentTarget });
+  handleClickListItemMenu = event => {
+    this.setState({ anchorElMenu: event.currentTarget });
   };
 
-  handleMenuItemClickMenu1 = (event, index) => {
-    this.setState({ selectedIndexMenu1: index, anchorElMenu1: null });
+  handleMenuItemClickMenu = (event, index) => {
+    this.setState({ selectedIndexMenu: index, anchorElMenu: null });
   };
 
-  handleCloseMenu1 = () => {
-    this.setState({ anchorElMenu1: null });
-  };
-
-  // --------------------------------
-
-  handleClickListItemMenu2 = event => {
-    this.setState({ anchorElMenu2: event.currentTarget });
-  };
-
-  handleMenuItemClickMenu2 = (event, index) => {
-    this.setState({ selectedIndexMenu2: index, anchorElMenu2: null });
-  };
-
-  handleCloseMenu2 = () => {
-    this.setState({ anchorElMenu2: null });
+  handleCloseMenu = () => {
+    this.setState({ anchorElMenu: null });
   };
 
   // --------------------------------
-  
+
+  handleKeyPressDialog = event => {
+    if (event.key === 'Enter') {
+      // this.setState({ value: event.target.value })
+      this.handleSaveDialog();
+    }
+  };
+
   handleChangeDialog = event => {
     // console.log('event.target\n', event.target);
     const val = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
@@ -249,17 +215,6 @@ class DetailsTab extends Component {
 
   // --------------------------------
   
-  // handleClickListItemDialog = ({
-  //   dialogContent, dialogContentText, dialogTitle,
-  //   isDialogTextField, dialogTextFieldLabel, dialogFieldName,
-  // }) => event => {
-  //   this.setState({
-  //     dialogIsOpen: true,
-  //     dialogContent, dialogContentText, dialogTitle,
-  //     isDialogTextField, dialogTextFieldLabel, dialogFieldName,
-  //   });
-  // }
-  
   handleClickListItemDialog = ob => event => {
     console.log('ob\n', ob);
     this.setState({
@@ -270,51 +225,40 @@ class DetailsTab extends Component {
   
   // --------------------------------
 
-  handleClickListItemDialog4 = event => {
-    this.setState({ dialog4isOpen: true, });
-  }
-
-  handleCloseDialog4 = event => {
-    this.setState({ dialog4isOpen: false, });
-  }
-
   render() {
     const { classes, user, } = this.props;
     // if (!user.data.uid) return <Redirect to='/login' /> 
     // const { general, work, contact, } = this.state;
     const {
-      // anchorElMenu1,
-      anchorElMenu2,
+      anchorElMenu,
       dialogIsOpen, dialogContent, dialogContentText, dialogTitle,
       isDialogTextField, dialogTextFieldLabel, dialogFieldName,
-      dialog4isOpen,
-      selectedIndexMenu2,
-      // name, email, mobile,
+      selectedIndexMenu,
       geoKey, isValidGeo, geoNation, geoRegion, geoLocal,
     } = this.state;
     const {
-      handleValidGeoStepper, handleGeoClose,
+      handleValidGeoStepper,
       handleClickListItemDialog,
-      handleClickListItemDialog4, handleCancelDialog4, handleSaveDialog4, handleCloseDialog4,
-      handleClickListItemMenu2, handleMenuItemClickMenu2, handleCloseMenu2,
-      handleChangeDialog, handleCloseDialog, handleCancelDialog, handleSaveDialog,
+      handleClickListItemMenu, handleMenuItemClickMenu, handleCloseMenu,
+      handleKeyPressDialog, handleChangeDialog,
+      handleCloseDialog, handleCancelDialog, handleSaveDialog,
     } = this;
 
     return (
       <React.Fragment>
 
         <Menu
-          id="menu2"
-          anchorEl={anchorElMenu2}
-          open={Boolean(anchorElMenu2)}
-          onClose={handleCloseMenu2}
+          id="menu"
+          anchorEl={anchorElMenu}
+          open={Boolean(anchorElMenu)}
+          onClose={handleCloseMenu}
         >
-          {optionsMenu2.map((option, index) => (
+          {optionsMenu.map((option, index) => (
             <MenuItem
               key={option}
               disabled={index === 0}
-              selected={index === selectedIndexMenu2}
-              onClick={event => handleMenuItemClickMenu2(event, index)}
+              selected={index === selectedIndexMenu}
+              onClick={event => handleMenuItemClickMenu(event, index)}
             >
               {option}
             </MenuItem>
@@ -322,6 +266,7 @@ class DetailsTab extends Component {
         </Menu>
 
         <SettingsDialog
+          onKeyPress={handleKeyPressDialog}
           onChange={handleChangeDialog}
           onClose={handleCloseDialog}
           onCancel={handleCancelDialog}
@@ -334,32 +279,6 @@ class DetailsTab extends Component {
           dialogTextFieldLabel={dialogTextFieldLabel}
           isDialogTextField={isDialogTextField}
         />
-
-        {/* <Dialog
-          open={dialog4isOpen}
-          onClose={handleGeoClose}
-          aria-labelledby="form-dialog-title"
-        >
-          <DialogTitle id="form-dialog-title">Business Location</DialogTitle>
-          <DialogContent>
-            <GeoStepper
-              key={geoKey} // reset with unique new key
-              // heading={geoStepperLabel}
-              heading={'Tell us your home market so we can send you leads'}
-              showSaveButton={false}
-              // onSave={handleSaveGeoStepper}
-              onValid={handleValidGeoStepper}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleCloseDialog4} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={handleCloseDialog4} color="secondary">
-              Save
-            </Button>
-          </DialogActions>
-        </Dialog> */}
 
         {/* "Block-level" group of two cards on this row */}
         <div className={classNames(classes.root, "md:flex max-w-2xl")}>
@@ -471,22 +390,22 @@ class DetailsTab extends Component {
                     <ListItem
                       button
                       aria-haspopup="true"
-                      aria-controls="menu2"
+                      aria-controls="menu"
                       aria-label="Type"
-                      onClick={handleClickListItemMenu2}
+                      onClick={handleClickListItemMenu}
                     >
                       <ListItemIcon>
                         <ExtensionIcon />
                       </ListItemIcon>
                       <ListItemText
                         primary="Type"
-                        secondary={optionsMenu2[selectedIndexMenu2]}
+                        secondary={optionsMenu[selectedIndexMenu]}
                       />
                     </ListItem>
                     <ListItem
                       button
                       aria-haspopup="true"
-                      aria-controls="menu2"
+                      aria-controls="menu"
                       aria-label="Type"
                       onClick={handleClickListItemDialog({
                         dialogTitle: 'Location',
@@ -512,24 +431,6 @@ class DetailsTab extends Component {
                         }
                       />
                     </ListItem>
-                    {/* <ListItem
-                      button
-                      aria-haspopup="true"
-                      aria-controls="menu2"
-                      aria-label="Type"
-                      onClick={handleClickListItemDialog4}
-                    >
-                      <ListItemIcon>
-                        <LocationOnIcon />
-                      </ListItemIcon>
-                      <ListItemText
-                        primary="Location"
-                        secondary={
-                          isValidGeo ? `${geoLocal}, ${geoRegion}, ${geoNation}`
-                            : 'Click to select...'
-                        }
-                      />
-                    </ListItem> */}
                   </List>
                 </CardContent>
               </Card>
