@@ -59,10 +59,11 @@ const INITIAL_STATE_SETTINGS_DIALOG = {
   dialogIsOpen: false,
   isDialogTextField: false,
   dialogContent: null, //<GeoStepper .../>
-  dialogContentText: '', //'To subscribe to this website, please enter your email address here. We will send updates occasionally.',
-  dialogFieldName: '', //'name',
-  dialogTextFieldLabel: '', //'first and last',
+  dialogContentText: null, //'To subscribe to this website, please enter your email address here. We will send updates occasionally.',
+  dialogFieldName: null, //'name',
+  dialogTextFieldLabel: null, //'first and last',
   dialogTitle: '', //'Name',
+  tempSetting: null,
 }
 
 const INITIAL_STATE = {
@@ -90,12 +91,12 @@ const INITIAL_STATE = {
   isValidForm: false,
 
   isErrorName: false,
-  helperTextName: '',
+  helperTextName: null,
   isErrorEmail: false,
-  helperTextEmail: '',
+  helperTextEmail: null,
   
   anchorElMenu: null,
-  selectedIndexMenu: 1,
+  selectedIndexMenu: 0,
 };
 
 const optionsMenu = [
@@ -190,50 +191,35 @@ class DetailsTab extends Component {
     }
   };
 
-  // handleChangeDialog = event => {
-  //   // console.log('event.target\n', event.target);
-  //   const val = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
-  //   // console.log('val\n', val);
-  //   const setting = { [event.target.name] : val };
-  //   console.log('setting\n', setting);
-  //   const settings = _.merge(this.state.settings, setting);
-  //   console.log('settings\n', settings);
-  //   this.setState({settings});
-  //   console.log('state\n', this.state);
-  // };
-
   handleChangeDialog = event => {
     // console.log('event.target\n', event.target);
     const val = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
     // console.log('val\n', val);
     const tempSetting = { [event.target.name] : val };
-    console.log('tempSetting\n', tempSetting);
+    // console.log('tempSetting\n', tempSetting);
     this.setState({tempSetting});
-    console.log('state\n', this.state);
+    // console.log('state\n', this.state);
   };
-
-  handleCloseDialog = event => {
-    this.setState({ ...INITIAL_STATE_SETTINGS_DIALOG });
-  }
   
-  handleCancelDialog = event => {
+  handleResetDialog = event => {
+    this.setState({ dialogIsOpen: false, });
     this.setState({ ...INITIAL_STATE_SETTINGS_DIALOG });
   }
   
   handleSaveDialog = event => {
     // console.log('state\n', this.state);
-    this.setState({ dialogIsOpen: false, });
     const settings = _.merge(this.state.settings, this.state.tempSetting);
-    console.log('settings\n', settings);
+    // console.log('settings\n', settings);
     this.setState({settings});
-    console.log('state\n', this.state);
+    // console.log('state\n', this.state);
     this.props.updateSettings(this.state.settings);
+    this.handleResetDialog();
   }
 
   // --------------------------------
   
   handleClickListItemDialog = ob => event => {
-    console.log('ob\n', ob);
+    // consnulle.log('ob\n', ob);
     this.setState({
       dialogIsOpen: true,
       ...ob,
@@ -258,7 +244,7 @@ class DetailsTab extends Component {
       handleClickListItemDialog,
       handleClickListItemMenu, handleMenuItemClickMenu, handleCloseMenu,
       handleKeyPressDialog, handleChangeDialog,
-      handleCloseDialog, handleCancelDialog, handleSaveDialog,
+      handleResetDialog, handleSaveDialog,
     } = this;
 
     return (
@@ -285,8 +271,8 @@ class DetailsTab extends Component {
         <SettingsDialog
           onKeyPress={handleKeyPressDialog}
           onChange={handleChangeDialog}
-          onClose={handleCloseDialog}
-          onCancel={handleCancelDialog}
+          onClose={handleResetDialog}
+          onCancel={handleResetDialog}
           onSave={handleSaveDialog}    
           dialogIsOpen={dialogIsOpen}
           dialogTitle={dialogTitle}
