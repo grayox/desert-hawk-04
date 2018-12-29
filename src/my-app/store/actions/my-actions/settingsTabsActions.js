@@ -18,8 +18,8 @@ export const updateSettings = settings => {
       .collection('settings')
       .add({
         ...settings,
-        createdAt: new Date(),
         timestamp: Date.now(),
+        // createdAt: new Date(),
     }).then(() => {
       dispatch({ type: 'UPDATE_SETTINGS_SUCCESS' });
     }).catch(err => {

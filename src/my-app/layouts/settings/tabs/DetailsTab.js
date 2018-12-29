@@ -471,6 +471,7 @@ function mapStateToProps( state ) {
     // notifications: state.firestore.ordered.notifications,
 
     leads: state.firestore.ordered.leads,
+    settings: state.firestore.data.settings,
   }
 }
 
@@ -494,9 +495,24 @@ const mapDispatchToProps = dispatch => {
 export default compose(
   withStyles(styles, {withTheme: true}),
   connect(mapStateToProps, mapDispatchToProps),
-  firestoreConnect([
-    // { collection: 'projects', orderBy: ['createdAt', 'desc']},
-    // { collection: 'notifications', limit: 3, orderBy: ['time', 'desc']},
-    { collection: 'leads', orderBy: ['timestamp', 'desc']},
+  firestoreConnect( props => [
+    // ref: https://github.com/prescottprue/react-redux-firebase/issues/344
+    // { collection: 'projects', orderBy: ['createdAt', 'desc'] },
+    // { collection: 'notifications', limit: 3, orderBy: ['time', 'desc'] },
+    { collection: 'leads', orderBy: ['timestamp', 'desc'] },
+    {
+      collection: 'users',
+      // doc: props.auth.uid,
+      // doc: props.auth.user.data.uid,
+      doc: '3lq9cr3A3eNSehv4X35Q2HBtUty2',
+      subcollections: [
+        {
+          collection: 'settings',
+          limit: 1,
+          orderBy: [ 'timestamp', 'desc', ],
+          // storeAs: 'settings',
+        }, 
+      ],
+    },
   ])
 )(DetailsTab)
