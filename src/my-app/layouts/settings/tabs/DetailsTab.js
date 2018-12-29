@@ -41,9 +41,9 @@ import _ from 'lodash';
 // import NumberFormat from 'react-number-format';
 
 // firebase
-import firebase from '@firebase/app';
-import '@firebase/firestore';
-const db = firebase.firestore();
+// import firebase from '@firebase/app';
+// import '@firebase/firestore';
+// const db = firebase.firestore();
 
 // this page was copied from ./AboutTab
 
@@ -117,25 +117,41 @@ class DetailsTab extends Component {
     };
   }
 
-  saveToFirebase = data => {
-    const collectionRef = db.collection(this.props.savePath);
-    console.info('submitting...', data);
-    collectionRef.add(data)
-      .then(docRef => {
-        console.log("Document written with ID: ", docRef.id);
-      })
-      .catch(error => {
-        console.error("Error adding document: ", error);
-      });
-    console.info('submitted: ', data);
-  }
+  // state = {
+  //   general: null,
+  //   work: null,
+  //   contact: null,
+  //   groups: null,
+  //   friends: null
+  // };
 
-  resetForm = () => {
-    this.setState(INITIAL_STATE);
-    this.setState({
-      geoKey: Date.now(), // resets geoStepper
-    });
-  }
+  // componentDidMount() {
+  //   axios.get('/api/profile/about').then(res => {
+  //     this.setState(res.data);
+  //   });
+  // }
+
+  // saveToFirebase = data => {
+  //   const collectionRef = db.collection(this.props.savePath);
+  //   console.info('submitting...', data);
+  //   collectionRef.add(data)
+  //     .then(docRef => {
+  //       console.log("Document written with ID: ", docRef.id);
+  //     })
+  //     .catch(error => {
+  //       console.error("Error adding document: ", error);
+  //     });
+  //   console.info('submitted: ', data);
+  // }
+
+  // resetForm = () => {
+  //   this.setState(INITIAL_STATE);
+  //   this.setState({
+  //     geoKey: Date.now(), // resets geoStepper
+  //   });
+  // }
+
+  // --------------------------------
 
   handleValidGeoStepper = model => {
     // handleSaveGeoStepper = model => {
@@ -152,20 +168,6 @@ class DetailsTab extends Component {
       });
   };
 
-  // state = {
-  //   general: null,
-  //   work: null,
-  //   contact: null,
-  //   groups: null,
-  //   friends: null
-  // };
-
-  // componentDidMount() {
-  //   axios.get('/api/profile/about').then(res => {
-  //     this.setState(res.data);
-  //   });
-  // }
-
   // --------------------------------
 
   handleClickListItemMenu = event => {
@@ -173,7 +175,14 @@ class DetailsTab extends Component {
   };
 
   handleMenuItemClickMenu = (event, index) => {
-    this.setState({ selectedIndexMenu: index, anchorElMenu: null });
+    const option = index && optionsMenu[index];
+    this.setState({
+      selectedIndexMenu: index,
+      anchorElMenu: null,
+      settings: {
+        bizCategory: option,
+      },
+    }, () => this.props.updateSettings(this.state.settings));
   };
 
   handleCloseMenu = () => {
