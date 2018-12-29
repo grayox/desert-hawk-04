@@ -8,7 +8,7 @@ export const updateSettings = settings => {
     const state = getState();
     // console.log('state\n', state);
     const uid = state.auth.user.data.uid;
-    
+
     const firestore = getFirestore();
     // const profile = getState().firebase.profile;
     // const authorId = getState().firebase.auth.uid;
@@ -17,7 +17,7 @@ export const updateSettings = settings => {
       .doc(uid)
       .collection('settings')
       .add({
-        settings,
+        ...settings,
         createdAt: new Date(),
         timestamp: Date.now(),
     }).then(() => {

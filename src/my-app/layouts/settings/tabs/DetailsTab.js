@@ -155,7 +155,7 @@ class DetailsTab extends Component {
 
   handleValidGeoStepper = model => {
     // handleSaveGeoStepper = model => {
-    console.log('model\n', model);
+    // console.log('model\n', model);
     const picked = _.pick(model, ['geoNation', 'geoRegion', 'geoLocal',]);
     const tempSetting = {
       ...picked,
@@ -164,7 +164,7 @@ class DetailsTab extends Component {
     this.setState(
       { tempSetting },
       () => {
-        console.log('state\n', this.state);
+        // console.log('state\n', this.state);
       });
   };
 

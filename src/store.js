@@ -91,10 +91,12 @@ store.asyncReducers = {};
 //    https://egghead.io/lessons/react-redux-store-methods-getstate-dispatch-and-subscribe
 //    https://stackoverflow.com/questions/38332912/how-do-i-access-store-state-in-react-redux
 //    This code implements the above links
-store.subscribe(() => {
-  console.log('state\n', store.getState());
-  // debugger;
-});
+// store.subscribe(() => {
+//   // global state
+//   console.log('state\n', store.getState());
+//   // global debugger
+//   // debugger;
+// });
 // 2. To copy the state object from the console to the clipboard, follow these steps:
 //    a. Right-click an object in Chrome's console and select Store as Global Variable from the context menu. It will return something like temp1 as the variable name.
 //    b. Chrome also has a copy() method, so copy(temp1) in the console should copy that object to your clipboard.
