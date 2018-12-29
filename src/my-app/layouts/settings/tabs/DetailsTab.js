@@ -3,10 +3,13 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles/index';
 import classNames from 'classnames';
 
+import { connect } from 'react-redux';
+import { firestoreConnect } from 'react-redux-firebase';
+import { compose } from 'redux';
+
 // import { Redirect } from 'react-router-dom'
 
 // for actions
-import {connect} from 'react-redux';
 // import {bindActionCreators} from 'redux';
 import { updateSettings } from 'my-app/store/actions/my-actions'
 
@@ -456,9 +459,18 @@ DetailsTab.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-function mapStateToProps({ auth }) {
+// function mapStateToProps({ auth }) {
+function mapStateToProps( state ) {
+  console.log('state\n', state);
   return {
-    user: auth.user
+    // user: auth.user
+    user: state.auth.user,
+
+    // projects: state.firestore.ordered.projects,
+    // auth: state.firebase.auth,
+    // notifications: state.firestore.ordered.notifications,
+
+    leads: state.firestore.ordered.leads,
   }
 }
 
@@ -473,9 +485,18 @@ const mapDispatchToProps = dispatch => {
 //     return bindActionCreators({
 //         toggleQuickPanel: quickPanelActions.toggleQuickPanel,
 //         logout          : authActions.logoutUser,
-//         openChatPanel   : chatPanelActions.openChatPanel
+//         openChatPanel   : chatPanelActions.openChatPanel,
 //     }, dispatch);
 // }
 
 // export default withStyles(styles, { withTheme: true })(DetailsTab);
-export default withStyles(styles, {withTheme: true})(connect(mapStateToProps, mapDispatchToProps)(DetailsTab));
+// export default withStyles(styles, {withTheme: true})(connect(mapStateToProps, mapDispatchToProps)(DetailsTab));
+export default compose(
+  withStyles(styles, {withTheme: true}),
+  connect(mapStateToProps, mapDispatchToProps),
+  firestoreConnect([
+    // { collection: 'projects', orderBy: ['createdAt', 'desc']},
+    // { collection: 'notifications', limit: 3, orderBy: ['time', 'desc']},
+    { collection: 'leads', orderBy: ['timestamp', 'desc']},
+  ])
+)(DetailsTab)
