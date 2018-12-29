@@ -139,18 +139,16 @@ class DetailsTab extends Component {
 
   handleValidGeoStepper = model => {
     // handleSaveGeoStepper = model => {
+    console.log('model\n', model);
     const picked = _.pick(model, ['geoNation', 'geoRegion', 'geoLocal',]);
-    const settings = {
+    const tempSetting = {
       ...picked,
       isValidGeo: true,
     };
     this.setState(
-      { settings },
+      { tempSetting },
       () => {
-        console.log('settings\n', settings);
         console.log('state\n', this.state);
-        // this.handleChangeForm();
-        // this.saveToFirebase(picked);
       });
   };
 
@@ -233,10 +231,9 @@ class DetailsTab extends Component {
     // if (!user.data.uid) return <Redirect to='/login' /> 
     // const { general, work, contact, } = this.state;
     const {
-      anchorElMenu,
       dialogIsOpen, dialogContent, dialogContentText, dialogTitle,
       isDialogTextField, dialogTextFieldLabel, dialogFieldName,
-      selectedIndexMenu,
+      anchorElMenu, selectedIndexMenu,
       geoKey, isValidGeo, geoNation, geoRegion, geoLocal,
     } = this.state;
     const {
