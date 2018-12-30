@@ -179,12 +179,11 @@ class DetailsTab extends Component {
 
   handleMenuItemClickMenu = (event, index) => {
     const option = index && optionsMenu[index];
+    const settings = _.merge(this.state.settings, {bizCategory: option,});
     this.setState({
       selectedIndexMenu: index,
       anchorElMenu: null,
-      settings: {
-        bizCategory: option,
-      },
+      settings,
     }, () => this.props.updateSettings(this.state.settings));
   };
 
@@ -239,7 +238,7 @@ class DetailsTab extends Component {
   // --------------------------------
 
   render() {
-    const { classes, user, } = this.props;
+    const { classes, user, settings, } = this.props;
     // if (!user.data.uid) return <Redirect to='/login' /> 
     // const { general, work, contact, } = this.state;
     const {
@@ -412,6 +411,7 @@ class DetailsTab extends Component {
                       <ListItemText
                         primary="Type"
                         secondary={optionsMenu[selectedIndexMenu]}
+                        // secondary={settings.bizCategory}
                       />
                     </ListItem>
                     <ListItem
@@ -448,8 +448,7 @@ class DetailsTab extends Component {
               </Card>
             </FuseAnimateGroup>
           </div>
-
-        </div >
+        </div>
       </React.Fragment >
     );
   }
@@ -471,7 +470,7 @@ function mapStateToProps( state ) {
     // notifications: state.firestore.ordered.notifications,
 
     leads: state.firestore.ordered.leads,
-    settings: state.firestore.data.settings,
+    settings: state.firestore.ordered.users,//[0],//.settings[0],
   }
 }
 
@@ -493,26 +492,35 @@ const mapDispatchToProps = dispatch => {
 // export default withStyles(styles, { withTheme: true })(DetailsTab);
 // export default withStyles(styles, {withTheme: true})(connect(mapStateToProps, mapDispatchToProps)(DetailsTab));
 export default compose(
-  withStyles(styles, {withTheme: true}),
+  withStyles(styles, { withTheme: true }),
   connect(mapStateToProps, mapDispatchToProps),
-  firestoreConnect( props => [
-    // ref: https://github.com/prescottprue/react-redux-firebase/issues/344
-    // { collection: 'projects', orderBy: ['createdAt', 'desc'] },
-    // { collection: 'notifications', limit: 3, orderBy: ['time', 'desc'] },
-    { collection: 'leads', orderBy: ['timestamp', 'desc'] },
-    {
-      collection: 'users',
-      // doc: props.auth.uid,
-      // doc: props.auth.user.data.uid,
-      doc: '3lq9cr3A3eNSehv4X35Q2HBtUty2',
-      subcollections: [
-        {
-          collection: 'settings',
-          limit: 1,
-          orderBy: [ 'timestamp', 'desc', ],
-          // storeAs: 'settings',
-        }, 
-      ],
-    },
-  ])
+  // ref: https://github.com/prescottprue/react-redux-firebase/issues/344
+  // connect auth from redux state to the auth prop
+  // connect(({ firebase: { auth } }) => ({ auth })),
+  // show spinner while auth is loading
+  // spinnerWhileLoading(['auth']),
+  firestoreConnect(props => {
+    console.log('props\n', props);
+    return [
+      // ref: https://github.com/prescottprue/react-redux-firebase/issues/344
+      // { collection: 'projects', orderBy: ['createdAt', 'desc'] },
+      // { collection: 'notifications', limit: 3, orderBy: ['time', 'desc'] },
+      { collection: 'leads', orderBy: ['timestamp', 'desc'] },
+      {
+        collection: 'users',
+        // doc: props.auth.uid,
+        // doc: props.auth.user.data.uid,
+        // doc: '3lq9cr3A3eNSehv4X35Q2HBtUty2',
+        doc: props.user.data.uid,
+        subcollections: [
+          {
+            collection: 'settings',
+            limit: 1,
+            orderBy: ['timestamp', 'desc',],
+            storeAs: 'settings',
+          },
+        ],
+      },
+    ];
+  })
 )(DetailsTab)
