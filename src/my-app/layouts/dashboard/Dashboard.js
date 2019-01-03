@@ -63,9 +63,7 @@ const INITIAL_STATE_DIALOG = {
   dialogOpen: false,
   dialogTitle: null,
   dialogContentText: null,
-  dialogButton: null,
   dialogButtonLabel: null,
-  dialogButtonHandler: null,
 }
 
 const INITIAL_STATE = {
@@ -152,22 +150,40 @@ class Dashboard extends Component {
       .add(newData);
   }
 
-  handleClickGeoLocal = () => {
-    this.setState({ show: 'step', });
-    window.scrollTo(0, 0);
+  handleClickButton = name => {
+    // console.log('name', name);
+    switch(name) {
+      case 'Net':
+        break;
+      case 'Deposits':
+        break;
+      case 'Withdrawals':
+        break;
+      case 'Challenges':
+        break;
+      case 'Inbox':
+        break;
+      case 'Archive':
+        break;
+      case 'Contacts':
+        break;
+      case 'Category':
+        break;
+      case 'Locaction':
+        this.handleClickGeo();
+        break;
+      case 'State':
+        this.handleClickGeo();
+        break;
+      case 'Country':
+        this.handleClickGeo();
+        break;
+      default:
+        // code block
+    }
   }
 
-  handleClickGeoRegion = () => {
-    this.setState({ show: 'step', });
-    window.scrollTo(0, 0);
-  }
-
-  handleClickGeoNation = () => {
-    this.setState({ show: 'step', });
-    window.scrollTo(0, 0);
-  }
-
-  handleClickSettingsMessage = () => {
+  handleClickGeo = () => {
     this.setState({ show: 'step', });
     window.scrollTo(0, 0);
   }
@@ -216,9 +232,7 @@ class Dashboard extends Component {
       dialogOpen: true,
       dialogTitle: item.label,
       dialogContentText: item.desc,
-      dialogButton: item.btn,
       dialogButtonLabel: item.buttonLabel,
-      dialogButtonHandler: item.buttonHandler,
     });
   }
 
@@ -237,12 +251,10 @@ class Dashboard extends Component {
       handleChangeCategory,
       handleCloseCategory,
       handleCloseDialog,
+      handleClickButton,
       handleClickInfo,
-      handleClickSettingsMessage,
       handleSaveSettingsStepper,
-      handleClickGeoLocal,
-      handleClickGeoRegion,
-      handleClickGeoNation,
+      handleClickGeo,
     } = this;
     const {
       condensed,
@@ -254,13 +266,11 @@ class Dashboard extends Component {
       dialogOpen,
       dialogContentText,
       dialogTitle,
-      dialogButton,
       dialogButtonLabel,
-      dialogButtonHandler,
     } = this.state;
-    const {
-      classes,
-    } = this.props;
+    // const {
+    //   classes,
+    // } = this.props;
     // console.log('this', this);
     // console.log('this-props\n', this.props);
     // const { categoryOpen, bizCategory, } = this.props;
@@ -279,9 +289,8 @@ class Dashboard extends Component {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          {dialogButton}
           <Button
-            onClick={() => dialogButtonHandler}
+            onClick={() => handleClickButton(dialogTitle)}
           >
             {dialogButtonLabel}
           </Button>
@@ -345,9 +354,6 @@ class Dashboard extends Component {
           onCategoryChange={handleChangeCategory}
           onCategoryClose={handleCloseCategory}
           onClickInfo={handleClickInfo}
-          onClickGeoLocal={handleClickGeoLocal}
-          onClickGeoRegion={handleClickGeoRegion}
-          onClickGeoNation={handleClickGeoNation}
         />
 
       </React.Fragment>
@@ -357,7 +363,7 @@ class Dashboard extends Component {
       <div
         // className={classes.container}
       >
-        { ( show === 'greet' ) ? <SettingsMessage onClick={handleClickSettingsMessage} /> : null }
+        { ( show === 'greet' ) ? <SettingsMessage onClick={handleClickGeo} />             : null }
         { ( show === 'step'  ) ? <SettingsStepper onSave={handleSaveSettingsStepper}   /> : null }
         { ( show === 'main'  ) ? main                                                     : null }
         <Album />

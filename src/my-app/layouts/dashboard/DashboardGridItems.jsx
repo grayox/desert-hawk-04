@@ -47,9 +47,9 @@ const styles = theme => ({
     // maxWidth: 360,
     // backgroundColor: theme.palette.background.paper,
   },
-  container: {
-    padding: '24px',
-  },
+  // container: {
+  //   padding: '24px',
+  // },
 });
 
 function DashboardGridItems(props) {
@@ -123,7 +123,7 @@ function DashboardGridItems(props) {
         ( 
           rows.map(row => (
             <FuseAnimateGroup
-              className="p-20"
+              className="p-24"
               key={row.name}
               delay={200}
               enter={{ animation: 'transition.slideRightBigIn' }}
@@ -165,7 +165,6 @@ function getRows(props) {
     categoryOpen, categoryItems, bizCategory,
     onCategoryOpen, onCategoryClose, onCategoryChange,
     geoLocal, geoRegion, geoNation,
-    onClickGeoLocal, onClickGeoRegion, onClickGeoNation,
   } = props;
   return [
     {
@@ -176,7 +175,7 @@ function getRows(props) {
           data: 5,
           icon: DragHandleIcon,
           color: 'warning',
-          btn: <Button size='small'>Hai</Button>,
+          buttonLabel: 'Hai',
           desc:
             <div>
               <div>
@@ -198,7 +197,7 @@ function getRows(props) {
           data: 5,
           icon: AddIcon,
           color: 'success',
-          btn: <Button size='small'>Deposit new lead</Button>,
+          buttonLabel: 'Deposit new',
           desc:
             <div>
               <div>
@@ -224,7 +223,7 @@ function getRows(props) {
           data: 5,
           icon: RemoveIcon,
           color: 'danger',
-          btn: <Button size='small'>See available</Button>,
+          buttonLabel: 'See available',
           desc:
             <div>
               <div>
@@ -244,7 +243,7 @@ function getRows(props) {
           data: <span>&minus;5</span>,
           icon: RemoveIcon,
           color: 'primary',
-          btn: <Button size='small'>See challenges</Button>,
+          buttonLabel: 'See challenges',
           desc:
             <div>
               <div>
@@ -268,7 +267,7 @@ function getRows(props) {
           data: 5,
           icon: CloudDownloadIcon,
           color: 'info',
-          btn: <Button size='small'>View inbox</Button>,
+          buttonLabel: 'View inbox',
           desc:
             <div>
               List of all leads matching your type category and market location
@@ -280,7 +279,7 @@ function getRows(props) {
           data: 5,
           icon: SaveIcon,
           color: 'success',
-          btn: <Button size='small'>View archive</Button>,
+          buttonLabel: 'View archive',
           desc:
             <div>
               List of all previously available leads you claimed that are now exclusively yours
@@ -292,7 +291,7 @@ function getRows(props) {
           data: 5,
           icon: CloudUploadIcon,
           color: 'primary',
-          btn: <Button size='small'>View outbox</Button>,
+          buttonLabel: 'View outbox',
           desc:
             <div>
               List of all leads you submitted and referred to your peers on the network
@@ -304,7 +303,7 @@ function getRows(props) {
           data: 5,
           icon: ContactsIcon,
           color: 'success',
-          btn: <Button size='small'>Add contact</Button>,
+          buttonLabel: 'Add contact',
           desc:
             <div>
               List of everyone you invited to join the network
@@ -322,6 +321,7 @@ function getRows(props) {
           icon: LabelIcon,
           color: 'info',
           typog: 'subtitle1',
+          buttonLabel: 'Edit',
           btn:
             <SelectControl
               size='small'
@@ -374,7 +374,7 @@ function getRows(props) {
                   </div>
                   <div>
                     Select this if you are a financial planner and advise clients on their personal finances
-                    </div>
+                  </div>
                 </li>
               </ul>
             </div>
@@ -387,9 +387,7 @@ function getRows(props) {
           icon: TrackChangesIcon,
           color: 'primary',
           typog: 'subtitle1',
-          btn: <Button size='small' onClick={onClickGeoLocal}>Reset details</Button>,
-          buttonLabel: 'Reset details',
-          buttonHandler: {onClickGeoLocal},
+          buttonLabel: 'Edit',
           desc:
             <div>
               <div>
@@ -408,7 +406,7 @@ function getRows(props) {
           icon: FlagIcon,
           color: 'warning',
           typog: 'subtitle1',
-          btn: <Button size='small' onClick={onClickGeoRegion}>Reset details</Button>,
+          buttonLabel: 'Edit',
           desc:
             <div>
               <div>
@@ -425,7 +423,7 @@ function getRows(props) {
           icon: TrackChangesIcon,
           color: 'primary',
           typog: 'subtitle1',
-          btn: <Button size='small' onClick={onClickGeoNation}>Reset details</Button>,
+          buttonLabel: 'Edit',
           desc:
             <div>
               <div>
