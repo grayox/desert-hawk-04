@@ -13,12 +13,17 @@ import { withStyles } from '@material-ui/core/styles';
 
 // @material-ui/core
 // import Icon from "@material-ui/core/Icon";
+import {
+  AppBar, Toolbar, Typography,
+  Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
+} from '@material-ui/core';
 
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogActions from '@material-ui/core/DialogActions';
+import ViewListIcon from '@material-ui/icons/ViewList';
+import ViewModuleIcon from '@material-ui/icons/ViewModule';
+
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 
 // @material-ui/icons
 import Button from "@material-ui/core/Button";
@@ -44,6 +49,7 @@ import '@firebase/firestore';
 // misc
 import Album from 'my-app/layouts/album/Album'
 
+
 const db = firebase.firestore();
 
 const styles = theme => ({
@@ -53,15 +59,23 @@ const styles = theme => ({
   },
 });
 
-const INITIAL_STATE = {
+const INITIAL_STATE_DIALOG = {
   dialogOpen: false,
-  dialogTitle: '',
-  dialogContentText: '',
+  dialogTitle: null,
+  dialogContentText: null,
+  dialogButton: null,
+  dialogButtonLabel: null,
+  dialogButtonHandler: null,
+}
+
+const INITIAL_STATE = {
+  ...INITIAL_STATE_DIALOG,
 
   categoryOpen: false,
   bizCategory: '',
 
   show: 'main', // 'main', 'step', 'greet',
+  condensed: false,
 };
 
 const username = 'userme';
@@ -202,16 +216,19 @@ class Dashboard extends Component {
       dialogOpen: true,
       dialogTitle: item.label,
       dialogContentText: item.desc,
+      dialogButton: item.btn,
+      dialogButtonLabel: item.buttonLabel,
+      dialogButtonHandler: item.buttonHandler,
     });
   }
 
   handleCloseDialog = () => {
-    this.setState({
-      dialogOpen: false,
-      dialogTitle: null,
-      dialogContentText: null,
-    });
+    this.setState(INITIAL_STATE_DIALOG);
   }
+
+  handleChangeSwitch = name => event => {
+    this.setState({ [name]: event.target.checked });
+  };
   
   render() {
     const { show } = this.state;
@@ -228,6 +245,7 @@ class Dashboard extends Component {
       handleClickGeoNation,
     } = this;
     const {
+      condensed,
       geoLocal,
       geoRegion,
       geoNation,
@@ -236,6 +254,9 @@ class Dashboard extends Component {
       dialogOpen,
       dialogContentText,
       dialogTitle,
+      dialogButton,
+      dialogButtonLabel,
+      dialogButtonHandler,
     } = this.state;
     const {
       classes,
@@ -258,8 +279,18 @@ class Dashboard extends Component {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDialog} color="secondary" autoFocus>
-            OK, got it!
+          {dialogButton}
+          <Button
+            onClick={() => dialogButtonHandler}
+          >
+            {dialogButtonLabel}
+          </Button>
+          <Button
+            autoFocus
+            // color="secondary"
+            onClick={handleCloseDialog}
+          >
+            Cancel
           </Button>
         </DialogActions>
       </Dialog>
@@ -268,7 +299,42 @@ class Dashboard extends Component {
     const main = (
       <React.Fragment>
         {dialog}
-        <DashboardGridItems
+
+        <AppBar
+          className="m-0"
+          position="static"
+          elevation={0}
+        >
+          <Toolbar className="px-16">
+            <Typography variant="subtitle1" color="inherit" className="flex-1">
+              Dashboard
+            </Typography>
+            <FormGroup row>
+              <span className="self-center mr-12">
+                { condensed ? <ViewListIcon /> : <ViewModuleIcon /> }
+              </span>
+              <FormControlLabel
+                // labelPlacement="start"
+                // label="Condensed"
+                // label={ condensed ? "Condensed" : "Expanded" }
+                // label={ condensed ? <ViewListIcon /> : <ViewModuleIcon /> }
+                control={
+                  <Switch
+                    checked={condensed}
+                    onChange={this.handleChangeSwitch('condensed')}
+                    value="condensed"
+                    // color="white"
+                    // icon={<ViewModuleIcon />}
+                    // checkedIcon={<ViewListIcon />}
+                  />
+                }
+              />
+            </FormGroup>
+          </Toolbar>
+        </AppBar>
+
+        <DashboardGridItems 
+          condensed={condensed}
           geoLocal={geoLocal}
           geoRegion={geoRegion}
           geoNation={geoNation}
@@ -283,11 +349,14 @@ class Dashboard extends Component {
           onClickGeoRegion={handleClickGeoRegion}
           onClickGeoNation={handleClickGeoNation}
         />
+
       </React.Fragment>
     );
 
     return (
-      <div className={classes.container}>
+      <div
+        // className={classes.container}
+      >
         { ( show === 'greet' ) ? <SettingsMessage onClick={handleClickSettingsMessage} /> : null }
         { ( show === 'step'  ) ? <SettingsStepper onSave={handleSaveSettingsStepper}   /> : null }
         { ( show === 'main'  ) ? main                                                     : null }

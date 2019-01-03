@@ -15,7 +15,7 @@ import { updateSettings } from 'my-app/store/actions/my-actions'
 
 // import axios from 'axios/index';
 import {
-  // Avatar, Button, Icon, IconButton, ListItemSecondaryAction,
+  // Avatar, ListItemAvatar, Button, Icon, IconButton, ListItemSecondaryAction,
   AppBar, Card, CardContent, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography,
 } from '@material-ui/core';
 import { FuseAnimateGroup } from '@fuse';
@@ -99,11 +99,11 @@ const INITIAL_STATE = {
   helperTextEmail: null,
   
   anchorElMenu: null,
-  selectedIndexMenu: 0,
+  selectedIndexMenu: null,
 };
 
 const optionsMenu = [
-  'Select one',
+  // 'Select one',
   'Home',
   'Mortgage',
   'Insurance',
@@ -267,7 +267,7 @@ class DetailsTab extends Component {
           {optionsMenu.map((option, index) => (
             <MenuItem
               key={option}
-              disabled={index === 0}
+              // disabled={index === 0}
               selected={index === selectedIndexMenu}
               onClick={event => handleMenuItemClickMenu(event, index)}
             >
@@ -470,7 +470,14 @@ function mapStateToProps( state ) {
     // notifications: state.firestore.ordered.notifications,
 
     leads: state.firestore.ordered.leads,
-    settings: state.firestore.ordered.users,//[0],//.settings[0],
+
+    // success
+    // settings: state.firestore.ordered.users,//[0],//.settings[0],
+
+    // fail
+    // settings: state.firestore.data.users[state.auth.user.data.uid].settings,
+    // settings: state.firestore.data.users.settings,
+    // settings: state.firestore.ordered.users.settings,
   }
 }
 
@@ -524,3 +531,12 @@ export default compose(
     ];
   })
 )(DetailsTab)
+
+// export default compose(
+//   firestoreConnect((props) => [
+//     { path: 'leads' } // string equivalent 'todos'
+//   ]),
+//   connect((state, props) => ({
+//     leads: state.firebase.data.leads
+//   }))
+// )(DetailsTab)

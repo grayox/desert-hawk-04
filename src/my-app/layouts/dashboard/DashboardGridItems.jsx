@@ -16,7 +16,7 @@ import SaveIcon from '@material-ui/icons/Save';
 import TrackChangesIcon from '@material-ui/icons/TrackChanges';
 
 // @material-ui/core
-import { Typography } from "@material-ui/core";
+// import { Typography } from "@material-ui/core";
 
 // import {FuseAnimateGroup, FuseHighlight, FusePageSimple} from '@fuse';
 import { FuseAnimateGroup } from '@fuse';
@@ -34,48 +34,130 @@ import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 
+import {
+  // Button, Icon, IconButton,
+  // AppBar, Toolbar,
+  Typography, Avatar, ListItemAvatar, Card, CardContent,
+  List, ListSubheader, ListItem, ListItemIcon, ListItemText, ListItemSecondaryAction,
+} from '@material-ui/core';
+
 const styles = theme => ({
+  root: {
+    width: '100%',
+    // maxWidth: 360,
+    // backgroundColor: theme.palette.background.paper,
+  },
   container: {
     padding: '24px',
   },
 });
 
 function DashboardGridItems(props) {
-  const { classes, onClickInfo, } = props;
+  const { classes, onClickInfo, condensed, } = props;
   const rows = getRows(props);
   // console.log('props', props);
   return (
-    rows.map(row => (
-      <FuseAnimateGroup
-        key={row.name}
-        delay={200}
-        enter={{ animation: 'transition.slideRightBigIn' }}
-        leave={{ animation: 'transition.slideLeftBigOut' }}
-      >
-        <Typography variant="subtitle1" className="opacity-75 font-light">{row.name}</Typography>
-        <GridContainer className={classes.container}>
-          {row.cells.map(cell => (
-            <DashboardGridItem
-              key={cell.label}
-              item={cell}
-              onClickInfo={() => onClickInfo(cell)}
-            />
-          ))}
-        </GridContainer>
-      </FuseAnimateGroup>
-    ))
+    <React.Fragment>
+      {
+        condensed
+        ?
+        (
+          <Card className="w-full m-0 md:mb-16">
+            <CardContent className="px-0">
+              <FuseAnimateGroup
+                // className="px-0"
+                // key={row.name}
+                delay={200}
+                enter={{ animation: 'transition.slideRightBigIn' }}
+                leave={{ animation: 'transition.slideLeftBigOut' }}
+              >
+                  {
+                    rows.map(row => (
+                      <List
+                        component="nav"
+                        className="px-0 mb-4"
+                        subheader={<ListSubheader>{row.name}</ListSubheader>}
+                      >
+                      {
+                        row.cells.map(cell => (
+                          <ListItem
+                            button
+                            aria-haspopup="false"
+                            aria-controls="username"
+                            aria-label="username"
+                            // onClick={handleClickListItemDialog({
+                            //   dialogTitle: 'Name',
+                            //   isDialogTextField: true,
+                            //   dialogTextFieldLabel: 'first and last',
+                            //   dialogFieldName: 'name',
+                            // })}
+                            onClick={() => onClickInfo(cell)}
+                          >
+                            {/* <ListItemIcon>
+                              {React.createElement(cell.icon)}
+                            </ListItemIcon> */}
+                            <ListItemAvatar>
+                              <Avatar>
+                                {React.createElement(cell.icon)}
+                              </Avatar>
+                            </ListItemAvatar>
+                            <ListItemText
+                              primary={cell.label}
+                              // secondary={name}
+                              // secondary={user.data.displayName}
+                            />
+                            <ListItemSecondaryAction className="pr-16">
+                              {cell.data}
+                            </ListItemSecondaryAction>
+                          </ListItem>
+                        ))
+                      }
+                </List>
+                    ))
+                  }
+              </FuseAnimateGroup>
+            </CardContent>
+          </Card>
+        )
+        :
+        ( 
+          rows.map(row => (
+            <FuseAnimateGroup
+              className="p-20"
+              key={row.name}
+              delay={200}
+              enter={{ animation: 'transition.slideRightBigIn' }}
+              leave={{ animation: 'transition.slideLeftBigOut' }}
+            >
+              <Typography variant="subtitle1" className="opacity-75 font-light">{row.name}</Typography>
+              <GridContainer
+                // className={classes.container}
+              >
+                {row.cells.map(cell => (
+                  <DashboardGridItem
+                    key={cell.label}
+                    item={cell}
+                    onClickInfo={() => onClickInfo(cell)}
+                  />
+                ))}
+              </GridContainer>
+            </FuseAnimateGroup>
+          ))
+        )
+      }
+    </React.Fragment>
   );
 }
 
 const marketDescription = (
-  <p className="mt-12">
+  <div className="mt-12">
     To specify the location of your market, you must identify all three levels:
     <ul>
       <li>country</li>
       <li>state or region</li>
       <li>location</li>
     </ul>
-  </p>
+  </div>
 );
 
 function getRows(props) {
@@ -96,19 +178,19 @@ function getRows(props) {
           color: 'warning',
           btn: <Button size='small'>Hai</Button>,
           desc:
-            <p>
-              <p>
+            <div>
+              <div>
                 Your net balance is the most important balance for you to maintain above zero.
                 It represents the difference between your deposits and withdrawals.
                 Or, in other words, how many leads you referred compared to how many you received.
-                </p>
-              <p className="mt-12">
+              </div>
+              <div className="mt-12">
                 If you maintain a positive net balance, you will always be able to see your inbox
                 and claim new leads as they arrive.
                 If your net balance reaches zero, your inbox will lock and you won&rsquo;t be able
                 to view it until you deposit more leads.
-                </p>
-            </p>
+              </div>
+            </div>
           ,
         },
         {
@@ -118,14 +200,14 @@ function getRows(props) {
           color: 'success',
           btn: <Button size='small'>Deposit new lead</Button>,
           desc:
-            <p>
-              <p>
+            <div>
+              <div>
                 Here we keep track of all the valid leads you submitted and referred into the network.
                 To make a deposit, click the button then fill out the form.
                 The form&rsquo;s &ldquo;save&rdquo; button will remain disabled
                 until you complete all required fields.
-                </p>
-              <p className="mt-12">
+              </div>
+              <div className="mt-12">
                 These are all your required fields.
                   <ul>
                   <li>name</li>
@@ -133,8 +215,8 @@ function getRows(props) {
                   <li>zip code</li>
                   <li>lead type</li>
                 </ul>
-              </p>
-            </p>
+              </div>
+            </div>
           ,
         },
         {
@@ -144,17 +226,17 @@ function getRows(props) {
           color: 'danger',
           btn: <Button size='small'>See available</Button>,
           desc:
-            <p>
-              <p>
+            <div>
+              <div>
                 This is the number of leads you claimed from your inbox and placed into your archive for your use.
                 To claim a lead from your inbox, just click it.
                 Then we will automatically place that lead in your archive and you will be able to see it continuously.
-                </p>
-              <p className="mt-12">
+              </div>
+              <div className="mt-12">
                 Unlike new leads in your inbox, you will always be able to see your archived leads &mdash;
                 even if your net balance falls to zero.
-                </p>
-            </p>
+              </div>
+            </div>
           ,
         },
         {
@@ -164,16 +246,16 @@ function getRows(props) {
           color: 'primary',
           btn: <Button size='small'>See challenges</Button>,
           desc:
-            <p>
-              <p>
+            <div>
+              <div>
                 This is the number of net lead challenges you have won.
                 Lost challenges are shown as a negative number.
                 Users can challenge leads they believe are not legitimate.
-                </p>
-              <p className="mt-12">
+              </div>
+              <div className="mt-12">
                 Users that have too many leads challenged will be subjected to restrictions for abuse.
-                </p>
-            </p>
+              </div>
+            </div>
           ,
         },
       ]
@@ -188,9 +270,9 @@ function getRows(props) {
           color: 'info',
           btn: <Button size='small'>View inbox</Button>,
           desc:
-            <p>
+            <div>
               List of all leads matching your type category and market location
-              </p>
+            </div>
           ,
         },
         {
@@ -200,9 +282,9 @@ function getRows(props) {
           color: 'success',
           btn: <Button size='small'>View archive</Button>,
           desc:
-            <p>
+            <div>
               List of all previously available leads you claimed that are now exclusively yours
-              </p>
+            </div>
           ,
         },
         {
@@ -212,9 +294,9 @@ function getRows(props) {
           color: 'primary',
           btn: <Button size='small'>View outbox</Button>,
           desc:
-            <p>
+            <div>
               List of all leads you submitted and referred to your peers on the network
-              </p>
+            </div>
           ,
         },
         {
@@ -224,9 +306,9 @@ function getRows(props) {
           color: 'success',
           btn: <Button size='small'>Add contact</Button>,
           desc:
-            <p>
+            <div>
               List of everyone you invited to join the network
-              </p>
+            </div>
           ,
         },
       ]
@@ -255,47 +337,47 @@ function getRows(props) {
             />
           ,
           desc:
-            <p>
+            <div>
               Tell us the type of leads you want.
                 <ul>
                 <li>
-                  <p className="mt-12">
+                  <div className="mt-12">
                     <span className="mr-12">Home</span>
                     {React.createElement(HomeIcon)}
-                  </p>
-                  <p>
+                  </div>
+                  <div>
                     Select this if you are a real estate broker or agent selling homes to residential buyers
-                    </p>
+                  </div>
                 </li>
                 <li>
-                  <p className="mt-12">
+                  <div className="mt-12">
                     <span className="mr-12">Mortgage</span>
                     {React.createElement(AccountBalanceIcon)}
-                  </p>
-                  <p>
+                  </div>
+                  <div>
                     Select this if you are a real estate mortgage broker or agent selling financing to home buyers
-                    </p>
+                  </div>
                 </li>
                 <li>
-                  <p className="mt-12">
+                  <div className="mt-12">
                     <span className="mr-12">Insurance</span>
                     {React.createElement(AssessmentIcon)}
-                  </p>
-                  <p>
+                  </div>
+                  <div>
                     Select this if you are an insurance broker or agent selling property and casualty policies
-                    </p>
+                  </div>
                 </li>
                 <li>
-                  <p className="mt-12">
+                  <div className="mt-12">
                     <span className="mr-12">Financial</span>
                     {React.createElement(AssignmentIcon)}
-                  </p>
-                  <p>
+                  </div>
+                  <div>
                     Select this if you are a financial planner and advise clients on their personal finances
-                    </p>
+                    </div>
                 </li>
               </ul>
-            </p>
+            </div>
           ,
         },
         {
@@ -306,15 +388,17 @@ function getRows(props) {
           color: 'primary',
           typog: 'subtitle1',
           btn: <Button size='small' onClick={onClickGeoLocal}>Reset details</Button>,
+          buttonLabel: 'Reset details',
+          buttonHandler: {onClickGeoLocal},
           desc:
-            <p>
-              <p>
+            <div>
+              <div>
                 The third level of your location selection.
                 (In some small states or regions, it can be the only third level choice.
                 In that case, the third level choice is usually identical to the name of the state or region.)
-                </p>
+              </div>
               {marketDescription}
-            </p>
+            </div>
           ,
         },
         {
@@ -326,12 +410,12 @@ function getRows(props) {
           typog: 'subtitle1',
           btn: <Button size='small' onClick={onClickGeoRegion}>Reset details</Button>,
           desc:
-            <p>
-              <p>
+            <div>
+              <div>
                 The second level of your location selection. (Called &ldquo;region&rdquo; in certain countries.)
-                </p>
+              </div>
               {marketDescription}
-            </p>
+            </div>
           ,
         },
         {
@@ -343,12 +427,12 @@ function getRows(props) {
           typog: 'subtitle1',
           btn: <Button size='small' onClick={onClickGeoNation}>Reset details</Button>,
           desc:
-            <p>
-              <p>
+            <div>
+              <div>
                 The first level of your location selection.
-                </p>
+              </div>
               {marketDescription}
-            </p>
+            </div>
           ,
         },
       ]

@@ -46,7 +46,7 @@ function getFormContent(props) {
       break;
     case 'button':
       out = (
-        <div>
+        <React.Fragment>
           <Button
             className={classes.button}
             onClick={props.onClick}
@@ -55,7 +55,7 @@ function getFormContent(props) {
           <div className={classes.hiddenControl}>
             {getSelect(props)}
           </div>
-        </div>
+        </React.Fragment>
       );
       break;
     default:
