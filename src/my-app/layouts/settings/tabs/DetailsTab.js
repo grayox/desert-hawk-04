@@ -463,7 +463,7 @@ function mapStateToProps( state ) {
   console.log('state\n', state);
   return {
     // user: auth.user
-    user: state.auth.user,
+    user: state.auth.user, // {role, data: {uid, displayName, email, ...}}
 
     // projects: state.firestore.ordered.projects,
     // auth: state.firebase.auth,

@@ -71,13 +71,13 @@ function DashboardGridItems(props) {
                 enter={{ animation: 'transition.slideRightBigIn' }}
                 leave={{ animation: 'transition.slideLeftBigOut' }}
               >
-                  {
-                    rows.map(row => (
-                      <List
-                        component="nav"
-                        className="px-0 mb-4"
-                        subheader={<ListSubheader>{row.name}</ListSubheader>}
-                      >
+                {
+                  rows.map(row => (
+                    <List
+                      component="nav"
+                      className="px-0 mb-4"
+                      subheader={<ListSubheader>{row.name}</ListSubheader>}
+                    >
                       {
                         row.cells.map(cell => (
                           <ListItem
@@ -112,9 +112,9 @@ function DashboardGridItems(props) {
                           </ListItem>
                         ))
                       }
-                </List>
-                    ))
-                  }
+                    </List>
+                  ))
+                }
               </FuseAnimateGroup>
             </CardContent>
           </Card>
@@ -252,7 +252,9 @@ function getRows(props) {
                 Users can challenge leads they believe are not legitimate.
               </div>
               <div className="mt-12">
-                Users that have too many leads challenged will be subjected to restrictions for abuse.
+                You can challenge any lead you think is of poor quality.
+                Those who make or receive too many challenges could have negative consequences as a result.
+                So strive to submit high quality leads and be judicious in your challenges of others.
               </div>
             </div>
           ,

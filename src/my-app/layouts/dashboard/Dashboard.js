@@ -7,9 +7,11 @@ import { withStyles } from '@material-ui/core/styles';
 // import ChartistGraph from "react-chartist";
 
 // redux
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 // import store from '../../store';
 // import {withRouter} from 'react-router-dom';
+// import { firestoreConnect } from 'react-redux-firebase';
 
 // @material-ui/core
 // import Icon from "@material-ui/core/Icon";
@@ -70,15 +72,15 @@ const INITIAL_STATE = {
   ...INITIAL_STATE_DIALOG,
 
   categoryOpen: false,
-  bizCategory: '',
+  bizCategory: null,
 
   show: 'main', // 'main', 'step', 'greet',
   condensed: false,
 };
 
-const username = 'userme';
-const path = [ 'users' , username , 'settings', ].join('/');
-// const path = 'users/userme/settings';
+// const username = 'userme';
+// const path = [ 'users' , username , 'settings', ].join('/');
+// // const path = 'users/userme/settings';
 
 class Dashboard extends Component {
 
@@ -91,7 +93,17 @@ class Dashboard extends Component {
     this.getSettings();
   }
 
+  getPath() {
+    if(!this.props.user) return;
+    const uid = this && this.props && this.props.user &&
+                this.props.user.data && this.props.user.data.uid;
+    return uid ? [ 'users' , uid , 'settings', ].join('/') : null;
+  }
+
   getSettings() {
+    // console.log('props\n', this.props);
+    // debugger;
+    const path = this.getPath();
     db.collection(path)
       // .collection('users/userme/settings')
       // .orderBy('added_at', 'desc')
@@ -110,7 +122,7 @@ class Dashboard extends Component {
           // console.log('data\n', doc.data()); // works
           out = doc.data()
         );
-        // console.log('out\n', out);
+        console.log('out\n', out);
         return out;
       })
         // }
@@ -146,6 +158,7 @@ class Dashboard extends Component {
       ...newData,
       show: 'main',
     });
+    const path = this.getPath();
     db.collection(path)
       .add(newData);
   }
@@ -168,6 +181,7 @@ class Dashboard extends Component {
       case 'Contacts':
         break;
       case 'Category':
+        this.handleOpenCategory();
         break;
       case 'Locaction':
         this.handleClickGeo();
@@ -220,6 +234,7 @@ class Dashboard extends Component {
       geoRegion: geoRegion,
       geoLocal: geoLocal,
     };
+    const path = this.getPath();
     db.collection(path)
       .add(newData);
   }
@@ -382,21 +397,39 @@ class Dashboard extends Component {
 //   // console.log('getStore\n', getStore);
 //   return {
 //     category   : getStore.category    ,
-//     geoNation : getStore.geoNation  ,
+//     geoNation  : getStore.geoNation  ,
 //     geoRegion  : getStore.geoRegion   ,
 //     geoLocal   : getStore.geoLocal    ,
 //     role       : state.auth.user.role ,
 //   };
 // }
 
+function mapStateToProps( state ) {
+  console.log('state\n', state);
+  return {
+    user: state.auth.user, // {role, data: {uid, displayName, email, ...}}
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    // updateSettings: settings => dispatch(updateSettings(settings)),
+  }
+}
+
 Dashboard.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, {withTheme: true})(Dashboard); // latest working
+// export default withStyles(styles, {withTheme: true})(Dashboard); // latest working
 // export default withStyles(styles)(Dashboard); // working
 // export default withReducer('dashboard', reducer)(withStyles(styles, {withTheme: true})(withRouter(connect(mapStateToProps, mapDispatchToProps)(ContactsApp)))); // copied from ContactsApp
 // export default withStyles(dashboardStyle)(ViewDashboard); // test
 // export default connect(mapStateToProps)(ViewDashboard); // not working
 // export default withStyles(styles, {withTheme: true})(withRouter(connect(mapStateToProps, mapDispatchToProps)(FuseLayout))); // original from another part of this theme
 // export default withStyles(styles)(connect(mapStateToProps)(Dashboard)); // in test
+
+export default compose(
+  withStyles(styles, { withTheme: true }),
+  connect(mapStateToProps, mapDispatchToProps),
+)(Dashboard)
