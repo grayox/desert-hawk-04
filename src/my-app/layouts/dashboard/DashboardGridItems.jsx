@@ -315,7 +315,7 @@ function getRows(props) {
       ]
     },
     {
-      name: 'Key settings',
+      name: 'Details',
       cells: [
         {
           label: 'Category',

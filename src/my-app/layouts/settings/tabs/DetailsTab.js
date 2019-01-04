@@ -78,10 +78,11 @@ const INITIAL_STATE = {
     name: 'Maria Le',
     email: 'maria.le.4@gmail.com',
     mobile: '555-123-4567', 
-    bizCategory: '',
-    geoNation: '',
-    geoRegion: '',
-    geoLocal: '',
+    bizCategory: null,
+    geoNation: null,
+    geoRegion: null,
+    geoLocal: null,
+    isValidGeo: false,
   },
 
   geoKey: Date.now(), // necessary to re-render GeoSelect component after reset
@@ -90,7 +91,6 @@ const INITIAL_STATE = {
   isValidEmail: false,
   isValidPhone: false,
   isValidBizCategory: false,
-  isValidGeo: false,
   isValidForm: false,
 
   isErrorName: false,
@@ -178,13 +178,16 @@ class DetailsTab extends Component {
   };
 
   handleMenuItemClickMenu = (event, index) => {
-    const option = index && optionsMenu[index];
+    const option = optionsMenu[index];
     const settings = _.merge(this.state.settings, {bizCategory: option,});
     this.setState({
-      selectedIndexMenu: index,
-      anchorElMenu: null,
-      settings,
-    }, () => this.props.updateSettings(this.state.settings));
+      selectedIndexMenu: index, // saves menu index as integer in local state
+      anchorElMenu: null, // closes menu, saves to local state
+      // settings, // passes settings along to global state
+    }, () => {
+      console.log('state\n', this.state);
+      this.props.updateSettings(/*this.state.*/settings);
+    });
   };
 
   handleCloseMenu = () => {
@@ -241,11 +244,14 @@ class DetailsTab extends Component {
     const { classes, user, settings, } = this.props;
     // if (!user.data.uid) return <Redirect to='/login' /> 
     // const { general, work, contact, } = this.state;
+    const {      
+      isValidGeo, geoNation, geoRegion, geoLocal, bizCategory,
+    } = this.state.settings;
     const {
       dialogIsOpen, dialogContent, dialogContentText, dialogTitle,
       isDialogTextField, dialogTextFieldLabel, dialogFieldName,
-      anchorElMenu, selectedIndexMenu,
-      geoKey, isValidGeo, geoNation, geoRegion, geoLocal,
+      anchorElMenu, selectedIndexMenu, geoKey,
+      isValidName, isValidEmail, isValidPhone, isValidBizCategory, isValidForm,
     } = this.state;
     const {
       handleValidGeoStepper,
@@ -410,7 +416,8 @@ class DetailsTab extends Component {
                       </ListItemIcon>
                       <ListItemText
                         primary="Type"
-                        secondary={optionsMenu[selectedIndexMenu]}
+                        secondary={bizCategory}
+                        // secondary={optionsMenu[selectedIndexMenu]}
                         // secondary={settings.bizCategory}
                       />
                     </ListItem>
@@ -438,7 +445,7 @@ class DetailsTab extends Component {
                       <ListItemText
                         primary="Location"
                         secondary={
-                          isValidGeo ? `${geoLocal}, ${geoRegion}, ${geoNation}`
+                          isValidGeo ? (`${geoLocal}, ${geoRegion}, ${geoNation}`)
                             : 'Click to select...'
                         }
                       />
