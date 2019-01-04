@@ -4,16 +4,18 @@ import { withStyles } from '@material-ui/core/styles';
 // import withStyles from "@material-ui/core/styles/withStyles";
 
 import AddIcon from '@material-ui/icons/Add';
-import Button from "@material-ui/core/Button";
+// import Button from "@material-ui/core/Button";
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import ContactsIcon from '@material-ui/icons/Contacts';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 import FlagIcon from '@material-ui/icons/Flag';
 import LabelIcon from '@material-ui/icons/Label';
+import PlaceIcon from '@material-ui/icons/Place';
 import RemoveIcon from '@material-ui/icons/Remove';
 import SaveIcon from '@material-ui/icons/Save';
 import TrackChangesIcon from '@material-ui/icons/TrackChanges';
+import WarningIcon from '@material-ui/icons/Warning';
 
 // @material-ui/core
 // import { Typography } from "@material-ui/core";
@@ -241,7 +243,7 @@ function getRows(props) {
         {
           label: 'Challenges',
           data: <span>&minus;5</span>,
-          icon: RemoveIcon,
+          icon: WarningIcon,
           color: 'primary',
           buttonLabel: 'See challenges',
           desc:
@@ -386,7 +388,7 @@ function getRows(props) {
           label: 'Location',
           // data: 'Scholes',
           data: geoLocal,
-          icon: TrackChangesIcon,
+          icon: PlaceIcon,
           color: 'primary',
           typog: 'subtitle1',
           buttonLabel: 'Edit',
@@ -405,7 +407,7 @@ function getRows(props) {
           label: 'State',
           // data: 'Mississippi',
           data: geoRegion,
-          icon: FlagIcon,
+          icon: TrackChangesIcon,
           color: 'warning',
           typog: 'subtitle1',
           buttonLabel: 'Edit',
@@ -422,7 +424,7 @@ function getRows(props) {
           label: 'Country',
           // data: 'United States',
           data: geoNation,
-          icon: TrackChangesIcon,
+          icon: FlagIcon,
           color: 'primary',
           typog: 'subtitle1',
           buttonLabel: 'Edit',

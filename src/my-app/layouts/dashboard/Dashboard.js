@@ -378,9 +378,9 @@ class Dashboard extends Component {
       <div
         // className={classes.container}
       >
-        { ( show === 'greet' ) ? <SettingsMessage onClick={handleClickGeo} />             : null }
-        { ( show === 'step'  ) ? <SettingsStepper onSave={handleSaveSettingsStepper}   /> : null }
-        { ( show === 'main'  ) ? main                                                     : null }
+        { ( show === 'greet' ) ? <SettingsMessage onClick={handleClickGeo} />           : null }
+        { ( show === 'step'  ) ? <SettingsStepper onSave={handleSaveSettingsStepper} /> : null }
+        { ( show === 'main'  ) ? main                                                   : null }
         <Album />
       </div>
     );
