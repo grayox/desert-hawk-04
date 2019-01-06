@@ -9,6 +9,7 @@ import { withStyles } from '@material-ui/core/styles';
 // redux
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import { updateSettings } from 'my-app/store/actions/my-actions';
 // import store from '../../store';
 // import {withRouter} from 'react-router-dom';
 // import { firestoreConnect } from 'react-redux-firebase';
@@ -75,7 +76,7 @@ const INITIAL_STATE = {
   bizCategory: null,
 
   show: 'main', // 'main', 'step', 'greet',
-  condensed: false,
+  condensedDashboard: false,
 };
 
 // const username = 'userme';
@@ -141,19 +142,9 @@ class Dashboard extends Component {
   }
 
   handleSaveSettingsStepper = data => {
-    const {
-      bizCategory,
-      geoNation,
-      geoRegion,
-      geoLocal,
-    } = data;
-    const newData = {
-      timestamp: Date.now(),
-      bizCategory: bizCategory,
-      geoNation: geoNation,
-      geoRegion: geoRegion,
-      geoLocal: geoLocal,
-    };
+    const { bizCategory, geoNation, geoRegion, geoLocal, } = data;
+    const timestamp = Date.now();
+    const newData = { timestamp, bizCategory, geoNation, geoRegion, geoLocal, };
     this.setState({
       ...newData,
       show: 'main',
@@ -167,18 +158,25 @@ class Dashboard extends Component {
     // console.log('name', name);
     switch(name) {
       case 'Net':
+        this.handleCloseCategory();
         break;
       case 'Deposits':
+        this.handleCloseCategory();
         break;
       case 'Withdrawals':
+        this.handleCloseCategory();
         break;
       case 'Challenges':
+        this.handleCloseCategory();
         break;
       case 'Inbox':
+        this.handleCloseCategory();
         break;
       case 'Archive':
+        this.handleCloseCategory();
         break;
       case 'Contacts':
+        this.handleCloseCategory();
         break;
       case 'Category':
         this.handleOpenCategory();
@@ -217,23 +215,14 @@ class Dashboard extends Component {
   }
 
   handleChangeCategory = model => {
-    const {
-      geoNation,
-      geoRegion,
-      geoLocal,
-    } = this.state;
+    const { geoNation, geoRegion, geoLocal, } = this.state;
     // console.log('model\n', model);
     // this.setState({ [model.target.name]: model.target.value });
     const bizCategory = model.target.value;
-    this.setState({ bizCategory: bizCategory, });
+    this.setState({ bizCategory, });
     // console.log('state\n', this.state);
-    const newData = {
-      timestamp: Date.now(),
-      bizCategory: bizCategory,
-      geoNation: geoNation,
-      geoRegion: geoRegion,
-      geoLocal: geoLocal,
-    };
+    const timestamp = Date.now();
+    const newData = { timestamp, bizCategory, geoNation, geoRegion, geoLocal, };
     const path = this.getPath();
     db.collection(path)
       .add(newData);
@@ -256,32 +245,23 @@ class Dashboard extends Component {
   }
 
   handleChangeSwitch = name => event => {
-    this.setState({ [name]: event.target.checked });
+    this.setState({ [name]: event.target.checked }, () => {
+      console.log('state\n', this.state);
+      // this.props.updateSettings(this.state.settings);
+    });
   };
   
   render() {
     const { show } = this.state;
     const {
-      handleOpenCategory,
-      handleChangeCategory,
-      handleCloseCategory,
-      handleCloseDialog,
-      handleClickButton,
-      handleClickInfo,
-      handleSaveSettingsStepper,
-      handleClickGeo,
+      handleChangeSwitch, handleSaveSettingsStepper, handleClickGeo,
+      handleOpenCategory, handleChangeCategory, handleCloseCategory,
+      handleCloseDialog, handleClickButton, handleClickInfo,
     } = this;
     const {
-      condensed,
-      geoLocal,
-      geoRegion,
-      geoNation,
-      bizCategory,
-      categoryOpen,
-      dialogOpen,
-      dialogContentText,
-      dialogTitle,
-      dialogButtonLabel,
+      condensedDashboard, categoryOpen,
+      bizCategory, geoLocal, geoRegion, geoNation,
+      dialogOpen, dialogContentText, dialogTitle, dialogButtonLabel,
     } = this.state;
     // const {
     //   classes,
@@ -335,18 +315,18 @@ class Dashboard extends Component {
             </Typography>
             <FormGroup row>
               <span className="self-center mr-12">
-                { condensed ? <ViewListIcon /> : <ViewModuleIcon /> }
+                { condensedDashboard ? <ViewListIcon /> : <ViewModuleIcon /> }
               </span>
               <FormControlLabel
                 // labelPlacement="start"
                 // label="Condensed"
-                // label={ condensed ? "Condensed" : "Expanded" }
-                // label={ condensed ? <ViewListIcon /> : <ViewModuleIcon /> }
+                // label={ condensedDashboard ? "Condensed" : "Expanded" }
+                // label={ condensedDashboard ? <ViewListIcon /> : <ViewModuleIcon /> }
                 control={
                   <Switch
-                    checked={condensed}
-                    onChange={this.handleChangeSwitch('condensed')}
-                    value="condensed"
+                    checked={condensedDashboard}
+                    onChange={handleChangeSwitch('condensedDashboard')}
+                    value="condensedDashboard"
                     // color="white"
                     // icon={<ViewModuleIcon />}
                     // checkedIcon={<ViewListIcon />}
@@ -358,7 +338,7 @@ class Dashboard extends Component {
         </AppBar>
 
         <DashboardGridItems 
-          condensed={condensed}
+          condensedDashboard={condensedDashboard}
           geoLocal={geoLocal}
           geoRegion={geoRegion}
           geoNation={geoNation}
@@ -405,7 +385,7 @@ class Dashboard extends Component {
 // }
 
 function mapStateToProps( state ) {
-  console.log('state\n', state);
+  // console.log('state\n', state);
   return {
     user: state.auth.user, // {role, data: {uid, displayName, email, ...}}
   }
@@ -413,7 +393,7 @@ function mapStateToProps( state ) {
 
 const mapDispatchToProps = dispatch => {
   return {
-    // updateSettings: settings => dispatch(updateSettings(settings)),
+    updateSettings: settings => dispatch(updateSettings(settings)),
   }
 }
 

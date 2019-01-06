@@ -38,9 +38,9 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 
 import {
   // Button, Icon, IconButton,
-  // AppBar, Toolbar,
+  // AppBar, Toolbar, ListItemIcon, 
   Typography, Avatar, ListItemAvatar, Card, CardContent,
-  List, ListSubheader, ListItem, ListItemIcon, ListItemText, ListItemSecondaryAction,
+  List, ListSubheader, ListItem, ListItemText, ListItemSecondaryAction,
 } from '@material-ui/core';
 
 const styles = theme => ({
@@ -55,13 +55,13 @@ const styles = theme => ({
 });
 
 function DashboardGridItems(props) {
-  const { classes, onClickInfo, condensed, } = props;
+  const { classes, onClickInfo, condensedDashboard, } = props;
   const rows = getRows(props);
   // console.log('props', props);
   return (
     <React.Fragment>
       {
-        condensed
+        condensedDashboard
         ?
         (
           <Card className="w-full m-0 md:mb-16">

@@ -4,14 +4,14 @@ import { withStyles } from '@material-ui/core/styles/index';
 import classNames from 'classnames';
 
 import { connect } from 'react-redux';
-import { firestoreConnect } from 'react-redux-firebase';
+// import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
 
 // import { Redirect } from 'react-router-dom'
 
 // for actions
 // import {bindActionCreators} from 'redux';
-import { updateSettings } from 'my-app/store/actions/my-actions'
+import { updateSettings } from 'my-app/store/actions/my-actions';
 
 // import axios from 'axios/index';
 import {
@@ -75,14 +75,14 @@ const INITIAL_STATE = {
     // name: '',
     // email: '',
     // mobile: '',
-    name: 'Maria Le',
-    email: 'maria.le.4@gmail.com',
-    mobile: '555-123-4567', 
-    bizCategory: null,
-    geoNation: null,
-    geoRegion: null,
-    geoLocal: null,
-    isValidGeo: false,
+    name: 'INITIAL STATE',
+    email: 'INITIAL STATE',
+    mobile: 'INITIAL STATE', 
+    bizCategory: 'INITIAL STATE',
+    geoNation: 'INITIAL STATE',
+    geoRegion: 'INITIAL STATE',
+    geoLocal: 'INITIAL STATE',
+    isValidGeo: 'INITIAL STATE',
   },
 
   geoKey: Date.now(), // necessary to re-render GeoSelect component after reset
@@ -471,11 +471,13 @@ function mapStateToProps( state ) {
   return {
     // user: auth.user
     user: state.auth.user, // {role, data: {uid, displayName, email, ...}}
+    // settings: state.settings,
 
     // projects: state.firestore.ordered.projects,
     // auth: state.firebase.auth,
     // notifications: state.firestore.ordered.notifications,
 
+    // template for top-level stored objects from firebase using FirebaseConnect to fetch it
     leads: state.firestore.ordered.leads,
 
     // success
@@ -513,30 +515,30 @@ export default compose(
   // connect(({ firebase: { auth } }) => ({ auth })),
   // show spinner while auth is loading
   // spinnerWhileLoading(['auth']),
-  firestoreConnect(props => {
-    console.log('props\n', props);
-    return [
-      // ref: https://github.com/prescottprue/react-redux-firebase/issues/344
-      // { collection: 'projects', orderBy: ['createdAt', 'desc'] },
-      // { collection: 'notifications', limit: 3, orderBy: ['time', 'desc'] },
-      { collection: 'leads', orderBy: ['timestamp', 'desc'] },
-      {
-        collection: 'users',
-        // doc: props.auth.uid,
-        // doc: props.auth.user.data.uid,
-        // doc: '3lq9cr3A3eNSehv4X35Q2HBtUty2',
-        doc: props.user.data.uid,
-        subcollections: [
-          {
-            collection: 'settings',
-            limit: 1,
-            orderBy: ['timestamp', 'desc',],
-            storeAs: 'settings',
-          },
-        ],
-      },
-    ];
-  })
+  // firestoreConnect(props => {
+  //   console.log('props\n', props);
+  //   return [
+  //     // ref: https://github.com/prescottprue/react-redux-firebase/issues/344
+  //     // { collection: 'projects', orderBy: ['createdAt', 'desc'] },
+  //     // { collection: 'notifications', limit: 3, orderBy: ['time', 'desc'] },
+  //     { collection: 'leads', orderBy: ['timestamp', 'desc'] },
+  //     {
+  //       collection: 'users',
+  //       // doc: props.auth.uid,
+  //       // doc: props.auth.user.data.uid,
+  //       // doc: '3lq9cr3A3eNSehv4X35Q2HBtUty2',
+  //       doc: props.user.data.uid,
+  //       subcollections: [
+  //         {
+  //           collection: 'settings',
+  //           limit: 1,
+  //           orderBy: ['timestamp', 'desc',],
+  //           storeAs: 'settings',
+  //         },
+  //       ],
+  //     },
+  //   ];
+  // })
 )(DetailsTab)
 
 // export default compose(
