@@ -17,11 +17,16 @@ import SaveIcon from '@material-ui/icons/Save';
 import TrackChangesIcon from '@material-ui/icons/TrackChanges';
 import WarningIcon from '@material-ui/icons/Warning';
 
-// @material-ui/core
-// import { Typography } from "@material-ui/core";
-
 // import {FuseAnimateGroup, FuseHighlight, FusePageSimple} from '@fuse';
 import { FuseAnimateGroup } from '@fuse';
+
+// @material-ui/core
+import {
+  // Button, Icon, IconButton,
+  // AppBar, Toolbar, ListItemIcon, 
+  Typography, Avatar, ListItemAvatar, Card, CardContent,
+  List, ListSubheader, ListItem, ListItemText, ListItemSecondaryAction,
+} from '@material-ui/core';
 
 // core components
 import GridContainer from "my-app/vendors/creative-tim/components/Grid/GridContainer";
@@ -35,13 +40,6 @@ import HomeIcon from '@material-ui/icons/Home';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import AssignmentIcon from '@material-ui/icons/Assignment';
-
-import {
-  // Button, Icon, IconButton,
-  // AppBar, Toolbar, ListItemIcon, 
-  Typography, Avatar, ListItemAvatar, Card, CardContent,
-  List, ListSubheader, ListItem, ListItemText, ListItemSecondaryAction,
-} from '@material-ui/core';
 
 const styles = theme => ({
   root: {
@@ -76,6 +74,7 @@ function DashboardGridItems(props) {
                 {
                   rows.map(row => (
                     <List
+                      key={row.name}
                       component="nav"
                       className="px-0 mb-4"
                       subheader={<ListSubheader>{row.name}</ListSubheader>}
@@ -152,14 +151,14 @@ function DashboardGridItems(props) {
 }
 
 const marketDescription = (
-  <div className="mt-12">
+  <Typography className="mt-12">
     To specify the location of your market, you must identify all three levels:
     <ul>
       <li>country</li>
       <li>state or region</li>
       <li>location</li>
     </ul>
-  </div>
+  </Typography>
 );
 
 function getRows(props) {
@@ -179,19 +178,19 @@ function getRows(props) {
           color: 'warning',
           buttonLabel: 'Hai',
           desc:
-            <div>
-              <div>
+            <React.Fragment>
+              <Typography paragraph>
                 Your net balance is the most important balance for you to maintain above zero.
                 It represents the difference between your deposits and withdrawals.
                 Or, in other words, how many leads you referred compared to how many you received.
-              </div>
-              <div className="mt-12">
+              </Typography>
+              <Typography className="mt-12">
                 If you maintain a positive net balance, you will always be able to see your inbox
                 and claim new leads as they arrive.
                 If your net balance reaches zero, your inbox will lock and you won&rsquo;t be able
                 to view it until you deposit more leads.
-              </div>
-            </div>
+              </Typography>
+            </React.Fragment>
           ,
         },
         {
@@ -201,14 +200,14 @@ function getRows(props) {
           color: 'success',
           buttonLabel: 'Deposit new',
           desc:
-            <div>
-              <div>
+            <React.Fragment>
+              <Typography paragraph>
                 Here we keep track of all the valid leads you submitted and referred into the network.
                 To make a deposit, click the button then fill out the form.
                 The form&rsquo;s &ldquo;save&rdquo; button will remain disabled
                 until you complete all required fields.
-              </div>
-              <div className="mt-12">
+              </Typography>
+              <Typography className="mt-12">
                 These are all your required fields.
                   <ul>
                   <li>name</li>
@@ -216,8 +215,8 @@ function getRows(props) {
                   <li>zip code</li>
                   <li>lead type</li>
                 </ul>
-              </div>
-            </div>
+              </Typography>
+            </React.Fragment>
           ,
         },
         {
@@ -227,17 +226,17 @@ function getRows(props) {
           color: 'danger',
           buttonLabel: 'See available',
           desc:
-            <div>
-              <div>
+            <React.Fragment>
+              <Typography paragraph>
                 This is the number of leads you claimed from your inbox and placed into your archive for your use.
                 To claim a lead from your inbox, just click it.
                 Then we will automatically place that lead in your archive and you will be able to see it continuously.
-              </div>
-              <div className="mt-12">
+              </Typography>
+              <Typography className="mt-12">
                 Unlike new leads in your inbox, you will always be able to see your archived leads &mdash;
                 even if your net balance falls to zero.
-              </div>
-            </div>
+              </Typography>
+            </React.Fragment>
           ,
         },
         {
@@ -247,18 +246,18 @@ function getRows(props) {
           color: 'primary',
           buttonLabel: 'See challenges',
           desc:
-            <div>
-              <div>
+            <React.Fragment>
+              <Typography paragraph>
                 This is the number of net lead challenges you have won.
                 Lost challenges are shown as a negative number.
                 Users can challenge leads they believe are not legitimate.
-              </div>
-              <div className="mt-12">
+              </Typography>
+              <Typography className="mt-12">
                 You can challenge any lead you think is of poor quality.
                 Those who make or receive too many challenges could have negative consequences as a result.
                 So strive to submit high quality leads and be judicious in your challenges of others.
-              </div>
-            </div>
+              </Typography>
+            </React.Fragment>
           ,
         },
       ]
@@ -273,9 +272,9 @@ function getRows(props) {
           color: 'info',
           buttonLabel: 'View inbox',
           desc:
-            <div>
+            <Typography paragraph>
               List of all leads matching your type category and market location
-            </div>
+            </Typography>
           ,
         },
         {
@@ -285,9 +284,9 @@ function getRows(props) {
           color: 'success',
           buttonLabel: 'View archive',
           desc:
-            <div>
+            <Typography paragraph>
               List of all previously available leads you claimed that are now exclusively yours
-            </div>
+            </Typography>
           ,
         },
         {
@@ -297,9 +296,9 @@ function getRows(props) {
           color: 'primary',
           buttonLabel: 'View outbox',
           desc:
-            <div>
+            <Typography paragraph>
               List of all leads you submitted and referred to your peers on the network
-            </div>
+            </Typography>
           ,
         },
         {
@@ -309,9 +308,9 @@ function getRows(props) {
           color: 'success',
           buttonLabel: 'Add contact',
           desc:
-            <div>
+            <Typography paragraph>
               List of everyone you invited to join the network
-            </div>
+            </Typography>
           ,
         },
       ]
@@ -341,47 +340,47 @@ function getRows(props) {
             />
           ,
           desc:
-            <div>
+            <React.Fragment>
               Tell us the type of leads you want.
                 <ul>
                 <li>
-                  <div className="mt-12">
-                    <span className="mr-12">Home</span>
+                  <Typography className="mt-12">
+                    <Typography className="mr-12">Home</Typography>
                     {React.createElement(HomeIcon)}
-                  </div>
-                  <div>
+                  </Typography>
+                  <Typography paragraph>
                     Select this if you are a real estate broker or agent selling homes to residential buyers
-                  </div>
+                  </Typography>
                 </li>
                 <li>
-                  <div className="mt-12">
-                    <span className="mr-12">Mortgage</span>
+                  <Typography className="mt-12">
+                    <Typography className="mr-12">Mortgage</Typography>
                     {React.createElement(AccountBalanceIcon)}
-                  </div>
-                  <div>
+                  </Typography>
+                  <Typography paragraph>
                     Select this if you are a real estate mortgage broker or agent selling financing to home buyers
-                  </div>
+                  </Typography>
                 </li>
                 <li>
-                  <div className="mt-12">
-                    <span className="mr-12">Insurance</span>
+                  <Typography className="mt-12">
+                    <Typography className="mr-12">Insurance</Typography>
                     {React.createElement(AssessmentIcon)}
-                  </div>
-                  <div>
+                  </Typography>
+                  <Typography paragraph>
                     Select this if you are an insurance broker or agent selling property and casualty policies
-                  </div>
+                  </Typography>
                 </li>
                 <li>
-                  <div className="mt-12">
-                    <span className="mr-12">Financial</span>
+                  <Typography className="mt-12">
+                    <Typography className="mr-12">Financial</Typography>
                     {React.createElement(AssignmentIcon)}
-                  </div>
-                  <div>
+                  </Typography>
+                  <Typography paragraph>
                     Select this if you are a financial planner and advise clients on their personal finances
-                  </div>
+                  </Typography>
                 </li>
               </ul>
-            </div>
+            </React.Fragment>
           ,
         },
         {
@@ -393,14 +392,14 @@ function getRows(props) {
           typog: 'subtitle1',
           buttonLabel: 'Edit',
           desc:
-            <div>
-              <div>
+            <React.Fragment>
+              <Typography paragraph>
                 The third level of your location selection.
                 (In some small states or regions, it can be the only third level choice.
                 In that case, the third level choice is usually identical to the name of the state or region.)
-              </div>
+              </Typography>
               {marketDescription}
-            </div>
+            </React.Fragment>
           ,
         },
         {
@@ -412,12 +411,12 @@ function getRows(props) {
           typog: 'subtitle1',
           buttonLabel: 'Edit',
           desc:
-            <div>
-              <div>
+            <React.Fragment>
+              <Typography paragraph>
                 The second level of your location selection. (Called &ldquo;region&rdquo; in certain countries.)
-              </div>
+              </Typography>
               {marketDescription}
-            </div>
+            </React.Fragment>
           ,
         },
         {
@@ -429,12 +428,12 @@ function getRows(props) {
           typog: 'subtitle1',
           buttonLabel: 'Edit',
           desc:
-            <div>
-              <div>
+            <React.Fragment>
+              <Typography paragraph>
                 The first level of your location selection.
-              </div>
+              </Typography>
               {marketDescription}
-            </div>
+            </React.Fragment>
           ,
         },
       ]
@@ -450,7 +449,7 @@ DashboardGridItems.propTypes = {
   onClickInfo: PropTypes.func.isRequired,
   categoryOpen: PropTypes.bool.isRequired,
   categoryItems: PropTypes.arrayOf(PropTypes.object).isRequired,
-  bizCategory: PropTypes.string.isRequired,
+  bizCategory: PropTypes.string,
   geoLocal: PropTypes.string,
   geoRegion: PropTypes.string,
   geoNation: PropTypes.string,
