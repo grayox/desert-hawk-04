@@ -53,7 +53,7 @@ const styles = theme => ({
 });
 
 function DashboardGridItems(props) {
-  const { classes, onClickInfo, condensedDashboard, } = props;
+  const { onClickInfo, condensedDashboard, } = props; // classes,
   const rows = getRows(props);
   // console.log('props', props);
   return (
@@ -442,7 +442,7 @@ function getRows(props) {
 }
 
 DashboardGridItems.propTypes = {
-  classes: PropTypes.object.isRequired,
+  // classes: PropTypes.object.isRequired,
   onCategoryOpen: PropTypes.func.isRequired,
   onCategoryClose: PropTypes.func.isRequired,
   onCategoryChange: PropTypes.func.isRequired,
