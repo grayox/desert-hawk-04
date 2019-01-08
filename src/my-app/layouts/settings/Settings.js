@@ -340,9 +340,8 @@ class ProfilePage extends Component {
     } = this.state;
     const {
       handleChange,
-      handleValidGeoStepper,
-      handleClickListItemDialog,
-      handleClickListItemMenu, handleMenuItemClickMenu, handleCloseMenu,
+      // handleValidGeoStepper, handleClickListItemDialog, handleClickListItemMenu,
+      handleMenuItemClickMenu, handleCloseMenu,
       handleKeyPressDialog, handleChangeDialog,
       handleResetDialog, handleSaveDialog,
       handleClickListItemMenu1, handleClickListItemMenu2,

@@ -82,6 +82,7 @@ function DashboardGridItems(props) {
                       {
                         row.cells.map(cell => (
                           <ListItem
+                            key={cell.label}
                             button
                             aria-haspopup="false"
                             aria-controls="username"
