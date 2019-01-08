@@ -38,19 +38,9 @@ const styles = theme => ({
 
 function DetailsTab(props) {
 
-  const { classes, user, 
-    dialogIsOpen, dialogContent, dialogContentText, dialogTitle,
-    isDialogTextField, dialogTextFieldLabel, dialogFieldName,
-    anchorElMenu, selectedIndexMenu, geoKey,
-
-    isValidGeo, geoNation, geoRegion, geoLocal, bizCategory,
-
-    handleChange,
-    handleValidGeoStepper,
-    handleClickListItemDialog,
-    handleClickListItemMenu, handleMenuItemClickMenu, handleCloseMenu,
-    handleKeyPressDialog, handleChangeDialog,
-    handleResetDialog, handleSaveDialog,
+  const {
+    classes, user, geoKey, isValidGeo, geoNation, geoRegion, geoLocal, bizCategory,
+    handleValidGeoStepper, handleClickListItemDialog, handleClickListItemMenu,
   } = this.props; //settings, profile, leads, 
 
   return (

@@ -80,6 +80,8 @@ const INITIAL_STATE = {
 
   value: 0,
 
+  checked: [],
+
   settings: {
     name: null,
     email: null,
@@ -105,7 +107,11 @@ const INITIAL_STATE = {
   helperTextEmail: null,
   
   anchorElMenu: null,
+  anchorElMenu1: null,
+  anchorElMenu2: null,
   selectedIndexMenu: null,
+  selectedIndexMenu1: 1,
+  selectedIndexMenu2: 1,
 };
 
 const optionsMenu = [
@@ -114,6 +120,16 @@ const optionsMenu = [
   'Mortgage',
   'Insurance',
   'Financial',
+];
+
+const optionsMenu1 = [
+  'Light',
+  'Dark (saves battery)',
+];
+
+const optionsMenu2 = [
+  'Condensed',
+  'Expanded',
 ];
 
 class ProfilePage extends Component {
@@ -249,6 +265,54 @@ class ProfilePage extends Component {
   }
   
   // --------------------------------
+  
+  // change tabs
+
+  // --------------------------------
+
+  handleCloseMenu1 = () => {
+    this.setState({ anchorElMenu1: null });
+  };
+
+  handleClickListItemMenu1 = event => {
+    this.setState({ anchorElMenu1: event.currentTarget });
+  };
+
+  handleMenuItemClickMenu1 = (event, index) => {
+    this.setState({ selectedIndexMenu1: index, anchorElMenu1: null });
+  };
+
+  // --------------------------------
+
+  handleCloseMenu2 = () => {
+    this.setState({ anchorElMenu2: null });
+  };
+
+  handleMenuItemClickMenu2 = (event, index) => {
+    this.setState({ selectedIndexMenu2: index, anchorElMenu2: null });
+  };
+
+  handleClickListItemMenu2 = event => {
+    this.setState({ anchorElMenu2: event.currentTarget });
+  };
+
+  // --------------------------------
+
+  handleToggle = value => () => {
+    const { checked } = this.state;
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];
+
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    this.setState({
+      checked: newChecked,
+    });
+  };
 
   render() {
     const { classes, user } = this.props; //settings, profile, leads,
@@ -271,6 +335,8 @@ class ProfilePage extends Component {
       isDialogTextField, dialogTextFieldLabel, dialogFieldName,
       anchorElMenu, selectedIndexMenu, geoKey, value,
       // isValidName, isValidEmail, isValidPhone, isValidBizCategory, isValidForm,
+      anchorElMenu1, anchorElMenu2,
+      selectedIndexMenu1, selectedIndexMenu2,
     } = this.state;
     const {
       handleChange,
@@ -279,6 +345,7 @@ class ProfilePage extends Component {
       handleClickListItemMenu, handleMenuItemClickMenu, handleCloseMenu,
       handleKeyPressDialog, handleChangeDialog,
       handleResetDialog, handleSaveDialog,
+      handleClickListItemMenu1, handleClickListItemMenu2,
     } = this;
 
     return (
@@ -418,7 +485,16 @@ class ProfilePage extends Component {
                 />
                 )}
               {value === 1 && (
-                <PreferencesTab />
+                <PreferencesTab
+                  anchorElMenu1={anchorElMenu1}
+                  anchorElMenu2={anchorElMenu2}
+                  selectedIndexMenu1={selectedIndexMenu1}
+                  selectedIndexMenu2={selectedIndexMenu2}
+                  handleClickListItemMenu1={handleClickListItemMenu1}
+                  handleClickListItemMenu2={handleClickListItemMenu2}
+                  optionsMenu1={optionsMenu1}
+                  optionsMenu2={optionsMenu2}
+                />
                 )}
             </div>
             // end my add
