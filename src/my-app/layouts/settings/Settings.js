@@ -335,18 +335,20 @@ class ProfilePage extends Component {
     const {
       dialogIsOpen, dialogContent, dialogContentText, dialogTitle,
       isDialogTextField, dialogTextFieldLabel, dialogFieldName,
-      anchorElMenu, selectedIndexMenu, geoKey, value,
+      checked, anchorElMenu, selectedIndexMenu, geoKey, value,
       // isValidName, isValidEmail, isValidPhone, isValidBizCategory, isValidForm,
       anchorElMenu1, anchorElMenu2,
       selectedIndexMenu1, selectedIndexMenu2,
     } = this.state;
     const {
-      handleChange,
+      handleChange, handleToggle,
       handleValidGeoStepper, handleClickListItemDialog, handleClickListItemMenu,
       handleMenuItemClickMenu, handleCloseMenu,
       handleKeyPressDialog, handleChangeDialog,
       handleResetDialog, handleSaveDialog,
+      handleCloseMenu1, handleCloseMenu2,
       handleClickListItemMenu1, handleClickListItemMenu2,
+      handleMenuItemClickMenu1, handleMenuItemClickMenu2,
     } = this;
 
     return (
@@ -471,7 +473,7 @@ class ProfilePage extends Component {
                 // <div>Hello world</div>
                 <DetailsTab
                   // foo={'foo'}
-                  user={user}
+                  // user={user}
                   profile={profile}
                   settings={settings}
                   dialogIsOpen={dialogIsOpen}
@@ -496,13 +498,20 @@ class ProfilePage extends Component {
               )}
               {value === 1 && (
                 <PreferencesTab
-                  user={user}
-                  profile={profile}
+                  // user={user}
+                  // profile={profile}
                   settings={settings}
+                  checked={checked}
+                  handleToggle={handleToggle}
                   anchorElMenu1={anchorElMenu1}
                   anchorElMenu2={anchorElMenu2}
                   selectedIndexMenu1={selectedIndexMenu1}
                   selectedIndexMenu2={selectedIndexMenu2}
+                  handleToggle={handleToggle}
+                  handleCloseMenu1={handleCloseMenu1}
+                  handleCloseMenu2={handleCloseMenu2}
+                  handleMenuItemClickMenu1={handleMenuItemClickMenu1}
+                  handleMenuItemClickMenu2={handleMenuItemClickMenu2}
                   handleClickListItemMenu1={handleClickListItemMenu1}
                   handleClickListItemMenu2={handleClickListItemMenu2}
                   optionsMenu1={optionsMenu1}

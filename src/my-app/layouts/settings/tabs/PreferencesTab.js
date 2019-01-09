@@ -35,10 +35,13 @@ const styles = theme => ({
 function PreferencesTab(props) {
 
   const { 
-    classes, user, profile, settings,
+    classes, settings, //profile, user, 
+    handleToggle, //checked, 
     optionsMenu1, optionsMenu2,
     anchorElMenu1, anchorElMenu2,
-    selectedIndexMenu1, selectedIndexMenu2,
+    handleCloseMenu1, handleCloseMenu2,
+    // selectedIndexMenu1, selectedIndexMenu2,
+    handleMenuItemClickMenu1, handleMenuItemClickMenu2,
     handleClickListItemMenu1, handleClickListItemMenu2,
   } = props;
 
@@ -71,7 +74,9 @@ function PreferencesTab(props) {
                   <ListItem alignItems="flex-start">
                     <ListItemIcon>
                       {
-                        this.state.checked.indexOf('claim') !== -1 ?
+                        // this.state.checked.indexOf('autoClaimLeads') !== -1 ?
+                        // checked.indexOf('autoClaimLeads') !== -1 ?
+                        settings.autoClaimLeads ?
                           <AddLocationIcon /> :
                           <NotInterestedIcon />
                       }
@@ -79,7 +84,9 @@ function PreferencesTab(props) {
                     <ListItemText
                       primary='Claim new leads'
                       secondary={
-                        this.state.checked.indexOf('claim') !== -1 ?
+                        // this.state.checked.indexOf('autoClaimLeads') !== -1 ?
+                        // checked.indexOf('autoClaimLeads') !== -1 ?
+                        settings.autoClaimLeads ?
                           <React.Fragment>
                             Automatically
                             <br />
@@ -95,8 +102,11 @@ function PreferencesTab(props) {
                     />
                     <ListItemSecondaryAction>
                       <Switch
-                        onChange={this.handleToggle('claim')}
-                        checked={this.state.checked.indexOf('claim') !== -1}
+                        // onChange={this.handleToggle('autoClaimLeads')}
+                        onChange={handleToggle('autoClaimLeads')}
+                        // checked={this.state.checked.indexOf('autoClaimLeads') !== -1}
+                        // checked={checked.indexOf('autoClaimLeads') !== -1}
+                        checked={settings.autoClaimLeads}
                       />
                     </ListItemSecondaryAction>
                   </ListItem>
@@ -105,7 +115,9 @@ function PreferencesTab(props) {
                   <ListItem>
                     <ListItemIcon>
                       {
-                        this.state.checked.indexOf('textMe') !== -1 ?
+                        // this.state.checked.indexOf('autoTextMe') !== -1 ?
+                        // checked.indexOf('autoTextMe') !== -1 ?
+                        settings.autoTextMe ?
                           <TextsmsIcon /> :
                           <NotInterestedIcon />
                       }
@@ -113,22 +125,29 @@ function PreferencesTab(props) {
                     <ListItemText
                       primary="Text"
                       secondary={
-                        this.state.checked.indexOf('textMe') !== -1 ?
+                        // this.state.checked.indexOf('autoTextMe') !== -1 ?
+                        // checked.indexOf('autoTextMe') !== -1 ?
+                        settings.autoTextMe ?
                           'Automatic' :
                           'Do not text me'
                       }
                     />
                     <ListItemSecondaryAction>
                       <Switch
-                        onChange={this.handleToggle('textMe')}
-                        checked={this.state.checked.indexOf('textMe') !== -1}
+                        // onChange={this.handleToggle('autoTextMe')}
+                        onChange={handleToggle('autoTextMe')}
+                        // checked={this.state.checked.indexOf('autoTextMe') !== -1}
+                        // checked={checked.indexOf('autoTextMe') !== -1}
+                        checked={settings.autoTextMe}
                       />
                     </ListItemSecondaryAction>
                   </ListItem>
                   <ListItem>
                     <ListItemIcon>
                       {
-                        this.state.checked.indexOf('emailMe') !== -1 ?
+                        // this.state.checked.indexOf('autoEmailMe') !== -1 ?
+                        // checked.indexOf('autoEmailMe') !== -1 ?
+                        settings.autoEmailMe ?
                           <EmailIcon /> :
                           <NotInterestedIcon />
                       }
@@ -136,15 +155,20 @@ function PreferencesTab(props) {
                     <ListItemText
                       primary="Email"
                       secondary={
-                        this.state.checked.indexOf('emailMe') !== -1 ?
+                        // this.state.checked.indexOf('autoEmailMe') !== -1 ?
+                        // checked.indexOf('autoEmailMe') !== -1 ?
+                        settings.autoEmailMe ?
                           'Automatic' :
                           'Do not email me'
                       }
                     />
                     <ListItemSecondaryAction>
                       <Switch
-                        onChange={this.handleToggle('emailMe')}
-                        checked={this.state.checked.indexOf('emailMe') !== -1}
+                        // onChange={this.handleToggle('autoEmailMe')}
+                        onChange={handleToggle('autoEmailMe')}
+                        // checked={this.state.checked.indexOf('autoEmailMe') !== -1}
+                        // checked={checked.indexOf('autoEmailMe') !== -1}
+                        checked={settings.autoEmailMe}
                       />
                     </ListItemSecondaryAction>
                   </ListItem>
@@ -153,7 +177,8 @@ function PreferencesTab(props) {
                   <ListItem>
                     <ListItemIcon>
                       {
-                        this.state.checked.indexOf('textProspect') !== -1 ?
+                        // this.state.checked.indexOf('autoTextProspect') !== -1 ?
+                        settings.autoTextProspect ?
                           <TextsmsIcon /> :
                           <NotInterestedIcon />
                       }
@@ -161,22 +186,27 @@ function PreferencesTab(props) {
                     <ListItemText
                       primary="Text"
                       secondary={
-                        this.state.checked.indexOf('textProspect') !== -1 ?
+                        // this.state.checked.indexOf('autoTextProspect') !== -1 ?
+                        settings.autoTextProspect ?
                           'Automatic' :
                           'Do not text prospect'
                       }
                     />
                     <ListItemSecondaryAction>
                       <Switch
-                        onChange={this.handleToggle('textProspect')}
-                        checked={this.state.checked.indexOf('textProspect') !== -1}
+                        // onChange={this.handleToggle('autoTextProspect')}
+                        onChange={handleToggle('autoTextProspect')}
+                        // checked={this.state.checked.indexOf('autoTextProspect') !== -1}
+                        // checked={checked.indexOf('autoTextProspect') !== -1}
+                        checked={settings.autoTextProspect}
                       />
                     </ListItemSecondaryAction>
                   </ListItem>
                   <ListItem>
                     <ListItemIcon>
                       {
-                        this.state.checked.indexOf('emailProspect') !== -1 ?
+                        // this.state.checked.indexOf('autoEmailProspect') !== -1 ?
+                        settings.autoEmailProspect ?
                           <EmailIcon /> :
                           <NotInterestedIcon />
                       }
@@ -184,15 +214,19 @@ function PreferencesTab(props) {
                     <ListItemText
                       primary="Email"
                       secondary={
-                        this.state.checked.indexOf('emailProspect') !== -1 ?
+                        // this.state.checked.indexOf('autoEmailProspect') !== -1 ?
+                        settings.autoEmailProspect ?
                           'Automatic' :
                           'Do not email prospect'
                       }
                     />
                     <ListItemSecondaryAction>
                       <Switch
-                        onChange={this.handleToggle('emailProspect')}
-                        checked={this.state.checked.indexOf('emailProspect') !== -1}
+                        // onChange={this.handleToggle('autoEmailProspect')}
+                        onChange={handleToggle('autoEmailProspect')}
+                        // checked={this.state.checked.indexOf('autoEmailProspect') !== -1}
+                        // checked={checked.indexOf('autoEmailProspect') !== -1}
+                        checked={settings.autoEmailProspect}
                       />
                     </ListItemSecondaryAction>
                   </ListItem>
@@ -281,21 +315,25 @@ function PreferencesTab(props) {
                     </ListItemIcon>
                     <ListItemText
                       primary="Dashboard"
-                      secondary={optionsMenu2[selectedIndexMenu2]}
+                      // secondary={optionsMenu2[selectedIndexMenu2]}
+                      secondary={settings.condensedDashboard}
                     />
                   </ListItem>
                   <Menu
                     id="menu2"
                     anchorEl={anchorElMenu2}
                     open={Boolean(anchorElMenu2)}
-                    onClose={this.handleCloseMenu2}
+                    // onClose={this.handleCloseMenu2}
+                    onClose={handleCloseMenu2}
                   >
                     {optionsMenu2.map((option, index) => (
                       <MenuItem
                         key={option}
                         // disabled={index === 0}
-                        selected={index === this.state.selectedIndex}
-                        onClick={event => this.handleMenuItemClickMenu2(event, index)}
+                        // selected={index === this.state.selectedIndex}
+                        selected={index === settings.condensedDashboard}
+                        // onClick={event => this.handleMenuItemClickMenu2(event, index)}
+                        onClick={event => handleMenuItemClickMenu2(event, index)}
                       >
                         {option}
                       </MenuItem>
@@ -314,21 +352,25 @@ function PreferencesTab(props) {
                     </ListItemIcon>
                     <ListItemText
                       primary="Background"
-                      secondary={optionsMenu1[selectedIndexMenu1]}
+                      // secondary={optionsMenu1[selectedIndexMenu1]}
+                      secondary={optionsMenu1[settings.darkBackground]}
                     />
                   </ListItem>
                   <Menu
                     id="menu1"
                     anchorEl={anchorElMenu1}
                     open={Boolean(anchorElMenu1)}
-                    onClose={this.handleCloseMenu1}
+                    // onClose={this.handleCloseMenu1}
+                    onClose={handleCloseMenu1}
                   >
                     {optionsMenu1.map((option, index) => (
                       <MenuItem
                         key={option}
                         // disabled={index === 0}
-                        selected={index === this.state.selectedIndex}
-                        onClick={event => this.handleMenuItemClickMenu1(event, index)}
+                        // selected={index === this.state.selectedIndex}
+                        selected={index === settings.darkBackground}
+                        // onClick={event => this.handleMenuItemClickMenu1(event, index)}
+                        onClick={event => handleMenuItemClickMenu1(event, index)}
                       >
                         {option}
                       </MenuItem>
