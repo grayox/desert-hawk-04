@@ -6,10 +6,6 @@ import { withStyles } from '@material-ui/core/styles';
 // react plugin for creating charts
 // import ChartistGraph from "react-chartist";
 
-
-// firebase
-import { firestoreConnect } from 'react-redux-firebase';
-
 // redux
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -372,22 +368,27 @@ class Dashboard extends Component {
 
 }
 
+// const getStore = store.getState();
 
-Dashboard.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+// const mapStateToProps = state => {
+//   // console.log('state\n', state);
+//   // console.log('store\n', store.getState());
+//   // const getStore = store.getState();
+//   // console.log('getStore\n', getStore);
+//   return {
+//     category   : getStore.category    ,
+//     geoNation  : getStore.geoNation  ,
+//     geoRegion  : getStore.geoRegion   ,
+//     geoLocal   : getStore.geoLocal    ,
+//     role       : state.auth.user.role ,
+//   };
+// }
 
 function mapStateToProps( state ) {
   // console.log('state\n', state);
-  const settings = state.firestore.ordered.users
-                && state.firestore.ordered.users[0]
-                && state.firestore.ordered.users[0].settings
-                && state.firestore.ordered.users[0].settings[0];
-  const user = state.auth.user;
-  const leads = state.firestore.ordered.leads;
-  const profile = state.firebase.profile;
-  const dataHasLoaded = user && leads && profile && settings;
-  return { user, leads, profile, settings, dataHasLoaded, }
+  return {
+    user: state.auth.user, // {role, data: {uid, displayName, email, ...}}
+  }
 }
 
 const mapDispatchToProps = dispatch => {
@@ -396,24 +397,19 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default compose( 
-  withStyles(styles, { withTheme: true }),  
+Dashboard.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+// export default withStyles(styles, {withTheme: true})(Dashboard); // latest working
+// export default withStyles(styles)(Dashboard); // working
+// export default withReducer('dashboard', reducer)(withStyles(styles, {withTheme: true})(withRouter(connect(mapStateToProps, mapDispatchToProps)(ContactsApp)))); // copied from ContactsApp
+// export default withStyles(dashboardStyle)(ViewDashboard); // test
+// export default connect(mapStateToProps)(ViewDashboard); // not working
+// export default withStyles(styles, {withTheme: true})(withRouter(connect(mapStateToProps, mapDispatchToProps)(FuseLayout))); // original from another part of this theme
+// export default withStyles(styles)(connect(mapStateToProps)(Dashboard)); // in test
+
+export default compose(
+  withStyles(styles, { withTheme: true }),
   connect(mapStateToProps, mapDispatchToProps),
-  firestoreConnect(props => {
-    return [
-      { collection: 'leads', orderBy: ['timestamp', 'desc'] },
-      {
-        collection: 'users',
-        doc: props.profile.uid,
-        subcollections: [
-          {
-            collection: 'settings',
-            limit: 1,
-            orderBy: ['timestamp', 'desc',],
-            storeAs: 'settings',
-          },
-        ],
-      },
-    ];
-  })
 )(Dashboard)
