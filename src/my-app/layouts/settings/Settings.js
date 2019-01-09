@@ -319,10 +319,10 @@ class ProfilePage extends Component {
   };
 
   render() {
-    // console.log('user\n', this.props.user);
-    // console.log('settings\n', this.props.settings);
-    // console.log('profile\n', this.props.profile);
-    // console.log('leads\n', this.props.leads);
+    console.log('user\n', this.props.user);
+    console.log('settings\n', this.props.settings);
+    console.log('profile\n', this.props.profile);
+    console.log('leads\n', this.props.leads);
 
     const { classes, user, settings, profile, leads, dataHasLoaded, } = this.props; //
     // if (!user.data.uid) return <Redirect to='/login' /> 
@@ -464,8 +464,8 @@ class ProfilePage extends Component {
             //   )}
             // </div>
             // begin my add
-            // dataHasLoaded ?
-            // (
+            dataHasLoaded ?
+            (
             <div className="p-0 md:p-24">
               {value === 0 && (
                 // <div>Hello world</div>
@@ -510,9 +510,9 @@ class ProfilePage extends Component {
                 />
               )}
             </div>
-            // )
-            // :
-            // ( <Typography className="p-20" variant="caption">Loading...</Typography> )
+            )
+            :
+            ( <Typography className="p-20" variant="caption">Loading...</Typography> )
             // end my add
           }
         />

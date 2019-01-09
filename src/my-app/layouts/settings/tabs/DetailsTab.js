@@ -41,11 +41,11 @@ const styles = theme => ({
 //   // if(!this.props) return;
 //   const {
 //     //classes, 
-//     user, 
+//     user, //settings, profile, leads,
 //     //geoKey, isValidGeo, 
 //     //geoNation, geoRegion, geoLocal, bizCategory,
 //     //handleValidGeoStepper, handleClickListItemDialog, handleClickListItemMenu,
-//   } = props;//settings, profile, leads,
+//   } = props;
 
 //   return (
 //     <React.Fragment>Hello world</React.Fragment>
@@ -56,10 +56,10 @@ const styles = theme => ({
 function DetailsTab(props) {
 
   const {
-    classes, user, profile, settings,
+    classes, profile, settings, // user, leads,
     geoKey, isValidGeo, geoNation, geoRegion, geoLocal, bizCategory,
     handleValidGeoStepper, handleClickListItemDialog, handleClickListItemMenu,
-  } = props; //settings, profile, leads, 
+  } = props;
 
   return (
     <React.Fragment>
@@ -104,7 +104,7 @@ function DetailsTab(props) {
                       primary="Name"
                       // secondary={name}
                       // secondary={user.data.displayName}
-                      secondary={profile.displayName}
+                      secondary={settings.displayName || profile.displayName}
                     />
                   </ListItem>
                   <ListItem
@@ -125,7 +125,8 @@ function DetailsTab(props) {
                     <ListItemText
                       primary="Email"
                       // secondary={email}
-                      secondary={user.data.email}
+                      // secondary={user.data.email}
+                      secondary={settings.email || profile.email}
                     />
                   </ListItem>
                   <ListItem
@@ -146,7 +147,8 @@ function DetailsTab(props) {
                     <ListItemText
                       primary="Mobile"
                       // secondary={mobile}
-                      secondary={ user.data.phoneNumber || 'Click to enter...' }
+                      // secondary={ user.data.phoneNumber || 'Click to enter...' }
+                      secondary={ settings.mobile || profile.phoneNumber || 'Click to enter...' }
                     />
                   </ListItem>
                 </List>
