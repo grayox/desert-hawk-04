@@ -35,12 +35,12 @@ const styles = theme => ({
 function PreferencesTab(props) {
 
   const { 
-    classes,
+    classes, user, profile, settings,
     optionsMenu1, optionsMenu2,
     anchorElMenu1, anchorElMenu2,
     selectedIndexMenu1, selectedIndexMenu2,
     handleClickListItemMenu1, handleClickListItemMenu2,
-  } = this.props;
+  } = props;
 
   return (
     <React.Fragment>

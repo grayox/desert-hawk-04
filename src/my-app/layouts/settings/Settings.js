@@ -7,6 +7,9 @@ import { Avatar, Tab, Tabs, Typography, } from '@material-ui/core'; // Button,
 // import AboutTab from 'main/content/pages/profile/tabs/AboutTab';
 
 // begin my add
+import PropTypes from 'prop-types';
+// import classNames from 'classnames';
+
 // import * as Actions from './store/actions';
 import { connect } from 'react-redux';
 // import { bindActionCreators } from 'redux';
@@ -78,6 +81,7 @@ const INITIAL_STATE_SETTINGS_DIALOG = {
 
 const INITIAL_STATE = {
 
+  // dataHasLoaded: false,
   value: 0,
 
   checked: [],
@@ -315,13 +319,12 @@ class ProfilePage extends Component {
   };
 
   render() {
-    const { classes, user } = this.props; //settings, profile, leads,
+    // console.log('user\n', this.props.user);
+    // console.log('settings\n', this.props.settings);
+    // console.log('profile\n', this.props.profile);
+    // console.log('leads\n', this.props.leads);
 
-    // console.log('user\n', user);
-    // console.log('settings\n', settings);
-    // console.log('profile\n', profile);
-    // console.log('leads\n', leads);
-
+    const { classes, user, settings, profile, leads, dataHasLoaded, } = this.props; //
     // if (!user.data.uid) return <Redirect to='/login' /> 
     // const { general, work, contact, } = this.state;
 
@@ -329,7 +332,6 @@ class ProfilePage extends Component {
     // const { isValidGeo, geoNation, geoRegion, geoLocal, bizCategory } = this.props.settings;
     const { isValidGeo, geoNation, geoRegion, geoLocal, bizCategory }
       = this.props.settings ? this.props.settings : this.state.settings;
-    
     const {
       dialogIsOpen, dialogContent, dialogContentText, dialogTitle,
       isDialogTextField, dialogTextFieldLabel, dialogFieldName,
@@ -340,7 +342,7 @@ class ProfilePage extends Component {
     } = this.state;
     const {
       handleChange,
-      // handleValidGeoStepper, handleClickListItemDialog, handleClickListItemMenu,
+      handleValidGeoStepper, handleClickListItemDialog, handleClickListItemMenu,
       handleMenuItemClickMenu, handleCloseMenu,
       handleKeyPressDialog, handleChangeDialog,
       handleResetDialog, handleSaveDialog,
@@ -462,10 +464,16 @@ class ProfilePage extends Component {
             //   )}
             // </div>
             // begin my add
+            // dataHasLoaded ?
+            // (
             <div className="p-0 md:p-24">
               {value === 0 && (
+                // <div>Hello world</div>
                 <DetailsTab
+                  // foo={'foo'}
                   user={user}
+                  profile={profile}
+                  settings={settings}
                   dialogIsOpen={dialogIsOpen}
                   dialogContent={dialogContent}
                   dialogContentText={dialogContentText}
@@ -481,10 +489,16 @@ class ProfilePage extends Component {
                   geoRegion={geoRegion}
                   geoLocal={geoLocal}
                   bizCategory={bizCategory}
+                  handleValidGeoStepper={handleValidGeoStepper}
+                  handleClickListItemDialog={handleClickListItemDialog}
+                  handleClickListItemMenu={handleClickListItemMenu}
                 />
-                )}
+              )}
               {value === 1 && (
                 <PreferencesTab
+                  user={user}
+                  profile={profile}
+                  settings={settings}
                   anchorElMenu1={anchorElMenu1}
                   anchorElMenu2={anchorElMenu2}
                   selectedIndexMenu1={selectedIndexMenu1}
@@ -494,8 +508,11 @@ class ProfilePage extends Component {
                   optionsMenu1={optionsMenu1}
                   optionsMenu2={optionsMenu2}
                 />
-                )}
+              )}
             </div>
+            // )
+            // :
+            // ( <Typography className="p-20" variant="caption">Loading...</Typography> )
             // end my add
           }
         />
@@ -521,118 +538,127 @@ class ProfilePage extends Component {
 //   }
 // }
 
+ProfilePage.propTypes = {
+  classes: PropTypes.object.isRequired,
+}
+
 // function mapStateToProps({ auth }) {
-  function mapStateToProps( state ) {
-    // console.log('state\n', state);
-    const settings = state.firestore.ordered.users
-                  && state.firestore.ordered.users[0]
-                  && state.firestore.ordered.users[0].settings
-                  && state.firestore.ordered.users[0].settings[0];
-    return {
-      // user: auth.user
-      user: state.auth.user, // {role, data: {uid, displayName, email, ...}}
-      // settings: state.settings,
-  
-      // projects: state.firestore.ordered.projects,
-      // auth: state.firebase.auth,
-      // notifications: state.firestore.ordered.notifications,
-  
-      // template for top-level stored objects from firebase using FirebaseConnect to fetch it
-      leads: state.firestore.ordered.leads,
-      // from docs: http://docs.react-redux-firebase.com/history/v2.0.0/docs/recipes/profile.html#basic
-      profile: state.firebase.profile, // profile passed as props.profile
-  
-      // trying
-      settings,
-      
-      // success
-      // settings: state.firestore.ordered.users,//[0],//.settings[0],
-      
-      // fail
-      // settings: state.firestore.ordered.users.0,//.settings[0], // does not compile, unextected token
-      // settings: state.firestore.ordered.users[0],//.settings[0], // can not find [0] of undefined
-      // settings: state.firestore.data.users[state.auth.user.data.uid].settings,
-      // settings: state.firestore.data.users.settings,
-      // settings: state.firestore.ordered.users.settings,
-    }
-  }
-  
-  const mapDispatchToProps = dispatch => {
-    return {
-      updateSettings: settings => dispatch(updateSettings(settings)),
-    }
-  }
-  
-  // function mapDispatchToProps(dispatch)
-  // {
-  //     return bindActionCreators({
-  //         toggleQuickPanel: quickPanelActions.toggleQuickPanel,
-  //         logout          : authActions.logoutUser,
-  //         openChatPanel   : chatPanelActions.openChatPanel,
-  //     }, dispatch);
-  // }
-  
-  // export default withStyles(styles, { withTheme: true })(DetailsTab);
-  // export default withStyles(styles, {withTheme: true})(connect(mapStateToProps, mapDispatchToProps)(DetailsTab));
-  export default compose(
+function mapStateToProps( state ) {
+  // console.log('state\n', state);
+  const settings = state.firestore.ordered.users
+                && state.firestore.ordered.users[0]
+                && state.firestore.ordered.users[0].settings
+                && state.firestore.ordered.users[0].settings[0];
+  const user = state.auth.user;
+  const leads = state.firestore.ordered.leads;
+  const profile = state.firebase.profile;
+  const dataHasLoaded = user && leads && profile && settings;
+  return {
+    // user: auth.user
+    user, //: state.auth.user, // {role, data: {uid, displayName, email, ...}}
+    // settings: state.settings,
+
+    // projects: state.firestore.ordered.projects,
+    // auth: state.firebase.auth,
+    // notifications: state.firestore.ordered.notifications,
+
+    // template for top-level stored objects from firebase using FirebaseConnect to fetch it
+    leads, //: state.firestore.ordered.leads,
+    // from docs: http://docs.react-redux-firebase.com/history/v2.0.0/docs/recipes/profile.html#basic
+    profile, //: state.firebase.profile, // profile passed as props.profile
+
+    // trying
     
-    withStyles(styles, { withTheme: true }),
+    // success
+    settings,
+    // settings: state.firestore.ordered.users,//[0],//.settings[0],
+    dataHasLoaded,
     
-    connect(mapStateToProps, mapDispatchToProps),
-    // ref: https://github.com/prescottprue/react-redux-firebase/issues/344
-    // connect auth from redux state to the auth prop
-    // connect(({ firebase: { auth } }) => ({ auth })),
-    // show spinner while auth is loading
-    // spinnerWhileLoading(['auth']),
+    // fail
+    // settings: state.firestore.ordered.users.0,//.settings[0], // does not compile, unextected token
+    // settings: state.firestore.ordered.users[0],//.settings[0], // can not find [0] of undefined
+    // settings: state.firestore.data.users[state.auth.user.data.uid].settings,
+    // settings: state.firestore.data.users.settings,
+    // settings: state.firestore.ordered.users.settings,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    updateSettings: settings => dispatch(updateSettings(settings)),
+  }
+}
+
+// function mapDispatchToProps(dispatch)
+// {
+//     return bindActionCreators({
+//         toggleQuickPanel: quickPanelActions.toggleQuickPanel,
+//         logout          : authActions.logoutUser,
+//         openChatPanel   : chatPanelActions.openChatPanel,
+//     }, dispatch);
+// }
+
+// export default withStyles(styles, { withTheme: true })(DetailsTab);
+// export default withStyles(styles, {withTheme: true})(connect(mapStateToProps, mapDispatchToProps)(DetailsTab));
+export default compose(
   
-    firestoreConnect(props => {
-      // console.log('props\n', props);
-      // const path = [ 'users', props.profile.uid, 'settings' ].join('/'); // fail
-      return [
+  withStyles(styles, { withTheme: true }),
+  
+  connect(mapStateToProps, mapDispatchToProps),
+  // ref: https://github.com/prescottprue/react-redux-firebase/issues/344
+  // connect auth from redux state to the auth prop
+  // connect(({ firebase: { auth } }) => ({ auth })),
+  // show spinner while auth is loading
+  // spinnerWhileLoading(['auth']),
+
+  firestoreConnect(props => {
+    // console.log('props\n', props);
+    // const path = [ 'users', props.profile.uid, 'settings' ].join('/'); // fail
+    return [
+      // ref: https://github.com/prescottprue/react-redux-firebase/issues/344
+      // { collection: 'projects', orderBy: ['createdAt', 'desc'] },
+      // { collection: 'notifications', limit: 3, orderBy: ['time', 'desc'] },
+
+      { collection: 'leads', orderBy: ['timestamp', 'desc'] }, // success
+
+      // // fail
+      // { 
+      //   collection: path,
+      //   limit: 1,
+      //   orderBy: ['timestamp', 'desc'],
+      //   storeAs: 'settings',
+      // },
+
+      {
+        collection: 'users',
+        // doc: props.auth.uid,
+        // doc: props.auth.user.data.uid,
+        // doc: '3lq9cr3A3eNSehv4X35Q2HBtUty2',
+        // doc: props.user.data.uid, // success
+        
+        // where: ['id', '==', props.profile.uid],
+        
+        // ref: https://github.com/prescottprue/redux-firestore/blob/master/README.md#document
         // ref: https://github.com/prescottprue/react-redux-firebase/issues/344
-        // { collection: 'projects', orderBy: ['createdAt', 'desc'] },
-        // { collection: 'notifications', limit: 3, orderBy: ['time', 'desc'] },
-  
-        { collection: 'leads', orderBy: ['timestamp', 'desc'] }, // success
-  
-        // // fail
-        // { 
-        //   collection: path,
-        //   limit: 1,
-        //   orderBy: ['timestamp', 'desc'],
-        //   storeAs: 'settings',
-        // },
-  
-        {
-          collection: 'users',
-          // doc: props.auth.uid,
-          // doc: props.auth.user.data.uid,
-          // doc: '3lq9cr3A3eNSehv4X35Q2HBtUty2',
-          // doc: props.user.data.uid, // success
-          
-          // where: ['id', '==', props.profile.uid],
-          
-          // ref: https://github.com/prescottprue/redux-firestore/blob/master/README.md#document
-          // ref: https://github.com/prescottprue/react-redux-firebase/issues/344
-          doc: props.profile.uid, //props.store.firestore.get('cities/SF'/zipcodes),
-          
-          // ref: https://github.com/prescottprue/redux-firestore/blob/master/README.md#sub-collections
-          // ref: https://github.com/prescottprue/react-redux-firebase/issues/344
-          subcollections: [
-            {
-              collection: 'settings',
-              limit: 1,
-              orderBy: ['timestamp', 'desc',],
-              storeAs: 'settings',
-            },
-          ],
-  
-        },
-  
-      ];
-    })
-  
-  )(ProfilePage)
+        doc: props.profile.uid, //props.store.firestore.get('cities/SF'/zipcodes),
+        
+        // ref: https://github.com/prescottprue/redux-firestore/blob/master/README.md#sub-collections
+        // ref: https://github.com/prescottprue/react-redux-firebase/issues/344
+        subcollections: [
+          {
+            collection: 'settings',
+            limit: 1,
+            orderBy: ['timestamp', 'desc',],
+            storeAs: 'settings',
+          },
+        ],
+
+      },
+
+    ];
+  })
+
+)(ProfilePage)
   
   // export default compose(
   //   firestoreConnect((props) => [

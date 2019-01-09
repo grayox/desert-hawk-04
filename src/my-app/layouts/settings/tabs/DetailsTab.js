@@ -36,12 +36,30 @@ const styles = theme => ({
   },
 });
 
+// function DetailsTab1(props) {
+
+//   // if(!this.props) return;
+//   const {
+//     //classes, 
+//     user, 
+//     //geoKey, isValidGeo, 
+//     //geoNation, geoRegion, geoLocal, bizCategory,
+//     //handleValidGeoStepper, handleClickListItemDialog, handleClickListItemMenu,
+//   } = props;//settings, profile, leads,
+
+//   return (
+//     <React.Fragment>Hello world</React.Fragment>
+//   )
+// }
+
+
 function DetailsTab(props) {
 
   const {
-    classes, user, geoKey, isValidGeo, geoNation, geoRegion, geoLocal, bizCategory,
+    classes, user, profile, settings,
+    geoKey, isValidGeo, geoNation, geoRegion, geoLocal, bizCategory,
     handleValidGeoStepper, handleClickListItemDialog, handleClickListItemMenu,
-  } = this.props; //settings, profile, leads, 
+  } = props; //settings, profile, leads, 
 
   return (
     <React.Fragment>
@@ -85,7 +103,8 @@ function DetailsTab(props) {
                     <ListItemText
                       primary="Name"
                       // secondary={name}
-                      secondary={user.data.displayName}
+                      // secondary={user.data.displayName}
+                      secondary={profile.displayName}
                     />
                   </ListItem>
                   <ListItem
