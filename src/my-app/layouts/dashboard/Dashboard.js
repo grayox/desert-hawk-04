@@ -274,6 +274,11 @@ class Dashboard extends Component {
       geoRegion   = this.props.settings.geoRegion  ;
       geoLocal    = this.props.settings.geoLocal   ;
       bizCategory = this.props.settings.bizCategory;
+      console.log( 'isValidGeo\n'  , isValidGeo  );
+      console.log( 'geoNation\n'   , geoNation   );
+      console.log( 'geoRegion\n'   , geoRegion   );
+      console.log( 'geoLocal\n'    , geoLocal    );
+      console.log( 'bizCategory\n' , bizCategory );
     };
 
     const { show } = this.state;
