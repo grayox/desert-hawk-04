@@ -324,7 +324,7 @@ class ProfilePage extends Component {
     console.log('profile\n', this.props.profile);
     console.log('leads\n', this.props.leads);
 
-    const { classes, user, settings, profile, leads, dataHasLoaded, } = this.props; //
+    const { classes, dataHasLoaded, user, settings, profile, } = this.props; //leads,
     // if (!user.data.uid) return <Redirect to='/login' /> 
     // const { general, work, contact, } = this.state;
 

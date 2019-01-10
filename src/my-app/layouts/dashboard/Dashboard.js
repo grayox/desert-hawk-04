@@ -256,6 +256,26 @@ class Dashboard extends Component {
   };
   
   render() {
+    console.log('dataHasLoaded\n', this.props.dataHasLoaded);
+    console.log('user\n', this.props.user);
+    console.log('settings\n', this.props.settings);
+    console.log('profile\n', this.props.profile);
+    console.log('leads\n', this.props.leads);
+
+    const { classes, dataHasLoaded, user, settings, profile, } = this.props; //leads,
+
+    // const { isValidGeo, geoNation, geoRegion, geoLocal, bizCategory }
+    //   = this && this.props && this.props.settings;// ? this.props.settings : this.state.settings;
+    let isValidGeo, geoNation, geoRegion, geoLocal, bizCategory;
+    if(dataHasLoaded && settings && this && this.props && this.props.settings) {
+      // { isValidGeo, geoNation, geoRegion, geoLocal, bizCategory } = this.props.settings;
+      isValidGeo  = this.props.settings.isValidGeo ;
+      geoNation   = this.props.settings.geoNation  ;
+      geoRegion   = this.props.settings.geoRegion  ;
+      geoLocal    = this.props.settings.geoLocal   ;
+      bizCategory = this.props.settings.bizCategory;
+    };
+
     const { show } = this.state;
     const {
       handleChangeSwitch, handleSaveSettingsStepper, handleClickGeo,
@@ -264,7 +284,7 @@ class Dashboard extends Component {
     } = this;
     const {
       condensedDashboard, categoryOpen,
-      bizCategory, geoLocal, geoRegion, geoNation,
+      // bizCategory, geoLocal, geoRegion, geoNation,
       dialogOpen, dialogContentText, dialogTitle, dialogButtonLabel,
     } = this.state;
     // const {
