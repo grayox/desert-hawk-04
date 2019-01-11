@@ -6,7 +6,6 @@ import { withStyles } from '@material-ui/core/styles';
 // react plugin for creating charts
 // import ChartistGraph from "react-chartist";
 
-
 // firebase
 import { firestoreConnect } from 'react-redux-firebase';
 
@@ -428,7 +427,7 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default compose( 
+export default compose(
   withStyles(styles, { withTheme: true }),  
   connect(mapStateToProps, mapDispatchToProps),
   // firestoreConnect(props => {

@@ -1,6 +1,6 @@
 import { MaterialUIRoutes } from 'main/content/components/material-ui/MaterialUIRoutes';
 import { FuseLoadable } from '@fuse';
-// import { componentsNavConfig } from 'my-app/config/AppConfig.js'; // my add
+// import { componentsNavConfig } from 'my-app/config/AppConfig'; // my add
 
 // const items = componentsNavConfig.map( item => ({
 //   path: item.url,

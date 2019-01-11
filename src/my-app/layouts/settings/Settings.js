@@ -15,12 +15,11 @@ import { connect } from 'react-redux';
 // import { bindActionCreators } from 'redux';
 // import {withRouter} from 'react-router-dom'
 
-
 // firebase
 // import firebase from '@firebase/app';
 // import '@firebase/firestore';
 // const db = firebase.firestore();
-import { firestoreConnect } from 'react-redux-firebase';
+// import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
 
 // for actions
@@ -617,63 +616,25 @@ const mapDispatchToProps = dispatch => {
 // export default withStyles(styles, { withTheme: true })(DetailsTab);
 // export default withStyles(styles, {withTheme: true})(connect(mapStateToProps, mapDispatchToProps)(DetailsTab));
 export default compose(
-  
-  withStyles(styles, { withTheme: true }),
-  
+  withStyles(styles, { withTheme: true }),  
   connect(mapStateToProps, mapDispatchToProps),
-  // ref: https://github.com/prescottprue/react-redux-firebase/issues/344
-  // connect auth from redux state to the auth prop
-  // connect(({ firebase: { auth } }) => ({ auth })),
-  // show spinner while auth is loading
-  // spinnerWhileLoading(['auth']),
-
-  firestoreConnect(props => {
-    // console.log('props\n', props);
-    // const path = [ 'users', props.profile.uid, 'settings' ].join('/'); // fail
-    return [
-      // ref: https://github.com/prescottprue/react-redux-firebase/issues/344
-      // { collection: 'projects', orderBy: ['createdAt', 'desc'] },
-      // { collection: 'notifications', limit: 3, orderBy: ['time', 'desc'] },
-
-      { collection: 'leads', orderBy: ['timestamp', 'desc'] }, // success
-
-      // // fail
-      // { 
-      //   collection: path,
-      //   limit: 1,
-      //   orderBy: ['timestamp', 'desc'],
-      //   storeAs: 'settings',
-      // },
-
-      {
-        collection: 'users',
-        // doc: props.auth.uid,
-        // doc: props.auth.user.data.uid,
-        // doc: '3lq9cr3A3eNSehv4X35Q2HBtUty2',
-        // doc: props.user.data.uid, // success
-        
-        // where: ['id', '==', props.profile.uid],
-        
-        // ref: https://github.com/prescottprue/redux-firestore/blob/master/README.md#document
-        // ref: https://github.com/prescottprue/react-redux-firebase/issues/344
-        doc: props.profile.uid, //props.store.firestore.get('cities/SF'/zipcodes),
-        
-        // ref: https://github.com/prescottprue/redux-firestore/blob/master/README.md#sub-collections
-        // ref: https://github.com/prescottprue/react-redux-firebase/issues/344
-        subcollections: [
-          {
-            collection: 'settings',
-            limit: 1,
-            orderBy: ['timestamp', 'desc',],
-            storeAs: 'settings',
-          },
-        ],
-
-      },
-
-    ];
-  }),
-
+  // firestoreConnect(props => {
+  //   return [
+  //     { collection: 'leads', orderBy: ['timestamp', 'desc'] },
+  //     {
+  //       collection: 'users',
+  //       doc: props.profile.uid,
+  //       subcollections: [
+  //         {
+  //           collection: 'settings',
+  //           limit: 1,
+  //           orderBy: ['timestamp', 'desc',],
+  //           storeAs: 'settings',
+  //         },
+  //       ],
+  //     },
+  //   ];
+  // }),
 )(ProfilePage)
   
   // export default compose(

@@ -18,7 +18,7 @@ import { FuseAnimate } from '@fuse';
 import SlideShow from 'my-app/layouts/SlideShow';
 
 import AuthProviders from 'my-app/components/AuthProviders';
-import { logoPath, tagLine, desc, } from 'my-app/config/AppConfig.js';
+import { logoPath, tagLine, desc, } from 'my-app/config/AppConfig';
 
 const styles = theme => ({
   root: {

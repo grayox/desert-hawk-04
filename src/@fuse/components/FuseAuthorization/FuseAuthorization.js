@@ -14,6 +14,9 @@ import _ from '@lodash';
 import Login from 'main/content/login/Login'; // my add
 // import { FuseLayout, FuseTheme } from '@fuse'; // my add
 
+// fetch settings, etc.
+import AppConfig from 'my-app/config/AppConfig';
+
 let redirect = false;
 
 class FuseAuthorization extends Component {
@@ -127,11 +130,17 @@ class FuseAuthorization extends Component {
 
       // works!
       // ref: https://reacttraining.com/react-router/web/api/Route/children-func
+      
       <Route children={() => (
         // loggedIn ? children : (<Login />)
-        uid ? children : (<Login />)
+        uid
+        ?
+        // children
+        <AppConfig>{children}</AppConfig>
+        :
+        (<Login />)
       )} />
-
+      
       // end my add
     );
   }
@@ -141,10 +150,11 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({}, dispatch);
 }
 
-function mapStateToProps({ fuse, auth }) {
+function mapStateToProps({ fuse, auth, firestore }) {
   // begin my add
   // console.log('fuse\n', fuse);
   // console.log('auth\n', auth);
+  console.log('firestore\n', firestore);
   // debugger;
   const { user: { data: { uid } }, login: { success: loggedIn }, } = auth;
   return {
