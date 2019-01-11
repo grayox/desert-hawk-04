@@ -209,7 +209,7 @@ class ProfilePage extends Component {
 
   handleMenuItemClickMenu = (event, index) => {
     const option = optionsMenu[index];
-    const settings = _.merge(this.state.settings, {bizCategory: option,});
+    const settings = _.merge(this./*state*/props.settings, {bizCategory: option,});
     this.setState({
       selectedIndexMenu: index, // saves menu index as integer in local state
       anchorElMenu: null, // closes menu, saves to local state
@@ -562,6 +562,13 @@ function mapStateToProps( state ) {
   const leads = state.firestore.ordered.leads;
   const profile = state.firebase.profile;
   const dataHasLoaded = user && leads && profile && settings;
+
+  console.log('user\n', user);
+  console.log('leads\n', leads);
+  console.log('profile\n', profile);
+  console.log('settings\n', settings);
+  console.log('dataHasLoaded\n', dataHasLoaded);
+  
   return {
     // user: auth.user
     user, //: state.auth.user, // {role, data: {uid, displayName, email, ...}}
@@ -665,7 +672,7 @@ export default compose(
       },
 
     ];
-  })
+  }),
 
 )(ProfilePage)
   

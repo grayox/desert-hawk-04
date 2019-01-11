@@ -412,6 +412,13 @@ function mapStateToProps( state ) {
   const leads = state.firestore.ordered.leads;
   const profile = state.firebase.profile;
   const dataHasLoaded = user && leads && profile && settings;
+  
+  console.log('user\n', user);
+  console.log('leads\n', leads);
+  console.log('profile\n', profile);
+  console.log('settings\n', settings);
+  console.log('dataHasLoaded\n', dataHasLoaded);
+  
   return { user, leads, profile, settings, dataHasLoaded, }
 }
 
@@ -424,21 +431,21 @@ const mapDispatchToProps = dispatch => {
 export default compose( 
   withStyles(styles, { withTheme: true }),  
   connect(mapStateToProps, mapDispatchToProps),
-  firestoreConnect(props => {
-    return [
-      { collection: 'leads', orderBy: ['timestamp', 'desc'] },
-      {
-        collection: 'users',
-        doc: props.profile.uid,
-        subcollections: [
-          {
-            collection: 'settings',
-            limit: 1,
-            orderBy: ['timestamp', 'desc',],
-            storeAs: 'settings',
-          },
-        ],
-      },
-    ];
-  })
+  // firestoreConnect(props => {
+  //   return [
+  //     { collection: 'leads', orderBy: ['timestamp', 'desc'] },
+  //     {
+  //       collection: 'users',
+  //       doc: props.profile.uid,
+  //       subcollections: [
+  //         {
+  //           collection: 'settings',
+  //           limit: 1,
+  //           orderBy: ['timestamp', 'desc',],
+  //           storeAs: 'settings',
+  //         },
+  //       ],
+  //     },
+  //   ];
+  // }),
 )(Dashboard)
