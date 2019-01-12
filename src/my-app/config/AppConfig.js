@@ -127,77 +127,84 @@ export const componentsNavConfig = [
   },
 ]
 
-class AppConfig extends Component {
+class FetchFirestore extends Component {
   render() {
-    const { children, } = this.props;
+    const { key, children, } = this.props;
+    // called wherever firestore data is needed by: <FetchFirestore>...</FetchFirestore>
     return (
-      <React.Fragment>
+      // <React.Fragment key={key}>
+      <div key={key}>
+        {key}
         {children}
-      </React.Fragment>
+      </div>
+      // </React.Fragment>
     )
   }
 }
 
 // function mapStateToProps({ auth }) {
-  function mapStateToProps( state ) {
-    // console.log('state\n', state);
-    const settings = state.firestore.ordered.users
-                  && state.firestore.ordered.users[0]
-                  && state.firestore.ordered.users[0].settings
-                  && state.firestore.ordered.users[0].settings[0];
-    const user = state.auth.user;
-    const leads = state.firestore.ordered.leads;
-    const profile = state.firebase.profile;
-    const dataHasLoaded = user && leads && profile && settings;
-  
-    console.log('user\n', user);
-    console.log('leads\n', leads);
-    console.log('profile\n', profile);
-    console.log('settings\n', settings);
-    console.log('dataHasLoaded\n', dataHasLoaded);
-    
-    return {
-      // user: auth.user
-      user, //: state.auth.user, // {role, data: {uid, displayName, email, ...}}
-      // settings: state.settings,
-  
-      // projects: state.firestore.ordered.projects,
-      // auth: state.firebase.auth,
-      // notifications: state.firestore.ordered.notifications,
-  
-      // template for top-level stored objects from firebase using FirebaseConnect to fetch it
-      leads, //: state.firestore.ordered.leads,
-      // from docs: http://docs.react-redux-firebase.com/history/v2.0.0/docs/recipes/profile.html#basic
-      profile, //: state.firebase.profile, // profile passed as props.profile
-  
-      // trying
-      
-      // success
-      settings,
-      // settings: state.firestore.ordered.users,//[0],//.settings[0],
-      dataHasLoaded,
-      
-      // fail
-      // settings: state.firestore.ordered.users.0,//.settings[0], // does not compile, unextected token
-      // settings: state.firestore.ordered.users[0],//.settings[0], // can not find [0] of undefined
-      // settings: state.firestore.data.users[state.auth.user.data.uid].settings,
-      // settings: state.firestore.data.users.settings,
-      // settings: state.firestore.ordered.users.settings,
-    }
-  }
-  
-  const mapDispatchToProps = dispatch => {
-    return {
-      // updateSettings: settings => dispatch(updateSettings(settings)),
-    }
-  }
+function mapStateToProps( state ) {
+  // console.log('state\n', state);
+  const settings = state.firestore.ordered.users
+                && state.firestore.ordered.users[0]
+                && state.firestore.ordered.users[0].settings
+                && state.firestore.ordered.users[0].settings[0];
+  const user = state.auth.user;
+  const leads = state.firestore.ordered.leads;
+  const profile = state.firebase.profile;
+  const dataHasLoaded = user && leads && profile && settings;
 
+  console.log('user\n', user);
+  console.log('leads\n', leads);
+  console.log('profile\n', profile);
+  console.log('settings\n', settings);
+  console.log('dataHasLoaded\n', dataHasLoaded);
+  
+  return {
+    // user: auth.user
+    user, //: state.auth.user, // {role, data: {uid, displayName, email, ...}}
+    // settings: state.settings,
+
+    // projects: state.firestore.ordered.projects,
+    // auth: state.firebase.auth,
+    // notifications: state.firestore.ordered.notifications,
+
+    // template for top-level stored objects from firebase using FirebaseConnect to fetch it
+    leads, //: state.firestore.ordered.leads,
+    // from docs: http://docs.react-redux-firebase.com/history/v2.0.0/docs/recipes/profile.html#basic
+    profile, //: state.firebase.profile, // profile passed as props.profile
+
+    // trying
+    
+    // success
+    settings,
+    // settings: state.firestore.ordered.users,//[0],//.settings[0],
+    dataHasLoaded,
+    
+    // fail
+    // settings: state.firestore.ordered.users.0,//.settings[0], // does not compile, unextected token
+    // settings: state.firestore.ordered.users[0],//.settings[0], // can not find [0] of undefined
+    // settings: state.firestore.data.users[state.auth.user.data.uid].settings,
+    // settings: state.firestore.data.users.settings,
+    // settings: state.firestore.ordered.users.settings,
+  }
+}
+  
+//   const mapDispatchToProps = dispatch => {
+//     return {
+//       // updateSettings: settings => dispatch(updateSettings(settings)),
+//     }
+//   }
+
+// export const FetchFirestore = () => {return compose(
+// export compose(
 export default compose(
   
   // withStyles(styles, { withTheme: true }),
   
   // connect(),
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(mapStateToProps),
+  // connect(mapStateToProps, mapDispatchToProps),
   // ref: https://github.com/prescottprue/react-redux-firebase/issues/344
   // connect auth from redux state to the auth prop
   // connect(({ firebase: { auth } }) => ({ auth })),
@@ -245,10 +252,9 @@ export default compose(
             storeAs: 'settings',
           },
         ],
-
       },
 
     ];
   }),
 
-)(AppConfig)
+)(FetchFirestore)//}

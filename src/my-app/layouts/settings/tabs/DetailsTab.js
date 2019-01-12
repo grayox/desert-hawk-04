@@ -58,7 +58,7 @@ function DetailsTab(props) {
   const {
     classes, profile, settings, // user, leads,
     geoKey, isValidGeo, geoNation, geoRegion, geoLocal, bizCategory,
-    handleValidGeoStepper, handleClickListItemDialog, handleClickListItemMenu,
+    onValidGeoStepper, onClickListItemDialog, onClickListItemMenu,
   } = props;
 
   return (
@@ -89,7 +89,7 @@ function DetailsTab(props) {
                     aria-haspopup="false"
                     aria-controls="username"
                     aria-label="username"
-                    onClick={handleClickListItemDialog({
+                    onClick={onClickListItemDialog({
                       dialogTitle: 'Name',
                       isDialogTextField: true,
                       dialogTextFieldLabel: 'first and last',
@@ -112,7 +112,7 @@ function DetailsTab(props) {
                     aria-haspopup="false"
                     aria-controls="email"
                     aria-label="email"
-                    onClick={handleClickListItemDialog({
+                    onClick={onClickListItemDialog({
                       dialogTitle: 'Email',
                       isDialogTextField: true,
                       dialogTextFieldLabel: 'address',
@@ -134,7 +134,7 @@ function DetailsTab(props) {
                     aria-haspopup="true"
                     aria-controls="mobile"
                     aria-label="mobile"
-                    onClick={handleClickListItemDialog({
+                    onClick={onClickListItemDialog({
                       dialogTitle: 'Mobile',
                       isDialogTextField: true,
                       dialogTextFieldLabel: 'number',
@@ -179,7 +179,7 @@ function DetailsTab(props) {
                     aria-haspopup="true"
                     aria-controls="menu"
                     aria-label="Type"
-                    onClick={handleClickListItemMenu}
+                    onClick={onClickListItemMenu}
                   >
                     <ListItemIcon>
                       <ExtensionIcon />
@@ -196,7 +196,7 @@ function DetailsTab(props) {
                     aria-haspopup="true"
                     aria-controls="menu"
                     aria-label="Type"
-                    onClick={handleClickListItemDialog({
+                    onClick={onClickListItemDialog({
                       dialogTitle: 'Location',
                       dialogContent :
                         (<GeoStepper
@@ -205,7 +205,7 @@ function DetailsTab(props) {
                           heading={'Tell us your home market so we can send you leads'}
                           showSaveButton={false}
                           // onSave={handleSaveGeoStepper}
-                          onValid={handleValidGeoStepper}
+                          onValid={onValidGeoStepper}
                         />),
                     })}
                   >

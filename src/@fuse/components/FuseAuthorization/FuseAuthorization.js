@@ -15,7 +15,8 @@ import Login from 'main/content/login/Login'; // my add
 // import { FuseLayout, FuseTheme } from '@fuse'; // my add
 
 // fetch settings, etc.
-import AppConfig from 'my-app/config/AppConfig';
+// import { FetchFirestore } from 'my-app/config/AppConfig'; // fails
+// import FetchFirestore from 'my-app/config/AppConfig'; // success
 
 let redirect = false;
 
@@ -69,6 +70,7 @@ class FuseAuthorization extends Component {
 
   render() {
     // begin my add
+    const timestamp = Date.now();
     
     // uid forwards to dashboard,
     // loggedIn makes you login before forwarding after every reload
@@ -132,13 +134,13 @@ class FuseAuthorization extends Component {
       // ref: https://reacttraining.com/react-router/web/api/Route/children-func
       
       <Route children={() => (
-        // loggedIn ? children : (<Login />)
+        // loggedIn ? children : <Login />
         uid
         ?
-        // children
-        <AppConfig>{children}</AppConfig>
+        children
+        // <FetchFirestore key={timestamp}>{children}</FetchFirestore>
         :
-        (<Login />)
+        <Login />
       )} />
       
       // end my add
@@ -150,17 +152,18 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({}, dispatch);
 }
 
-function mapStateToProps({ fuse, auth, firestore }) {
-  // begin my add
+function mapStateToProps({ fuse, auth, }) {
+// begin my add
+// function mapStateToProps({ fuse, auth, firestore, }) {
   // console.log('fuse\n', fuse);
   // console.log('auth\n', auth);
-  console.log('firestore\n', firestore);
+  // console.log('firestore\n', firestore); // we have firestore data here from the store
   // debugger;
   const { user: { data: { uid } }, login: { success: loggedIn }, } = auth;
   return {
     uid, loggedIn,
   }
-  // end my add
+// end my add
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(FuseAuthorization));

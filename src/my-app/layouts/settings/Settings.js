@@ -39,6 +39,9 @@ import DetailsTab from './tabs/DetailsTab';
 import PreferencesTab from './tabs/PreferencesTab';
 // note: this page began as src/my-app/profile-orig/ProfilePage.js
 // interface: export class ProfilePage > import Settings ...
+
+// import { FetchFirestore } from 'my-app/config/AppConfig'; // fails
+import FetchFirestore from 'my-app/config/AppConfig'; // success
 // end my add
 
 const styles = theme => ({
@@ -96,7 +99,8 @@ const INITIAL_STATE = {
     isValidGeo: null,
   },
 
-  geoKey: Date.now(), // necessary to re-render GeoSelect component after reset
+  firestoreKey : Date.now(), // necessary to re-render FetchFirestore component after reset
+  geoKey       : Date.now(), // necessary to re-render GeoSelect      component after reset
 
   isValidName: false,
   isValidEmail: false,
@@ -208,15 +212,32 @@ class ProfilePage extends Component {
 
   handleMenuItemClickMenu = (event, index) => {
     const option = optionsMenu[index];
-    const settings = _.merge(this./*state*/props.settings, {bizCategory: option,});
+    // console.log('option\n', option);
+    // console.log('props-settings\n', this.props.settings);
+    // const settings = _.merge(this./*state*/props.settings, {bizCategory: option,}); // fails
+    const settings = { ...this.props.settings, bizCategory: option, };
+    // console.log('settings\n', settings);
+
+    // // no need for a promise
+    // this.setState({
+    //   // selectedIndexMenu: index, // saves menu index as integer in local state
+    //   anchorElMenu: null, // closes menu, saves to local state
+    //   // settings, // passes settings along to global state
+    // }, () => {
+    //   // console.log('state\n', this.state);
+    //   // console.log('settings\n', settings);
+    //   // debugger;
+    //   this.props.updateSettings(/*this.state.*/settings);
+    // });
+
+    // console.log('state\n', this.state);
+    // console.log('settings\n', settings);
+    // debugger;
     this.setState({
-      selectedIndexMenu: index, // saves menu index as integer in local state
-      anchorElMenu: null, // closes menu, saves to local state
-      // settings, // passes settings along to global state
-    }, () => {
-      console.log('state\n', this.state);
-      this.props.updateSettings(/*this.state.*/settings);
+      anchorElMenu: null,  // closes menu, saves to local state
+      firestoreKey: Date.now(), // resets <FetchFirestore />
     });
+    this.props.updateSettings(settings);
   };
 
   handleCloseMenu = () => {
@@ -334,7 +355,7 @@ class ProfilePage extends Component {
     const {
       dialogIsOpen, dialogContent, dialogContentText, dialogTitle,
       isDialogTextField, dialogTextFieldLabel, dialogFieldName,
-      checked, anchorElMenu, selectedIndexMenu, geoKey, value,
+      firestoreKey, geoKey, value, checked, anchorElMenu, selectedIndexMenu,
       // isValidName, isValidEmail, isValidPhone, isValidBizCategory, isValidForm,
       anchorElMenu1, anchorElMenu2,
       selectedIndexMenu1, selectedIndexMenu2,
@@ -352,7 +373,8 @@ class ProfilePage extends Component {
 
     return (
 
-      <React.Fragment>
+      // <React.Fragment>
+        <FetchFirestore key={firestoreKey}>
 
         <Menu
           id="menu"
@@ -490,9 +512,9 @@ class ProfilePage extends Component {
                   geoRegion={geoRegion}
                   geoLocal={geoLocal}
                   bizCategory={bizCategory}
-                  handleValidGeoStepper={handleValidGeoStepper}
-                  handleClickListItemDialog={handleClickListItemDialog}
-                  handleClickListItemMenu={handleClickListItemMenu}
+                  onValidGeoStepper={handleValidGeoStepper}
+                  onClickListItemDialog={handleClickListItemDialog}
+                  onClickListItemMenu={handleClickListItemMenu}
                 />
               )}
               {value === 1 && (
@@ -501,18 +523,17 @@ class ProfilePage extends Component {
                   // profile={profile}
                   settings={settings}
                   checked={checked}
-                  handleToggle={handleToggle}
                   anchorElMenu1={anchorElMenu1}
                   anchorElMenu2={anchorElMenu2}
                   selectedIndexMenu1={selectedIndexMenu1}
                   selectedIndexMenu2={selectedIndexMenu2}
-                  handleToggle={handleToggle}
-                  handleCloseMenu1={handleCloseMenu1}
-                  handleCloseMenu2={handleCloseMenu2}
-                  handleMenuItemClickMenu1={handleMenuItemClickMenu1}
-                  handleMenuItemClickMenu2={handleMenuItemClickMenu2}
-                  handleClickListItemMenu1={handleClickListItemMenu1}
-                  handleClickListItemMenu2={handleClickListItemMenu2}
+                  onToggle={handleToggle}
+                  onCloseMenu1={handleCloseMenu1}
+                  onCloseMenu2={handleCloseMenu2}
+                  onMenuItemClickMenu1={handleMenuItemClickMenu1}
+                  onMenuItemClickMenu2={handleMenuItemClickMenu2}
+                  onClickListItemMenu1={handleClickListItemMenu1}
+                  onClickListItemMenu2={handleClickListItemMenu2}
                   optionsMenu1={optionsMenu1}
                   optionsMenu2={optionsMenu2}
                 />
@@ -525,7 +546,8 @@ class ProfilePage extends Component {
           }
         />
 
-      </React.Fragment>
+      </FetchFirestore>
+      // </React.Fragment>
 
     )
   };
@@ -550,7 +572,6 @@ ProfilePage.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-// function mapStateToProps({ auth }) {
 function mapStateToProps( state ) {
   // console.log('state\n', state);
   const settings = state.firestore.ordered.users
@@ -568,34 +589,7 @@ function mapStateToProps( state ) {
   console.log('settings\n', settings);
   console.log('dataHasLoaded\n', dataHasLoaded);
   
-  return {
-    // user: auth.user
-    user, //: state.auth.user, // {role, data: {uid, displayName, email, ...}}
-    // settings: state.settings,
-
-    // projects: state.firestore.ordered.projects,
-    // auth: state.firebase.auth,
-    // notifications: state.firestore.ordered.notifications,
-
-    // template for top-level stored objects from firebase using FirebaseConnect to fetch it
-    leads, //: state.firestore.ordered.leads,
-    // from docs: http://docs.react-redux-firebase.com/history/v2.0.0/docs/recipes/profile.html#basic
-    profile, //: state.firebase.profile, // profile passed as props.profile
-
-    // trying
-    
-    // success
-    settings,
-    // settings: state.firestore.ordered.users,//[0],//.settings[0],
-    dataHasLoaded,
-    
-    // fail
-    // settings: state.firestore.ordered.users.0,//.settings[0], // does not compile, unextected token
-    // settings: state.firestore.ordered.users[0],//.settings[0], // can not find [0] of undefined
-    // settings: state.firestore.data.users[state.auth.user.data.uid].settings,
-    // settings: state.firestore.data.users.settings,
-    // settings: state.firestore.ordered.users.settings,
-  }
+  return { user, leads, profile, settings, dataHasLoaded, }
 }
 
 const mapDispatchToProps = dispatch => {
@@ -604,17 +598,6 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-// function mapDispatchToProps(dispatch)
-// {
-//     return bindActionCreators({
-//         toggleQuickPanel: quickPanelActions.toggleQuickPanel,
-//         logout          : authActions.logoutUser,
-//         openChatPanel   : chatPanelActions.openChatPanel,
-//     }, dispatch);
-// }
-
-// export default withStyles(styles, { withTheme: true })(DetailsTab);
-// export default withStyles(styles, {withTheme: true})(connect(mapStateToProps, mapDispatchToProps)(DetailsTab));
 export default compose(
   withStyles(styles, { withTheme: true }),  
   connect(mapStateToProps, mapDispatchToProps),

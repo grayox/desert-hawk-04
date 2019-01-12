@@ -378,33 +378,16 @@ class GeoStepper extends React.Component {
 
   render() {
     const {
-      state,
-      getGeoValue,
-      getStepContent,
-      handleClickChip,
-      handleBack,
-      handleReset,
-      handleClickButton,
-      handleCloseSnackbar,
+      state, getGeoValue, getStepContent,
+      handleClickChip, handleBack, handleReset,
+      handleClickButton, handleCloseSnackbar,
     } = this;
     const {
-      key,
-      onSave,
-      classes,
-      heading,
-      // onValid,
-      // onChange,
-      showSaveButton,
+      classes, key, onSave, heading, showSaveButton,
+      // onValid, onChange,
     } = this.props;
-    const { activeStep , openSnackbar , } = this.state;
-    const {
-      root,
-      chip,
-      close,
-      button,
-      resetContainer,
-      actionsContainer,
-    } = classes;
+    const { activeStep, openSnackbar, } = this.state;
+    const { root, chip, close, button, resetContainer, actionsContainer, } = classes;
 
     return (
       <div key={key} className={root}>

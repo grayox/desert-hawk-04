@@ -36,13 +36,13 @@ function PreferencesTab(props) {
 
   const { 
     classes, settings, //profile, user, 
-    handleToggle, //checked, 
+    onToggle, //checked, 
     optionsMenu1, optionsMenu2,
     anchorElMenu1, anchorElMenu2,
-    handleCloseMenu1, handleCloseMenu2,
+    onCloseMenu1, onCloseMenu2,
     // selectedIndexMenu1, selectedIndexMenu2,
-    handleMenuItemClickMenu1, handleMenuItemClickMenu2,
-    handleClickListItemMenu1, handleClickListItemMenu2,
+    onMenuItemClickMenu1, onMenuItemClickMenu2,
+    onClickListItemMenu1, onClickListItemMenu2,
   } = props;
 
   return (
@@ -102,8 +102,8 @@ function PreferencesTab(props) {
                     />
                     <ListItemSecondaryAction>
                       <Switch
-                        // onChange={this.handleToggle('autoClaimLeads')}
-                        onChange={handleToggle('autoClaimLeads')}
+                        // onChange={this.onToggle('autoClaimLeads')}
+                        onChange={onToggle('autoClaimLeads')}
                         // checked={this.state.checked.indexOf('autoClaimLeads') !== -1}
                         // checked={checked.indexOf('autoClaimLeads') !== -1}
                         checked={settings.autoClaimLeads}
@@ -134,8 +134,8 @@ function PreferencesTab(props) {
                     />
                     <ListItemSecondaryAction>
                       <Switch
-                        // onChange={this.handleToggle('autoTextMe')}
-                        onChange={handleToggle('autoTextMe')}
+                        // onChange={this.onToggle('autoTextMe')}
+                        onChange={onToggle('autoTextMe')}
                         // checked={this.state.checked.indexOf('autoTextMe') !== -1}
                         // checked={checked.indexOf('autoTextMe') !== -1}
                         checked={settings.autoTextMe}
@@ -164,8 +164,8 @@ function PreferencesTab(props) {
                     />
                     <ListItemSecondaryAction>
                       <Switch
-                        // onChange={this.handleToggle('autoEmailMe')}
-                        onChange={handleToggle('autoEmailMe')}
+                        // onChange={this.onToggle('autoEmailMe')}
+                        onChange={onToggle('autoEmailMe')}
                         // checked={this.state.checked.indexOf('autoEmailMe') !== -1}
                         // checked={checked.indexOf('autoEmailMe') !== -1}
                         checked={settings.autoEmailMe}
@@ -194,8 +194,8 @@ function PreferencesTab(props) {
                     />
                     <ListItemSecondaryAction>
                       <Switch
-                        // onChange={this.handleToggle('autoTextProspect')}
-                        onChange={handleToggle('autoTextProspect')}
+                        // onChange={this.onToggle('autoTextProspect')}
+                        onChange={onToggle('autoTextProspect')}
                         // checked={this.state.checked.indexOf('autoTextProspect') !== -1}
                         // checked={checked.indexOf('autoTextProspect') !== -1}
                         checked={settings.autoTextProspect}
@@ -222,8 +222,8 @@ function PreferencesTab(props) {
                     />
                     <ListItemSecondaryAction>
                       <Switch
-                        // onChange={this.handleToggle('autoEmailProspect')}
-                        onChange={handleToggle('autoEmailProspect')}
+                        // onChange={this.onToggle('autoEmailProspect')}
+                        onChange={onToggle('autoEmailProspect')}
                         // checked={this.state.checked.indexOf('autoEmailProspect') !== -1}
                         // checked={checked.indexOf('autoEmailProspect') !== -1}
                         checked={settings.autoEmailProspect}
@@ -274,7 +274,7 @@ function PreferencesTab(props) {
                     />
                     <ListItemSecondaryAction>
                       <Switch
-                        onChange={this.handleToggle('dark')}
+                        onChange={this.onToggle('dark')}
                         checked={this.state.checked.indexOf('dark') !== -1}
                       />
                     </ListItemSecondaryAction>
@@ -297,7 +297,7 @@ function PreferencesTab(props) {
                     />
                     <ListItemSecondaryAction>
                       <Switch
-                        onChange={this.handleToggle('condensed')}
+                        onChange={this.onToggle('condensed')}
                         checked={this.state.checked.indexOf('condensed') !== -1}
                       />
                     </ListItemSecondaryAction>
@@ -308,7 +308,7 @@ function PreferencesTab(props) {
                     aria-haspopup="true"
                     aria-controls="menu2"
                     aria-label="Dashboard"
-                    onClick={handleClickListItemMenu2}
+                    onClick={onClickListItemMenu2}
                   >
                     <ListItemIcon>
                       <DashboardIcon />
@@ -323,8 +323,8 @@ function PreferencesTab(props) {
                     id="menu2"
                     anchorEl={anchorElMenu2}
                     open={Boolean(anchorElMenu2)}
-                    // onClose={this.handleCloseMenu2}
-                    onClose={handleCloseMenu2}
+                    // onClose={this.onCloseMenu2}
+                    onClose={onCloseMenu2}
                   >
                     {optionsMenu2.map((option, index) => (
                       <MenuItem
@@ -332,8 +332,8 @@ function PreferencesTab(props) {
                         // disabled={index === 0}
                         // selected={index === this.state.selectedIndex}
                         selected={index === settings.condensedDashboard}
-                        // onClick={event => this.handleMenuItemClickMenu2(event, index)}
-                        onClick={event => handleMenuItemClickMenu2(event, index)}
+                        // onClick={event => this.onMenuItemClickMenu2(event, index)}
+                        onClick={event => onMenuItemClickMenu2(event, index)}
                       >
                         {option}
                       </MenuItem>
@@ -345,7 +345,7 @@ function PreferencesTab(props) {
                     aria-haspopup="true"
                     aria-controls="menu1"
                     aria-label="Background"
-                    onClick={handleClickListItemMenu1}
+                    onClick={onClickListItemMenu1}
                   >
                     <ListItemIcon>
                       <Brightness4Icon />
@@ -360,8 +360,8 @@ function PreferencesTab(props) {
                     id="menu1"
                     anchorEl={anchorElMenu1}
                     open={Boolean(anchorElMenu1)}
-                    // onClose={this.handleCloseMenu1}
-                    onClose={handleCloseMenu1}
+                    // onClose={this.onCloseMenu1}
+                    onClose={onCloseMenu1}
                   >
                     {optionsMenu1.map((option, index) => (
                       <MenuItem
@@ -369,8 +369,8 @@ function PreferencesTab(props) {
                         // disabled={index === 0}
                         // selected={index === this.state.selectedIndex}
                         selected={index === settings.darkBackground}
-                        // onClick={event => this.handleMenuItemClickMenu1(event, index)}
-                        onClick={event => handleMenuItemClickMenu1(event, index)}
+                        // onClick={event => this.onMenuItemClickMenu1(event, index)}
+                        onClick={event => onMenuItemClickMenu1(event, index)}
                       >
                         {option}
                       </MenuItem>
