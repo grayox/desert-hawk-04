@@ -104,7 +104,13 @@ function DetailsTab(props) {
                       primary="Name"
                       // secondary={name}
                       // secondary={user.data.displayName}
-                      secondary={settings.displayName || profile.displayName}
+                      secondary={
+                        (settings && settings.displayName)
+                        ||
+                        (profile && profile.displayName)
+                        ||
+                        'Click to enter...'
+                      }
                     />
                   </ListItem>
                   <ListItem
@@ -126,7 +132,13 @@ function DetailsTab(props) {
                       primary="Email"
                       // secondary={email}
                       // secondary={user.data.email}
-                      secondary={settings.email || profile.email}
+                      secondary={
+                        (settings && settings.email)
+                        ||
+                        (profile && profile.email)
+                        ||
+                        'Click to enter...'
+                      }
                     />
                   </ListItem>
                   <ListItem
@@ -148,7 +160,14 @@ function DetailsTab(props) {
                       primary="Mobile"
                       // secondary={mobile}
                       // secondary={ user.data.phoneNumber || 'Click to enter...' }
-                      secondary={ settings.mobile || profile.phoneNumber || 'Click to enter...' }
+                      // secondary={ settings.mobile || profile.phoneNumber || 'Click to enter...' }
+                      secondary={
+                        (settings && settings.mobile)
+                        ||
+                        (profile && profile.mobile)
+                        ||
+                        'Click to enter...'
+                      }
                     />
                   </ListItem>
                 </List>

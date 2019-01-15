@@ -534,7 +534,7 @@ export default compose(
   // show spinner while auth is loading
   // spinnerWhileLoading(['auth']),
 
-  firestoreConnect(props => {
+  firestoreConnect( props => {
     // console.log('props\n', props);
     // const path = [ 'users', props.profile.uid, 'settings' ].join('/'); // fail
     return [

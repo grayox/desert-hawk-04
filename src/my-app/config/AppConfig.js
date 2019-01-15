@@ -144,7 +144,7 @@ class FetchFirestore extends Component {
 
 // function mapStateToProps({ auth }) {
 function mapStateToProps( state ) {
-  // console.log('state\n', state);
+  console.log('state\n', state);
   const settings = state.firestore.ordered.users
                 && state.firestore.ordered.users[0]
                 && state.firestore.ordered.users[0].settings
@@ -154,11 +154,14 @@ function mapStateToProps( state ) {
   const profile = state.firebase.profile;
   const dataHasLoaded = user && leads && profile && settings;
 
-  console.log('user\n', user);
-  console.log('leads\n', leads);
-  console.log('profile\n', profile);
-  console.log('settings\n', settings);
-  console.log('dataHasLoaded\n', dataHasLoaded);
+  if(dataHasLoaded) {
+    console.log('user\n', user);
+    console.log('leads\n', leads);
+    console.log('profile\n', profile);
+    console.log('settings\n', settings);
+    console.log('dataHasLoaded\n', dataHasLoaded);
+    console.log('all-settings\n', state.firestore.ordered.users[0].settings);
+  }
   
   return {
     // user: auth.user
@@ -199,7 +202,7 @@ function mapStateToProps( state ) {
 // export const FetchFirestore = () => {return compose(
 // export compose(
 export default compose(
-  
+
   // withStyles(styles, { withTheme: true }),
   
   // connect(),
@@ -211,13 +214,20 @@ export default compose(
   // show spinner while auth is loading
   // spinnerWhileLoading(['auth']),
 
-  firestoreConnect(props => {
-    // console.log('props\n', props);
+  // connect(({ firestore }, props) => ({
+  //   // settings: /*getVal*/_.get(firestore, `users/${props.profile.uid}/settings/current`), // lodash's get can also be used
+  //   settings: /*getVal*/_.get(firestore, `users/3lq9cr3A3eNSehv4X35Q2HBtUty2/settings/current`), // lodash's get can also be used
+  // })),
+
+  firestoreConnect( props => {
+    console.log('props\n', props);
     // const path = [ 'users', props.profile.uid, 'settings' ].join('/'); // fail
     return [
       // ref: https://github.com/prescottprue/react-redux-firebase/issues/344
       // { collection: 'projects', orderBy: ['createdAt', 'desc'] },
       // { collection: 'notifications', limit: 3, orderBy: ['time', 'desc'] },
+
+      // { path: users/${props.profile.uid}/current` }, // fails; used by old version
 
       { collection: 'leads', orderBy: ['timestamp', 'desc'] }, // success
 
@@ -247,9 +257,10 @@ export default compose(
         subcollections: [
           {
             collection: 'settings',
-            limit: 1,
-            orderBy: ['timestamp', 'desc',],
-            storeAs: 'settings',
+            // limit: 1,
+            // orderBy: ['timestamp', 'desc',],
+            // storeAs: 'settings',
+            doc: 'current',
           },
         ],
       },

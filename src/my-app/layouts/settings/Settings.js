@@ -42,6 +42,7 @@ import PreferencesTab from './tabs/PreferencesTab';
 
 // import { FetchFirestore } from 'my-app/config/AppConfig'; // fails
 import FetchFirestore from 'my-app/config/AppConfig'; // success
+// import FuseLoadable from '@fuse/components/FuseLoadable/FuseLoadable.js';
 // end my add
 
 const styles = theme => ({
@@ -373,8 +374,8 @@ class ProfilePage extends Component {
 
     return (
 
-      // <React.Fragment>
-        <FetchFirestore key={firestoreKey}>
+      <React.Fragment>
+        <FetchFirestore key={firestoreKey} />
 
         <Menu
           id="menu"
@@ -487,7 +488,8 @@ class ProfilePage extends Component {
             //   )}
             // </div>
             // begin my add
-            dataHasLoaded ?
+            // dataHasLoaded ?
+            true ?
             (
             <div className="p-0 md:p-24">
               {value === 0 && (
@@ -541,13 +543,16 @@ class ProfilePage extends Component {
             </div>
             )
             :
-            ( <Typography className="p-20" variant="caption">Loading...</Typography> )
+            (
+              <Typography className="p-20" variant="caption">Loading...</Typography>
+              // <FuseLoadable />
+            )
             // end my add
           }
         />
 
-      </FetchFirestore>
-      // </React.Fragment>
+      {/* </FetchFirestore> */}
+      </React.Fragment>
 
     )
   };
@@ -583,11 +588,14 @@ function mapStateToProps( state ) {
   const profile = state.firebase.profile;
   const dataHasLoaded = user && leads && profile && settings;
 
-  console.log('user\n', user);
-  console.log('leads\n', leads);
-  console.log('profile\n', profile);
-  console.log('settings\n', settings);
-  console.log('dataHasLoaded\n', dataHasLoaded);
+  if(dataHasLoaded) {  
+    console.log('user\n', user);
+    console.log('leads\n', leads);
+    console.log('profile\n', profile);
+    console.log('settings\n', settings);
+    console.log('dataHasLoaded\n', dataHasLoaded);
+    console.log('all-settings\n', state.firestore.ordered.users[0].settings);
+  }
   
   return { user, leads, profile, settings, dataHasLoaded, }
 }
