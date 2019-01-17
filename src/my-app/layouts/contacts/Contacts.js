@@ -1,15 +1,15 @@
 import React from 'react';
-// import SplitScreen from '../SplitScreen'
+// import ListDetail from '../ListDetail'
 // import UserMultiForm from 'my-app/components/forms/UserMultiForm';
 
 import ContactsApp from 'my-app/apps/contacts/ContactsApp';
 
 function Contacts(props) {
-  // const { left, right } = props;
+  // const { list, detail } = props;
   return (
-    // <SplitScreen
-    //   left='Contacts left'
-    //   right={
+    // <ListDetail
+    //   list='Contacts left'
+    //   detail={
     //     <UserMultiForm
     //       heading='Add new contact'
     //       savePath='contacts'

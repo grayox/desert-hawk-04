@@ -1,15 +1,15 @@
 import React from 'react';
-// import SplitScreen from '../SplitScreen'
+// import ListDetail from '../ListDetail'
 // import UserMultiForm from 'my-app/components/forms/UserMultiForm';
 
 import TodoApp from 'my-app/apps/todo/TodoApp';
 
 function Outbox(props) {
-  // const { left, right } = props;
+  // const { list, detail } = props;
   return (
-    // <SplitScreen
-    //   left='Outbox left'
-    //   right={
+    // <ListDetail
+    //   list='Outbox left'
+    //   detail={
     //     <UserMultiForm
     //       withPhone
     //       heading='Add new lead'

@@ -21,6 +21,7 @@ import { connect } from 'react-redux';
 // const db = firebase.firestore();
 // import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
+// import compose from 'recompose/compose';
 
 // for actions
 // import {bindActionCreators} from 'redux';

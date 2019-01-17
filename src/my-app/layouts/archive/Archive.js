@@ -1,15 +1,15 @@
 import React from 'react';
-// import SplitScreen from '../SplitScreen'
+// import ListDetail from '../ListDetail'
 // import UserMultiForm from 'my-app/components/forms/UserMultiForm';
 
 import FileManagerApp from 'my-app/apps/file-manager/FileManagerApp';
 
 function Archive(props) {
-  // const { left, right } = props;
+  // const { list, detail } = props;
   return (
-    // <SplitScreen
-    //   left='Archive left'
-    //   right={
+    // <ListDetail
+    //   list='Archive left'
+    //   detail={
     //     <UserMultiForm
     //       withPhone
     //       heading='Add new lead'

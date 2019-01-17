@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 // import classNames from 'classnames';
 // import Typography from '@material-ui/core/Typography';
 
-import SplitScreen from '../SplitScreen'
+import ListDetail from '../ListDetail'
 import UserMultiForm from 'my-app/components/forms/UserMultiForm';
 import CreateLead from 'my-app/components/forms/CreateLead';
 
