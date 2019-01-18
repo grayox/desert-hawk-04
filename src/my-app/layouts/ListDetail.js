@@ -19,6 +19,8 @@ import {
   // Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
 } from '@material-ui/core';
 
+import { FuseAnimate, FuseAnimateGroup } from '@fuse';
+
 // import UserMultiForm from 'my-app/components/forms/UserMultiForm';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -61,13 +63,36 @@ class ListDetail extends Component {
 
   handleClick = model => {
     console.log('model\n', model);
-    this.setState({detail: model});
+    this.setState(
+      {detail: null},
+      () => this.setState({detail: model})
+    );
   }
+
+  getSummary = item => (
+    <ListItem
+      button
+      key={item.timestamp}
+      onClick={() => this.handleClick(item)}
+    >
+      <Avatar>
+        <BeachAccessIcon />
+      </Avatar>
+      <ListItemText primary="Vacation" secondary={item.name} />
+    </ListItem>
+  )
+
+  getDetail = item => (
+
+  )
 
   render() {
     const { classes, title, items, condensed } = this.props;
     const { detail, } = this.state;
-    const { handleClick, } = this;
+    const {
+      // handleClick,
+      getItem,
+    } = this;
 
     return (
 
@@ -81,7 +106,7 @@ class ListDetail extends Component {
       //   <div className="md:w-1/2 md:hidden">{detail}</div>
       // </div>
     
-      <div className={`${classes.root} sm:p-4 md:p-8`}>
+      <div className={`${classes.root} sm:p-8 md:p-16`}>
         <Grid container spacing={8}>
           <Grid item xs={12} sm={6}>
             <Paper className={classes.paper}>
@@ -92,16 +117,7 @@ class ListDetail extends Component {
                     <ListSubheader className="text-left">Items</ListSubheader>
                   }
                 >
-                  {
-                    items.map(item => (
-                      <ListItem button key={item.timestamp} onClick={() => handleClick(item)}>
-                        <Avatar>
-                          <BeachAccessIcon />
-                        </Avatar>
-                        <ListItemText primary="Vacation" secondary={item.name} />
-                      </ListItem>
-                    ))
-                  }
+                  {items.map(item => getSummary(item))}
                 </List>
               </div>
             </Paper>
@@ -112,48 +128,57 @@ class ListDetail extends Component {
               {
                 ( classes && detail )
                 ?
-                <Paper className={classes.paper}>
-                  <List
-                    component="nav"
-                    subheader={
-                      <ListSubheader className="text-left">Detail</ListSubheader>
-                    }
-                  >
-                    {
-                      Object.keys(detail).map((keyName, keyIndex,) =>
-                        // keyName // success
-                        // `${keyName}: ${detail[keyName]}` // success
-                        // // success
-                        // <Typography className="text-left">
-                        //   {keyName}: {detail[keyName]}
-                        // </Typography>
-                        // attempt
-                        <ListItem
-                          key={keyName.timestamp}
-                          // button
-                          // onClick={() => handleClick(item)}
-                        >
-                          {/* <Avatar>
-                            <BeachAccessIcon />
-                          </Avatar> */}
-                          <ListItemText
-                            primary={keyName}
-                            secondary={ condensed ? null : detail[keyName] }
-                          />
-                          {
-                            condensed
-                            ?
-                            <ListItemSecondaryAction className="pr-16">
-                              {detail[keyName]}
-                            </ListItemSecondaryAction>
-                            :
-                            null
-                          }
-                        </ListItem>
-                      )
-                    }
-                  </List>
-                </Paper>
+                <FuseAnimate
+                  // className="px-0"
+                  // key={row.name}
+                  delay={200}
+                  animation="transition.slideLeftIn"
+                  // enter={{ animation: 'transition.slideRightIn' }}
+                  // leave={{ animation: 'transition.slideLeftOut' }}
+                >
+                  <Paper className={classes.paper}>
+                    <List
+                      component="nav"
+                      subheader={
+                        <ListSubheader className="text-left">Detail</ListSubheader>
+                      }
+                    >
+                      {
+                        Object.keys(detail).map((keyName, keyIndex,) =>
+                          // keyName // success
+                          // `${keyName}: ${detail[keyName]}` // success
+                          // // success
+                          // <Typography className="text-left">
+                          //   {keyName}: {detail[keyName]}
+                          // </Typography>
+                          // attempt
+                          <ListItem
+                            key={keyName.timestamp}
+                            // button
+                            // onClick={() => handleClick(item)}
+                          >
+                            {/* <Avatar>
+                              <BeachAccessIcon />
+                            </Avatar> */}
+                            <ListItemText
+                              primary={keyName}
+                              secondary={ condensed ? null : detail[keyName] }
+                            />
+                            {
+                              condensed
+                              ?
+                              <ListItemSecondaryAction className="pr-16">
+                                {detail[keyName]}
+                              </ListItemSecondaryAction>
+                              :
+                              null
+                            }
+                          </ListItem>
+                        )
+                      }
+                    </List>
+                  </Paper>
+                </FuseAnimate>
                 :
                 <img src="https://via.placeholder.com/800x900.png/e91e63/fff?text=Detail+goes+here"/>
               }
