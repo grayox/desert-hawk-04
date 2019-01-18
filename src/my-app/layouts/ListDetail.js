@@ -98,12 +98,7 @@ class ListDetail extends Component {
         // leave={{ animation: 'transition.slideLeftOut' }}
       >
         <Paper className={classes.paper}>
-          <List
-            component="nav"
-            subheader={
-              <ListSubheader className="text-left">Detail</ListSubheader>
-            }
-          >
+          <List component="nav"> {/* subheader={<ListSubheader className="text-left">Detail</ListSubheader>} */}
             {
               Object.keys(item).map((keyName, keyIndex,) =>
                 // keyName // success
@@ -146,14 +141,17 @@ class ListDetail extends Component {
   getPane = item => {
     const { getSummary, getDetail, } = this;
     return (
-      getDetail(item)
+      <React.Fragment>
+        {getSummary(item)}
+        {getDetail(item)}
+      </React.Fragment>
     )
   }
 
   render() {
     const { classes, items, } = this.props;
     const { detail, } = this.state;
-    const { getSummary, getDetail, getPane, } = this;
+    const { getSummary, getPane, } = this;
 
     return (
 
@@ -172,12 +170,7 @@ class ListDetail extends Component {
           <Grid item xs={12} sm={6}>
             <Paper className={classes.paper}>
               <div className={classes.root}>
-                <List
-                  component="nav"
-                  subheader={
-                    <ListSubheader className="text-left">Items</ListSubheader>
-                  }
-                >
+                <List component="nav"> {/* subheader={<ListSubheader className="text-left">Items</ListSubheader>} */}
                   {items.map(item => <span key={item.timestamp}>{getSummary(item)}</span>)}
                 </List>
               </div>
