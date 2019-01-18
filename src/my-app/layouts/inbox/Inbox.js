@@ -44,7 +44,7 @@ function Inbox(props) {
       </AppBar>
 
       <ListDetail
-        title={'Inbox Detail'}
+        // title={'Inbox Detail'}
         items={items}
         condensed
       />

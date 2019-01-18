@@ -65,25 +65,29 @@ class ListDetail extends Component {
     console.log('model\n', model);
     this.setState(
       {detail: null},
+      // promise completes animation effect
       () => this.setState({detail: model})
     );
   }
 
-  getSummary = item => (
-    <ListItem
-      button
-      key={item.timestamp}
-      onClick={() => this.handleClick(item)}
-    >
-      <Avatar>
-        <BeachAccessIcon />
-      </Avatar>
-      <ListItemText primary="Vacation" secondary={item.name} />
-    </ListItem>
-  )
+  getSummary = item => {
+    const { handleClick, } = this;
+    return (
+      <ListItem
+        button
+        key={item.timestamp}
+        onClick={() => handleClick(item)}
+      >
+        <Avatar>
+          <BeachAccessIcon />
+        </Avatar>
+        <ListItemText primary="Vacation" secondary={item.name} />
+      </ListItem>
+    )
+  }
 
   getDetail = item => {
-    const { classes, condensed } = this.props;
+    const { classes, condensed, } = this.props;
     return (
       <FuseAnimate
         // className="px-0"
@@ -136,15 +140,20 @@ class ListDetail extends Component {
           </List>
         </Paper>
       </FuseAnimate>
-  )}
+    )
+  }
+
+  getPane = item => {
+    const { getSummary, getDetail, } = this;
+    return (
+      getDetail(item)
+    )
+  }
 
   render() {
-    const { classes, title, items, condensed } = this.props;
+    const { classes, items, } = this.props;
     const { detail, } = this.state;
-    const {
-      // handleClick,
-      getSummary, getDetail,
-    } = this;
+    const { getSummary, getDetail, getPane, } = this;
 
     return (
 
@@ -169,7 +178,7 @@ class ListDetail extends Component {
                     <ListSubheader className="text-left">Items</ListSubheader>
                   }
                 >
-                  {items.map(item => getSummary(item))}
+                  {items.map(item => <span key={item.timestamp}>{getSummary(item)}</span>)}
                 </List>
               </div>
             </Paper>
@@ -180,7 +189,7 @@ class ListDetail extends Component {
               {
                 ( classes && detail )
                 ?
-                getDetail(detail)
+                getPane(detail)
                 :
                 <img src="https://via.placeholder.com/800x900.png/e91e63/fff?text=Detail+goes+here"/>
               }
