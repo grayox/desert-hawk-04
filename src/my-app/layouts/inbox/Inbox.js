@@ -4,17 +4,15 @@ import compose from 'recompose/compose';
 import { withStyles } from '@material-ui/core/styles';
 
 import ListDetail from '../ListDetail'
-import UserMultiForm from 'my-app/components/forms/UserMultiForm';
-
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Avatar from '@material-ui/core/Avatar';
-import ImageIcon from '@material-ui/icons/Image';
-import WorkIcon from '@material-ui/icons/Work';
-import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 
 // import AcademyApp from 'my-app/apps/academy/courses/Courses';
+
+// @material-ui/core
+// import Icon from "@material-ui/core/Icon";
+import {
+  AppBar, Toolbar, Typography,
+  // Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
+} from '@material-ui/core';
 
 const styles = theme => ({
   root: {
@@ -30,37 +28,28 @@ function Inbox(props) {
   console.log('props\n', props);
   const { classes, items } = props;
   return (
-    <ListDetail
-      list={
-        <div className={classes.root}>
-          <List component="nav">
-          {
-            items.map(item => (
-              <ListItem button key={item.timestamp}>
-                <Avatar>
-                  <BeachAccessIcon />
-                </Avatar>
-                <ListItemText primary="Vacation" secondary={item.name} />
-              </ListItem>
-            ))
-          }
-          </List>
-        </div>
-      }
-      // list={'hello world'}
-      // detail={'hello world'}
-      detail={
-        <img src="https://via.placeholder.com/400x900.png/e91e63/fff?text=Detail+goes+here"/>
-      }
-      // detail={
-      //   <UserMultiForm
-      //     withPhone
-      //     heading='Add new lead'
-      //     savePath='leads'
-      //     geoStepperLabel='Lead location'
-      //   />        
-      // }
-    />
+
+    <React.Fragment>
+
+      <AppBar
+        className="m-0"
+        position="static"
+        elevation={0}
+      >
+        <Toolbar className="px-16">
+          <Typography variant="subtitle1" color="inherit" className="flex-1">
+            Inbox
+          </Typography>
+        </Toolbar>
+      </AppBar>
+
+      <ListDetail
+        title={'Inbox Detail'}
+        items={items}
+        condensed
+      />
+
+    </React.Fragment>
   );
 }
 
