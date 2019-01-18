@@ -82,16 +82,68 @@ class ListDetail extends Component {
     </ListItem>
   )
 
-  getDetail = item => (
-
-  )
+  getDetail = item => {
+    const { classes, condensed } = this.props;
+    return (
+      <FuseAnimate
+        // className="px-0"
+        // key={row.name}
+        delay={200}
+        animation="transition.slideLeftIn"
+        // enter={{ animation: 'transition.slideRightIn' }}
+        // leave={{ animation: 'transition.slideLeftOut' }}
+      >
+        <Paper className={classes.paper}>
+          <List
+            component="nav"
+            subheader={
+              <ListSubheader className="text-left">Detail</ListSubheader>
+            }
+          >
+            {
+              Object.keys(item).map((keyName, keyIndex,) =>
+                // keyName // success
+                // `${keyName}: ${item[keyName]}` // success
+                // // success
+                // <Typography className="text-left">
+                //   {keyName}: {item[keyName]}
+                // </Typography>
+                // attempt
+                <ListItem
+                  key={keyName.timestamp}
+                  // button
+                  // onClick={() => handleClick(item)}
+                >
+                  {/* <Avatar>
+                    <BeachAccessIcon />
+                  </Avatar> */}
+                  <ListItemText
+                    primary={keyName}
+                    secondary={ condensed ? null : item[keyName] }
+                  />
+                  {
+                    condensed
+                    ?
+                    <ListItemSecondaryAction className="pr-16">
+                      {item[keyName]}
+                    </ListItemSecondaryAction>
+                    :
+                    null
+                  }
+                </ListItem>
+              )
+            }
+          </List>
+        </Paper>
+      </FuseAnimate>
+  )}
 
   render() {
     const { classes, title, items, condensed } = this.props;
     const { detail, } = this.state;
     const {
       // handleClick,
-      getItem,
+      getSummary, getDetail,
     } = this;
 
     return (
@@ -128,57 +180,7 @@ class ListDetail extends Component {
               {
                 ( classes && detail )
                 ?
-                <FuseAnimate
-                  // className="px-0"
-                  // key={row.name}
-                  delay={200}
-                  animation="transition.slideLeftIn"
-                  // enter={{ animation: 'transition.slideRightIn' }}
-                  // leave={{ animation: 'transition.slideLeftOut' }}
-                >
-                  <Paper className={classes.paper}>
-                    <List
-                      component="nav"
-                      subheader={
-                        <ListSubheader className="text-left">Detail</ListSubheader>
-                      }
-                    >
-                      {
-                        Object.keys(detail).map((keyName, keyIndex,) =>
-                          // keyName // success
-                          // `${keyName}: ${detail[keyName]}` // success
-                          // // success
-                          // <Typography className="text-left">
-                          //   {keyName}: {detail[keyName]}
-                          // </Typography>
-                          // attempt
-                          <ListItem
-                            key={keyName.timestamp}
-                            // button
-                            // onClick={() => handleClick(item)}
-                          >
-                            {/* <Avatar>
-                              <BeachAccessIcon />
-                            </Avatar> */}
-                            <ListItemText
-                              primary={keyName}
-                              secondary={ condensed ? null : detail[keyName] }
-                            />
-                            {
-                              condensed
-                              ?
-                              <ListItemSecondaryAction className="pr-16">
-                                {detail[keyName]}
-                              </ListItemSecondaryAction>
-                              :
-                              null
-                            }
-                          </ListItem>
-                        )
-                      }
-                    </List>
-                  </Paper>
-                </FuseAnimate>
+                getDetail(detail)
                 :
                 <img src="https://via.placeholder.com/800x900.png/e91e63/fff?text=Detail+goes+here"/>
               }
