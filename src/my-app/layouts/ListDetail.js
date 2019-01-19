@@ -62,11 +62,11 @@ class ListDetail extends Component {
   }
 
   handleClick = model => {
-    console.log('model\n', model);
+    // console.log('model\n', model);
     this.setState(
-      {detail: null},
+      { detail: null },
       // promise completes animation effect
-      () => this.setState({detail: model})
+      () => this.setState({ detail: model })
     );
   }
 
@@ -167,7 +167,9 @@ class ListDetail extends Component {
     
       <div className={`${classes.root} sm:p-8 md:p-16`}>
         <Grid container spacing={8}>
+
           <Grid item xs={12} sm={6}>
+
             <Paper className={classes.paper}>
               <div className={classes.root}>
                 <List component="nav"> {/* subheader={<ListSubheader className="text-left">Items</ListSubheader>} */}
@@ -175,8 +177,41 @@ class ListDetail extends Component {
                 </List>
               </div>
             </Paper>
-            {/* {list} */}
+
+            {/* <Hidden xsDown>
+              {
+                detail
+                ?
+                <Paper className={classes.paper}>
+                  <div className={classes.root}>
+                    <List component="nav"> {/* subheader={<ListSubheader className="text-left">Items</ListSubheader>} * /}
+                      {items.map(item => <span key={item.timestamp}>{getSummary(item)}</span>)}
+                    </List>
+                  </div>
+                </Paper>
+                :
+                null
+              }
+            </Hidden>
+
+            <Hidden xsUp>
+              {
+                !detail
+                ?
+                <Paper className={classes.paper}>
+                  <div className={classes.root}>
+                    <List component="nav"> {/* subheader={<ListSubheader className="text-left">Items</ListSubheader>} * /}
+                      {items.map(item => <span key={item.timestamp}>{getSummary(item)}</span>)}
+                    </List>
+                  </div>
+                </Paper>
+                :
+                null
+              }
+            </Hidden> */}
+
           </Grid>
+
           <Hidden xsDown>
             <Grid item xs={6}>
               {
@@ -188,6 +223,7 @@ class ListDetail extends Component {
               }
             </Grid>
           </Hidden>
+
         </Grid>
       </div>
   
