@@ -138,63 +138,54 @@ class ListDetail extends Component {
     )
   }
 
-  getPane = item => {
+  getDetailPane = () => {
     const { getSummary, getDetail, } = this;
+    const { detail, } = this.state;
     return (
       <React.Fragment>
-        {getSummary(item)}
-        {getDetail(item)}
+        {
+          detail
+          ?
+          <React.Fragment>
+            {getSummary(detail)}
+            {getDetail(detail)}
+          </React.Fragment>
+          :
+          <img src="https://via.placeholder.com/800x900.png/e91e63/fff?text=Detail+goes+here"/>
+        }
       </React.Fragment>
+    )
+  }
+
+  getListPane = items => {
+    const { classes, } = this.props;
+    const { getSummary, } = this;
+    return (
+      <Paper className={classes.paper}>
+        <div className={classes.root}>
+          <List component="nav"> {/* subheader={<ListSubheader className="text-left">Items</ListSubheader>} */}
+            {items.map(item => <span key={item.timestamp}>{getSummary(item)}</span>)}
+          </List>
+        </div>
+      </Paper>
     )
   }
 
   render() {
     const { classes, items, } = this.props;
     const { detail, } = this.state;
-    const { getSummary, getPane, } = this;
+    const { getListPane, getDetailPane, } = this;
 
     return (
       <React.Fragment>
-
         {/* mobile */}
-        <Hidden smUp>
-          {
-            ( classes && detail )
-            ?
-            getPane(detail)
-            :
-            <Paper className={classes.paper}>
-              <div className={classes.root}>
-                <List component="nav"> {/* subheader={<ListSubheader className="text-left">Items</ListSubheader>} */}
-                  {items.map(item => <span key={item.timestamp}>{getSummary(item)}</span>)}
-                </List>
-              </div>
-            </Paper>
-          }
-        </Hidden>
-
+        <Hidden smUp>{detail ? getDetailPane(detail) : getListPane(items)}</Hidden>
         {/* laptop */}
         <Hidden xsDown>   
           <div className={`${classes.root} sm:p-8 md:p-16`}>
             <Grid container spacing={8}>
-              <Grid item xs={12} sm={6}>
-                <Paper className={classes.paper}>
-                  <div className={classes.root}>
-                    <List component="nav"> {/* subheader={<ListSubheader className="text-left">Items</ListSubheader>} */}
-                      {items.map(item => <span key={item.timestamp}>{getSummary(item)}</span>)}
-                    </List>
-                  </div>
-                </Paper>
-              </Grid>
-              <Grid item xs={6}>
-                {
-                  ( classes && detail )
-                  ?
-                  getPane(detail)
-                  :
-                  <img src="https://via.placeholder.com/800x900.png/e91e63/fff?text=Detail+goes+here"/>
-                }
-              </Grid>
+              <Grid item xs={12} sm={6}>{getListPane(items)}</Grid>
+              <Grid item xs={6}>{getDetailPane()}</Grid>
             </Grid>
           </div>
         </Hidden>
@@ -205,8 +196,8 @@ class ListDetail extends Component {
 
 ListDetail.propTypes = {
   classes: PropTypes.object.isRequired,
+  items: PropTypes.array.isRequired,
   condensed: PropTypes.bool,
-  items: PropTypes.array,
 };
 
 // export default ListDetail;
