@@ -70,6 +70,24 @@ class ListDetail extends Component {
     );
   }
 
+  getEmpty = () => (
+    <div className="max-w-512 text-center">
+      <FuseAnimate animation="transition.expandIn" delay={100}>
+        <Typography variant="h1" color="inherit" className="font-medium mb-16">
+          Detail
+        </Typography>
+        {/* <Avatar>
+          <BeachAccessIcon />
+        </Avatar> */}
+      </FuseAnimate>
+      <FuseAnimate delay={500}>
+        <Typography variant="h5" color="textSecondary" className="mb-16">
+          Detail goes here when available
+        </Typography>
+      </FuseAnimate>
+    </div>
+  )
+
   getSummary = item => {
     const { handleClick, } = this;
     return (
@@ -139,7 +157,7 @@ class ListDetail extends Component {
   }
 
   getDetailPane = () => {
-    const { getSummary, getDetail, } = this;
+    const { getSummary, getDetail, getEmpty, } = this;
     const { detail, } = this.state;
     return (
       <React.Fragment>
@@ -151,7 +169,7 @@ class ListDetail extends Component {
             {getDetail(detail)}
           </React.Fragment>
           :
-          <img src="https://via.placeholder.com/800x900.png/e91e63/fff?text=Detail+goes+here"/>
+          getEmpty() // <img src="https://via.placeholder.com/800x900.png/e91e63/fff?text=Detail+goes+here"/>
         }
       </React.Fragment>
     )
