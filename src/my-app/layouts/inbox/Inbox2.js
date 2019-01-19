@@ -1,6 +1,6 @@
 // import React from 'react';
 import React, {Component} from 'react';
-// import ListDetail from '../ListDetail';
+// import MasterDetail from '../MasterDetail';
 // import InboxForm from 'my-app/components/forms/InboxForm';
 
 // import MailApp from 'my-app/apps/mail/MailApp';
@@ -31,7 +31,7 @@ class Inbox extends Component {
   
       // <Redirect to="/apps/mail/inbox"/>
       // <MailApp/>
-      // <ListDetail
+      // <MasterDetail
       //   list='Inbox left'
       //   detail={<InboxForm />}
       // />

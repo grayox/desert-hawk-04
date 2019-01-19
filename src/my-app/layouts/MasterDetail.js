@@ -33,7 +33,7 @@ import WorkIcon from '@material-ui/icons/Work';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 
 // 4 Ways to Style React Components: https://codeburst.io/4-four-ways-to-style-react-components-ac6f323da822
-// const ListDetailStyle = {
+// const MasterDetailStyle = {
 //   display: 'grid', // https://css-tricks.com/snippets/css/complete-guide-grid/ | http://grid.malven.co/
 //   gridTemplateColumns: '1fr 1fr',
 // };
@@ -53,8 +53,8 @@ const INITIAL_STATE = {
   detail: null,
 };
 
-// function ListDetail(props) {
-class ListDetail extends Component {
+// function MasterDetail(props) {
+class MasterDetail extends Component {
 
   constructor(props) {
     super(props);
@@ -75,18 +75,18 @@ class ListDetail extends Component {
     this.setState({ detail: null });
   }
 
-  getEmpty = () => (<img src="https://via.placeholder.com/800x900.png/e91e63/fff?text=Detail+goes+here"/>)
+  getEmpty1 = () => (<img src="https://via.placeholder.com/800x900.png/e91e63/fff?text=Detail+goes+here"/>)
 
-  getEmpty1 = () => (
+  getEmpty = () => (
     <div className="max-w-512 text-center">
-      <FuseAnimate animation="transition.expandIn" delay={100}>
+      {/* <FuseAnimate animation="transition.expandIn" delay={100}> */}
         {/* <Typography variant="h1" color="inherit" className="font-medium mb-16">
           Detail
         </Typography> */}
         {/* <Avatar>
           <BeachAccessIcon />
         </Avatar> */}
-      </FuseAnimate>
+      {/* </FuseAnimate> */}
       <FuseAnimate delay={500}>
         <Typography variant="body1" color="textSecondary" className="mb-16">
           Detail goes here when available
@@ -220,15 +220,15 @@ class ListDetail extends Component {
   }
 }
 
-ListDetail.propTypes = {
+MasterDetail.propTypes = {
   classes: PropTypes.object.isRequired,
   items: PropTypes.array.isRequired,
   condensed: PropTypes.bool,
 };
 
-// export default ListDetail;
-// export default withStyles(styles)(ListDetail);
+// export default MasterDetail;
+// export default withStyles(styles)(MasterDetail);
 export default compose(
   withStyles(styles),
   withWidth(),
-)(ListDetail);
+)(MasterDetail);

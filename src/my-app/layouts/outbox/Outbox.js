@@ -1,5 +1,5 @@
 import React from 'react';
-// import ListDetail from '../ListDetail'
+// import MasterDetail from '../MasterDetail'
 // import UserMultiForm from 'my-app/components/forms/UserMultiForm';
 
 import TodoApp from 'my-app/apps/todo/TodoApp';
@@ -7,7 +7,7 @@ import TodoApp from 'my-app/apps/todo/TodoApp';
 function Outbox(props) {
   // const { list, detail } = props;
   return (
-    // <ListDetail
+    // <MasterDetail
     //   list='Outbox left'
     //   detail={
     //     <UserMultiForm

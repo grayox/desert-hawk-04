@@ -1,5 +1,5 @@
 import React from 'react';
-// import ListDetail from '../ListDetail'
+// import MasterDetail from '../MasterDetail'
 // import UserMultiForm from 'my-app/components/forms/UserMultiForm';
 
 import FileManagerApp from 'my-app/apps/file-manager/FileManagerApp';
@@ -7,7 +7,7 @@ import FileManagerApp from 'my-app/apps/file-manager/FileManagerApp';
 function Archive(props) {
   // const { list, detail } = props;
   return (
-    // <ListDetail
+    // <MasterDetail
     //   list='Archive left'
     //   detail={
     //     <UserMultiForm

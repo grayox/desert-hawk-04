@@ -1,5 +1,5 @@
 import React from 'react';
-// import ListDetail from '../ListDetail'
+// import MasterDetail from '../MasterDetail'
 // import UserMultiForm from 'my-app/components/forms/UserMultiForm';
 
 import ContactsApp from 'my-app/apps/contacts/ContactsApp';
@@ -7,7 +7,7 @@ import ContactsApp from 'my-app/apps/contacts/ContactsApp';
 function Contacts(props) {
   // const { list, detail } = props;
   return (
-    // <ListDetail
+    // <MasterDetail
     //   list='Contacts left'
     //   detail={
     //     <UserMultiForm
