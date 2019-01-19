@@ -154,15 +154,22 @@ class ListDetail extends Component {
     const { getSummary, getPane, } = this;
 
     return (
-      <React.Fragment>
 
-        {/* mobile */}
-        <Hidden smUp>
-          {
-            ( classes && detail )
-            ?
-            getPane(detail)
-            :
+      // <div style={ListDetailStyle}>
+      //   <div className="border-solid">{list}</div>
+      //   <div className="border-solid">{detail}</div>
+      // </div>
+  
+      // <div className="flex mb-4">
+      //   <div className="md:w-1/2">{list}</div>
+      //   <div className="md:w-1/2 md:hidden">{detail}</div>
+      // </div>
+    
+      <div className={`${classes.root} sm:p-8 md:p-16`}>
+        <Grid container spacing={8}>
+
+          <Grid item xs={12} sm={6}>
+
             <Paper className={classes.paper}>
               <div className={classes.root}>
                 <List component="nav"> {/* subheader={<ListSubheader className="text-left">Items</ListSubheader>} */}
@@ -170,35 +177,50 @@ class ListDetail extends Component {
                 </List>
               </div>
             </Paper>
-          }
-        </Hidden>
 
-        {/* laptop */}
-        <Hidden xsDown>   
-          <div className={`${classes.root} sm:p-8 md:p-16`}>
-            <Grid container spacing={8}>
-              <Grid item xs={12} sm={6}>
+            {/* <Hidden xsDown>
+              <Paper className={classes.paper}>
+                <div className={classes.root}>
+                  <List component="nav"> {/* subheader={<ListSubheader className="text-left">Items</ListSubheader>} * /}
+                    {items.map(item => <span key={item.timestamp}>{getSummary(item)}</span>)}
+                  </List>
+                </div>
+              </Paper>
+            </Hidden>
+
+            <Hidden smUp>
+              {
+                detail
+                ?
+                null
+                :
                 <Paper className={classes.paper}>
                   <div className={classes.root}>
-                    <List component="nav"> {/* subheader={<ListSubheader className="text-left">Items</ListSubheader>} */}
+                    <List component="nav"> {/* subheader={<ListSubheader className="text-left">Items</ListSubheader>} * /}
                       {items.map(item => <span key={item.timestamp}>{getSummary(item)}</span>)}
                     </List>
                   </div>
                 </Paper>
-              </Grid>
-              <Grid item xs={6}>
-                {
-                  ( classes && detail )
-                  ?
-                  getPane(detail)
-                  :
-                  <img src="https://via.placeholder.com/800x900.png/e91e63/fff?text=Detail+goes+here"/>
-                }
-              </Grid>
+              }
+            </Hidden> */}
+
+          </Grid>
+
+          <Hidden xsDown>
+            <Grid item xs={6}>
+              {
+                ( classes && detail )
+                ?
+                getPane(detail)
+                :
+                <img src="https://via.placeholder.com/800x900.png/e91e63/fff?text=Detail+goes+here"/>
+              }
             </Grid>
-          </div>
-        </Hidden>
-      </React.Fragment>
+          </Hidden>
+
+        </Grid>
+      </div>
+  
     );
   }
 }
