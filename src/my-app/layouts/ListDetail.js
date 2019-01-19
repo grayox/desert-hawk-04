@@ -61,7 +61,7 @@ class ListDetail extends Component {
     this.state = INITIAL_STATE;
   }
 
-  handleClick = model => {
+  handleSwitch = model => {
     console.log('model\n', model);
     this.setState(
       { detail: null },
@@ -70,18 +70,25 @@ class ListDetail extends Component {
     );
   }
 
-  getEmpty = () => (
+  handleBack = () => {
+    // console.log('model\n', model);
+    this.setState({ detail: null });
+  }
+
+  getEmpty = () => (<img src="https://via.placeholder.com/800x900.png/e91e63/fff?text=Detail+goes+here"/>)
+
+  getEmpty1 = () => (
     <div className="max-w-512 text-center">
       <FuseAnimate animation="transition.expandIn" delay={100}>
-        <Typography variant="h1" color="inherit" className="font-medium mb-16">
+        {/* <Typography variant="h1" color="inherit" className="font-medium mb-16">
           Detail
-        </Typography>
+        </Typography> */}
         {/* <Avatar>
           <BeachAccessIcon />
         </Avatar> */}
       </FuseAnimate>
       <FuseAnimate delay={500}>
-        <Typography variant="h5" color="textSecondary" className="mb-16">
+        <Typography variant="body1" color="textSecondary" className="mb-16">
           Detail goes here when available
         </Typography>
       </FuseAnimate>
@@ -89,12 +96,12 @@ class ListDetail extends Component {
   )
 
   getSummary = item => {
-    const { handleClick, } = this;
+    const { handleSwitch, } = this;
     return (
       <ListItem
         button
         key={item.timestamp}
-        onClick={() => handleClick(item)}
+        onClick={() => handleSwitch(item)}
       >
         <Avatar>
           <BeachAccessIcon />
@@ -129,7 +136,7 @@ class ListDetail extends Component {
                 <ListItem
                   key={keyName.timestamp}
                   // button
-                  // onClick={() => handleClick(item)}
+                  // onClick={() => handleSwitch(item)}
                 >
                   {/* <Avatar>
                     <BeachAccessIcon />
@@ -157,7 +164,7 @@ class ListDetail extends Component {
   }
 
   getDetailPane = () => {
-    const { getSummary, getDetail, getEmpty, } = this;
+    const { getSummary, getDetail, getEmpty, handleBack, } = this;
     const { detail, } = this.state;
     return (
       <React.Fragment>
@@ -166,17 +173,18 @@ class ListDetail extends Component {
           ?
           <React.Fragment>
             {getSummary(detail)}
+            <button onClick={handleBack}>Reset</button>
             {getDetail(detail)}
           </React.Fragment>
           :
-          getEmpty() // <img src="https://via.placeholder.com/800x900.png/e91e63/fff?text=Detail+goes+here"/>
+          getEmpty()
         }
       </React.Fragment>
     )
   }
 
-  getListPane = items => {
-    const { classes, } = this.props;
+  getListPane = () => {
+    const { classes, items, } = this.props;
     const { getSummary, } = this;
     return (
       <Paper className={classes.paper}>
@@ -190,19 +198,19 @@ class ListDetail extends Component {
   }
 
   render() {
-    const { classes, items, } = this.props;
+    const { classes, } = this.props;
     const { detail, } = this.state;
     const { getListPane, getDetailPane, } = this;
 
     return (
       <React.Fragment>
         {/* mobile */}
-        <Hidden smUp>{detail ? getDetailPane(detail) : getListPane(items)}</Hidden>
+        <Hidden smUp>{detail ? getDetailPane() : getListPane()}</Hidden>
         {/* laptop */}
         <Hidden xsDown>   
           <div className={`${classes.root} sm:p-8 md:p-16`}>
             <Grid container spacing={8}>
-              <Grid item xs={12} sm={6}>{getListPane(items)}</Grid>
+              <Grid item xs={12} sm={6}>{getListPane()}</Grid>
               <Grid item xs={6}>{getDetailPane()}</Grid>
             </Grid>
           </div>
