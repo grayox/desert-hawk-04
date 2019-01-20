@@ -20,16 +20,16 @@ import { updateSettings } from 'my-app/store/actions/my-actions';
 // @material-ui/core
 // import Icon from "@material-ui/core/Icon";
 import {
-  AppBar, Toolbar, Typography,
-  Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
+  // AppBar, Toolbar, Typography,
+  Hidden, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
 } from '@material-ui/core';
 
-import ViewListIcon from '@material-ui/icons/ViewList';
-import ViewModuleIcon from '@material-ui/icons/ViewModule';
+// import ViewListIcon from '@material-ui/icons/ViewList';
+// import ViewModuleIcon from '@material-ui/icons/ViewModule';
 
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
+// import FormGroup from '@material-ui/core/FormGroup';
+// import FormControlLabel from '@material-ui/core/FormControlLabel';
+// import Switch from '@material-ui/core/Switch';
 
 // @material-ui/icons
 import Button from "@material-ui/core/Button";
@@ -79,7 +79,7 @@ const INITIAL_STATE = {
   bizCategory: null,
 
   show: 'main', // 'main', 'step', 'greet',
-  condensedDashboard: false,
+  // condensedDashboard: false,
 };
 
 // const username = 'userme';
@@ -247,12 +247,12 @@ class Dashboard extends Component {
     this.setState(INITIAL_STATE_DIALOG);
   }
 
-  handleChangeSwitch = name => event => {
-    this.setState({ [name]: event.target.checked }, () => {
-      console.log('state\n', this.state);
-      // this.props.updateSettings(this.state.settings);
-    });
-  };
+  // handleChangeSwitch = name => event => {
+  //   this.setState({ [name]: event.target.checked }, () => {
+  //     console.log('state\n', this.state);
+  //     // this.props.updateSettings(this.state.settings);
+  //   });
+  // };
   
   render() {
     console.log('dataHasLoaded\n', this.props.dataHasLoaded);
@@ -282,12 +282,14 @@ class Dashboard extends Component {
 
     const { show } = this.state;
     const {
-      handleChangeSwitch, handleSaveSettingsStepper, handleClickGeo,
+      // handleChangeSwitch, 
+      handleSaveSettingsStepper, handleClickGeo,
       handleOpenCategory, handleChangeCategory, handleCloseCategory,
       handleCloseDialog, handleClickButton, handleClickInfo,
     } = this;
     const {
-      condensedDashboard, categoryOpen,
+      // condensedDashboard, 
+      categoryOpen,
       // bizCategory, geoLocal, geoRegion, geoNation,
       dialogOpen, dialogContentText, dialogTitle, dialogButtonLabel,
     } = this.state;
@@ -332,7 +334,7 @@ class Dashboard extends Component {
       <React.Fragment>
         {dialog}
 
-        <AppBar
+        {/* <AppBar
           className="m-0"
           position="static"
           elevation={0}
@@ -363,22 +365,42 @@ class Dashboard extends Component {
               />
             </FormGroup>
           </Toolbar>
-        </AppBar>
+        </AppBar> */}
 
-        <DashboardGridItems 
-          condensedDashboard={condensedDashboard}
-          geoLocal={geoLocal}
-          geoRegion={geoRegion}
-          geoNation={geoNation}
-          categoryOpen={categoryOpen}
-          categoryItems={bizCategoryItems}
-          bizCategory={bizCategory}
-          onCategoryOpen={handleOpenCategory}
-          onCategoryChange={handleChangeCategory}
-          onCategoryClose={handleCloseCategory}
-          onClickInfo={handleClickInfo}
-        />
+        <Hidden smUp>
+          <DashboardGridItems 
+            // condensedDashboard={condensedDashboard}
+            condensedDashboard
+            geoLocal={geoLocal}
+            geoRegion={geoRegion}
+            geoNation={geoNation}
+            categoryOpen={categoryOpen}
+            categoryItems={bizCategoryItems}
+            bizCategory={bizCategory}
+            onCategoryOpen={handleOpenCategory}
+            onCategoryChange={handleChangeCategory}
+            onCategoryClose={handleCloseCategory}
+            onClickInfo={handleClickInfo}
+          />
+        </Hidden>
 
+        <Hidden xsDown>
+          <DashboardGridItems 
+            // condensedDashboard={condensedDashboard}
+            // condensedDashboard
+            geoLocal={geoLocal}
+            geoRegion={geoRegion}
+            geoNation={geoNation}
+            categoryOpen={categoryOpen}
+            categoryItems={bizCategoryItems}
+            bizCategory={bizCategory}
+            onCategoryOpen={handleOpenCategory}
+            onCategoryChange={handleChangeCategory}
+            onCategoryClose={handleCloseCategory}
+            onClickInfo={handleClickInfo}
+          />
+        </Hidden>
+        
       </React.Fragment>
     );
 

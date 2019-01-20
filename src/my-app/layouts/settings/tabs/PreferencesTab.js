@@ -19,7 +19,7 @@ import Switch from '@material-ui/core/Switch';
 
 import EmailIcon from '@material-ui/icons/Email';
 import TextsmsIcon from '@material-ui/icons/Textsms';
-import DashboardIcon from '@material-ui/icons/Dashboard';
+// import DashboardIcon from '@material-ui/icons/Dashboard';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import AddLocationIcon from '@material-ui/icons/AddLocation';
 import NotInterestedIcon from '@material-ui/icons/NotInterested';
@@ -37,12 +37,12 @@ function PreferencesTab(props) {
   const { 
     classes, settings, //profile, user, 
     onToggle, //checked, 
-    optionsMenu1, optionsMenu2,
-    anchorElMenu1, anchorElMenu2,
-    onCloseMenu1, onCloseMenu2,
+    optionsMenu1, // optionsMenu2,
+    anchorElMenu1, // anchorElMenu2,
+    onCloseMenu1, // onCloseMenu2,
     // selectedIndexMenu1, selectedIndexMenu2,
-    onMenuItemClickMenu1, onMenuItemClickMenu2,
-    onClickListItemMenu1, onClickListItemMenu2,
+    onMenuItemClickMenu1, // onMenuItemClickMenu2,
+    onClickListItemMenu1, // onClickListItemMenu2,
   } = props;
 
   return (
@@ -303,7 +303,7 @@ function PreferencesTab(props) {
                     </ListItemSecondaryAction>
                   </ListItem> */}
 
-                  <ListItem
+                  {/* <ListItem
                     button
                     aria-haspopup="true"
                     aria-controls="menu2"
@@ -338,7 +338,7 @@ function PreferencesTab(props) {
                         {option}
                       </MenuItem>
                     ))}
-                  </Menu>
+                  </Menu> */}
 
                   <ListItem
                     button
