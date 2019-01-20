@@ -14,7 +14,8 @@ import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
 import { routes } from './fuse-configs/fuseRoutesConfig';
 import { FuseLayout, FuseTheme, FuseAuthorization } from '@fuse';
-import MainToolbar from './main/MainToolbar';
+// import MainToolbar from './main/MainToolbar';
+import MyMainToolbar from 'my-app/layouts/MyMainToolbar.js'; // my add
 import MainNavbarContent from './main/MainNavbarContent';
 import MainNavbarHeader from './main/MainNavbarHeader';
 import MainFooter from './main/MainFooter';
@@ -33,7 +34,7 @@ const jss = create({
 jss.options.insertionPoint = document.getElementById('jss-insertion-point');
 const generateClassName = createGenerateClassName();
 
-store.firebaseAuthIsReady.then(() => {
+store.firebaseAuthIsReady.then(() => { // my add
   ReactDOM.render(
     <JssProvider jss={jss} generateClassName={generateClassName}>
       <Provider store={store}>
@@ -44,7 +45,8 @@ store.firebaseAuthIsReady.then(() => {
                 <FuseLayout
                   routes={routes}
                   toolbar={
-                    <MainToolbar />
+                    // <MainToolbar />
+                    <MyMainToolbar />
                   }
                   navbarHeader={
                     <MainNavbarHeader />

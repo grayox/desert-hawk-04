@@ -78,7 +78,7 @@ class MasterDetail extends Component {
   getEmpty1 = () => (<img src="https://via.placeholder.com/800x900.png/e91e63/fff?text=Detail+goes+here"/>)
 
   getEmpty = () => (
-    <div className="max-w-512 text-center">
+    <div className="max-w-512 h-auto text-center align-middle">
       {/* <FuseAnimate animation="transition.expandIn" delay={100}> */}
         {/* <Typography variant="h1" color="inherit" className="font-medium mb-16">
           Detail
@@ -89,7 +89,7 @@ class MasterDetail extends Component {
       {/* </FuseAnimate> */}
       <FuseAnimate delay={500}>
         <Typography variant="body1" color="textSecondary" className="mb-16">
-          Detail goes here when available
+          Detail goes here after selecting list item
         </Typography>
       </FuseAnimate>
     </div>
