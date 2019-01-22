@@ -22,6 +22,22 @@ const styles = theme => ({
       alignItems: 'center',
       width     : '100%'
   },
+  // separator: {
+  //     width          : 1,
+  //     height         : 64,
+  //     backgroundColor: theme.palette.divider
+  // }
+
+  // root: {
+  //   flexGrow: 1,
+  // },
+  grow: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20,
+  },
 
 });
 
