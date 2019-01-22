@@ -34,7 +34,7 @@ const styles = theme => ({
   grow: {
     flexGrow: 1,
   },
-  menuButton: {
+  leftButton: {
     marginLeft: -12,
     marginRight: 20,
   },
@@ -66,7 +66,7 @@ class MyAppBar extends Component {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+            <IconButton className={classes.leftButton} color="inherit" aria-label="Menu">
               {/* <MenuIcon /> */}
               <Icon>menu</Icon>
             </IconButton>
