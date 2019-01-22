@@ -14,8 +14,8 @@ import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
 import { routes } from './fuse-configs/fuseRoutesConfig';
 import { FuseLayout, FuseTheme, FuseAuthorization } from '@fuse';
-// import MainToolbar from './main/MainToolbar';
-import MyMainToolbar from 'my-app/layouts/MyMainToolbar.js'; // my add
+import MainToolbar from './main/MainToolbar';
+// import MyMainToolbar from 'my-app/layouts/MyMainToolbar.js'; // my add
 import MainNavbarContent from './main/MainNavbarContent';
 import MainNavbarHeader from './main/MainNavbarHeader';
 import MainFooter from './main/MainFooter';
@@ -45,8 +45,8 @@ store.firebaseAuthIsReady.then(() => { // my add
                 <FuseLayout
                   routes={routes}
                   toolbar={
-                    // <MainToolbar />
-                    <MyMainToolbar />
+                    <MainToolbar />
+                    // <MyMainToolbar /> // my add // instead, go with editing FuseLayout1.js and MainToolbar.js
                   }
                   navbarHeader={
                     <MainNavbarHeader />

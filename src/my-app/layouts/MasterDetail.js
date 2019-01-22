@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import withWidth from '@material-ui/core/withWidth';
 
@@ -208,7 +209,7 @@ class MasterDetail extends Component {
         <Hidden smUp>{detail ? getDetailPane() : getListPane()}</Hidden>
         {/* laptop */}
         <Hidden xsDown>   
-          <div className={`${classes.root} sm:p-8 md:p-16`}>
+          <div className={classNames(classes.root, "sm:p-8 md:p-16")}>
             <Grid container spacing={8}>
               <Grid item xs={12} sm={6}>{getListPane()}</Grid>
               <Grid item xs={6}>{getDetailPane()}</Grid>

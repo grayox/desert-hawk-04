@@ -104,6 +104,8 @@ while IFS= read -r fullfile || [ -n "$fullfile" ]; # path/to/foo.bar
 # ref: https://stackoverflow.com/a/32873452/1640892
 compareDir "v$new/src/main/content/apps"          "v$new/src/my-app/apps-orig"
 compareDir "v$new/src/main/content/pages/profile" "v$new/src/my-app/profile-orig"
+
+# write the compareDir() function called by the above commands
 compareDir() {
   dir1="$1"
   dir2="$2"

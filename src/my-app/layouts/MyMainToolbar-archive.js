@@ -8,7 +8,8 @@ import { bindActionCreators } from 'redux';
 // @material-ui/core
 // import Icon from "@material-ui/core/Icon";
 import {
-  AppBar, Toolbar, Typography,
+  // AppBar, 
+  Toolbar, Typography,
   // Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
   // Avatar, Button, Icon, IconButton, ListItemIcon, ListItemText, Popover, MenuItem, Typography, Hidden
 } from '@material-ui/core';
@@ -33,17 +34,17 @@ class MyMainToolbar extends Component {
     // const { userMenu } = this.state;
 
     return (
-      <AppBar
-        className="m-0"
-        position="static"
-        elevation={0}
-      >
+      // <AppBar
+      //   className="m-0"
+      //   position="static"
+      //   elevation={0}
+      // >
         <Toolbar className="px-16">
           <Typography variant="subtitle1" color="inherit" className="flex-1">
             Inbox
             </Typography>
         </Toolbar>
-      </AppBar>
+      // </AppBar>
     );
   }
 }

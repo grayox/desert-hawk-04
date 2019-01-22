@@ -332,8 +332,7 @@ class FuseLayout1 extends Component {
                                     aria-label="open drawer"
                                     onClick={navbarOpenMobile}
                                 >
-                                    <Icon>arrow_back</Icon>
-                                    {/* <Icon>menu</Icon> */}
+                                    <Icon>menu</Icon>
                                 </IconButton>
                             </Hidden>
                         )}
@@ -348,7 +347,6 @@ class FuseLayout1 extends Component {
                                     onClick={navbarOpenMobile}
                                 >
                                     <Icon>menu</Icon>
-                                    {/* <Icon>menu</Icon> */}
                                 </IconButton>
                             </Hidden>
                         )}

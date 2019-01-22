@@ -1,4 +1,14 @@
 #!/bin/bash
+# Procedure for changing files not in my-app/
+# 1. ensure new file gets copied to future upgrade
+#    a. copy clone original file
+#    b. rename original file "x.js" as "x-orig.js"
+#    c. modify cloned file
+#    d. add "path/to/x.js" to xfer.txt
+# 2. if complete directories are modified
+#    a. move entire directory to my-app/
+#    b. rename directory to my-app/source-orig
+#    c. add "path/to/source" to list of "compareDir" commands in compare.sh file
 #
 # Config Upgrades
 #
