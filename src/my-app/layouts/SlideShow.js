@@ -49,7 +49,7 @@ const styles = theme => ({
   },
 });
 
-const Transition = props => (<Slide direction="left" {...props} />)
+const transition = props => (<Slide direction="right" {...props} />) // left, right, up, down
 
 class SlideShow extends React.Component {
   state = {
@@ -91,7 +91,7 @@ class SlideShow extends React.Component {
           fullScreen
           open={open}
           onClose={handleClose}
-          TransitionComponent={Transition}
+          TransitionComponent={transition}
         >
           {/* <Zoom> */}
             <Fab

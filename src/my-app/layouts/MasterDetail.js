@@ -18,9 +18,11 @@ import Paper from '@material-ui/core/Paper';
 import {
   AppBar, Toolbar, Typography,
   Icon, IconButton,
+  Slide,
   // Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
 } from '@material-ui/core';
 
+// import {FuseAnimateGroup, FuseHighlight, FusePageSimple} from '@fuse';
 import { FuseAnimate, FuseAnimateGroup } from '@fuse';
 
 // import UserMultiForm from 'my-app/components/forms/UserMultiForm';
@@ -162,7 +164,7 @@ class MasterDetail extends Component {
         enter={{ animation: 'transition.slideLeftIn' }}
         leave={{ animation: 'transition.slideLeftOut' }}
       >
-        <Paper className={classes.paper}>
+        <Paper className={classNames(classes.paper, "z-0")}>
           <List component="nav"> {/* subheader={<ListSubheader className="text-left">Detail</ListSubheader>} */}
             {
               Object.keys(item).map((keyName, keyIndex,) =>
@@ -209,18 +211,25 @@ class MasterDetail extends Component {
     const { classes, } = this.props;
     return (
       <React.Fragment>
+        {/* {getHeader()} */}
         {
           detail
           ?
-          <React.Fragment>
-            {/* {getHeader()} */}
-            <Paper className={classes.paper}>
-              <List component="nav">
-                {getSummary(detail, false,)}
-              </List>
-            </Paper>
-            {getDetail(detail)}
-          </React.Fragment>
+          <Slide
+            direction="right"
+            in={detail}
+            mountOnEnter
+            unmountOnExit
+          >
+            <React.Fragment>
+              <Paper className={classNames(classes.paper, "z-0")}>
+                <List component="nav">
+                  {getSummary(detail, false,)}
+                </List>
+              </Paper>
+              {getDetail(detail)}
+            </React.Fragment>
+          </Slide>
           :
           getEmpty()
         }
@@ -234,7 +243,7 @@ class MasterDetail extends Component {
     return (
       <React.Fragment>
         {getHeader()}
-        <Paper className={classes.paper}>
+        <Paper className={classNames(classes.paper, "z-10")}>
           <List className="m-0 p-0" component="nav"> {/* subheader={<ListSubheader className="text-left">Items</ListSubheader>} */}
             {items.map(item => <div className="border-b" key={item.timestamp}>{getSummary(item, true,)}</div>)}
           </List>
@@ -249,19 +258,25 @@ class MasterDetail extends Component {
     const { getListPane, getDetailPane, } = this;
 
     return (
-      <React.Fragment>
-        {/* mobile */}
-        <Hidden smUp>{detail ? getDetailPane() : getListPane()}</Hidden>
-        {/* laptop */}
-        <Hidden xsDown>   
-          <div className={classNames(classes.root, "sm:p-8 md:p-16")}>
-            <Grid container spacing={8}>
-              <Grid item xs={12} sm={6}>{getListPane()}</Grid>
-              <Grid item xs={6}>{getDetailPane()}</Grid>
-            </Grid>
-          </div>
-        </Hidden>
-      </React.Fragment>
+      <FuseAnimateGroup
+        delay={500}
+        enter={{ animation: "transition.slideLeftIn" }}
+        leave={{ animation: "transition.slideLeftOut" }}
+      >
+        <React.Fragment>
+          {/* mobile */}
+          <Hidden smUp>{detail ? getDetailPane() : getListPane()}</Hidden>
+          {/* laptop */}
+          <Hidden xsDown>   
+            <div className={classNames(classes.root, "sm:p-8 md:p-16")}>
+              <Grid container spacing={8}>
+                <Grid item xs={12} sm={6}>{getListPane()}</Grid>
+                <Grid item xs={6}>{getDetailPane()}</Grid>
+              </Grid>
+            </div>
+          </Hidden>
+        </React.Fragment>
+      </FuseAnimateGroup>      
     );
   }
 }
