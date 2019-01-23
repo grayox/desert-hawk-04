@@ -87,6 +87,7 @@ class MasterDetail extends Component {
       <FuseAnimateGroup
         delay={500}
         enter={{ animation: "transition.expandIn" }}
+        leave={{ animation: "transition.expandOut" }}
       // className="hidden md:flex md-flex-1"
       >
         <React.Fragment>
@@ -139,6 +140,7 @@ class MasterDetail extends Component {
               ?
               <Icon>navigate_next</Icon>
               :
+              // <Icon>navigate_before</Icon>
               <Icon>save_alt</Icon>
             }
           </IconButton>
@@ -154,9 +156,11 @@ class MasterDetail extends Component {
         // className="px-0"
         // key={row.name}
         delay={200}
-        animation="transition.slideLeftIn"
-        // enter={{ animation: 'transition.slideRightIn' }}
-        // leave={{ animation: 'transition.slideLeftOut' }}
+        // animation="transition.slideLeftIn"
+        // enter={{ animation: 'transition.perspectiveLeft' }}
+        // leave={{ animation: 'transition.perspectiveRight' }}
+        enter={{ animation: 'transition.slideLeftIn' }}
+        leave={{ animation: 'transition.slideLeftOut' }}
       >
         <Paper className={classes.paper}>
           <List component="nav"> {/* subheader={<ListSubheader className="text-left">Detail</ListSubheader>} */}
