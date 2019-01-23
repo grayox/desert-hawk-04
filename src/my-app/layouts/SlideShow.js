@@ -38,15 +38,18 @@ const styles = theme => ({
     minHeight: '90vh',
     background: "orange",
   },
-
-  fab: {
-    margin: theme.spacing.unit,
+  fabButton: {
+    // margin   : '0 auto'
+    margin   : theme.spacing.unit,
+    position : 'absolute',
+    zIndex   : 1,
+    top      : 70,
+    left     : 20,
+    right    : 0,
   },
 });
 
-function Transition(props) {
-  return <Slide direction="up" {...props} />;
-}
+const Transition = props => (<Slide direction="left" {...props} />)
 
 class SlideShow extends React.Component {
   state = {
@@ -62,7 +65,9 @@ class SlideShow extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, } = this.props;
+    const { handleClose, handleClickOpen,  } = this;
+    const { open, } = this.state;
     return (
       <div>
         <Button
@@ -77,27 +82,27 @@ class SlideShow extends React.Component {
           // className=`${classes.button} text-14`
           // className='`${classes.button} text-base`'
           className='{classes.button} text-12 opacity-50'
-          onClick={this.handleClickOpen}
+          onClick={handleClickOpen}
         >
           Learn more
         </Button>
         
         <Dialog
           fullScreen
-          open={this.state.open}
-          onClose={this.handleClose}
+          open={open}
+          onClose={handleClose}
           TransitionComponent={Transition}
         >
-          <Zoom>
+          {/* <Zoom> */}
             <Fab
               color="secondary"
-              aria-label="Edit"
-              // className={classes.fab, "absolute sticky pin-l pin-t"}
-              className="absolute sticky pin-l pin-t"
+              aria-label="Add"
+              className={classes.fabButton}
+              onClick={handleClose}
             >
-              <Icon>edit_icon</Icon>
+              <Icon>arrow_back</Icon>
             </Fab>
-          </Zoom>
+          {/* </Zoom> */}
 
           {/* <AppBar className={classes.appBar}>
             <Toolbar>
