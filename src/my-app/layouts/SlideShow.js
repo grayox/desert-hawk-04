@@ -10,12 +10,13 @@ import Dialog from '@material-ui/core/Dialog';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
+// import Typography from '@material-ui/core/Typography';
 // import CloseIcon from '@material-ui/icons/Close';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Slide from '@material-ui/core/Slide';
 
-import Carousel from 'nuka-carousel';
+// import Carousel from 'nuka-carousel';
+import Carousel from './Carousel';
 
 const styles = {
   appBar: {
@@ -80,15 +81,16 @@ class SlideShow extends React.Component {
                 {/* <CloseIcon /> */}
                 <ArrowBackIcon />
               </IconButton>
-              <Typography variant="h4" color="inherit" className={classes.flex}>
+              {/* <Typography variant="h4" color="inherit" className={classes.flex}>
                 Learn more
-              </Typography>
+              </Typography> */}
               {/* <Button color="inherit" onClick={this.handleClose}>
                 save
               </Button> */}
             </Toolbar>
           </AppBar>
-          <Carousel className={classes.carousel} initialWidth="100vw">
+
+          {/* <Carousel className={classes.carousel} initialWidth="100vw">
             <img alt="" src="http://placehold.it/900x500/ffffff/c0392b/&text=Eu aliquip nostrud" />
             <img alt="" src="http://placehold.it/900x500/ff0000/ffffff/&text=exercitation tempor duis" />
             <img alt="" src="http://placehold.it/900x500/00ff00/ffffff/&text=eu eiusmod dolor deserunt" />
@@ -104,7 +106,10 @@ class SlideShow extends React.Component {
             <img alt="" src="my-app/images/screenshots/ss05.png" />
             <img alt="" src="my-app/images/screenshots/ss06.png" />
             <img alt="" src="my-app/images/screenshots/ss07.png" />
-          </Carousel>
+          </Carousel> */}
+
+          <Carousel/>
+
           {/* <List>
             <ListItem button>
               <ListItemText primary="Phone ringtone" secondary="Titania" />

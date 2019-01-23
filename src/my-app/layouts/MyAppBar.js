@@ -10,7 +10,7 @@ import { bindActionCreators } from 'redux';
 import {
   AppBar, 
   Toolbar, Typography,
-  Button, Icon, IconButton,
+  Icon, IconButton,
   // Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
   // Avatar, ListItemIcon, ListItemText, Popover, MenuItem, Hidden
 } from '@material-ui/core';

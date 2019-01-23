@@ -17,6 +17,7 @@ import Paper from '@material-ui/core/Paper';
 // import Icon from "@material-ui/core/Icon";
 import {
   AppBar, Toolbar, Typography,
+  Icon, IconButton,
   // Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
 } from '@material-ui/core';
 
@@ -62,24 +63,20 @@ class MasterDetail extends Component {
     this.state = INITIAL_STATE;
   }
 
-  handleSwitch = model => {
+  handleToggle = (model, list,) => {
     console.log('model\n', model);
+    const { detail } = this.state; 
     this.setState(
       { detail: null },
       // promise completes animation effect
-      () => this.setState({ detail: model })
+      () => {if(list) this.setState({ detail: model })}
     );
-  }
-
-  handleBack = () => {
-    // console.log('model\n', model);
-    this.setState({ detail: null });
   }
 
   getEmpty1 = () => (<img src="https://via.placeholder.com/800x900.png/e91e63/fff?text=Detail+goes+here"/>)
 
   getEmpty = () => (
-    <div className="max-w-512 h-auto text-center align-middle">
+    <div className="text-center mt-32">
       {/* <FuseAnimate animation="transition.expandIn" delay={100}> */}
         {/* <Typography variant="h1" color="inherit" className="font-medium mb-16">
           Detail
@@ -88,26 +85,49 @@ class MasterDetail extends Component {
           <BeachAccessIcon />
         </Avatar> */}
       {/* </FuseAnimate> */}
-      <FuseAnimate delay={500}>
-        <Typography variant="body1" color="textSecondary" className="mb-16">
-          Detail goes here after selecting list item
-        </Typography>
-      </FuseAnimate>
+      <FuseAnimateGroup
+        delay={500}
+        enter={{ animation: "transition.expandIn" }}
+      // className="hidden md:flex md-flex-1"
+      >
+        <React.Fragment>
+          <Icon className="mt-32 opacity-25" fontSize="large">library_books</Icon>
+          <Typography variant="body1" color="textSecondary">
+              See details here after selecting item
+          </Typography>
+        </React.Fragment>
+      </FuseAnimateGroup>
     </div>
   )
 
-  getSummary = item => {
-    const { handleSwitch, } = this;
+  getSummary = (item, list,) => {
+    const { handleToggle, } = this;
+    // const { detail } = this.state;
     return (
       <ListItem
         button
         key={item.timestamp}
-        onClick={() => handleSwitch(item)}
+        onClick={() => handleToggle(item, list,)}
       >
         <Avatar>
           <BeachAccessIcon />
         </Avatar>
         <ListItemText primary="Vacation" secondary={item.name} />
+        {
+          list
+          ?
+          <ListItemSecondaryAction className="pr-16">
+            <IconButton
+              color="inherit"
+              aria-label="Back"
+              onClick={() => handleToggle(item, list,)}
+            >
+              <Icon>navigate_next</Icon>
+            </IconButton>
+          </ListItemSecondaryAction>
+          :
+          null
+        }
       </ListItem>
     )
   }
@@ -137,7 +157,7 @@ class MasterDetail extends Component {
                 <ListItem
                   key={keyName.timestamp}
                   // button
-                  // onClick={() => handleSwitch(item)}
+                  // onClick={() => handleToggle(item)}
                 >
                   {/* <Avatar>
                     <BeachAccessIcon />
@@ -165,16 +185,20 @@ class MasterDetail extends Component {
   }
 
   getDetailPane = () => {
-    const { getSummary, getDetail, getEmpty, handleBack, } = this;
+    const { getSummary, getDetail, getEmpty, } = this;
     const { detail, } = this.state;
+    const { classes, } = this.props;
     return (
       <React.Fragment>
         {
           detail
           ?
           <React.Fragment>
-            {getSummary(detail)}
-            <button onClick={handleBack}>Reset</button>
+            <Paper className={classes.paper}>
+              <List component="nav">
+                {getSummary(detail, false,)}
+              </List>
+            </Paper>
             {getDetail(detail)}
           </React.Fragment>
           :
@@ -189,11 +213,9 @@ class MasterDetail extends Component {
     const { getSummary, } = this;
     return (
       <Paper className={classes.paper}>
-        <div className={classes.root}>
-          <List component="nav"> {/* subheader={<ListSubheader className="text-left">Items</ListSubheader>} */}
-            {items.map(item => <span key={item.timestamp}>{getSummary(item)}</span>)}
-          </List>
-        </div>
+        <List className="m-0 p-0" component="nav"> {/* subheader={<ListSubheader className="text-left">Items</ListSubheader>} */}
+          {items.map(item => <div className="border-b" key={item.timestamp}>{getSummary(item, true,)}</div>)}
+        </List>
       </Paper>
     )
   }
