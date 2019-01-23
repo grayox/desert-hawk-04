@@ -92,7 +92,7 @@ class SwipeableTextMobileStepper extends React.Component {
     return (
       <div className={classes.root}>
         <Paper square elevation={0} className={classes.header}>
-          <Typography>{tutorialSteps[activeStep].label}</Typography>
+          <Typography className="text-lg">{tutorialSteps[activeStep].label}</Typography>
         </Paper>
         <AutoPlaySwipeableViews
           axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
@@ -110,7 +110,7 @@ class SwipeableTextMobileStepper extends React.Component {
         </AutoPlaySwipeableViews>
         <MobileStepper
           steps={maxSteps}
-          position="static"
+          position="top" // bottom static
           activeStep={activeStep}
           className={classes.mobileStepper}
           nextButton={

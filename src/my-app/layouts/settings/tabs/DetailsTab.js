@@ -26,7 +26,7 @@ import PermContactCalendarIcon from '@material-ui/icons/PermContactCalendar';
 // import SettingsStepper from 'my-app/components/steppers/SettingsStepper';
 import GeoStepper from 'my-app/components/steppers/GeoStepper'; // see 'class UserMultiForm' for more examples
 
-// this page was copied from ./AboutTab
+// this page was inspired by ./AboutTab
 
 const styles = theme => ({
   root: {

@@ -20,7 +20,7 @@ import { withStyles } from '@material-ui/core/styles';
 // import Icon from "@material-ui/core/Icon";
 import {
   Button, Dialog, Slide, Fab,
-  Icon, IconButton,
+  Icon, IconButton, Zoom,
   // Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
 } from '@material-ui/core';
 
@@ -88,6 +88,17 @@ class SlideShow extends React.Component {
           onClose={this.handleClose}
           TransitionComponent={Transition}
         >
+          <Zoom>
+            <Fab
+              color="secondary"
+              aria-label="Edit"
+              // className={classes.fab, "absolute sticky pin-l pin-t"}
+              className="absolute sticky pin-l pin-t"
+            >
+              <Icon>edit_icon</Icon>
+            </Fab>
+          </Zoom>
+
           {/* <AppBar className={classes.appBar}>
             <Toolbar>
               <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
@@ -123,10 +134,6 @@ class SlideShow extends React.Component {
 
           <Carousel/>
 
-          <Fab color="secondary" aria-label="Edit" className={classes.fab}>
-            <Icon>edit_icon</Icon>
-          </Fab>
-
           {/* <List>
             <ListItem button>
               <ListItemText primary="Phone ringtone" secondary="Titania" />
@@ -136,6 +143,7 @@ class SlideShow extends React.Component {
               <ListItemText primary="Default notification ringtone" secondary="Tethys" />
             </ListItem>
           </List> */}
+
         </Dialog>
       </div>
     );

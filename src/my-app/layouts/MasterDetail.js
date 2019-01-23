@@ -73,8 +73,7 @@ class MasterDetail extends Component {
     );
   }
 
-  getEmpty1 = () => (<img src="https://via.placeholder.com/800x900.png/e91e63/fff?text=Detail+goes+here"/>)
-
+  // getEmpty = () => (<img src="https://via.placeholder.com/800x900.png/e91e63/fff?text=Detail+goes+here"/>)
   getEmpty = () => (
     <div className="text-center mt-32">
       {/* <FuseAnimate animation="transition.expandIn" delay={100}> */}
@@ -100,6 +99,22 @@ class MasterDetail extends Component {
     </div>
   )
 
+  getHeader = () => (
+    <Hidden xsDown>
+      <AppBar
+        className="m-0"
+        position="static"
+        elevation={0}
+      >
+        <Toolbar className="px-16">
+          <Typography variant="subtitle1" color="inherit" className="flex-1">
+            Items
+          </Typography>
+        </Toolbar>
+      </AppBar>
+    </Hidden>
+  )
+
   getSummary = (item, list,) => {
     const { handleToggle, } = this;
     // const { detail } = this.state;
@@ -113,21 +128,21 @@ class MasterDetail extends Component {
           <BeachAccessIcon />
         </Avatar>
         <ListItemText primary="Vacation" secondary={item.name} />
-        {
-          list
-          ?
-          <ListItemSecondaryAction className="pr-16">
-            <IconButton
-              color="inherit"
-              aria-label="Back"
-              onClick={() => handleToggle(item, list,)}
-            >
+        <ListItemSecondaryAction className="pr-16">
+          <IconButton
+            color="inherit"
+            aria-label="Back"
+            onClick={() => handleToggle(item, list,)}
+          >
+            { 
+              list
+              ?
               <Icon>navigate_next</Icon>
-            </IconButton>
-          </ListItemSecondaryAction>
-          :
-          null
-        }
+              :
+              <Icon>save_alt</Icon>
+            }
+          </IconButton>
+        </ListItemSecondaryAction>
       </ListItem>
     )
   }
@@ -185,7 +200,7 @@ class MasterDetail extends Component {
   }
 
   getDetailPane = () => {
-    const { getSummary, getDetail, getEmpty, } = this;
+    const { getSummary, getDetail, getEmpty, getHeader, } = this;
     const { detail, } = this.state;
     const { classes, } = this.props;
     return (
@@ -194,6 +209,7 @@ class MasterDetail extends Component {
           detail
           ?
           <React.Fragment>
+            {/* {getHeader()} */}
             <Paper className={classes.paper}>
               <List component="nav">
                 {getSummary(detail, false,)}
@@ -210,13 +226,16 @@ class MasterDetail extends Component {
 
   getListPane = () => {
     const { classes, items, } = this.props;
-    const { getSummary, } = this;
+    const { getSummary, getHeader, } = this;
     return (
-      <Paper className={classes.paper}>
-        <List className="m-0 p-0" component="nav"> {/* subheader={<ListSubheader className="text-left">Items</ListSubheader>} */}
-          {items.map(item => <div className="border-b" key={item.timestamp}>{getSummary(item, true,)}</div>)}
-        </List>
-      </Paper>
+      <React.Fragment>
+        {getHeader()}
+        <Paper className={classes.paper}>
+          <List className="m-0 p-0" component="nav"> {/* subheader={<ListSubheader className="text-left">Items</ListSubheader>} */}
+            {items.map(item => <div className="border-b" key={item.timestamp}>{getSummary(item, true,)}</div>)}
+          </List>
+        </Paper>
+      </React.Fragment>
     )
   }
 

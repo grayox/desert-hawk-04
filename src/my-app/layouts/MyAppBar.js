@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles/index';
 import { connect } from 'react-redux';
 import * as authActions from 'auth/store/actions';
 import { bindActionCreators } from 'redux';
+import classNames from 'classnames';
 
 // @material-ui/core
 // import Icon from "@material-ui/core/Icon";
@@ -63,7 +64,7 @@ class MyAppBar extends Component {
         //   </Toolbar>
         // </AppBar>
 
-      <div className={classes.root}>
+      <div className={classNames(classes.root, "lg:hidden")}>
         <AppBar position="static">
           <Toolbar>
             <IconButton className={classes.leftButton} color="inherit" aria-label="Menu">

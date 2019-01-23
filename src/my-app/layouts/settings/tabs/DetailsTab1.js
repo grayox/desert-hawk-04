@@ -48,7 +48,7 @@ import _ from 'lodash';
 // import '@firebase/firestore';
 // const db = firebase.firestore();
 
-// this page was copied from ./AboutTab
+// this page was inspired by from ./AboutTab
 
 const styles = theme => ({
   root: {
