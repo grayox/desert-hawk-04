@@ -45,7 +45,7 @@ const styles = theme => ({
 class MyAppBar extends Component {
 
   render() {
-    const { classes, } = this.props;
+    const { classes, onClick } = this.props;
     // const { userMenu } = this.state;
 
     return (
@@ -67,7 +67,12 @@ class MyAppBar extends Component {
       <div className={classNames(classes.root, "lg:hidden")}>
         <AppBar position="static">
           <Toolbar>
-            <IconButton className={classes.leftButton} color="inherit" aria-label="Menu">
+            <IconButton
+              className={classes.leftButton}
+              onClick={onClick}
+              color="inherit"
+              aria-label="Menu"
+            >
               {/* <MenuIcon /> */}
               <Icon>menu</Icon>
             </IconButton>

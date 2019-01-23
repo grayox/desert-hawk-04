@@ -241,14 +241,21 @@ class MasterDetail extends Component {
     const { classes, items, } = this.props;
     const { getSummary, getHeader, } = this;
     return (
-      <React.Fragment>
-        {getHeader()}
-        <Paper className={classNames(classes.paper, "z-10")}>
-          <List className="m-0 p-0" component="nav"> {/* subheader={<ListSubheader className="text-left">Items</ListSubheader>} */}
-            {items.map(item => <div className="border-b" key={item.timestamp}>{getSummary(item, true,)}</div>)}
-          </List>
-        </Paper>
-      </React.Fragment>
+      // <Slide
+      //   direction="right"
+      //   in={true}
+      //   mountOnEnter
+      //   unmountOnExit
+      // >
+        <React.Fragment>
+          {getHeader()}
+          <Paper className={classNames(classes.paper, "z-10")}>
+            <List className="m-0 p-0" component="nav"> {/* subheader={<ListSubheader className="text-left">Items</ListSubheader>} */}
+              {items.map(item => <div className="border-b" key={item.timestamp}>{getSummary(item, true,)}</div>)}
+            </List>
+          </Paper>
+        </React.Fragment>
+      // </Slide>
     )
   }
 

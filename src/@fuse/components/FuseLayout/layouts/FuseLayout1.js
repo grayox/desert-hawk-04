@@ -10,7 +10,9 @@ import { FuseScrollbars, FuseMessage, FuseThemes, FuseDialog } from '@fuse';
 import classNames from 'classnames';
 import _ from '@lodash';
 
-import MyAppBar from 'my-app/layouts/MyAppBar.js'; // my add
+// begin my add
+import MyAppBar from 'my-app/layouts/MyAppBar';
+// end my add
 
 const defaultProps = {};
 
@@ -323,7 +325,7 @@ class FuseLayout1 extends Component {
     );
 
     const toolbarTemplate = (
-      <MyAppBar />
+      <MyAppBar onClick={navbarOpenMobile} />
       // <MuiThemeProvider theme={FuseThemes[settings.theme.toolbar]}>
       //   <AppBar id="fuse-toolbar" className={classNames(classes.toolbarWrapper)} color="default">
       //     <Toolbar className="p-0">
