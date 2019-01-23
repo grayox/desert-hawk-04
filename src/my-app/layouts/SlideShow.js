@@ -1,24 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
+
+// import Button from '@material-ui/core/Button';
+// import Dialog from '@material-ui/core/Dialog';
 // import ListItemText from '@material-ui/core/ListItemText';
 // import ListItem from '@material-ui/core/ListItem';
 // import List from '@material-ui/core/List';
 // import Divider from '@material-ui/core/Divider';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
+// import AppBar from '@material-ui/core/AppBar';
+// import Toolbar from '@material-ui/core/Toolbar';
+// import IconButton from '@material-ui/core/IconButton';
 // import Typography from '@material-ui/core/Typography';
 // import CloseIcon from '@material-ui/icons/Close';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import Slide from '@material-ui/core/Slide';
+// import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+// import Slide from '@material-ui/core/Slide';
+
+// @material-ui/core
+// import Icon from "@material-ui/core/Icon";
+import {
+  Button, Dialog, Slide, Fab,
+  Icon, IconButton,
+  // Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
+} from '@material-ui/core';
 
 // import Carousel from 'nuka-carousel';
 import Carousel from './Carousel';
 
-const styles = {
+const styles = theme => ({
   appBar: {
     position: 'relative',
   },
@@ -28,8 +37,12 @@ const styles = {
   carousel: {
     minHeight: '90vh',
     background: "orange",
-  }
-};
+  },
+
+  fab: {
+    margin: theme.spacing.unit,
+  },
+});
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -75,10 +88,10 @@ class SlideShow extends React.Component {
           onClose={this.handleClose}
           TransitionComponent={Transition}
         >
-          <AppBar className={classes.appBar}>
+          {/* <AppBar className={classes.appBar}>
             <Toolbar>
               <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
-                {/* <CloseIcon /> */}
+                {/* <CloseIcon /> * /}
                 <ArrowBackIcon />
               </IconButton>
               {/* <Typography variant="h4" color="inherit" className={classes.flex}>
@@ -86,9 +99,9 @@ class SlideShow extends React.Component {
               </Typography> */}
               {/* <Button color="inherit" onClick={this.handleClose}>
                 save
-              </Button> */}
+              </Button> * /}
             </Toolbar>
-          </AppBar>
+          </AppBar> */}
 
           {/* <Carousel className={classes.carousel} initialWidth="100vw">
             <img alt="" src="http://placehold.it/900x500/ffffff/c0392b/&text=Eu aliquip nostrud" />
@@ -109,6 +122,10 @@ class SlideShow extends React.Component {
           </Carousel> */}
 
           <Carousel/>
+
+          <Fab color="secondary" aria-label="Edit" className={classes.fab}>
+            <Icon>edit_icon</Icon>
+          </Fab>
 
           {/* <List>
             <ListItem button>
