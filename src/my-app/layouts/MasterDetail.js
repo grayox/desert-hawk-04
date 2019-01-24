@@ -36,6 +36,8 @@ import Avatar from '@material-ui/core/Avatar';
 // import WorkIcon from '@material-ui/icons/Work';
 // import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 
+import HashAvatar from 'my-app/components/HashAvatar';
+
 // 4 Ways to Style React Components: https://codeburst.io/4-four-ways-to-style-react-components-ac6f323da822
 // const MasterDetailStyle = {
 //   display: 'grid', // https://css-tricks.com/snippets/css/complete-guide-grid/ | http://grid.malven.co/
@@ -133,21 +135,7 @@ class MasterDetail extends Component {
           {
           // <BeachAccessIcon />
           }
-          <img
-            className="w-full rounded" alt="avatar"
-            // src="http://api.adorable.io/avatars/50/loremipsum.png"
-            // gravatars: https://en.gravatar.com/site/implement/images/
-            // src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?f=y&s=50&d=wavatar"
-            src={`http://www.gravatar.com/avatar/${item.timestamp}?f=y&s=50&d=wavatar`}
-            // src={`http://www.gravatar.com/avatar/${item.timestamp}?f=y&s=50&d=monsterid`}
-            // src={`http://www.gravatar.com/avatar/${item.timestamp}?f=y&s=50&d=retro`}
-            // src={`http://www.gravatar.com/avatar/${item.timestamp}?f=y&s=50&d=robohash`}
-            // robohash: https://robohash.org
-            // src={`https://robohash.org/${item.timestamp}.png`}
-            // src={`https://robohash.org/${item.timestamp}.png?set=set2`}
-            // src={`https://robohash.org/${item.timestamp}.png?set=set3`}
-            // src={`https://robohash.org/${item.timestamp}.png?set=set4`}
-          />
+          <HashAvatar message={item.timestamp} />
         </Avatar>
         <ListItemText primary="Vacation" secondary={item.name} />
         <ListItemSecondaryAction className="pr-16">

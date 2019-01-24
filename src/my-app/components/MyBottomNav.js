@@ -24,11 +24,14 @@ import {
 const styles = {
   root: {
     width: '100vw',
-    color: 'white',
+    // color: 'yellow',
+    // '&$active': {
+    //   color: 'yellow',
+    // },
   },
 };
 
-const items = componentsNavConfig
+const items = componentsNavConfig.filter(ob => ob.bottomNav) // filters in only objects with bottomNav property
 // [
 //   { title: 'Dashboard' , url: '/dashboard' , icon: <RestoreIcon    /> , } ,
 //   { title: 'Inbox'     , url: '/inbox'     , icon: <FavoriteIcon   /> , } ,
@@ -55,14 +58,13 @@ class SimpleBottomNavigation extends Component {
         showLabels
         value={value}
         onChange={handleChange}
+        // selectedColor="yellow"
       >
       {
         // <BottomNavigationAction component={Link} to={items[0]} label="Dashboard" icon={<RestoreIcon />}    />
         // <BottomNavigationAction component={Link} to={items[1]} label="Inbox"     icon={<FavoriteIcon />}   />
         // <BottomNavigationAction component={Link} to={items[2]} label="Settings"  icon={<LocationOnIcon />} />
         items.map((item, index) => (
-          item.bottomNav
-          ?
           <BottomNavigationAction
             key={item.title}
             component={Link}
@@ -71,8 +73,6 @@ class SimpleBottomNavigation extends Component {
             // icon={item.icon}
             icon={<Icon>{item.icon}</Icon>}
           />
-          :
-          null
         ))
       }
       </BottomNavigation>

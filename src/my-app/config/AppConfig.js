@@ -91,7 +91,7 @@ export const componentsNavConfig = [
     id        : 'archive',
     title     : 'Archive',
     type      : 'item',
-    icon      : 'save',
+    icon      : 'save_alt', //'save',
     url       : '/archive',
     path      : 'my-app/layouts/archive/Archive',
     bottomNav : true,
