@@ -15,7 +15,7 @@ import { FuseAnimate } from '@fuse';
 // import FirebaseLoginTab from './tabs/FirebaseLoginTab';
 // import Auth0LoginTab from './tabs/Auth0LoginTab';
 
-import SlideShow from 'my-app/layouts/SlideShow';
+import SlideShow from 'my-app/components/SlideShow';
 
 import AuthProviders from 'my-app/components/AuthProviders';
 import { logoPath, tagLine, desc, } from 'my-app/config/AppConfig';

@@ -25,6 +25,8 @@ import SettingsPanel from 'main/SettingsPanel';
 // import ChatPanel from 'main/chatPanel/ChatPanel';
 import { Auth } from 'auth';
 
+import MyBottomNav from 'my-app/components/MyBottomNav'; // my add
+
 const jss = create({
   ...jssPreset(),
   plugins: [...jssPreset().plugins, jssExtend()]
@@ -52,9 +54,10 @@ store.firebaseAuthIsReady.then(() => { // my add
                   navbarContent={
                     <MainNavbarContent />
                   }
-                  // footer={
-                  //   <MainFooter />
-                  // }
+                  footer={
+                    // <MainFooter />
+                    <MyBottomNav />
+                  }
                   // rightSidePanel={
                   //   <React.Fragment>
                   //     <ChatPanel />

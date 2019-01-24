@@ -53,7 +53,7 @@ import firebase from '@firebase/app';
 import '@firebase/firestore';
 
 // misc
-import Album from 'my-app/layouts/album/Album'
+// import Album from 'my-app/layouts/album/Album'
 
 
 const db = firebase.firestore();
@@ -405,19 +405,18 @@ class Dashboard extends Component {
     );
 
     return (
-      <div
-        // className={classes.container}
-      >
+      <React.Fragment>
+      {/* <div> */}
         { ( show === 'greet' ) ? <SettingsMessage onClick={handleClickGeo} />           : null }
         { ( show === 'step'  ) ? <SettingsStepper onSave={handleSaveSettingsStepper} /> : null }
         { ( show === 'main'  ) ? main                                                   : null }
-        <Album />
-      </div>
+        {/* <Album /> */}
+      {/* </div> */}
+      </React.Fragment>
     );
   }
 
 }
-
 
 Dashboard.propTypes = {
   classes: PropTypes.object.isRequired,

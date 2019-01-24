@@ -44,8 +44,11 @@ const styles = theme => ({
 
 class MyAppBar extends Component {
 
+  handleClick = () => this.props.onClick()
+
   render() {
-    const { classes, onClick } = this.props;
+    const { classes, } = this.props;
+    const { handleClick, } = this;
     // const { userMenu } = this.state;
 
     return (
@@ -69,7 +72,7 @@ class MyAppBar extends Component {
           <Toolbar>
             <IconButton
               className={classes.leftButton}
-              onClick={onClick}
+              onClick={handleClick}
               color="inherit"
               aria-label="Menu"
             >
