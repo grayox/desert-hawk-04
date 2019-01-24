@@ -25,7 +25,7 @@ export const firebaseConfig = {
   databaseURL: "https://green-comet-e2c85.firebaseio.com",
   projectId: "green-comet-e2c85",
   storageBucket: "green-comet-e2c85.appspot.com",
-  messagingSenderId: "682044250674"
+  messagingSenderId: "682044250674",
 }
 
 export const pickUserFromAuth = auth => {
@@ -56,10 +56,10 @@ export const tagLine = 'Give leads. Get leads.'
 export const desc = 'Real estate agents, mortgage brokers, insurance agents and financial planners need leads. Referrals are a good way to get them. Swap lets you turn your clients into referrals and get back referrals in exchange.'
 
 export const bizCategoryItems = [
-  { value: 'home', label: 'Home', icon: HomeIcon },
-  { value: 'mortgage', label: 'Mortgage', icon: AccountBalanceIcon },
-  { value: 'financial', label: 'Financial', icon: AssessmentIcon },
-  { value: 'insurance', label: 'Insurance', icon: AssignmentIcon },
+  { value : 'home'      , label : 'Home'      , icon : HomeIcon           } ,
+  { value : 'mortgage'  , label : 'Mortgage'  , icon : AccountBalanceIcon } ,
+  { value : 'financial' , label : 'Financial' , icon : AssessmentIcon     } ,
+  { value : 'insurance' , label : 'Insurance' , icon : AssignmentIcon     } ,
 ]
 
 // sync
@@ -69,61 +69,65 @@ export const componentsNavConfig = [
   // * Note: It is currently not possible to use expressions like `loader : () => import(item.path)`
   // The path must be hard coded. See https://github.com/jamiebuilds/react-loadable
   {
-    id     : 'dashboard',
-    title  : 'Dashboard',
-    type   : 'item',
-    icon   : 'dashboard',
-    url    : '/dashboard',
-    path   : 'my-app/layouts/dashboard/Dashboard', // *
+    id        : 'dashboard',
+    title     : 'Dashboard',
+    type      : 'item',
+    icon      : 'dashboard',
+    url       : '/dashboard',
+    path      : 'my-app/layouts/dashboard/Dashboard',
+    bottomNav : true,
     // loader : () => import('my-app/layouts/dashboard/Dashboard'),
   },
   {
-    id    : 'inbox',
-    title : 'Inbox',
-    type  : 'item',
-    icon  : 'cloud_download',
-    url   : '/inbox',
-    path  : 'my-app/containers/inbox/InboxContainer',
+    id        : 'inbox',
+    title     : 'Inbox',
+    type      : 'item',
+    icon      : 'cloud_download',
+    url       : '/inbox',
+    path      : 'my-app/containers/inbox/InboxContainer',
+    bottomNav : true,
   },
   {
-    id    : 'archive',
-    title : 'Archive',
-    type  : 'item',
-    icon  : 'save',
-    url   : '/archive',
-    path  : 'my-app/layouts/archive/Archive',
+    id        : 'archive',
+    title     : 'Archive',
+    type      : 'item',
+    icon      : 'save',
+    url       : '/archive',
+    path      : 'my-app/layouts/archive/Archive',
+    bottomNav : true,
   },
   {
-    id    : 'outbox',
-    title : 'Outbox',
-    type  : 'item',
-    icon  : 'cloud_upload',
-    url   : '/outbox',
-    path  : 'my-app/layouts/outbox/Outbox',
+    id        : 'outbox',
+    title     : 'Outbox',
+    type      : 'item',
+    icon      : 'cloud_upload',
+    url       : '/outbox',
+    path      : 'my-app/layouts/outbox/Outbox',
   },
   {
-    id    : 'contacts',
-    title : 'Contacts',
-    type  : 'item',
-    icon  : 'contacts',
-    url   : '/contacts',
-    path  : 'my-app/layouts/contacts/Contacts',
+    id        : 'contacts',
+    title     : 'Contacts',
+    type      : 'item',
+    icon      : 'contacts',
+    url       : '/contacts',
+    path      : 'my-app/layouts/contacts/Contacts',
   },
   {
-    id    : 'feedback',
-    title : 'Feedback',
-    type  : 'item',
-    icon  : 'feedback',
-    url   : '/feedback',
-    path  : 'my-app/layouts/feedback/Feedback',
+    id        : 'feedback',
+    title     : 'Feedback',
+    type      : 'item',
+    icon      : 'feedback',
+    url       : '/feedback',
+    path      : 'my-app/layouts/feedback/Feedback',
   },
   {
-    id    : 'settings',
-    title : 'Settings',
-    type  : 'item',
-    icon  : 'settings',
-    url   : '/settings',
-    path  : 'my-app/layouts/settings/Settings',
+    id        : 'settings',
+    title     : 'Settings',
+    type      : 'item',
+    icon      : 'settings',
+    url       : '/settings',
+    path      : 'my-app/layouts/settings/Settings',
+    bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
   },
 ]
 

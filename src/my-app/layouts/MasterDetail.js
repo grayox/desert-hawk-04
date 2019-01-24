@@ -34,7 +34,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Avatar from '@material-ui/core/Avatar';
 // import ImageIcon from '@material-ui/icons/Image';
 // import WorkIcon from '@material-ui/icons/Work';
-import BeachAccessIcon from '@material-ui/icons/BeachAccess';
+// import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 
 // 4 Ways to Style React Components: https://codeburst.io/4-four-ways-to-style-react-components-ac6f323da822
 // const MasterDetailStyle = {
@@ -78,14 +78,16 @@ class MasterDetail extends Component {
   // getEmpty = () => (<img src="https://via.placeholder.com/800x900.png/e91e63/fff?text=Detail+goes+here"/>)
   getEmpty = () => (
     <div className="text-center mt-32">
-      {/* <FuseAnimate animation="transition.expandIn" delay={100}> */}
-        {/* <Typography variant="h1" color="inherit" className="font-medium mb-16">
-          Detail
-        </Typography> */}
-        {/* <Avatar>
-          <BeachAccessIcon />
-        </Avatar> */}
-      {/* </FuseAnimate> */}
+      {
+      // <FuseAnimate animation="transition.expandIn" delay={100}>
+      //   <Typography variant="h1" color="inherit" className="font-medium mb-16">
+      //     Detail
+      //   </Typography>
+      //   <Avatar>
+      //     <BeachAccessIcon />
+      //   </Avatar>
+      // </FuseAnimate>
+      }
       <FuseAnimateGroup
         delay={500}
         enter={{ animation: "transition.expandIn" }}
@@ -128,7 +130,24 @@ class MasterDetail extends Component {
         onClick={() => handleToggle(item, list,)}
       >
         <Avatar>
-          <BeachAccessIcon />
+          {
+          // <BeachAccessIcon />
+          }
+          <img
+            className="w-full rounded" alt="avatar"
+            // src="http://api.adorable.io/avatars/50/loremipsum.png"
+            // gravatars: https://en.gravatar.com/site/implement/images/
+            // src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?f=y&s=50&d=wavatar"
+            src={`http://www.gravatar.com/avatar/${item.timestamp}?f=y&s=50&d=wavatar`}
+            // src={`http://www.gravatar.com/avatar/${item.timestamp}?f=y&s=50&d=monsterid`}
+            // src={`http://www.gravatar.com/avatar/${item.timestamp}?f=y&s=50&d=retro`}
+            // src={`http://www.gravatar.com/avatar/${item.timestamp}?f=y&s=50&d=robohash`}
+            // robohash: https://robohash.org
+            // src={`https://robohash.org/${item.timestamp}.png`}
+            // src={`https://robohash.org/${item.timestamp}.png?set=set2`}
+            // src={`https://robohash.org/${item.timestamp}.png?set=set3`}
+            // src={`https://robohash.org/${item.timestamp}.png?set=set4`}
+          />
         </Avatar>
         <ListItemText primary="Vacation" secondary={item.name} />
         <ListItemSecondaryAction className="pr-16">
