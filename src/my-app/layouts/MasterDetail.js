@@ -37,6 +37,7 @@ import Avatar from '@material-ui/core/Avatar';
 // import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 
 import HashAvatar from 'my-app/components/HashAvatar';
+import { componentsNavConfig, } from 'my-app/config/AppConfig.js';
 
 // 4 Ways to Style React Components: https://codeburst.io/4-four-ways-to-style-react-components-ac6f323da822
 // const MasterDetailStyle = {
