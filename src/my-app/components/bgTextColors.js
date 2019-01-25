@@ -13,6 +13,15 @@ const componentToHex = c => {
   const hex = c.toString(16);
   return hex.length == 1 ? "0" + hex : hex;
 }
+const hexToRgb = hex => {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  const out = result ? {
+    r: parseInt(result[1], 16),
+    g: parseInt(result[2], 16),
+    b: parseInt(result[3], 16),
+  } : null;
+  return out;
+}
 
 const colorIsLight = ({r, g, b}) => {
   // Counting the perceptive luminance
@@ -31,11 +40,18 @@ const randomRgb = () => {
 }
 
 const bgTextColors = hex => {
-  const randBgRgb = randomRgb();
-  const bgRgb = colorFromRgb(randBgRgb);
-  const bgHex = hex || rgbToHex(randBgRgb);
-  const textHex = colorIsLight(bgRgb) ? '000000' : 'FFFFFF';
-  const out = { randBgRgb, bgRgb, bgHex, textHex, };
+  let out, bgRgb, bgHex, textHex;
+  if(hex) {
+    bgHex = hex;
+    bgRgb = hexToRgb(bgHex);
+    textHex = colorIsLight(bgRgb) ? '000000' : 'FFFFFF';
+  } else {
+    const randBgRgb = randomRgb();
+    bgRgb = colorFromRgb(randBgRgb);
+    bgHex = rgbToHex(randBgRgb);
+    textHex = colorIsLight(bgRgb) ? '000000' : 'FFFFFF';
+  }
+  out = { bgRgb, bgHex, textHex, };
   return out;
 }
 
