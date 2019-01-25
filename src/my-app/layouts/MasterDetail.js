@@ -139,7 +139,7 @@ class MasterDetail extends Component {
         }
         <HashAvatar
           message={item.timestamp}
-          variant="wavatar" //"robohash4" //"retro" //"monsterid" //"wavatar" //"adorable" //"random"(deprecated)
+          variant="ui" //"robohashx" //"robohash4" //"retro" //"monsterid" //"wavatar" //"adorable" //"identicon" //"mp" //"random"(deprecated)
         />
         <ListItemText primary="Vacation" secondary={item.name} />
         <ListItemSecondaryAction className="pr-16">
