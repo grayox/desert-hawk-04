@@ -4,6 +4,7 @@ import classNames from 'classnames';
 
 import Avatar from '@material-ui/core/Avatar';
 import hash from 'object-hash'; // https://www.npmjs.com/package/object-hash
+import bgTextColors from 'my-app/components/bgTextColors';
 
 // const variants = [
 //   'wavatar', 'monsterid', 'retro', 'adorable', // 'random',
@@ -25,6 +26,7 @@ const getRoboExt = variant => {
   const out = ref[variant];
   return out ? out : null;
 }
+const getColors = hex => bgTextColors(hex);
 const getInitials = message => {
   const digest = getDigest(message);
   const out = `${digest.charAt(0)}+${digest.charAt(1)}`;
@@ -32,30 +34,39 @@ const getInitials = message => {
   return out;
 }
 
-
 const getSrcAdorable = ({ size, message, }) => (`//api.adorable.io/avatars/${size}/${getDigest(message)}.png`) // src="//api.adorable.io/avatars/50/loremipsum.png"
-const getSrcUiAvatar = ({ size, message, }) => (`//ui-avatars.com/api/?name=${getInitials(message)}&size=${size}`) // src="//ui-avatars.com/api/?name=F+7&background=FF0000&color=FFFFFF&size=50"
+const getSrcUiAvatarGrey = ({ size, message, }) => (`//ui-avatars.com/api/?name=${getInitials(message)}&size=${size}`) // src="//ui-avatars.com/api/?name=F+7&background=FF0000&color=FFFFFF&size=50"
+const getSrcUiAvatarColor = props => {
+  const hex = getDigest(props.message).slice(-6);
+  const colors = getColors(hex);
+  const prefix = getSrcUiAvatarGrey(props);
+  const suffix = (`&background=${colors.bgHex}&color=${colors.textHex}`);
+  const out = (`${prefix}${suffix}`);
+  // console.log('out\n', out);
+  return out;
+}
 // const getSrcGravatar = ({ size, message, variant, }) => (`//www.gravatar.com/avatar/${getDigest(message)}?f=y&s=${size}&d=${getVariant(variant)}`)
 const getSrcGravatar = ({ size, message, variant, }) => (`//www.gravatar.com/avatar/${getDigest(message)}?f=y&s=${size}&d=${variant}`)
 const getSrcRobohash = ({ message, variant, }) => (`//robohash.org/${getDigest(message)}.png${getRoboExt(variant)}`)
 const getSrc = props => {
   const { variant } = props;
   const ref = {
-    adorable  : getSrcAdorable(props) ,
-    wavatar   : getSrcGravatar(props) ,
-    monsterid : getSrcGravatar(props) ,
-    monster   : getSrcGravatar(props) ,
-    retro     : getSrcGravatar(props) ,
-    random    : getSrcGravatar(props) ,
-    identicon : getSrcGravatar(props) ,
-    mp        : getSrcGravatar(props) ,
-    ui        : getSrcUiAvatar(props) ,
-    robohash  : getSrcRobohash(props) ,
-    robohash1 : getSrcRobohash(props) ,
-    robohash2 : getSrcRobohash(props) ,
-    robohash3 : getSrcRobohash(props) ,
-    robohash4 : getSrcRobohash(props) ,
-    robohashx : getSrcRobohash(props) ,
+    adorable  : getSrcAdorable      (props) ,
+    wavatar   : getSrcGravatar      (props) ,
+    monsterid : getSrcGravatar      (props) ,
+    monster   : getSrcGravatar      (props) ,
+    retro     : getSrcGravatar      (props) ,
+    random    : getSrcGravatar      (props) ,
+    identicon : getSrcGravatar      (props) ,
+    mp        : getSrcGravatar      (props) , // user icon (mystery person)
+    ui        : getSrcUiAvatarGrey  (props) , // user initials greyscale
+    uic       : getSrcUiAvatarColor (props) , // user initials with color
+    robohash  : getSrcRobohash      (props) ,
+    robohash1 : getSrcRobohash      (props) ,
+    robohash2 : getSrcRobohash      (props) ,
+    robohash3 : getSrcRobohash      (props) ,
+    robohash4 : getSrcRobohash      (props) ,
+    robohashx : getSrcRobohash      (props) ,
   };
   const out = ref[variant];
   // console.log('src\n', out);
@@ -64,9 +75,9 @@ const getSrc = props => {
 
 class HashAvatar extends Component {
   
-  state = { 
-    digest: null,
-  }
+  // state = { 
+  //   digest: null,
+  // }
 
   image = props => (
     <img
@@ -103,8 +114,11 @@ class HashAvatar extends Component {
   )
 
   render() {
-    const { classes, message, type, variant, size, rounded, } = this.props;
-    const { digest, } = this.state;
+    const {
+      // classes, message, variant, size, rounded,
+      type,
+    } = this.props;
+    // const { digest, } = this.state;
     const { props, image, } = this;
     const img = image(props);
     return (
@@ -127,7 +141,7 @@ HashAvatar.propTypes = {
   variant: PropTypes.oneOf([
     'adorable' , 'wavatar'   , 'monsterid' , 'retro'     ,
     'robohash' , 'robohash1' , 'robohash2' , 'robohash3' , 'robohash4' , 'robohashx' ,
-    'mp'       , 'identicon' , 'ui'        ,  // 'random' (deprecated),
+    'mp'       , 'identicon' , 'ui'        , 'uic'       , // 'random' (deprecated),
   ]),
 };
 
