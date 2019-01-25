@@ -31,7 +31,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 // import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import Avatar from '@material-ui/core/Avatar';
+// import Avatar from '@material-ui/core/Avatar';
 // import ImageIcon from '@material-ui/icons/Image';
 // import WorkIcon from '@material-ui/icons/Work';
 // import BeachAccessIcon from '@material-ui/icons/BeachAccess';
@@ -132,12 +132,15 @@ class MasterDetail extends Component {
         key={item.timestamp}
         onClick={() => handleToggle(item, list,)}
       >
-        <Avatar>
-          {
-          // <BeachAccessIcon />
-          }
-          <HashAvatar message={item.timestamp} />
-        </Avatar>
+        {
+        // <Avatar>
+        //   <BeachAccessIcon />
+        // </Avatar>
+        }
+        <HashAvatar
+          message={item.timestamp}
+          variant="wavatar" //"robohash4" //"retro" //"monsterid" //"wavatar" //"adorable" //"random"(deprecated)
+        />
         <ListItemText primary="Vacation" secondary={item.name} />
         <ListItemSecondaryAction className="pr-16">
           <IconButton
