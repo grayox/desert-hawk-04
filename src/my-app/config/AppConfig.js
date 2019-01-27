@@ -40,7 +40,7 @@ export const avatarOptions = [
   // { label : 'Random'    , value : 'robohashx' , } ,
   { label : 'Retro'     , value : 'retro'     , } ,
   { label : 'Pattern'   , value : 'identicon' , } ,
-  { label : 'Initials'  , value : 'ui'        , } , // user initials greyscale
+  { label : 'Code'      , value : 'ui'        , } , // user initials greyscale
   { label : 'Color'     , value : 'uic'       , } , // user initials with color
   { label : 'Generic'   , value : 'mp'        , } , // user icon (mystery person)
 ]

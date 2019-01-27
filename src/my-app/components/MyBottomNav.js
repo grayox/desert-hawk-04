@@ -23,16 +23,19 @@ import {
 
 const styles = {
   // ref: https://stackoverflow.com/a/54375949/1640892
+  // demo: https://codesandbox.io/s/wq02759kk
   root: {
     width: '100vw',
     color: 'yellow',
+    background: 'pink',
+    // bgcolor: 'pink',
     // '&$active': {
     '&$selected': {
-      color: 'blue',
+      color: 'blue', // targets label and icon when selected.color is not used below
     },
   },
   selected: {
-    color: 'red',
+    // color: 'red', // targets label only, no icon
   },
 };
 
@@ -59,6 +62,7 @@ class SimpleBottomNavigation extends Component {
     const { value, } = this.state;
     const { handleChange, showLabels, } = this;
 
+    const actionClasses = this.props.classes;
     return (
       <BottomNavigation
         className={classes.root}
@@ -67,6 +71,7 @@ class SimpleBottomNavigation extends Component {
         value={value}
         onChange={handleChange}
         // selectedColor="yellow"
+        color="secondary"
       >
       {
         // <BottomNavigationAction component={Link} to={items[0]} label="Dashboard" icon={<RestoreIcon />}    />
@@ -75,7 +80,8 @@ class SimpleBottomNavigation extends Component {
         items.map((item, index) => (
           <BottomNavigationAction
             key={item.title}
-            className={classes.root}
+            // className={classes.root}
+            classes={actionClasses}
             component={Link}
             to={items[index].url}
             label={item.title}
