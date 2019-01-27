@@ -1,3 +1,10 @@
+// usage
+// import HashAvatar from 'my-app/components/HashAvatar';
+// <HashAvatar
+// message={item.timestamp}
+// // variant="uic" //"robohashx" //"robohash4" //"retro" //"monsterid" //"wavatar" //"adorable" //"identicon" //"mp" //"ui" //"random"(deprecated)
+// />
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -29,13 +36,14 @@ const getRoboExt = variant => {
 const getColors = hex => bgTextColors(hex);
 const getInitials = message => {
   const digest = getDigest(message);
-  const out = `${digest.charAt(0)}+${digest.charAt(1)}`;
+  const out = `${digest.charAt(0)}+${digest.charAt(1)}+${digest.charAt(2)}`;
   // console.log('initials\n', out);
   return out;
 }
 
+const getSrcMp = 'assets/images/avatars/profile.jpg'
 const getSrcAdorable = ({ size, message, }) => (`//api.adorable.io/avatars/${size}/${getDigest(message)}.png`) // src="//api.adorable.io/avatars/50/loremipsum.png"
-const getSrcUiAvatarGrey = ({ size, message, }) => (`//ui-avatars.com/api/?name=${getInitials(message)}&size=${size}`) // src="//ui-avatars.com/api/?name=F+7&background=FF0000&color=FFFFFF&size=50"
+const getSrcUiAvatarGrey = ({ size, message, }) => (`//ui-avatars.com/api/?name=${getInitials(message)}&size=${size}&length=3`) // src="//ui-avatars.com/api/?name=F+7&background=FF0000&color=FFFFFF&size=50"
 const getSrcUiAvatarColor = props => {
   const hex = getDigest(props.message).slice(-6);
   const colors = getColors(hex);
@@ -51,22 +59,23 @@ const getSrcRobohash = ({ message, variant, }) => (`//robohash.org/${getDigest(m
 const getSrc = props => {
   const { variant } = props;
   const ref = {
-    adorable  : getSrcAdorable      (props) ,
     wavatar   : getSrcGravatar      (props) ,
     monsterid : getSrcGravatar      (props) ,
-    monster   : getSrcGravatar      (props) ,
-    retro     : getSrcGravatar      (props) ,
-    random    : getSrcGravatar      (props) ,
-    identicon : getSrcGravatar      (props) ,
-    mp        : getSrcGravatar      (props) , // user icon (mystery person)
-    ui        : getSrcUiAvatarGrey  (props) , // user initials greyscale
-    uic       : getSrcUiAvatarColor (props) , // user initials with color
+    // monster   : getSrcGravatar      (props) ,
+    // random    : getSrcGravatar      (props) ,
     robohash  : getSrcRobohash      (props) ,
     robohash1 : getSrcRobohash      (props) ,
     robohash2 : getSrcRobohash      (props) ,
     robohash3 : getSrcRobohash      (props) ,
     robohash4 : getSrcRobohash      (props) ,
     robohashx : getSrcRobohash      (props) ,
+    retro     : getSrcGravatar      (props) ,
+    adorable  : getSrcAdorable      (props) ,
+    identicon : getSrcGravatar      (props) ,
+    uic       : getSrcUiAvatarColor (props) , // user initials with color
+    ui        : getSrcUiAvatarGrey  (props) , // user initials greyscale
+ // mp        : getSrcGravatar      (props) , // user icon (mystery person)
+    mp        : getSrcMp                    , // user icon (mystery person)
   };
   const out = ref[variant];
   // console.log('src\n', out);
@@ -110,7 +119,15 @@ class HashAvatar extends Component {
       // src={getSrcAdorable(props)}
       // src={getSrcRobohash(props)}
       src={getSrc(props)}
+
+      // handle errors
+      // src="assets/images/avatars/profile.jpg"
+      // src={getSrcMp}
+      alt="Image not found"
+      // onerror="this.onerror=null;this.src='assets/images/avatars/profile.jpg';"
+      onerror={`this.onerror=null;this.src='${getSrcMp}';`}
     />
+
   )
 
   render() {

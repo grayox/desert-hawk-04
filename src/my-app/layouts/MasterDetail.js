@@ -37,7 +37,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 // import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 
 import HashAvatar from 'my-app/components/HashAvatar';
-import { componentsNavConfig, } from 'my-app/config/AppConfig.js';
+// import { componentsNavConfig, } from 'my-app/config/AppConfig';
 
 // 4 Ways to Style React Components: https://codeburst.io/4-four-ways-to-style-react-components-ac6f323da822
 // const MasterDetailStyle = {
@@ -69,7 +69,7 @@ class MasterDetail extends Component {
   }
 
   handleToggle = (model, list,) => {
-    console.log('model\n', model);
+    // console.log('model\n', model);
     const { detail } = this.state; 
     this.setState(
       { detail: null },
@@ -139,7 +139,7 @@ class MasterDetail extends Component {
         }
         <HashAvatar
           message={item.timestamp}
-          variant="uic" //"robohashx" //"robohash4" //"retro" //"monsterid" //"wavatar" //"adorable" //"identicon" //"mp" //"ui" //"random"(deprecated)
+          // variant="uic" //"robohashx" //"robohash4" //"retro" //"monsterid" //"wavatar" //"adorable" //"identicon" //"mp" //"ui" //"random"(deprecated)
         />
         <ListItemText primary="Vacation" secondary={item.name} />
         <ListItemSecondaryAction className="pr-16">
@@ -191,9 +191,11 @@ class MasterDetail extends Component {
                   // button
                   // onClick={() => handleToggle(item)}
                 >
-                  {/* <Avatar>
-                    <BeachAccessIcon />
-                  </Avatar> */}
+                  {
+                  // <Avatar>
+                  //   <BeachAccessIcon />
+                  // </Avatar>
+                  }
                   <ListItemText
                     primary={keyName}
                     secondary={ condensed ? null : item[keyName] }

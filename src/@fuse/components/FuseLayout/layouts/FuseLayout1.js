@@ -246,7 +246,12 @@ class FuseLayout1 extends Component {
   };
 
   render() {
-    const { classes, toolbar, footer, navbarHeader, navbarContent, settings, navbar, navbarOpenMobile, navbarCloseMobile, navbarOpenFolded, navbarCloseFolded, children, leftSidePanel, rightSidePanel, contentWrapper } = this.props;
+    const {
+      classes, toolbar, footer, settings,
+      navbar, navbarOpenMobile, navbarCloseMobile,
+      navbarHeader, navbarContent, navbarOpenFolded, navbarCloseFolded,
+      children, leftSidePanel, rightSidePanel, contentWrapper
+    } = this.props;
     // console.warn('FuseLayout:: rendered');
     const layoutConfig = settings.layout.config;
 
@@ -370,7 +375,10 @@ class FuseLayout1 extends Component {
 
     const footerTemplate = (
       <MuiThemeProvider theme={FuseThemes[settings.theme.footer]}>
-        <AppBar id="fuse-footer" className={classNames(classes.footerWrapper)} color="default">
+        <AppBar id="fuse-footer" className={classNames(classes.footerWrapper, "md:hidden",)} 
+          // color="default"
+          color="white"
+          >
           <Toolbar className="p-0">
             <div className={classNames(classes.footer)}>
               {footer}

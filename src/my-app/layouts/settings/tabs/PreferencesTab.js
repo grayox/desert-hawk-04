@@ -5,9 +5,12 @@ import classNames from 'classnames';
 
 import {
   // Avatar, Button, Icon, IconButton,
-  AppBar, Card, CardContent, List, ListItem, ListItemSecondaryAction, Menu, MenuItem, ListItemText, Toolbar, Typography
+  AppBar, Card, CardContent, Menu, MenuItem,Toolbar, Typography,
+  List, ListItem, ListItemSecondaryAction, ListItemText,
 } from '@material-ui/core';
+
 import { FuseAnimateGroup } from '@fuse';
+import AvatarSelect from 'my-app/components/selects/AvatarSelect';
 
 // import List from '@material-ui/core/List';
 // import ListItem from '@material-ui/core/ListItem';
@@ -340,6 +343,24 @@ function PreferencesTab(props) {
                     ))}
                   </Menu> */}
 
+                  <ListItem
+                    button
+                    aria-haspopup="true"
+                    aria-controls="menu2"
+                    aria-label="Avatar"
+                    onClick={onClickListItemMenu1}
+                  >
+                    <ListItemIcon>
+                      <Brightness4Icon />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="Avatar"
+                      // secondary={optionsMenu1[selectedIndexMenu1]}
+                      secondary={optionsMenu1[settings.darkBackground]}
+                    />
+                  </ListItem>
+                  <AvatarSelect />
+                  
                   <ListItem
                     button
                     aria-haspopup="true"

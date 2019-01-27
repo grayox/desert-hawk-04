@@ -18,10 +18,10 @@ import {
 
 const styles = theme => ({
 
-  root     : {
-      display   : 'flex',
-      alignItems: 'center',
-      width     : '100%'
+  root: {
+    display    : 'flex'   ,
+    alignItems : 'center' ,
+    width      : '100%'   ,
   },
   // separator: {
   //     width          : 1,
@@ -68,7 +68,13 @@ class MyAppBar extends Component {
         // </AppBar>
 
       <div className={classNames(classes.root, "lg:hidden")}>
-        <AppBar position="static">
+        <AppBar
+          // ref: https://github.com/mui-org/material-ui/issues/10076#issuecomment-361232810
+          // position="static" // somtimes height shortens depending on page/view
+          // position="sticky" // also seems to shrink with content similar to static
+          // position="fixed" // depending on screen width, can overhang content; e.g., laptop 1024px
+          position="standard" // somewhat solves overhang problem but still shrinks sometimes
+        >
           <Toolbar>
             <IconButton
               className={classes.leftButton}
@@ -76,15 +82,21 @@ class MyAppBar extends Component {
               color="inherit"
               aria-label="Menu"
             >
-              {/* <MenuIcon /> */}
+              {
+              // <MenuIcon />
+              }
               <Icon>menu</Icon>
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.grow}>
               News
             </Typography>
-            {/* <Button color="inherit">Login</Button> */}
+            {
+            // <Button color="inherit">Login</Button>
+            }
             <IconButton color="inherit" aria-label="Logout">
-              {/* <Icon>exit_to_app</Icon> */}
+              {
+              // <Icon>exit_to_app</Icon>
+              }
               <Icon>more_vert</Icon>
             </IconButton>
           </Toolbar>

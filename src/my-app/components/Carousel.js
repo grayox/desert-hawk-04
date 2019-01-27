@@ -16,6 +16,21 @@ const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const tutorialSteps = [
   {
+    label: 'This image is served locally to demonstrate the proper path served from public/assets/',
+    imgPath:
+      'public/assets/images/demo-content/morain-lake.jpg',
+  },
+  {
+    label: 'morain-lake served from public/assets/',
+    imgPath:
+      'public/assets/images/profile/morain-lake.jpg',
+  },
+  {
+    label: 'Served from public/assets/',
+    imgPath:
+      '/public/assets/images/profile/never-stop-changing.jpg',
+  },
+  {
     label: 'San Francisco – Oakland Bay Bridge, United States',
     imgPath:
       'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',

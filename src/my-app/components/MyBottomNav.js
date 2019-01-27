@@ -22,12 +22,17 @@ import {
 } from '@material-ui/core';
 
 const styles = {
+  // ref: https://stackoverflow.com/a/54375949/1640892
   root: {
     width: '100vw',
-    // color: 'yellow',
+    color: 'yellow',
     // '&$active': {
-    //   color: 'yellow',
-    // },
+    '&$selected': {
+      color: 'blue',
+    },
+  },
+  selected: {
+    color: 'red',
   },
 };
 
@@ -44,18 +49,21 @@ class SimpleBottomNavigation extends Component {
   };
 
   handleChange = ( event, value, ) => {
-    this.setState({ value });
+    this.setState({ value, });
   };
+
+  // showLabels = () => items.length < 5;
 
   render() {
     const { classes, } = this.props;
     const { value, } = this.state;
-    const { handleChange, } = this;
+    const { handleChange, showLabels, } = this;
 
     return (
       <BottomNavigation
         className={classes.root}
         showLabels
+        // showLabels={showLabels}
         value={value}
         onChange={handleChange}
         // selectedColor="yellow"
@@ -67,11 +75,12 @@ class SimpleBottomNavigation extends Component {
         items.map((item, index) => (
           <BottomNavigationAction
             key={item.title}
+            className={classes.root}
             component={Link}
             to={items[index].url}
             label={item.title}
-            // icon={item.icon}
             icon={<Icon>{item.icon}</Icon>}
+            // icon={item.icon}
           />
         ))
       }

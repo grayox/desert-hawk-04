@@ -17,15 +17,18 @@ import { FuseLayout, FuseTheme, FuseAuthorization } from '@fuse';
 import MainToolbar from './main/MainToolbar';
 import MainNavbarContent from './main/MainNavbarContent';
 import MainNavbarHeader from './main/MainNavbarHeader';
-import MainFooter from './main/MainFooter';
+// import MainFooter from './main/MainFooter';
 import jssExtend from 'jss-extend'
 // import QuickPanel from 'main/quickPanel/QuickPanel';
 import store from 'store';
-import SettingsPanel from 'main/SettingsPanel';
+// import SettingsPanel from 'main/SettingsPanel';
 // import ChatPanel from 'main/chatPanel/ChatPanel';
 import { Auth } from 'auth';
 
-import MyBottomNav from 'my-app/components/MyBottomNav'; // my add
+// begin my add
+import MyBottomNav from 'my-app/components/MyBottomNav';
+import { Hidden } from '@material-ui/core';
+// end my add
 
 const jss = create({
   ...jssPreset(),

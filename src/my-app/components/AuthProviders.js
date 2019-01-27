@@ -71,9 +71,14 @@ class AuthProviders extends Component {
         <List component='nav'>
           {
             items.map(item => (
-              <ListItem key={item.label} button onClick={handleClick}>
-                <ListItemIcon className='w-24'>
-                  <FontAwesomeIcon className='text-4xl' icon={item.icon} />
+              <ListItem
+                key={item.label}
+                // className="cursor-pointer hover:bg-grey"
+                button
+                onClick={handleClick}
+              >
+                <ListItemIcon className="w-24">
+                  <FontAwesomeIcon className="text-4xl" icon={item.icon} />
                 </ListItemIcon>
                 {/* <ListItemText className="text-4xl" primary={item.label}/> */}
                 <Typography className="text-base ml-12">{item.label}</Typography>

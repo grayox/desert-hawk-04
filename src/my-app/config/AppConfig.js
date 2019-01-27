@@ -28,6 +28,23 @@ export const firebaseConfig = {
   messagingSenderId: "682044250674",
 }
 
+export const avatarOptions = [
+  { label : 'Friendly'  , value : 'wavatar'   , } ,
+  { label : 'Kitty'     , value : 'robohash4' , } ,
+  { label : 'Cuddly'    , value : 'adorable'  , } ,
+  { label : 'Wacky'     , value : 'monsterid' , } ,
+  // { label : 'Metalloid' , value : 'robohash'  , } ,
+  { label : 'Metalloid' , value : 'robohash1' , } ,
+  { label : 'Humanoid'  , value : 'robohash2' , } ,
+  { label : 'Bot'       , value : 'robohash3' , } ,
+  // { label : 'Random'    , value : 'robohashx' , } ,
+  { label : 'Retro'     , value : 'retro'     , } ,
+  { label : 'Pattern'   , value : 'identicon' , } ,
+  { label : 'Initials'  , value : 'ui'        , } , // user initials greyscale
+  { label : 'Color'     , value : 'uic'       , } , // user initials with color
+  { label : 'Generic'   , value : 'mp'        , } , // user icon (mystery person)
+]
+
 export const pickUserFromAuth = auth => {
   const picked = _.pick(auth, userFieldsToPick);
   picked.photoURL = picked.providerData[0].photoURL; // don't know how to get subproperties from _.pick()
