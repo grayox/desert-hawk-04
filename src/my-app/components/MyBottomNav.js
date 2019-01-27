@@ -21,23 +21,23 @@ import {
   // IconButton,
 } from '@material-ui/core';
 
-const styles = {
+const styles = theme => ({
   // ref: https://stackoverflow.com/a/54375949/1640892
   // demo: https://codesandbox.io/s/wq02759kk
   root: {
     width: '100vw',
-    color: 'yellow',
-    background: 'pink',
+    color: theme.palette.text.secondary, //'yellow',
+    background: theme.palette.secondary.main, //'pink',
     // bgcolor: 'pink',
     // '&$active': {
     '&$selected': {
-      color: 'blue', // targets label and icon when selected.color is not used below
+      color: theme.palette.text.primary, //'blue', // targets label and icon when selected.color is not used below
     },
   },
   selected: {
     // color: 'red', // targets label only, no icon
   },
-};
+});
 
 const items = componentsNavConfig.filter(ob => ob.bottomNav) // filters in only objects with bottomNav property
 // [
@@ -99,4 +99,4 @@ SimpleBottomNavigation.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SimpleBottomNavigation);
+export default withStyles(styles, {withTheme: true})(SimpleBottomNavigation);

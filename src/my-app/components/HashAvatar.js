@@ -9,9 +9,22 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import Avatar from '@material-ui/core/Avatar';
+// material-ui
+import {
+  // withStyles,
+  Avatar, CircularProgress,
+} from '@material-ui/core';
+
+import Img from 'react-image';
+import VisibilitySensor from "react-visibility-sensor";
 import hash from 'object-hash'; // https://www.npmjs.com/package/object-hash
 import bgTextColors from 'my-app/components/bgTextColors';
+
+// const styles = theme => ({
+//   progress: {
+//     margin: theme.spacing.unit * 2,
+//   },
+// });
 
 // const variants = [
 //   'wavatar', 'monsterid', 'retro', 'adorable', // 'random',
@@ -88,7 +101,7 @@ class HashAvatar extends Component {
   //   digest: null,
   // }
 
-  image = props => (
+  image1 = props => (
     <img
       alt="avatar"
 
@@ -121,13 +134,24 @@ class HashAvatar extends Component {
       src={getSrc(props)}
 
       // handle errors
+      // ref: https://stackoverflow.com/a/9891041/1640892
       // src="assets/images/avatars/profile.jpg"
       // src={getSrcMp}
       alt="Image not found"
       // onerror="this.onerror=null;this.src='assets/images/avatars/profile.jpg';"
       onerror={`this.onerror=null;this.src='${getSrcMp}';`}
     />
+  )
 
+  image = props => (
+    <VisibilitySensor>
+      <Img
+        src={[getSrc(props), getSrcMp,]}
+        // loader={<img src={getSrcMp} />}
+        loader={<CircularProgress color="secondary" />} // className={this.props.classes.progress}
+        unloader={<img src={getSrcMp} />}
+      />
+    </VisibilitySensor>
   )
 
   render() {
@@ -144,6 +168,7 @@ class HashAvatar extends Component {
       </React.Fragment>
     );
   }
+
 }
 
 HashAvatar.propTypes = {
@@ -172,3 +197,4 @@ HashAvatar.defaultProps = {
 };
  
 export default HashAvatar;
+// export default withStyles(styles)(HashAvatar);
