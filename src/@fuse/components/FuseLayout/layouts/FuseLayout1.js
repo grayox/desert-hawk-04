@@ -82,6 +82,7 @@ const styles = theme => ({
     flex: '1 1 auto'
   },
   content: {
+    // padding: '32px 0', // my add
     position: 'relative',
     display: 'flex',
     overflow: 'auto',

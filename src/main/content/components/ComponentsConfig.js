@@ -54,15 +54,21 @@ const items = [
     }),
   },
   {
-    path: '/feedback',
-    component: FuseLoadable({
-      loader: () => import('my-app/layouts/feedback/Feedback')
-    }),
-  },
-  {
     path: '/settings',
     component: FuseLoadable({
       loader: () => import('my-app/layouts/settings/Settings')
+    }),
+  },
+  {
+    path: '/feedback',
+    component: FuseLoadable({
+      loader: () => import('my-app/layouts/overhead/Feedback')
+    }),
+  },
+  {
+    path: '/help',
+    component: FuseLoadable({
+      loader: () => import('my-app/layouts/overhead/Help')
     }),
   },
 ]

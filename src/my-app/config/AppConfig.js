@@ -79,7 +79,7 @@ export const bizCategoryItems = [
   { value : 'insurance' , label : 'Insurance' , icon : AssignmentIcon     } ,
 ]
 
-// sync
+// syncronize: changes in either of the following files must be hard coded in the other
 // src/fuse-configs/fuseNavigationConfig.js
 // src/main/content/components/ComponentsConfig.js
 export const componentsNavConfig = [
@@ -129,14 +129,8 @@ export const componentsNavConfig = [
     url       : '/contacts',
     path      : 'my-app/layouts/contacts/Contacts',
   },
-  {
-    id        : 'feedback',
-    title     : 'Feedback',
-    type      : 'item',
-    icon      : 'feedback',
-    url       : '/feedback',
-    path      : 'my-app/layouts/feedback/Feedback',
-  },
+
+  // see specs here: https://material.io/design/communication/help-feedback.html#use-placement
   {
     id        : 'settings',
     title     : 'Settings',
@@ -146,6 +140,29 @@ export const componentsNavConfig = [
     path      : 'my-app/layouts/settings/Settings',
     bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
   },
+  {
+    id        : 'feedback',
+    title     : 'Send feedback',
+    type      : 'item',
+    icon      : 'feedback',
+    url       : '/feedback',
+    path      : 'my-app/layouts/overhead/Feedback',
+    bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
+  },
+  {
+    id        : 'help',
+    title     : 'Help',
+    type      : 'item',
+    icon      : 'help',
+    url       : '/help',
+    path      : 'my-app/layouts/overhead/Help',
+    bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
+  },
+
+]
+
+export const standardNavConfig = [
+
 ]
 
 class FetchFirestore extends Component {

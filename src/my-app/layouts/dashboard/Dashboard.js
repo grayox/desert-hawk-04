@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
-import { withStyles } from '@material-ui/core/styles';
+// import { withStyles } from '@material-ui/core/styles';
 // import withStyles from "@material-ui/core/styles/withStyles";
 
 // react plugin for creating charts
@@ -21,6 +21,7 @@ import { updateSettings } from 'my-app/store/actions/my-actions';
 // import Icon from "@material-ui/core/Icon";
 import {
   // AppBar, Toolbar, Typography,
+  withStyles, CssBaseline,
   Hidden, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
 } from '@material-ui/core';
 
@@ -59,10 +60,18 @@ import '@firebase/firestore';
 const db = firebase.firestore();
 
 const styles = theme => ({
-  ...dashboardStyle,
-  container: {
-    padding: '24px',
+
+  root: {
+    display: 'flex',
+    ...dashboardStyle,
   },
+
+  container: {
+    display: 'flex',
+    padding: '24px',
+    ...theme.mixins.toolbar,
+  },
+
 });
 
 const INITIAL_STATE_DIALOG = {
@@ -406,12 +415,13 @@ class Dashboard extends Component {
 
     return (
       <React.Fragment>
-      {/* <div> */}
-        { ( show === 'greet' ) ? <SettingsMessage onClick={handleClickGeo} />           : null }
-        { ( show === 'step'  ) ? <SettingsStepper onSave={handleSaveSettingsStepper} /> : null }
-        { ( show === 'main'  ) ? main                                                   : null }
-        {/* <Album /> */}
-      {/* </div> */}
+        <CssBaseline />
+        <div  className={classes.drawerHeader}>
+          { ( show === 'greet' ) ? <SettingsMessage onClick={handleClickGeo} />           : null }
+          { ( show === 'step'  ) ? <SettingsStepper onSave={handleSaveSettingsStepper} /> : null }
+          { ( show === 'main'  ) ? main                                                   : null }
+          {/* <Album /> */}
+        </div>
       </React.Fragment>
     );
   }

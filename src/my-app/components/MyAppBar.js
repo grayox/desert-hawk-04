@@ -16,6 +16,10 @@ import {
   // Avatar, ListItemIcon, ListItemText, Popover, MenuItem, Hidden
 } from '@material-ui/core';
 
+// import '@vaadin/vaadin-icons/vaadin-icons.js';
+
+import Headroom from 'my-app/components/AutoHideOnScroll';
+
 const styles = theme => ({
 
   root: {
@@ -67,6 +71,7 @@ class MyAppBar extends Component {
         //   </Toolbar>
         // </AppBar>
 
+      <Headroom>
       <div className={classNames(classes.root, "lg:hidden")}>
         <AppBar
           color="secondary"
@@ -99,12 +104,14 @@ class MyAppBar extends Component {
             <IconButton color="inherit" aria-label="Logout">
               {
               // <Icon>exit_to_app</Icon>
+              // <iron-icon icon="vaadin:sign-out" />
               }
               <Icon>more_vert</Icon>
             </IconButton>
           </Toolbar>
         </AppBar>
       </div>
+      </Headroom>
 
       // </React.Fragment>
 
