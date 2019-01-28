@@ -108,7 +108,7 @@ function DashboardGridItems(props) {
                               // secondary={name}
                               // secondary={user.data.displayName}
                             />
-                            <ListItemSecondaryAction className="pr-16">
+                            <ListItemSecondaryAction className="pr-32">
                               {cell.data}
                             </ListItemSecondaryAction>
                           </ListItem>

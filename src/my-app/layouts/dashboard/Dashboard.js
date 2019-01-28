@@ -21,7 +21,7 @@ import { updateSettings } from 'my-app/store/actions/my-actions';
 // import Icon from "@material-ui/core/Icon";
 import {
   // AppBar, Toolbar, Typography,
-  withStyles, CssBaseline,
+  withStyles, // CssBaseline,
   Hidden, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
 } from '@material-ui/core';
 
@@ -62,14 +62,12 @@ const db = firebase.firestore();
 const styles = theme => ({
 
   root: {
-    display: 'flex',
+    // display: 'flex',
     ...dashboardStyle,
   },
 
   container: {
-    display: 'flex',
-    padding: '24px',
-    ...theme.mixins.toolbar,
+    paddingTop: '56px',
   },
 
 });
@@ -414,15 +412,20 @@ class Dashboard extends Component {
     );
 
     return (
-      <React.Fragment>
-        <CssBaseline />
-        <div  className={classes.drawerHeader}>
+      // <React.Fragment>
+        // <CssBaseline />
+        <div
+          className={classes.container}
+          // className="pt-32"
+        >
           { ( show === 'greet' ) ? <SettingsMessage onClick={handleClickGeo} />           : null }
           { ( show === 'step'  ) ? <SettingsStepper onSave={handleSaveSettingsStepper} /> : null }
           { ( show === 'main'  ) ? main                                                   : null }
-          {/* <Album /> */}
+          {
+          // <Album />
+          }
         </div>
-      </React.Fragment>
+      // </React.Fragment>
     );
   }
 
