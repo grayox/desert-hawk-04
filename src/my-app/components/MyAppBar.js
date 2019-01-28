@@ -17,6 +17,7 @@ import {
 } from '@material-ui/core';
 
 // import '@vaadin/vaadin-icons/vaadin-icons.js';
+import { GoSignOut } from 'react-icons/go'; // https://react-icons.netlify.com/#/
 
 import Headroom from 'my-app/components/AutoHideOnScroll';
 
@@ -101,10 +102,11 @@ class MyAppBar extends Component {
             {
             // <Button color="inherit">Login</Button>
             }
-            <IconButton color="inherit" aria-label="Logout">
+            <IconButton color="inherit" aria-label="Overflow">
               {
               // <Icon>exit_to_app</Icon>
               // <iron-icon icon="vaadin:sign-out" />
+              // <GoSignOut />
               }
               <Icon>more_vert</Icon>
             </IconButton>
