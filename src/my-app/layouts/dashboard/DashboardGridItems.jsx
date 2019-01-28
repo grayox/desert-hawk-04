@@ -68,8 +68,8 @@ function DashboardGridItems(props) {
                 // className="px-0"
                 // key={row.name}
                 delay={200}
-                enter={{ animation: 'transition.slideRightBigIn' }}
-                leave={{ animation: 'transition.slideLeftBigOut' }}
+                enter={{ animation: 'transition.slideUpBigIn' }}
+                leave={{ animation: 'transition.slideDownBigOut' }}
               >
                 {
                   rows.map(row => (

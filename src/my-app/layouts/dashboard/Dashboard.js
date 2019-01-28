@@ -65,10 +65,10 @@ const styles = theme => ({
     // display: 'flex',
     ...dashboardStyle,
   },
-
+  
   wrapper: {
-    // verticalAlign: 'top', // overcomes default
     paddingTop: '56px', // clears <AppBar />
+    // verticalAlign: 'top', // overcomes default
   },
 
 });
