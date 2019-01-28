@@ -47,6 +47,11 @@ import FetchFirestore from 'my-app/config/AppConfig'; // success
 // end my add
 
 const styles = theme => ({
+  wrapper: {
+    minHeight: '100vh',
+    verticalAlign: 'top', // overcomes default
+    paddingTop: '56px', // clears <AppBar />
+  },
   layoutRoot: {},
   layoutToolbar: {
     padding: 0
@@ -375,7 +380,7 @@ class ProfilePage extends Component {
 
     return (
 
-      <React.Fragment>
+      <div className={classes.wrapper}>
         <FetchFirestore key={firestoreKey} />
 
         <Menu
@@ -552,8 +557,7 @@ class ProfilePage extends Component {
           }
         />
 
-      {/* </FetchFirestore> */}
-      </React.Fragment>
+      </div>
 
     )
   };

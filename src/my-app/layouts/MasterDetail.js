@@ -16,9 +16,9 @@ import Paper from '@material-ui/core/Paper';
 // @material-ui/core
 // import Icon from "@material-ui/core/Icon";
 import {
-  CssBaseline, AppBar, Toolbar, Typography,
+  AppBar, Toolbar, Typography,
   Slide, Icon, IconButton,
-  // Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
+  // CssBaseline, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
 } from '@material-ui/core';
 
 // import {FuseAnimateGroup, FuseHighlight, FusePageSimple} from '@fuse';
@@ -258,21 +258,23 @@ class MasterDetail extends Component {
     const { classes, items, } = this.props;
     const { getSummary, getHeader, } = this;
     return (
-      // <Slide
-      //   direction="right"
-      //   in={true}
-      //   mountOnEnter
-      //   unmountOnExit
-      // >
-        <React.Fragment>
-          {getHeader()}
-          <Paper className={classNames(classes.paper, "z-10")}>
-            <List className="m-0 p-0" component="nav"> {/* subheader={<ListSubheader className="text-left">Items</ListSubheader>} */}
-              {items.map(item => <div className="border-b" key={item.timestamp}>{getSummary(item, true,)}</div>)}
-            </List>
-          </Paper>
-        </React.Fragment>
-      // </Slide>
+      <React.Fragment>
+        {getHeader()}
+        <Paper className={classNames(classes.paper, "z-10")}>
+          <List className="m-0 p-0" component="nav">
+            {
+              // subheader={<ListSubheader className="text-left">Items</ListSubheader>}
+            }
+            <FuseAnimateGroup
+              delay={500}
+              enter={{ animation: "transition.slideUpBigIn" }}
+              leave={{ animation: "transition.slideLeftOut" }}
+            >
+              {items.map(item => <div className="border-b" key={item.timestamp}>{getSummary(item, true)}</div>)}
+            </FuseAnimateGroup>
+          </List>
+        </Paper>
+      </React.Fragment>
     )
   }
 
@@ -282,31 +284,21 @@ class MasterDetail extends Component {
     const { getListPane, getDetailPane, } = this;
 
     return (
-      <React.Fragment>
-        <CssBaseline />
-        <div className={classes.wrapper}>
-          <FuseAnimateGroup     
-            delay={500}
-            enter={{ animation: "transition.slideUpBigIn" }}
-            leave={{ animation: "transition.slideLeftOut" }}
-          >
-            <React.Fragment>
-              {/* mobile */}
-              <Hidden smUp>{detail ? getDetailPane() : getListPane()}</Hidden>
-              {/* laptop */}
-              <Hidden xsDown>   
-                <div className={classNames(classes.root, "sm:p-8 md:p-16")}>
-                  <Grid container spacing={8}>
-                    <Grid item xs={12} sm={6}>{getListPane()}</Grid>
-                    <Grid item xs={6}>{getDetailPane()}</Grid>
-                  </Grid>
-                </div>
-              </Hidden>
-            </React.Fragment>
-          </FuseAnimateGroup>      
-        </div>
-      </React.Fragment>
+      <div className={classes.wrapper}>
+        {/* mobile */}
+        <Hidden smUp>{detail ? getDetailPane() : getListPane()}</Hidden>
+        {/* laptop */}
+        <Hidden xsDown>
+          <div className={classNames(classes.root, "sm:p-8 md:p-16")}>
+            <Grid container spacing={8}>
+              <Grid item xs={12} sm={6}>{getListPane()}</Grid>
+              <Grid item xs={6}>{getDetailPane()}</Grid>
+            </Grid>
+          </div>
+        </Hidden>
+      </div>
     );
+
   }
 }
 
