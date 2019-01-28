@@ -66,8 +66,9 @@ const styles = theme => ({
     ...dashboardStyle,
   },
 
-  container: {
-    paddingTop: '56px',
+  wrapper: {
+    // verticalAlign: 'top', // overcomes default
+    paddingTop: '56px', // clears <AppBar />
   },
 
 });
@@ -414,10 +415,7 @@ class Dashboard extends Component {
     return (
       // <React.Fragment>
         // <CssBaseline />
-        <div
-          className={classes.container}
-          // className="pt-32"
-        >
+        <div className={classes.wrapper}>
           { ( show === 'greet' ) ? <SettingsMessage onClick={handleClickGeo} />           : null }
           { ( show === 'step'  ) ? <SettingsStepper onSave={handleSaveSettingsStepper} /> : null }
           { ( show === 'main'  ) ? main                                                   : null }

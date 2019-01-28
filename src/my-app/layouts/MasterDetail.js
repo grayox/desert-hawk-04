@@ -49,6 +49,10 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
   },
+  wrapper: {
+    verticalAlign: 'top', // overcomes default
+    paddingTop: '56px', // clears <AppBar />
+  },
   paper: {
     // padding: theme.spacing.unit * 2,
     textAlign: 'center',
@@ -142,7 +146,7 @@ class MasterDetail extends Component {
           // variant="uic" //"robohashx" //"robohash4" //"retro" //"monsterid" //"wavatar" //"adorable" //"identicon" //"mp" //"ui" //"random"(deprecated)
         />
         <ListItemText primary="Vacation" secondary={item.name} />
-        <ListItemSecondaryAction className="pr-16">
+        <ListItemSecondaryAction className="pr-32">
           <IconButton
             color="inherit"
             aria-label="Back"
@@ -203,7 +207,7 @@ class MasterDetail extends Component {
                   {
                     condensed
                     ?
-                    <ListItemSecondaryAction className="pr-16">
+                    <ListItemSecondaryAction className="pr-32">
                       {item[keyName]}
                     </ListItemSecondaryAction>
                     :
@@ -278,25 +282,27 @@ class MasterDetail extends Component {
     const { getListPane, getDetailPane, } = this;
 
     return (
-      <FuseAnimateGroup
-        delay={500}
-        enter={{ animation: "transition.slideLeftIn" }}
-        leave={{ animation: "transition.slideLeftOut" }}
-      >
-        <React.Fragment>
-          {/* mobile */}
-          <Hidden smUp>{detail ? getDetailPane() : getListPane()}</Hidden>
-          {/* laptop */}
-          <Hidden xsDown>   
-            <div className={classNames(classes.root, "sm:p-8 md:p-16")}>
-              <Grid container spacing={8}>
-                <Grid item xs={12} sm={6}>{getListPane()}</Grid>
-                <Grid item xs={6}>{getDetailPane()}</Grid>
-              </Grid>
-            </div>
-          </Hidden>
-        </React.Fragment>
-      </FuseAnimateGroup>      
+      <div className={classes.wrapper}>
+        <FuseAnimateGroup     
+          delay={500}
+          enter={{ animation: "transition.slideUpBigIn" }}
+          leave={{ animation: "transition.slideLeftOut" }}
+        >
+          <React.Fragment>
+            {/* mobile */}
+            <Hidden smUp>{detail ? getDetailPane() : getListPane()}</Hidden>
+            {/* laptop */}
+            <Hidden xsDown>   
+              <div className={classNames(classes.root, "sm:p-8 md:p-16")}>
+                <Grid container spacing={8}>
+                  <Grid item xs={12} sm={6}>{getListPane()}</Grid>
+                  <Grid item xs={6}>{getDetailPane()}</Grid>
+                </Grid>
+              </div>
+            </Hidden>
+          </React.Fragment>
+        </FuseAnimateGroup>      
+      </div>
     );
   }
 }
