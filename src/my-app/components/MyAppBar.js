@@ -54,7 +54,7 @@ const styles = theme => ({
 
 class MyAppBar extends Component {
 
-  // handleClick = () => this.props.onClick()
+  handleClick = () => this.props.onClick()
 
   render() {
     const { classes, } = this.props;

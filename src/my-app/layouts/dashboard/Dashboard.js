@@ -417,12 +417,14 @@ class Dashboard extends Component {
 
     return (
       <React.Fragment>
-        <MyAppBar
-           id="fuse-toolbar"
-           color="default"
-          //  className={classNames(classes.toolbarWrapper, classes.toolbar,)}
-          //  onClick={navbarOpenMobile}
-        />
+        {
+        // <MyAppBar
+        //    id="fuse-toolbar"
+        //    color="default"
+        //   //  className={classNames(classes.toolbarWrapper, classes.toolbar,)}
+        //   //  onClick={navbarOpenMobile}
+        // />
+        }
         {
         // <CssBaseline />
         }

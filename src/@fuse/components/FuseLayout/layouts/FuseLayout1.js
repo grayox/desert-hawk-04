@@ -11,7 +11,7 @@ import classNames from 'classnames';
 import _ from '@lodash';
 
 // begin my add
-// import MyAppBar from 'my-app/components/MyAppBar';
+import MyAppBar from 'my-app/components/MyAppBar';
 // end my add
 
 const defaultProps = {};
@@ -268,12 +268,27 @@ class FuseLayout1 extends Component {
         </div>
         <Hidden mdDown>
           <IconButton onClick={this.handleToggleFolded} color="inherit">
-            <Icon>menu</Icon>
+            <Icon>arrow_left</Icon>
+            {
+            // <Icon>toggle_on</Icon>
+            // <Icon>toggle_off</Icon>
+            // <Icon>indeterminate_check_box</Icon>
+            // <Icon>first_page</Icon>
+            // <Icon>minimize</Icon>
+            // <Icon>swap_horiz</Icon>
+            // <Icon>swap_horizontal_circle</Icon>
+            // <Icon>remove</Icon>
+            // <Icon>remove_circle</Icon>
+            // <Icon>remove_circle_outline</Icon>
+            }
           </IconButton>
         </Hidden>
         <Hidden lgUp>
           <IconButton onClick={navbarCloseMobile} color="inherit">
-            <Icon>menu</Icon>
+            <Icon>arrow_back</Icon>
+            {
+            // <Icon>clear</Icon>
+            }
           </IconButton>
         </Hidden>
       </AppBar>
@@ -330,17 +345,17 @@ class FuseLayout1 extends Component {
       </MuiThemeProvider>
     );
 
-    const toolbarTemplate = null;
-    // const toolbarTemplate = (
-    //   <MuiThemeProvider theme={FuseThemes[settings.theme.toolbar]}>
-    //     <MyAppBar
-    //       id="fuse-toolbar"
-    //       className={classNames(classes.toolbarWrapper, classes.toolbar,)}
-    //       color="default"
-    //       onClick={navbarOpenMobile}
-    //     />
-    //   </MuiThemeProvider>
-    // );
+    // const toolbarTemplate = null;
+    const toolbarTemplate = (
+      <MuiThemeProvider theme={FuseThemes[settings.theme.toolbar]}>
+        <MyAppBar
+          id="fuse-toolbar"
+          className={classNames(classes.toolbarWrapper, classes.toolbar,)}
+          color="default"
+          onClick={navbarOpenMobile}
+        />
+      </MuiThemeProvider>
+    );
     // const toolbarTemplate = (
     //   <MuiThemeProvider theme={FuseThemes[settings.theme.toolbar]}>
     //     <AppBar id="fuse-toolbar" className={classNames(classes.toolbarWrapper)} color="default">
