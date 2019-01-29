@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as Actions from 'store/actions';
-
+ 
 const propTypes = {
   item: PropTypes.shape(
     {
@@ -72,7 +72,7 @@ function FuseNavVerticalItem({ item, classes, nestedLevel, userRole, navbarClose
         <Icon className="list-item-icon text-16 flex-no-shrink" color="action">{item.icon}</Icon>
       )}
       {item.altIcon && (
-        <span className="list-item-icon text-16 flex-no-shrink" color="action">{item.altIcon}</span>
+        <span>{item.altIcon}</span>
       )}
       <ListItemText className="list-item-text" primary={item.title} classes={{ primary: 'text-14 list-item-text-primary' }} />
       {item.badge && (

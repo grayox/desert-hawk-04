@@ -19,7 +19,9 @@ import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 
-// logout icons
+// logout
+// alt icons
+import { IconContext } from "react-icons"; // my add
 // MenuItem><FiLogOut /><Typography className="ml-12">FiLogOut</Typography></MenuItem>
 // MenuItem><IoMdLogOut /><Typography className="ml-12">IoMdLogOut</Typography></MenuItem>
 // MenuItem><FaSignOutAlt /><Typography className="ml-12">FaSignOutAlt</Typography></MenuItem>
@@ -176,7 +178,12 @@ export const componentsNavConfig = [
     id        : 'logout',
     title     : 'Logout',
     type      : 'item',
-    altIcon   : <FaSignOutAlt />,
+    // altIcon   : <FaSignOutAlt className="list-item-icon text-16 flex-no-shrink" color="action" />,
+    altIcon   : (
+      <IconContext.Provider value={{ color: "white", className: "list-item-icon text-16 flex-no-shrink" }}>
+        <div><FaSignOutAlt /></div>
+      </IconContext.Provider>
+    ),
     url       : '/logout',
     path      : 'my-app/layouts/overhead/Logout',
     bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
