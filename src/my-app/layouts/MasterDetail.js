@@ -17,7 +17,7 @@ import Paper from '@material-ui/core/Paper';
 // import Icon from "@material-ui/core/Icon";
 import {
   AppBar, Toolbar, Typography,
-  Slide, Icon, IconButton,
+  Slide, Icon, IconButton, Divider,
   // CssBaseline, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
 } from '@material-ui/core';
 
@@ -143,7 +143,8 @@ class MasterDetail extends Component {
     // const { detail } = this.state;
     return (
       <ListItem
-        button
+        button 
+        // divider light
         key={item.timestamp}
         onClick={() => handleToggle(item, list,)}
       >
@@ -208,6 +209,7 @@ class MasterDetail extends Component {
                 // attempt
                 <ListItem
                   key={keyName.timestamp}
+                  divider light
                   // button
                   // onClick={() => handleToggle(item)}
                 >
@@ -287,7 +289,17 @@ class MasterDetail extends Component {
               enter={{ animation: "transition.slideUpBigIn" }}
               leave={{ animation: "transition.slideLeftOut" }}
             >
-              {items.map(item => <div className="border-b" key={item.timestamp}>{getSummary(item, true)}</div>)}
+              {
+                items.map( item =>
+                  <div
+                    key={item.timestamp}
+                    // className="border-b" // use divider instead
+                  >
+                    { getSummary(item, true) }
+                    <Divider />
+                  </div>
+                )
+              }
             </FuseAnimateGroup>
           </List>
         </Paper>

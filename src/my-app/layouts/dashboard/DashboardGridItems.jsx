@@ -24,7 +24,7 @@ import { FuseAnimateGroup } from '@fuse';
 import {
   // Button, Icon, IconButton,
   // AppBar, Toolbar, ListItemIcon, 
-  Typography, Avatar, ListItemAvatar, Card, CardContent,
+  Typography, Avatar, ListItemAvatar, Card, CardContent, Divider,
   List, ListSubheader, ListItem, ListItemText, ListItemSecondaryAction,
 } from '@material-ui/core';
 
@@ -61,6 +61,7 @@ function DashboardGridItems(props) {
       {
         condensedDashboard
         ?
+        // mobile
         (
           <Card className="w-full m-0 md:mb-16">
             <CardContent className="px-0">
@@ -79,6 +80,7 @@ function DashboardGridItems(props) {
                       className="px-0 mb-4"
                       subheader={<ListSubheader>{row.name}</ListSubheader>}
                     >
+                      <Divider />
                       <FuseAnimateGroup
                         // className="px-0"
                         // key={row.name}
@@ -90,10 +92,10 @@ function DashboardGridItems(props) {
                           row.cells.map(cell => (
                             <ListItem
                               key={cell.label}
-                              button
-                              aria-haspopup="false"
-                              aria-controls="username"
-                              aria-label="username"
+                              button divider light
+                              // aria-haspopup="false"
+                              // aria-controls="username"
+                              // aria-label="username"
                               // onClick={handleClickListItemDialog({
                               //   dialogTitle: 'Name',
                               //   isDialogTextField: true,
@@ -132,28 +134,32 @@ function DashboardGridItems(props) {
           </Card>
         )
         :
+        // laptop
         ( 
           rows.map(row => (
-            <FuseAnimateGroup
-              className="p-24"
-              key={row.name}
-              delay={200}
-              enter={{ animation: 'transition.slideRightBigIn' }}
-              leave={{ animation: 'transition.slideLeftBigOut' }}
-            >
+            <div className="p-24">
               <Typography variant="subtitle1" className="opacity-75 font-light">{row.name}</Typography>
-              <GridContainer
-                // className={classes.container}
+              <FuseAnimateGroup
+                key={row.name}
+                delay={200}
+                enter={{ animation: 'transition.slideUpBigIn' }}
+                leave={{ animation: 'transition.slideLeftBigOut' }}
               >
-                {row.cells.map(cell => (
-                  <DashboardGridItem
-                    key={cell.label}
-                    item={cell}
-                    onClickInfo={() => onClickInfo(cell)}
-                  />
-                ))}
-              </GridContainer>
-            </FuseAnimateGroup>
+                <GridContainer
+                // className={classes.container}
+                >
+                  {
+                    row.cells.map(cell => (
+                      <DashboardGridItem
+                        key={cell.label}
+                        item={cell}
+                        onClickInfo={() => onClickInfo(cell)}
+                      />
+                    ))
+                  }
+                </GridContainer>
+              </FuseAnimateGroup>
+            </div>
           ))
         )
       }
