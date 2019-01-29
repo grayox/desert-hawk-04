@@ -377,7 +377,17 @@ class FuseLayout1 extends Component {
     //   </MuiThemeProvider>
     // );
 
-    const footerTemplate = null;
+    // const footerTemplate = footer;
+    const footerTemplate = (
+      <MuiThemeProvider theme={FuseThemes[settings.theme.footer]}>
+        <AppBar id="fuse-footer" className={classNames(classes.footerWrapper, "md:hidden")}
+          // color="default"
+          color="white"
+        >
+          {footer}
+        </AppBar>
+      </MuiThemeProvider>
+    );
     // const footerTemplate = (
     //   <MuiThemeProvider theme={FuseThemes[settings.theme.footer]}>
     //     <AppBar id="fuse-footer" className={classNames(classes.footerWrapper, "md:hidden",)} 
@@ -392,6 +402,7 @@ class FuseLayout1 extends Component {
     //     </AppBar>
     //   </MuiThemeProvider>
     // );
+
     switch (layoutConfig.scroll) {
       case 'body':
         {

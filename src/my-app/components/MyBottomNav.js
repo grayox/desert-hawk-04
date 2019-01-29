@@ -5,21 +5,19 @@
 // import React from 'react';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import BottomNavigation from '@material-ui/core/BottomNavigation';
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-// import RestoreIcon from '@material-ui/icons/Restore';
-// import FavoriteIcon from '@material-ui/icons/Favorite';
-// import LocationOnIcon from '@material-ui/icons/LocationOn';
-
-import { Link, withRouter, } from 'react-router-dom';
-import { componentsNavConfig, } from 'my-app/config/AppConfig.js';
+import classNames from 'classnames';
 
 // @material-ui/core
 import {
-  Icon,
+  withStyles, MuiThemeProvider,
+  BottomNavigation, BottomNavigationAction,
+  Icon, AppBar,
   // IconButton,
 } from '@material-ui/core';
+
+import { Link, withRouter, } from 'react-router-dom';
+import { componentsNavConfig, } from 'my-app/config/AppConfig.js';
+import { FuseScrollbars, FuseMessage, FuseThemes, FuseDialog } from '@fuse';
 
 const styles = theme => ({
   // ref: https://stackoverflow.com/a/54375949/1640892
@@ -36,6 +34,11 @@ const styles = theme => ({
   },
   selected: {
     // color: 'red', // targets label only, no icon
+  },
+
+  footerWrapper: {
+    position: 'relative',
+    zIndex: 5
   },
 });
 
@@ -58,39 +61,48 @@ class SimpleBottomNavigation extends Component {
   // showLabels = () => items.length < 5;
 
   render() {
-    const { classes, } = this.props;
+    const { classes, settings, } = this.props;
     const { value, } = this.state;
     const { handleChange, showLabels, } = this;
 
     const actionClasses = this.props.classes;
     return (
-      <BottomNavigation
-        className={classes.root}
-        showLabels
-        // showLabels={showLabels}
-        value={value}
-        onChange={handleChange}
-        // selectedColor="yellow"
-        color="secondary"
-      >
-      {
-        // <BottomNavigationAction component={Link} to={items[0]} label="Dashboard" icon={<RestoreIcon />}    />
-        // <BottomNavigationAction component={Link} to={items[1]} label="Inbox"     icon={<FavoriteIcon />}   />
-        // <BottomNavigationAction component={Link} to={items[2]} label="Settings"  icon={<LocationOnIcon />} />
-        items.map((item, index) => (
-          <BottomNavigationAction
-            key={item.title}
-            // className={classes.root}
-            classes={actionClasses}
-            component={Link}
-            to={items[index].url}
-            label={item.title}
-            icon={<Icon>{item.icon}</Icon>}
-            // icon={item.icon}
-          />
-        ))
-      }
-      </BottomNavigation>
+      // <MuiThemeProvider
+      //   theme={FuseThemes[settings.theme.footer]}
+      // >
+      //   <AppBar id="fuse-footer" className={classNames(classes.footerWrapper, "md:hidden")}
+      //     // color="default"
+      //     color="white"
+      //   >     
+          <BottomNavigation
+            className={classes.root}
+            showLabels
+            // showLabels={showLabels}
+            value={value}
+            onChange={handleChange}
+            // selectedColor="yellow"
+            color="secondary"
+          >
+          {
+            // <BottomNavigationAction component={Link} to={items[0]} label="Dashboard" icon={<RestoreIcon />}    />
+            // <BottomNavigationAction component={Link} to={items[1]} label="Inbox"     icon={<FavoriteIcon />}   />
+            // <BottomNavigationAction component={Link} to={items[2]} label="Settings"  icon={<LocationOnIcon />} />
+            items.map((item, index) => (
+              <BottomNavigationAction
+                key={item.title}
+                // className={classes.root}
+                classes={actionClasses}
+                component={Link}
+                to={items[index].url}
+                label={item.title}
+                icon={<Icon>{item.icon}</Icon>}
+                // icon={item.icon}
+              />
+            ))
+          }
+          </BottomNavigation>
+      //   </AppBar>
+      // </MuiThemeProvider>
     );
   }
 }
@@ -98,5 +110,11 @@ class SimpleBottomNavigation extends Component {
 SimpleBottomNavigation.propTypes = {
   classes: PropTypes.object.isRequired,
 };
+
+function mapStateToProps({ fuse }) {
+  return {
+    settings: fuse.settings.current,
+  }
+}
 
 export default withStyles(styles, {withTheme: true})(SimpleBottomNavigation);

@@ -113,17 +113,28 @@ class MasterDetail extends Component {
 
   getHeader = () => (
     <Hidden xsDown>
-      <AppBar
-        className="m-0"
-        position="static"
-        elevation={0}
+      <FuseAnimate
+        // className="px-0"
+        // key={row.name}
+        delay={200}
+        // animation="transition.slideLeftIn"
+        // enter={{ animation: 'transition.perspectiveLeft' }}
+        // leave={{ animation: 'transition.perspectiveRight' }}
+        enter={{ animation: 'transition.slideDownBigIn' }}
+        leave={{ animation: 'transition.slideLeftOut' }}
       >
-        <Toolbar className="px-16">
-          <Typography variant="subtitle1" color="inherit" className="flex-1">
-            Items
+        <AppBar
+          className="m-0"
+          position="static"
+          elevation={0}
+        >
+          <Toolbar className="px-16">
+            <Typography variant="subtitle1" color="inherit" className="flex-1">
+              Items
           </Typography>
-        </Toolbar>
-      </AppBar>
+          </Toolbar>
+        </AppBar>
+      </FuseAnimate>
     </Hidden>
   )
 
