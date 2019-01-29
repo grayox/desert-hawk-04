@@ -142,7 +142,7 @@ export const componentsNavConfig = [
   },
 
   // seperator
-  // {id:' ',title:' ',type:' ',icon:' ',url:' ',path:' ',}, // fail
+  {id:'',title:'',type:'divider',icon:'',url:'',path:'',}, // fail
 
   // see specs here: https://material.io/design/communication/help-feedback.html#use-placement
   {
@@ -176,7 +176,7 @@ export const componentsNavConfig = [
     id        : 'logout',
     title     : 'Logout',
     type      : 'item',
-    icon      : 'logout',
+    altIcon   : <FaSignOutAlt />,
     url       : '/logout',
     path      : 'my-app/layouts/overhead/Logout',
     bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage

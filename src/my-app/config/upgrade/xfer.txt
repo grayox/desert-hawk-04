@@ -1,6 +1,8 @@
 public/assets/images/logos/fuse.svg
 src/@fuse/components/FuseAuthorization/FuseAuthorization.js
 src/@fuse/components/FuseLayout/layouts/FuseLayout1.js
+src/@fuse/components/FuseNavigation/FuseNavigation.js
+src/@fuse/components/FuseNavigation/vertical/FuseNavVerticalItem.js
 src/@fuse/FuseDefaultSettings.js
 src/auth/Auth.js
 src/auth/store/actions/login.actions.js
