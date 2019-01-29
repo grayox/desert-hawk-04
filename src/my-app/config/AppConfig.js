@@ -51,8 +51,8 @@ export const avatarOptions = [
   // { label : 'Random'    , value : 'robohashx' , } ,
   { label : 'Retro'     , value : 'retro'     , } ,
   { label : 'Pattern'   , value : 'identicon' , } ,
-  { label : 'Code'      , value : 'ui'        , } , // user initials greyscale
-  { label : 'Color'     , value : 'uic'       , } , // user initials with color
+  { label : 'Coded'     , value : 'ui'        , } , // user initials greyscale
+  { label : 'Colored'   , value : 'uic'       , } , // user initials with color
   { label : 'Generic'   , value : 'mp'        , } , // user icon (mystery person)
 ]
 
@@ -142,7 +142,7 @@ export const componentsNavConfig = [
   },
 
   // divider
-  {id:'div1',title:'',type:'divider',icon:'',url:'',path:'',}, // fail
+  {id:'div1',title:'',type:'divider',icon:'',url:'',path:'',},
 
   // see specs here: https://material.io/design/communication/help-feedback.html#use-placement
   {

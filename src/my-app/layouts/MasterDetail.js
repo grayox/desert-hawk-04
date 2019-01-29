@@ -158,7 +158,7 @@ class MasterDetail extends Component {
           // variant="uic" //"robohashx" //"robohash4" //"retro" //"monsterid" //"wavatar" //"adorable" //"identicon" //"mp" //"ui" //"random"(deprecated)
         />
         <ListItemText primary="Vacation" secondary={item.name} />
-        <ListItemSecondaryAction className="pr-32">
+        <ListItemSecondaryAction>
           <IconButton
             color="inherit"
             aria-label="Back"
@@ -225,8 +225,8 @@ class MasterDetail extends Component {
                   {
                     condensed
                     ?
-                    <ListItemSecondaryAction className="pr-16">
-                      {item[keyName]}
+                    <ListItemSecondaryAction>
+                      <Typography className="mr-16">{item[keyName]}</Typography>
                     </ListItemSecondaryAction>
                     :
                     null
