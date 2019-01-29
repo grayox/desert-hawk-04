@@ -6,6 +6,8 @@ import * as authActions from 'auth/store/actions';
 import { bindActionCreators } from 'redux';
 import classNames from 'classnames';
 
+import * as Actions from 'store/actions';
+
 // @material-ui/core
 // import Icon from "@material-ui/core/Icon";
 import {
@@ -17,9 +19,9 @@ import {
 } from '@material-ui/core';
 
 // import '@vaadin/vaadin-icons/vaadin-icons.js'; // fail
-import { GoSignOut, } from 'react-icons/go'; // https://react-icons.netlify.com/#/
+// import { GoSignOut, } from 'react-icons/go'; // https://react-icons.netlify.com/#/
 
-import Headroom from 'my-app/components/AutoHideOnScroll';
+// import Headroom from 'my-app/components/AutoHideOnScroll';
 
 const styles = theme => ({
 
@@ -132,6 +134,15 @@ class MyAppBar extends Component {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     logout: authActions.logoutUser,
+
+    navbarOpenMobile: Actions.navbarOpenMobile,
+    // setSettings: Actions.setSettings,
+    // setDefaultSettings: Actions.setDefaultSettings,
+    // resetSettings: Actions.resetSettings,
+    // navbarOpenFolded: Actions.navbarOpenFolded,
+    // navbarCloseFolded: Actions.navbarCloseFolded,
+    // navbarCloseMobile: Actions.navbarCloseMobile,
+
   }, dispatch);
 }
 

@@ -5,19 +5,19 @@
 // import React from 'react';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+// import classNames from 'classnames';
 
 // @material-ui/core
 import {
-  withStyles, MuiThemeProvider,
+  withStyles,
   BottomNavigation, BottomNavigationAction,
-  Icon, AppBar,
-  // IconButton,
+  Icon,
+  // MuiThemeProvider, AppBar, IconButton,
 } from '@material-ui/core';
 
-import { Link, withRouter, } from 'react-router-dom';
+import { Link, } from 'react-router-dom'; // withRouter,
 import { componentsNavConfig, } from 'my-app/config/AppConfig.js';
-import { FuseScrollbars, FuseMessage, FuseThemes, FuseDialog } from '@fuse';
+// import { FuseScrollbars, FuseMessage, FuseThemes, FuseDialog } from '@fuse';
 
 const styles = theme => ({
   // ref: https://stackoverflow.com/a/54375949/1640892
@@ -61,9 +61,9 @@ class SimpleBottomNavigation extends Component {
   // showLabels = () => items.length < 5;
 
   render() {
-    const { classes, settings, } = this.props;
+    const { classes, } = this.props; // settings,
     const { value, } = this.state;
-    const { handleChange, showLabels, } = this;
+    const { handleChange, } = this; // showLabels,
 
     const actionClasses = this.props.classes;
     return (
