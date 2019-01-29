@@ -18,7 +18,7 @@ import TrackChangesIcon from '@material-ui/icons/TrackChanges';
 import WarningIcon from '@material-ui/icons/Warning';
 
 // import {FuseAnimateGroup, FuseHighlight, FusePageSimple} from '@fuse';
-import { FuseAnimateGroup } from '@fuse';
+import { FuseAnimateGroup, FuseAnimate, } from '@fuse';
 
 // @material-ui/core
 import {
@@ -150,11 +150,13 @@ function DashboardGridItems(props) {
                 >
                   {
                     row.cells.map(cell => (
-                      <DashboardGridItem
-                        key={cell.label}
-                        item={cell}
-                        onClickInfo={() => onClickInfo(cell)}
-                      />
+                      // <FuseAnimate animation="transition.slideLeftIn" duration={400} delay={100}>
+                        <DashboardGridItem
+                          key={cell.label}
+                          item={cell}
+                          onClickInfo={() => onClickInfo(cell)}
+                        />
+                      // </FuseAnimate>
                     ))
                   }
                 </GridContainer>
