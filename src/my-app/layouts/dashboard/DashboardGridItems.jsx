@@ -79,41 +79,51 @@ function DashboardGridItems(props) {
                       className="px-0 mb-4"
                       subheader={<ListSubheader>{row.name}</ListSubheader>}
                     >
-                      {
-                        row.cells.map(cell => (
-                          <ListItem
-                            key={cell.label}
-                            button
-                            aria-haspopup="false"
-                            aria-controls="username"
-                            aria-label="username"
-                            // onClick={handleClickListItemDialog({
-                            //   dialogTitle: 'Name',
-                            //   isDialogTextField: true,
-                            //   dialogTextFieldLabel: 'first and last',
-                            //   dialogFieldName: 'name',
-                            // })}
-                            onClick={() => onClickInfo(cell)}
-                          >
-                            {/* <ListItemIcon>
-                              {React.createElement(cell.icon)}
-                            </ListItemIcon> */}
-                            <ListItemAvatar>
-                              <Avatar>
-                                {React.createElement(cell.icon)}
-                              </Avatar>
-                            </ListItemAvatar>
-                            <ListItemText
-                              primary={cell.label}
+                      <FuseAnimateGroup
+                        // className="px-0"
+                        // key={row.name}
+                        delay={200}
+                        enter={{ animation: 'transition.slideUpBigIn' }}
+                        leave={{ animation: 'transition.slideDownBigOut' }}
+                      >
+                        {
+                          row.cells.map(cell => (
+                            <ListItem
+                              key={cell.label}
+                              button
+                              aria-haspopup="false"
+                              aria-controls="username"
+                              aria-label="username"
+                              // onClick={handleClickListItemDialog({
+                              //   dialogTitle: 'Name',
+                              //   isDialogTextField: true,
+                              //   dialogTextFieldLabel: 'first and last',
+                              //   dialogFieldName: 'name',
+                              // })}
+                              onClick={() => onClickInfo(cell)}
+                            >
+                            {
+                            // <ListItemIcon>
+                            //   {React.createElement(cell.icon)}
+                            // </ListItemIcon>
+                            }
+                              <ListItemAvatar>
+                                <Avatar>
+                                  {React.createElement(cell.icon)}
+                                </Avatar>
+                              </ListItemAvatar>
+                              <ListItemText
+                                primary={cell.label}
                               // secondary={name}
                               // secondary={user.data.displayName}
-                            />
-                            <ListItemSecondaryAction className="pr-32">
-                              {cell.data}
-                            </ListItemSecondaryAction>
-                          </ListItem>
-                        ))
-                      }
+                              />
+                              <ListItemSecondaryAction className="pr-32">
+                                {cell.data}
+                              </ListItemSecondaryAction>
+                            </ListItem>
+                          ))
+                        }
+                      </FuseAnimateGroup>
                     </List>
                   ))
                 }
