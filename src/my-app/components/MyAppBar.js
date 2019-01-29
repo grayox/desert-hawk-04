@@ -16,8 +16,8 @@ import {
   // Avatar, ListItemIcon, ListItemText, Popover, MenuItem, Hidden
 } from '@material-ui/core';
 
-// import '@vaadin/vaadin-icons/vaadin-icons.js';
-import { GoSignOut } from 'react-icons/go'; // https://react-icons.netlify.com/#/
+// import '@vaadin/vaadin-icons/vaadin-icons.js'; // fail
+import { GoSignOut, } from 'react-icons/go'; // https://react-icons.netlify.com/#/
 
 import Headroom from 'my-app/components/AutoHideOnScroll';
 

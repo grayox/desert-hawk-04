@@ -19,6 +19,17 @@ import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 
+// logout icons
+// MenuItem><FiLogOut /><Typography className="ml-12">FiLogOut</Typography></MenuItem>
+// MenuItem><IoMdLogOut /><Typography className="ml-12">IoMdLogOut</Typography></MenuItem>
+// MenuItem><FaSignOutAlt /><Typography className="ml-12">FaSignOutAlt</Typography></MenuItem>
+// MenuItem><IoIosLogOut /><Typography className="ml-12">IoIosLogOut</Typography></MenuItem>
+// MenuItem><GoSignOut /><Typography className="ml-12">GoSignOut</Typography></MenuItem>
+import { FaSignOutAlt } from 'react-icons/fa'; // https://react-icons.netlify.cIoIosLogOutom/#/
+import { FiLogOut } from 'react-icons/fi'; // https://react-icons.netlify.cIoIosLogOutom/#/
+import { GoSignOut, } from 'react-icons/go'; // https://react-icons.netlify.com/#/
+import { IoIosLogOut, IoMdLogOut, } from 'react-icons/io'; // https://react-icons.netlify.cIoIosLogOutom/#/
+
 export const firebaseConfig = {
   apiKey: "AIzaSyAOEXILaYcxjmJsJ81_WfubS_h3AQ3lLdA",
   authDomain: "green-comet-e2c85.firebaseapp.com",
@@ -158,7 +169,15 @@ export const componentsNavConfig = [
     path      : 'my-app/layouts/overhead/Help',
     bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
   },
-
+  {
+    id        : 'logout',
+    title     : 'Logout',
+    type      : 'item',
+    icon      : 'logout',
+    url       : '/logout',
+    path      : 'my-app/layouts/overhead/Logout',
+    bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
+  },
 ]
 
 export const standardNavConfig = [
