@@ -141,6 +141,9 @@ export const componentsNavConfig = [
     path      : 'my-app/layouts/contacts/Contacts',
   },
 
+  // seperator
+  // {id:' ',title:' ',type:' ',icon:' ',url:' ',path:' ',}, // fail
+
   // see specs here: https://material.io/design/communication/help-feedback.html#use-placement
   {
     id        : 'settings',

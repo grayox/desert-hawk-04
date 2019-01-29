@@ -56,6 +56,7 @@ import '@firebase/firestore';
 // misc
 // import Album from 'my-app/layouts/album/Album'
 
+import MyAppBar from 'my-app/components/MyAppBar';
 
 const db = firebase.firestore();
 
@@ -342,38 +343,40 @@ class Dashboard extends Component {
       <React.Fragment>
         {dialog}
 
-        {/* <AppBar
-          className="m-0"
-          position="static"
-          elevation={0}
-        >
-          <Toolbar className="px-16">
-            <Typography variant="subtitle1" color="inherit" className="flex-1">
-              Dashboard
-            </Typography>
-            <FormGroup row>
-              <span className="self-center mr-12">
-                { condensedDashboard ? <ViewListIcon /> : <ViewModuleIcon /> }
-              </span>
-              <FormControlLabel
-                // labelPlacement="start"
-                // label="Condensed"
-                // label={ condensedDashboard ? "Condensed" : "Expanded" }
-                // label={ condensedDashboard ? <ViewListIcon /> : <ViewModuleIcon /> }
-                control={
-                  <Switch
-                    checked={condensedDashboard}
-                    onChange={handleChangeSwitch('condensedDashboard')}
-                    value="condensedDashboard"
-                    // color="white"
-                    // icon={<ViewModuleIcon />}
-                    // checkedIcon={<ViewListIcon />}
-                  />
-                }
-              />
-            </FormGroup>
-          </Toolbar>
-        </AppBar> */}
+        {
+        // <AppBar
+        //   className="m-0"
+        //   position="static"
+        //   elevation={0}
+        // >
+        //   <Toolbar className="px-16">
+        //     <Typography variant="subtitle1" color="inherit" className="flex-1">
+        //       Dashboard
+        //     </Typography>
+        //     <FormGroup row>
+        //       <span className="self-center mr-12">
+        //         { condensedDashboard ? <ViewListIcon /> : <ViewModuleIcon /> }
+        //       </span>
+        //       <FormControlLabel
+        //         // labelPlacement="start"
+        //         // label="Condensed"
+        //         // label={ condensedDashboard ? "Condensed" : "Expanded" }
+        //         // label={ condensedDashboard ? <ViewListIcon /> : <ViewModuleIcon /> }
+        //         control={
+        //           <Switch
+        //             checked={condensedDashboard}
+        //             onChange={handleChangeSwitch('condensedDashboard')}
+        //             value="condensedDashboard"
+        //             // color="white"
+        //             // icon={<ViewModuleIcon />}
+        //             // checkedIcon={<ViewListIcon />}
+        //           />
+        //         }
+        //       />
+        //     </FormGroup>
+        //   </Toolbar>
+        // </AppBar>
+        }
 
         <Hidden smUp>
           <DashboardGridItems 
@@ -413,8 +416,16 @@ class Dashboard extends Component {
     );
 
     return (
-      // <React.Fragment>
+      <React.Fragment>
+        <MyAppBar
+           id="fuse-toolbar"
+           color="default"
+          //  className={classNames(classes.toolbarWrapper, classes.toolbar,)}
+          //  onClick={navbarOpenMobile}
+        />
+        {
         // <CssBaseline />
+        }
         <div className={classes.wrapper}>
           { ( show === 'greet' ) ? <SettingsMessage onClick={handleClickGeo} />           : null }
           { ( show === 'step'  ) ? <SettingsStepper onSave={handleSaveSettingsStepper} /> : null }
@@ -423,7 +434,7 @@ class Dashboard extends Component {
           // <Album />
           }
         </div>
-      // </React.Fragment>
+      </React.Fragment>
     );
   }
 

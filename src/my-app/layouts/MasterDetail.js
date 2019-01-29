@@ -181,6 +181,11 @@ class MasterDetail extends Component {
       >
         <Paper className={classNames(classes.paper, "z-0")}>
           <List component="nav"> {/* subheader={<ListSubheader className="text-left">Detail</ListSubheader>} */}
+            <FuseAnimateGroup
+              delay={500}
+              enter={{ animation: "transition.slideDownBigIn" }}
+              leave={{ animation: "transition.slideLeftOut" }}
+            >
             {
               Object.keys(item).map((keyName, keyIndex,) =>
                 // keyName // success
@@ -216,6 +221,7 @@ class MasterDetail extends Component {
                 </ListItem>
               )
             }
+            </FuseAnimateGroup>
           </List>
         </Paper>
       </FuseAnimate>

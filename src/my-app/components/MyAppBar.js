@@ -9,7 +9,7 @@ import classNames from 'classnames';
 // @material-ui/core
 // import Icon from "@material-ui/core/Icon";
 import {
-  AppBar, 
+  AppBar, CssBaseline,
   Toolbar, Typography,
   Icon, IconButton,
   // Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
@@ -44,12 +44,15 @@ const styles = theme => ({
     marginLeft: -12,
     marginRight: 20,
   },
-
+  rightButton: {
+    marginRight: -12,
+    marginLeft: 20,
+  },
 });
 
 class MyAppBar extends Component {
 
-  handleClick = () => this.props.onClick()
+  // handleClick = () => this.props.onClick()
 
   render() {
     const { classes, } = this.props;
@@ -72,8 +75,9 @@ class MyAppBar extends Component {
         //   </Toolbar>
         // </AppBar>
 
-      <Headroom>
+      // <Headroom />
       <div className={classNames(classes.root, "lg:hidden")}>
+        <CssBaseline />
         <AppBar
           color="secondary"
           // ref: https://github.com/mui-org/material-ui/issues/10076#issuecomment-361232810
@@ -102,7 +106,11 @@ class MyAppBar extends Component {
             {
             // <Button color="inherit">Login</Button>
             }
-            <IconButton color="inherit" aria-label="Overflow">
+            <IconButton
+             className={classes.rightButton}
+             color="inherit"
+             aria-label="Overflow"
+            >
               {
               // <Icon>exit_to_app</Icon>
               // <iron-icon icon="vaadin:sign-out" />
@@ -113,7 +121,7 @@ class MyAppBar extends Component {
           </Toolbar>
         </AppBar>
       </div>
-      </Headroom>
+      // </Headroom>
 
       // </React.Fragment>
 

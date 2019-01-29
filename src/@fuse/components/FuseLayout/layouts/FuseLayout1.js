@@ -11,7 +11,7 @@ import classNames from 'classnames';
 import _ from '@lodash';
 
 // begin my add
-import MyAppBar from 'my-app/components/MyAppBar';
+// import MyAppBar from 'my-app/components/MyAppBar';
 // end my add
 
 const defaultProps = {};
@@ -330,64 +330,68 @@ class FuseLayout1 extends Component {
       </MuiThemeProvider>
     );
 
-    const toolbarTemplate = (
-      <MuiThemeProvider theme={FuseThemes[settings.theme.toolbar]}>
-        <MyAppBar
-           id="fuse-toolbar"
-           className={classNames(classes.toolbarWrapper, classes.toolbar,)}
-           color="default"
-           onClick={navbarOpenMobile}
-        />
-      {
-        // <AppBar id="fuse-toolbar" className={classNames(classes.toolbarWrapper)} color="default">
-        //   <Toolbar className="p-0">
-        //     {layoutConfig.navbar.display && layoutConfig.navbar.position === 'left' && (
-        //       <Hidden lgUp>
-        //         <IconButton
-        //           className={classNames(classes.navbarButton, 'w-64 h-64 rounded-none', layoutConfig.navbar.position)}
-        //           aria-label="open drawer"
-        //           onClick={navbarOpenMobile}
-        //         >
-        //           <Icon>arrow_back</Icon>
-        //           {/* <Icon>menu</Icon> */}
-        //         </IconButton>
-        //       </Hidden>
-        //     )}
-        //     <div className={classes.toolbar}>
-        //       {toolbar}
-        //     </div>
-        //     {layoutConfig.navbar.display && layoutConfig.navbar.position === 'right' && (
-        //       <Hidden lgUp>
-        //         <IconButton
-        //           className={classNames(classes.navbarButton, 'w-64 h-64 rounded-none', layoutConfig.navbar.position)}
-        //           aria-label="open drawer"
-        //           onClick={navbarOpenMobile}
-        //         >
-        //           <Icon>menu</Icon>
-        //           {/* <Icon>menu</Icon> */}
-        //         </IconButton>
-        //       </Hidden>
-        //     )}
-        //   </Toolbar>
-        // </AppBar>
-      }
-      </MuiThemeProvider>
-    );
+    const toolbarTemplate = null;
+    // const toolbarTemplate = (
+    //   <MuiThemeProvider theme={FuseThemes[settings.theme.toolbar]}>
+    //     <MyAppBar
+    //       id="fuse-toolbar"
+    //       className={classNames(classes.toolbarWrapper, classes.toolbar,)}
+    //       color="default"
+    //       onClick={navbarOpenMobile}
+    //     />
+    //   </MuiThemeProvider>
+    // );
+    // const toolbarTemplate = (
+    //   <MuiThemeProvider theme={FuseThemes[settings.theme.toolbar]}>
+    //     <AppBar id="fuse-toolbar" className={classNames(classes.toolbarWrapper)} color="default">
+    //       <Toolbar className="p-0">
+    //         {layoutConfig.navbar.display && layoutConfig.navbar.position === 'left' && (
+    //           <Hidden lgUp>
+    //             <IconButton
+    //               className={classNames(classes.navbarButton, 'w-64 h-64 rounded-none', layoutConfig.navbar.position)}
+    //               aria-label="open drawer"
+    //               onClick={navbarOpenMobile}
+    //             >
+    //               <Icon>arrow_back</Icon>
+    //               {/* <Icon>menu</Icon> */}
+    //             </IconButton>
+    //           </Hidden>
+    //         )}
+    //         <div className={classes.toolbar}>
+    //           {toolbar}
+    //         </div>
+    //         {layoutConfig.navbar.display && layoutConfig.navbar.position === 'right' && (
+    //           <Hidden lgUp>
+    //             <IconButton
+    //               className={classNames(classes.navbarButton, 'w-64 h-64 rounded-none', layoutConfig.navbar.position)}
+    //               aria-label="open drawer"
+    //               onClick={navbarOpenMobile}
+    //             >
+    //               <Icon>menu</Icon>
+    //               {/* <Icon>menu</Icon> */}
+    //             </IconButton>
+    //           </Hidden>
+    //         )}
+    //       </Toolbar>
+    //     </AppBar>
+    //   </MuiThemeProvider>
+    // );
 
-    const footerTemplate = (
-      <MuiThemeProvider theme={FuseThemes[settings.theme.footer]}>
-        <AppBar id="fuse-footer" className={classNames(classes.footerWrapper, "md:hidden",)} 
-          // color="default"
-          color="white"
-          >
-          <Toolbar className="p-0">
-            <div className={classNames(classes.footer)}>
-              {footer}
-            </div>
-          </Toolbar>
-        </AppBar>
-      </MuiThemeProvider>
-    );
+    const footerTemplate = null;
+    // const footerTemplate = (
+    //   <MuiThemeProvider theme={FuseThemes[settings.theme.footer]}>
+    //     <AppBar id="fuse-footer" className={classNames(classes.footerWrapper, "md:hidden",)} 
+    //       // color="default"
+    //       color="white"
+    //       >
+    //       <Toolbar className="p-0">
+    //         <div className={classNames(classes.footer)}>
+    //           {footer}
+    //         </div>
+    //       </Toolbar>
+    //     </AppBar>
+    //   </MuiThemeProvider>
+    // );
     switch (layoutConfig.scroll) {
       case 'body':
         {
