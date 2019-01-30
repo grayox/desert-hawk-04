@@ -63,6 +63,7 @@ const styles = theme => ({
 
 const INITIAL_STATE = {
   detail: null,
+  selectedIndex: null,
 };
 
 // function MasterDetail(props) {
@@ -73,13 +74,23 @@ class MasterDetail extends Component {
     this.state = INITIAL_STATE;
   }
 
-  handleToggle = (model, list,) => {
+  handleListItemClick = ( event, index, ) => {
+    this.setState({ selectedIndex: index });
+  };
+
+  handleToggle = ( model, isList, index, ) => {
     // console.log('model\n', model);
-    const { detail } = this.state; 
+    const { detail } = this.state;
     this.setState(
-      { detail: null },
+      { 
+        detail: null,
+        selectedIndex: null,
+      },
       // promise completes animation effect
-      () => {if(list) this.setState({ detail: model })}
+      () => {if(isList) this.setState({
+        detail: model,
+        selectedIndex: index,
+      })}
     );
   }
 
@@ -139,15 +150,16 @@ class MasterDetail extends Component {
     </Hidden>
   )
 
-  getSummary = (item, list,) => {
+  getSummary = ( item, isList, index, ) => {
     const { handleToggle, } = this;
-    // const { detail } = this.state;
+    const { selectedIndex, } = this.state; // detail
     return (
       <ListItem
-        button 
-        // divider light
+        button
+        // divider light // use <Divider /> instead
         key={item.timestamp}
-        onClick={() => handleToggle(item, list,)}
+        onClick={() => handleToggle( item, isList, index, )}
+        selected={selectedIndex === index}
       >
         {
         // <Avatar>
@@ -163,15 +175,16 @@ class MasterDetail extends Component {
           <IconButton
             color="inherit"
             aria-label="Back"
-            onClick={() => handleToggle(item, list,)}
+            onClick={() => handleToggle( item, isList, index, )}
           >
             { 
-              list
+              isList
               ?
               <Icon>navigate_next</Icon>
               :
               // <Icon>navigate_before</Icon>
-              <Icon>save_alt</Icon>
+              // <Icon>save_alt</Icon>
+              <Icon>move_to_inbox</Icon>
             }
           </IconButton>
         </ListItemSecondaryAction>
@@ -248,7 +261,6 @@ class MasterDetail extends Component {
     const { classes, } = this.props;
     return (
       <React.Fragment>
-        {/* {getHeader()} */}
         {
           detail
           ?
@@ -259,6 +271,9 @@ class MasterDetail extends Component {
             unmountOnExit
           >
             <React.Fragment>
+              {
+                // {getHeader()}
+              }
               <Paper className={classNames(classes.paper, "z-0")}>
                 <List component="nav">
                   {getSummary(detail, false,)}
@@ -291,12 +306,12 @@ class MasterDetail extends Component {
               leave={{ animation: "transition.slideLeftOut" }}
             >
               {
-                items.map( item =>
+                items.map( ( item, index, ) =>
                   <div
                     key={item.timestamp}
                     // className="border-b" // use divider instead
                   >
-                    { getSummary(item, true) }
+                    { getSummary( item, true, index, ) }
                     <Divider />
                   </div>
                 )
