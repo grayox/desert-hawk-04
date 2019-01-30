@@ -27,7 +27,7 @@ import { Auth } from 'auth';
 
 // begin my add
 import MyBottomNav from 'my-app/components/MyBottomNav';
-import { Hidden } from '@material-ui/core';
+// import { Hidden } from '@material-ui/core';
 // end my add
 
 const jss = create({

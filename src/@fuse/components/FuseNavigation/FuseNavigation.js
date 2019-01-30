@@ -41,7 +41,7 @@ class FuseNavigation extends Component {
               )}
 
               {item.type === 'divider' && (
-                <Divider className="my-16" />
+                <Divider className="my-32" />
               )}
             </React.Fragment>
           ))
@@ -69,7 +69,7 @@ class FuseNavigation extends Component {
               )}
 
               {item.type === 'divider' && (
-                <Divider />
+                <Divider className="my-16" />
               )}
             </React.Fragment>
           ))

@@ -15,6 +15,7 @@ src/fuse-configs/fuseRoutesConfig.js
 src/index.js
 src/main/content/components/ComponentsConfig.js
 src/main/content/login/Login.js
+src/main/MainNavbarHeader.js
 src/main/MainToolbar.js
 src/store.js
 src/store/actions/index.js
