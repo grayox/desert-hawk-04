@@ -32,7 +32,7 @@ import {
 import GridContainer from "my-app/vendors/creative-tim/components/Grid/GridContainer";
 
 // custom components
-import SelectControl from '../../components/selects/SelectControl';
+import SelectControl from 'my-app/components/selects/SelectControl.js';
 import DashboardGridItem from './DashboardGridItem'
 
 // CategorySelect

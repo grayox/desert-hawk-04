@@ -34,8 +34,8 @@ import { FaSignOutAlt } from 'react-icons/fa'; // https://react-icons.netlify.cI
 // import { GoSignOut, } from 'react-icons/go'; // https://react-icons.netlify.com/#/
 // import { IoIosLogOut, IoMdLogOut, } from 'react-icons/io'; // https://react-icons.netlify.cIoIosLogOutom/#/
 
-// import { drawerWidth } from 'src/my-app/config/AppConfig';
-export const drawerWidth = 256; // per spec https://material.io/design/components/navigation-drawer.html#specs
+// import { drawerWidth } from 'my-app/config/AppConfig';
+export const drawerWidth = 256 // per spec https://material.io/design/components/navigation-drawer.html#specs
 
 export const firebaseConfig = {
   apiKey: "AIzaSyAOEXILaYcxjmJsJ81_WfubS_h3AQ3lLdA",
@@ -109,9 +109,9 @@ export const componentsNavConfig = [
     type      : 'item',
     icon      : 'dashboard',
     url       : '/dashboard',
-    path      : 'my-app/layouts/dashboard/Dashboard',
+    path      : 'my-app/layouts/app-views/dashboard/Dashboard',
     bottomNav : true,
-    // loader : () => import('my-app/layouts/dashboard/Dashboard'),
+    // loader : () => import('my-app/layouts/app-views/dashboard/Dashboard'),
   },
   {
     id        : 'inbox',
@@ -128,7 +128,7 @@ export const componentsNavConfig = [
     type      : 'item',
     icon      : 'move_to_inbox', //'save_alt', //'save',
     url       : '/archive',
-    path      : 'my-app/layouts/archive/Archive',
+    path      : 'my-app/layouts/app-views/archive/Archive',
     bottomNav : true,
   },
   {
@@ -137,7 +137,7 @@ export const componentsNavConfig = [
     type      : 'item',
     icon      : 'cloud_upload',
     url       : '/outbox',
-    path      : 'my-app/layouts/outbox/Outbox',
+    path      : 'my-app/layouts/app-views/outbox/Outbox',
   },
   {
     id        : 'contacts',
@@ -145,7 +145,7 @@ export const componentsNavConfig = [
     type      : 'item',
     icon      : 'contacts',
     url       : '/contacts',
-    path      : 'my-app/layouts/contacts/Contacts',
+    path      : 'my-app/layouts/app-views/contacts/Contacts',
   },
 
   // divider
@@ -158,7 +158,7 @@ export const componentsNavConfig = [
     type      : 'item',
     icon      : 'settings',
     url       : '/settings',
-    path      : 'my-app/layouts/settings/Settings',
+    path      : 'my-app/layouts/app-views/settings/Settings',
     bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
   },
   {
@@ -167,7 +167,7 @@ export const componentsNavConfig = [
     type      : 'item',
     icon      : 'feedback',
     url       : '/feedback',
-    path      : 'my-app/layouts/overhead/Feedback',
+    path      : 'my-app/layouts/app-views/overhead/Feedback',
     bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
   },
   {
@@ -176,7 +176,7 @@ export const componentsNavConfig = [
     type      : 'item',
     icon      : 'help',
     url       : '/help',
-    path      : 'my-app/layouts/overhead/Help',
+    path      : 'my-app/layouts/app-views/overhead/Help',
     bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
   },
   {
@@ -189,7 +189,7 @@ export const componentsNavConfig = [
       </IconContext.Provider>
     ),
     url       : '/logout',
-    path      : 'my-app/layouts/overhead/Logout',
+    path      : 'my-app/layouts/app-views/overhead/Logout',
     bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
   },
 ]

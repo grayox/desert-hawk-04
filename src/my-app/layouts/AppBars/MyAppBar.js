@@ -8,6 +8,9 @@ import classNames from 'classnames';
 
 import * as Actions from 'store/actions';
 
+import MediaWidth from 'my-app/layouts/MediaWidth';
+import { drawerWidth } from 'my-app/config/AppConfig';
+
 // @material-ui/core
 // import Icon from "@material-ui/core/Icon";
 import {
@@ -28,7 +31,7 @@ const styles = theme => ({
   root: {
     display    : 'flex'   ,
     alignItems : 'center' ,
-    width      : '100%'   ,
+    // width      : '100%'   , // WARNING: applies margin to content!?
   },
   // separator: {
   //     width          : 1,
@@ -49,6 +52,11 @@ const styles = theme => ({
   rightButton: {
     marginRight: -12,
     marginLeft: 20,
+  },
+
+  appBar: {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: drawerWidth,
   },
 });
 
@@ -81,6 +89,7 @@ class MyAppBar extends Component {
       <div className={classNames(classes.root, "")}>
         <CssBaseline />
         <AppBar
+          className={classes.appBar}
           color="secondary"
           // ref: https://github.com/mui-org/material-ui/issues/10076#issuecomment-361232810
           // position="static" // somtimes height shortens depending on page/view

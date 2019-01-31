@@ -17,7 +17,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 
-import MyAppBar from '../MyAppBar';
+import MyAppBar from '../AppBars/MyAppBar';
+import BrandAppBar from '../AppBars/BrandAppBar';
 
 import { drawerWidth } from 'my-app/config/AppConfig';
 // const drawerWidth = 240;
@@ -52,15 +53,15 @@ function PermanentDrawerLeft(props) {
     <div className={classes.root}>
       <CssBaseline />
       {
-      <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            Permanent drawer
-          </Typography>
-        </Toolbar>
-      </AppBar>
+      // <AppBar position="fixed" className={classes.appBar}>
+      //   <Toolbar>
+      //     <Typography variant="h6" color="inherit" noWrap>
+      //       Permanent drawer
+      //     </Typography>
+      //   </Toolbar>
+      // </AppBar>
       }
-      {/* <MyAppBar /> */}
+      <MyAppBar />
       <Drawer
         className={classes.drawer}
         variant="permanent"
@@ -69,8 +70,11 @@ function PermanentDrawerLeft(props) {
         }}
         anchor="left"
       >
-        <div className={classes.toolbar} />
-        <Divider />
+        {
+        // <div className={classes.toolbar}> />
+        // <Divider />
+        }
+        <BrandAppBar />
         <List>
           {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
             <ListItem button key={text}>

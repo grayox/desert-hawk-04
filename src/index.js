@@ -27,7 +27,7 @@ import { Auth } from 'auth';
 
 // begin my add
 import MyLayout from 'my-app/layouts/MyLayout';
-// import MyBottomNav from 'my-app/layouts/MyBottomNav';
+// import MyBottomNav from 'my-app/layouts/app-views/MyBottomNav';
 // import { Hidden } from '@material-ui/core';
 // end my add
 

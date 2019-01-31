@@ -1,5 +1,5 @@
 import React from 'react';
-// import MasterDetail from '../MasterDetail'
+// import MasterDetail from 'my-app/layouts/MasterDetail.js'
 // import UserMultiForm from 'my-app/components/forms/UserMultiForm';
 
 import ContactsApp from 'my-app/apps/contacts/ContactsApp';

@@ -7,7 +7,7 @@ import { FuseLoadable } from '@fuse';
 //   component: FuseLoadable({
 //     // none of the following work
 //     // loader: () => import(item.path)
-//     // loader: () => import('my-app/layouts/dashboard/Dashboard')
+//     // loader: () => import('my-app/layouts/app-views/dashboard/Dashboard')
 //     // loader: () => import(`${item.path}`)
 //     // loader: async () => await import(item.path) // per http://2ality.com/2017/01/import-operator.html
 //     // we will attempt the following
@@ -26,7 +26,7 @@ const items = [
   {
     path: '/dashboard',
     component: FuseLoadable({
-      loader: () => import('my-app/layouts/dashboard/Dashboard')
+      loader: () => import('my-app/layouts/app-views/dashboard/Dashboard')
     }),
   },
   {
@@ -38,37 +38,37 @@ const items = [
   {
     path: '/archive',
     component: FuseLoadable({
-      loader: () => import('my-app/layouts/archive/Archive')
+      loader: () => import('my-app/layouts/app-views/archive/Archive')
     }),
   },
   {
     path: '/outbox',
     component: FuseLoadable({
-      loader: () => import('my-app/layouts/outbox/Outbox')
+      loader: () => import('my-app/layouts/app-views/outbox/Outbox')
     }),
   },
   {
     path: '/contacts',
     component: FuseLoadable({
-      loader: () => import('my-app/layouts/contacts/Contacts')
+      loader: () => import('my-app/layouts/app-views/contacts/Contacts')
     }),
   },
   {
     path: '/settings',
     component: FuseLoadable({
-      loader: () => import('my-app/layouts/settings/Settings')
+      loader: () => import('my-app/layouts/overhead-views/settings/Settings')
     }),
   },
   {
     path: '/feedback',
     component: FuseLoadable({
-      loader: () => import('my-app/layouts/overhead/Feedback')
+      loader: () => import('my-app/layouts/overhead-views/Feedback')
     }),
   },
   {
     path: '/help',
     component: FuseLoadable({
-      loader: () => import('my-app/layouts/overhead/Help')
+      loader: () => import('my-app/layouts/overhead-views/Help')
     }),
   },
 ]
