@@ -26,7 +26,8 @@ import store from 'store';
 import { Auth } from 'auth';
 
 // begin my add
-import MyBottomNav from 'my-app/components/MyBottomNav';
+import MyLayout from 'my-app/layouts/MyLayout';
+// import MyBottomNav from 'my-app/layouts/MyBottomNav';
 // import { Hidden } from '@material-ui/core';
 // end my add
 
@@ -46,32 +47,35 @@ store.firebaseAuthIsReady.then(() => { // my add
           <Router history={history}>
             <FuseAuthorization routes={routes}>
               <FuseTheme>
-                <FuseLayout
-                  routes={routes}
-                  toolbar={
-                    <MainToolbar />
-                  }
-                  navbarHeader={
-                    <MainNavbarHeader />
-                  }
-                  navbarContent={
-                    <MainNavbarContent />
-                  }
-                  footer={
-                    // <MainFooter />
-                    <MyBottomNav />
-                  }
-                  // rightSidePanel={
-                  //   <React.Fragment>
-                  //     <ChatPanel />
-                  //     <QuickPanel />
-                  //   </React.Fragment>
-                  // }
-                  // contentWrapper={
-                  //   <SettingsPanel />
-                  // }
-                >
-                </FuseLayout>
+                <MyLayout />
+                {
+                // <FuseLayout
+                //   routes={routes}
+                //   toolbar={
+                //     <MainToolbar />
+                //   }
+                //   navbarHeader={
+                //     <MainNavbarHeader />
+                //   }
+                //   navbarContent={
+                //     <MainNavbarContent />
+                //   }
+                //   footer={
+                //     // <MainFooter />
+                //     <MyBottomNav />
+                //   }
+                //   // rightSidePanel={
+                //   //   <React.Fragment>
+                //   //     <ChatPanel />
+                //   //     <QuickPanel />
+                //   //   </React.Fragment>
+                //   // }
+                //   // contentWrapper={
+                //   //   <SettingsPanel />
+                //   // }
+                // >
+                // </FuseLayout>
+                }
               </FuseTheme>
             </FuseAuthorization>
           </Router>

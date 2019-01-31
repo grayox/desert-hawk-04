@@ -23,12 +23,17 @@ const styles = theme => ({
   logo: {},
   logoIcon: {
     alignItems: 'center',
-    // width     : 24,
+    // width: 24,
+    // width: 128,
+    flex: 1,
+    // width: '100%',
+    marginLeft: '1em',
+    // maxWidth: '100%',
     height: 24,
     transition: theme.transitions.create(['width', 'height'], {
       duration: theme.transitions.duration.shortest,
       easing: theme.transitions.easing.easeInOut
-    })
+    }),
   },
   reactBadge: {
     backgroundColor: 'rgba(0,0,0,0.6)',
@@ -47,7 +52,7 @@ function MainNavbarHeader({ classes }) {
       <div
         className={classNames(
           classes.logo,
-          // "flex-grow items-center border border-white",
+          "flex-grow items-center border border-white",
         )}>
         <img
           className={classNames(
@@ -55,7 +60,7 @@ function MainNavbarHeader({ classes }) {
             // "self-center",
             // "logo-icon",
           )}
-          src="assets/images/logos/fuse.svg"
+          src="assets/images/logos/fuse.svg?"
           alt="logo"
         />
         {

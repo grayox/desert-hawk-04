@@ -11,7 +11,7 @@ import classNames from 'classnames';
 import _ from '@lodash';
 
 // begin my add
-import MyAppBar from 'my-app/components/MyAppBar';
+import MyAppBar from 'my-app/layouts/MyAppBar';
 // end my add
 
 const defaultProps = {};
@@ -257,41 +257,59 @@ class FuseLayout1 extends Component {
     const layoutConfig = settings.layout.config;
 
     const navbarHeaderTemplate = (
-      <AppBar
-        color="primary"
-        position="static"
-        elevation={0}
-        className={classes.navbarHeaderWrapper}
-      >
+      <React.Fragment>
+        {/* laptop */}
+        <Hidden LgDown>
+          <AppBar
+            color="primary"
+            position="static"
+            elevation={0}
+            className={classes.navbarHeaderWrapper}
+            // onClick={this.handleToggleFolded}
+          >
+          </AppBar>
+        </Hidden>
+        {/* tablet */}
+        <Hidden smDown LgUp>
+          <AppBar
+            color="primary"
+            position="static"
+            elevation={0}
+            className={classes.navbarHeaderWrapper}
+            onClick={this.handleToggleFolded}
+          >
+          </AppBar>
+        </Hidden>
+        {/* mobile */}
+        <Hidden MdUp>
+          <AppBar
+            color="primary"
+            position="static"
+            elevation={0}
+            className={classes.navbarHeaderWrapper}
+            onClick={this.handleToggleFolded}
+          >
+          </AppBar>
+        </Hidden>
+        {navbarHeaderIconButton}
+      </React.Fragment>
+    );
+
+    const navbarHeaderIconButton = (
+      <React.Fragment>
         <div className={classes.navbarHeader}>
           {navbarHeader}
         </div>
-        <Hidden mdDown>
-          <IconButton onClick={this.handleToggleFolded} color="inherit">
-            <Icon>arrow_left</Icon>
-            {
-            // <Icon>toggle_on</Icon>
-            // <Icon>toggle_off</Icon>
-            // <Icon>indeterminate_check_box</Icon>
-            // <Icon>first_page</Icon>
-            // <Icon>minimize</Icon>
-            // <Icon>swap_horiz</Icon>
-            // <Icon>swap_horizontal_circle</Icon>
-            // <Icon>remove</Icon>
-            // <Icon>remove_circle</Icon>
-            // <Icon>remove_circle_outline</Icon>
-            }
-          </IconButton>
+        {/* laptop: none */}
+        {/* tablet */}
+        <Hidden smDown LgUp>
+          <IconButton onClick={this.handleToggleFolded} color="inherit"><Icon>chevron_left</Icon></IconButton>
         </Hidden>
-        <Hidden lgUp>
-          <IconButton onClick={navbarCloseMobile} color="inherit">
-            <Icon>arrow_back</Icon>
-            {
-            // <Icon>clear</Icon>
-            }
-          </IconButton>
+        {/* mobile */}
+        <Hidden MdUp>
+          <IconButton onClick={navbarCloseMobile} color="inherit"><Icon>chevron_left</Icon></IconButton>
         </Hidden>
-      </AppBar>
+      </React.Fragment>
     );
 
     const navbarContentTemplate = (
@@ -307,7 +325,8 @@ class FuseLayout1 extends Component {
             classes.navbarWrapper,
             layoutConfig.navbar.folded && classes.navbarWrapperFolded)}
         >
-          <Hidden mdDown>
+          {/* tablet, laptop */}
+          <Hidden smDown>
             <div
               className={classNames(
                 classes.navbar,
@@ -323,8 +342,8 @@ class FuseLayout1 extends Component {
               {navbarContentTemplate}
             </div>
           </Hidden>
-
-          <Hidden lgUp>
+          {/* mobile */}
+          <Hidden MdUp>
             <Drawer
               anchor={layoutConfig.navbar.position}
               variant="temporary"
