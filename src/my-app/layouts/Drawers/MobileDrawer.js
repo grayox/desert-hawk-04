@@ -16,9 +16,11 @@ import MailIcon from '@material-ui/icons/Mail';
 
 import { Typography, } from '@material-ui/core';
 
+import { drawerWidth } from 'my-app/config/AppConfig';
+
 const styles = {
   list: {
-    width: 250,
+    width: drawerWidth, // 250,
   },
   fullList: {
     width: 'auto',

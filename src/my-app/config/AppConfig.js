@@ -21,6 +21,8 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 
 // logout
 // alt icons
+// install https://www.npmjs.com/package/react-icons
+// icons   https://react-icons.netlify.com/#/
 import { IconContext } from "react-icons"; // my add
 // MenuItem><FiLogOut /><Typography className="ml-12">FiLogOut</Typography></MenuItem>
 // MenuItem><IoMdLogOut /><Typography className="ml-12">IoMdLogOut</Typography></MenuItem>
@@ -28,9 +30,12 @@ import { IconContext } from "react-icons"; // my add
 // MenuItem><IoIosLogOut /><Typography className="ml-12">IoIosLogOut</Typography></MenuItem>
 // MenuItem><GoSignOut /><Typography className="ml-12">GoSignOut</Typography></MenuItem>
 import { FaSignOutAlt } from 'react-icons/fa'; // https://react-icons.netlify.cIoIosLogOutom/#/
-import { FiLogOut } from 'react-icons/fi'; // https://react-icons.netlify.cIoIosLogOutom/#/
-import { GoSignOut, } from 'react-icons/go'; // https://react-icons.netlify.com/#/
-import { IoIosLogOut, IoMdLogOut, } from 'react-icons/io'; // https://react-icons.netlify.cIoIosLogOutom/#/
+// import { FiLogOut } from 'react-icons/fi'; // https://react-icons.netlify.cIoIosLogOutom/#/
+// import { GoSignOut, } from 'react-icons/go'; // https://react-icons.netlify.com/#/
+// import { IoIosLogOut, IoMdLogOut, } from 'react-icons/io'; // https://react-icons.netlify.cIoIosLogOutom/#/
+
+// import { drawerWidth } from 'src/my-app/config/AppConfig';
+export const drawerWidth = 256; // per spec https://material.io/design/components/navigation-drawer.html#specs
 
 export const firebaseConfig = {
   apiKey: "AIzaSyAOEXILaYcxjmJsJ81_WfubS_h3AQ3lLdA",

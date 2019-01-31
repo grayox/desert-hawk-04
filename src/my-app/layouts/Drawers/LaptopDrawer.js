@@ -17,7 +17,10 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 
-const drawerWidth = 240;
+import MyAppBar from '../MyAppBar';
+
+import { drawerWidth } from 'my-app/config/AppConfig';
+// const drawerWidth = 240;
 
 const styles = theme => ({
   root: {
@@ -48,6 +51,7 @@ function PermanentDrawerLeft(props) {
   return (
     <div className={classes.root}>
       <CssBaseline />
+      {
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <Typography variant="h6" color="inherit" noWrap>
@@ -55,6 +59,8 @@ function PermanentDrawerLeft(props) {
           </Typography>
         </Toolbar>
       </AppBar>
+      }
+      {/* <MyAppBar /> */}
       <Drawer
         className={classes.drawer}
         variant="permanent"

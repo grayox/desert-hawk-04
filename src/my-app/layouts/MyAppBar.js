@@ -78,17 +78,17 @@ class MyAppBar extends Component {
         // </AppBar>
 
       // <Headroom />
-      <div className={classNames(classes.root, "lg:hidden")}>
+      <div className={classNames(classes.root, "")}>
         <CssBaseline />
         <AppBar
           color="secondary"
           // ref: https://github.com/mui-org/material-ui/issues/10076#issuecomment-361232810
           // position="static" // somtimes height shortens depending on page/view
           // position="sticky" // also seems to shrink with content similar to static
-          // position="fixed" // depending on screen width, can overlap content; e.g., laptop 1024px
           // position="standard" // somewhat solves overlap problem but still shrinks sometimes
           // position="relative" // shrinks
-          position="absolute" // overlaps, no shrink
+          // position="absolute" // overlaps, no shrink
+          position="fixed" // depending on screen width, can overlap content; e.g., laptop 1024px
         >
           <Toolbar>
             <IconButton
