@@ -259,7 +259,7 @@ class FuseLayout1 extends Component {
     const navbarHeaderTemplate = (
       <React.Fragment>
         {/* laptop */}
-        <Hidden LgDown>
+        <Hidden mdDown>
           <AppBar
             color="primary"
             position="static"
@@ -270,7 +270,7 @@ class FuseLayout1 extends Component {
           </AppBar>
         </Hidden>
         {/* tablet */}
-        <Hidden smDown LgUp>
+        <Hidden xsDown lgUp>
           <AppBar
             color="primary"
             position="static"
@@ -281,7 +281,7 @@ class FuseLayout1 extends Component {
           </AppBar>
         </Hidden>
         {/* mobile */}
-        <Hidden MdUp>
+        <Hidden smUp>
           <AppBar
             color="primary"
             position="static"
@@ -302,11 +302,11 @@ class FuseLayout1 extends Component {
         </div>
         {/* laptop: none */}
         {/* tablet */}
-        <Hidden smDown LgUp>
+        <Hidden xsDown lgUp>
           <IconButton onClick={this.handleToggleFolded} color="inherit"><Icon>chevron_left</Icon></IconButton>
         </Hidden>
         {/* mobile */}
-        <Hidden MdUp>
+        <Hidden smUp>
           <IconButton onClick={navbarCloseMobile} color="inherit"><Icon>chevron_left</Icon></IconButton>
         </Hidden>
       </React.Fragment>
@@ -326,7 +326,7 @@ class FuseLayout1 extends Component {
             layoutConfig.navbar.folded && classes.navbarWrapperFolded)}
         >
           {/* tablet, laptop */}
-          <Hidden smDown>
+          <Hidden xsDown>
             <div
               className={classNames(
                 classes.navbar,
@@ -343,7 +343,7 @@ class FuseLayout1 extends Component {
             </div>
           </Hidden>
           {/* mobile */}
-          <Hidden MdUp>
+          <Hidden smUp>
             <Drawer
               anchor={layoutConfig.navbar.position}
               variant="temporary"
