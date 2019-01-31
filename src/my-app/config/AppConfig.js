@@ -84,11 +84,12 @@ export const userFieldsToPick = [
 //   timeout: 10000,
 // }
 
-export const logoPath = 'assets/images/logos/fuse.svg' // public/assets/images/logos/fuse.svg
-
-export const tagLine = 'Give leads. Get leads.'
-
-export const desc = 'Real estate agents, mortgage brokers, insurance agents and financial planners need leads. Referrals are a good way to get them. Swap lets you turn your clients into referrals and get back referrals in exchange.'
+export const brand = {
+  logoPath: 'assets/images/logos/fuse.svg', // public/assets/images/logos/fuse.svg
+  appName: 'Swap',
+  tagLine: 'Give leads. Get leads.',
+  desc: 'Real estate agents, mortgage brokers, insurance agents and financial planners need leads. Referrals are a good way to get them. Swap lets you turn your clients into referrals and get back referrals in exchange.',
+}
 
 export const bizCategoryItems = [
   { value : 'home'      , label : 'Home'      , icon : HomeIcon           } ,
