@@ -1,17 +1,17 @@
 import React from 'react';
 
 import MediaWidth from './MediaWidth';
-import LaptopDrawer from './Drawers/LaptopDrawer';
-import TabletDrawer from './Drawers/TabletDrawer';
 import MobileDrawer from './Drawers/MobileDrawer';
+import TabletDrawer from './Drawers/TabletDrawer';
+import LaptopDrawer from './Drawers/LaptopDrawer';
 // import ResponsiveDrawer from './Drawers/ResponsiveDrawer';
 
 const MyLayout = props => {
   return (
     <MediaWidth
-      laptop={<LaptopDrawer/>}
-      tablet={<TabletDrawer/>}
       mobile={<MobileDrawer/>}
+      tablet={<TabletDrawer/>}
+      laptop={<LaptopDrawer/>}
       // <ResponsiveDrawer/>
     />
   );
