@@ -71,7 +71,7 @@ function PermanentDrawerLeft(props) {
         anchor="left"
       >
         {
-        // <div className={classes.toolbar}> />
+        // <div className={classes.toolbar} />
         // <Divider />
         }
         <BrandAppBar />

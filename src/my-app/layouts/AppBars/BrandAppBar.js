@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 
 const styles = {
   root: {
-    flexGrow: 1,
+    // flexGrow: 1, // moves drawer contents to align flush / justify with the bottom of screen
   },
 };
 
@@ -18,7 +18,11 @@ function BrandAppBar(props) {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default">
+      <AppBar
+        // position="fixed" // overlays MyAppBar
+        position="static"
+        // color="default"
+      >
         <Toolbar>
           <Typography variant="h6" color="inherit">
             Photos
