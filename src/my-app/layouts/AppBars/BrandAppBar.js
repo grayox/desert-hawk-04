@@ -1,4 +1,6 @@
-// inspired by https://material-ui.com/demos/app-bar/#simple-app-bar
+// inspired by
+// https://material-ui.com/demos/app-bar/#simple-app-bar
+// src/main/MainNavbarHeader.js
 
 import React from 'react';
 import PropTypes from 'prop-types';

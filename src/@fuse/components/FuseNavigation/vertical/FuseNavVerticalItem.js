@@ -15,7 +15,7 @@ const propTypes = {
       id: PropTypes.string.isRequired,
       title: PropTypes.string,
       icon: PropTypes.string,
-      url: PropTypes.string
+      url: PropTypes.string,
     })
 };
 
@@ -23,9 +23,12 @@ const defaultProps = {};
 
 const styles = theme => ({
   item: {
-    height: 40,
-    width: 'calc(100% - 16px)',
-    borderRadius: '0 20px 20px 0',
+    height: 46, // 40 is original value; 46 is per spec: https://material.io/design/components/navigation-drawer.html#specs
+    
+    // rounded right border
+    width: 'calc(100% - 2px)', // -16px, right edge gap/gutter
+    borderRadius: '0 23px 23px 0', // '0 20px 20px 0', // semicicular right edge
+    
     paddingRight: 12,
     '&.active': {
       backgroundColor: theme.palette.secondary.main,
@@ -36,27 +39,30 @@ const styles = theme => ({
         color: 'inherit'
       },
       '& .list-item-icon': {
-        color: 'inherit'
-      }
+        color: 'inherit',
+      },
     },
     '&.square, &.active.square': {
       width: '100%',
-      borderRadius: '0'
+      borderRadius: '0',
     },
     '& .list-item-icon': {},
     '& .list-item-text': {},
     color: 'inherit!important',
-    textDecoration: 'none!important'
-  }
+    textDecoration: 'none!important',
+  },
 });
 
-function FuseNavVerticalItem({ item, classes, nestedLevel, userRole, navbarCloseMobile, active }) {
+function FuseNavVerticalItem({ item, classes, /*nestedLevel,*/ userRole, navbarCloseMobile, active }) {
   if (item.auth && (!item.auth.includes(userRole) || (userRole !== 'guest' && item.auth.length === 1 && item.auth.includes('guest')))) {
     return null;
   }
 
-  let paddingValue = 40 + (nestedLevel * 16);
-  const listItemPadding = nestedLevel > 0 ? 'pl-' + (paddingValue > 80 ? 80 : paddingValue) : 'pl-24';
+  // control indentation level based on nested hierarchy
+  // note: original text sizes can be retrieved from original -orig version of this file: icons: text-16, text: text-14
+  // let paddingValue = 40 + (nestedLevel * 16);
+  // const listItemPadding = nestedLevel > 0 ? 'pl-' + (paddingValue > 80 ? 80 : paddingValue) : 'pl-24';
+  const listItemPadding = 'pl-24';
 
   return (
     <ListItem
@@ -69,12 +75,12 @@ function FuseNavVerticalItem({ item, classes, nestedLevel, userRole, navbarClose
       exact={item.exact}
     >
       {item.icon && (
-        <Icon className="list-item-icon text-16 flex-no-shrink" color="action">{item.icon}</Icon>
+        <Icon className="list-item-icon flex-no-shrink" color="action">{item.icon}</Icon>
       )}
       {item.altIcon && (
         <span>{item.altIcon}</span>
       )}
-      <ListItemText className="list-item-text" primary={item.title} classes={{ primary: 'text-14 list-item-text-primary' }} />
+      <ListItemText className="list-item-text ml-16" primary={item.title} classes={{ primary: 'list-item-text-primary' }} />
       {item.badge && (
         <FuseNavBadge badge={item.badge} />
       )}
