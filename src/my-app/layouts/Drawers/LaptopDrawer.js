@@ -9,6 +9,7 @@ import { CssBaseline, Typography, Drawer, } from '@material-ui/core';
 import MyAppBar from '../AppBars/MyAppBar';
 import BrandAppBar from '../AppBars/BrandAppBar';
 import DrawerHeader from './DrawerHeader';
+import MainNavbarContent from './MainNavbarContent';
 import DrawerContent from './DrawerContent';
 
 import { drawerWidth } from 'my-app/config/AppConfig';
@@ -66,7 +67,8 @@ const PermanentDrawerLeft = props => {
         // <Divider />
         }
         <BrandAppBar />
-        <DrawerHeader />
+        {/* <DrawerHeader /> */}
+        <MainNavbarContent />
         <DrawerContent />
       </Drawer>
       <main className={classes.content}>

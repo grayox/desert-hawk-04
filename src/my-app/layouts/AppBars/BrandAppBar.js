@@ -21,11 +21,12 @@ function BrandAppBar(props) {
   return (
     <div className={classes.root}>
       <AppBar
+        elevation={0}
         // position="fixed" // overlays MyAppBar
         position="static"
         // color="default"
       >
-        <Toolbar>
+        <Toolbar className="justify-center">
           {
             ( brand && brand.logoPath )
             ?
