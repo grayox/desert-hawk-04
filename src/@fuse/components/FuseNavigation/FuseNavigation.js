@@ -41,7 +41,7 @@ class FuseNavigation extends Component {
               )}
 
               {item.type === 'divider' && (
-                <Divider className="my-24 border border-white" />
+                <Divider className="my-24 opacity-25 border border-white color-white bg-white" />
               )}
             </React.Fragment>
           ))

@@ -185,7 +185,7 @@ export const componentsNavConfig = [
     title     : 'Logout',
     type      : 'item',
     altIcon   : (
-      <IconContext.Provider value={{ color: "white", className: "list-item-icon text-16 flex-no-shrink" }}>
+      <IconContext.Provider value={{ color: "white", className: "text-20 flex-no-shrink" }}>
         <div><FaSignOutAlt /></div>
       </IconContext.Provider>
     ),

@@ -101,7 +101,7 @@ class MyAppBar extends Component {
         >
           <Toolbar>
             <IconButton
-              className={classes.leftButton}
+              className={classNames(classes.leftButton, 'lg:hidden')}
               onClick={handleClick}
               color="inherit"
               aria-label="Menu"

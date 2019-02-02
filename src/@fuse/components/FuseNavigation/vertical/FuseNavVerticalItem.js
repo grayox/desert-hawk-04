@@ -87,7 +87,7 @@ function FuseNavVerticalItem({ item, classes, /*nestedLevel,*/ userRole, navbarC
       )}
       {item && item.altIcon && (
         <span
-          className="list-item-icon flex-no-shrink text-white mt-8 ml-6 mr-3"
+          className="list-item-icon flex-no-shrink text-white mt-8 ml-4 mr-3"
           color="action"
         >{item.altIcon}</span>
       )}
