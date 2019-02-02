@@ -37,6 +37,8 @@ const styles = theme => ({
 
 
 function MainNavbar({ classes, navigation, layoutStyle, user }) {
+
+  // username, email, photo
   function UserHeader() {
     return (
       <AppBar
@@ -45,8 +47,22 @@ function MainNavbar({ classes, navigation, layoutStyle, user }) {
         elevation={0}
         className="user relative flex flex-col items-center justify-center pt-24 pb-64 mb-32 z-0"
       >
-        <Typography className="username text-16 whitespace-no-wrap" color="inherit">{user.data.displayName}</Typography>
-        <Typography className="email text-13 mt-8 opacity-50 whitespace-no-wrap" color="inherit">{user.data.email}</Typography>
+      
+      {
+        // username
+        // originally: text-16
+      }
+        <Typography className="username text-18 whitespace-no-wrap" color="inherit">{user.data.displayName}</Typography>
+      
+      {
+        // email
+        // originally: text-13
+      }
+        <Typography className="email text-14 mt-8 opacity-50 whitespace-no-wrap" color="inherit">{user.data.email}</Typography>
+      
+      {
+        // photo
+      }
         <Avatar
           className={classNames(classes.avatar, "avatar")}
           alt="user photo"
@@ -69,6 +85,7 @@ function MainNavbar({ classes, navigation, layoutStyle, user }) {
         (
           <React.Fragment>
             <UserHeader />
+            <div className="h-32" />
             <FuseNavigation navigation={navigation} layout={navigationLayout} />
           </React.Fragment>
         )
@@ -78,7 +95,6 @@ function MainNavbar({ classes, navigation, layoutStyle, user }) {
             <Hidden lgUp>
               <UserHeader />
             </Hidden>
-            {/* <div className="mt-32" /> */}
             <FuseNavigation navigation={navigation} layout={navigationLayout} />
           </React.Fragment>
         )

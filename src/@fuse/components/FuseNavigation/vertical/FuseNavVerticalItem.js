@@ -24,7 +24,8 @@ const defaultProps = {};
 const styles = theme => ({
   item: {
     height: 46, // 40 is original value; 46 is per spec: https://material.io/design/components/navigation-drawer.html#specs
-    
+    color: 'white',
+
     // rounded right border
     width: 'calc(100% - 2px)', // -16px, right edge gap/gutter
     borderRadius: '0 23px 23px 0', // '0 20px 20px 0', // semicicular right edge
@@ -46,9 +47,13 @@ const styles = theme => ({
       width: '100%',
       borderRadius: '0',
     },
-    '& .list-item-icon': {},
-    '& .list-item-text': {},
-    color: 'inherit!important',
+    '& .list-item-icon': {
+      color: theme.palette.secondary.contrastText + '!important',
+    },
+    '& .list-item-text': {
+      color: theme.palette.secondary.contrastText + '!important',
+    },
+    color: 'white', //'inherit!important',
     textDecoration: 'none!important',
   },
 });
@@ -70,18 +75,29 @@ function FuseNavVerticalItem({ item, classes, /*nestedLevel,*/ userRole, navbarC
       component={NavLink}
       to={item.url}
       activeClassName="active"
-      className={classNames(classes.item, listItemPadding, 'list-item', active)}
+      className={classNames(classes.item, listItemPadding, 'list-item text-white', active)}
       onClick={navbarCloseMobile}
       exact={item.exact}
     >
-      {item.icon && (
-        <Icon className="list-item-icon flex-no-shrink" color="action">{item.icon}</Icon>
+      {item && item.icon && (
+        <Icon
+          className="list-item-icon flex-no-shrink text-white"
+          color="action"
+        >{item.icon}</Icon>
       )}
-      {item.altIcon && (
-        <span>{item.altIcon}</span>
+      {item && item.altIcon && (
+        <span
+          className="list-item-icon flex-no-shrink text-white ml-4"
+          color="action"
+        >{item.altIcon}</span>
       )}
-      <ListItemText className="list-item-text ml-16" primary={item.title} classes={{ primary: 'list-item-text-primary' }} />
-      {item.badge && (
+      <ListItemText
+        classes={{ primary: 'list-item-text-primary' }}
+        className="list-item-text ml-16 text-white"
+        color="action"
+        primary={item.title}
+      />
+      {item && item.badge && (
         <FuseNavBadge badge={item.badge} />
       )}
     </ListItem>

@@ -19,7 +19,7 @@ const defaultProps = {
 
 class FuseNavigation extends Component {
   render() {
-    const { navigation, layout, active } = this.props;
+    const { navigation, layout, active, } = this.props;
 
     const verticalNav = (
       <List className="whitespace-no-wrap">
@@ -41,7 +41,7 @@ class FuseNavigation extends Component {
               )}
 
               {item.type === 'divider' && (
-                <Divider className="my-32" />
+                <Divider className="my-24 border border-white" />
               )}
             </React.Fragment>
           ))

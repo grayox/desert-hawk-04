@@ -9,7 +9,7 @@ import { CssBaseline, Typography, Drawer, } from '@material-ui/core';
 import MyAppBar from '../AppBars/MyAppBar';
 import BrandAppBar from '../AppBars/BrandAppBar';
 import DrawerContent from './DrawerContent';
-import DrawerContent1 from './DrawerContent1';
+// import DrawerContent1 from './DrawerContent1'; // specs/dimensions reference for sizing, spacing, etc
 
 import { drawerWidth } from 'my-app/config/AppConfig';
 // const drawerWidth = 240;
@@ -28,6 +28,7 @@ const styles = theme => ({
   },
   drawerPaper: {
     width: drawerWidth,
+    backgroundColor: '#303030', // 262933 per styles/index.css
   },
   toolbar: theme.mixins.toolbar,
   content: {
@@ -67,7 +68,9 @@ const PermanentDrawerLeft = props => {
         }
         <BrandAppBar />
         <DrawerContent />
-        <DrawerContent1 />
+        {
+        // <DrawerContent1 />
+        }
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
