@@ -87,12 +87,12 @@ function FuseNavVerticalItem({ item, classes, /*nestedLevel,*/ userRole, navbarC
       )}
       {item && item.altIcon && (
         <span
-          className="list-item-icon flex-no-shrink text-white ml-4"
+          className="list-item-icon flex-no-shrink text-white mt-8 ml-6 mr-3"
           color="action"
         >{item.altIcon}</span>
       )}
       <ListItemText
-        classes={{ primary: 'list-item-text-primary' }}
+        classes={{ primary: 'list-item-text-primary text-white' }} // this 'text-white' is the one that works!
         className="list-item-text ml-16 text-white"
         color="action"
         primary={item.title}
