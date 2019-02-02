@@ -16,6 +16,11 @@ import MailIcon from '@material-ui/icons/Mail';
 
 import { Typography, } from '@material-ui/core';
 
+import MyAppBar from '../AppBars/MyAppBar';
+import BrandAppBar from '../AppBars/BrandAppBar';
+import DrawerContent from './DrawerContent';
+// import DrawerContent1 from './DrawerContent1'; // specs/dimensions reference for sizing, spacing, etc
+
 import { drawerWidth } from 'my-app/config/AppConfig';
 
 const styles = {
@@ -45,6 +50,13 @@ class TemporaryDrawer extends Component {
     const { classes } = this.props;
 
     const sideList = (
+      <React.Fragment>
+        <BrandAppBar />
+        <DrawerContent />
+      </React.Fragment>
+    );
+
+    const sideList1 = (
       <div className={classes.list}>
         <List>
           {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
@@ -89,7 +101,7 @@ class TemporaryDrawer extends Component {
     );
 
     return (
-      <div>
+      <div className="bg-grey-lightest">
         <Typography paragraph>
           Mobile (&lt;600)
           |

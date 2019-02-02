@@ -22,6 +22,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 
+import MyAppBar from '../AppBars/MyAppBar';
+import BrandAppBar from '../AppBars/BrandAppBar';
+import DrawerContent from './DrawerContent';
+// import DrawerContent1 from './DrawerContent1'; // specs/dimensions reference for sizing, spacing, etc
+
 import { drawerWidth } from 'my-app/config/AppConfig';
 // const drawerWidth = 240;
 
@@ -128,6 +133,7 @@ class MiniDrawer extends Component {
             </Typography>
           </Toolbar>
         </AppBar>
+        {/* <MyAppBar /> */}
         <Drawer
           variant="permanent"
           className={classNames(classes.drawer, {
@@ -142,29 +148,33 @@ class MiniDrawer extends Component {
           }}
           open={this.state.open}
         >
-          <div className={classes.toolbar}>
-            <IconButton onClick={this.handleDrawerClose}>
-              {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-            </IconButton>
-          </div>
-          <Divider />
-          <List>
-            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
-          <Divider />
-          <List>
-            {['All mail', 'Trash', 'Spam'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
+          {/* <BrandAppBar /> */}
+          <DrawerContent />
+        {
+          // <div className={classes.toolbar}>
+          //   <IconButton onClick={this.handleDrawerClose}>
+          //     {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+          //   </IconButton>
+          // </div>
+          // <Divider />
+          // <List>
+          //   {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+          //     <ListItem button key={text}>
+          //       <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+          //       <ListItemText primary={text} />
+          //     </ListItem>
+          //   ))}
+          // </List>
+          // <Divider />
+          // <List>
+          //   {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          //     <ListItem button key={text}>
+          //       <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+          //       <ListItemText primary={text} />
+          //     </ListItem>
+          //   ))}
+          // </List>
+        }
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
