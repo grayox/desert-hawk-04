@@ -124,7 +124,9 @@ class TemporaryDrawer extends Component {
     );
 
     return (
-      <div className="bg-grey-lightest">
+      <div
+        // className="bg-grey-lightest"
+      >
 
         <MobileAppBar className="w-full" onClickMenuButton={this.toggleDrawer('left', true)} />
 
@@ -198,10 +200,12 @@ class TemporaryDrawer extends Component {
             https://material-ui.com/demos/drawers/#temporary-drawer
           </Typography>
 
-          <Button onClick={this.toggleDrawer('left', true)}>Open Left</Button>
-          <Button onClick={this.toggleDrawer('right', true)}>Open Right</Button>
-          <Button onClick={this.toggleDrawer('top', true)}>Open Top</Button>
-          <Button onClick={this.toggleDrawer('bottom', true)}>Open Bottom</Button>
+          {
+          // <Button onClick={this.toggleDrawer('left', true)}>Open Left</Button>
+          // <Button onClick={this.toggleDrawer('right', true)}>Open Right</Button>
+          // <Button onClick={this.toggleDrawer('top', true)}>Open Top</Button>
+          // <Button onClick={this.toggleDrawer('bottom', true)}>Open Bottom</Button>
+          }
 
         </main>
 
