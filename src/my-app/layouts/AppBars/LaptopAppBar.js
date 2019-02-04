@@ -36,9 +36,10 @@ const styles = theme => ({
   
   // const out = {
     root: {
-      display    : 'flex'   ,
-      alignItems : 'center' ,
-      // width      : '100%'   , // WARNING: applies extra margin to content!? (when using laptop drawer)
+      display      : 'flex'   ,
+      alignItems   : 'center' ,
+      // width        : '100%'   , // WARNING: applies extra margin to content!? (when using laptop drawer)
+      marginBottom : 56       ,
     },
     // separator: {
     //     width          : 1,

@@ -5,9 +5,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+import {
+  AppBar, Toolbar, Typography, 
+  // CssBaseline,
+  IconButton, Icon,
+} from '@material-ui/core';
 
 import { brand } from 'my-app/config/AppConfig';
 
@@ -15,6 +17,7 @@ const styles = {
   root: {
     // flexGrow: 1, // moves drawer contents to align flush / justify with the bottom of screen
   },
+
 };
 
 function BrandAppBar(props) {
@@ -22,6 +25,7 @@ function BrandAppBar(props) {
 
   return (
     <div className={classes.root}>
+      {/* <CssBaseline /> */}
       <AppBar
         elevation={0}
         // position="fixed" // overlays MyAppBar

@@ -24,22 +24,26 @@ const styles = theme => ({
   // demo: https://codesandbox.io/s/wq02759kk
   root: {
     width: '100vw',
-    color: theme.palette.text.secondary, //'yellow',
+    bottom: 0,
+    position: 'fixed',
+    marginTop: 185,
+
+    color: theme.palette.text.primary.contrastText, //'yellow',
     background: theme.palette.secondary.main, //'pink',
     // bgcolor: 'pink',
     // '&$active': {
     '&$selected': {
-      color: theme.palette.text.primary, //'blue', // targets label and icon when selected.color is not used below
+      color: theme.palette.text.primary.contrastText, //'blue', // targets label and icon when selected.color is not used below
     },
   },
   selected: {
     // color: 'red', // targets label only, no icon
   },
 
-  footerWrapper: {
-    position: 'relative',
-    zIndex: 5
-  },
+  // footerWrapper: {
+  //   position: 'relative',
+  //   zIndex: 5
+  // },
 });
 
 const items = componentsNavConfig.filter(ob => ob.bottomNav) // filters in only objects with bottomNav property

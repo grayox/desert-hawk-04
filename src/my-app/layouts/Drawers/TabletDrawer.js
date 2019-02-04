@@ -5,24 +5,12 @@ import React, { Component, } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import {
+  Drawer, AppBar, Toolbar,
+  CssBaseline, Typography, IconButton, Icon,
+  // List, Divider, ListItem, ListItemIcon, ListItemText,
+} from '@material-ui/core';
 
-import TabletAppBar from '../AppBars/TabletAppBar';
 import BrandAppBar from '../AppBars/BrandAppBar';
 import DrawerContent from './DrawerContent';
 // import DrawerContent1 from './DrawerContent1'; // specs/dimensions reference for sizing, spacing, etc
@@ -90,6 +78,11 @@ const styles = theme => ({
     flexGrow: 1,
     padding: theme.spacing.unit * 3,
   },
+
+  drawerPaper: {
+    // width: drawerWidth,
+    backgroundColor: '#303030', // 262933 per styles/index.css
+  },
 });
 
 class MiniDrawer extends Component {
@@ -97,16 +90,21 @@ class MiniDrawer extends Component {
     open: false,
   };
 
-  handleDrawerOpen = () => {
-    this.setState({ open: true });
+  handleDrawerToggle = () => {
+    this.setState({ open: !this.state.open });
   };
 
-  handleDrawerClose = () => {
-    this.setState({ open: false });
-  };
+  // handleDrawerOpen = () => {
+  //   this.setState({ open: true });
+  // };
+
+  // handleDrawerClose = () => {
+  //   this.setState({ open: false });
+  // };
 
   render() {
     const { classes, theme } = this.props;
+    const { open } = this.state;
 
     return (
       <div className={classes.root}>
@@ -114,70 +112,77 @@ class MiniDrawer extends Component {
         <AppBar
           position="fixed"
           className={classNames(classes.appBar, {
-            [classes.appBarShift]: this.state.open,
+            [classes.appBarShift]: open,
           })}
         >
-          <Toolbar disableGutters={!this.state.open}>
+          <Toolbar disableGutters={!open}>
             <IconButton
               color="inherit"
               aria-label="Open drawer"
-              onClick={this.handleDrawerOpen}
+              // onClick={this.handleDrawerOpen}
+              onClick={this.handleDrawerToggle}
               className={classNames(classes.menuButton, {
-                [classes.hide]: this.state.open,
+                // [classes.hide]: open,
               })}
             >
-              <MenuIcon />
+              { open ? (<Icon>chevron_left</Icon>) : (<Icon>menu</Icon>) }
             </IconButton>
             <Typography variant="h6" color="inherit" noWrap>
               Mini variant drawer
             </Typography>
           </Toolbar>
         </AppBar>
-        {/* <TabletAppBar /> */}
+
         <Drawer
           variant="permanent"
-          className={classNames(classes.drawer, {
-            [classes.drawerOpen]: this.state.open,
-            [classes.drawerClose]: !this.state.open,
+          className={classNames(
+            classes.drawerPaper,
+            classes.drawer, {
+              [classes.drawerOpen]: open,
+              [classes.drawerClose]: !open,
           })}
           classes={{
             paper: classNames({
-              [classes.drawerOpen]: this.state.open,
-              [classes.drawerClose]: !this.state.open,
+              [classes.drawerOpen]: open,
+              [classes.drawerClose]: !open,
             }),
           }}
-          open={this.state.open}
+          open={open}
         >
-          {/* <BrandAppBar /> */}
+          { open && <BrandAppBar /> }
           <DrawerContent />
-        {
-          // <div className={classes.toolbar}>
-          //   <IconButton onClick={this.handleDrawerClose}>
-          //     {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          //   </IconButton>
-          // </div>
-          // <Divider />
-          // <List>
-          //   {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          //     <ListItem button key={text}>
-          //       <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-          //       <ListItemText primary={text} />
-          //     </ListItem>
-          //   ))}
-          // </List>
-          // <Divider />
-          // <List>
-          //   {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          //     <ListItem button key={text}>
-          //       <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-          //       <ListItemText primary={text} />
-          //     </ListItem>
-          //   ))}
-          // </List>
-        }
+          {
+          // <React.Fragment>
+          //   <div className={classes.toolbar}>
+          //     <IconButton onClick={this.handleDrawerClose}>
+          //       {theme.direction === 'rtl' ? <Icon>chevron_right</Icon> : <Icon>chevron_left</Icon>}
+          //     </IconButton>
+          //   </div>
+          //   <Divider />
+          //   <List>
+          //     {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+          //       <ListItem button key={text}>
+          //         <ListItemIcon>{index % 2 === 0 ? <Icon>inbox</Icon> : <Icon>mail</Icon>}</ListItemIcon>
+          //         <ListItemText primary={text} />
+          //       </ListItem>
+          //     ))}
+          //   </List>
+          //   <Divider />
+          //   <List>
+          //     {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          //       <ListItem button key={text}>
+          //         <ListItemIcon>{index % 2 === 0 ? <Icon>inbox</Icon> : <Icon>mail</Icon>}</ListItemIcon>
+          //         <ListItemText primary={text} />
+          //       </ListItem>
+          //     ))}
+          //   </List>
+          // </React.Fragment>
+          }
         </Drawer>
         <main className={classes.content}>
+          {
           <div className={classes.toolbar} />
+          }
           <Typography paragraph>
             Tablet (600-1280)
             |

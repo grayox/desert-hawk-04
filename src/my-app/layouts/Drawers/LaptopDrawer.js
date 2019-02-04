@@ -73,7 +73,9 @@ const PermanentDrawerLeft = props => {
         }
       </Drawer>
       <main className={classes.content}>
+        {
         <div className={classes.toolbar} />
+        }
         
         <Typography paragraph>
           Laptop (1280+)

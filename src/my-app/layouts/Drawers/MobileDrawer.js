@@ -130,7 +130,7 @@ class MobileDrawer extends Component {
         // className="bg-grey-lightest"
       >
 
-        {/* <MyBottomNav />; */}
+        <MyBottomNav />
         <MobileAppBar className="w-full" onClickMenuButton={this.toggleDrawer('left', true)} />
 
         <Drawer
@@ -195,7 +195,9 @@ class MobileDrawer extends Component {
         }
 
         <main className={classes.content}>
-          <div className={classes.toolbar} />
+          {
+          // <div className={classes.toolbar} />
+          }
           <Typography paragraph>
             Mobile (&lt;600)
           </Typography>
