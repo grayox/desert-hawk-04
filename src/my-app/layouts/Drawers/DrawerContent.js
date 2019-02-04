@@ -36,7 +36,8 @@ const styles = theme => ({
 });
 
 
-function MainNavbar({ classes, navigation, layoutStyle, user }) {
+// function MainNavbar({ classes, navigation, layoutStyle, user }) {
+function DrawerContent({ classes, navigation, layoutStyle, user, userHeader }) {
 
   // username, email, photo
   function UserHeader() {
@@ -84,8 +85,14 @@ function MainNavbar({ classes, navigation, layoutStyle, user }) {
         ?
         (
           <React.Fragment>
-            <UserHeader />
-            <div className="h-32" />
+            { 
+              userHeader && (
+                <React.Fragment>
+                  <UserHeader />
+                  <div className="h-32" />
+                </React.Fragment>
+              )
+            }
             <FuseNavigation navigation={navigation} layout={navigationLayout} />
           </React.Fragment>
         )
@@ -93,7 +100,7 @@ function MainNavbar({ classes, navigation, layoutStyle, user }) {
         (
           <React.Fragment>
             <Hidden lgUp>
-              <UserHeader />
+              { userHeader && (<UserHeader />) }
             </Hidden>
             <FuseNavigation navigation={navigation} layout={navigationLayout} />
           </React.Fragment>
@@ -115,4 +122,5 @@ function mapStateToProps({ fuse, auth }) {
   }
 }
 
-export default withStyles(styles, { withTheme: true })(withRouter(connect(mapStateToProps, mapDispatchToProps)(MainNavbar)));
+// export default withStyles(styles, { withTheme: true })(withRouter(connect(mapStateToProps, mapDispatchToProps)(MainNavbar)));
+export default withStyles(styles, { withTheme: true })(withRouter(connect(mapStateToProps, mapDispatchToProps)(DrawerContent)));

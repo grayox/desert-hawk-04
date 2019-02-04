@@ -28,9 +28,8 @@ import {
 // import MediaWidth from 'my-app/layouts/MediaWidth';
 import { drawerWidth } from 'my-app/config/AppConfig';
 
-
 // import { useMediaPredicate } from 'react-media-hook'; // <20 downloads
-import MediaQuery from 'react-responsive'; // 122k downloads
+// import MediaQuery from 'react-responsive'; // 122k downloads
 // react-media // 67k downloads
 
 const styles = theme => ({
@@ -78,11 +77,11 @@ const styles = theme => ({
 // const isTablet = !(isMobile || isLaptop);
 
 
-class MyAppBar extends Component {
+class TabletAppBar extends Component {
 
-  state = {
-    device: 'mobile',
-  };
+  // state = {
+  //   device: 'mobile',
+  // };
 
   handleClickMenuButton = () => this.props.onClickMenuButton()
 
@@ -111,12 +110,14 @@ class MyAppBar extends Component {
       <div className={classNames(classes.root, "")}>
         <CssBaseline />
 
-        <MediaQuery minDeviceWidth={1280}>
-          { matches => {
-            if (matches) this.setState({device: 'laptop'});
-            return null;
-          }}
-        </MediaQuery>
+        {
+        // <MediaQuery minDeviceWidth={1280}>
+        //   { matches => {
+        //     if (matches) this.setState({device: 'laptop'});
+        //     return null;
+        //   }}
+        // </MediaQuery>
+        }
 
         <AppBar
           className={classes.appBar}
@@ -193,4 +194,4 @@ function mapStateToProps({ auth }) {
   }
 }
 
-export default withStyles(styles, { withTheme: true })(connect(mapStateToProps, mapDispatchToProps)(MyAppBar));
+export default withStyles(styles, { withTheme: true })(connect(mapStateToProps, mapDispatchToProps)(TabletAppBar));

@@ -22,7 +22,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 
-import MyAppBar from '../AppBars/MyAppBar';
+import TabletAppBar from '../AppBars/TabletAppBar';
 import BrandAppBar from '../AppBars/BrandAppBar';
 import DrawerContent from './DrawerContent';
 // import DrawerContent1 from './DrawerContent1'; // specs/dimensions reference for sizing, spacing, etc
@@ -133,7 +133,7 @@ class MiniDrawer extends Component {
             </Typography>
           </Toolbar>
         </AppBar>
-        {/* <MyAppBar /> */}
+        {/* <TabletAppBar /> */}
         <Drawer
           variant="permanent"
           className={classNames(classes.drawer, {

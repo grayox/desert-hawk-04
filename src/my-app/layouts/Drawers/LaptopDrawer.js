@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { CssBaseline, Typography, Drawer, } from '@material-ui/core';
 
-import MyAppBar from '../AppBars/MyAppBar';
+import LaptopAppBar from '../AppBars/LaptopAppBar';
 import BrandAppBar from '../AppBars/BrandAppBar';
 import DrawerContent from './DrawerContent';
 // import DrawerContent1 from './DrawerContent1'; // specs/dimensions reference for sizing, spacing, etc
@@ -53,7 +53,7 @@ const PermanentDrawerLeft = props => {
       //   </Toolbar>
       // </AppBar>
       }
-      <MyAppBar />
+      <LaptopAppBar />
       <Drawer
         className={classes.drawer}
         variant="permanent"
@@ -67,7 +67,7 @@ const PermanentDrawerLeft = props => {
         // <Divider />
         }
         <BrandAppBar />
-        <DrawerContent />
+        <DrawerContent userHeader />
         {
         // <DrawerContent1 />
         }

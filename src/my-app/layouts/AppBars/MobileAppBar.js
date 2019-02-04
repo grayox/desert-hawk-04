@@ -30,7 +30,7 @@ import { drawerWidth } from 'my-app/config/AppConfig';
 
 
 // import { useMediaPredicate } from 'react-media-hook'; // <20 downloads
-import MediaQuery from 'react-responsive'; // 122k downloads
+// import MediaQuery from 'react-responsive'; // 122k downloads
 // react-media // 67k downloads
 
 const styles = theme => ({
@@ -39,7 +39,7 @@ const styles = theme => ({
     root: {
       display    : 'flex'   ,
       alignItems : 'center' ,
-      // width      : '100%'   , // WARNING: applies extra margin to content!? (when using laptop drawer)
+      width      : '100%'   , // WARNING: applies extra margin to content!? (when using laptop drawer)
     },
     // separator: {
     //     width          : 1,
@@ -64,7 +64,7 @@ const styles = theme => ({
 
     appBar: {
       marginLeft: drawerWidth,
-      width: `calc(100% - ${drawerWidth}px)`,
+      // width: `calc(100% - ${drawerWidth}px)`,
     },
   // }
 
@@ -78,11 +78,11 @@ const styles = theme => ({
 // const isTablet = !(isMobile || isLaptop);
 
 
-class MyAppBar extends Component {
+class MobileAppBar extends Component {
 
-  state = {
-    device: 'mobile',
-  };
+  // state = {
+  //   device: 'mobile',
+  // };
 
   handleClickMenuButton = () => this.props.onClickMenuButton()
 
@@ -111,12 +111,14 @@ class MyAppBar extends Component {
       <div className={classNames(classes.root, "")}>
         <CssBaseline />
 
-        <MediaQuery minDeviceWidth={1280}>
-          { matches => {
-            if (matches) this.setState({device: 'laptop'});
-            return null;
-          }}
-        </MediaQuery>
+        {
+        // <MediaQuery minDeviceWidth={1280}>
+        //   { matches => {
+        //     if (matches) this.setState({device: 'laptop'});
+        //     return null;
+        //   }}
+        // </MediaQuery>
+        }
 
         <AppBar
           className={classes.appBar}
@@ -193,4 +195,4 @@ function mapStateToProps({ auth }) {
   }
 }
 
-export default withStyles(styles, { withTheme: true })(connect(mapStateToProps, mapDispatchToProps)(MyAppBar));
+export default withStyles(styles, { withTheme: true })(connect(mapStateToProps, mapDispatchToProps)(MobileAppBar));
