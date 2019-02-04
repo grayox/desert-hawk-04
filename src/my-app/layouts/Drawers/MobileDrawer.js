@@ -190,9 +190,7 @@ class TemporaryDrawer extends Component {
         }
 
         <main className={classes.content}>
-          {
-          // <div className={classes.toolbar} />
-          }
+          <div className={classes.toolbar} />
           <Typography paragraph>
             Mobile (&lt;600)
           </Typography>
