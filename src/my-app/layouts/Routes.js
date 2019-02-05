@@ -17,8 +17,11 @@ class Routes extends Component {
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path='/'component={Dashboard} />
-          {/* <Route path='/project/:id' component={ProjectDetails} /> */}
+          {
+          // <Route exact path='/'component={Dashboard} />
+          // <Route path='/project/:id' component={ProjectDetails} />
+          }
+          <Route path='/dashboard' component={Dashboard} />
           <Route path='/inbox' component={Inbox} />
           <Route path='/archive' component={Archive} />
           <Route path='/outbox' component={Outbox} />

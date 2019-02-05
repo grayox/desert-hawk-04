@@ -208,8 +208,8 @@ class MobileDrawer extends Component {
           //   https://material-ui.com/demos/drawers/#temporary-drawer
           // </Typography>
           }
-
-          { Routes }
+          
+          <Routes />
 
           {
           // <Button onClick={this.toggleDrawer('left', true)}>Open Left</Button>
