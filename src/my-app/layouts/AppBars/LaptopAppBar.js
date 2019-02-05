@@ -8,7 +8,7 @@ import classNames from 'classnames';
 
 import * as Actions from 'store/actions';
 
-import {FuseShortcuts, FuseAnimate, FuseSearch} from '@fuse';
+// import {FuseShortcuts, FuseAnimate, FuseSearch} from '@fuse';
 
 // @material-ui/core
 // import Icon from "@material-ui/core/Icon";
@@ -87,7 +87,7 @@ class TabletAppBar extends Component {
   handleClickMenuButton = () => this.props.onClickMenuButton()
 
   render() {
-    const { classes, onClickMenuButton } = this.props;
+    const { classes, onClickMenuButton, } = this.props;
     const { handleClickMenuButton, } = this;
     // const { userMenu } = this.state;
 
@@ -138,19 +138,16 @@ class TabletAppBar extends Component {
               color="inherit"
               aria-label="Menu"
             >
-              {
-              // <MenuIcon />
-              }
               <Icon>menu</Icon>
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.grow}>
               News
             </Typography>
+
             {
             // <Button color="inherit">Login</Button>
+            // <FuseSearch />
             }
-            
-            <FuseSearch />
             
             <IconButton
              className={classes.rightButton}

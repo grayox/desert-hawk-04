@@ -11,6 +11,7 @@ import {
   // List, Divider, ListItem, ListItemIcon, ListItemText,
 } from '@material-ui/core';
 
+import MyBottomNav from 'my-app/layouts/AppBars/MyBottomNav.js';
 import BrandAppBar from '../AppBars/BrandAppBar';
 import DrawerContent from './DrawerContent';
 // import DrawerContent1 from './DrawerContent1'; // specs/dimensions reference for sizing, spacing, etc
@@ -48,6 +49,7 @@ const styles = theme => ({
     width: drawerWidth,
     flexShrink: 0,
     whiteSpace: 'nowrap',
+    // height: 'calc(100% - 88px)',
   },
   drawerOpen: {
     backgroundColor: '#303030', // 262933 per styles/index.css
@@ -110,8 +112,10 @@ class MiniDrawer extends Component {
     return (
       <div className={classes.root}>
         <CssBaseline />
+        <MyBottomNav />
         <AppBar
           position="fixed"
+          color="secondary"
           className={classNames(classes.appBar, {
             [classes.appBarShift]: open,
           })}

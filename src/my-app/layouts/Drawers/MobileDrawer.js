@@ -4,6 +4,7 @@
 import React, { Component, } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import Routes from 'my-app/layouts/Routes.js';
 // import ClassNames from 'classnames';
 
 import Drawer from '@material-ui/core/Drawer';
@@ -198,12 +199,17 @@ class MobileDrawer extends Component {
           {
           // <div className={classes.toolbar} />
           }
-          <Typography paragraph>
-            Mobile (&lt;600)
-          </Typography>
-          <Typography paragraph>
-            https://material-ui.com/demos/drawers/#temporary-drawer
-          </Typography>
+
+          {
+          // <Typography paragraph>
+          //   Mobile (&lt;600)
+          // </Typography>
+          // <Typography paragraph>
+          //   https://material-ui.com/demos/drawers/#temporary-drawer
+          // </Typography>
+          }
+
+          { Routes }
 
           {
           // <Button onClick={this.toggleDrawer('left', true)}>Open Left</Button>

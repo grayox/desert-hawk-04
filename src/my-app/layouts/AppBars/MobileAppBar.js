@@ -8,7 +8,7 @@ import classNames from 'classnames';
 
 import * as Actions from 'store/actions';
 
-import {FuseShortcuts, FuseAnimate, FuseSearch} from '@fuse';
+// import {FuseShortcuts, FuseAnimate, FuseSearch} from '@fuse';
 
 // @material-ui/core
 // import Icon from "@material-ui/core/Icon";
@@ -148,11 +148,11 @@ class MobileAppBar extends Component {
             <Typography variant="h6" color="inherit" className={classes.grow}>
               News
             </Typography>
+            
             {
             // <Button color="inherit">Login</Button>
+            // <FuseSearch />
             }
-            
-            <FuseSearch />
             
             <IconButton
              className={classes.rightButton}

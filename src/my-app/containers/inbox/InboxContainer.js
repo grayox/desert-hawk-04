@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // import Inbox from '../../layouts/inbox/Inbox';
-import Inbox from 'my-app/layouts/views-app/inbox/Inbox';
+import Inbox from 'my-app/layouts/views/app/inbox/Inbox';
 
 // firebase
 import firebase from '@firebase/app';

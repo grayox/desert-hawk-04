@@ -54,9 +54,9 @@ import firebase from '@firebase/app';
 import '@firebase/firestore';
 
 // misc
-// import Album from 'my-app/layouts/views-app/album/Album'
+// import Album from 'my-app/layouts/views/app/album/Album'
 
-// import MyAppBar from 'my-app/layouts/views-app/AppBars/MyAppBar';
+// import MyAppBar from 'my-app/layouts/views/app/AppBars/MyAppBar';
 
 const db = firebase.firestore();
 
