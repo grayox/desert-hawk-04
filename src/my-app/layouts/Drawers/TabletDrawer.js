@@ -50,6 +50,7 @@ const styles = theme => ({
     whiteSpace: 'nowrap',
   },
   drawerOpen: {
+    backgroundColor: '#303030', // 262933 per styles/index.css
     width: drawerWidth,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
@@ -57,6 +58,7 @@ const styles = theme => ({
     }),
   },
   drawerClose: {
+    backgroundColor: '#303030', // 262933 per styles/index.css
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -80,9 +82,8 @@ const styles = theme => ({
   },
 
   drawerPaper: {
-    // width: drawerWidth,
-    backgroundColor: '#303030', // 262933 per styles/index.css
   },
+
 });
 
 class MiniDrawer extends Component {
@@ -149,8 +150,8 @@ class MiniDrawer extends Component {
           }}
           open={open}
         >
-          { open && <BrandAppBar /> }
-          <DrawerContent />
+          <BrandAppBar />
+          <DrawerContent/>
           {
           // <React.Fragment>
           //   <div className={classes.toolbar}>
