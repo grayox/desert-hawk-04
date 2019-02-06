@@ -181,9 +181,9 @@ class MasterDetail extends Component {
             { 
               isList
               ?
-              <Icon>expand_more</Icon>
+              <Icon>more_horiz</Icon>
               :
-              <Icon>expand_less</Icon>
+              <Icon>close</Icon>
             }
           </IconButton>
         </ListItemSecondaryAction>

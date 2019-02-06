@@ -11,7 +11,7 @@ import { create } from 'jss';
 import { createGenerateClassName, jssPreset } from '@material-ui/core/styles';
 import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux';
-import { Router } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { routes } from './fuse-configs/fuseRoutesConfig';
 import { // FuseLayout,
   FuseTheme, FuseAuthorization } from '@fuse';
@@ -45,7 +45,7 @@ store.firebaseAuthIsReady.then(() => { // my add
     <JssProvider jss={jss} generateClassName={generateClassName}>
       <Provider store={store}>
         <Auth>
-          <Router history={history}>
+          <BrowserRouter history={history}>
             <FuseAuthorization routes={routes}>
               <FuseTheme>
                 <MyLayout />
@@ -79,7 +79,7 @@ store.firebaseAuthIsReady.then(() => { // my add
                 }
               </FuseTheme>
             </FuseAuthorization>
-          </Router>
+          </BrowserRouter>
         </Auth>
       </Provider>
     </JssProvider>
