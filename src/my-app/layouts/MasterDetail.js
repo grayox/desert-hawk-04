@@ -17,7 +17,7 @@ import Paper from '@material-ui/core/Paper';
 // import Icon from "@material-ui/core/Icon";
 import {
   AppBar, Toolbar, Typography,
-  Slide, Zoom, Icon, IconButton, Divider,
+  Slide, Zoom, Grow, Icon, IconButton, Divider,
   // CssBaseline, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
 } from '@material-ui/core';
 
@@ -263,11 +263,12 @@ class MasterDetail extends Component {
         {
           detail
           ?
-          <Zoom // <Slide
+          <Grow // <Zoom // <Slide
             // direction="right"
+            // mountOnEnter
+            // unmountOnExit
             in //={detail}
-            mountOnEnter
-            unmountOnExit
+            timeout={3000}
           >
             <React.Fragment>
               {
@@ -280,7 +281,7 @@ class MasterDetail extends Component {
               </Paper>
               {getDetail(detail)}
             </React.Fragment>
-          </Zoom> // </Slide>
+          </Grow> // </Zoom> // </Slide>
           :
           getEmpty()
         }

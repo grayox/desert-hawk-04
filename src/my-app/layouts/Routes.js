@@ -19,19 +19,19 @@ class Routes extends Component {
       <BrowserRouter>
         <Switch>
           {
-          // <Route exact path='/'component={Dashboard} />
+          // <Route exact path='/' component={Dashboard} />
           // <Route path='/project/:id' component={ProjectDetails} />
           }
           <Route path='/dashboard' component={Dashboard} />
-          <Route path='/inbox' component={Inbox} />
-          <Route path='/archive' component={Archive} />
-          <Route path='/outbox' component={Outbox} />
-          <Route path='/contacts' component={Contacts} />
+          <Route path='/inbox'     component={Inbox}     />
+          <Route path='/archive'   component={Archive}   />
+          <Route path='/outbox'    component={Outbox}    />
+          <Route path='/contacts'  component={Contacts}  />
 
-          <Route path='/settings' component={Settings} />
-          <Route path='/feedback' component={Feedback} />
-          <Route path='/help' component={Help} />
-          <Route path='/logout' component={Logout} />
+          <Route path='/settings'  component={Settings}  />
+          <Route path='/feedback'  component={Feedback}  />
+          <Route path='/help'      component={Help}      />
+          <Route path='/logout'    component={Logout}    />
         </Switch>
       </BrowserRouter>
     );
