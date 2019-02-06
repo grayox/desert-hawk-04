@@ -143,7 +143,7 @@ class MasterDetail extends Component {
           <Toolbar className="px-16">
             <Typography variant="subtitle1" color="inherit" className="flex-1">
               Items
-          </Typography>
+            </Typography>
           </Toolbar>
         </AppBar>
       </FuseAnimate>

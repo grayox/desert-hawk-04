@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Dashboard from 'my-app/layouts/views/app/dashboard/Dashboard';
-import Inbox from 'my-app/layouts/views/app/inbox/Inbox';
+// import Inbox from 'my-app/layouts/views/app/inbox/Inbox';
+import Inbox from 'my-app/containers/inbox/InboxContainer';
 import Archive from 'my-app/layouts/views/app/archive/Archive';
 import Outbox from 'my-app/layouts/views/app/outbox/Outbox';
 import Contacts from 'my-app/layouts/views/app/contacts/Contacts';
