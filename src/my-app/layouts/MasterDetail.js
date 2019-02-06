@@ -55,7 +55,7 @@ const styles = theme => ({
   },
   paper: {
     // padding: theme.spacing.unit * 2,
-    width: '100%',
+    width: '100vw',
     textAlign: 'center',
     color: theme.palette.text.secondary,
     // maxWidth: '360px',

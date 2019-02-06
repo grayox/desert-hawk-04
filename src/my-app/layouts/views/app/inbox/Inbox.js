@@ -25,6 +25,7 @@ function Inbox(props) {
   return (
     <MasterDetail
       // title={'Inbox Detail'}
+      className={classes.root}
       items={items}
       condensed
     />
