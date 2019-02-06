@@ -15,7 +15,7 @@ import {
   // MuiThemeProvider, AppBar, IconButton,
 } from '@material-ui/core';
 
-import { Link, } from 'react-router-dom'; // withRouter,
+import { withRouter, Link, } from 'react-router-dom'; //
 import { componentsNavConfig, } from 'my-app/config/AppConfig.js';
 // import { FuseScrollbars, FuseMessage, FuseThemes, FuseDialog } from '@fuse';
 

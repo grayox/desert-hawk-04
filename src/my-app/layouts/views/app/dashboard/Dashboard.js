@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 // import { withStyles } from '@material-ui/core/styles';
 // import withStyles from "@material-ui/core/styles/withStyles";
 
+// import { withRouter } from 'react-router-dom';
+
 // react plugin for creating charts
 // import ChartistGraph from "react-chartist";
 
@@ -14,7 +16,6 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { updateSettings } from 'my-app/store/actions/my-actions';
 // import store from '../../store';
-// import {withRouter} from 'react-router-dom';
 // import { firestoreConnect } from 'react-redux-firebase';
 
 // @material-ui/core
@@ -470,8 +471,9 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default compose(
-  withStyles(styles, { withTheme: true }),  
+  withStyles(styles, { withTheme: true }),
   connect(mapStateToProps, mapDispatchToProps),
+  // withRouter(connect(mapStateToProps, mapDispatchToProps),
   // firestoreConnect(props => {
   //   return [
   //     { collection: 'leads', orderBy: ['timestamp', 'desc'] },
