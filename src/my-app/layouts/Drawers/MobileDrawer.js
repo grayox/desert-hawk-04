@@ -17,7 +17,7 @@ import Drawer from '@material-ui/core/Drawer';
 // import InboxIcon from '@material-ui/icons/MoveToInbox';
 // import MailIcon from '@material-ui/icons/Mail';
 
-import { Typography, } from '@material-ui/core';
+// import { Typography, } from '@material-ui/core';
 
 import MyBottomNav from 'my-app/layouts/AppBars/MyBottomNav.js';
 import MobileAppBar from '../AppBars/MobileAppBar';
