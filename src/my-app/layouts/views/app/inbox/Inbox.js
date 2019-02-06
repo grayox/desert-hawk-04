@@ -9,7 +9,9 @@ import MasterDetail from 'my-app/layouts/MasterDetail.js'
 
 const styles = theme => ({
   root: {
-    width: '100%',
+    padding: 0,
+    width: '100vw',
+    // width: '100%',
     // maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
   },

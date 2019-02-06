@@ -68,7 +68,7 @@ const styles = theme => ({
   },
   
   wrapper: {
-    paddingTop: 0, // flush with top on mobile //'56px', // clears <AppBar />
+    padding: 0, // flush with top on mobile //'56px', // clears <AppBar />
     // verticalAlign: 'top', // overcomes default
     width: '100vw', // flush with right edge on mobile
   },
@@ -417,27 +417,23 @@ class Dashboard extends Component {
     );
 
     return (
-      <React.Fragment>
-        {
+      // <React.Fragment>
+        // <CssBaseline />
         // <MyAppBar
         //    id="fuse-toolbar"
         //    color="default"
         //   //  className={classNames(classes.toolbarWrapper, classes.toolbar,)}
         //   //  onClick={navbarOpenMobile}
         // />
-        }
+      <div className={classes.wrapper}>
+        { ( show === 'greet' ) ? <SettingsMessage onClick={handleClickGeo} />           : null }
+        { ( show === 'step'  ) ? <SettingsStepper onSave={handleSaveSettingsStepper} /> : null }
+        { ( show === 'main'  ) ? main                                                   : null }
         {
-        // <CssBaseline />
+        // <Album />
         }
-        <div className={classes.wrapper}>
-          { ( show === 'greet' ) ? <SettingsMessage onClick={handleClickGeo} />           : null }
-          { ( show === 'step'  ) ? <SettingsStepper onSave={handleSaveSettingsStepper} /> : null }
-          { ( show === 'main'  ) ? main                                                   : null }
-          {
-          // <Album />
-          }
-        </div>
-      </React.Fragment>
+      </div>
+      // </React.Fragment>
     );
   }
 

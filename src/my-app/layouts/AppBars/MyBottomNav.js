@@ -28,7 +28,13 @@ const styles = theme => ({
     position: 'fixed',
     background: theme.palette.secondary.main, //'pink',
     zIndex: theme.zIndex.drawer + 1,
- 
+    // color: 'white', // theme.palette.text.primary.contrastText, //'yellow',
+    // '&$selected': {
+    //   color: 'white', // theme.palette.text.primary.contrastText, //'blue', // targets label and icon when selected.color is not used below
+    // },
+  },
+
+  actionClasses: {
     color: 'white', // theme.palette.text.primary.contrastText, //'yellow',
     // bgcolor: 'pink',
     // '&$active': {
@@ -36,9 +42,9 @@ const styles = theme => ({
       color: 'white', // theme.palette.text.primary.contrastText, //'blue', // targets label and icon when selected.color is not used below
     },
   },
-  selected: {
-    // color: 'red', // targets label only, no icon
-  },
+  // selected: {
+  //   // color: 'red', // targets label only, no icon
+  // },
 
   // footerWrapper: {
   //   position: 'relative',
@@ -99,8 +105,9 @@ class MyBottomNav extends Component {
             <BottomNavigationAction
               key={item.title}
               // className={classes.root}
-              // className="color-white"
               // classes={classes.actionClasses}
+              // className="color-white"
+              className={classes.actionClasses}
               component={Link}
               to={items[index].url}
               label={item.title}
