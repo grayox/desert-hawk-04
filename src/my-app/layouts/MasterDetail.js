@@ -17,7 +17,7 @@ import Paper from '@material-ui/core/Paper';
 // import Icon from "@material-ui/core/Icon";
 import {
   AppBar, Toolbar, Typography,
-  Slide, Icon, IconButton, Divider,
+  Slide, Zoom, Icon, IconButton, Divider,
   // CssBaseline, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
 } from '@material-ui/core';
 
@@ -181,11 +181,9 @@ class MasterDetail extends Component {
             { 
               isList
               ?
-              <Icon>navigate_next</Icon>
+              <Icon>expand_more</Icon>
               :
-              // <Icon>navigate_before</Icon>
-              // <Icon>save_alt</Icon>
-              <Icon>move_to_inbox</Icon>
+              <Icon>expand_less</Icon>
             }
           </IconButton>
         </ListItemSecondaryAction>
@@ -265,9 +263,9 @@ class MasterDetail extends Component {
         {
           detail
           ?
-          <Slide
-            direction="right"
-            in={detail}
+          <Zoom // <Slide
+            // direction="right"
+            in //={detail}
             mountOnEnter
             unmountOnExit
           >
@@ -282,7 +280,7 @@ class MasterDetail extends Component {
               </Paper>
               {getDetail(detail)}
             </React.Fragment>
-          </Slide>
+          </Zoom> // </Slide>
           :
           getEmpty()
         }
