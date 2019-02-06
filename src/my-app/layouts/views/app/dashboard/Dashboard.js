@@ -68,8 +68,9 @@ const styles = theme => ({
   },
   
   wrapper: {
-    paddingTop: '56px', // clears <AppBar />
+    paddingTop: 0, // flush with top on mobile //'56px', // clears <AppBar />
     // verticalAlign: 'top', // overcomes default
+    width: '100vw', // flush with right edge on mobile
   },
 
 });

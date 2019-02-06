@@ -143,6 +143,7 @@ class MobileDrawer extends Component {
           // anchor="left"
           open={this.state.left}
           onClose={this.toggleDrawer('left', false)}
+          onClick={this.toggleDrawer('left', false)}
         >
           <BrandAppBar />
           <DrawerContent userHeader />

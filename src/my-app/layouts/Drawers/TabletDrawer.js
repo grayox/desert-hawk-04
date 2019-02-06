@@ -43,7 +43,12 @@ const styles = theme => ({
     marginRight: 36,
   },
   hide: {
-    display: 'none',
+    // display: 'none',
+    marginLeft: -16,
+  },
+  hideTypog: {
+    // display: 'none',
+    marginLeft: -24,
   },
   drawer: {
     width: drawerWidth,
@@ -126,13 +131,14 @@ class MiniDrawer extends Component {
               aria-label="Open drawer"
               // onClick={this.handleDrawerOpen}
               onClick={this.handleDrawerToggle}
-              className={classNames(classes.menuButton, {
-                // [classes.hide]: open,
-              })}
+              className={classNames(
+                classes.menuButton,
+                { [classes.hide]: open, },
+              )}
             >
-              { open ? (<Icon>chevron_left</Icon>) : (<Icon>menu</Icon>) }
+              { open ? (<Icon>arrow_back_ios</Icon>) : (<Icon>menu</Icon>) }
             </IconButton>
-            <Typography variant="h6" color="inherit" noWrap>
+            <Typography variant="h6" color="inherit" noWrap className={classNames({[classes.hideTypog]: open,})}>
               Mini variant drawer
             </Typography>
           </Toolbar>

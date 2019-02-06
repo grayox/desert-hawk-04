@@ -51,10 +51,11 @@ const styles = theme => ({
   wrapper: {
     minHeight: '100vh',
     verticalAlign: 'top', // overcomes default
-    paddingTop: '56px', // clears <AppBar />
+    // paddingTop: '56px', // clears <AppBar />
   },
   paper: {
     // padding: theme.spacing.unit * 2,
+    width: '100%',
     textAlign: 'center',
     color: theme.palette.text.secondary,
     // maxWidth: '360px',
