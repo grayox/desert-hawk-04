@@ -5,10 +5,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Routes from 'my-app/layouts/Routes.js';
-import { CssBaseline, Typography, Drawer, } from '@material-ui/core';
+import {
+  Typography,
+  CssBaseline, Drawer,
+} from '@material-ui/core';
 
-import LaptopAppBar from '../AppBars/LaptopAppBar';
-import BrandAppBar from '../AppBars/BrandAppBar';
+import LaptopAppBar from '../appBars/LaptopAppBar';
+import BrandAppBar from '../appBars/BrandAppBar';
 import DrawerContent from './DrawerContent';
 // import DrawerContent1 from './DrawerContent1'; // specs/dimensions reference for sizing, spacing, etc
 

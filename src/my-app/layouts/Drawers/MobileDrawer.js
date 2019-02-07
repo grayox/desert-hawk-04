@@ -19,9 +19,9 @@ import Drawer from '@material-ui/core/Drawer';
 
 // import { Typography, } from '@material-ui/core';
 
-import MyBottomNav from 'my-app/layouts/AppBars/MyBottomNav.js';
-import MobileAppBar from '../AppBars/MobileAppBar';
-import BrandAppBar from '../AppBars/BrandAppBar';
+import MyBottomNav from 'my-app/layouts/appBars/MyBottomNav.js';
+import MobileAppBar from '../appBars/MobileAppBar';
+import BrandAppBar from '../appBars/BrandAppBar';
 import DrawerContent from './DrawerContent';
 // import DrawerContent1 from './DrawerContent1'; // specs/dimensions reference for sizing, spacing, etc
 

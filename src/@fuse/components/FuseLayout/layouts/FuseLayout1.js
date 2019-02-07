@@ -11,7 +11,7 @@ import classNames from 'classnames';
 import _ from '@lodash';
 
 // begin my add
-import MyAppBar from 'my-app/layouts/AppBars/MyAppBar';
+import MyAppBar from 'my-app/layouts/appBars/MyAppBar';
 // end my add
 
 const defaultProps = {};

@@ -13,8 +13,8 @@ import {
   // List, Divider, ListItem, ListItemIcon, ListItemText,
 } from '@material-ui/core';
 
-import MyBottomNav from 'my-app/layouts/AppBars/MyBottomNav.js';
-import BrandAppBar from '../AppBars/BrandAppBar';
+import MyBottomNav from 'my-app/layouts/appBars/MyBottomNav.js';
+import BrandAppBar from '../appBars/BrandAppBar';
 import DrawerContent from './DrawerContent';
 // import DrawerContent1 from './DrawerContent1'; // specs/dimensions reference for sizing, spacing, etc
 
