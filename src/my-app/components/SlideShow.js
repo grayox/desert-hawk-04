@@ -25,7 +25,8 @@ import {
 } from '@material-ui/core';
 
 // import Carousel from 'nuka-carousel';
-import Carousel from './Carousel';
+// import Carousel from './Carousel';
+// import Album from 'my-app/components/album/Album';
 
 const styles = theme => ({
   appBar: {
@@ -119,7 +120,9 @@ class SlideShow extends React.Component {
             </Toolbar>
           </AppBar> */}
 
-          {/* <Carousel className={classes.carousel} initialWidth="100vw">
+          {
+          // <Carousel className={classes.carousel} initialWidth="100vw">
+          }
             <img alt="" src="http://placehold.it/900x500/ffffff/c0392b/&text=Eu aliquip nostrud" />
             <img alt="" src="http://placehold.it/900x500/ff0000/ffffff/&text=exercitation tempor duis" />
             <img alt="" src="http://placehold.it/900x500/00ff00/ffffff/&text=eu eiusmod dolor deserunt" />
@@ -135,19 +138,26 @@ class SlideShow extends React.Component {
             <img alt="" src="my-app/images/screenshots/ss05.png" />
             <img alt="" src="my-app/images/screenshots/ss06.png" />
             <img alt="" src="my-app/images/screenshots/ss07.png" />
-          </Carousel> */}
+          {
+          // </Carousel>
+          }
 
-          <Carousel/>
+          {
+          // <Carousel/>
+          // <Album/>
+          }
 
-          {/* <List>
-            <ListItem button>
-              <ListItemText primary="Phone ringtone" secondary="Titania" />
-            </ListItem>
-            <Divider />
-            <ListItem button>
-              <ListItemText primary="Default notification ringtone" secondary="Tethys" />
-            </ListItem>
-          </List> */}
+          {
+          // <List>
+          //   <ListItem button>
+          //     <ListItemText primary="Phone ringtone" secondary="Titania" />
+          //   </ListItem>
+          //   <Divider />
+          //   <ListItem button>
+          //     <ListItemText primary="Default notification ringtone" secondary="Tethys" />
+          //   </ListItem>
+          // </List>
+          }
 
         </Dialog>
       </div>
