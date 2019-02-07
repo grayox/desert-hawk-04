@@ -33,6 +33,7 @@ import { drawerWidth } from 'my-app/config/AppConfig';
 // react-media // 67k downloads
 
 import OverflowMenu from './OverflowMenu';
+import RoutePageTitle from 'my-app/components/RoutePageTitle';
 
 const styles = theme => ({
   
@@ -90,7 +91,7 @@ class MobileAppBar extends Component {
   handleClickMenuButton = () => this.props.onClickMenuButton()
 
   render() {
-    const { classes, onClickMenuButton } = this.props;
+    const { classes, } = this.props; // onClickMenuButton,
     const { handleClickMenuButton, } = this;
     // const { userMenu } = this.state;
 
@@ -146,8 +147,12 @@ class MobileAppBar extends Component {
               }
               <Icon>menu</Icon>
             </IconButton>
+            
             <Typography variant="h6" color="inherit" className={classes.grow}>
-              News
+              {
+              // News
+              }
+              <RoutePageTitle />
             </Typography>
             
             {
