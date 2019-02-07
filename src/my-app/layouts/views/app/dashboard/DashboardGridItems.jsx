@@ -299,7 +299,7 @@ function getRows(props) {
         {
           label: 'Archive',
           data: 5,
-          icon: SaveIcon,
+          icon: FolderIcon, // SaveIcon,
           color: 'success',
           buttonLabel: 'View archive',
           desc:
@@ -323,7 +323,7 @@ function getRows(props) {
         {
           label: 'Contacts',
           data: 5,
-          icon: ContactsIcon,
+          icon: AccountBoxIcon, // ContactsIcon,
           color: 'success',
           buttonLabel: 'Add contact',
           desc:
