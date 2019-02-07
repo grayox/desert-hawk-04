@@ -28,10 +28,11 @@ import {
 // import MediaWidth from 'my-app/layouts/MediaWidth';
 import { drawerWidth } from 'my-app/config/AppConfig';
 
-
 // import { useMediaPredicate } from 'react-media-hook'; // <20 downloads
 // import MediaQuery from 'react-responsive'; // 122k downloads
 // react-media // 67k downloads
+
+import OverflowMenu from './OverflowMenu';
 
 const styles = theme => ({
   
@@ -152,20 +153,18 @@ class MobileAppBar extends Component {
             {
             // <Button color="inherit">Login</Button>
             // <FuseSearch />
+
+            // <IconButton
+            //   className={classes.rightButton}
+            //   color="inherit"
+            //   aria-label="Overflow"
+            // >
+            //   <Icon>more_vert</Icon>
+            // </IconButton>
             }
-            
-            <IconButton
-             className={classes.rightButton}
-             color="inherit"
-             aria-label="Overflow"
-            >
-              {
-              // <Icon>exit_to_app</Icon>
-              // <iron-icon icon="vaadin:sign-out" />
-              // <GoSignOut />
-              }
-              <Icon>more_vert</Icon>
-            </IconButton>
+
+            <OverflowMenu className={classes.rightButton} />
+
           </Toolbar>
         </AppBar>
       </div>

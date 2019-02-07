@@ -152,6 +152,7 @@ export const componentsNavConfig = [
   // divider
   {id:'div1',title:'',type:'divider',icon:'',url:'',path:'',},
 
+  // overhead views
   // see specs here: https://material.io/design/communication/help-feedback.html#use-placement
   {
     id        : 'settings',
@@ -161,6 +162,7 @@ export const componentsNavConfig = [
     url       : '/settings',
     path      : 'my-app/layouts/views/app/settings/Settings',
     bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
+    overhead  : true,
   },
   {
     id        : 'feedback',
@@ -170,6 +172,7 @@ export const componentsNavConfig = [
     url       : '/feedback',
     path      : 'my-app/layouts/views/app/overhead/Feedback',
     bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
+    overhead  : true,
   },
   {
     id        : 'help',
@@ -179,6 +182,7 @@ export const componentsNavConfig = [
     url       : '/help',
     path      : 'my-app/layouts/views/app/overhead/Help',
     bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
+    overhead  : true,
   },
   {
     id        : 'logout',
@@ -192,6 +196,7 @@ export const componentsNavConfig = [
     url       : '/logout',
     path      : 'my-app/layouts/views/app/overhead/Logout',
     bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
+    overhead  : true,
   },
 ]
 

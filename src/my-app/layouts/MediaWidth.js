@@ -15,6 +15,12 @@ import { Hidden, } from '@material-ui/core';
 // <--- mobile ---| 600px |--- tablet ---| 1280px |--- laptop --->
 
 // import MediaWidth from 'my-app/layouts/MediaWidth';
+// <MediaWidth
+// mobile={<MobileDrawer/>}
+// tablet={<TabletDrawer/>}
+// laptop={<LaptopDrawer/>}
+// // <ResponsiveDrawer/>
+// />
 
 const MediaWidth = props => {
   const { mobile, tablet, laptop, } = props;
