@@ -61,9 +61,7 @@ class InboxContainer extends Component {
   render() {
     const { items } = this.state;
     return (
-      <div>
-        <Inbox items={items} />
-      </div>
+      <Inbox items={items} />
     );
   }
 }
