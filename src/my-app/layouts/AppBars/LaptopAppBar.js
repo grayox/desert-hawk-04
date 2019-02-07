@@ -27,6 +27,7 @@ import {
 
 // import MediaWidth from 'my-app/layouts/MediaWidth';
 import { drawerWidth } from 'my-app/config/AppConfig';
+import RoutePageTitle from 'my-app/components/RoutePageTitle';
 
 // import { useMediaPredicate } from 'react-media-hook'; // <20 downloads
 // import MediaQuery from 'react-responsive'; // 122k downloads
@@ -87,7 +88,7 @@ class TabletAppBar extends Component {
   handleClickMenuButton = () => this.props.onClickMenuButton()
 
   render() {
-    const { classes, onClickMenuButton, } = this.props;
+    const { classes, } = this.props; // onClickMenuButton,
     const { handleClickMenuButton, } = this;
     // const { userMenu } = this.state;
 
@@ -141,7 +142,10 @@ class TabletAppBar extends Component {
               <Icon>menu</Icon>
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.grow}>
-              News
+              {
+              // News
+              }
+              <RoutePageTitle />
             </Typography>
 
             {

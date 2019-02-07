@@ -16,6 +16,7 @@ import {
 import MyBottomNav from 'my-app/layouts/appBars/MyBottomNav.js';
 import BrandAppBar from '../appBars/BrandAppBar';
 import OverflowMenu from '../appBars/OverflowMenu';
+import RoutePageTitle from 'my-app/components/RoutePageTitle';
 import DrawerContent from './DrawerContent';
 // import DrawerContent1 from './DrawerContent1'; // specs/dimensions reference for sizing, spacing, etc
 
@@ -154,7 +155,10 @@ class MiniDrawer extends Component {
                 classes.grow,
               )}
             >
-              Mini variant drawer
+              {
+              // Mini variant drawer
+              }
+              <RoutePageTitle />
             </Typography>
             <OverflowMenu />
           </Toolbar>
