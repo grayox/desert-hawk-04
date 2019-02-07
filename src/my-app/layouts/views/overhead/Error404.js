@@ -32,13 +32,13 @@ class Error404Page extends Component {
           <FuseAnimate animation="transition.expandIn" delay={100}>
             <Typography variant="h1" color="inherit" className="font-medium mb-16">
               404
-                        </Typography>
+            </Typography>
           </FuseAnimate>
 
           <FuseAnimate delay={500}>
             <Typography variant="h5" color="textSecondary" className="mb-16">
               Sorry but we could not find the page you are looking for
-                        </Typography>
+            </Typography>
           </FuseAnimate>
 
           <Paper className={classNames(classes.searchWrapper, "mt-48 mb-16")} elevation={1}>
