@@ -197,28 +197,22 @@ class MobileDrawer extends Component {
         }
 
         <main className={classes.content}>
+          <Routes />
           {
           // <div className={classes.toolbar} />
-          }
-
-          {
+          
           // <Typography paragraph>
           //   Mobile (&lt;600)
           // </Typography>
           // <Typography paragraph>
           //   https://material-ui.com/demos/drawers/#temporary-drawer
           // </Typography>
-          }
-          
-          <Routes />
-
-          {
+        
           // <Button onClick={this.toggleDrawer('left', true)}>Open Left</Button>
           // <Button onClick={this.toggleDrawer('right', true)}>Open Right</Button>
           // <Button onClick={this.toggleDrawer('top', true)}>Open Top</Button>
           // <Button onClick={this.toggleDrawer('bottom', true)}>Open Bottom</Button>
           }
-
         </main>
 
       </div>

@@ -192,9 +192,9 @@ class MiniDrawer extends Component {
           // </React.Fragment>
           }
         </Drawer>
-        <Routes />
+        <main className={classes.content}>
+          <Routes />
         {
-        // <main className={classes.content}>
         //   {
         //   <div className={classes.toolbar} />
         //   }
@@ -228,8 +228,8 @@ class MiniDrawer extends Component {
         //     viverra maecenas accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam
         //     ultrices sagittis orci a.
         //   </Typography>
-        // </main>
         }
+        </main>
       </div>
     );
   }

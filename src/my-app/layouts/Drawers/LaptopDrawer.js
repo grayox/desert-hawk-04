@@ -76,9 +76,9 @@ const PermanentDrawerLeft = props => {
         // <DrawerContent1 />
         }
       </Drawer>
-      <Routes />
+      <main className={classes.content}>
+        <Routes />
       {
-      // <main className={classes.content}>
       //   {
       //   <div className={classes.toolbar} />
       //   }
@@ -112,8 +112,8 @@ const PermanentDrawerLeft = props => {
       //     nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas
       //     accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
       //   </Typography>
-      // </main>
       }
+      </main>
     </div>
   );
 }
