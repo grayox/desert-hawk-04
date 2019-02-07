@@ -83,7 +83,7 @@ const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    padding: '0 8px',
+    padding: '0 16px 0 8px',
     ...theme.mixins.toolbar,
   },
   content: {
@@ -94,9 +94,8 @@ const styles = theme => ({
   drawerPaper: {
   },
 
-  rightButton: {
-    position: 'absolute',
-    right: 12,
+  grow: {
+    flexGrow: 1,
   },
 
 });
@@ -146,10 +145,18 @@ class MiniDrawer extends Component {
             >
               { open ? (<Icon>arrow_back_ios</Icon>) : (<Icon>menu</Icon>) }
             </IconButton>
-            <Typography variant="h6" color="inherit" noWrap className={classNames({[classes.hideTypog]: open,})}>
+            <Typography
+              variant="h6"
+              color="inherit"
+              noWrap
+              className={classNames(
+                {[classes.hideTypog]: open,},
+                classes.grow,
+              )}
+            >
               Mini variant drawer
             </Typography>
-            <OverflowMenu className={classes.rightButton} />
+            <OverflowMenu />
           </Toolbar>
         </AppBar>
 
