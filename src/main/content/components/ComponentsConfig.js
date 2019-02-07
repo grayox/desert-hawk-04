@@ -32,7 +32,7 @@ const items = [
   {
     path: '/inbox',
     component: FuseLoadable({
-      loader: () => import('my-app/containers/inbox/InboxContainer')
+      loader: () => import('my-app/containers/Inbox')
     }),
   },
   {
