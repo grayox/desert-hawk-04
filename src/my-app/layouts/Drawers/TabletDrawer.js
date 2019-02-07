@@ -15,6 +15,7 @@ import {
 
 import MyBottomNav from 'my-app/layouts/appBars/MyBottomNav.js';
 import BrandAppBar from '../appBars/BrandAppBar';
+import OverflowMenu from '../appBars/OverflowMenu';
 import DrawerContent from './DrawerContent';
 // import DrawerContent1 from './DrawerContent1'; // specs/dimensions reference for sizing, spacing, etc
 
@@ -93,6 +94,11 @@ const styles = theme => ({
   drawerPaper: {
   },
 
+  rightButton: {
+    position: 'absolute',
+    right: 12,
+  },
+
 });
 
 class MiniDrawer extends Component {
@@ -143,6 +149,7 @@ class MiniDrawer extends Component {
             <Typography variant="h6" color="inherit" noWrap className={classNames({[classes.hideTypog]: open,})}>
               Mini variant drawer
             </Typography>
+            <OverflowMenu className={classes.rightButton} />
           </Toolbar>
         </AppBar>
 

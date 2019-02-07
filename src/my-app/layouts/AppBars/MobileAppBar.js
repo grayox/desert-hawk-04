@@ -55,14 +55,14 @@ const styles = theme => ({
     grow: {
       flexGrow: 1,
     },
-    leftButton: {
-      marginLeft: -12,
-      marginRight: 20,
-    },
-    rightButton: {
-      marginRight: -12,
-      marginLeft: 20,
-    },
+    // leftButton: {
+    //   marginLeft: -12,
+    //   marginRight: 20,
+    // },
+    // rightButton: {
+    //   marginRight: -12,
+    //   marginLeft: 20,
+    // },
 
     appBar: {
       marginLeft: drawerWidth,
@@ -163,7 +163,7 @@ class MobileAppBar extends Component {
             // </IconButton>
             }
 
-            <OverflowMenu className={classes.rightButton} />
+            <OverflowMenu />
 
           </Toolbar>
         </AppBar>
