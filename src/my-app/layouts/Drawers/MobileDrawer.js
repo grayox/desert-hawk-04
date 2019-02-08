@@ -45,12 +45,23 @@ const styles = theme => ({
   },
   fab: {
     position: 'absolute',
-    // // candidate
+    // zIndex: theme.zIndex.appBar + 1,
+    zIndex: 1202, // undefined: // zIndex: theme.zIndex.bottomNavigation + 1,
+    // // candidate 0 - spec
+    // bottom : theme.spacing.unit * 2 ,
+    // right  : theme.spacing.unit * 2 ,
+    // // candidate 1
     // bottom : theme.spacing.unit * 8 ,
     // right  : theme.spacing.unit * 1 ,
-    top   : theme.spacing.unit * 4 ,
-    right : theme.spacing.unit * 9 ,
-    zIndex: 1000,
+    // // candidate 2
+    // top    : theme.spacing.unit * 3 ,
+    // right  : theme.spacing.unit * 9 ,
+    // // candidate 3
+    // bottom : theme.spacing.unit *  3 ,
+    // right  : theme.spacing.unit * 12 ,
+    // candidate 4
+    bottom : theme.spacing.unit * 4   ,
+    right  : theme.spacing.unit * 0.5 ,
   },
 });
 
