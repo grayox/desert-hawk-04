@@ -1,4 +1,5 @@
 public/assets/images/logos/fuse.svg
+public/images
 src/@fuse/components/FuseAuthorization/FuseAuthorization.js
 src/@fuse/components/FuseLayout/layouts/FuseLayout1.js
 src/@fuse/components/FuseNavigation/FuseNavigation.js

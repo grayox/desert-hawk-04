@@ -43,10 +43,10 @@ const styles = theme => ({
     // margin   : '0 auto'
     margin   : theme.spacing.unit,
     position : 'absolute',
-    zIndex   : 1,
+    zIndex   :  1,
     top      : 70,
     left     : 20,
-    right    : 0,
+    right    :  0,
   },
 });
 
@@ -130,14 +130,14 @@ class SlideShow extends React.Component {
             <img alt="" src="http://placehold.it/900x500/ffff00/ffffff/&text=consectetur ullamco" />
             <img alt="" src="http://placehold.it/900x500/00ffff/ffffff/&text=Tempor culpa sunt aute" />
             <img alt="" src="http://placehold.it/900x500/00ffff/ffffff/&text=irure excepteur occaecat ad" />
-            <img alt="" src="my-app/images/art/sidebar-02.jpg" />
-            <img alt="" src="my-app/images/screenshots/ss01.png" />
-            <img alt="" src="my-app/images/screenshots/ss02.png" />
-            <img alt="" src="my-app/images/screenshots/ss03.png" />
-            <img alt="" src="my-app/images/screenshots/ss04.png" />
-            <img alt="" src="my-app/images/screenshots/ss05.png" />
-            <img alt="" src="my-app/images/screenshots/ss06.png" />
-            <img alt="" src="my-app/images/screenshots/ss07.png" />
+            <img alt="" src="public/images/art/sidebar-02.jpg" />
+            <img alt="" src="public/images/screenshots/ss01.png" />
+            <img alt="" src="public/images/screenshots/ss02.png" />
+            <img alt="" src="public/images/screenshots/ss03.png" />
+            <img alt="" src="public/images/screenshots/ss04.png" />
+            <img alt="" src="public/images/screenshots/ss05.png" />
+            <img alt="" src="public/images/screenshots/ss06.png" />
+            <img alt="" src="public/images/screenshots/ss07.png" />
           {
           // </Carousel>
           }
