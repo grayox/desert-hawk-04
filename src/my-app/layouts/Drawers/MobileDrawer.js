@@ -3,21 +3,10 @@
 
 import React, { Component, } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import Routes from 'my-app/layouts/Routes.js';
 // import ClassNames from 'classnames';
 
-import Drawer from '@material-ui/core/Drawer';
-// import Button from '@material-ui/core/Button';
-// import List from '@material-ui/core/List';
-// import Divider from '@material-ui/core/Divider';
-// import ListItem from '@material-ui/core/ListItem';
-// import ListItemIcon from '@material-ui/core/ListItemIcon';
-// import ListItemText from '@material-ui/core/ListItemText';
-// import InboxIcon from '@material-ui/icons/MoveToInbox';
-// import MailIcon from '@material-ui/icons/Mail';
-
-// import { Typography, } from '@material-ui/core';
+import { withStyles, Drawer, Zoom, Fab, Icon, } from '@material-ui/core';
 
 import MyBottomNav from 'my-app/layouts/appBars/MyBottomNav.js';
 import MobileAppBar from '../appBars/MobileAppBar';
@@ -54,7 +43,15 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.default,
     // padding: theme.spacing.unit * 3,
   },
-
+  fab: {
+    position: 'absolute',
+    // // candidate
+    // bottom : theme.spacing.unit * 8 ,
+    // right  : theme.spacing.unit * 1 ,
+    top   : theme.spacing.unit * 4 ,
+    right : theme.spacing.unit * 9 ,
+    zIndex: 1000,
+  },
 });
 
 // class TemporaryDrawer extends Component {
@@ -73,7 +70,11 @@ class MobileDrawer extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, theme, } = this.props;
+    // const transitionDuration = {
+    //   enter: theme.transitions.duration.enteringScreen,
+    //   exit: theme.transitions.duration.leavingScreen,
+    // };
 
     const sideList = (
       <React.Fragment>
@@ -127,10 +128,27 @@ class MobileDrawer extends Component {
     // );
 
     return (
-      <div
-        // className="bg-grey-lightest"
-      >
+      <React.Fragment>
+      {
+      // <div className="bg-grey-lightest">
+      }
 
+        <Zoom
+          // key={fab.color}
+          in unmountOnExit
+          // timeout={transitionDuration}
+          timeout={500}
+          style={{
+            transitionDelay: '500ms',
+          }}
+        >
+          <Fab
+            className={classes.fab}
+            color='primary' //'secondary' // accent
+          >
+            <Icon>add</Icon>  
+          </Fab>
+        </Zoom>
         <MyBottomNav />
         <MobileAppBar className="w-full" onClickMenuButton={this.toggleDrawer('left', true)} />
 
@@ -215,7 +233,10 @@ class MobileDrawer extends Component {
           }
         </main>
 
-      </div>
+      {
+      // </div>
+      }
+      </React.Fragment> 
     );
   }
 }
