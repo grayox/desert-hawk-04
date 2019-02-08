@@ -6,9 +6,10 @@ import PropTypes from 'prop-types';
 import Routes from 'my-app/layouts/Routes.js';
 // import ClassNames from 'classnames';
 
-import { withStyles, Drawer, Zoom, Fab, Icon, } from '@material-ui/core';
+import { withStyles, Drawer, } from '@material-ui/core';
 
-import MyBottomNav from 'my-app/layouts/appBars/MyBottomNav.js';
+import MyFab from 'my-app/layouts/MyFab';
+import MyBottomNav from 'my-app/layouts/appBars/MyBottomNav';
 import MobileAppBar from '../appBars/MobileAppBar';
 import BrandAppBar from '../appBars/BrandAppBar';
 import DrawerContent from './DrawerContent';
@@ -43,26 +44,6 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.default,
     // padding: theme.spacing.unit * 3,
   },
-  fab: {
-    position: 'absolute',
-    // zIndex: theme.zIndex.appBar + 1,
-    zIndex: 1202, // undefined: // zIndex: theme.zIndex.bottomNavigation + 1,
-    // // candidate 0 - spec
-    // bottom : theme.spacing.unit * 2 ,
-    // right  : theme.spacing.unit * 2 ,
-    // // candidate 1
-    // bottom : theme.spacing.unit * 8 ,
-    // right  : theme.spacing.unit * 1 ,
-    // // candidate 2
-    // top    : theme.spacing.unit * 3 ,
-    // right  : theme.spacing.unit * 9 ,
-    // // candidate 3
-    // bottom : theme.spacing.unit *  3 ,
-    // right  : theme.spacing.unit * 12 ,
-    // candidate 4
-    bottom : theme.spacing.unit * 4   ,
-    right  : theme.spacing.unit * 0.5 ,
-  },
 });
 
 // class TemporaryDrawer extends Component {
@@ -81,18 +62,14 @@ class MobileDrawer extends Component {
   };
 
   render() {
-    const { classes, theme, } = this.props;
-    // const transitionDuration = {
-    //   enter: theme.transitions.duration.enteringScreen,
-    //   exit: theme.transitions.duration.leavingScreen,
-    // };
-
-    const sideList = (
-      <React.Fragment>
-        <BrandAppBar />
-        <DrawerContent />
-      </React.Fragment>
-    );
+    const { classes, } = this.props;
+    
+    // const sideList = (
+    //   <React.Fragment>
+    //     <BrandAppBar />
+    //     <DrawerContent />
+    //   </React.Fragment>
+    // );
 
     // const sideList1 = (
     //   <div className={classes.list}>
@@ -144,22 +121,7 @@ class MobileDrawer extends Component {
       // <div className="bg-grey-lightest">
       }
 
-        <Zoom
-          // key={fab.color}
-          in unmountOnExit
-          // timeout={transitionDuration}
-          timeout={500}
-          style={{
-            transitionDelay: '500ms',
-          }}
-        >
-          <Fab
-            className={classes.fab}
-            color='primary' //'secondary' // accent
-          >
-            <Icon>add</Icon>  
-          </Fab>
-        </Zoom>
+        <MyFab />
         <MyBottomNav />
         <MobileAppBar className="w-full" onClickMenuButton={this.toggleDrawer('left', true)} />
 
