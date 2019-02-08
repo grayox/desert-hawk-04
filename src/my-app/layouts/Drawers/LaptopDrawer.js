@@ -10,6 +10,7 @@ import {
   CssBaseline, Drawer,
 } from '@material-ui/core';
 
+import MyFab from 'my-app/layouts/MyFab';
 import LaptopAppBar from '../appBars/LaptopAppBar';
 import BrandAppBar from '../appBars/BrandAppBar';
 import DrawerContent from './DrawerContent';
@@ -57,6 +58,7 @@ const PermanentDrawerLeft = props => {
       //   </Toolbar>
       // </AppBar>
       }
+      <MyFab />
       <LaptopAppBar />
       <Drawer
         className={classes.drawer}
