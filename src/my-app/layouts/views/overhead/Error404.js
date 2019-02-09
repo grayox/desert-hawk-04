@@ -61,10 +61,10 @@ class Error404Page extends Component {
             />
           </Paper>
 
-          <Link className="font-medium" to="/dashboard">
-            <Button variant="contained" color="secondary" className={classes.button}>
-              Go back to dashboard
+          <Link className="no-underline" to="/">
+            <Button variant="contained" color="secondary" size="large" className={classes.button}>
               <Icon className={classes.leftIcon}>home</Icon>
+              Return to home page
             </Button>
           </Link>
         </div>
