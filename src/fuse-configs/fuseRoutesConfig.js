@@ -43,6 +43,7 @@ export const routes = [
     //     component: Login,
     // },
     {
-        component: () => <Redirect to="/pages/errors/error-404"/>
+      // component: () => <Redirect to="/pages/errors/error-404"/>
+      component: () => <Redirect to="/error404"/>
     },
 ];

@@ -39,7 +39,7 @@ class FuseAuthorization extends Component {
 
   checkAuth() {
     const matched = matchRoutes(this.props.routes, this.props.location.pathname)[0];
-    if (matched && matched.route.auth && matched.route.auth.length > 0) {
+    if (matched && matched.route && matched.route.auth && matched.route.auth.length > 0) {
       if (!matched.route.auth.includes(this.props.user.role)) {
         redirect = true;
         if (this.props.user.role === 'guest') {
@@ -70,7 +70,7 @@ class FuseAuthorization extends Component {
 
   render() {
     // begin my add
-    const timestamp = Date.now();
+    // const timestamp = Date.now();
     
     // uid forwards to dashboard,
     // loggedIn makes you login before forwarding after every reload
