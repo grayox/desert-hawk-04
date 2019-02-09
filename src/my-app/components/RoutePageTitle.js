@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, } from "react-router-dom";
+import { Route, Redirect, } from "react-router-dom";
 import { componentsNavConfig, } from 'my-app/config/AppConfig.js';
 
 const pageTitle = ({ location }) => { // model // 
@@ -7,10 +7,10 @@ const pageTitle = ({ location }) => { // model //
   const { pathname } = location;
   const items = componentsNavConfig.filter(ob => (ob.url === pathname)); // filters in only objects with overhead property
   // console.log('items\n', items);
-  const out = items[0].title;
-  return out;
+  const out = items && items[0] && items[0].title;
+  return out || <Redirect to='/error404' />;
 }
 
-const RoutePageTitle = () => (<Route path="/" component={pageTitle} />)
+const RoutePageTitle = () =>  <Route path="/" component={pageTitle} />
  
 export default RoutePageTitle;
