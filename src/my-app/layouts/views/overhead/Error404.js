@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles/index';
-import { Icon, Input, Paper, Typography } from '@material-ui/core';
+import { Icon, Input, Paper, Typography, Button, } from '@material-ui/core'; 
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import { FuseAnimate } from '@fuse';
@@ -16,7 +16,14 @@ const styles = theme => ({
   },
   search: {
     paddingLeft: 16
-  }
+  },
+
+  button: {
+    margin: theme.spacing.unit,
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
+  },
 });
 
 class Error404Page extends Component {
@@ -54,7 +61,12 @@ class Error404Page extends Component {
             />
           </Paper>
 
-          <Link className="font-medium" to="/dashboard">Go back to dashboard</Link>
+          <Link className="font-medium" to="/dashboard">
+            <Button variant="contained" color="secondary" className={classes.button}>
+              Go back to dashboard
+              <Icon className={classes.leftIcon}>home</Icon>
+            </Button>
+          </Link>
         </div>
       </div>
     );
