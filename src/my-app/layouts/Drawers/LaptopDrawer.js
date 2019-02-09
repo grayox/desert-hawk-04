@@ -11,6 +11,7 @@ import {
 } from '@material-ui/core';
 
 import MyFab from 'my-app/layouts/MyFab';
+import OverflowMenu from '../appBars/OverflowMenu';
 import LaptopAppBar from '../appBars/LaptopAppBar';
 import BrandAppBar from '../appBars/BrandAppBar';
 import DrawerContent from './DrawerContent';
@@ -59,6 +60,7 @@ const PermanentDrawerLeft = props => {
       // </AppBar>
       }
       <MyFab />
+      <OverflowMenu />
       <LaptopAppBar />
       <Drawer
         className={classes.drawer}
