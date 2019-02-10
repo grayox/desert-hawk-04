@@ -11,6 +11,6 @@ const pageTitle = ({ location }) => { // model //
   return out || <Redirect to='/error404' />;
 }
 
-const RoutePageTitle = () =>  <Route path="/" component={pageTitle} />
+const RoutePageTitle = () => <Route path="/" component={pageTitle} />
  
 export default RoutePageTitle;
