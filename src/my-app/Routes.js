@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import Error404 from 'my-app/layouts/views/overhead/Error404';
-import Dashboard from 'my-app/layouts/views/app/dashboard/Dashboard';
-// import Inbox from 'my-app/layouts/views/app/inbox/Inbox';
+import Error404 from 'my-app/views/overhead/Error404';
+import Dashboard from 'my-app/views/app/dashboard/Dashboard';
+// import Inbox from 'my-app/views/app/inbox/Inbox';
 import Inbox from 'my-app/containers/Inbox';
-import Archive from 'my-app/layouts/views/app/archive/Archive';
-import Outbox from 'my-app/layouts/views/app/outbox/Outbox';
-import Contacts from 'my-app/layouts/views/app/contacts/Contacts';
+import Archive from 'my-app/views/app/archive/Archive';
+import Outbox from 'my-app/views/app/outbox/Outbox';
+import Contacts from 'my-app/views/app/contacts/Contacts';
 
-import Settings from 'my-app/layouts/views/overhead/settings/Settings';
-import Feedback from 'my-app/layouts/views/overhead/Feedback';
-import Help from 'my-app/layouts/views/overhead/Help';
-import Logout from 'my-app/layouts/views/overhead/Logout';
+import Settings from 'my-app/views/overhead/settings/Settings';
+import Feedback from 'my-app/views/overhead/Feedback';
+import Help from 'my-app/views/overhead/Help';
+import Logout from 'my-app/views/overhead/Logout';
 
 class Routes extends Component {
   render() {

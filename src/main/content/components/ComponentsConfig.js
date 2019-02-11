@@ -7,7 +7,7 @@ import { FuseLoadable } from '@fuse';
 //   component: FuseLoadable({
 //     // none of the following work
 //     // loader: () => import(item.path)
-//     // loader: () => import('my-app/layouts/views/app/dashboard/Dashboard')
+//     // loader: () => import('my-app/views/app/dashboard/Dashboard')
 //     // loader: () => import(`${item.path}`)
 //     // loader: async () => await import(item.path) // per http://2ality.com/2017/01/import-operator.html
 //     // we will attempt the following
@@ -26,7 +26,7 @@ const items = [
   {
     path: '/dashboard',
     component: FuseLoadable({
-      loader: () => import('my-app/layouts/views/app/dashboard/Dashboard')
+      loader: () => import('my-app/views/app/dashboard/Dashboard')
     }),
   },
   {
@@ -38,37 +38,37 @@ const items = [
   {
     path: '/archive',
     component: FuseLoadable({
-      loader: () => import('my-app/layouts/views/app/archive/Archive')
+      loader: () => import('my-app/views/app/archive/Archive')
     }),
   },
   {
     path: '/outbox',
     component: FuseLoadable({
-      loader: () => import('my-app/layouts/views/app/outbox/Outbox')
+      loader: () => import('my-app/views/app/outbox/Outbox')
     }),
   },
   {
     path: '/contacts',
     component: FuseLoadable({
-      loader: () => import('my-app/layouts/views/app/contacts/Contacts')
+      loader: () => import('my-app/views/app/contacts/Contacts')
     }),
   },
   {
     path: '/settings',
     component: FuseLoadable({
-      loader: () => import('my-app/layouts/views/overhead/settings/Settings')
+      loader: () => import('my-app/views/overhead/settings/Settings')
     }),
   },
   {
     path: '/feedback',
     component: FuseLoadable({
-      loader: () => import('my-app/layouts/views/overhead/Feedback')
+      loader: () => import('my-app/views/overhead/Feedback')
     }),
   },
   {
     path: '/help',
     component: FuseLoadable({
-      loader: () => import('my-app/layouts/views/overhead/Help')
+      loader: () => import('my-app/views/overhead/Help')
     }),
   },
 ]

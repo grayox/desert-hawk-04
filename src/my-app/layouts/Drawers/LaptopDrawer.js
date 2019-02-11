@@ -4,7 +4,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Routes from 'my-app/layouts/Routes.js';
+import Routes from 'my-app/Routes';
 import {
   // Typography,
   CssBaseline, Drawer,
