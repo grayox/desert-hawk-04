@@ -326,16 +326,16 @@ class Dashboard extends Component {
         </DialogContent>
         <DialogActions>
           <Button
-            onClick={() => handleClickButton(dialogTitle)}
-          >
-            {dialogButtonLabel}
-          </Button>
-          <Button
             autoFocus
             // color="secondary"
             onClick={handleCloseDialog}
           >
             Cancel
+          </Button>
+          <Button
+            onClick={() => handleClickButton(dialogTitle)}
+          >
+            {dialogButtonLabel}
           </Button>
         </DialogActions>
       </Dialog>

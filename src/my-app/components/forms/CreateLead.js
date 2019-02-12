@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import PropTypes from "prop-types";
 
 import { connect } from 'react-redux'
-import { createLead } from '../../../store/actions/my-actions'
+import { createLead } from 'my-app/store/actions/my-actions'
 // import { createLead } from 'store/actions/my-actions'
 
 class CreateLead extends Component {

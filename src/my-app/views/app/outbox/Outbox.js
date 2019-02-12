@@ -1,8 +1,10 @@
 import React from 'react';
-// import MasterDetail from 'my-app/layouts/MasterDetail.js'
-// import UserMultiForm from 'my-app/components/forms/UserMultiForm';
+// import MasterDetail from 'my-app/layouts/MasterDetail'
 
-import TodoApp from 'my-app/apps/todo/TodoApp';
+import CreateLead from 'my-app/components/forms/CreateLead'
+import UserMultiForm from 'my-app/components/forms/UserMultiForm';
+
+// import TodoApp from 'my-app/apps/todo/TodoApp';
 
 function Outbox(props) {
   // const { list, detail } = props;
@@ -18,7 +20,13 @@ function Outbox(props) {
     //     />
     //   }
     // />
-    <TodoApp/>
+
+    // <TodoApp/>
+    
+    <React.Fragment>
+      <CreateLead />
+      <UserMultiForm />
+    </React.Fragment>
   );
 }
 

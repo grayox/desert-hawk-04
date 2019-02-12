@@ -58,10 +58,10 @@ class FeedbackForm extends Component {
             variant="contained"
             color="primary"
             className="mx-auto mt-16"
-            aria-label="LOG IN"
+            aria-label="Submit"
             disabled={!canSubmit}
           >
-            Can submit
+            Submit
           </Button>
         </form>
       </Paper>

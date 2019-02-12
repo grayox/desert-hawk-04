@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect, } from 'react-router-dom';
 
 import Error404 from 'my-app/views/overhead/Error404';
 import Dashboard from 'my-app/views/app/dashboard/Dashboard';
@@ -18,10 +18,12 @@ class Routes extends Component {
   render() {
     return (
       <Switch>
-        <Route path='/' exact    component={Dashboard} />
         {
+        // <Redirect from='/'       to='/dashboard' />
+        // <Redirect from='/login'  to='/dashboard' />
         // <Route path='/project/:id' component={ProjectDetails} />
         }
+        <Route path='/' exact    component={Dashboard} />
         <Route path='/dashboard' component={Dashboard} />
         <Route path='/inbox'     component={Inbox}     />
         <Route path='/archive'   component={Archive}   />

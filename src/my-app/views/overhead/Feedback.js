@@ -1,12 +1,12 @@
 // import React from 'react';
 import React, {Component} from 'react';
 // import MasterDetail from '../MasterDetail';
-// import FeedbackForm from 'my-app/components/forms/FeedbackForm';
+import FeedbackForm from 'my-app/components/forms/FeedbackForm';
 
 // import MailApp from 'my-app/apps/mail/MailApp';
 // import {Redirect} from 'react-router-dom';
 
-import { FusePageCarded } from '@fuse';
+// import { FusePageCarded } from '@fuse';
 
 const styles = theme => ({});
 
@@ -26,8 +26,9 @@ class Feedback extends Component {
       //   detail={<FeedbackForm />}
       // />
   
-      <FusePageCarded/>
+      // <FusePageCarded/>
   
+      <FeedbackForm />
     );
   }
 
