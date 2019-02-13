@@ -22,6 +22,7 @@ import {
 import { FuseAnimate, FuseAnimateGroup } from '@fuse';
 
 import CreateDialog from './CreateDialog';
+import UDButtons from './UDButtons';
 
 // import  from '@material-ui/core/Avatar';
 // import ImageIcon from '@material-ui/icons/Image';
@@ -166,6 +167,7 @@ class MasterDetail extends Component {
         />
         <ListItemText primary="Vacation" secondary={item.name} />
         <ListItemSecondaryAction>
+          <UDButtons />
           <IconButton
             color="inherit"
             aria-label="Back"
