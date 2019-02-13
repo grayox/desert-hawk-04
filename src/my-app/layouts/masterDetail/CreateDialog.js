@@ -41,13 +41,13 @@ class FormDialog extends Component {
     return (
       <div>
         <Button
-          variant="outlined"
+          variant="contained"
           color="primary"
           onClick={handleClickOpen}
           className={classNames(classes.button, "w-full",)}
         >
-          New
           <Icon className={classes.leftIcon}>create</Icon>
+          New
         </Button>
         <Dialog
           open={open}
