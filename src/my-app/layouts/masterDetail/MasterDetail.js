@@ -7,30 +7,23 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import withWidth from '@material-ui/core/withWidth';
 
-import Grid from '@material-ui/core/Grid';
-import Hidden from '@material-ui/core/Hidden';
-
-import Paper from '@material-ui/core/Paper';
-// import Typography from '@material-ui/core/Typography';
-
 // @material-ui/core
-// import Icon from "@material-ui/core/Icon";
 import {
   AppBar, Toolbar, Typography,
-  Slide, Zoom, Grow, Icon, IconButton, Divider,
+  Grow, Icon, IconButton, Divider,
+  Grid, Hidden, Paper,
+  List, ListItem, ListItemText, ListItemSecondaryAction,
+  // ListSubheader, Avatar,
+  // Slide, Zoom,
   // CssBaseline, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
 } from '@material-ui/core';
 
 // import {FuseAnimateGroup, FuseHighlight, FusePageSimple} from '@fuse';
 import { FuseAnimate, FuseAnimateGroup } from '@fuse';
 
-// import UserMultiForm from 'my-app/components/forms/UserMultiForm';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-// import ListSubheader from '@material-ui/core/ListSubheader';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-// import Avatar from '@material-ui/core/Avatar';
+import CreateDialog from './CreateDialog';
+
+// import  from '@material-ui/core/Avatar';
 // import ImageIcon from '@material-ui/icons/Image';
 // import WorkIcon from '@material-ui/icons/Work';
 // import BeachAccessIcon from '@material-ui/icons/BeachAccess';
@@ -117,39 +110,39 @@ class MasterDetail extends Component {
         <React.Fragment>
           <Icon className="mt-32 opacity-25" fontSize="large">library_books</Icon>
           <Typography variant="body1" color="textSecondary">
-              See details here after selecting item
+            See details here after selecting item
           </Typography>
         </React.Fragment>
       </FuseAnimateGroup>
     </div>
   )
 
-  getHeader = () => (
-    <Hidden xsDown>
-      <FuseAnimate
-        // className="px-0"
-        // key={row.name}
-        delay={200}
-        // animation="transition.slideLeftIn"
-        // enter={{ animation: 'transition.perspectiveLeft' }}
-        // leave={{ animation: 'transition.perspectiveRight' }}
-        enter={{ animation: 'transition.slideDownBigIn' }}
-        leave={{ animation: 'transition.slideLeftOut' }}
-      >
-        <AppBar
-          className="m-0"
-          position="static"
-          elevation={0}
-        >
-          <Toolbar className="px-16">
-            <Typography variant="subtitle1" color="inherit" className="flex-1">
-              Items
-            </Typography>
-          </Toolbar>
-        </AppBar>
-      </FuseAnimate>
-    </Hidden>
-  )
+  // getHeader = () => (
+  //   <Hidden xsDown>
+  //     <FuseAnimate
+  //       // className="px-0"
+  //       // key={row.name}
+  //       delay={200}
+  //       // animation="transition.slideLeftIn"
+  //       // enter={{ animation: 'transition.perspectiveLeft' }}
+  //       // leave={{ animation: 'transition.perspectiveRight' }}
+  //       enter={{ animation: 'transition.slideDownBigIn' }}
+  //       leave={{ animation: 'transition.slideLeftOut' }}
+  //     >
+  //       <AppBar
+  //         className="m-0"
+  //         position="static"
+  //         elevation={0}
+  //       >
+  //         <Toolbar className="px-16">
+  //           <Typography variant="subtitle1" color="inherit" className="flex-1">
+  //             Items
+  //           </Typography>
+  //         </Toolbar>
+  //       </AppBar>
+  //     </FuseAnimate>
+  //   </Hidden>
+  // )
 
   getSummary = ( item, isList, index, ) => {
     const { handleToggle, } = this;
@@ -255,7 +248,7 @@ class MasterDetail extends Component {
   }
 
   getDetailPane = () => {
-    const { getSummary, getDetail, getEmpty, getHeader, } = this;
+    const { getSummary, getDetail, getEmpty, } = this; // getHeader,
     const { detail, } = this.state;
     const { classes, } = this.props;
     return (
@@ -291,10 +284,12 @@ class MasterDetail extends Component {
 
   getListPane = () => {
     const { classes, items, } = this.props;
-    const { getSummary, getHeader, } = this;
+    const { getSummary, } = this; // getHeader,
     return (
       <React.Fragment>
-        {getHeader()}
+        {
+        // getHeader()
+        }
         <Paper className={classNames(classes.paper, "z-10")}>
           <List className="m-0 p-0" component="nav">
             {
@@ -319,29 +314,33 @@ class MasterDetail extends Component {
             </FuseAnimateGroup>
           </List>
         </Paper>
+        <CreateDialog className="mt-32" />
       </React.Fragment>
     )
   }
 
   render() {
-    const { classes, } = this.props;
+    const { classes, create, } = this.props;
     const { detail, } = this.state;
     const { getListPane, getDetailPane, } = this;
 
     return (
-      <div className={classes.wrapper}>
-        {/* mobile */}
-        <Hidden smUp>{detail ? getDetailPane() : getListPane()}</Hidden>
-        {/* laptop */}
-        <Hidden xsDown>
-          <div className={classNames(classes.root, "sm:p-8 md:p-16")}>
-            <Grid container spacing={8}>
-              <Grid item xs={12} sm={6}>{getListPane()}</Grid>
-              <Grid item xs={6}>{getDetailPane()}</Grid>
-            </Grid>
-          </div>
-        </Hidden>
-      </div>
+      <React.Fragment>
+        {/* {create && <CreateDialog />} */}
+        <div className={classes.wrapper}>
+          {/* mobile */}
+          <Hidden smUp>{detail ? getDetailPane() : getListPane()}</Hidden>
+          {/* laptop */}
+          <Hidden xsDown>
+            <div className={classNames(classes.root, "sm:p-8 md:p-16")}>
+              <Grid container spacing={8}>
+                <Grid item xs={12} sm={6}>{getListPane()}</Grid>
+                <Grid item xs={6}>{getDetailPane()}</Grid>
+              </Grid>
+            </div>
+          </Hidden>
+        </div>
+      </React.Fragment>
     );
 
   }

@@ -1,13 +1,26 @@
-import React from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import React, { Component, } from 'react';
+import classNames from 'classnames';
+import {
+  withStyles, Button, Icon, TextField,
+  Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
+} from '@material-ui/core';
 
-export default class FormDialog extends React.Component {
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
+  },
+  // rightIcon: {
+  //   marginLeft: theme.spacing.unit,
+  // },
+  // iconSmall: {
+  //   fontSize: 20,
+  // },
+});
+
+class FormDialog extends Component {
   state = {
     open: false,
   };
@@ -21,14 +34,24 @@ export default class FormDialog extends React.Component {
   };
 
   render() {
+    const { classes, } = this.props;
+    const { open, } = this.state;
+    const { handleClickOpen, handleClose, } = this;
+
     return (
       <div>
-        <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
-          Open form dialog
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={handleClickOpen}
+          className={classNames(classes.button, "w-full",)}
+        >
+          New
+          <Icon className={classes.leftIcon}>create</Icon>
         </Button>
         <Dialog
-          open={this.state.open}
-          onClose={this.handleClose}
+          open={open}
+          onClose={handleClose}
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
@@ -47,10 +70,10 @@ export default class FormDialog extends React.Component {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
+            <Button onClick={handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={this.handleClose} color="primary">
+            <Button onClick={handleClose} color="primary">
               Subscribe
             </Button>
           </DialogActions>
@@ -59,3 +82,5 @@ export default class FormDialog extends React.Component {
     );
   }
 }
+
+export default withStyles(styles)(FormDialog)

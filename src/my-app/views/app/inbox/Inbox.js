@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import compose from 'recompose/compose';
+// import compose from 'recompose/compose';
 import { withStyles } from '@material-ui/core/styles';
 
 import MasterDetail from 'my-app/layouts/masterDetail/MasterDetail'
@@ -27,7 +27,7 @@ function Inbox(props) {
       // title={'Inbox Detail'}
       className={classes.root}
       items={items}
-      condensed
+      condensed create
     />
   );
 }
