@@ -1,5 +1,11 @@
-import React from 'react';
-import { withStyles, Zoom, Fab, Icon, } from '@material-ui/core';
+import React, { Component } from 'react';
+import {
+  withStyles, Zoom, Fab, Icon,
+  Button, TextField, Dialog, DialogActions,
+  DialogContent, DialogContentText, DialogTitle,
+} from '@material-ui/core';
+
+import UserMultiForm from 'my-app/components/forms/UserMultiForm';
 
 const styles = theme => ({
   fab: {
@@ -24,32 +30,82 @@ const styles = theme => ({
   },
 })
 
-const MyFab = props => {
+class MyFab extends Component {
+  state = {
+    open: false,
+  };
 
-  const { classes, } = props; // theme
-  // const transitionDuration = {
-    // enter: theme.transitions.duration.enteringScreen,
-    // exit: theme.transitions.duration.leavingScreen,
-  // };
+  handleClickOpen = () => {
+    this.setState({ open: true });
+  };
 
-  return (
-    <Zoom
-      // key={fab.color}
-      in unmountOnExit
-      // timeout={transitionDuration}
-      timeout={500}
-      style={{
-        transitionDelay: '500ms',
-      }}
-    >
-      <Fab
-        className={classes.fab}
-        color='primary' //'secondary' // accent
-      >
-        <Icon>add</Icon>
-      </Fab>
-    </Zoom>
-  );
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
+  render() {
+    const { classes, } = this.props; // theme
+    const { handleClickOpen, } = this;
+
+    return (
+      <div>
+        {
+          // <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
+          //   Open form dialog
+          // </Button>
+        }
+        <Zoom
+          // key={fab.color}
+          in unmountOnExit
+          // timeout={transitionDuration}
+          timeout={500}
+          style={{
+            transitionDelay: '500ms',
+          }}
+        >
+          <Fab
+            className={classes.fab}
+            color='primary' //'secondary' // accent
+            onClick={handleClickOpen}
+          >
+            <Icon>add</Icon>
+          </Fab>
+        </Zoom>
+        <Dialog
+          open={this.state.open}
+          onClose={this.handleClose}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">Create new lead</DialogTitle>
+          <DialogContent>
+            {
+            // <DialogContentText>
+            //   To subscribe to this website, please enter your email address here. We will send
+            //   updates occasionally.
+            // </DialogContentText>
+            // <TextField
+            //   autoFocus
+            //   margin="dense"
+            //   id="name"
+            //   label="Email Address"
+            //   type="email"
+            //   fullWidth
+            // />
+            }
+            <UserMultiForm />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleClose} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={this.handleClose} color="primary">
+              Subscribe
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+    );
+  }
 }
- 
+
 export default withStyles(styles)(MyFab);

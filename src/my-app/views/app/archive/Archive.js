@@ -1,5 +1,5 @@
 import React from 'react';
-// import MasterDetail from 'my-app/layouts/MasterDetail.js'
+// import MasterDetail from 'my-app/layouts/masterDetail/MasterDetail'
 // import UserMultiForm from 'my-app/components/forms/UserMultiForm';
 
 import FileManagerApp from 'my-app/apps/file-manager/FileManagerApp';

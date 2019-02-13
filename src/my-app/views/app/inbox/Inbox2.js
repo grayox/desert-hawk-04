@@ -1,6 +1,6 @@
 // import React from 'react';
 import React, {Component} from 'react';
-// import MasterDetail from 'my-app/layouts/MasterDetail.js'
+// import MasterDetail from 'my-app/layouts/masterDetail/MasterDetail'
 // import InboxForm from 'my-app/components/forms/InboxForm';
 
 // import MailApp from 'my-app/apps/mail/MailApp';

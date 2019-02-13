@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 import { withStyles } from '@material-ui/core/styles';
 
-import MasterDetail from 'my-app/layouts/MasterDetail.js'
+import MasterDetail from 'my-app/layouts/masterDetail/MasterDetail'
 
 // import AcademyApp from 'my-app/apps/academy/courses/Courses';
 
