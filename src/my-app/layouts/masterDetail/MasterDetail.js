@@ -316,7 +316,10 @@ class MasterDetail extends Component {
             </FuseAnimateGroup>
           </List>
         </Paper>
+
         <CreateDialog className="mt-32" />
+        <UDButtons />
+        
       </React.Fragment>
     )
   }
