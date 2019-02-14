@@ -77,14 +77,9 @@ class UDButtons extends Component {
               // After deleted, this record will not be recoverable.
               }
             </DialogContentText>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="dialog"
-              label="dialog"
-              type="email"
-              fullWidth
-            />
+            {
+            // <TextField autoFocus margin="dense" id="dialog" label="dialog" type="email" fullWidth />
+            }
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="primary">
