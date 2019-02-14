@@ -13,37 +13,52 @@ const styles = theme => ({
   },
 });
 
+const INITIAL_STATE = {
+  isOpen: false,
+  isBeingEdited: false,
+  isBeingDeleted: false,
+};
+
 class UDButtons extends Component {
 
-  state = {
-    isOpen: false,
-  };
+  state = {...INITIAL_STATE};
 
-  handleClickOpen = () => {
-    this.setState({ isOpen: true });
+  handleClickOpen = task => {
+    this.setState({
+      isOpen: true,
+      [task]: true,
+    });
   };
 
   handleClose = () => {
-    this.setState({ isOpen: false });
+    this.setState({ ...INITIAL_STATE });
   };
 
   render() { 
     const { classes, deletable, editable, } = this.props;
-    const { isOpen, } = this.state;
+    const { isOpen, isBeingEdited, isBeingDeleted, } = this.state;
     const { handleClickOpen, handleClose, } = this;
     
     return (
       <React.Fragment>
         {
           deletable && (
-            <IconButton className={classes.button} aria-label="Delete" onClick={handleClickOpen}>
+            <IconButton 
+              className={classes.button} 
+              aria-label="Delete" 
+              onClick={() => handleClickOpen('isBeingDeleted')}
+            >
               <Icon>delete</Icon>
             </IconButton>
           )
         }    
         {
           editable && (
-            <IconButton className={classes.button} aria-label="Edit">
+            <IconButton 
+              className={classes.button} 
+              aria-label="Edit" 
+              onClick={() => handleClickOpen('isBeingEdited')}
+            >
               <Icon>edit</Icon>
             </IconButton>
           )
@@ -53,17 +68,20 @@ class UDButtons extends Component {
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">Confirm Delete?</DialogTitle>
+          <DialogTitle id="form-dialog-title">Permanently delete item?</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Are you sure you want to delete this record?
-              After deleted, this record will not be recoverable.
+              It&rsquo;s permanent and cannot be undone.
+              {
+              // Are you sure you want to delete this record?
+              // After deleted, this record will not be recoverable.
+              }
             </DialogContentText>
             <TextField
               autoFocus
               margin="dense"
-              id="name"
-              label="Email Address"
+              id="dialog"
+              label="dialog"
               type="email"
               fullWidth
             />
@@ -86,6 +104,8 @@ UDButtons.propTypes = {
   classes: PropTypes.object.isRequired,
   deletable: PropTypes.bool,
   editable: PropTypes.bool,
+  onDelete: PropTypes.func,
+  onEdit: PropTypes.func,
 };
 
 UDButtons.defaultProps = {
