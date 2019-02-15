@@ -24,6 +24,7 @@ class Routes extends Component {
         // <Route path='/project/:id' component={ProjectDetails} />
         }
         <Route path='/' exact    component={Dashboard} />
+        <Route path='/login'     component={Dashboard} />
         <Route path='/dashboard' component={Dashboard} />
         <Route path='/inbox'     component={Inbox}     />
         <Route path='/archive'   component={Archive}   />

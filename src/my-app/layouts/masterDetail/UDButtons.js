@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-  withStyles, IconButton, Icon, Button, TextField,
+  withStyles, IconButton, Icon, Button, Slide, Zoom, // TextField,
   Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
 } from '@material-ui/core';
 
@@ -18,6 +18,9 @@ const INITIAL_STATE = {
   isBeingEdited: false,
   isBeingDeleted: false,
 };
+
+// https://material-ui.com/demos/dialogs/#alerts
+const Transition = props => (<Zoom in {...props} />); // (<Slide direction="up" {...props} />);
 
 class UDButtons extends Component {
 
@@ -67,6 +70,10 @@ class UDButtons extends Component {
           open={isOpen}
           onClose={handleClose}
           aria-labelledby="form-dialog-title"
+          TransitionComponent={Transition} // https://material-ui.com/demos/dialogs/#alerts
+          keepMounted
+          // aria-labelledby="alert-dialog-slide-title"
+          // aria-describedby="alert-dialog-slide-description"
         >
           <DialogTitle id="form-dialog-title">Permanently delete item?</DialogTitle>
           <DialogContent>

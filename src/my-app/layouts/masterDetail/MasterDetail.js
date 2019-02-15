@@ -9,17 +9,15 @@ import withWidth from '@material-ui/core/withWidth';
 
 // @material-ui/core
 import {
-  AppBar, Toolbar, Typography,
   Grow, Icon, IconButton, Divider,
-  Grid, Hidden, Paper,
+  Typography, Grid, Hidden, Paper,
   List, ListItem, ListItemText, ListItemSecondaryAction,
-  // ListSubheader, Avatar,
-  // Slide, Zoom,
-  // CssBaseline, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
+  // ListSubheader, Avatar, Slide, Zoom,
+  // AppBar, Toolbar, CssBaseline, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
 } from '@material-ui/core';
 
 // import {FuseAnimateGroup, FuseHighlight, FusePageSimple} from '@fuse';
-import { FuseAnimate, FuseAnimateGroup } from '@fuse';
+import { FuseScrollbars, FuseAnimate, FuseAnimateGroup } from '@fuse';
 
 import CreateDialog from './CreateDialog';
 import UDButtons from './UDButtons';
@@ -318,8 +316,7 @@ class MasterDetail extends Component {
         </Paper>
 
         <CreateDialog className="mt-32" />
-        <UDButtons />
-        
+
       </React.Fragment>
     )
   }
@@ -330,9 +327,9 @@ class MasterDetail extends Component {
     const { getListPane, getDetailPane, } = this;
 
     return (
-      <React.Fragment>
-        {/* {create && <CreateDialog />} */}
-        <div className={classes.wrapper}>
+      // <FuseScrollbars className="overflow-auto">
+        // {create && <CreateDialog />}
+        <div className="mt-32 width-50 overflow-auto">
           {/* mobile */}
           <Hidden smUp>{detail ? getDetailPane() : getListPane()}</Hidden>
           {/* laptop */}
@@ -345,7 +342,7 @@ class MasterDetail extends Component {
             </div>
           </Hidden>
         </div>
-      </React.Fragment>
+      // </FuseScrollbars>
     );
 
   }
