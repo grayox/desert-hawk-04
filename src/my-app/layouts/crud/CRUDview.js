@@ -96,7 +96,7 @@ class CRUDview extends Component {
   handleNavNext = () => {
     const { items, } = this.props;
     const { selectedIndex, } = this.state;
-    const limit = items.length - 2;
+    const limit = items.length - 1;
     const newSelectedIndex = selectedIndex + 1;
     this.setState({
       selectedIndex: Math.min(limit, newSelectedIndex),
