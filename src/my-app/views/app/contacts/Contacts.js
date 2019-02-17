@@ -1,5 +1,5 @@
 import React from 'react';
-// import CRUDview from 'my-app/layouds/crud/CRUDview'
+// import CRUDview from 'my-app/layouts/crud/CRUDview'
 // import UserMultiForm from 'my-app/components/forms/UserMultiForm';
 
 // import ContactsApp from 'my-app/apps/contacts/ContactsApp';

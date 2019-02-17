@@ -1,6 +1,6 @@
 // import React from 'react';
 import React, {Component} from 'react';
-// import CRUDview from 'my-app/layouds/crud/CRUDview'
+// import CRUDview from 'my-app/layouts/crud/CRUDview'
 // import InboxForm from 'my-app/components/forms/InboxForm';
 
 // import MailApp from 'my-app/apps/mail/MailApp';

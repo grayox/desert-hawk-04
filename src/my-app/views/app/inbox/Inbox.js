@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 // import compose from 'recompose/compose';
 import { withStyles } from '@material-ui/core/styles';
 
-import CRUDview from 'my-app/layouds/crud/CRUDview'
+import CRUDview from 'my-app/layouts/crud/CRUDview'
 
 // import AcademyApp from 'my-app/apps/academy/courses/Courses';
 
