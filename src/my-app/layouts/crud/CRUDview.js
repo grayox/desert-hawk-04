@@ -9,10 +9,10 @@ import withWidth from '@material-ui/core/withWidth';
 
 // @material-ui/core
 import {
-  Grow, Icon, IconButton, Divider,
+  Slide, Icon, IconButton, Divider, Button,
   Typography, Grid, Hidden, Paper, CssBaseline,
   List, ListItem, ListItemText, ListItemSecondaryAction,
-  // ListSubheader, Avatar, Slide, Zoom,
+  // ListSubheader, Avatar, Zoom, Grow,
   // AppBar, Toolbar, CssBaseline, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
 } from '@material-ui/core';
 
@@ -81,6 +81,14 @@ class CRUDview extends Component {
 
   handleListItemClick = ( event, index, ) => {
     this.setState({ selectedIndex: index });
+  };
+
+  handleNavBack = () => {
+    this.setState({ selectedIndex: (Math.max(0, (this.state.selectedIndex - 1))) });
+  };
+
+  handleNavNext = () => {
+    this.setState({ selectedIndex: (Math.min(4, (this.state.selectedIndex + 1))) });
   };
 
   handleToggle = ( model, isList, index, ) => {
@@ -259,8 +267,19 @@ class CRUDview extends Component {
     )
   }
 
+  getNavButtons = () => {
+    const { handleNavBack, handleNavNext, } = this;
+    const { selectedIndex, } = this.state;
+    return (
+      <React.Fragment>
+        <Button className="w-1/2" variant="outlined" onClick={handleNavBack}><Icon>chevron_left</Icon></Button> 
+        <Button className="w-1/2" variant="outlined" onClick={handleNavNext}><Icon>chevron_right</Icon></Button>
+      </React.Fragment>
+    );
+  }
+
   getDetailPane = () => {
-    const { getSummary, getDetail, getEmpty, } = this; // getHeader,
+    const { getSummary, getDetail, getEmpty, getNavButtons, } = this; // getHeader,
     const { detail, } = this.state;
     const { classes, } = this.props;
     return (
@@ -268,7 +287,7 @@ class CRUDview extends Component {
         {
           detail
           ?
-          <Grow // <Zoom // <Slide
+          <Slide // <Zoom // <Grow 
             // direction="right"
             // mountOnEnter
             // unmountOnExit
@@ -277,7 +296,8 @@ class CRUDview extends Component {
           >
             <React.Fragment>
               {
-                // {getHeader()}
+              // {getHeader()}
+              getNavButtons()
               }
               <Paper className={classNames(classes.paper, "z-0")}>
                 <List component="nav">
@@ -286,7 +306,7 @@ class CRUDview extends Component {
               </Paper>
               {getDetail(detail)}
             </React.Fragment>
-          </Grow> // </Zoom> // </Slide>
+          </Slide> //</Grow> // </Zoom> // 
           :
           getEmpty()
         }
@@ -295,12 +315,13 @@ class CRUDview extends Component {
   }
 
   getListPane = () => {
-    const { classes, items, } = this.props;
+    const { classes, items, creatable, } = this.props;
     const { getSummary, } = this; // getHeader,
     return (
       <React.Fragment>
         {
         // getHeader()
+        creatable && <CreateButton />
         }
         <Paper className={classNames(classes.paper, "z-10")}>
           <List className="m-0 p-0" component="nav">
@@ -332,7 +353,7 @@ class CRUDview extends Component {
   }
 
   render() {
-    const { classes, creatable, } = this.props;
+    const { classes, } = this.props;
     const { detail, } = this.state;
     const { getListPane, getDetailPane, } = this;
 
@@ -341,7 +362,6 @@ class CRUDview extends Component {
       <div className={classes.root}>
         <CssBaseline/>
         <div className={classes.wrapper}>
-          { creatable && <CreateButton /> }
           {/* mobile */}
           <Hidden smUp>{detail ? getDetailPane() : getListPane()}</Hidden>
           {/* laptop */}
