@@ -10,7 +10,7 @@ import withWidth from '@material-ui/core/withWidth';
 // @material-ui/core
 import {
   Grow, Icon, IconButton, Divider,
-  Typography, Grid, Hidden, Paper,
+  Typography, Grid, Hidden, Paper, CssBaseline,
   List, ListItem, ListItemText, ListItemSecondaryAction,
   // ListSubheader, Avatar, Slide, Zoom,
   // AppBar, Toolbar, CssBaseline, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
@@ -19,7 +19,7 @@ import {
 // import {FuseAnimateGroup, FuseHighlight, FusePageSimple} from '@fuse';
 import { FuseScrollbars, FuseAnimate, FuseAnimateGroup } from '@fuse';
 
-import CreateDialog from './CreateDialog';
+import CreateButton from './CreateButton';
 import UDButtons from './UDButtons';
 
 // import  from '@material-ui/core/Avatar';
@@ -28,6 +28,7 @@ import UDButtons from './UDButtons';
 // import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 
 import HashAvatar from 'my-app/components/HashAvatar';
+import { black } from 'ansi-colors';
 // import { componentsNavConfig, } from 'my-app/config/AppConfig';
 
 // 4 Ways to Style React Components: https://codeburst.io/4-four-ways-to-style-react-components-ac6f323da822
@@ -38,17 +39,29 @@ import HashAvatar from 'my-app/components/HashAvatar';
 
 const styles = theme => ({
   root: {
+    // temppin
+    boxSizing: 'border-box',
+    border: 'solid black',
     flexGrow: 1,
   },
   wrapper: {
-    minHeight: '100vh',
-    verticalAlign: 'top', // overcomes default
-    // paddingTop: '56px', // clears <AppBar />
+    // temppin
+    boxSizing: 'border-box',
+    border: 'solid red',
+    overflow: 'auto',
+    minHeight: 'calc(100vh-56px)',
+    // width: 'calc(100vw-237px)',
+    width: 800,
+    marginTop: 56,
+    marginLeft: 12,
+    paddingTop: 12,
   },
   paper: {
+    // temppin
+    border: 'solid blue',
     // padding: theme.spacing.unit * 2,
-    width: '100vw',
-    textAlign: 'center',
+    // width: '100vw',
+    // textAlign: 'center',
     color: theme.palette.text.secondary,
     // maxWidth: '360px',
   },
@@ -315,21 +328,21 @@ class MasterDetail extends Component {
           </List>
         </Paper>
 
-        <CreateDialog className="mt-32" />
-
       </React.Fragment>
     )
   }
 
   render() {
-    const { classes, create, } = this.props;
+    const { classes, creatable, } = this.props;
     const { detail, } = this.state;
     const { getListPane, getDetailPane, } = this;
 
     return (
       // <FuseScrollbars className="overflow-auto">
-        // {create && <CreateDialog />}
-        <div className="mt-32 width-50 overflow-auto">
+      <div className={classes.root}>
+        <CssBaseline/>
+        <div className={classes.wrapper}>
+          { creatable && <CreateButton /> }
           {/* mobile */}
           <Hidden smUp>{detail ? getDetailPane() : getListPane()}</Hidden>
           {/* laptop */}
@@ -342,6 +355,8 @@ class MasterDetail extends Component {
             </div>
           </Hidden>
         </div>
+      </div>
+        
       // </FuseScrollbars>
     );
 

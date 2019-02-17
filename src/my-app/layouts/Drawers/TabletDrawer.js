@@ -59,7 +59,7 @@ const styles = theme => ({
     width: drawerWidth,
     flexShrink: 0,
     whiteSpace: 'nowrap',
-    // height: 'calc(100% - 88px)',
+    height: 'calc(100% - 88px)',
   },
   drawerOpen: {
     backgroundColor: '#303030', // 262933 per styles/index.css

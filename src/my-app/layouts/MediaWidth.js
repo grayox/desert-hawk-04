@@ -1,5 +1,8 @@
 import React from 'react';
-import { Hidden, } from '@material-ui/core';
+import {
+  Hidden,
+  // CssBaseline,
+} from '@material-ui/core';
 
 // import { useMediaPredicate } from 'react-media-hook'; // <20 downloads
 // import MediaQuery from 'react-responsive'; // 122k downloads
@@ -26,6 +29,9 @@ const MediaWidth = props => {
   const { mobile, tablet, laptop, } = props;
   return (
     <React.Fragment>
+      {
+      // <CssBaseline />
+      }
       <Hidden mdDown>{laptop}</Hidden>
       <Hidden xsDown lgUp>{tablet}</Hidden>
       <Hidden smUp>{mobile}</Hidden>

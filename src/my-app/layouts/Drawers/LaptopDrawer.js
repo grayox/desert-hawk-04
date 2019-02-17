@@ -6,12 +6,11 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Routes from 'my-app/Routes';
 import {
-  // Typography,
-  CssBaseline, Drawer,
+  // Typography, CssBaseline,
+  Drawer,
 } from '@material-ui/core';
 
 import MyFab from 'my-app/layouts/MyFab';
-import OverflowMenu from '../appBars/OverflowMenu';
 import LaptopAppBar from '../appBars/LaptopAppBar';
 import BrandAppBar from '../appBars/BrandAppBar';
 import DrawerContent from './DrawerContent';
@@ -29,6 +28,8 @@ const styles = theme => ({
     marginLeft: drawerWidth,
   },
   drawer: {
+    boxSizing: 'border-box',
+    border: 'solid yellow',
     width: drawerWidth,
     flexShrink: 0,
   },
@@ -38,6 +39,7 @@ const styles = theme => ({
   },
   toolbar: theme.mixins.toolbar,
   content: {
+    border: 'solid purple',
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing.unit * 3,
@@ -49,8 +51,9 @@ const PermanentDrawerLeft = props => {
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
       {
+      // <CssBaseline />
+
       // <AppBar position="fixed" className={classes.appBar}>
       //   <Toolbar>
       //     <Typography variant="h6" color="inherit" noWrap>
@@ -58,10 +61,15 @@ const PermanentDrawerLeft = props => {
       //     </Typography>
       //   </Toolbar>
       // </AppBar>
+
+      // <OverflowMenu />
       }
       <MyFab />
-      <OverflowMenu />
       <LaptopAppBar />
+
+      {
+      // <div
+      }
       <Drawer
         className={classes.drawer}
         variant="permanent"
@@ -80,6 +88,10 @@ const PermanentDrawerLeft = props => {
         // <DrawerContent1 />
         }
       </Drawer>
+      {
+      // </div>
+      }
+      
       <main className={classes.content}>
         <Routes />
       {

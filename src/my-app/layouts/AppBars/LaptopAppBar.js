@@ -28,6 +28,7 @@ import {
 // import MediaWidth from 'my-app/layouts/MediaWidth';
 import { drawerWidth } from 'my-app/config/AppConfig';
 import RoutePageTitle from 'my-app/components/RoutePageTitle';
+import OverflowMenu from '../appBars/OverflowMenu';
 
 // import { useMediaPredicate } from 'react-media-hook'; // <20 downloads
 // import MediaQuery from 'react-responsive'; // 122k downloads
@@ -147,24 +148,24 @@ class TabletAppBar extends Component {
               }
               <RoutePageTitle />
             </Typography>
-
+            <OverflowMenu />
             {
             // <Button color="inherit">Login</Button>
             // <FuseSearch />
+ 
+            // <IconButton
+            //  className={classes.rightButton}
+            //  color="inherit"
+            //  aria-label="Overflow"
+            // >
+            //   {
+            //   // <Icon>exit_to_app</Icon>
+            //   // <iron-icon icon="vaadin:sign-out" />
+            //   // <GoSignOut />
+            //   }
+            //   <Icon>more_vert</Icon>
+            // </IconButton>
             }
-            
-            <IconButton
-             className={classes.rightButton}
-             color="inherit"
-             aria-label="Overflow"
-            >
-              {
-              // <Icon>exit_to_app</Icon>
-              // <iron-icon icon="vaadin:sign-out" />
-              // <GoSignOut />
-              }
-              <Icon>more_vert</Icon>
-            </IconButton>
           </Toolbar>
         </AppBar>
       </div>

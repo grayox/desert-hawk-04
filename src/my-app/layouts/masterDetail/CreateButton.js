@@ -46,7 +46,7 @@ class FormDialog extends Component {
           onClick={handleClickOpen}
           className={classNames(classes.button, "w-full",)}
         >
-          <Icon className={classes.leftIcon}>create</Icon>
+          <Icon className={classes.leftIcon}>add</Icon>
           New
         </Button>
         <Dialog

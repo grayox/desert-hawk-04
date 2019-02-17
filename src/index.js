@@ -28,6 +28,7 @@ import { Auth } from 'auth';
 
 // begin my add
 import MyLayout from 'my-app/layouts/MyLayout';
+// import { CssBaseline, } from '@material-ui/core';
 // import MyBottomNav from 'my-app/layouts/AppBars/MyBottomNav.js';
 // import { Hidden } from '@material-ui/core';
 // end my add
@@ -48,6 +49,9 @@ store.firebaseAuthIsReady.then(() => { // my add
           <Router history={history}>
             <FuseAuthorization routes={routes}>
               <FuseTheme>
+                {
+                // <CssBaseline />
+                }
                 <MyLayout />
                 {
                 // <FuseLayout

@@ -15,7 +15,7 @@ const styles = theme => ({
 
 const INITIAL_STATE = {
   isOpen: false,
-  isBeingEdited: false,
+  isBeingUpdated: false,
   isBeingDeleted: false,
 };
 
@@ -38,8 +38,8 @@ class UDButtons extends Component {
   };
 
   render() { 
-    const { classes, deletable, editable, } = this.props;
-    const { isOpen, isBeingEdited, isBeingDeleted, } = this.state;
+    const { classes, updatable, deletable, } = this.props;
+    const { isOpen, isBeingUpdated, isBeingDeleted, } = this.state;
     const { handleClickOpen, handleClose, } = this;
     
     return (
@@ -56,11 +56,11 @@ class UDButtons extends Component {
           )
         }    
         {
-          editable && (
+          updatable && (
             <IconButton 
               className={classes.button} 
               aria-label="Edit" 
-              onClick={() => handleClickOpen('isBeingEdited')}
+              onClick={() => handleClickOpen('isBeingUpdated')}
             >
               <Icon>edit</Icon>
             </IconButton>
@@ -105,14 +105,14 @@ class UDButtons extends Component {
 UDButtons.propTypes = {
   classes: PropTypes.object.isRequired,
   deletable: PropTypes.bool,
-  editable: PropTypes.bool,
+  updatable: PropTypes.bool,
   onDelete: PropTypes.func,
   onEdit: PropTypes.func,
 };
 
 UDButtons.defaultProps = {
   deletable: true,
-  editable: true,
+  updatable: true,
 };
  
 // export default UDButtons;
