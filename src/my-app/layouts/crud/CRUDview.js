@@ -28,11 +28,10 @@ import UDButtons from './UDButtons';
 // import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 
 import HashAvatar from 'my-app/components/HashAvatar';
-import { black } from 'ansi-colors';
 // import { componentsNavConfig, } from 'my-app/config/AppConfig';
 
 // 4 Ways to Style React Components: https://codeburst.io/4-four-ways-to-style-react-components-ac6f323da822
-// const MasterDetailStyle = {
+// const CRUDviewStyle = {
 //   display: 'grid', // https://css-tricks.com/snippets/css/complete-guide-grid/ | http://grid.malven.co/
 //   gridTemplateColumns: '1fr 1fr',
 // };
@@ -72,8 +71,8 @@ const INITIAL_STATE = {
   selectedIndex: null,
 };
 
-// function MasterDetail(props) {
-class MasterDetail extends Component {
+// function CRUDview(props) {
+class CRUDview extends Component {
 
   constructor(props) {
     super(props);
@@ -363,15 +362,15 @@ class MasterDetail extends Component {
   }
 }
 
-MasterDetail.propTypes = {
+CRUDview.propTypes = {
   classes: PropTypes.object.isRequired,
   items: PropTypes.array.isRequired,
   condensed: PropTypes.bool,
 };
 
-// export default MasterDetail;
-// export default withStyles(styles)(MasterDetail);
+// export default CRUDview;
+// export default withStyles(styles)(CRUDview);
 export default compose(
   withStyles(styles),
   withWidth(),
-)(MasterDetail);
+)(CRUDview);

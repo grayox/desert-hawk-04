@@ -1,5 +1,5 @@
 import React from 'react';
-// import MasterDetail from 'my-app/layouts/MasterDetail'
+// import CRUDview from 'my-app/layouts/CRUDview'
 
 import CreateLead from 'my-app/components/forms/CreateLead'
 import UserMultiForm from 'my-app/components/forms/UserMultiForm';
@@ -9,7 +9,7 @@ import UserMultiForm from 'my-app/components/forms/UserMultiForm';
 function Outbox(props) {
   // const { list, detail } = props;
   return (
-    // <MasterDetail
+    // <CRUDview
     //   list='Outbox left'
     //   detail={
     //     <UserMultiForm

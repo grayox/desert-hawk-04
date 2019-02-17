@@ -1,5 +1,5 @@
 import React from 'react';
-// import MasterDetail from 'my-app/layouts/masterDetail/MasterDetail'
+// import CRUDview from 'my-app/layouds/crud/CRUDview'
 // import UserMultiForm from 'my-app/components/forms/UserMultiForm';
 
 import FileManagerApp from 'my-app/apps/file-manager/FileManagerApp';
@@ -7,7 +7,7 @@ import FileManagerApp from 'my-app/apps/file-manager/FileManagerApp';
 function Archive(props) {
   // const { list, detail } = props;
   return (
-    // <MasterDetail
+    // <CRUDview
     //   list='Archive left'
     //   detail={
     //     <UserMultiForm
