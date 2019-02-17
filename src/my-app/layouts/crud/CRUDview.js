@@ -84,11 +84,24 @@ class CRUDview extends Component {
   };
 
   handleNavBack = () => {
-    this.setState({ selectedIndex: (Math.max(0, (this.state.selectedIndex - 1))) });
+    const { items, } = this.props;
+    const { selectedIndex, } = this.state;
+    const newSelectedIndex = selectedIndex - 1;
+    this.setState({
+      selectedIndex: Math.max(0, newSelectedIndex),
+      detail: items[newSelectedIndex],
+    });
   };
-
+  
   handleNavNext = () => {
-    this.setState({ selectedIndex: (Math.min(4, (this.state.selectedIndex + 1))) });
+    const { items, } = this.props;
+    const { selectedIndex, } = this.state;
+    const limit = items.length - 2;
+    const newSelectedIndex = selectedIndex + 1;
+    this.setState({
+      selectedIndex: Math.min(limit, newSelectedIndex),
+      detail: items[newSelectedIndex],
+    });
   };
 
   handleToggle = ( model, isList, index, ) => {
@@ -272,8 +285,8 @@ class CRUDview extends Component {
     const { selectedIndex, } = this.state;
     return (
       <React.Fragment>
-        <Button className="w-1/2" variant="outlined" onClick={handleNavBack}><Icon>chevron_left</Icon></Button> 
-        <Button className="w-1/2" variant="outlined" onClick={handleNavNext}><Icon>chevron_right</Icon></Button>
+        <Button className="w-1/2" variant="outlined" disabled={!selectedIndex} onClick={handleNavBack}><Icon>chevron_left</Icon></Button> 
+        <Button className="w-1/2" variant="outlined" disabled={selectedIndex > 3} onClick={handleNavNext}><Icon>chevron_right</Icon></Button>
       </React.Fragment>
     );
   }
@@ -296,7 +309,7 @@ class CRUDview extends Component {
           >
             <React.Fragment>
               {
-              // {getHeader()}
+              // getHeader()
               getNavButtons()
               }
               <Paper className={classNames(classes.paper, "z-0")}>
