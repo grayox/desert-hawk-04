@@ -283,10 +283,12 @@ class CRUDview extends Component {
   getNavButtons = () => {
     const { handleNavBack, handleNavNext, } = this;
     const { selectedIndex, } = this.state;
+    const { items, } = this.props;
+    const limit = items.length - 2;
     return (
       <React.Fragment>
-        <Button className="w-1/2" variant="outlined" disabled={!selectedIndex} onClick={handleNavBack}><Icon>chevron_left</Icon></Button> 
-        <Button className="w-1/2" variant="outlined" disabled={selectedIndex > 3} onClick={handleNavNext}><Icon>chevron_right</Icon></Button>
+        <Button className="w-1/2" variant="outlined" disabled={selectedIndex === 0} onClick={handleNavBack}><Icon>chevron_left</Icon></Button> 
+        <Button className="w-1/2" variant="outlined" disabled={selectedIndex > limit} onClick={handleNavNext}><Icon>chevron_right</Icon></Button>
       </React.Fragment>
     );
   }
