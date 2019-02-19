@@ -107,7 +107,7 @@ UDButtons.propTypes = {
   deletable: PropTypes.bool,
   updatable: PropTypes.bool,
   onDelete: PropTypes.func,
-  onEdit: PropTypes.func,
+  onUpdate: PropTypes.func,
 };
 
 UDButtons.defaultProps = {
