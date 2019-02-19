@@ -10,12 +10,12 @@ const styles = theme => ({
   },
 });
 
-const AllButtonsRow = ({limit, selectedIndex, onToggle, onNavBack, onNavNext, }) => (
+const AllButtonsRow = ({ limit, selectedIndex, onToggle, onDelete, onUpdate, onNavBack, onNavNext, }) => (
   <div className="flex">
     <Button className="flex-1" variant="outlined" onClick={onNavBack} disabled={selectedIndex === 0}><Icon>chevron_left</Icon></Button> 
-    <Button className="flex-1" variant="outlined" onClick={onNavNext} ><Icon>delete</Icon></Button>
-    <Button className="flex-1" variant="outlined" onClick={onToggle}  ><Icon>clear</Icon></Button>
-    <Button className="flex-1" variant="outlined" onClick={onNavNext} ><Icon>edit</Icon></Button>
+    <Button className="flex-1" variant="outlined" onClick={onDelete}><Icon>delete</Icon></Button>
+    <Button className="flex-1" variant="outlined" onClick={onToggle}><Icon>clear</Icon></Button>
+    <Button className="flex-1" variant="outlined" onClick={onUpdate}><Icon>edit</Icon></Button>
     <Button className="flex-1" variant="outlined" onClick={onNavNext} disabled={selectedIndex > limit}><Icon>chevron_right</Icon></Button>
   </div>
  );

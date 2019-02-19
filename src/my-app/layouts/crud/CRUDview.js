@@ -9,19 +9,19 @@ import withWidth from '@material-ui/core/withWidth';
 
 // @material-ui/core
 import {
-  Slide, Icon, IconButton, Divider, Button,
-  Typography, Grid, Hidden, Paper, CssBaseline,
+  Slide, Zoom,  Button, Icon, IconButton, Paper,
+  Typography, Grid, Hidden, CssBaseline, Divider,
   List, ListItem, ListItemText, ListItemSecondaryAction,
-  // ListSubheader, Avatar, Zoom, Grow,
-  // AppBar, Toolbar, CssBaseline, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
+  Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
+  // ListSubheader, Avatar, Grow,
+  // AppBar, Toolbar, CssBaseline,
+
 } from '@material-ui/core';
 
 // import {FuseAnimateGroup, FuseHighlight, FusePageSimple} from '@fuse';
 import { FuseScrollbars, FuseAnimate, FuseAnimateGroup } from '@fuse';
 
 import CreateButton from './CreateButton';
-// import AllButtonsRow from './UDButtons';
-// import UDButtons from './UDButtons';
 import { AllButtonsRow, UDButtons, } from './UDButtons';
 
 // import  from '@material-ui/core/Avatar';
@@ -68,9 +68,19 @@ const styles = theme => ({
   },
 });
 
+// https://material-ui.com/demos/dialogs/#alerts
+const Transition = props => (<Zoom in {...props} />); // (<Slide direction="up" {...props} />);
+
+const INITIAL_STATE_DIALOG = {
+  dialogIsOpen: false,
+  dialogIsBeingUpdated: false,
+  dialogIsBeingDeleted: false,
+}
+
 const INITIAL_STATE = {
   detail: null,
   selectedIndex: null,
+  ...INITIAL_STATE_DIALOG,
 };
 
 // function CRUDview(props) {
@@ -80,6 +90,14 @@ class CRUDview extends Component {
     super(props);
     this.state = INITIAL_STATE;
   }
+
+  handleOpenDialog = () => {
+    this.setState({ dialogIsOpen: true, });
+  };
+
+  handleCloseDialog = () => {
+    this.setState({ ...INITIAL_STATE_DIALOG, });
+  };
 
   handleListItemClick = ( event, index, ) => {
     this.setState({ selectedIndex: index });
@@ -121,6 +139,40 @@ class CRUDview extends Component {
       })}
     );
   }
+
+  getDialog = () => (
+    <Dialog
+      open={this.state.dialogIsOpen}
+      onClose={this.handleCloseDialog}
+      aria-labelledby="form-dialog-title"
+      TransitionComponent={Transition} // https://material-ui.com/demos/dialogs/#alerts
+      keepMounted
+    // aria-labelledby="alert-dialog-slide-title"
+    // aria-describedby="alert-dialog-slide-description"
+    >
+      <DialogTitle id="form-dialog-title">Permanently delete item?</DialogTitle>
+      <DialogContent>
+        <DialogContentText>
+          It&rsquo;s permanent and cannot be undone.
+        {
+            // Are you sure you want to delete this record?
+            // After deleted, this record will not be recoverable.
+          }
+        </DialogContentText>
+        {
+          // <TextField autoFocus margin="dense" id="dialog" label="dialog" type="email" fullWidth />
+        }
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={this.handleCloseDialog} color="primary">
+          Cancel
+        </Button>
+        <Button onClick={this.handleCloseDialog} color="primary">
+          Delete
+        </Button>
+      </DialogActions>
+    </Dialog>
+  )
 
   // getEmpty = () => (<img src="https://via.placeholder.com/800x900.png/e91e63/fff?text=Detail+goes+here"/>)
   getEmpty = () => (
@@ -284,7 +336,7 @@ class CRUDview extends Component {
   }
 
   getNavButtons = () => {
-    const { handleNavBack, handleNavNext, handleToggle, } = this;
+    const { handleNavBack, handleNavNext, handleToggle, handleOpenDialog, handleCloseDialog, } = this;
     const { selectedIndex, } = this.state;
     const { items, } = this.props;
     const limit = items.length - 2;
@@ -293,6 +345,8 @@ class CRUDview extends Component {
         limit={limit}
         selectedIndex={selectedIndex}
         onToggle={handleToggle}
+        onUpdate={handleOpenDialog}
+        onDelete={handleOpenDialog}
         onNavBack={handleNavBack}
         onNavNext={handleNavNext}
       />
@@ -376,12 +430,13 @@ class CRUDview extends Component {
   render() {
     const { classes, } = this.props;
     const { detail, } = this.state;
-    const { getListPane, getDetailPane, } = this;
+    const { getListPane, getDetailPane, getDialog, } = this;
 
     return (
       // <FuseScrollbars className="overflow-auto">
       <div className={classes.root}>
         <CssBaseline/>
+        {getDialog()}
         <div className={classes.wrapper}>
           {/* mobile */}
           <Hidden smUp>{detail ? getDetailPane() : getListPane()}</Hidden>
