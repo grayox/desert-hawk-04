@@ -20,7 +20,9 @@ import {
 import { FuseScrollbars, FuseAnimate, FuseAnimateGroup } from '@fuse';
 
 import CreateButton from './CreateButton';
-import UDButtons from './UDButtons';
+// import AllButtonsRow from './UDButtons';
+// import UDButtons from './UDButtons';
+import { AllButtonsRow, UDButtons, } from './UDButtons';
 
 // import  from '@material-ui/core/Avatar';
 // import ImageIcon from '@material-ui/icons/Image';
@@ -106,7 +108,7 @@ class CRUDview extends Component {
 
   handleToggle = ( model, isList, index, ) => {
     // console.log('model\n', model);
-    const { detail } = this.state;
+    // const { detail } = this.state;
     this.setState(
       { 
         detail: null,
@@ -177,13 +179,14 @@ class CRUDview extends Component {
   // )
 
   getSummary = ( item, isList, index, ) => {
-    const { handleToggle, } = this;
+    const { handleToggle, handleClickOpen, } = this;
     const { selectedIndex, } = this.state; // detail
+    const { timestamp, name, } = item;
     return (
       <ListItem
         button
         // divider light // use <Divider /> instead
-        key={item.timestamp}
+        key={timestamp}
         onClick={() => handleToggle( item, isList, index, )}
         selected={selectedIndex === index}
       >
@@ -193,12 +196,12 @@ class CRUDview extends Component {
         // </Avatar>
         }
         <HashAvatar
-          message={item.timestamp}
+          message={timestamp}
           // variant="uic" //"robohashx" //"robohash4" //"retro" //"monsterid" //"wavatar" //"adorable" //"identicon" //"mp" //"ui" //"random"(deprecated)
         />
-        <ListItemText primary="Vacation" secondary={item.name} />
+        <ListItemText primary="Vacation" secondary={name} />
         <ListItemSecondaryAction>
-          <UDButtons />
+          <UDButtons onClickOpen={handleClickOpen}/>
           <IconButton
             color="inherit"
             aria-label="Back"
@@ -281,15 +284,18 @@ class CRUDview extends Component {
   }
 
   getNavButtons = () => {
-    const { handleNavBack, handleNavNext, } = this;
+    const { handleNavBack, handleNavNext, handleToggle, } = this;
     const { selectedIndex, } = this.state;
     const { items, } = this.props;
     const limit = items.length - 2;
     return (
-      <React.Fragment>
-        <Button className="w-1/2" variant="outlined" disabled={selectedIndex === 0} onClick={handleNavBack}><Icon>chevron_left</Icon></Button> 
-        <Button className="w-1/2" variant="outlined" disabled={selectedIndex > limit} onClick={handleNavNext}><Icon>chevron_right</Icon></Button>
-      </React.Fragment>
+      <AllButtonsRow
+        limit={limit}
+        selectedIndex={selectedIndex}
+        onToggle={handleToggle}
+        onNavBack={handleNavBack}
+        onNavNext={handleNavNext}
+      />
     );
   }
 
