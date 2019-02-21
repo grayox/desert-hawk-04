@@ -3,7 +3,7 @@ import React from 'react';
 // import UserMultiForm from 'my-app/components/forms/UserMultiForm';
 
 // import ContactsApp from 'my-app/apps/contacts/ContactsApp';
-import NewContactForm from 'my-app/components/forms/NewContactForm';
+import UserMultiForm from 'my-app/components/forms/UserMultiForm';
 
 function Contacts(props) {
   // const { list, detail } = props;
@@ -21,7 +21,7 @@ function Contacts(props) {
 
     // <ContactsApp/>
 
-    <NewContactForm />
+    <UserMultiForm />
   );
 }
 
