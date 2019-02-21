@@ -39,10 +39,13 @@ const styles = theme => ({
   },
   toolbar: theme.mixins.toolbar,
   content: {
-    border: 'solid purple',
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing.unit * 3,
+    
+    // temppin
+    border: 'solid purple',
+    marginTop: 68,
   },
 });
 

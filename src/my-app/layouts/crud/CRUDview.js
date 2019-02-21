@@ -43,28 +43,19 @@ const styles = theme => ({
     // temppin
     boxSizing: 'border-box',
     border: 'solid black',
-    flexGrow: 1,
+    display: 'flex',
   },
   wrapper: {
     // temppin
+    flexGrow: 1,
     boxSizing: 'border-box',
     border: 'solid red',
     overflow: 'auto',
-    minHeight: 'calc(100vh-56px)',
-    // width: 'calc(100vw-237px)',
-    width: 800,
-    marginTop: 56,
-    marginLeft: 12,
-    paddingTop: 12,
   },
   paper: {
     // temppin
     border: 'solid blue',
-    // padding: theme.spacing.unit * 2,
-    // width: '100vw',
-    // textAlign: 'center',
     color: theme.palette.text.secondary,
-    // maxWidth: '360px',
   },
 });
 
@@ -442,7 +433,7 @@ class CRUDView extends Component {
           <Hidden smUp>{detail ? getDetailPane() : getListPane()}</Hidden>
           {/* laptop */}
           <Hidden xsDown>
-            <div className={classNames(classes.root, "sm:p-8 md:p-16")}>
+            <div className={classNames(classes.root,)}>
               <Grid container spacing={8}>
                 <Grid item xs={12} sm={6}>{getListPane()}</Grid>
                 <Grid item xs={6}>{getDetailPane()}</Grid>

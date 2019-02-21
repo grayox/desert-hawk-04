@@ -92,24 +92,32 @@ class UserMultiForm extends Component {
       // >
       <React.Fragment>
 
-        <AppBar position="static" elevation={1}>
-          <Toolbar className="flex w-full">
-            <Typography variant="subtitle1" color="inherit">
-              {/* {userMultiForm.type === 'new' ? 'New Contact' : 'Edit Contact'} */}
-              New Contact
-            </Typography>
-          </Toolbar>
-          {/* <div className="flex flex-col items-center justify-center pb-24">
-            <Avatar className="w-96 h-96" alt="contact avatar" src={this.state.avatar} />
-            {userMultiForm.type === 'edit' && (
-              <Typography variant="h6" color="inherit" className="pt-8">
-                {this.state.name}
-              </Typography>
-            )}
-          </div> */}
-        </AppBar>
+        {
+        // <AppBar position="static" elevation={1}>
+        //   <Toolbar className="flex w-full">
+        //     <Typography variant="subtitle1" color="inherit">
+        //       {
+        //         // {userMultiForm.type === 'new' ? 'New Contact' : 'Edit Contact'}
+        //       }
+        //       New Contact
+        //     </Typography>
+        //   </Toolbar>
+        //   {
+        //   // <div className="flex flex-col items-center justify-center pb-24">
+        //   //   <Avatar className="w-96 h-96" alt="contact avatar" src={this.state.avatar} />
+        //   //   {userMultiForm.type === 'edit' && (
+        //   //     <Typography variant="h6" color="inherit" className="pt-8">
+        //   //       {this.state.name}
+        //   //     </Typography>
+        //   //   )}
+        //   // </div>
+        //   }
+        // </AppBar>
+        }
 
-        {/* <DialogContent classes={{ root: "p-24" }}> */}
+        {
+        // <DialogContent classes={{ root: "p-24" }}>
+        }
         <div classes={{ root: "p-24" }}>
           <div className="flex">
             <div className="min-w-48 pt-20">

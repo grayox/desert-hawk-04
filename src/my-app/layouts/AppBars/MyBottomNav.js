@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import {
   withStyles,
   BottomNavigation, BottomNavigationAction,
-  Icon, CssBaseline,
+  Icon, CssBaseline, FormHelperText,
   // MuiThemeProvider, AppBar, IconButton,
 } from '@material-ui/core';
 
@@ -25,7 +25,13 @@ import { componentsNavConfig, } from 'my-app/config/AppConfig.js';
 const styles = theme => ({
   // ref: https://stackoverflow.com/a/54375949/1640892
   // demo: https://codesandbox.io/s/wq02759kk
-  root: {
+  
+  // root: {
+  //   display: 'flex',
+  // },
+
+  wrapper: {
+    // flexGrow: 1,
     width: '100vw',
     bottom: 0,
     position: 'fixed',
@@ -92,7 +98,7 @@ class MyBottomNav extends Component {
       }
         <CssBaseline />
         <BottomNavigation
-          className={classes.root}
+          className={classes.wrapper}
           showLabels
           // showLabels={showLabels}
           value={value}
