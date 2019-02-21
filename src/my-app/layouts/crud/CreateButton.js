@@ -1,17 +1,17 @@
 import React, { Component, } from 'react';
-import classNames from 'classnames';
+// import classNames from 'classnames';
 import {
   withStyles, Button, Icon, TextField,
   Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
 } from '@material-ui/core';
 
 const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit,
-  },
-  leftIcon: {
-    marginRight: theme.spacing.unit,
-  },
+  // button: {
+  //   margin: theme.spacing.unit,
+  // },
+  // leftIcon: {
+  //   marginRight: theme.spacing.unit,
+  // },
   // rightIcon: {
   //   marginLeft: theme.spacing.unit,
   // },
@@ -44,9 +44,13 @@ class FormDialog extends Component {
           variant="contained"
           color="primary"
           onClick={handleClickOpen}
-          className={classNames(classes.button, "w-full",)}
+          // className={classNames(classes.button, "w-full",)}
+          className="w-full"
         >
-          <Icon className={classes.leftIcon}>add</Icon>
+          {
+          // <Icon className={classes.leftIcon}>add</Icon>
+          }
+          <Icon>add</Icon>
         </Button>
         <Dialog
           open={open}

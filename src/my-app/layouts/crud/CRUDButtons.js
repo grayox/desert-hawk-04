@@ -8,7 +8,17 @@ const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
   },
+  // leftIcon: {
+  //   marginRight: theme.spacing.unit,
+  // },
+  // rightIcon: {
+  //   marginLeft: theme.spacing.unit,
+  // },
+  // iconSmall: {
+  //   fontSize: 20,
+  // },
 });
+
 
 const ButtonsRow = ({ limit, selectedIndex, onToggle, onDelete, onUpdate, onNavBack, onNavNext, }) => (
   <div className="flex">
@@ -19,8 +29,23 @@ const ButtonsRow = ({ limit, selectedIndex, onToggle, onDelete, onUpdate, onNavB
     <Button className="flex-1" variant="outlined" onClick={onNavNext} disabled={selectedIndex > limit}><Icon>chevron_right</Icon></Button>
   </div>
  );
+ 
+ const CreateButton = ({ onClick, }) => (
+  <Button
+    variant="contained"
+    color="primary"
+    onClick={onClick}
+    // className={classNames(classes.button, "w-full",)}
+    className="w-full"
+  >
+    {
+      // <Icon className={classes.leftIcon}>add</Icon>
+    }
+    <Icon>add</Icon>
+  </Button>
+);
 
-const CRUDButtonsUnstyled = ({ classes, deletable, updatable, onClickOpen, }) => (
+const UDButtonsUnstyled = ({ classes, deletable, updatable, onClickOpen, }) => (
   <React.Fragment>
   {
     deletable && (
@@ -47,7 +72,7 @@ const CRUDButtonsUnstyled = ({ classes, deletable, updatable, onClickOpen, }) =>
   </React.Fragment>
 );
 
-CRUDButtonsUnstyled.propTypes = {
+UDButtonsUnstyled.propTypes = {
   classes: PropTypes.object.isRequired,
   deletable: PropTypes.bool,
   updatable: PropTypes.bool,
@@ -55,11 +80,11 @@ CRUDButtonsUnstyled.propTypes = {
   onUpdate: PropTypes.func,
 };
 
-CRUDButtonsUnstyled.defaultProps = {
+UDButtonsUnstyled.defaultProps = {
   deletable: true,
   updatable: true,
 };
  
-const CRUDButtons = withStyles(styles, { withTheme: true })(CRUDButtonsUnstyled);                                                       
+const UDButtons = withStyles(styles, { withTheme: true })(UDButtonsUnstyled);                                                       
 
-export { ButtonsRow, CRUDButtons, }
+export { CreateButton, UDButtons, ButtonsRow, }

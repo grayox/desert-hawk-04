@@ -43,7 +43,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing.unit * 3,
     
-    // temppin
+    // temp-border
     border: 'solid purple',
     marginTop: 68,
   },

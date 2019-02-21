@@ -21,8 +21,11 @@ import {
 // import {FuseAnimateGroup, FuseHighlight, FusePageSimple} from '@fuse';
 import { FuseScrollbars, FuseAnimate, FuseAnimateGroup } from '@fuse';
 
-import CreateButton from './CreateButton';
-import { ButtonsRow, CRUDButtons, } from './CRUDButtons';
+// import CreateButton from './CreateButton';
+import {
+  CreateButton,
+  ButtonsRow, UDButtons,
+} from './CRUDButtons';
 
 // import  from '@material-ui/core/Avatar';
 // import ImageIcon from '@material-ui/icons/Image';
@@ -40,20 +43,20 @@ import HashAvatar from 'my-app/components/HashAvatar';
 
 const styles = theme => ({
   root: {
-    // temppin
+    // temp-border
     boxSizing: 'border-box',
     border: 'solid black',
     display: 'flex',
   },
   wrapper: {
-    // temppin
+    // temp-border
     flexGrow: 1,
     boxSizing: 'border-box',
     border: 'solid red',
     overflow: 'auto',
   },
   paper: {
-    // temppin
+    // temp-border
     border: 'solid blue',
     color: theme.palette.text.secondary,
   },
@@ -244,7 +247,7 @@ class CRUDView extends Component {
         />
         <ListItemText primary="Vacation" secondary={name} />
         <ListItemSecondaryAction>
-          <CRUDButtons onClickOpen={handleClickOpen}/>
+          <UDButtons onClickOpen={handleClickOpen}/>
           <IconButton
             color="inherit"
             aria-label="Back"
@@ -382,12 +385,12 @@ class CRUDView extends Component {
 
   getListPane = () => {
     const { classes, items, creatable, } = this.props;
-    const { getSummary, } = this; // getHeader,
+    const { getSummary, handleOpenDialog, } = this; // getHeader,
     return (
       <React.Fragment>
         {
         // getHeader()
-        creatable && <CreateButton />
+        creatable && <CreateButton onClick={handleOpenDialog} />
         }
         <Paper className={classNames(classes.paper, "z-10")}>
           <List className="m-0 p-0" component="nav">
