@@ -34,31 +34,31 @@ const newContactState = {
 class UserMultiForm extends Component {
   state = { ...newContactState };
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    /**
-     * After Dialog Open
-     */
-    if (!prevProps.userMultiForm.props.open && this.props.userMultiForm.props.open) {
-      /**
-       * Dialog type: 'edit'
-       * Update State
-       */
-      if (this.props.userMultiForm.type === 'edit' &&
-        this.props.userMultiForm.data &&
-        !_.isEqual(this.props.userMultiForm.data, prevState)) {
-        this.setState({ ...this.props.userMultiForm.data });
-      }
+  // componentDidUpdate(prevProps, prevState, snapshot) {
+  //   /**
+  //    * After Dialog Open
+  //    */
+  //   if (!prevProps.userMultiForm.props.open && this.props.userMultiForm.props.open) {
+  //     /**
+  //      * Dialog type: 'edit'
+  //      * Update State
+  //      */
+  //     if (this.props.userMultiForm.type === 'edit' &&
+  //       this.props.userMultiForm.data &&
+  //       !_.isEqual(this.props.userMultiForm.data, prevState)) {
+  //       this.setState({ ...this.props.userMultiForm.data });
+  //     }
 
-      /**
-       * Dialog type: 'new'
-       * Update State
-       */
-      if (this.props.userMultiForm.type === 'new' &&
-        !_.isEqual(newContactState, prevState)) {
-        this.setState({ ...newContactState });
-      }
-    }
-  }
+  //     /**
+  //      * Dialog type: 'new'
+  //      * Update State
+  //      */
+  //     if (this.props.userMultiForm.type === 'new' &&
+  //       !_.isEqual(newContactState, prevState)) {
+  //       this.setState({ ...newContactState });
+  //     }
+  //   }
+  // }
 
   handleChange = (event) => {
     this.setState(_.set({ ...this.state }, event.target.name, event.target.type === 'checkbox' ? event.target.checked : event.target.value));

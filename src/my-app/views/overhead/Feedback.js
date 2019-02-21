@@ -1,6 +1,6 @@
 // import React from 'react';
 import React, {Component} from 'react';
-// import CRUDview from '../CRUDview';
+// import CRUDView from '../CRUDView';
 import FeedbackForm from 'my-app/components/forms/FeedbackForm';
 
 // import MailApp from 'my-app/apps/mail/MailApp';
@@ -21,7 +21,7 @@ class Feedback extends Component {
   
       // <Redirect to="/apps/mail/inbox"/>
       // <MailApp/>
-      // <CRUDview
+      // <CRUDView
       //   list='Feedback left'
       //   detail={<FeedbackForm />}
       // />

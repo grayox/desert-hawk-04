@@ -22,7 +22,7 @@ const INITIAL_STATE = {
 // https://material-ui.com/demos/dialogs/#alerts
 const Transition = props => (<Zoom in {...props} />); // (<Slide direction="up" {...props} />);
 
-class UDButtons extends Component {
+class CRUDButtons extends Component {
 
   state = {...INITIAL_STATE};
 
@@ -102,7 +102,7 @@ class UDButtons extends Component {
   }
 }
 
-UDButtons.propTypes = {
+CRUDButtons.propTypes = {
   classes: PropTypes.object.isRequired,
   deletable: PropTypes.bool,
   updatable: PropTypes.bool,
@@ -110,10 +110,10 @@ UDButtons.propTypes = {
   onUpdate: PropTypes.func,
 };
 
-UDButtons.defaultProps = {
+CRUDButtons.defaultProps = {
   deletable: true,
   updatable: true,
 };
  
-// export default UDButtons;
-export default withStyles(styles)(UDButtons);
+// export default CRUDButtons;
+export default withStyles(styles)(CRUDButtons);

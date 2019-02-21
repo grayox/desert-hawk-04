@@ -22,7 +22,7 @@ import {
 import { FuseScrollbars, FuseAnimate, FuseAnimateGroup } from '@fuse';
 
 import CreateButton from './CreateButton';
-import { AllButtonsRow, UDButtons, } from './UDButtons';
+import { ButtonsRow, CRUDButtons, } from './CRUDButtons';
 
 // import  from '@material-ui/core/Avatar';
 // import ImageIcon from '@material-ui/icons/Image';
@@ -33,7 +33,7 @@ import HashAvatar from 'my-app/components/HashAvatar';
 // import { componentsNavConfig, } from 'my-app/config/AppConfig';
 
 // 4 Ways to Style React Components: https://codeburst.io/4-four-ways-to-style-react-components-ac6f323da822
-// const CRUDviewStyle = {
+// const CRUDViewStyle = {
 //   display: 'grid', // https://css-tricks.com/snippets/css/complete-guide-grid/ | http://grid.malven.co/
 //   gridTemplateColumns: '1fr 1fr',
 // };
@@ -83,8 +83,8 @@ const INITIAL_STATE = {
   ...INITIAL_STATE_DIALOG,
 };
 
-// function CRUDview(props) {
-class CRUDview extends Component {
+// function CRUDView(props) {
+class CRUDView extends Component {
 
   constructor(props) {
     super(props);
@@ -253,7 +253,7 @@ class CRUDview extends Component {
         />
         <ListItemText primary="Vacation" secondary={name} />
         <ListItemSecondaryAction>
-          <UDButtons onClickOpen={handleClickOpen}/>
+          <CRUDButtons onClickOpen={handleClickOpen}/>
           <IconButton
             color="inherit"
             aria-label="Back"
@@ -341,7 +341,7 @@ class CRUDview extends Component {
     const { items, } = this.props;
     const limit = items.length - 2;
     return (
-      <AllButtonsRow
+      <ButtonsRow
         limit={limit}
         selectedIndex={selectedIndex}
         onToggle={handleToggle}
@@ -458,15 +458,15 @@ class CRUDview extends Component {
   }
 }
 
-CRUDview.propTypes = {
+CRUDView.propTypes = {
   classes: PropTypes.object.isRequired,
   items: PropTypes.array.isRequired,
   condensed: PropTypes.bool,
 };
 
-// export default CRUDview;
-// export default withStyles(styles)(CRUDview);
+// export default CRUDView;
+// export default withStyles(styles)(CRUDView);
 export default compose(
   withStyles(styles),
   withWidth(),
-)(CRUDview);
+)(CRUDView);

@@ -10,7 +10,7 @@ const styles = theme => ({
   },
 });
 
-const AllButtonsRow = ({ limit, selectedIndex, onToggle, onDelete, onUpdate, onNavBack, onNavNext, }) => (
+const ButtonsRow = ({ limit, selectedIndex, onToggle, onDelete, onUpdate, onNavBack, onNavNext, }) => (
   <div className="flex">
     <Button className="flex-1" variant="outlined" onClick={onNavBack} disabled={selectedIndex === 0}><Icon>chevron_left</Icon></Button> 
     <Button className="flex-1" variant="outlined" onClick={onDelete}><Icon>delete</Icon></Button>
@@ -20,7 +20,7 @@ const AllButtonsRow = ({ limit, selectedIndex, onToggle, onDelete, onUpdate, onN
   </div>
  );
 
-const UDButtonsUnstyled = ({ classes, deletable, updatable, onClickOpen, }) => (
+const CRUDButtonsUnstyled = ({ classes, deletable, updatable, onClickOpen, }) => (
   <React.Fragment>
   {
     deletable && (
@@ -47,7 +47,7 @@ const UDButtonsUnstyled = ({ classes, deletable, updatable, onClickOpen, }) => (
   </React.Fragment>
 );
 
-UDButtonsUnstyled.propTypes = {
+CRUDButtonsUnstyled.propTypes = {
   classes: PropTypes.object.isRequired,
   deletable: PropTypes.bool,
   updatable: PropTypes.bool,
@@ -55,11 +55,11 @@ UDButtonsUnstyled.propTypes = {
   onUpdate: PropTypes.func,
 };
 
-UDButtonsUnstyled.defaultProps = {
+CRUDButtonsUnstyled.defaultProps = {
   deletable: true,
   updatable: true,
 };
  
-const UDButtons = withStyles(styles, { withTheme: true })(UDButtonsUnstyled);                                                       
+const CRUDButtons = withStyles(styles, { withTheme: true })(CRUDButtonsUnstyled);                                                       
 
-export { AllButtonsRow, UDButtons, }
+export { ButtonsRow, CRUDButtons, }

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 // import compose from 'recompose/compose';
 import { withStyles } from '@material-ui/core/styles';
 
-import CRUDview from 'my-app/layouts/crud/CRUDview'
+import CRUDView from 'my-app/layouts/crud/CRUDView'
 
 // import AcademyApp from 'my-app/apps/academy/courses/Courses';
 
@@ -23,7 +23,7 @@ function Inbox(props) {
   console.log('props\n', props);
   const { classes, items } = props;
   return (
-    <CRUDview
+    <CRUDView
       // title={'Inbox Detail'}
       className={classes.root}
       items={items}
