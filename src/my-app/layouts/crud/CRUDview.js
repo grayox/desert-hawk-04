@@ -9,11 +9,11 @@ import withWidth from '@material-ui/core/withWidth';
 
 // @material-ui/core
 import {
-  Slide, Zoom, Button, Fab, Icon, IconButton, Paper,
+  Zoom, Button, Fab, Icon, IconButton, Paper,
   Typography, Grid, Hidden, CssBaseline, Divider,
   List, ListItem, ListItemText, ListItemSecondaryAction,
   Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
-  // ListSubheader, Avatar, Grow,
+  // ListSubheader, Avatar, Grow, Slide,
   // AppBar, Toolbar, CssBaseline,
 } from '@material-ui/core';
 
@@ -24,7 +24,7 @@ import moment from 'moment';
 // import CreateButton from './CreateButton';
 import { CreateButton, ButtonsRow, UDButtons, } from './CRUDButtons';
 
-// import  from '@material-ui/core/Avatar';
+// import from '@material-ui/core/Avatar';
 // import ImageIcon from '@material-ui/icons/Image';
 // import WorkIcon from '@material-ui/icons/Work';
 // import BeachAccessIcon from '@material-ui/icons/BeachAccess';
@@ -53,7 +53,7 @@ const styles = theme => ({
     // border: 'solid red',
     flexGrow: 1,
     boxSizing: 'border-box',
-    overflow: 'auto',
+    // overflow: 'auto',
   },
   paper: {
     // temp-border
@@ -283,7 +283,7 @@ class CRUDView extends Component {
         leave={{ animation: 'transition.slideLeftOut' }}
       >
         <Paper className={classNames(classes.paper, "z-0")}>
-          <List component="nav"> {/* subheader={<ListSubheader className="text-left">Detail</ListSubheader>} */}
+          <List className="m-0 p-0" component="nav"> {/* subheader={<ListSubheader className="text-left">Detail</ListSubheader>} */}
             <FuseAnimateGroup
               delay={500}
               enter={{ animation: "transition.slideDownBigIn" }}
@@ -441,7 +441,7 @@ class CRUDView extends Component {
           {/* laptop */}
           <Hidden xsDown>
             <div className={classNames(classes.root,)}>
-              <Grid container spacing={8}>
+              <Grid container spacing={16}>
                 <Grid item xs={12} sm={6}>{getListPane()}</Grid>
                 <Grid item xs={6}>{getDetailPane()}</Grid>
               </Grid>

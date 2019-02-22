@@ -40,7 +40,7 @@ const ButtonsRow = ({ limit, selectedIndex, deletable, updatable, onToggle, onDe
   <div className="flex mx-8">
     <span className="flex-1 text-center mt-8">
       <IconButton onClick={onNavBack} disabled={selectedIndex === 0}>
-        <Icon>chevron_left</Icon>
+        <Icon>arrow_back_ios</Icon>
       </IconButton>
     </span> 
     {
@@ -66,7 +66,7 @@ const ButtonsRow = ({ limit, selectedIndex, deletable, updatable, onToggle, onDe
     }
     <span className="flex-1 text-center mt-8">
       <IconButton onClick={onNavNext} disabled={selectedIndex > limit}>
-        <Icon>chevron_right</Icon>
+        <Icon>arrow_forward_ios</Icon>
       </IconButton>
     </span>
   </div>
