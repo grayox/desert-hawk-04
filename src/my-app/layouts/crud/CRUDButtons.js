@@ -2,10 +2,11 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+// import classNames from 'classnames';
 import { withStyles, Button, Icon, IconButton, } from '@material-ui/core';
 
 const styles = theme => ({
-  button: {
+  margin: {
     margin: theme.spacing.unit,
   },
   // leftIcon: {
@@ -19,14 +20,55 @@ const styles = theme => ({
   // },
 });
 
+// const ButtonsRow = ({ limit, selectedIndex, deletable, updatable, onToggle, onDelete, onUpdate, onNavBack, onNavNext, }) => (
+//   <div className="flex">
+//     <Button className="flex-1" variant="outlined" onClick={onNavBack} disabled={selectedIndex === 0}><Icon>chevron_left</Icon></Button> 
+//     {
+//     deletable &&
+//     <Button className="flex-1" variant="outlined" onClick={onDelete}><Icon>delete</Icon></Button>
+//     }
+//     <Button className="flex-1" variant="outlined" onClick={onToggle}><Icon>clear</Icon></Button>
+//     {
+//     updatable &&
+//     <Button className="flex-1" variant="outlined" onClick={onUpdate}><Icon>edit</Icon></Button>
+//     }
+//     <Button className="flex-1" variant="outlined" onClick={onNavNext} disabled={selectedIndex > limit}><Icon>chevron_right</Icon></Button>
+//   </div>
+//  );
 
-const ButtonsRow = ({ limit, selectedIndex, onToggle, onDelete, onUpdate, onNavBack, onNavNext, }) => (
-  <div className="flex">
-    <Button className="flex-1" variant="outlined" onClick={onNavBack} disabled={selectedIndex === 0}><Icon>chevron_left</Icon></Button> 
-    <Button className="flex-1" variant="outlined" onClick={onDelete}><Icon>delete</Icon></Button>
-    <Button className="flex-1" variant="outlined" onClick={onToggle}><Icon>clear</Icon></Button>
-    <Button className="flex-1" variant="outlined" onClick={onUpdate}><Icon>edit</Icon></Button>
-    <Button className="flex-1" variant="outlined" onClick={onNavNext} disabled={selectedIndex > limit}><Icon>chevron_right</Icon></Button>
+const ButtonsRow = ({ limit, selectedIndex, deletable, updatable, onToggle, onDelete, onUpdate, onNavBack, onNavNext, }) => (
+  <div className="flex mx-8">
+    <span className="flex-1 text-center mt-8">
+      <IconButton onClick={onNavBack} disabled={selectedIndex === 0}>
+        <Icon>chevron_left</Icon>
+      </IconButton>
+    </span> 
+    {
+    deletable &&
+    <span className="flex-1 text-center mt-8">
+      <IconButton onClick={onDelete}>
+        <Icon>delete</Icon>
+      </IconButton>
+    </span>
+    }
+    <span className="flex-1 text-center mt-8">
+      <IconButton onClick={onToggle}>
+        <Icon>clear</Icon>
+      </IconButton>
+    </span>
+    {
+    updatable &&
+    <span className="flex-1 text-center mt-8">
+      <IconButton onClick={onUpdate}>
+        <Icon>edit</Icon>
+      </IconButton>
+    </span>
+    }
+    <span className="flex-1 text-center mt-8">
+      <IconButton onClick={onNavNext} disabled={selectedIndex > limit}>
+        <Icon>chevron_right</Icon>
+      </IconButton>
+    </span>
   </div>
  );
  
@@ -35,7 +77,7 @@ const ButtonsRow = ({ limit, selectedIndex, onToggle, onDelete, onUpdate, onNavB
     variant="contained"
     color="primary"
     onClick={onClick}
-    // className={classNames(classes.button, "w-full",)}
+    // className={classNames(classes.margin, "w-full",)}
     className="w-full"
   >
     {
@@ -51,7 +93,7 @@ const UDButtonsUnstyled = ({ classes, deletable, updatable, onClickOpen, }) => (
     deletable && (
       <IconButton
         aria-label="Delete" 
-        className={classes.button}
+        className={classes.margin}
         onClick={() => onClickOpen('isBeingDeleted')}
       >
         <Icon>delete</Icon>
@@ -62,7 +104,7 @@ const UDButtonsUnstyled = ({ classes, deletable, updatable, onClickOpen, }) => (
     updatable && (
       <IconButton
         aria-label="Edit" 
-        className={classes.button}
+        className={classes.margin}
         onClick={() => onClickOpen('isBeingUpdated')}
       >
         <Icon>edit</Icon>
@@ -81,8 +123,8 @@ UDButtonsUnstyled.propTypes = {
 };
 
 UDButtonsUnstyled.defaultProps = {
-  deletable: true,
-  updatable: true,
+  deletable: false,
+  updatable: false,
 };
  
 const UDButtons = withStyles(styles, { withTheme: true })(UDButtonsUnstyled);                                                       

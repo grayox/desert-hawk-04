@@ -119,9 +119,8 @@ class MobileDrawer extends Component {
       <React.Fragment>
       {
       // <div className="bg-grey-lightest">
+      // <MyFab />
       }
-
-        <MyFab />
         <MyBottomNav />
         <MobileAppBar className="w-full" onClickMenuButton={this.toggleDrawer('left', true)} />
 

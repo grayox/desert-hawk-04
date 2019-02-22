@@ -93,7 +93,7 @@ const styles = theme => ({
     padding: theme.spacing.unit * 2,
 
     // temp-border
-    border: 'solid purple',
+    // border: 'solid purple',
     marginTop: 68,
   },
 
@@ -130,7 +130,9 @@ class MiniDrawer extends Component {
     return (
       <div className={classes.root}>
         <CssBaseline />
-        <MyFab />
+        {
+        // <MyFab />
+        }
         <MyBottomNav />
         <AppBar
           position="fixed"

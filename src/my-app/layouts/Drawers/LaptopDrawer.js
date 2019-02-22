@@ -10,7 +10,7 @@ import {
   Drawer,
 } from '@material-ui/core';
 
-import MyFab from 'my-app/layouts/MyFab';
+// import MyFab from 'my-app/layouts/MyFab';
 import LaptopAppBar from '../appBars/LaptopAppBar';
 import BrandAppBar from '../appBars/BrandAppBar';
 import DrawerContent from './DrawerContent';
@@ -28,8 +28,9 @@ const styles = theme => ({
     marginLeft: drawerWidth,
   },
   drawer: {
+    // temp-border
+    // border: 'solid yellow',
     boxSizing: 'border-box',
-    border: 'solid yellow',
     width: drawerWidth,
     flexShrink: 0,
   },
@@ -44,7 +45,7 @@ const styles = theme => ({
     padding: theme.spacing.unit * 2,
     
     // temp-border
-    border: 'solid purple',
+    // border: 'solid purple',
     marginTop: 68,
   },
 });
@@ -66,8 +67,8 @@ const PermanentDrawerLeft = props => {
       // </AppBar>
 
       // <OverflowMenu />
+      // <MyFab />
       }
-      <MyFab />
       <LaptopAppBar />
 
       {

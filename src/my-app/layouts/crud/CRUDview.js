@@ -9,23 +9,20 @@ import withWidth from '@material-ui/core/withWidth';
 
 // @material-ui/core
 import {
-  Slide, Zoom,  Button, Icon, IconButton, Paper,
+  Slide, Zoom, Button, Fab, Icon, IconButton, Paper,
   Typography, Grid, Hidden, CssBaseline, Divider,
   List, ListItem, ListItemText, ListItemSecondaryAction,
   Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
   // ListSubheader, Avatar, Grow,
   // AppBar, Toolbar, CssBaseline,
-
 } from '@material-ui/core';
 
 // import {FuseAnimateGroup, FuseHighlight, FusePageSimple} from '@fuse';
 import { FuseScrollbars, FuseAnimate, FuseAnimateGroup } from '@fuse';
+import moment from 'moment';
 
 // import CreateButton from './CreateButton';
-import {
-  CreateButton,
-  ButtonsRow, UDButtons,
-} from './CRUDButtons';
+import { CreateButton, ButtonsRow, UDButtons, } from './CRUDButtons';
 
 // import  from '@material-ui/core/Avatar';
 // import ImageIcon from '@material-ui/icons/Image';
@@ -44,20 +41,23 @@ import HashAvatar from 'my-app/components/HashAvatar';
 const styles = theme => ({
   root: {
     // temp-border
+    // border: 'solid black',
     boxSizing: 'border-box',
-    border: 'solid black',
     display: 'flex',
+  },
+  margin: {
+    margin: theme.spacing.unit,
   },
   wrapper: {
     // temp-border
+    // border: 'solid red',
     flexGrow: 1,
     boxSizing: 'border-box',
-    border: 'solid red',
     overflow: 'auto',
   },
   paper: {
     // temp-border
-    border: 'solid blue',
+    // border: 'solid blue',
     color: theme.palette.text.secondary,
   },
 });
@@ -227,7 +227,8 @@ class CRUDView extends Component {
   getSummary = ( item, isList, index, ) => {
     const { handleToggle, handleClickOpen, } = this;
     const { selectedIndex, } = this.state; // detail
-    const { timestamp, name, } = item;
+    const { classes, } = this.props;
+    const { timestamp, } = item;
     return (
       <ListItem
         button
@@ -245,22 +246,24 @@ class CRUDView extends Component {
           message={timestamp}
           // variant="uic" //"robohashx" //"robohash4" //"retro" //"monsterid" //"wavatar" //"adorable" //"identicon" //"mp" //"ui" //"random"(deprecated)
         />
-        <ListItemText primary="Vacation" secondary={name} />
+        <ListItemText primary={item.geoLocal} secondary={moment(timestamp).fromNow()} />
         <ListItemSecondaryAction>
-          <UDButtons onClickOpen={handleClickOpen}/>
-          <IconButton
-            color="inherit"
-            aria-label="Back"
-            onClick={() => handleToggle( item, isList, index, )}
-          >
-            { 
-              isList
-              ?
+          {
+          isList
+          ?
+          <React.Fragment>
+            <UDButtons deletable updatable onClickOpen={handleClickOpen}/>
+            <IconButton color="inherit" aria-label="Update and delete"
+              onClick={() => handleToggle( item, isList, index, )}
+            >
               <Icon>more_horiz</Icon>
-              :
-              <Icon>close</Icon>
-            }
-          </IconButton>
+            </IconButton>
+          </React.Fragment>
+          :
+          <Zoom in mountOnEnter unmountOnExit>
+            <Fab size="small" color="primary" className={classes.margin}><Icon>send</Icon></Fab>
+          </Zoom>
+          }
         </ListItemSecondaryAction>
       </ListItem>
     )
@@ -336,6 +339,7 @@ class CRUDView extends Component {
     const limit = items.length - 2;
     return (
       <ButtonsRow
+        deletable updatable
         limit={limit}
         selectedIndex={selectedIndex}
         onToggle={handleToggle}
@@ -356,26 +360,26 @@ class CRUDView extends Component {
         {
           detail
           ?
-          <Slide // <Zoom // <Grow 
-            // direction="right"
-            // mountOnEnter
-            // unmountOnExit
-            in //={detail}
-            timeout={3000}
-          >
-            <React.Fragment>
+          // <Slide // <Zoom // <Grow 
+          //   // direction="right"
+          //   // mountOnEnter
+          //   // unmountOnExit
+          //   in //={detail}
+          //   timeout={3000}
+          // >
+          <React.Fragment>
+            <Paper className={classNames(classes.paper, "z-0")}>
               {
               // getHeader()
               getNavButtons()
               }
-              <Paper className={classNames(classes.paper, "z-0")}>
-                <List component="nav">
-                  {getSummary(detail, false,)}
-                </List>
-              </Paper>
-              {getDetail(detail)}
-            </React.Fragment>
-          </Slide> //</Grow> // </Zoom> // 
+              <List component="nav">
+                {getSummary(detail, false,)}
+              </List>
+            </Paper>
+            {getDetail(detail)}
+          </React.Fragment>
+          // </Slide> //</Grow> // </Zoom> // 
           :
           getEmpty()
         }
