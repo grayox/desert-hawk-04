@@ -111,7 +111,7 @@ export const componentsNavConfig = [
     type      : 'item',
     icon      : 'dashboard',
     url       : '/dashboard',
-    path      : 'my-app/views/app/dashboard/Dashboard',
+    // path      : 'my-app/views/app/dashboard/Dashboard',
     // component : () => import('my-app/views/app/dashboard/Dashboard'),
     // component : FuseLoadable({
     //   loader  : () => import('my-app/views/app/dashboard/Dashboard'),
@@ -124,7 +124,7 @@ export const componentsNavConfig = [
     type      : 'item',
     icon      : 'cloud_download',
     url       : '/inbox',
-    path      : 'my-app/containers/inbox/InboxContainer',
+    // path      : 'my-app/containers/inbox/InboxContainer',
     bottomNav : true,
   },
   {
@@ -133,7 +133,7 @@ export const componentsNavConfig = [
     type      : 'item',
     icon      : 'folder',
     url       : '/archive',
-    path      : 'my-app/views/app/archive/Archive',
+    // path      : 'my-app/views/app/archive/Archive',
     bottomNav : true,
   },
   {
@@ -142,7 +142,7 @@ export const componentsNavConfig = [
     type      : 'item',
     icon      : 'cloud_upload',
     url       : '/outbox',
-    path      : 'my-app/views/app/outbox/Outbox',
+    // path      : 'my-app/views/app/outbox/Outbox',
   },
   {
     id        : 'contacts',
@@ -150,7 +150,7 @@ export const componentsNavConfig = [
     type      : 'item',
     icon      : 'account_box', // 'contacts',
     url       : '/contacts',
-    path      : 'my-app/views/app/contacts/Contacts',
+    // path      : 'my-app/views/app/contacts/Contacts',
   },
 
   // divider
@@ -164,7 +164,7 @@ export const componentsNavConfig = [
     type      : 'item',
     icon      : 'settings',
     url       : '/settings',
-    path      : 'my-app/views/app/settings/Settings',
+    // path      : 'my-app/views/app/settings/Settings',
     bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
     overhead  : true,
   },
@@ -174,7 +174,7 @@ export const componentsNavConfig = [
     type      : 'item',
     icon      : 'feedback',
     url       : '/feedback',
-    path      : 'my-app/views/app/overhead/Feedback',
+    // path      : 'my-app/views/app/overhead/Feedback',
     bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
     overhead  : true,
   },
@@ -184,7 +184,7 @@ export const componentsNavConfig = [
     type      : 'item',
     icon      : 'help',
     url       : '/help',
-    path      : 'my-app/views/app/overhead/Help',
+    // path      : 'my-app/views/app/overhead/Help',
     bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
     overhead  : true,
   },
@@ -198,7 +198,7 @@ export const componentsNavConfig = [
       </IconContext.Provider>
     ),
     url       : '/logout',
-    path      : 'my-app/views/app/overhead/Logout',
+    // path      : 'my-app/views/app/overhead/Logout',
     bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
     overhead  : true,
   },
