@@ -9,11 +9,11 @@ import withWidth from '@material-ui/core/withWidth';
 
 // @material-ui/core
 import {
-  Zoom, Button, Fab, Icon, IconButton, Paper,
+  Slide, Zoom, Button, Fab, Icon, IconButton, Paper,
   Typography, Grid, Hidden, CssBaseline, Divider,
   List, ListItem, ListItemText, ListItemSecondaryAction,
   Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
-  // ListSubheader, Avatar, Grow, Slide,
+  // ListSubheader, Avatar, Grow,
   // AppBar, Toolbar, CssBaseline,
 } from '@material-ui/core';
 
@@ -272,16 +272,16 @@ class CRUDView extends Component {
   getDetail = item => {
     const { classes, condensed, } = this.props;
     return (
-      <FuseAnimate
-        // className="px-0"
-        // key={row.name}
-        delay={200}
-        // animation="transition.slideLeftIn"
-        // enter={{ animation: 'transition.perspectiveLeft' }}
-        // leave={{ animation: 'transition.perspectiveRight' }}
-        enter={{ animation: 'transition.slideLeftIn' }}
-        leave={{ animation: 'transition.slideLeftOut' }}
-      >
+      // <FuseAnimate
+      //   // className="px-0"
+      //   // key={row.name}
+      //   delay={200}
+      //   // animation="transition.slideLeftIn"
+      //   // enter={{ animation: 'transition.perspectiveLeft' }}
+      //   // leave={{ animation: 'transition.perspectiveRight' }}
+      //   enter={{ animation: 'transition.slideLeftIn' }}
+      //   leave={{ animation: 'transition.slideLeftOut' }}
+      // >
         <Paper className={classNames(classes.paper, "z-0")}>
           <List className="m-0 p-0" component="nav"> {/* subheader={<ListSubheader className="text-left">Detail</ListSubheader>} */}
             <FuseAnimateGroup
@@ -328,7 +328,7 @@ class CRUDView extends Component {
             </FuseAnimateGroup>
           </List>
         </Paper>
-      </FuseAnimate>
+      // </FuseAnimate>
     )
   }
 
@@ -356,17 +356,17 @@ class CRUDView extends Component {
     const { detail, } = this.state;
     const { classes, } = this.props;
     return (
-      <React.Fragment>
-        {
+      <Slide // <Zoom // <Grow 
+        in //={detail}
+        direction="right"
+        mountOnEnter
+        unmountOnExit
+        // timeout={3000}
+      >
+        <React.Fragment>
+          {
           detail
           ?
-          // <Slide // <Zoom // <Grow 
-          //   // direction="right"
-          //   // mountOnEnter
-          //   // unmountOnExit
-          //   in //={detail}
-          //   timeout={3000}
-          // >
           <React.Fragment>
             <Paper className={classNames(classes.paper, "z-0")}>
               {
@@ -379,11 +379,11 @@ class CRUDView extends Component {
             </Paper>
             {getDetail(detail)}
           </React.Fragment>
-          // </Slide> //</Grow> // </Zoom> // 
           :
           getEmpty()
-        }
-      </React.Fragment>
+          }
+        </React.Fragment>
+      </Slide> //</Grow> // </Zoom> // 
     )
   }
 
@@ -459,7 +459,14 @@ class CRUDView extends Component {
 CRUDView.propTypes = {
   classes: PropTypes.object.isRequired,
   items: PropTypes.array.isRequired,
-  condensed: PropTypes.bool,
+  condensed: PropTypes.bool, // one-line per list item in detail pane
+  creatable: PropTypes.bool, // create button in list pane
+};
+
+CRUDView.defaultProps = {
+  creatable: false,
+  // deletable: false,
+  // updatable: false,
 };
 
 // export default CRUDView;
