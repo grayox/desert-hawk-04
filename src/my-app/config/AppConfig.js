@@ -104,14 +104,14 @@ export const bizCategoryItems = [
 // src/main/content/components/ComponentsConfig.js
 export const componentsNavConfig = [
   // * Note: It is currently not possible to use expressions like `loader : () => import(item.path)`
-  // The path must be hard coded. See https://github.com/jamiebuilds/react-loadable
+  // The path must be hard coded in src/my-app/Routes.js. See https://github.com/jamiebuilds/react-loadable
   {
     id        : 'dashboard',
     title     : 'Dashboard',
     type      : 'item',
     icon      : 'dashboard',
     url       : '/dashboard',
-    // path      : 'my-app/views/app/dashboard/Dashboard',
+    // path      : 'my-app/views/app/dashboard/Dashboard', // see src/my-app/Routes.js
     // component : () => import('my-app/views/app/dashboard/Dashboard'),
     // component : FuseLoadable({
     //   loader  : () => import('my-app/views/app/dashboard/Dashboard'),
@@ -119,38 +119,45 @@ export const componentsNavConfig = [
     bottomNav : true,
   },
   {
-    id        : 'inbox',
-    title     : 'Inbox',
-    type      : 'item',
-    icon      : 'cloud_download',
-    url       : '/inbox',
-    // path      : 'my-app/containers/inbox/InboxContainer',
-    bottomNav : true,
+    id         : 'inbox',
+    title      : 'Inbox',
+    type       : 'item',
+    icon       : 'cloud_download',
+    url        : '/inbox',
+    // path       : 'my-app/containers/inbox/InboxContainer', // see src/my-app/Routes.js
+    bottomNav  : true,
+    crudConfig : {
+      creatable  : true , // false
+      readable   : ''   ,
+      updatable  : true , // false
+      deletable  : true ,
+      actionable : () => {},
+    } 
   },
   {
-    id        : 'archive',
-    title     : 'Archive',
-    type      : 'item',
-    icon      : 'folder',
-    url       : '/archive',
-    // path      : 'my-app/views/app/archive/Archive',
-    bottomNav : true,
+    id         : 'archive',
+    title      : 'Archive',
+    type       : 'item',
+    icon       : 'folder',
+    url        : '/archive',
+    // path       : 'my-app/views/app/archive/Archive', // see src/my-app/Routes.js
+    bottomNav  : true,
   },
   {
-    id        : 'outbox',
-    title     : 'Outbox',
-    type      : 'item',
-    icon      : 'cloud_upload',
-    url       : '/outbox',
-    // path      : 'my-app/views/app/outbox/Outbox',
+    id         : 'outbox',
+    title      : 'Outbox',
+    type       : 'item',
+    icon       : 'cloud_upload',
+    url        : '/outbox',
+    // path       : 'my-app/views/app/outbox/Outbox', // see src/my-app/Routes.js
   },
   {
-    id        : 'contacts',
-    title     : 'Contacts',
-    type      : 'item',
-    icon      : 'account_box', // 'contacts',
-    url       : '/contacts',
-    // path      : 'my-app/views/app/contacts/Contacts',
+    id         : 'contacts',
+    title      : 'Contacts',
+    type       : 'item',
+    icon       : 'account_box', // 'contacts',
+    url        : '/contacts',
+    // path       : 'my-app/views/app/contacts/Contacts', // see src/my-app/Routes.js
   },
 
   // divider
@@ -159,48 +166,48 @@ export const componentsNavConfig = [
   // overhead views
   // see specs here: https://material.io/design/communication/help-feedback.html#use-placement
   {
-    id        : 'settings',
-    title     : 'Settings',
-    type      : 'item',
-    icon      : 'settings',
-    url       : '/settings',
-    // path      : 'my-app/views/app/settings/Settings',
-    bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
-    overhead  : true,
+    id         : 'settings',
+    title      : 'Settings',
+    type       : 'item',
+    icon       : 'settings',
+    url        : '/settings',
+    // path       : 'my-app/views/app/settings/Settings', // see src/my-app/Routes.js
+    bottomNav  : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
+    overhead   : true,
   },
   {
-    id        : 'feedback',
-    title     : 'Send feedback',
-    type      : 'item',
-    icon      : 'feedback',
-    url       : '/feedback',
-    // path      : 'my-app/views/app/overhead/Feedback',
-    bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
-    overhead  : true,
+    id         : 'feedback',
+    title      : 'Send feedback',
+    type       : 'item',
+    icon       : 'feedback',
+    url        : '/feedback',
+    // path       : 'my-app/views/app/overhead/Feedback', // see src/my-app/Routes.js
+    bottomNav  : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
+    overhead   : true,
   },
   {
-    id        : 'help',
-    title     : 'Help',
-    type      : 'item',
-    icon      : 'help',
-    url       : '/help',
-    // path      : 'my-app/views/app/overhead/Help',
-    bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
-    overhead  : true,
+    id         : 'help',
+    title      : 'Help',
+    type       : 'item',
+    icon       : 'help',
+    url        : '/help',
+    // path       : 'my-app/views/app/overhead/Help', // see src/my-app/Routes.js
+    bottomNav  : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
+    overhead   : true,
   },
   {
-    id        : 'logout',
-    title     : 'Logout',
-    type      : 'item',
-    altIcon   : (
+    id         : 'logout',
+    title      : 'Logout',
+    type       : 'item',
+    altIcon    : (
       <IconContext.Provider value={{ color: "white", className: "text-20 flex-no-shrink" }}>
         <div><FaSignOutAlt /></div>
       </IconContext.Provider>
     ),
-    url       : '/logout',
-    // path      : 'my-app/views/app/overhead/Logout',
-    bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
-    overhead  : true,
+    url        : '/logout',
+    // path       : 'my-app/views/app/overhead/Logout', // see src/my-app/Routes.js
+    bottomNav  : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
+    overhead   : true,
   },
 ]
 
