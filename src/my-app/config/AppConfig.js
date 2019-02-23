@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 
 // firebase
 import { firestoreConnect } from 'react-redux-firebase';
+import { FuseLoadable } from '@fuse';
 
 // redux
 import { connect } from 'react-redux';
@@ -111,8 +112,11 @@ export const componentsNavConfig = [
     icon      : 'dashboard',
     url       : '/dashboard',
     path      : 'my-app/views/app/dashboard/Dashboard',
+    // component : () => import('my-app/views/app/dashboard/Dashboard'),
+    // component : FuseLoadable({
+    //   loader  : () => import('my-app/views/app/dashboard/Dashboard'),
+    // }),
     bottomNav : true,
-    // loader : () => import('my-app/views/app/dashboard/Dashboard'),
   },
   {
     id        : 'inbox',
