@@ -104,14 +104,14 @@ export const bizCategoryItems = [
 // src/main/content/components/ComponentsConfig.js
 export const componentsNavConfig = [
   // * Note: It is currently not possible to use expressions like `loader : () => import(item.path)`
-  // The path must be hard coded in src/my-app/Routes.js. See https://github.com/jamiebuilds/react-loadable
+  // The path must be hard coded in src/my-app/config/Routes.js. See https://github.com/jamiebuilds/react-loadable
   {
     id        : 'dashboard',
     title     : 'Dashboard',
     type      : 'item',
     icon      : 'dashboard',
     url       : '/dashboard',
-    // path      : 'my-app/views/app/dashboard/Dashboard', // see src/my-app/Routes.js
+    // path      : 'my-app/views/app/dashboard/Dashboard', // see src/my-app/config/Routes.js
     // component : () => import('my-app/views/app/dashboard/Dashboard'),
     // component : FuseLoadable({
     //   loader  : () => import('my-app/views/app/dashboard/Dashboard'),
@@ -124,7 +124,7 @@ export const componentsNavConfig = [
     type       : 'item',
     icon       : 'cloud_download',
     url        : '/inbox',
-    // path       : 'my-app/containers/inbox/InboxContainer', // see src/my-app/Routes.js
+    // path       : 'my-app/containers/inbox/InboxContainer', // see src/my-app/config/Routes.js
     bottomNav  : true,
     crudConfig : {
       creatable  : true , // false
@@ -132,7 +132,7 @@ export const componentsNavConfig = [
       updatable  : true , // false
       deletable  : true ,
       actionable : () => {},
-    } 
+    },
   },
   {
     id         : 'archive',
@@ -140,8 +140,15 @@ export const componentsNavConfig = [
     type       : 'item',
     icon       : 'folder',
     url        : '/archive',
-    // path       : 'my-app/views/app/archive/Archive', // see src/my-app/Routes.js
+    // path       : 'my-app/views/app/archive/Archive', // see src/my-app/config/Routes.js
     bottomNav  : true,
+    crudConfig : {
+      creatable  : false,
+      readable   : ''   ,
+      updatable  : false,
+      deletable  : true ,
+      actionable : () => {},
+    },
   },
   {
     id         : 'outbox',
@@ -149,7 +156,14 @@ export const componentsNavConfig = [
     type       : 'item',
     icon       : 'cloud_upload',
     url        : '/outbox',
-    // path       : 'my-app/views/app/outbox/Outbox', // see src/my-app/Routes.js
+    // path       : 'my-app/views/app/outbox/Outbox', // see src/my-app/config/Routes.js
+    crudConfig : {
+      creatable  : true ,
+      readable   : ''   ,
+      updatable  : true ,
+      deletable  : true ,
+      actionable : () => {},
+    },
   },
   {
     id         : 'contacts',
@@ -157,7 +171,14 @@ export const componentsNavConfig = [
     type       : 'item',
     icon       : 'account_box', // 'contacts',
     url        : '/contacts',
-    // path       : 'my-app/views/app/contacts/Contacts', // see src/my-app/Routes.js
+    // path       : 'my-app/views/app/contacts/Contacts', // see src/my-app/config/Routes.js
+    crudConfig : {
+      creatable  : true ,
+      readable   : ''   ,
+      updatable  : true ,
+      deletable  : true ,
+      actionable : () => {},
+    },
   },
 
   // divider
@@ -171,7 +192,7 @@ export const componentsNavConfig = [
     type       : 'item',
     icon       : 'settings',
     url        : '/settings',
-    // path       : 'my-app/views/app/settings/Settings', // see src/my-app/Routes.js
+    // path       : 'my-app/views/app/settings/Settings', // see src/my-app/config/Routes.js
     bottomNav  : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
     overhead   : true,
   },
@@ -181,7 +202,7 @@ export const componentsNavConfig = [
     type       : 'item',
     icon       : 'feedback',
     url        : '/feedback',
-    // path       : 'my-app/views/app/overhead/Feedback', // see src/my-app/Routes.js
+    // path       : 'my-app/views/app/overhead/Feedback', // see src/my-app/config/Routes.js
     bottomNav  : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
     overhead   : true,
   },
@@ -191,7 +212,7 @@ export const componentsNavConfig = [
     type       : 'item',
     icon       : 'help',
     url        : '/help',
-    // path       : 'my-app/views/app/overhead/Help', // see src/my-app/Routes.js
+    // path       : 'my-app/views/app/overhead/Help', // see src/my-app/config/Routes.js
     bottomNav  : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
     overhead   : true,
   },
@@ -205,7 +226,7 @@ export const componentsNavConfig = [
       </IconContext.Provider>
     ),
     url        : '/logout',
-    // path       : 'my-app/views/app/overhead/Logout', // see src/my-app/Routes.js
+    // path       : 'my-app/views/app/overhead/Logout', // see src/my-app/config/Routes.js
     bottomNav  : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
     overhead   : true,
   },

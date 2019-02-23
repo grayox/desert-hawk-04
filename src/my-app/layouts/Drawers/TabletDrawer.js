@@ -5,7 +5,7 @@ import React, { Component, } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import Routes from 'my-app/Routes';
+import Routes from 'my-app/config/Routes';
 
 import {
   Drawer, AppBar, Toolbar,

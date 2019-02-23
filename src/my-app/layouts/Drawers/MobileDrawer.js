@@ -3,7 +3,7 @@
 
 import React, { Component, } from 'react';
 import PropTypes from 'prop-types';
-import Routes from 'my-app/Routes';
+import Routes from 'my-app/config/Routes';
 // import ClassNames from 'classnames';
 
 import { withStyles, Drawer, } from '@material-ui/core';
