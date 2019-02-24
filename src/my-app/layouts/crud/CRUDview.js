@@ -227,7 +227,7 @@ class CRUDView extends Component {
   getSummary = ( item, isList, index, ) => {
     const { handleToggle, handleClickOpen, } = this;
     const { selectedIndex, } = this.state; // detail
-    const { classes, actionable, } = this.props;
+    const { classes, actionable, updatable, deletable, } = this.props;
     const { timestamp, } = item;
     return (
       <ListItem
@@ -252,7 +252,7 @@ class CRUDView extends Component {
           isList
           ?
           <React.Fragment>
-            <UDButtons deletable updatable onClickOpen={handleClickOpen}/>
+            <UDButtons updatable={updatable} deletable={deletable} onClickOpen={handleClickOpen}/>
             <IconButton color="inherit" aria-label="Update and delete"
               onClick={() => handleToggle( item, isList, index, )}
             >
