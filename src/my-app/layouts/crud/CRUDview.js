@@ -474,9 +474,12 @@ CRUDView.propTypes = {
 };
 
 CRUDView.defaultProps = {
+  condensed: true,
+  actionable: false,
   creatable: false,
-  // deletable: false,
-  // updatable: false,
+  // readable: false,
+  updatable: false,
+  deletable: false,
 };
 
 // export default CRUDView;
