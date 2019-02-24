@@ -227,7 +227,7 @@ class CRUDView extends Component {
   getSummary = ( item, isList, index, ) => {
     const { handleToggle, handleClickOpen, } = this;
     const { selectedIndex, } = this.state; // detail
-    const { classes, } = this.props;
+    const { classes, actionable, } = this.props;
     const { timestamp, } = item;
     return (
       <ListItem
@@ -260,9 +260,12 @@ class CRUDView extends Component {
             </IconButton>
           </React.Fragment>
           :
-          <Zoom in mountOnEnter unmountOnExit>
-            <Fab size="small" color="primary" className={classes.margin}><Icon>send</Icon></Fab>
-          </Zoom>
+            (
+              actionable &&
+              <Zoom in mountOnEnter unmountOnExit>
+                <Fab size="small" color="primary" className={classes.margin}><Icon>send</Icon></Fab>
+              </Zoom>
+            )
           }
         </ListItemSecondaryAction>
       </ListItem>
@@ -394,7 +397,10 @@ class CRUDView extends Component {
       <React.Fragment>
         {
         // getHeader()
-        creatable && <CreateButton onClick={handleOpenDialog} />
+        creatable && 
+        <Zoom in mountOnEnter unmountOnExit>
+          <CreateButton onClick={handleOpenDialog} />
+        </Zoom>
         }
         <Paper className={classNames(classes.paper, "z-10")}>
           <List className="m-0 p-0" component="nav">
@@ -461,6 +467,10 @@ CRUDView.propTypes = {
   items: PropTypes.array.isRequired,
   condensed: PropTypes.bool, // one-line per list item in detail pane
   creatable: PropTypes.bool, // create button in list pane
+  readable: PropTypes.bool,
+  updatable: PropTypes.bool,
+  deletable: PropTypes.bool,
+  actionable: PropTypes.bool,
 };
 
 CRUDView.defaultProps = {

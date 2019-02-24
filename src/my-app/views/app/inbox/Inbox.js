@@ -27,7 +27,12 @@ function Inbox(props) {
       // title={'Inbox Detail'}
       className={classes.root}
       items={items}
-      condensed creatable
+      condensed
+      actionable
+      creatable
+      readable
+      updatable
+      deletable
     />
   );
 }
