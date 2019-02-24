@@ -20,11 +20,11 @@ import { componentsNavConfig } from 'my-app/config/AppConfig';
 // import Help from 'my-app/views/overhead/Help';
 // import Logout from 'my-app/views/overhead/Logout';
 
-const items = componentsNavConfig.filter(r => (r.item || r.route) ) // filters in only objects with 'item' or 'route' property
+
+const items = componentsNavConfig.filter(r => (r.type==='item' || r.type==='route'));
 
 class Routes extends Component {
   render() {
-
     // const Settings = FuseLoadable({loader: () => import('my-app/views/overhead/settings/Settings')});
 
     return (
@@ -91,11 +91,7 @@ class Routes extends Component {
       // latest attempt
       <Switch>
       {
-        items.map(({ id, path, component, }) => {
-          console.log('id', id);
-          return (<Route key={id} path={path} component={component} />);
-        }
-        )
+        items.map(({ id, path, component, }) => <Route key={id} path={path} component={component()} />)
       }
       </Switch>
     );
