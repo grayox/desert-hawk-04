@@ -67,7 +67,10 @@ class Routes extends Component {
         <Route path='/'    exact component={FuseLoadable({loader: () => import('my-app/views/app/dashboard/Dashboard'   )})} />
         <Route path='/login'     component={FuseLoadable({loader: () => import('my-app/views/app/dashboard/Dashboard'   )})} />
         <Route path='/dashboard' component={FuseLoadable({loader: () => import('my-app/views/app/dashboard/Dashboard'   )})} />
-        <Route path='/inbox'     component={FuseLoadable({loader: () => import('my-app/containers/Inbox'                )})} />
+        {
+        // <Route path='/inbox'     component={FuseLoadable({loader: () => import('my-app/containers/Inbox'                )})} />
+        }
+        <Route path='/inbox'     component={FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDContainer'      )})} />
         <Route path='/archive'   component={FuseLoadable({loader: () => import('my-app/views/app/archive/Archive'       )})} />
         <Route path='/outbox'    component={FuseLoadable({loader: () => import('my-app/views/app/outbox/Outbox'         )})} />
         <Route path='/contacts'  component={FuseLoadable({loader: () => import('my-app/views/app/contacts/Contacts'     )})} />
