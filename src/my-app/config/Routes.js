@@ -20,7 +20,7 @@ import { componentsNavConfig } from 'my-app/config/AppConfig';
 class Routes extends Component {
   render() {
 
-    const Settings = FuseLoadable({loader: () => import('my-app/views/overhead/settings/Settings')});
+    // const Settings = FuseLoadable({loader: () => import('my-app/views/overhead/settings/Settings')});
 
     return (
       <Switch>
@@ -75,7 +75,7 @@ class Routes extends Component {
         {
         // <Route path='/settings'  component={FuseLoadable({loader: () => import('my-app/views/overhead/settings/Settings')})} />
         // <Route path='/settings'  component={Settings} />
-      }
+        }
         <Route path='/settings'  component={componentsNavConfig[6].component()} />
         <Route path='/feedback'  component={FuseLoadable({loader: () => import('my-app/views/overhead/Feedback'         )})} />
         <Route path='/help'      component={FuseLoadable({loader: () => import('my-app/views/overhead/Help'             )})} />

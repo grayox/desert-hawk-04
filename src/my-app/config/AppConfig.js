@@ -5,6 +5,8 @@ import React, { Component } from 'react';
 
 // firebase
 import { firestoreConnect } from 'react-redux-firebase';
+
+// fuse
 import { FuseLoadable } from '@fuse';
 
 // redux
@@ -34,6 +36,9 @@ import { FaSignOutAlt } from 'react-icons/fa'; // https://react-icons.netlify.cI
 // import { FiLogOut } from 'react-icons/fi'; // https://react-icons.netlify.cIoIosLogOutom/#/
 // import { GoSignOut, } from 'react-icons/go'; // https://react-icons.netlify.com/#/
 // import { IoIosLogOut, IoMdLogOut, } from 'react-icons/io'; // https://react-icons.netlify.cIoIosLogOutom/#/
+
+// utility components
+// import CRUDContainer from 'my-app/layouts/crud/CRUDContainer';
 
 // import { drawerWidth } from 'my-app/config/AppConfig';
 export const drawerWidth = 256 // per spec https://material.io/design/components/navigation-drawer.html#specs
@@ -192,10 +197,9 @@ export const componentsNavConfig = [
     type       : 'item',
     icon       : 'settings',
     path       : '/settings',
-    // path       : 'my-app/views/app/settings/Settings', // see src/my-app/config/Routes.js
     bottomNav  : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
     overhead   : true,
-    component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/settings/Settings')}),
+    component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/settings/Settings')}), // see src/my-app/config/Routes.js
   },
   {
     id         : 'feedback',
