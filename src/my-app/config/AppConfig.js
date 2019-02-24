@@ -195,6 +195,7 @@ export const componentsNavConfig = [
     // path       : 'my-app/views/app/settings/Settings', // see src/my-app/config/Routes.js
     bottomNav  : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
     overhead   : true,
+    component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/settings/Settings')}),
   },
   {
     id         : 'feedback',

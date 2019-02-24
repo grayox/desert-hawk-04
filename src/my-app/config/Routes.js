@@ -2,21 +2,26 @@ import React, { Component } from 'react';
 import { Switch, Route, Redirect, } from 'react-router-dom';
 import { FuseLoadable } from '@fuse';
 
-import Error404 from 'my-app/views/overhead/Error404';
-import Dashboard from 'my-app/views/app/dashboard/Dashboard';
-// import Inbox from 'my-app/views/app/inbox/Inbox';
-import Inbox from 'my-app/containers/Inbox';
-import Archive from 'my-app/views/app/archive/Archive';
-import Outbox from 'my-app/views/app/outbox/Outbox';
-import Contacts from 'my-app/views/app/contacts/Contacts';
+import { componentsNavConfig } from 'my-app/config/AppConfig';
 
-import Settings from 'my-app/views/overhead/settings/Settings';
-import Feedback from 'my-app/views/overhead/Feedback';
-import Help from 'my-app/views/overhead/Help';
-import Logout from 'my-app/views/overhead/Logout';
+// import Error404 from 'my-app/views/overhead/Error404';
+// import Dashboard from 'my-app/views/app/dashboard/Dashboard';
+// import Inbox from 'my-app/views/app/inbox/Inbox';
+// import Inbox from 'my-app/containers/Inbox';
+// import Archive from 'my-app/views/app/archive/Archive';
+// import Outbox from 'my-app/views/app/outbox/Outbox';
+// import Contacts from 'my-app/views/app/contacts/Contacts';
+
+// import Settings from 'my-app/views/overhead/settings/Settings';
+// import Feedback from 'my-app/views/overhead/Feedback';
+// import Help from 'my-app/views/overhead/Help';
+// import Logout from 'my-app/views/overhead/Logout';
 
 class Routes extends Component {
   render() {
+
+    const Settings = FuseLoadable({loader: () => import('my-app/views/overhead/settings/Settings')});
+
     return (
       <Switch>
         {
@@ -67,7 +72,11 @@ class Routes extends Component {
         <Route path='/outbox'    component={FuseLoadable({loader: () => import('my-app/views/app/outbox/Outbox'         )})} />
         <Route path='/contacts'  component={FuseLoadable({loader: () => import('my-app/views/app/contacts/Contacts'     )})} />
 
-        <Route path='/settings'  component={FuseLoadable({loader: () => import('my-app/views/overhead/settings/Settings')})} />
+        {
+        // <Route path='/settings'  component={FuseLoadable({loader: () => import('my-app/views/overhead/settings/Settings')})} />
+        // <Route path='/settings'  component={Settings} />
+      }
+        <Route path='/settings'  component={componentsNavConfig[6].component()} />
         <Route path='/feedback'  component={FuseLoadable({loader: () => import('my-app/views/overhead/Feedback'         )})} />
         <Route path='/help'      component={FuseLoadable({loader: () => import('my-app/views/overhead/Help'             )})} />
         <Route path='/logout'    component={FuseLoadable({loader: () => import('my-app/views/overhead/Logout'           )})} />
