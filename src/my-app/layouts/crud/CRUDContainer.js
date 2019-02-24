@@ -60,7 +60,15 @@ class CRUDContainer extends Component {
   render() {
     const { items } = this.state;
     return (
-      <CRUDView items={items} />
+      <CRUDView
+        items={items}
+        condensed
+        actionable
+        creatable
+        readable
+        updatable
+        deletable
+      />
     );
   }
 }
