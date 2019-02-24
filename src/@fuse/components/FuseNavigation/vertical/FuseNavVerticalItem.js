@@ -73,7 +73,7 @@ function FuseNavVerticalItem({ item, classes, /*nestedLevel,*/ userRole, navbarC
     <ListItem
       button
       component={NavLink}
-      to={item.url}
+      to={item.path}
       activeClassName="active"
       className={classNames(classes.item, listItemPadding, 'list-item text-white', active)}
       onClick={navbarCloseMobile}

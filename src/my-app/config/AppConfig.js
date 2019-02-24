@@ -110,7 +110,7 @@ export const componentsNavConfig = [
     title     : 'Dashboard',
     type      : 'item',
     icon      : 'dashboard',
-    url       : '/dashboard',
+    path      : '/dashboard',
     // path      : 'my-app/views/app/dashboard/Dashboard', // see src/my-app/config/Routes.js
     // component : () => import('my-app/views/app/dashboard/Dashboard'),
     // component : FuseLoadable({
@@ -123,7 +123,7 @@ export const componentsNavConfig = [
     title      : 'Inbox',
     type       : 'item',
     icon       : 'cloud_download',
-    url        : '/inbox',
+    path       : '/inbox',
     // path       : 'my-app/containers/inbox/InboxContainer', // see src/my-app/config/Routes.js
     bottomNav  : true,
     crudConfig : {
@@ -139,7 +139,7 @@ export const componentsNavConfig = [
     title      : 'Archive',
     type       : 'item',
     icon       : 'folder',
-    url        : '/archive',
+    path       : '/archive',
     // path       : 'my-app/views/app/archive/Archive', // see src/my-app/config/Routes.js
     bottomNav  : true,
     crudConfig : {
@@ -155,7 +155,7 @@ export const componentsNavConfig = [
     title      : 'Outbox',
     type       : 'item',
     icon       : 'cloud_upload',
-    url        : '/outbox',
+    path       : '/outbox',
     // path       : 'my-app/views/app/outbox/Outbox', // see src/my-app/config/Routes.js
     crudConfig : {
       creatable  : true ,
@@ -170,7 +170,7 @@ export const componentsNavConfig = [
     title      : 'Contacts',
     type       : 'item',
     icon       : 'account_box', // 'contacts',
-    url        : '/contacts',
+    path       : '/contacts',
     // path       : 'my-app/views/app/contacts/Contacts', // see src/my-app/config/Routes.js
     crudConfig : {
       creatable  : true ,
@@ -191,7 +191,7 @@ export const componentsNavConfig = [
     title      : 'Settings',
     type       : 'item',
     icon       : 'settings',
-    url        : '/settings',
+    path       : '/settings',
     // path       : 'my-app/views/app/settings/Settings', // see src/my-app/config/Routes.js
     bottomNav  : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
     overhead   : true,
@@ -201,7 +201,7 @@ export const componentsNavConfig = [
     title      : 'Send feedback',
     type       : 'item',
     icon       : 'feedback',
-    url        : '/feedback',
+    path       : '/feedback',
     // path       : 'my-app/views/app/overhead/Feedback', // see src/my-app/config/Routes.js
     bottomNav  : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
     overhead   : true,
@@ -211,7 +211,7 @@ export const componentsNavConfig = [
     title      : 'Help',
     type       : 'item',
     icon       : 'help',
-    url        : '/help',
+    path       : '/help',
     // path       : 'my-app/views/app/overhead/Help', // see src/my-app/config/Routes.js
     bottomNav  : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
     overhead   : true,
@@ -225,7 +225,7 @@ export const componentsNavConfig = [
         <div><FaSignOutAlt /></div>
       </IconContext.Provider>
     ),
-    url        : '/logout',
+    path       : '/logout',
     // path       : 'my-app/views/app/overhead/Logout', // see src/my-app/config/Routes.js
     bottomNav  : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
     overhead   : true,

@@ -53,7 +53,7 @@ function FuseNavHorizontalItem({item, classes, nestedLevel, userRole, navbarClos
         <ListItem
             button
             component={NavLink}
-            to={item.url}
+            to={item.path}
             activeClassName="active"
             className={classNames(classes.root)}
             onClick={navbarCloseMobile}
