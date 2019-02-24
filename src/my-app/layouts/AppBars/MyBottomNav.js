@@ -61,7 +61,7 @@ const styles = theme => ({
   // },
 });
 
-const items = componentsNavConfig.filter(ob => ob.bottomNav) // filters in only objects with bottomNav property
+const items = componentsNavConfig.filter(r => r.bottomNav) // filters in only objects with bottomNav property
 // [
 //   { title: 'Dashboard' , url: '/dashboard' , icon: <Icon>star</Icon> , } ,
 //   { title: 'Inbox'     , url: '/inbox'     , icon: <Icon>star</Icon> , } ,

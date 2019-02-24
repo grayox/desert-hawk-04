@@ -122,6 +122,8 @@ export const componentsNavConfig = [
     //   loader  : () => import('my-app/views/app/dashboard/Dashboard'),
     // }),
     bottomNav : true,
+    // see src/my-app/config/Routes.js
+    component  : () => FuseLoadable({loader: () => import('my-app/views/app/dashboard/Dashboard')}),
   },
   {
     id         : 'inbox',
@@ -131,6 +133,8 @@ export const componentsNavConfig = [
     path       : '/inbox',
     // path       : 'my-app/containers/inbox/InboxContainer', // see src/my-app/config/Routes.js
     bottomNav  : true,
+    // see src/my-app/config/Routes.js
+    component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDContainer')}),
     crudConfig : {
       creatable  : true , // false
       readable   : ''   ,
@@ -147,6 +151,8 @@ export const componentsNavConfig = [
     path       : '/archive',
     // path       : 'my-app/views/app/archive/Archive', // see src/my-app/config/Routes.js
     bottomNav  : true,
+    // see src/my-app/config/Routes.js
+    component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDContainer')}),
     crudConfig : {
       creatable  : false,
       readable   : ''   ,
@@ -162,6 +168,8 @@ export const componentsNavConfig = [
     icon       : 'cloud_upload',
     path       : '/outbox',
     // path       : 'my-app/views/app/outbox/Outbox', // see src/my-app/config/Routes.js
+    // see src/my-app/config/Routes.js
+    component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDContainer')}),
     crudConfig : {
       creatable  : true ,
       readable   : ''   ,
@@ -177,6 +185,8 @@ export const componentsNavConfig = [
     icon       : 'account_box', // 'contacts',
     path       : '/contacts',
     // path       : 'my-app/views/app/contacts/Contacts', // see src/my-app/config/Routes.js
+    // see src/my-app/config/Routes.js
+    component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDContainer')}),
     crudConfig : {
       creatable  : true ,
       readable   : ''   ,
@@ -210,6 +220,7 @@ export const componentsNavConfig = [
     // path       : 'my-app/views/app/overhead/Feedback', // see src/my-app/config/Routes.js
     bottomNav  : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
     overhead   : true,
+    component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/Feedback')}), // see src/my-app/config/Routes.js
   },
   {
     id         : 'help',
@@ -220,6 +231,7 @@ export const componentsNavConfig = [
     // path       : 'my-app/views/app/overhead/Help', // see src/my-app/config/Routes.js
     bottomNav  : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
     overhead   : true,
+    component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/Help')}), // see src/my-app/config/Routes.js
   },
   {
     id         : 'logout',
@@ -234,6 +246,7 @@ export const componentsNavConfig = [
     // path       : 'my-app/views/app/overhead/Logout', // see src/my-app/config/Routes.js
     bottomNav  : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
     overhead   : true,
+    component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/Logout')}), // see src/my-app/config/Routes.js
   },
 ]
 
