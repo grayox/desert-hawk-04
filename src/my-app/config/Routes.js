@@ -20,7 +20,6 @@ import { componentsNavConfig } from 'my-app/config/AppConfig';
 // import Help from 'my-app/views/overhead/Help';
 // import Logout from 'my-app/views/overhead/Logout';
 
-
 const items = componentsNavConfig.filter(r => (r.type==='item' || r.type==='route'));
 
 class Routes extends Component {
@@ -69,7 +68,7 @@ class Routes extends Component {
       //   <Route                   component={FuseLoadable({loader: () => Error404} )} />
       // </Switch>
         
-      // latest working
+      // // success
       // <Switch>
       //   <Route path='/'    exact component={FuseLoadable({loader: () => import('my-app/views/app/dashboard/Dashboard' )})} />
       //   <Route path='/login'     component={FuseLoadable({loader: () => import('my-app/views/app/dashboard/Dashboard' )})} />
@@ -88,7 +87,7 @@ class Routes extends Component {
       //   <Route                   component={FuseLoadable({loader: () => import('my-app/views/overhead/Error404'       )})} />
       // </Switch>
       
-      // latest attempt
+      // latest working
       <Switch>
       {
         items.map(({ id, path, component, }) => <Route key={id} path={path} component={component()} />)
