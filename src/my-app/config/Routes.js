@@ -27,7 +27,9 @@ class Routes extends Component {
     // const Settings = FuseLoadable({loader: () => import('my-app/views/overhead/settings/Settings')});
 
     return (
-      
+
+      // // original starting point
+      // // success
       // <Switch>
       //   <Redirect from='/'       to='/dashboard' />
       //   <Redirect from='/login'  to='/dashboard' />
