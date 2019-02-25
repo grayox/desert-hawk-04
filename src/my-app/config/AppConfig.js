@@ -135,6 +135,15 @@ export const componentsNavConfig = [
     bottomNav  : true,
     // see src/my-app/config/Routes.js
     component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDContainer')}),
+    // component  : () => FuseLoadable({loader: () => 
+    //   <CRUDContainer
+    //     creatable
+    //     readable
+    //     updatable
+    //     deletable
+    //     actionable       
+    //   />
+    // }),
     crudConfig : {
       creatable  : true , // false
       readable   : ''   ,

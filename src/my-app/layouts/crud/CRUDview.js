@@ -474,7 +474,7 @@ CRUDView.propTypes = {
 };
 
 CRUDView.defaultProps = {
-  condensed: true,
+  condensed: false,
   actionable: false,
   creatable: false,
   // readable: false,
