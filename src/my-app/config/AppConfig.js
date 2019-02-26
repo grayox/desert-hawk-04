@@ -117,11 +117,6 @@ export const componentsNavConfig = [
     title     : 'Dashboard',
     type      : 'item',
     icon      : 'dashboard',
-    // path      : 'my-app/views/app/dashboard/Dashboard', // see src/my-app/config/Routes.js
-    // component : () => import('my-app/views/app/dashboard/Dashboard'),
-    // component : FuseLoadable({
-    //   loader  : () => import('my-app/views/app/dashboard/Dashboard'),
-    // }),
     bottomNav : true,
     // see src/my-app/config/Routes.js
     component  : () => FuseLoadable({loader: () => import('my-app/views/app/dashboard/Dashboard')}),
@@ -132,26 +127,16 @@ export const componentsNavConfig = [
     title      : 'Inbox',
     type       : 'item',
     icon       : 'cloud_download',
-    // path       : 'my-app/containers/inbox/InboxContainer', // see src/my-app/config/Routes.js
     bottomNav  : true,
     // see src/my-app/config/Routes.js
     component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDContainer')}),
-    // component  : CRUDContainer,
-    // component  : () => FuseLoadable({loader: () => CRUDContainer
-      // <CRUDContainer
-      //   creatable
-      //   readable
-      //   updatable
-      //   deletable
-      //   actionable       
-      // />
-    // }),
     crudConfig : {
+      actionable : () => {},
+      condensed  : true ,
       creatable  : true , // false
       readable   : ''   ,
       updatable  : true , // false
       deletable  : true ,
-      actionable : () => {},
     },
   },
   {
@@ -160,16 +145,16 @@ export const componentsNavConfig = [
     title      : 'Archive',
     type       : 'item',
     icon       : 'folder',
-    // path       : 'my-app/views/app/archive/Archive', // see src/my-app/config/Routes.js
     bottomNav  : true,
     // see src/my-app/config/Routes.js
     component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDContainer')}),
     crudConfig : {
+      actionable : () => {},
+      condensed  : true ,
       creatable  : false,
       readable   : ''   ,
       updatable  : false,
       deletable  : true ,
-      actionable : () => {},
     },
   },
   {
@@ -178,15 +163,15 @@ export const componentsNavConfig = [
     title      : 'Outbox',
     type       : 'item',
     icon       : 'cloud_upload',
-    // path       : 'my-app/views/app/outbox/Outbox', // see src/my-app/config/Routes.js
     // see src/my-app/config/Routes.js
     component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDContainer')}),
     crudConfig : {
+      actionable : () => {},
+      condensed  : true ,
       creatable  : true ,
       readable   : ''   ,
       updatable  : true ,
       deletable  : true ,
-      actionable : () => {},
     },
   },
   {
@@ -195,15 +180,15 @@ export const componentsNavConfig = [
     title      : 'Contacts',
     type       : 'item',
     icon       : 'account_box', // 'contacts',
-    // path       : 'my-app/views/app/contacts/Contacts', // see src/my-app/config/Routes.js
     // see src/my-app/config/Routes.js
     component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDContainer')}),
     crudConfig : {
+      actionable : () => {},
+      condensed  : true ,
       creatable  : true ,
       readable   : ''   ,
       updatable  : true ,
       deletable  : true ,
-      actionable : () => {},
     },
   },
 
@@ -220,7 +205,8 @@ export const componentsNavConfig = [
     icon       : 'settings',
     bottomNav  : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
     overhead   : true,
-    component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/settings/Settings')}), // see src/my-app/config/Routes.js
+    // see src/my-app/config/Routes.js
+    component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/settings/Settings')}),
   },
   {
     id         : 'feedback',
@@ -228,10 +214,10 @@ export const componentsNavConfig = [
     title      : 'Send feedback',
     type       : 'item',
     icon       : 'feedback',
-    // path       : 'my-app/views/app/overhead/Feedback', // see src/my-app/config/Routes.js
     bottomNav  : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
     overhead   : true,
-    component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/Feedback')}), // see src/my-app/config/Routes.js
+    // see src/my-app/config/Routes.js
+    component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/Feedback')}),
   },
   {
     id         : 'help',
@@ -239,10 +225,10 @@ export const componentsNavConfig = [
     title      : 'Help',
     type       : 'item',
     icon       : 'help',
-    // path       : 'my-app/views/app/overhead/Help', // see src/my-app/config/Routes.js
     bottomNav  : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
     overhead   : true,
-    component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/Help')}), // see src/my-app/config/Routes.js
+    // see src/my-app/config/Routes.js
+    component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/Help')}),
   },
   {
     id         : 'logout',
@@ -254,10 +240,10 @@ export const componentsNavConfig = [
         <div><FaSignOutAlt /></div>
       </IconContext.Provider>
     ),
-    // path       : 'my-app/views/app/overhead/Logout', // see src/my-app/config/Routes.js
     bottomNav  : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
     overhead   : true,
-    component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/Logout')}), // see src/my-app/config/Routes.js
+    // see src/my-app/config/Routes.js
+    component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/Logout')}),
   },
 ]
 

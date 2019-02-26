@@ -67,7 +67,7 @@ class CRUDContainer extends Component {
   render() {
     const { items } = this.state;
 
-    const Child = ({ match: { params: {id}}}) => {
+    const Child = ({ match: { params: { id }}}) => {
       const matches = componentsNavConfig.filter(r => (r.id === id));
       const item = matches[0];
       const config = item.crudConfig;
