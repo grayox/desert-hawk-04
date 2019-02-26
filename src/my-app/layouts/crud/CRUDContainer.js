@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
+import {
+  Route,
+  // BrowserRouter as Router, Link 
+} from "react-router-dom";
 
+import { componentsNavConfig } from 'my-app/config/AppConfig';
 import CRUDView from './CRUDView';
 
 // firebase
 import firebase from '@firebase/app';
 import '@firebase/firestore';
-const db = firebase.firestore();
+// const db = firebase.firestore();
 const path = 'leads';
 
 class CRUDContainer extends Component {
@@ -19,6 +24,8 @@ class CRUDContainer extends Component {
 
   getItems(path) {
     const out = [];
+    const db = firebase.firestore();
+    if(!db) return;
     db.collection(path)
       // .orderBy('added_at', 'desc')
       // .orderBy('created_at', 'desc')
@@ -59,17 +66,27 @@ class CRUDContainer extends Component {
   };
   render() {
     const { items } = this.state;
-    const { condensed, actionable, creatable, readable, updatable, deletable } = this.props;
+
+    const Child = ({ match: { params: {id}}}) => {
+      const matches = componentsNavConfig.filter(r => (r.id === id));
+      const item = matches[0];
+      const config = item.crudConfig;
+      const { condensed, actionable, creatable, readable, updatable, deletable, } = config;
+      return (
+        <CRUDView
+          items={items}
+          condensed={condensed}
+          actionable={actionable}
+          creatable={creatable}
+          readable={readable}
+          updatable={updatable}
+          deletable={deletable}
+        />
+      )
+    };
+
     return (
-      <CRUDView
-        items={items}
-        condensed={condensed}
-        actionable={actionable}
-        creatable={creatable}
-        readable={readable}
-        updatable={updatable}
-        deletable={deletable}
-      />
+      <Route path="/:id" component={Child} />
     );
   }
 }
