@@ -86,6 +86,7 @@ class CRUDContainer extends Component {
     };
 
     return (
+      // ref: https://reacttraining.com/react-router/web/example/url-params
       <Route path="/:id" component={Child} />
     );
   }
