@@ -169,7 +169,7 @@ class CRUDView extends Component {
   )
 
   // getEmpty = () => (<img src="https://via.placeholder.com/800x900.png/e91e63/fff?text=Detail+goes+here"/>)
-  getEmpty = () => (
+  getEmpty = side => (
     <div className="text-center mt-16">
       {
       // <FuseAnimate animation="transition.expandIn" delay={100}>
@@ -186,13 +186,28 @@ class CRUDView extends Component {
         enter={{ animation: "transition.expandIn" }}
         leave={{ animation: "transition.expandOut" }}
       // className="hidden md:flex md-flex-1"
-      >
+      >  
+      {
+        ( side === 'list' )
+        ?
+        <React.Fragment>
+          <Icon className="mt-32 opacity-25" fontSize="large">add_circle_outline</Icon>
+          <Typography variant="h4" color="textSecondary">
+            There are no items in this list yet
+          </Typography>
+          {
+            this && this.props && this.props.creatable &&
+            <Button className="mt-32" color="secondary" variant="contained" size="large">Add item</Button>
+          }
+        </React.Fragment>
+        :
         <React.Fragment>
           <Icon className="mt-32 opacity-25" fontSize="large">library_books</Icon>
           <Typography variant="body1" color="textSecondary">
             See details here after selecting item
           </Typography>
         </React.Fragment>
+      }
       </FuseAnimateGroup>
     </div>
   )
@@ -383,7 +398,7 @@ class CRUDView extends Component {
             {getDetail(detail)}
           </React.Fragment>
           :
-          getEmpty()
+          getEmpty('detail')
           }
         </React.Fragment>
       </Slide> //</Grow> // </Zoom> // 
@@ -413,7 +428,7 @@ class CRUDView extends Component {
               leave={{ animation: "transition.slideLeftOut" }}
             >
               {
-                items.map( ( item, index, ) =>
+                items && items.map( ( item, index, ) =>
                   <div
                     key={item.timestamp}
                     // className="border-b" // use divider instead
@@ -432,28 +447,38 @@ class CRUDView extends Component {
   }
 
   render() {
-    const { classes, } = this.props;
+    const { classes, items, } = this.props;
     const { detail, } = this.state;
-    const { getListPane, getDetailPane, getDialog, } = this;
+    const { getListPane, getDetailPane, getEmpty, getDialog, } = this;
 
     return (
       // <FuseScrollbars className="overflow-auto">
       <div className={classes.root}>
-        <CssBaseline/>
-        {getDialog()}
-        <div className={classes.wrapper}>
-          {/* mobile */}
-          <Hidden smUp>{detail ? getDetailPane() : getListPane()}</Hidden>
-          {/* laptop */}
-          <Hidden xsDown>
-            <div className={classNames(classes.root,)}>
-              <Grid container spacing={16}>
-                <Grid item xs={12} sm={6}>{getListPane()}</Grid>
-                <Grid item xs={6}>{getDetailPane()}</Grid>
-              </Grid>
-            </div>
-          </Hidden>
+      {
+        items && items.length
+        ?
+        <React.Fragment>
+          <CssBaseline/>
+          {getDialog()}
+          <div className={classes.wrapper}>
+            {/* mobile */}
+            <Hidden smUp>{detail ? getDetailPane() : getListPane()}</Hidden>
+            {/* laptop */}
+            <Hidden xsDown>
+              <div className={classNames(classes.root,)}>
+                <Grid container spacing={16}>
+                  <Grid item xs={12} sm={6}>{getListPane()}</Grid>
+                  <Grid item xs={6}>{getDetailPane()}</Grid>
+                </Grid>
+              </div>
+            </Hidden>
+          </div>
+        </React.Fragment>
+        :
+        <div className="flex-1 mt-32 pt-32 text-center">
+          {getEmpty('list')}
         </div>
+      }
       </div>
         
       // </FuseScrollbars>
@@ -466,16 +491,16 @@ CRUDView.propTypes = {
   classes: PropTypes.object.isRequired,
   items: PropTypes.array.isRequired,
   condensed: PropTypes.bool, // one-line per list item in detail pane
+  actionable: PropTypes.func,
   creatable: PropTypes.bool, // create button in list pane
-  readable: PropTypes.bool,
-  updatable: PropTypes.bool,
+  readable: PropTypes.string,
+  updatable: PropTypes.string,
   deletable: PropTypes.bool,
-  actionable: PropTypes.bool,
 };
 
 CRUDView.defaultProps = {
   condensed: false,
-  actionable: false,
+  // actionable: false,
   creatable: false,
   // readable: false,
   updatable: false,

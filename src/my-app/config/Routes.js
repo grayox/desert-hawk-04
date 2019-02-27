@@ -3,7 +3,7 @@ import {
   Switch, Route,
   // Redirect,
 } from 'react-router-dom';
-// import { FuseLoadable } from '@fuse';
+import { FuseLoadable } from '@fuse';
 
 import { componentsNavConfig } from 'my-app/config/AppConfig';
 
@@ -90,10 +90,16 @@ class Routes extends Component {
       // </Switch>
       
       // latest working
+      // <Redirect from='/'       to='/dashboard' />
+      // <Redirect from='/login'  to='/dashboard' />
       <Switch>
-      {
+        <Route path='/'    exact component={FuseLoadable({loader: () => import('my-app/views/app/dashboard/Dashboard' )})} />
+        <Route path='/login'     component={FuseLoadable({loader: () => import('my-app/views/app/dashboard/Dashboard' )})} />    */}
+        {
         items.map(({ id, path, component, }) => <Route key={id} path={path} component={component()} />)
-      }
+        }
+        <Route path='/logout'    component={FuseLoadable({loader: () => import('my-app/views/overhead/Logout'         )})} />
+        <Route                   component={FuseLoadable({loader: () => import('my-app/views/overhead/Error404'       )})} />
       </Switch>
     );
   }

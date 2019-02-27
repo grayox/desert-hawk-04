@@ -132,11 +132,11 @@ export const componentsNavConfig = [
     component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDContainer')}),
     crudConfig : {
       actionable : () => {},
-      condensed  : true ,
-      creatable  : true , // false
-      readable   : ''   ,
-      updatable  : true , // false
-      deletable  : true ,
+      condensed  : true    ,
+      creatable  : false   ,
+      readable   : 'leads' ,
+      updatable  : false   ,
+      deletable  : true    ,
     },
   },
   {
@@ -150,11 +150,11 @@ export const componentsNavConfig = [
     component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDContainer')}),
     crudConfig : {
       actionable : () => {},
-      condensed  : true ,
-      creatable  : false,
-      readable   : ''   ,
-      updatable  : false,
-      deletable  : true ,
+      condensed  : true    ,
+      creatable  : false   ,
+      readable   : 'leads' ,
+      updatable  : false   ,
+      deletable  : true    ,
     },
   },
   {
@@ -167,11 +167,11 @@ export const componentsNavConfig = [
     component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDContainer')}),
     crudConfig : {
       actionable : () => {},
-      condensed  : true ,
-      creatable  : true ,
-      readable   : ''   ,
-      updatable  : true ,
-      deletable  : true ,
+      condensed  : true    ,
+      creatable  : true    ,
+      readable   : 'leads' ,
+      updatable  : true    ,
+      deletable  : true    ,
     },
   },
   {
@@ -184,11 +184,11 @@ export const componentsNavConfig = [
     component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDContainer')}),
     crudConfig : {
       actionable : () => {},
-      condensed  : true ,
-      creatable  : true ,
-      readable   : ''   ,
-      updatable  : true ,
-      deletable  : true ,
+      condensed  : true    ,
+      creatable  : true    ,
+      readable   : 'leads' ,
+      updatable  : true    ,
+      deletable  : true    ,
     },
   },
 
