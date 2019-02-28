@@ -60,7 +60,7 @@ class CRUDContainer extends Component {
           console.log('result', result);
           const newState = {
             items: result,
-            // isLoading: false,
+            isLoading: false,
           };
           this.setState(newState);
           // debugger;
@@ -81,7 +81,7 @@ class CRUDContainer extends Component {
     // console.log('id\n', id);
     // if(!this.state.isLoading) this.setState({isLoading: true});
     const { getItems } = this;
-    const { items } = this.state;
+    const { items, isLoading, } = this.state;
     const matches = componentsNavConfig.filter(r => (r.id === id));
     const item = matches[0];
     const config = item.crudConfig;
@@ -92,7 +92,15 @@ class CRUDContainer extends Component {
     // const items = await getItems(path);
     getItems(path);
     // console.log('items\n', items);
-    return items && (
+    return (
+      isLoading
+      ?
+      <React.Fragment>
+        <LinearProgress color="secondary" />
+        <Typography variant="body1">Loading...</Typography>
+      </React.Fragment>
+      :
+      (items && (
       <CRUDView
         items={items}
         condensed={condensed}
@@ -102,25 +110,18 @@ class CRUDContainer extends Component {
         updatable={updatable}
         deletable={deletable}
       />
+      ))
     )
   };
 
 
   render() {
-    const { isLoading, } = this.state;
+    // const { isLoading, } = this.state;
     const { Child, } = this;
 
     return (
-      // isLoading
-      // ?
-      // <React.Fragment>
-      //   <LinearProgress color="secondary" />
-      //   <Typography variant="body1">Loading...</Typography>
-      // </React.Fragment>
-      // :
       // ref: https://reacttraining.com/react-router/web/example/url-params
       <Route path="/:id" component={Child} />
-      // null
     );
   }
 }
