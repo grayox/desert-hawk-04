@@ -4,6 +4,8 @@ import {
   // BrowserRouter as Router, Link 
 } from "react-router-dom";
 
+import { LinearProgress, Typography } from '@material-ui/core';
+
 import { componentsNavConfig } from 'my-app/config/AppConfig';
 import CRUDView from './CRUDView';
 
@@ -16,6 +18,7 @@ import '@firebase/firestore';
 class CRUDContainer extends Component {
   state = {
     items: [],
+    isLoading: true,
   };
 
   // componentDidMount() {
@@ -24,6 +27,10 @@ class CRUDContainer extends Component {
 
   getItems = path => {
     // console.log('path\n', path);
+    // console.log('state\n', this.state);
+    // this.setState({isLoading: true}); // infinite loop?
+    console.log('state\n', this.state);
+    // debugger;
     const out = [];
     const db = firebase.firestore();
     if(!db) return;
@@ -51,12 +58,16 @@ class CRUDContainer extends Component {
           // always set state inside promise!
           // otherwise, function returns before data loads!
           console.log('result', result);
-          const newState = { items: result };
+          const newState = {
+            items: result,
+            // isLoading: false,
+          };
           this.setState(newState);
+          // debugger;
           return result;
         })
       .catch(error => {
-        console.log('Error getting documents: \n', error);
+        console.error('Error getting documents: \n', error);
       });
     // console.log('out\n', out); // returns before promise settles; therefore, returns empty array
     // always set state inside promise!
@@ -66,8 +77,10 @@ class CRUDContainer extends Component {
     // this.setState(newState);
   };
 
-  Child = ({ match: { params: { id }}}) => {
+  Child = /* async */ ({ match: { params: { id }}}) => {
     // console.log('id\n', id);
+    // if(!this.state.isLoading) this.setState({isLoading: true});
+    const { getItems } = this;
     const { items } = this.state;
     const matches = componentsNavConfig.filter(r => (r.id === id));
     const item = matches[0];
@@ -75,11 +88,10 @@ class CRUDContainer extends Component {
     // console.log('config\n', config);
     const { condensed, actionable, creatable, readable, updatable, deletable, } = config;
     const path = readable;
-    console.log('path\n', path);
-    // const data = await this.getItems(path);
-    // console.log('data\n', data);
-    this.getItems(path);
-    console.log('items\n', items);
+    // console.log('path\n', path);
+    // const items = await getItems(path);
+    getItems(path);
+    // console.log('items\n', items);
     return items && (
       <CRUDView
         items={items}
@@ -95,12 +107,20 @@ class CRUDContainer extends Component {
 
 
   render() {
-    // const { items, } = this.state;
-    const { getItems, Child } = this;
+    const { isLoading, } = this.state;
+    const { Child, } = this;
 
     return (
+      // isLoading
+      // ?
+      // <React.Fragment>
+      //   <LinearProgress color="secondary" />
+      //   <Typography variant="body1">Loading...</Typography>
+      // </React.Fragment>
+      // :
       // ref: https://reacttraining.com/react-router/web/example/url-params
       <Route path="/:id" component={Child} />
+      // null
     );
   }
 }
