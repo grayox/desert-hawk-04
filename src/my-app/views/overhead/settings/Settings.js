@@ -36,6 +36,7 @@ import _ from 'lodash';
 // import * as EmailValidator from 'email-validator';
 // import NumberFormat from 'react-number-format';
 
+import ErrorBoundary from 'my-app/containers/ErrorBoundary.js';
 import DetailsTab from './tabs/DetailsTab';
 import PreferencesTab from './tabs/PreferencesTab';
 // note: this page began as src/my-app/profile-orig/ProfilePage.js
@@ -416,146 +417,148 @@ class ProfilePage extends Component {
           isDialogTextField={isDialogTextField}
         />
 
-        <FusePageSimple
-          classes={{
-            root: classes.layoutRoot,
-            header: classes.layoutHeader,
-            toolbar: classes.layoutToolbar
-          }}
-          header={
-            <div className="p-24 flex flex-1 flex-col items-center justify-center md:flex-row md:items-end">
-              <div className="flex flex-1 flex-col items-center justify-center md:flex-row md:items-center md:justify-start">
-                <FuseAnimate animation="transition.expandIn" delay={300}>
-                  {/* <Avatar className="w-96 h-96" src="assets/images/avatars/Velazquez.jpg" /> */}
-                  {/* begin my add */}
-                  <Avatar className="w-96 h-96" src={user.data.photoURL} />
-                  {/* end my add */}
-                </FuseAnimate>
-                <FuseAnimate animation="transition.slideLeftIn" delay={300}>
-                  {/* <Typography className="md:ml-24" variant="h4" color="inherit">John Doe</Typography> */}
-                  {/* begin my add */}
-                  <Typography className="md:ml-24" variant="h4" color="inherit">{user.data.displayName}</Typography>
-                  {/* end my add */}
-                </FuseAnimate>
-              </div>
+        <ErrorBoundary>
+          <FusePageSimple
+            classes={{
+              root: classes.layoutRoot,
+              header: classes.layoutHeader,
+              toolbar: classes.layoutToolbar
+            }}
+            header={
+              <div className="p-24 flex flex-1 flex-col items-center justify-center md:flex-row md:items-end">
+                <div className="flex flex-1 flex-col items-center justify-center md:flex-row md:items-center md:justify-start">
+                  <FuseAnimate animation="transition.expandIn" delay={300}>
+                    {/* <Avatar className="w-96 h-96" src="assets/images/avatars/Velazquez.jpg" /> */}
+                    {/* begin my add */}
+                    <Avatar className="w-96 h-96" src={user.data.photoURL} />
+                    {/* end my add */}
+                  </FuseAnimate>
+                  <FuseAnimate animation="transition.slideLeftIn" delay={300}>
+                    {/* <Typography className="md:ml-24" variant="h4" color="inherit">John Doe</Typography> */}
+                    {/* begin my add */}
+                    <Typography className="md:ml-24" variant="h4" color="inherit">{user.data.displayName}</Typography>
+                    {/* end my add */}
+                  </FuseAnimate>
+                </div>
 
-              {/* <div className="flex items-center justify-end">
-                <Button className="mr-8 normal-case" variant="contained" color="secondary" aria-label="Follow">Follow</Button>
-                <Button className="normal-case" variant="contained" color="primary" aria-label="Send Message">Send Message</Button>
-              </div> */}
-            </div>
-          }
-          contentToolbar={
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              indicatorColor="secondary"
-              textColor="secondary"
-              scrollable
-              scrollButtons="auto"
-              classes={{
-                root: classes.tabsRoot
-              }}
-            >
-              {/* <Tab
+                {/* <div className="flex items-center justify-end">
+                  <Button className="mr-8 normal-case" variant="contained" color="secondary" aria-label="Follow">Follow</Button>
+                  <Button className="normal-case" variant="contained" color="primary" aria-label="Send Message">Send Message</Button>
+                </div> */}
+              </div>
+            }
+            contentToolbar={
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                indicatorColor="secondary"
+                textColor="secondary"
+                scrollable
+                scrollButtons="auto"
                 classes={{
-                  root: classes.tabRoot
-                }} label="Timeline" />
-              <Tab
-                classes={{
-                  root: classes.tabRoot
-                }} label="About" />
-              <Tab
-                classes={{
-                  root: classes.tabRoot
-                }} label="Photos & Videos" /> */}
-              {/* begin my add */}
-              <Tab
-                classes={{
-                  root: classes.tabRoot
-                }} label="Details" />
-              <Tab
-                classes={{
-                  root: classes.tabRoot
-                }} label="Preferences" />
-              {/* end my add */}
-            </Tabs>
-          }
-          content={
-            // <div className="p-16 sm:p-24">
-            //   {value === 0 && (
-            //     <TimelineTab />
-            //   )}
-            //   {value === 1 && (
-            //     <AboutTab />
-            //   )}
-            //   {value === 2 && (
-            //     <PhotosVideosTab />
-            //   )}
-            // </div>
-            // begin my add
-            // dataHasLoaded ?
-            true ?
-            (
-            <div className="p-0 md:p-24">
-              {value === 0 && (
-                // <div>Hello world</div>
-                <DetailsTab
-                  // foo={'foo'}
-                  // user={user}
-                  profile={profile}
-                  settings={settings}
-                  dialogIsOpen={dialogIsOpen}
-                  dialogContent={dialogContent}
-                  dialogContentText={dialogContentText}
-                  dialogTitle={dialogTitle}
-                  isDialogTextField={isDialogTextField}
-                  dialogTextFieldLabel={dialogTextFieldLabel}
-                  dialogFieldName={dialogFieldName}
-                  anchorElMenu={anchorElMenu}
-                  selectedIndexMenu={selectedIndexMenu}
-                  geoKey={geoKey}
-                  isValidGeo={isValidGeo}
-                  geoNation={geoNation}
-                  geoRegion={geoRegion}
-                  geoLocal={geoLocal}
-                  bizCategory={bizCategory}
-                  onValidGeoStepper={handleValidGeoStepper}
-                  onClickListItemDialog={handleClickListItemDialog}
-                  onClickListItemMenu={handleClickListItemMenu}
-                />
-              )}
-              {value === 1 && (
-                <PreferencesTab
-                  // user={user}
-                  // profile={profile}
-                  settings={settings}
-                  checked={checked}
-                  anchorElMenu1={anchorElMenu1}
-                  anchorElMenu2={anchorElMenu2}
-                  selectedIndexMenu1={selectedIndexMenu1}
-                  selectedIndexMenu2={selectedIndexMenu2}
-                  onToggle={handleToggle}
-                  onCloseMenu1={handleCloseMenu1}
-                  onCloseMenu2={handleCloseMenu2}
-                  onMenuItemClickMenu1={handleMenuItemClickMenu1}
-                  onMenuItemClickMenu2={handleMenuItemClickMenu2}
-                  onClickListItemMenu1={handleClickListItemMenu1}
-                  onClickListItemMenu2={handleClickListItemMenu2}
-                  optionsMenu1={optionsMenu1}
-                  optionsMenu2={optionsMenu2}
-                />
-              )}
-            </div>
-            )
-            :
-            (
-              <Typography className="p-20" variant="caption">Loading...</Typography>
-              // <FuseLoadable />
-            )
-            // end my add
-          }
-        />
+                  root: classes.tabsRoot
+                }}
+              >
+                {/* <Tab
+                  classes={{
+                    root: classes.tabRoot
+                  }} label="Timeline" />
+                <Tab
+                  classes={{
+                    root: classes.tabRoot
+                  }} label="About" />
+                <Tab
+                  classes={{
+                    root: classes.tabRoot
+                  }} label="Photos & Videos" /> */}
+                {/* begin my add */}
+                <Tab
+                  classes={{
+                    root: classes.tabRoot
+                  }} label="Details" />
+                <Tab
+                  classes={{
+                    root: classes.tabRoot
+                  }} label="Preferences" />
+                {/* end my add */}
+              </Tabs>
+            }
+            content={
+              // <div className="p-16 sm:p-24">
+              //   {value === 0 && (
+              //     <TimelineTab />
+              //   )}
+              //   {value === 1 && (
+              //     <AboutTab />
+              //   )}
+              //   {value === 2 && (
+              //     <PhotosVideosTab />
+              //   )}
+              // </div>
+              // begin my add
+              // dataHasLoaded ?
+              true ?
+              (
+              <div className="p-0 md:p-24">
+                {value === 0 && (
+                  // <div>Hello world</div>
+                  <DetailsTab
+                    // foo={'foo'}
+                    // user={user}
+                    profile={profile}
+                    settings={settings}
+                    dialogIsOpen={dialogIsOpen}
+                    dialogContent={dialogContent}
+                    dialogContentText={dialogContentText}
+                    dialogTitle={dialogTitle}
+                    isDialogTextField={isDialogTextField}
+                    dialogTextFieldLabel={dialogTextFieldLabel}
+                    dialogFieldName={dialogFieldName}
+                    anchorElMenu={anchorElMenu}
+                    selectedIndexMenu={selectedIndexMenu}
+                    geoKey={geoKey}
+                    isValidGeo={isValidGeo}
+                    geoNation={geoNation}
+                    geoRegion={geoRegion}
+                    geoLocal={geoLocal}
+                    bizCategory={bizCategory}
+                    onValidGeoStepper={handleValidGeoStepper}
+                    onClickListItemDialog={handleClickListItemDialog}
+                    onClickListItemMenu={handleClickListItemMenu}
+                  />
+                )}
+                {value === 1 && (
+                  <PreferencesTab
+                    // user={user}
+                    // profile={profile}
+                    settings={settings}
+                    checked={checked}
+                    anchorElMenu1={anchorElMenu1}
+                    anchorElMenu2={anchorElMenu2}
+                    selectedIndexMenu1={selectedIndexMenu1}
+                    selectedIndexMenu2={selectedIndexMenu2}
+                    onToggle={handleToggle}
+                    onCloseMenu1={handleCloseMenu1}
+                    onCloseMenu2={handleCloseMenu2}
+                    onMenuItemClickMenu1={handleMenuItemClickMenu1}
+                    onMenuItemClickMenu2={handleMenuItemClickMenu2}
+                    onClickListItemMenu1={handleClickListItemMenu1}
+                    onClickListItemMenu2={handleClickListItemMenu2}
+                    optionsMenu1={optionsMenu1}
+                    optionsMenu2={optionsMenu2}
+                  />
+                )}
+              </div>
+              )
+              :
+              (
+                <Typography className="p-20" variant="caption">Loading...</Typography>
+                // <FuseLoadable />
+              )
+              // end my add
+            }
+          />
+        </ErrorBoundary>
 
       </div>
 

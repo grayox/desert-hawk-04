@@ -118,7 +118,7 @@ class MyBottomNav extends Component {
               // className="color-white"
               className={classes.actionClasses}
               component={Link}
-              to={items[index].url}
+              to={items[index].path}
               label={item.title}
               icon={<Icon>{item.icon}</Icon>}
               // icon={item.icon}

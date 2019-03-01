@@ -27,6 +27,8 @@ import Brightness4Icon from '@material-ui/icons/Brightness4';
 import AddLocationIcon from '@material-ui/icons/AddLocation';
 import NotInterestedIcon from '@material-ui/icons/NotInterested';
 
+import ErrorMaintenance from 'my-app/components/ErrorMaintenance.js';
+
 const styles = theme => ({
   root: {
     width: '100%',
@@ -50,7 +52,8 @@ function PreferencesTab(props) {
 
   return (
     <React.Fragment>
-
+      settings
+      ?
       {/* "Block-level" group of two cards on this row */}
       <div className={classNames(classes.root, "md:flex max-w-2xl")}>
 
@@ -405,6 +408,8 @@ function PreferencesTab(props) {
         </div>
 
       </div>
+      :
+      <ErrorMaintenance />
     </React.Fragment>
   );
 

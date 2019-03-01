@@ -317,8 +317,10 @@ class CRUDView extends Component {
                 // </Typography>
                 // attempt
                 <ListItem
-                  key={keyName.timestamp}
-                  divider light
+                  // key={keyName.timestamp}
+                  key={keyIndex}
+                  divider
+                  // light
                   // button
                   // onClick={() => handleToggle(item)}
                 >
