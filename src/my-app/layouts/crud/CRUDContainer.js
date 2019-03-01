@@ -28,12 +28,12 @@ class CRUDContainer extends Component {
   //   path && this.getItems(path);
   // }
 
-  componentWillUnmount () {
-    // cancel subscriptions and async tasks to stop memory leaks
-    this.unsubscribe(this.path);
-  }
+  // componentWillUnmount () {
+  //   // cancel subscriptions and async tasks to stop memory leaks
+  //   this.unsubscribe(this.path);
+  // }
 
-  unsubscribe = path => path && firebase.firestore().collection(path).onSnapshot(() => {})
+  // unsubscribe = path => path && firebase.firestore().collection(path).onSnapshot(() => {})
 
   getItems = path => {
     // console.log('path\n', path);
@@ -81,10 +81,10 @@ class CRUDContainer extends Component {
           // debugger;
           return result;
         })
-        .then(() => {
-          this.unsubscribe(path);
-          return path;
-        })
+        // .then(() => {
+        //   this.unsubscribe(path);
+        //   return path;
+        // })
         .catch(error => {
           console.error('Error getting documents: \n', error);
           const newState = {
