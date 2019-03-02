@@ -52,9 +52,10 @@ function PreferencesTab(props) {
 
   return (
     <React.Fragment>
+      {
       settings
       ?
-      {/* "Block-level" group of two cards on this row */}
+      // "Block-level" group of two cards on this row
       <div className={classNames(classes.root, "md:flex max-w-2xl")}>
 
         <div className="flex flex-col flex-1 md:pr-32">
@@ -406,10 +407,10 @@ function PreferencesTab(props) {
             </Card>
           </FuseAnimateGroup>
         </div>
-
       </div>
       :
       <ErrorMaintenance />
+      }
     </React.Fragment>
   );
 

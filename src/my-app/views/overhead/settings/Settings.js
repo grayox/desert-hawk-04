@@ -51,7 +51,7 @@ const styles = theme => ({
   wrapper: {
     minHeight: '100vh',
     verticalAlign: 'top', // overcomes default
-    paddingTop: '56px', // clears <AppBar />
+    // paddingTop: '56px', // clears <AppBar />
   },
   layoutRoot: {},
   layoutToolbar: {

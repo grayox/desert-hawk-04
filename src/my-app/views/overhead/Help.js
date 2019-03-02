@@ -16,7 +16,7 @@ const styles = theme => ({
   },
   wrapper: {
     verticalAlign: 'top', // overcomes default
-    paddingTop: '56px', // clears <AppBar />
+    // paddingTop: '56px', // clears <AppBar />
   },
   card: {},
   cardHeader: {
@@ -87,14 +87,14 @@ class FaqPage extends Component {
 
           <FuseAnimate animation="transition.slideUpIn" duration={400} delay={100}>
             <Typography color="inherit" className="text-36 sm:text-56 font-light">
-              We're here to help
-                        </Typography>
+              We&rsquo;re here to help
+            </Typography>
           </FuseAnimate>
 
           <FuseAnimate duration={400} delay={600}>
             <Typography variant="subtitle1" color="inherit" className="opacity-75 mt-8 sm:mt-16 mx-auto max-w-512">
               Frequently asked questions
-                        </Typography>
+            </Typography>
           </FuseAnimate>
 
           <Paper className={"flex items-center h-56 w-full max-w-md mt-16 sm:mt-32"} elevation={1}>
