@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
+// import PropTypes from 'prop-types';
+// import classNames from 'classnames';
 
 import { avatarOptions } from 'my-app/config/AppConfig.js';
 import HashAvatar from 'my-app/components/HashAvatar';
@@ -8,8 +8,8 @@ import HashAvatar from 'my-app/components/HashAvatar';
 // material-ui
 import {
   // Avatar, Button, Icon, IconButton, AppBar, Card, CardContent, 
-  // Toolbar, List, ListItem, ListItemSecondaryAction, ListItemText,
-  withStyles, Menu, MenuList, MenuItem, Typography, 
+  // Toolbar, Menu, List, ListItem, ListItemSecondaryAction, ListItemText,
+  withStyles, MenuList, MenuItem, Typography, 
 } from '@material-ui/core';
 
 const styles = theme => ({
@@ -38,8 +38,8 @@ class AvatarSelect extends Component {
   };
   
   render() {
-    const { classes } = this.props;
-    const { anchorEl } = this.state;
+    // const { classes } = this.props;
+    // const { anchorEl } = this.state;
 
     return (
       <MenuList

@@ -104,7 +104,8 @@ class HashAvatar extends Component {
   image1 = props => (
     <img
       alt="avatar"
-
+      // alt="Image not found"
+      
       // className="w-full rounded"
       className={classNames(props.rounded, 'w-full')}
 
@@ -137,7 +138,6 @@ class HashAvatar extends Component {
       // ref: https://stackoverflow.com/a/9891041/1640892
       // src="assets/images/avatars/profile.jpg"
       // src={getSrcMp}
-      alt="Image not found"
       // onerror="this.onerror=null;this.src='assets/images/avatars/profile.jpg';"
       onerror={`this.onerror=null;this.src='${getSrcMp}';`}
     />
@@ -146,6 +146,7 @@ class HashAvatar extends Component {
   image = props => (
     <VisibilitySensor>
       <Img
+        alt=""
         src={[getSrc(props), getSrcMp,]}
         // loader={<img src={getSrcMp} />}
         loader={<CircularProgress color="secondary" />} // className={this.props.classes.progress}

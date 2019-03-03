@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from "prop-types";
 
-import { Typography, Button, TextField, } from '@material-ui/core';
-
-import Paper from '@material-ui/core/Paper';
+import { Typography, Button, TextField, Paper, } from '@material-ui/core';
 
 const styles = theme => ({});
 
@@ -38,14 +36,14 @@ class FeedbackForm extends Component {
     return (
       <Paper className="max-w-sm m-32 p-32">
         {/* {this.state.content} */}
-        <Typography className="h1 mb-24">Send feedback</Typography>
+        <Typography className="h1 mb-24">Write a note</Typography>
         <form className={classes.container} noValidate autoComplete="off">
           <TextField
             className={{...classes.margin, ...classes.textField}}
             // className={classes.textField}
             variant="outlined"
             id="feedback-form"
-            label="Feedback"
+            label="What's on your mind?"
             fullWidth
             multiline
             rows={5}

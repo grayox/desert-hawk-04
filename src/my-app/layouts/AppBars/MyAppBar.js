@@ -8,7 +8,7 @@ import classNames from 'classnames';
 
 import * as Actions from 'store/actions';
 
-import {FuseShortcuts, FuseAnimate, FuseSearch} from '@fuse';
+import { FuseSearch, } from '@fuse'; // FuseShortcuts, FuseAnimate,
 
 // @material-ui/core
 // import Icon from "@material-ui/core/Icon";
@@ -87,7 +87,7 @@ class MyAppBar extends Component {
   handleClickMenuButton = () => this.props.onClickMenuButton()
 
   render() {
-    const { classes, onClickMenuButton } = this.props;
+    const { classes, } = this.props; //  onClickMenuButton,
     const { handleClickMenuButton, } = this;
     // const { userMenu } = this.state;
 

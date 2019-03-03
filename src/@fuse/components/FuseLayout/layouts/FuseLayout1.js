@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as Actions from 'store/actions';
-import { AppBar, Hidden, Icon, IconButton, Toolbar, Drawer, MuiThemeProvider } from '@material-ui/core';
+import { AppBar, Hidden, Icon, IconButton, Drawer, MuiThemeProvider } from '@material-ui/core'; // Toolbar,
 import { FuseScrollbars, FuseMessage, FuseThemes, FuseDialog } from '@fuse';
 import classNames from 'classnames';
 import _ from '@lodash';
@@ -256,6 +256,23 @@ class FuseLayout1 extends Component {
     // console.warn('FuseLayout:: rendered');
     const layoutConfig = settings.layout.config;
 
+    const navbarHeaderIconButton = (
+      <React.Fragment>
+        <div className={classes.navbarHeader}>
+          {navbarHeader}
+        </div>
+        {/* laptop: none */}
+        {/* tablet */}
+        <Hidden xsDown lgUp>
+          <IconButton onClick={this.handleToggleFolded} color="inherit"><Icon>chevron_left</Icon></IconButton>
+        </Hidden>
+        {/* mobile */}
+        <Hidden smUp>
+          <IconButton onClick={navbarCloseMobile} color="inherit"><Icon>chevron_left</Icon></IconButton>
+        </Hidden>
+      </React.Fragment>
+    );
+    
     const navbarHeaderTemplate = (
       <React.Fragment>
         {/* laptop */}
@@ -292,23 +309,6 @@ class FuseLayout1 extends Component {
           </AppBar>
         </Hidden>
         {navbarHeaderIconButton}
-      </React.Fragment>
-    );
-
-    const navbarHeaderIconButton = (
-      <React.Fragment>
-        <div className={classes.navbarHeader}>
-          {navbarHeader}
-        </div>
-        {/* laptop: none */}
-        {/* tablet */}
-        <Hidden xsDown lgUp>
-          <IconButton onClick={this.handleToggleFolded} color="inherit"><Icon>chevron_left</Icon></IconButton>
-        </Hidden>
-        {/* mobile */}
-        <Hidden smUp>
-          <IconButton onClick={navbarCloseMobile} color="inherit"><Icon>chevron_left</Icon></IconButton>
-        </Hidden>
       </React.Fragment>
     );
 

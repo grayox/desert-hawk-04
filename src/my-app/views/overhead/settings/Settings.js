@@ -36,7 +36,9 @@ import _ from 'lodash';
 // import * as EmailValidator from 'email-validator';
 // import NumberFormat from 'react-number-format';
 
+import Loading from 'my-app/components/Loading.js';
 import ErrorBoundary from 'my-app/containers/ErrorBoundary.js';
+// import ErrorMaintenance from 'my-app/components/ErrorMaintenance.js';
 import DetailsTab from './tabs/DetailsTab';
 import PreferencesTab from './tabs/PreferencesTab';
 // note: this page began as src/my-app/profile-orig/ProfilePage.js
@@ -91,8 +93,8 @@ const INITIAL_STATE_SETTINGS_DIALOG = {
 
 const INITIAL_STATE = {
 
-  // dataHasLoaded: false,
   value: 0,
+  dataHasLoaded: false,
 
   checked: [],
 
@@ -380,7 +382,10 @@ class ProfilePage extends Component {
     } = this;
 
     return (
-
+      !dataHasLoaded
+      ?
+      <Loading />
+      :
       <div className={classes.wrapper}>
         <FetchFirestore key={firestoreKey} />
 
@@ -561,7 +566,6 @@ class ProfilePage extends Component {
         </ErrorBoundary>
 
       </div>
-
     )
   };
 }
@@ -585,7 +589,7 @@ ProfilePage.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-function mapStateToProps( state ) {
+const mapStateToProps = state => {
   // console.log('state\n', state);
   const settings = state.firestore.ordered.users
                 && state.firestore.ordered.users[0]
@@ -594,7 +598,8 @@ function mapStateToProps( state ) {
   const user = state.auth.user;
   const leads = state.firestore.ordered.leads;
   const profile = state.firebase.profile;
-  const dataHasLoaded = user && leads && profile && settings;
+  // const dataHasLoaded = user && leads && profile && settings;
+  const dataHasLoaded = user && settings; // && leads && profile 
 
   if(dataHasLoaded) {  
     console.log('user\n', user);

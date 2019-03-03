@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 // import ChartistGraph from "react-chartist";
 
 // firebase
-import { firestoreConnect } from 'react-redux-firebase';
+// import { firestoreConnect } from 'react-redux-firebase';
 
 // redux
 import { connect } from 'react-redux';
@@ -272,7 +272,7 @@ class Dashboard extends Component {
     console.log('profile\n', this.props.profile);
     console.log('leads\n', this.props.leads);
 
-    const { classes, dataHasLoaded, user, settings, profile, } = this.props; //leads,
+    const { classes, dataHasLoaded, settings, } = this.props; // leads, user, profile,
 
     // const { isValidGeo, geoNation, geoRegion, geoLocal, bizCategory }
     //   = this && this.props && this.props.settings;// ? this.props.settings : this.state.settings;

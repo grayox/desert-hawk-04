@@ -38,7 +38,7 @@ import { FaSignOutAlt } from 'react-icons/fa'; // https://react-icons.netlify.cI
 // import { IoIosLogOut, IoMdLogOut, } from 'react-icons/io'; // https://react-icons.netlify.cIoIosLogOutom/#/
 
 // utility components
-import CRUDContainer from 'my-app/layouts/crud/CRUDContainer';
+// import CRUDContainer from 'my-app/layouts/crud/CRUDContainer';
 
 // import { drawerWidth } from 'my-app/config/AppConfig';
 export const drawerWidth = 256 // per spec https://material.io/design/components/navigation-drawer.html#specs

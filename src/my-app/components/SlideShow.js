@@ -19,9 +19,8 @@ import { withStyles } from '@material-ui/core/styles';
 // @material-ui/core
 // import Icon from "@material-ui/core/Icon";
 import {
-  Button, Dialog, Slide, Fab,
-  Icon, IconButton, Zoom,
-  // Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
+  Button, Dialog, Slide, Fab, Icon,
+  // IconButton, Zoom, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
 } from '@material-ui/core';
 
 // import Carousel from 'nuka-carousel';

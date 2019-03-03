@@ -7,8 +7,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import {
   AppBar, Toolbar, Typography, 
-  // CssBaseline,
-  IconButton, Icon,
+  // CssBaseline, IconButton, Icon,
 } from '@material-ui/core';
 
 import { brand } from 'my-app/config/AppConfig';

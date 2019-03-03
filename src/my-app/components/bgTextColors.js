@@ -11,7 +11,7 @@
 const rgbToHex = ({r, g, b}) => `${componentToHex(r)}${componentToHex(g)}${componentToHex(b)}`
 const componentToHex = c => {
   const hex = c.toString(16);
-  return hex.length == 1 ? "0" + hex : hex;
+  return hex.length === 1 ? "0" + hex : hex;
 }
 const hexToRgb = hex => {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);

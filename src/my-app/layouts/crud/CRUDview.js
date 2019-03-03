@@ -18,7 +18,7 @@ import {
 } from '@material-ui/core';
 
 // import {FuseAnimateGroup, FuseHighlight, FusePageSimple} from '@fuse';
-import { FuseScrollbars, FuseAnimate, FuseAnimateGroup } from '@fuse';
+import { FuseAnimateGroup } from '@fuse'; // FuseScrollbars, FuseAnimate,
 import moment from 'moment';
 
 // import CreateButton from './CreateButton';
@@ -353,7 +353,7 @@ class CRUDView extends Component {
   }
 
   getNavButtons = () => {
-    const { handleNavBack, handleNavNext, handleToggle, handleOpenDialog, handleCloseDialog, } = this;
+    const { handleNavBack, handleNavNext, handleToggle, handleOpenDialog, } = this; //  handleCloseDialog,
     const { selectedIndex, } = this.state;
     const { items, } = this.props;
     const limit = items.length - 2;

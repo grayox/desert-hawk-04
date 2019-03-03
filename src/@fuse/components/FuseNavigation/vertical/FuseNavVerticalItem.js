@@ -24,7 +24,8 @@ const defaultProps = {};
 const styles = theme => ({
   item: {
     height: 46, // 40 is original value; 46 is per spec: https://material.io/design/components/navigation-drawer.html#specs
-    color: 'white',
+    color: 'white', //'inherit!important',
+    textDecoration: 'none!important',
 
     // rounded right border
     width: 'calc(100% - 2px)', // -16px, right edge gap/gutter
@@ -53,8 +54,6 @@ const styles = theme => ({
     '& .list-item-text': {
       color: theme.palette.secondary.contrastText + '!important',
     },
-    color: 'white', //'inherit!important',
-    textDecoration: 'none!important',
   },
 });
 

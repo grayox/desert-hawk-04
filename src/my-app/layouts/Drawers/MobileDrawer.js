@@ -8,7 +8,7 @@ import Routes from 'my-app/config/Routes';
 
 import { withStyles, Drawer, } from '@material-ui/core';
 
-import MyFab from 'my-app/layouts/MyFab';
+// import MyFab from 'my-app/layouts/MyFab';
 import MyBottomNav from 'my-app/layouts/appBars/MyBottomNav';
 import MobileAppBar from '../appBars/MobileAppBar';
 import BrandAppBar from '../appBars/BrandAppBar';

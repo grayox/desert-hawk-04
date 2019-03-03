@@ -2,12 +2,13 @@
 
 import React, { Component } from 'react';
 import {
-  TextField, Button, Dialog, DialogActions, DialogContent, Icon, IconButton, Typography, Toolbar, AppBar, Avatar
+  TextField, Icon,
+  // Button, Dialog, DialogActions, DialogContent, IconButton, Typography, Toolbar, AppBar, Avatar
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles/index';
-import { bindActionCreators } from 'redux';
-import * as Actions from './store/actions';
-import { connect } from 'react-redux';
+// import { bindActionCreators } from 'redux';
+// import * as Actions from './store/actions';
+// import { connect } from 'react-redux';
 import _ from '@lodash';
 
 const styles = theme => ({
@@ -76,7 +77,7 @@ class UserMultiForm extends Component {
   }
 
   render() {
-    const { classes, userMultiForm, addContact, updateContact, removeContact } = this.props;
+    const { classes, } = this.props; // userMultiForm, addContact, updateContact, removeContact 
 
     return (
       // <Dialog

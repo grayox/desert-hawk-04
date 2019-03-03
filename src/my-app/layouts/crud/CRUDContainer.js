@@ -107,7 +107,7 @@ class CRUDContainer extends Component {
     // console.log('id\n', id);
     // if(!this.state.isLoading) this.setState({isLoading: true});
     const { getItems } = this;
-    const { items, isLoading, isError, isSubscribed, } = this.state;
+    const { items, isLoading, isError, } = this.state; // isSubscribed,
     const matches = componentsNavConfig.filter(r => (r.id === id));
     const item = matches[0];
     const config = item.crudConfig;

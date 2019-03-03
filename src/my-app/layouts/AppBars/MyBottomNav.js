@@ -9,10 +9,9 @@ import PropTypes from 'prop-types';
 
 // @material-ui/core
 import {
-  withStyles,
-  BottomNavigation, BottomNavigationAction,
-  Icon, CssBaseline, FormHelperText,
-  // MuiThemeProvider, AppBar, IconButton,
+  withStyles, CssBaseline,
+  BottomNavigation, BottomNavigationAction, Icon,
+  // MuiThemeProvider, AppBar, IconButton, FormHelperText,
 } from '@material-ui/core';
 
 import {
@@ -140,11 +139,11 @@ MyBottomNav.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-function mapStateToProps({ fuse }) {
-  return {
-    settings: fuse.settings.current,
-  }
-}
+// function mapStateToProps({ fuse }) {
+//   return {
+//     settings: fuse.settings.current,
+//   }
+// }
 
 // export default withStyles(styles, {withTheme: true})(SimpleBottomNavigation);
 export default withStyles(styles, {withTheme: true})(MyBottomNav);

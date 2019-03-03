@@ -7,6 +7,7 @@ import classNames from 'classnames';
 import { Typography } from '@material-ui/core';
 import { FuseAnimate, } from '@fuse';
 
+import RatingForm from 'my-app/components/forms/RatingForm';
 import FeedbackForm from 'my-app/components/forms/FeedbackForm';
 
 const styles = theme => ({
@@ -65,9 +66,12 @@ class Feedback extends Component {
 
         </div>
 
-        <div className={classNames(classes.content)}>
-          <div className="max-w-xl w-full mx-auto px-16 sm:px-24 py-24 sm:py-32">
+        <div className={classNames(classes.content, "flex")}>
+          <div className="flex-1 max-w-xl w-full mx-auto px-16 sm:px-24 py-24 sm:py-32">
             <FeedbackForm />
+          </div>
+          <div className="flex-1 max-w-xl w-full mx-auto px-16 sm:px-24 py-24 sm:py-32">
+            <RatingForm />
           </div>
         </div>
       </div>
