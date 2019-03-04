@@ -7,8 +7,8 @@ import classNames from 'classnames';
 import { Typography } from '@material-ui/core';
 import { FuseAnimate, } from '@fuse';
 
-import RatingForm from 'my-app/components/forms/RatingForm';
 import FeedbackForm from 'my-app/components/forms/FeedbackForm';
+import RatingSelect from 'my-app/components/selects/RatingSelect';
 
 const styles = theme => ({
   root: {
@@ -71,7 +71,7 @@ class Feedback extends Component {
             <FeedbackForm />
           </div>
           <div className="flex-1 max-w-xl w-full mx-auto px-16 sm:px-24 py-24 sm:py-32">
-            <RatingForm />
+            <RatingSelect />
           </div>
         </div>
       </div>
