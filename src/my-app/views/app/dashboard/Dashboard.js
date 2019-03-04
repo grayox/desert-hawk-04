@@ -22,8 +22,8 @@ import { updateSettings } from 'my-app/store/actions/my-actions';
 // import Icon from "@material-ui/core/Icon";
 import {
   // AppBar, Toolbar, Typography, // CssBaseline,
-  withStyles, Slide,
-  Hidden, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
+  withStyles, Slide, Hidden,
+  Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
 } from '@material-ui/core';
 
 // import ViewListIcon from '@material-ui/icons/ViewList';
@@ -72,6 +72,7 @@ const styles = theme => ({
     padding: 0, // flush with top on mobile //'56px', // clears <AppBar />
     // verticalAlign: 'top', // overcomes default
     width: '100vw', // flush with right edge on mobile
+    height: 'calc(100vh - 128px)',
   },
 
 });

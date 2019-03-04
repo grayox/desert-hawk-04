@@ -7,7 +7,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+// import classNames from 'classnames';
 
 // material-ui
 import {
@@ -101,52 +101,52 @@ class HashAvatar extends Component {
   //   digest: null,
   // }
 
-  image1 = props => (
-    <img
-      alt="avatar"
-      // alt="Image not found"
+  // getImage1 = props => (
+  //   <img
+  //     alt="avatar"
+  //     // alt="Image not found"
       
-      // className="w-full rounded"
-      className={classNames(props.rounded, 'w-full')}
+  //     // className="w-full rounded"
+  //     className={classNames(props.rounded, 'w-full')}
 
-      // initials:
-      // src="//ui-avatars.com/api/?name=F+7&background=FF0000&color=FFFFFF&size=50"
+  //     // initials:
+  //     // src="//ui-avatars.com/api/?name=F+7&background=FF0000&color=FFFFFF&size=50"
 
-      // adorable:
-      // src="//api.adorable.io/avatars/50/loremipsum.png"
+  //     // adorable:
+  //     // src="//api.adorable.io/avatars/50/loremipsum.png"
       
-      // gravatars: https://en.gravatar.com/site/implement/images/
-      // src="//www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?f=y&s=50&d=wavatar"   
-      // src={`//www.gravatar.com/avatar/${message}?f=y&s=50&d=wavatar`}
-      // src={`//www.gravatar.com/avatar/${message}?f=y&s=50&d=monsterid`}
-      // src={`//www.gravatar.com/avatar/${message}?f=y&s=50&d=retro`}
-      // src={`//www.gravatar.com/avatar/${message}?f=y&s=50&d=robohash`}
+  //     // gravatars: https://en.gravatar.com/site/implement/images/
+  //     // src="//www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?f=y&s=50&d=wavatar"   
+  //     // src={`//www.gravatar.com/avatar/${message}?f=y&s=50&d=wavatar`}
+  //     // src={`//www.gravatar.com/avatar/${message}?f=y&s=50&d=monsterid`}
+  //     // src={`//www.gravatar.com/avatar/${message}?f=y&s=50&d=retro`}
+  //     // src={`//www.gravatar.com/avatar/${message}?f=y&s=50&d=robohash`}
 
-      // robohash: https://robohash.org
-      // src={`//robohash.org/${message}.png`}
-      // src={`//robohash.org/${message}.png?set=set2`}
-      // src={`//robohash.org/${message}.png?set=set3`}
-      // src={`//robohash.org/${message}.png?set=set4`}
+  //     // robohash: https://robohash.org
+  //     // src={`//robohash.org/${message}.png`}
+  //     // src={`//robohash.org/${message}.png?set=set2`}
+  //     // src={`//robohash.org/${message}.png?set=set3`}
+  //     // src={`//robohash.org/${message}.png?set=set4`}
 
-      // implementation
-      // src={getSrcGravatar(props)}
-      // src={getSrcAdorable(props)}
-      // src={getSrcRobohash(props)}
-      src={getSrc(props)}
+  //     // implementation
+  //     // src={getSrcGravatar(props)}
+  //     // src={getSrcAdorable(props)}
+  //     // src={getSrcRobohash(props)}
+  //     src={getSrc(props)}
 
-      // handle errors
-      // ref: https://stackoverflow.com/a/9891041/1640892
-      // src="assets/images/avatars/profile.jpg"
-      // src={getSrcMp}
-      // onerror="this.onerror=null;this.src='assets/images/avatars/profile.jpg';"
-      onerror={`this.onerror=null;this.src='${getSrcMp}';`}
-    />
-  )
+  //     // handle errors
+  //     // ref: https://stackoverflow.com/a/9891041/1640892
+  //     // src="assets/images/avatars/profile.jpg"
+  //     // src={getSrcMp}
+  //     // onerror="this.onerror=null;this.src='assets/images/avatars/profile.jpg';"
+  //     onerror={`this.onerror=null;this.src='${getSrcMp}';`}
+  //   />
+  // )
 
-  image = props => (
+  getImage = props => (
     <VisibilitySensor>
       <Img
-        alt=""
+        alt="avatar"
         src={[getSrc(props), getSrcMp,]}
         // loader={<img src={getSrcMp} />}
         loader={<CircularProgress color="secondary" />} // className={this.props.classes.progress}
@@ -161,8 +161,8 @@ class HashAvatar extends Component {
       type,
     } = this.props;
     // const { digest, } = this.state;
-    const { props, image, } = this;
-    const img = image(props);
+    const { props, getImage, } = this;
+    const img = getImage(props);
     return (
       <React.Fragment>
         { type==='image' ? img : <Avatar>{img}</Avatar> }
