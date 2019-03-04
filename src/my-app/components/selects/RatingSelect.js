@@ -20,7 +20,7 @@ class RatingSelect extends Component {
   }
 
   handleChange = value => {
-    console.log('value\n', value);
+    // console.log('value\n', value);
     this.setState({ value, });
   }
 
