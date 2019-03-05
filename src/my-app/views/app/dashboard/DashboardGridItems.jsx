@@ -139,35 +139,28 @@ function DashboardGridItems(props) {
         // laptop
         ( 
           rows.map(row => (
-            <div className="p-24 border border-red">
+            <div>
               <Typography variant="subtitle1" className="block pb-8 border border-green opacity-75 font-light">{row.name}</Typography>
-              <div className="flex block">
-                <FuseAnimateGroup
-                  key={row.name}
-                  delay={200}
-                  enter={{ animation: 'transition.slideUpBigIn' }}
-                  leave={{ animation: 'transition.slideLeftBigOut' }}
-                >
-                  <div
-                    // className={classes.container}
-                    className="xflex-wrap w-full border border-blue"
-                  >
-                    <GridContainer>
-                      {
-                        row.cells.map(cell => (
-                          // <FuseAnimate animation="transition.slideLeftIn" duration={400} delay={100}>
-                          <DashboardGridItem
-                            key={cell.label}
-                            item={cell}
-                            onClickInfo={() => onClickInfo(cell)}
-                          />
-                          // </FuseAnimate>
-                        ))
-                      }
-                    </GridContainer>
-                  </div>
-                </FuseAnimateGroup>
-              </div>
+              <FuseAnimateGroup
+                key={row.name}
+                delay={200}
+                enter={{ animation: 'transition.slideUpBigIn' }}
+                leave={{ animation: 'transition.slideLeftBigOut' }}
+              >
+                <GridContainer>
+                  {
+                    row.cells.map(cell => (
+                      // <FuseAnimate animation="transition.slideLeftIn" duration={400} delay={100}>
+                      <DashboardGridItem
+                        key={cell.label}
+                        item={cell}
+                        onClickInfo={() => onClickInfo(cell)}
+                      />
+                      // </FuseAnimate>
+                    ))
+                  }
+                </GridContainer>
+              </FuseAnimateGroup>
             </div>
         )))
       }

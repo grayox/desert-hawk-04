@@ -44,6 +44,7 @@ import DashboardGridItems from './DashboardGridItems'
 
 // import GeoSelect from 'my-app/components/GeoSelect/GeoSelect';
 // import GeoStepper from 'my-app/components/steppers/GeoStepper';
+import Loading from 'my-app/components/Loading.js';
 import SettingsMessage from 'my-app/components/SettingsMessage';
 import SettingsStepper from 'my-app/components/steppers/SettingsStepper';
 
@@ -87,8 +88,9 @@ const INITIAL_STATE_DIALOG = {
 const INITIAL_STATE = {
   ...INITIAL_STATE_DIALOG,
 
-  categoryOpen: false,
+  isLoading: true,
   bizCategory: null,
+  categoryOpen: false,
 
   show: 'main', // 'main', 'step', 'greet',
   // condensedDashboard: false,
@@ -146,7 +148,10 @@ class Dashboard extends Component {
         // this.setState(out);
         // always set state inside promise!
         // otherwise, function returns before data loads!
-        const newState = result;
+        const newState = {
+          ...result,
+          isLoading: false,
+        };
         this.setState(newState);
       })
       .catch(error => {
@@ -292,7 +297,7 @@ class Dashboard extends Component {
       console.log( 'bizCategory\n' , bizCategory );
     };
 
-    const { show } = this.state;
+    const { show, isLoading, } = this.state;
     const {
       // handleChangeSwitch, 
       handleSaveSettingsStepper, handleClickGeo,
@@ -427,6 +432,10 @@ class Dashboard extends Component {
         //   //  className={classNames(classes.toolbarWrapper, classes.toolbar,)}
         //   //  onClick={navbarOpenMobile}
         // />
+      isLoading
+      ?
+      <Loading />
+      :
       <Slide in direction="right">
         <div className={classes.wrapper}>
           { ( show === 'greet' ) ? <SettingsMessage onClick={handleClickGeo} />           : null }
