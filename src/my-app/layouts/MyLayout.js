@@ -21,7 +21,7 @@ const MyLayout = props => {
   return (
     <div
     // className="w-full"
-    className={classNames( "w-full border border-green", classes.wrapper, )}
+    className={classNames( "w-full overflow-auto", classes.wrapper, )}
     >
     {
     // <div className="border-8 border-blue w-full overflow-auto">
