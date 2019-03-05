@@ -3,7 +3,7 @@ import React from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from "@material-ui/core/Grid";
 
-const style = {
+const styles = {
   grid: {
     margin: "0 -15px !important"
   }
@@ -18,4 +18,4 @@ function GridContainer(props) {
   );
 }
 
-export default withStyles(style)(GridContainer);
+export default withStyles(styles)(GridContainer);

@@ -1,5 +1,8 @@
 import React from 'react';
 
+import classNames from 'classnames';
+import { withStyles, } from '@material-ui/core';
+
 import MediaWidth from './MediaWidth';
 import MobileDrawer from './drawers/MobileDrawer';
 import TabletDrawer from './drawers/TabletDrawer';
@@ -7,13 +10,23 @@ import LaptopDrawer from './drawers/LaptopDrawer';
 // import ResponsiveDrawer from './drawers/ResponsiveDrawer';
 // import { CssBaseline, } from '@material-ui/core';
 
+const styles = theme => ({
+  wrapper: {
+    height: '100vh',
+  },
+})
+
 const MyLayout = props => {
+  const { classes, } = props;
   return (
-    <div className="w-full overflow-auto">
-      {
+    <div
+    // className="w-full"
+    className={classNames( "w-full border border-green", classes.wrapper, )}
+    >
+    {
     // <div className="border-8 border-blue w-full overflow-auto">
-      // <CssBaseline />
-      }
+    // <CssBaseline />
+    }
       <MediaWidth
         mobile={<MobileDrawer/>}
         tablet={<TabletDrawer/>}
@@ -24,4 +37,5 @@ const MyLayout = props => {
   );
 }
 
-export default MyLayout;
+// export default MyLayout;
+export default withStyles(styles, { withTheme: true, })(MyLayout);

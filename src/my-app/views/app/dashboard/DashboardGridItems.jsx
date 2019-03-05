@@ -139,27 +139,30 @@ function DashboardGridItems(props) {
         // laptop
         ( 
           rows.map(row => (
-            <div>
+            <div key={row.name}>
               <Typography variant="subtitle1" className="block pb-8 border border-green opacity-75 font-light">{row.name}</Typography>
               <FuseAnimateGroup
+                className="flex flex-wrap"
                 key={row.name}
                 delay={200}
                 enter={{ animation: 'transition.slideUpBigIn' }}
                 leave={{ animation: 'transition.slideLeftBigOut' }}
               >
-                <GridContainer>
+                {/* <GridContainer> */}
                   {
                     row.cells.map(cell => (
                       // <FuseAnimate animation="transition.slideLeftIn" duration={400} delay={100}>
+                      // <div key={cell.label} className="w-1/2">
                       <DashboardGridItem
                         key={cell.label}
                         item={cell}
                         onClickInfo={() => onClickInfo(cell)}
                       />
+                      // </div>
                       // </FuseAnimate>
                     ))
                   }
-                </GridContainer>
+                {/* </GridContainer> */}
               </FuseAnimateGroup>
             </div>
         )))

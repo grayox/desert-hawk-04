@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withStyles, } from '@material-ui/core';
 import {
   Switch, Route,
   // Redirect,
@@ -20,10 +21,17 @@ import { componentsNavConfig } from 'my-app/config/AppConfig';
 // import Help from 'my-app/views/overhead/Help';
 // import Logout from 'my-app/views/overhead/Logout';
 
+const styles = theme => ({
+  wrapper: {
+    height: '100vh',
+  },
+})
+
 const items = componentsNavConfig.filter(r => (r.type==='item' || r.type==='route'));
 
 class Routes extends Component {
   render() {
+    const { classes, } = this.props;
     // const Settings = FuseLoadable({loader: () => import('my-app/views/overhead/settings/Settings')});
 
     return (
@@ -92,17 +100,20 @@ class Routes extends Component {
       // latest working
       // <Redirect from='/'       to='/dashboard' />
       // <Redirect from='/login'  to='/dashboard' />
-      <Switch>
-        <Route path='/' exact component={FuseLoadable({loader: () => import('my-app/views/app/dashboard/Dashboard' )})} />
-        <Route path='/login'  component={FuseLoadable({loader: () => import('my-app/views/app/dashboard/Dashboard' )})} />
-        {
-        items.map(({ id, path, component, }) => <Route key={id} path={path} component={component()} />)
-        }
-        <Route path='/logout' component={FuseLoadable({loader: () => import('my-app/views/overhead/Logout'         )})} />
-        <Route                component={FuseLoadable({loader: () => import('my-app/views/overhead/Error404'       )})} />
-      </Switch>
+      <div className={classes.wrapper}>
+        <Switch>
+          <Route path='/' exact component={FuseLoadable({loader: () => import('my-app/views/app/dashboard/Dashboard' )})} />
+          <Route path='/login'  component={FuseLoadable({loader: () => import('my-app/views/app/dashboard/Dashboard' )})} />
+          {
+          items.map(({ id, path, component, }) => <Route key={id} path={path} component={component()} />)
+          }
+          <Route path='/logout' component={FuseLoadable({loader: () => import('my-app/views/overhead/Logout'         )})} />
+          <Route                component={FuseLoadable({loader: () => import('my-app/views/overhead/Error404'       )})} />
+        </Switch>
+      </div>
     );
   }
 }
 
-export default Routes;
+// export default Routes;
+export default withStyles(styles, { withTheme: true, })(Routes);

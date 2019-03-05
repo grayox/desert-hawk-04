@@ -150,7 +150,7 @@ class HashAvatar extends Component {
         src={[getSrc(props), getSrcMp,]}
         // loader={<img src={getSrcMp} />}
         loader={<CircularProgress color="secondary" />} // className={this.props.classes.progress}
-        unloader={<img src={getSrcMp} />}
+        unloader={<img alt="default" src={getSrcMp} />}
       />
     </VisibilitySensor>
   )
