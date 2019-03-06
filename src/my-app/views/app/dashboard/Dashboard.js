@@ -72,7 +72,7 @@ const styles = theme => ({
   wrapper: {
     padding: 0, // flush with top on mobile //'56px', // clears <AppBar />
     // verticalAlign: 'top', // overcomes default
-    width: '100vw', // flush with right edge on mobile
+    width: 'calc(100vw - 384px)', // flush with right edge on mobile
     height: 'calc(100vh - 128px)',
   },
 
@@ -115,7 +115,7 @@ class Dashboard extends Component {
     if(!this.props.user) return;
     const uid = this && this.props && this.props.user &&
                 this.props.user.data && this.props.user.data.uid;
-    return uid ? [ 'users' , uid , 'settings', ].join('/') : null;
+    return uid ? [ 'users' , uid , 'settings' , ].join('/') : null;
   }
 
   getSettings() {

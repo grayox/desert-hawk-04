@@ -36,8 +36,8 @@ const styles = theme => ({
     }),
   },
   appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: drawerWidth.tablet,
+    width: `calc(100% - ${drawerWidth.tablet}px)`,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -56,14 +56,14 @@ const styles = theme => ({
     marginLeft: -24,
   },
   drawer: {
-    width: drawerWidth,
+    width: drawerWidth.tablet,
     flexShrink: 0,
     whiteSpace: 'nowrap',
     height: 'calc(100% - 88px)',
   },
   drawerOpen: {
     backgroundColor: '#303030', // 262933 per styles/index.css
-    width: drawerWidth,
+    width: drawerWidth.tablet,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,

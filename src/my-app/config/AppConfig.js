@@ -41,7 +41,10 @@ import { FaSignOutAlt } from 'react-icons/fa'; // https://react-icons.netlify.cI
 // import CRUDContainer from 'my-app/layouts/crud/CRUDContainer';
 
 // import { drawerWidth } from 'my-app/config/AppConfig';
-export const drawerWidth = 256 // per spec https://material.io/design/components/navigation-drawer.html#specs
+export const drawerWidth = {
+  tablet: 256 , 
+  laptop: 256 , // per spec https://material.io/design/components/navigation-drawer.html#specs
+}
 
 export const firebaseConfig = {
   apiKey: "AIzaSyAOEXILaYcxjmJsJ81_WfubS_h3AQ3lLdA",

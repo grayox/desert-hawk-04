@@ -24,18 +24,18 @@ const styles = theme => ({
     display: 'flex',
   },
   appBar: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth.laptop}px)`,
+    marginLeft: drawerWidth.laptop,
   },
   drawer: {
     // temp-border
     // border: 'solid yellow',
     boxSizing: 'border-box',
-    width: drawerWidth,
+    width: drawerWidth.laptop,
     flexShrink: 0,
   },
   drawerPaper: {
-    width: drawerWidth,
+    width: drawerWidth.laptop,
     backgroundColor: '#303030', // 262933 per styles/index.css
   },
   toolbar: theme.mixins.toolbar,
@@ -47,11 +47,14 @@ const styles = theme => ({
     // temp-border
     // border: 'solid purple',
     marginTop: 68,
+    // width: `calc(100% - ${drawerWidth.laptop}px)`,
+    height: 'calc(100vh - 128px)',
+    // overflow: 'auto',
   },
 });
 
 const PermanentDrawerLeft = props => {
-  const { classes } = props;
+  const { classes, } = props;
 
   return (
     <div className={classes.root}>
