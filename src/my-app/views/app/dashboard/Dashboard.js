@@ -49,6 +49,7 @@ import SettingsMessage from 'my-app/components/SettingsMessage';
 import SettingsStepper from 'my-app/components/steppers/SettingsStepper';
 
 // config
+import { mdSpecs } from 'my-app/config/AppConfig';
 import { bizCategoryItems } from 'my-app/config/AppConfig';
 
 // firebase
@@ -72,7 +73,7 @@ const styles = theme => ({
   wrapper: {
     padding: 0, // flush with top on mobile //'56px', // clears <AppBar />
     // verticalAlign: 'top', // overcomes default
-    width: 'calc(100vw - 384px)', // flush with right edge on mobile
+    width: `calc(100vw - ${mdSpecs.drawerWidth})`, // flush with right edge on mobile
     height: 'calc(100vh - 128px)',
   },
 

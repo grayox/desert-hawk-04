@@ -15,7 +15,7 @@ import BrandAppBar from '../appBars/BrandAppBar';
 import DrawerContent from './DrawerContent';
 // import DrawerContent1 from './DrawerContent1'; // specs/dimensions reference for sizing, spacing, etc
 
-import { drawerWidth } from 'my-app/config/AppConfig';
+import { mdSpecs } from 'my-app/config/AppConfig';
 
 const styles = theme => ({
 
@@ -24,18 +24,18 @@ const styles = theme => ({
   },
 
   list: {
-    width: drawerWidth, // 250,
+    width: mdSpecs.drawerWidth, // 250,
   },
   fullList: {
     width: 'auto',
   },
 
   drawer: {
-    width: drawerWidth,
+    width: mdSpecs.drawerWidth,
     flexShrink: 0,
   },
   drawerPaper: {
-    width: drawerWidth,
+    width: mdSpecs.drawerWidth,
     backgroundColor: '#303030', // 262933 per styles/index.css
   },
   toolbar: theme.mixins.toolbar,

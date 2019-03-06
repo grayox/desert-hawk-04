@@ -17,22 +17,22 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 
-const drawerWidth = 240;
+const mdSpecs.drawerWidth = 240;
 
 const styles = theme => ({
   root: {
     display: 'flex',
   },
   appBar: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
+    width: `calc(100% - ${mdSpecs.drawerWidth}px)`,
+    marginLeft: mdSpecs.drawerWidth,
   },
   drawer: {
-    width: drawerWidth,
+    width: mdSpecs.drawerWidth,
     flexShrink: 0,
   },
   drawerPaper: {
-    width: drawerWidth,
+    width: mdSpecs.drawerWidth,
   },
   toolbar: theme.mixins.toolbar,
   content: {

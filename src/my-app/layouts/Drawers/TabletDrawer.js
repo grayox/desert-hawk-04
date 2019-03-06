@@ -1,4 +1,4 @@
-// Tablet (600-1280)
+// Tablet (600-1280px)
 // inspired by https://material-ui.com/demos/drawers/#mini-variant-drawer
 
 import React, { Component, } from 'react';
@@ -21,7 +21,7 @@ import RoutePageTitle from 'my-app/components/RoutePageTitle';
 import DrawerContent from './DrawerContent';
 // import DrawerContent1 from './DrawerContent1'; // specs/dimensions reference for sizing, spacing, etc
 
-import { drawerWidth } from 'my-app/config/AppConfig';
+import { mdSpecs } from 'my-app/config/AppConfig';
 // const drawerWidth = 240;
 
 const styles = theme => ({
@@ -36,8 +36,8 @@ const styles = theme => ({
     }),
   },
   appBarShift: {
-    marginLeft: drawerWidth.tablet,
-    width: `calc(100% - ${drawerWidth.tablet}px)`,
+    marginLeft: mdSpecs.drawerWidth,
+    width: `calc(100% - ${mdSpecs.drawerWidth}px)`,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -56,14 +56,14 @@ const styles = theme => ({
     marginLeft: -24,
   },
   drawer: {
-    width: drawerWidth.tablet,
+    width: mdSpecs.drawerWidth,
     flexShrink: 0,
     whiteSpace: 'nowrap',
     height: 'calc(100% - 88px)',
   },
   drawerOpen: {
     backgroundColor: '#303030', // 262933 per styles/index.css
-    width: drawerWidth.tablet,
+    width: mdSpecs.drawerWidth,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,

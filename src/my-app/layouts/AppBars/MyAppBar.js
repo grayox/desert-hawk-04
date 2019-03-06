@@ -26,7 +26,7 @@ import {
 // import Headroom from 'my-app/components/AutoHideOnScroll';
 
 // import MediaWidth from 'my-app/layouts/MediaWidth';
-import { drawerWidth } from 'my-app/config/AppConfig';
+import { mdSpecs } from 'my-app/config/AppConfig';
 
 
 // import { useMediaPredicate } from 'react-media-hook'; // <20 downloads
@@ -63,12 +63,12 @@ const styles = theme => ({
     },
 
     appBar: {
-      marginLeft: drawerWidth,
-      width: `calc(100% - ${drawerWidth}px)`,
+      marginLeft: mdSpecs.drawerWidth,
+      width: `calc(100% - ${mdSpecs.drawerWidth}px)`,
     },
   // }
 
-  // if( this && this.state && this.state.device === 'laptop') out.appBar.width = `calc(100% - ${drawerWidth}px)`;
+  // if( this && this.state && this.state.device === 'laptop') out.appBar.width = `calc(100% - ${mdSpecs.drawerWidth}px)`;
 
   // return out;
 });
