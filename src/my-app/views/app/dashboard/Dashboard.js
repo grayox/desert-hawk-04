@@ -40,6 +40,7 @@ import dashboardStyle from "my-app/vendors/creative-tim/assets/jss/material-dash
 // import classNames from 'classnames';
 
 // Custom Components
+import DashboardWidgets from './DashboardWidgets'
 import DashboardGridItems from './DashboardGridItems'
 
 // import GeoSelect from 'my-app/components/GeoSelect/GeoSelect';
@@ -388,6 +389,7 @@ class Dashboard extends Component {
         }
 
         <Hidden smUp>
+          <DashboardWidgets />
           <DashboardGridItems 
             // condensedDashboard={condensedDashboard}
             condensedDashboard
@@ -405,6 +407,7 @@ class Dashboard extends Component {
         </Hidden>
 
         <Hidden xsDown>
+          <DashboardWidgets />
           <DashboardGridItems 
             // condensedDashboard={condensedDashboard}
             // condensedDashboard

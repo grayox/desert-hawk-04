@@ -140,7 +140,7 @@ function DashboardGridItems(props) {
         ( 
           rows.map(row => (
             <div key={row.name}>
-              <Typography variant="subtitle1" className="block pb-8 border border-green opacity-75 font-light">{row.name}</Typography>
+              <Typography variant="subtitle1" className="block pb-8 opacity-75 font-light">{row.name}</Typography>
               <FuseAnimateGroup
                 className="flex flex-wrap"
                 key={row.name}
