@@ -460,7 +460,7 @@ Dashboard.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-function mapStateToProps( state ) {
+const mapStateToProps = state => {
   // console.log('state\n', state);
   const settings = state.firestore.ordered.users
                 && state.firestore.ordered.users[0]

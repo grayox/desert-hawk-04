@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { Icon, Typography, Paper, IconButton } from '@material-ui/core';
 
-class Widget extends Component {
+class DashboardWidget extends Component {
   render() {
     const { widget } = this.props;
 
@@ -32,4 +32,4 @@ class Widget extends Component {
   }
 }
 
-export default Widget;
+export default DashboardWidget;

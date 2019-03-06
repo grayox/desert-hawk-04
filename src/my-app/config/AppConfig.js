@@ -42,9 +42,9 @@ import { FaSignOutAlt } from 'react-icons/fa'; // https://react-icons.netlify.cI
 
 // import { mdSpecs } from 'my-app/config/AppConfig';
 export const mdSpecs = {
-  drawerWidth     : 256, // https://material.io/design/components/navigation-drawer.html#specs
-  // appBarHeight    :  64, // 64 per MUI theme // 56 per spec: https://material.io/design/components/app-bars-top.html#specs
-  // bottomNavHeight :  56,
+  drawerWidth: 256, // https://material.io/design/components/navigation-drawer.html#specs
+  // appBarHeight:  64, // 64 per MUI theme // 56 per spec: https://material.io/design/components/app-bars-top.html#specs
+  // bottomNavHeight:  56,
 }
 
 export const firebaseConfig = {
