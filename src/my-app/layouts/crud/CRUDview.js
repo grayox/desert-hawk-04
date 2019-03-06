@@ -204,7 +204,7 @@ class CRUDView extends Component {
         <React.Fragment>
           <Icon className="mt-32 opacity-25" fontSize="large">library_books</Icon>
           <Typography variant="body1" color="textSecondary">
-            See details here after selecting item
+          Select an item to view
           </Typography>
         </React.Fragment>
       }
