@@ -149,9 +149,9 @@ class CRUDView extends Component {
         <DialogContentText>
           It&rsquo;s permanent and cannot be undone.
         {
-            // Are you sure you want to delete this record?
-            // After deleted, this record will not be recoverable.
-          }
+          // Are you sure you want to delete this record?
+          // After deleted, this record will not be recoverable.
+        }
         </DialogContentText>
         {
           // <TextField autoFocus margin="dense" id="dialog" label="dialog" type="email" fullWidth />

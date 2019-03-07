@@ -21,9 +21,8 @@ import { updateSettings } from 'my-app/store/actions/my-actions';
 // @material-ui/core
 // import Icon from "@material-ui/core/Icon";
 import {
-  // AppBar, Toolbar, Typography, // CssBaseline,
-  withStyles, Slide, Hidden,
-  Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
+  // AppBar, Toolbar, Typography, // CssBaseline, Slide,
+  withStyles, Hidden, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
 } from '@material-ui/core';
 
 // import ViewListIcon from '@material-ui/icons/ViewList';
@@ -440,7 +439,7 @@ class Dashboard extends Component {
       ?
       <Loading />
       :
-      <Slide in direction="right">
+      // <Slide in direction="right">
         <div className={classes.wrapper}>
           { ( show === 'greet' ) ? <SettingsMessage onClick={handleClickGeo} />           : null }
           { ( show === 'step'  ) ? <SettingsStepper onSave={handleSaveSettingsStepper} /> : null }
@@ -449,7 +448,7 @@ class Dashboard extends Component {
           // <Album />
           }
         </div>
-      </Slide>
+      // </Slide>
       // </React.Fragment>
     );
   }
