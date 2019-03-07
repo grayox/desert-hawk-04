@@ -79,19 +79,20 @@ const DashboardWidgets = props => {
       //   )}
       // </GridList>
 
+    <div className="pt-16 sm:pt-0">
       <Grid container spacing={16}>
         {items && items.map(item =>
           <Grid
             item
             key={`${item.name}${item.label}`}
             // className={classes.gridList}
-            className="widget flex w-full mx-12 sm:mx-0 sm:w-1/2 md:w-1/3 lg:1/4 p-12"
+            className="widget flex w-full mx-16 sm:mx-0 sm:w-1/2 md:w-1/3 lg:1/4 p-16"
           >
             <DashboardWidget widget={item} />
           </Grid>
         )}
       </Grid>
-    // </div>
+    </div>
   );
 }
 
