@@ -46,6 +46,7 @@
         "react-dnd": "2.6.0",
         "react-dnd-html5-backend": "2.6.0",
         "react-dom": "16.6.3",
+        "react-fittext": "^1.0.0",
         "react-frame-component": "4.0.2",
         "react-icons": "^3.3.0",
         "react-image": "^2.0.0",

@@ -74,7 +74,7 @@ function FuseNavVerticalItem({ item, classes, /*nestedLevel,*/ userRole, navbarC
       component={NavLink}
       to={item.path}
       activeClassName="active"
-      className={classNames(classes.item, listItemPadding, 'list-item text-white', active)}
+      className={classNames(classes.item, listItemPadding, 'list-item text-white', active)} // md:rounded-full
       onClick={navbarCloseMobile}
       exact={item.exact}
     >
