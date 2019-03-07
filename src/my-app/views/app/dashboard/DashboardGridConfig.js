@@ -1,175 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-// import withStyles from "@material-ui/core/styles/withStyles";
-
-import AccountBoxIcon from '@material-ui/icons/AccountBox';
-import AddIcon from '@material-ui/icons/Add';
-// import Button from "@material-ui/core/Button";
-import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-// import ContactsIcon from '@material-ui/icons/Contacts';
-import DragHandleIcon from '@material-ui/icons/DragHandle';
-import FlagIcon from '@material-ui/icons/Flag';
-import FolderIcon from '@material-ui/icons/Folder';
-import LabelIcon from '@material-ui/icons/Label';
-import PlaceIcon from '@material-ui/icons/Place';
-import RemoveIcon from '@material-ui/icons/Remove';
-// import SaveIcon from '@material-ui/icons/Save';
-import TrackChangesIcon from '@material-ui/icons/TrackChanges';
-import WarningIcon from '@material-ui/icons/Warning';
-
-// import {FuseAnimateGroup, FuseHighlight, FusePageSimple} from '@fuse';
-import { FuseAnimateGroup, } from '@fuse'; // FuseAnimate
 
 // @material-ui/core
-import {
-  // Button, Icon, IconButton,
-  // AppBar, Toolbar, ListItemIcon, 
-  Typography, Avatar, ListItemAvatar, Card, CardContent, Divider,
-  List, ListSubheader, ListItem, ListItemText, ListItemSecondaryAction,
-} from '@material-ui/core';
-
-// core components
-// import GridContainer from "my-app/vendors/creative-tim/components/Grid/GridContainer";
-
-// custom components
-import SelectControl from 'my-app/components/selects/SelectControl.js';
-import DashboardGridItem from './DashboardGridItem'
-
-// CategorySelect
-import HomeIcon from '@material-ui/icons/Home';
-import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
-import AssessmentIcon from '@material-ui/icons/Assessment';
-import AssignmentIcon from '@material-ui/icons/Assignment';
-
-const styles = theme => ({
-  root: {
-    width: '100%',
-    // maxWidth: 360,
-    // backgroundColor: theme.palette.background.paper,
-  },
-  // container: {
-  //   padding: '24px',
-  // },
-});
-
-const DashboardGridItems = props => {
-  const { onClickInfo, condensedDashboard, } = props; // classes,
-  const rows = getRows(props);
-  // console.log('props', props);
-  return (
-    <React.Fragment>
-      {
-        condensedDashboard
-        ?
-        // mobile
-        (
-          <Card className="w-full m-0 md:mb-16">
-            <CardContent className="px-0">
-              <FuseAnimateGroup
-                // className="px-0"
-                // key={row.name}
-                delay={200}
-                enter={{ animation: 'transition.slideUpBigIn' }}
-                leave={{ animation: 'transition.slideDownBigOut' }}
-              >
-                {
-                  rows.map(row => (
-                    <List
-                      key={row.name}
-                      component="nav"
-                      className="px-0 mb-4"
-                      subheader={<ListSubheader>{row.name}</ListSubheader>}
-                    >
-                      <Divider />
-                      <FuseAnimateGroup
-                        // className="px-0"
-                        // key={row.name}
-                        delay={200}
-                        enter={{ animation: 'transition.slideUpBigIn' }}
-                        leave={{ animation: 'transition.slideDownBigOut' }}
-                      >
-                        {
-                          row.cells.map(cell => (
-                            <ListItem
-                              key={cell.label}
-                              button divider light
-                              // aria-haspopup="false"
-                              // aria-controls="username"
-                              // aria-label="username"
-                              // onClick={handleClickListItemDialog({
-                              //   dialogTitle: 'Name',
-                              //   isDialogTextField: true,
-                              //   dialogTextFieldLabel: 'first and last',
-                              //   dialogFieldName: 'name',
-                              // })}
-                              onClick={() => onClickInfo(cell)}
-                            >
-                            {
-                            // <ListItemIcon>
-                            //   {React.createElement(cell.icon)}
-                            // </ListItemIcon>
-                            }
-                              <ListItemAvatar>
-                                <Avatar>
-                                  {React.createElement(cell.icon)}
-                                </Avatar>
-                              </ListItemAvatar>
-                              <ListItemText
-                                primary={cell.label}
-                              // secondary={name}
-                              // secondary={user.data.displayName}
-                              />
-                              <ListItemSecondaryAction className="pr-32">
-                                {cell.data}
-                              </ListItemSecondaryAction>
-                            </ListItem>
-                          ))
-                        }
-                      </FuseAnimateGroup>
-                    </List>
-                  ))
-                }
-              </FuseAnimateGroup>
-            </CardContent>
-          </Card>
-        )
-        :
-        // laptop
-        ( 
-          rows.map(row => (
-            <div key={row.name}>
-              <Typography variant="subtitle1" className="block pb-8 opacity-75 font-light">{row.name}</Typography>
-              <FuseAnimateGroup
-                className="flex flex-wrap"
-                key={row.name}
-                delay={200}
-                enter={{ animation: 'transition.slideUpBigIn' }}
-                leave={{ animation: 'transition.slideLeftBigOut' }}
-              >
-                {/* <GridContainer> */}
-                  {
-                    row.cells.map(cell => (
-                      // <FuseAnimate animation="transition.slideLeftIn" duration={400} delay={100}>
-                      // <div key={cell.label} className="w-1/2">
-                      <DashboardGridItem
-                        key={cell.label}
-                        item={cell}
-                        onClickInfo={() => onClickInfo(cell)}
-                      />
-                      // </div>
-                      // </FuseAnimate>
-                    ))
-                  }
-                {/* </GridContainer> */}
-              </FuseAnimateGroup>
-            </div>
-        )))
-      }
-    </React.Fragment>
-  );
-}
+import { Typography, Icon, } from '@material-ui/core';
 
 const marketDescription = (
   <Typography className="mt-12">
@@ -182,20 +14,22 @@ const marketDescription = (
   </Typography>
 );
 
-const getRows = props => {
-  const {
-    categoryOpen, categoryItems, bizCategory,
-    onCategoryOpen, onCategoryClose, onCategoryChange,
-    geoLocal, geoRegion, geoNation,
-  } = props;
-  return [
+export const DashboardGridConfig = [
     {
       name: 'Balances',
+      desc:
+        <React.Fragment>
+          <Typography>
+            These are a running total of how many times you have done important activities we need to track.
+            Your net balance is key. Because when it&rsquo;s at zero, you will need to make more &ldquo;deposits&rdquo;
+            by making at least one referral in order to receive more leads.
+          </Typography>
+        </React.Fragment>,
       cells: [
         {
           label: 'Net',
           data: 5,
-          icon: DragHandleIcon,
+          icon: 'drag_handle',
           color: 'warning',
           buttonLabel: 'Hai',
           desc:
@@ -217,7 +51,7 @@ const getRows = props => {
         {
           label: 'Deposits',
           data: 5,
-          icon: AddIcon,
+          icon: 'add',
           color: 'success',
           buttonLabel: 'Deposit new',
           desc:
@@ -243,7 +77,7 @@ const getRows = props => {
         {
           label: 'Withdrawals',
           data: 5,
-          icon: RemoveIcon,
+          icon: 'remove',
           color: 'danger',
           buttonLabel: 'See available',
           desc:
@@ -263,7 +97,7 @@ const getRows = props => {
         {
           label: 'Challenges',
           data: <span>&minus;5</span>,
-          icon: WarningIcon,
+          icon: 'warning',
           color: 'primary',
           buttonLabel: 'See challenges',
           desc:
@@ -285,11 +119,19 @@ const getRows = props => {
     },
     {
       name: 'Inventories',
+      desc:
+        <React.Fragment>
+          <Typography>
+            These are the count of individual items you have available or
+            have made available in the individual categories we are tracking.
+            When an item is added to your inventory, it increases your balance.
+          </Typography>
+        </React.Fragment>,
       cells: [
         {
           label: 'Inbox',
           data: 5,
-          icon: CloudDownloadIcon,
+          icon: 'cloud_download',
           color: 'info',
           buttonLabel: 'View inbox',
           desc:
@@ -301,7 +143,7 @@ const getRows = props => {
         {
           label: 'Archive',
           data: 5,
-          icon: FolderIcon, // SaveIcon,
+          icon: 'folder',
           color: 'success',
           buttonLabel: 'View archive',
           desc:
@@ -313,7 +155,7 @@ const getRows = props => {
         {
           label: 'Outbox',
           data: 5,
-          icon: CloudUploadIcon,
+          icon: 'cloud_upload',
           color: 'primary',
           buttonLabel: 'View outbox',
           desc:
@@ -325,7 +167,7 @@ const getRows = props => {
         {
           label: 'Contacts',
           data: 5,
-          icon: AccountBoxIcon, // ContactsIcon,
+          icon: 'account_box',
           color: 'success',
           buttonLabel: 'Add contact',
           desc:
@@ -338,28 +180,36 @@ const getRows = props => {
     },
     {
       name: 'Details',
+      desc:
+        <React.Fragment>
+          <Typography>
+            This is information about you that we require in order to match you with the correct leads.
+            We also use this information to help send leads from you to the correct geographical location.
+          </Typography>
+        </React.Fragment>,
       cells: [
         {
           label: 'Category',
-          data: <span className="capitalize">{bizCategory}</span>,
-          icon: LabelIcon,
+          // data: <span className="capitalize">{bizCategory}</span>,
+          data: 'Mortgage',
+          icon: 'label',
           color: 'info',
           typog: 'subtitle1',
           buttonLabel: 'Edit',
-          btn:
-            <SelectControl
-              size='small'
-              control='button'
-              label='Change category'
-              open={categoryOpen}
-              items={categoryItems}
-              value={bizCategory}
-              onOpen={onCategoryOpen}
-              onClick={onCategoryOpen}
-              onClose={onCategoryClose}
-              onChange={onCategoryChange}
-            />
-          ,
+          // btn:
+          //   <SelectControl
+          //     size='small'
+          //     control='button'
+          //     label='Change category'
+          //     open={categoryOpen}
+          //     items={categoryItems}
+          //     value={bizCategory}
+          //     onOpen={onCategoryOpen}
+          //     onClick={onCategoryOpen}
+          //     onClose={onCategoryClose}
+          //     onChange={onCategoryChange}
+          //   />
+          // ,
           desc:
             <React.Fragment>
               Tell us the type of leads you want.
@@ -367,7 +217,7 @@ const getRows = props => {
                 <li>
                   <Typography className="mt-12">
                     <Typography className="mr-12">Home</Typography>
-                    {React.createElement(HomeIcon)}
+                    <Icon>home</Icon>
                   </Typography>
                   <Typography>
                     Select this if you are a real estate broker or agent selling homes to residential buyers
@@ -376,7 +226,7 @@ const getRows = props => {
                 <li>
                   <Typography className="mt-12">
                     <Typography className="mr-12">Mortgage</Typography>
-                    {React.createElement(AccountBalanceIcon)}
+                    <Icon>account_balance</Icon>
                   </Typography>
                   <Typography>
                     Select this if you are a real estate mortgage broker or agent selling financing to home buyers
@@ -385,7 +235,7 @@ const getRows = props => {
                 <li>
                   <Typography className="mt-12">
                     <Typography className="mr-12">Insurance</Typography>
-                    {React.createElement(AssessmentIcon)}
+                    <Icon>assessment</Icon>
                   </Typography>
                   <Typography>
                     Select this if you are an insurance broker or agent selling property and casualty policies
@@ -394,7 +244,7 @@ const getRows = props => {
                 <li>
                   <Typography className="mt-12">
                     <Typography className="mr-12">Financial</Typography>
-                    {React.createElement(AssignmentIcon)}
+                    <Icon>assignment</Icon>
                   </Typography>
                   <Typography>
                     Select this if you are a financial planner and advise clients on their personal finances
@@ -406,9 +256,9 @@ const getRows = props => {
         },
         {
           label: 'Location',
-          // data: 'Scholes',
-          data: geoLocal,
-          icon: PlaceIcon,
+          data: 'Scholes',
+          // data: geoLocal,
+          icon: 'place',
           color: 'primary',
           typog: 'subtitle1',
           buttonLabel: 'Edit',
@@ -425,9 +275,9 @@ const getRows = props => {
         },
         {
           label: 'State',
-          // data: 'Mississippi',
-          data: geoRegion,
-          icon: TrackChangesIcon,
+          data: 'Mississippi',
+          // data: geoRegion,
+          icon: 'track_changes',
           color: 'warning',
           typog: 'subtitle1',
           buttonLabel: 'Edit',
@@ -442,9 +292,9 @@ const getRows = props => {
         },
         {
           label: 'Country',
-          // data: 'United States',
-          data: geoNation,
-          icon: FlagIcon,
+          data: 'United States',
+          // data: geoNation,
+          icon: 'flag',
           color: 'primary',
           typog: 'subtitle1',
           buttonLabel: 'Edit',
@@ -460,23 +310,3 @@ const getRows = props => {
       ]
     },
   ]
-}
-
-DashboardGridItems.propTypes = {
-  // classes: PropTypes.object.isRequired,
-  onCategoryOpen: PropTypes.func.isRequired,
-  onCategoryClose: PropTypes.func.isRequired,
-  onCategoryChange: PropTypes.func.isRequired,
-  onClickInfo: PropTypes.func.isRequired,
-  categoryOpen: PropTypes.bool.isRequired,
-  categoryItems: PropTypes.arrayOf(PropTypes.object).isRequired,
-  bizCategory: PropTypes.string,
-  geoLocal: PropTypes.string,
-  geoRegion: PropTypes.string,
-  geoNation: PropTypes.string,
-  onClickGeoLocal: PropTypes.func.isRequired,
-  onClickGeoRegion: PropTypes.func.isRequired,
-  onClickGeoNation: PropTypes.func.isRequired,
-};
-
-export default withStyles(styles)(DashboardGridItems);

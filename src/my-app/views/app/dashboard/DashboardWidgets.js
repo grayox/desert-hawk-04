@@ -1,6 +1,7 @@
 // inspired by https://github.com/withinpixels/fuse-react/blob/v2.2.3/src/app/main/apps/dashboards/project/ProjectDashboardApp.js
     
 import React from 'react';
+import { DashboardGridConfig } from './DashboardGridConfig'
 import DashboardWidget from './DashboardWidget';
 
 const widget = {
