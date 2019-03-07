@@ -4,7 +4,7 @@ import React, {Component} from 'react';
 import { withStyles } from '@material-ui/core/styles/index';
 import classNames from 'classnames';
 
-import { Typography } from '@material-ui/core';
+import { Typography, } from '@material-ui/core';
 import { FuseAnimate, } from '@fuse';
 
 import FeedbackForm from 'my-app/components/forms/FeedbackForm';
@@ -67,12 +67,16 @@ class Feedback extends Component {
         </div>
 
         <div className={classNames(classes.content, "flex")}>
-          <div className="flex-1 max-w-xl w-full mx-auto px-16 sm:px-24 py-24 sm:py-32">
-            <FeedbackForm />
-          </div>
-          <div className="flex-1 max-w-xl w-full mx-auto px-16 sm:px-24 py-24 sm:py-32">
-            <RatingSelect />
-          </div>
+          <FuseAnimate animation="transition.slideUpIn" duration={450} delay={200}>
+            <div className="flex-1 max-w-xl w-full mx-auto px-16 sm:px-24 py-24 sm:py-32">
+              <FeedbackForm />
+            </div>
+          </FuseAnimate>
+          <FuseAnimate animation="transition.slideUpIn" duration={300} delay={300}>
+            <div className="flex-1 max-w-xl w-full mx-auto px-16 sm:px-24 py-24 sm:py-32">
+              <RatingSelect />
+            </div>
+          </FuseAnimate>
         </div>
       </div>
     );

@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { Icon, Typography, Paper, IconButton, } from '@material-ui/core';
 
 import { Slide, } from '@material-ui/core';
+// import { FuseAnimate, } from '@fuse';
 
 import ReactFitText from 'react-fittext';
 
@@ -13,6 +14,11 @@ class DashboardWidget extends Component {
     const { rowName, data, label, } = widget;
 
     return (
+      // <FuseAnimate
+      //   animation="transition.slideUpIn"
+      //   duration={Math.round(Math.random() * 500)}
+      //   delay={Math.round(Math.random() * 500)}
+      // >
       <Slide  in direction="left" timeout={Math.round(Math.random() * 500)}>
         <Paper className="w-full rounded-8 shadow-none border-1">
           <div className="flex items-center justify-between pr-4 pl-16 pt-4">
@@ -32,6 +38,7 @@ class DashboardWidget extends Component {
           </div>
         </Paper>
       </Slide>
+      // </FuseAnimate>
     );
   }
 }
