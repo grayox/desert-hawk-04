@@ -10,8 +10,15 @@ import ReactFitText from 'react-fittext';
 
 class DashboardWidget extends Component {
   render() {
-    const { widget, } = this.props;
+    const { widget, index, count, } = this.props;
     const { rowName, data, label, } = widget;
+
+    const TIMEOUT_TARGET = 750;
+
+    // const factor = TIMEOUT_TARGET * 2;
+    // const timeout = Math.round(factor * (index+1) / count * Math.random());
+    
+    const timeout = TIMEOUT_TARGET * (index+1) / count;
 
     return (
       // <FuseAnimate
@@ -19,7 +26,7 @@ class DashboardWidget extends Component {
       //   duration={Math.round(Math.random() * 500)}
       //   delay={Math.round(Math.random() * 500)}
       // >
-      <Slide  in direction="left" timeout={Math.round(Math.random() * 500)}>
+      <Slide  in direction="left" timeout={timeout}>
         <Paper className="w-full rounded-8 shadow-none border-1">
           <div className="flex items-center justify-between pr-4 pl-16 pt-4">
             <Typography className="text-16">{rowName}</Typography>
