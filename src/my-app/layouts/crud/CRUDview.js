@@ -40,7 +40,7 @@ const styles = theme => ({
   root: {
     // height: '100%',
     // temp-border
-    // border: 'solid black',
+    // border: 'solid black 4px',
     boxSizing: 'border-box',
     display: 'flex',
   },
@@ -49,16 +49,28 @@ const styles = theme => ({
   },
   wrapper: {
     // temp-border
-    // border: 'solid red',
+    // border: 'solid red 4px',
     flexGrow: 1,
     boxSizing: 'border-box',
     // overflow: 'auto',
   },
   paper: {
     // temp-border
-    // border: 'solid blue',
+    // border: 'solid blue 4px',
     color: theme.palette.text.secondary,
   },
+  empty: {
+    // temp-border
+    // border: 'green solid 4px',
+    height: '100%',
+    textAlign: 'center',
+    paddingTop: 16,
+    // align middle // https://stackoverflow.com/a/25311805
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    textAlign: 'center',
+  }
 });
 
 // https://material-ui.com/demos/dialogs/#alerts
@@ -168,48 +180,51 @@ class CRUDView extends Component {
   )
 
   // getEmpty = () => (<img src="https://via.placeholder.com/800x900.png/e91e63/fff?text=Detail+goes+here"/>)
-  getEmpty = side => (
-    <div className="text-center pt-16 h-full align-middle border border-green">
-      {
-      // <FuseAnimate animation="transition.expandIn" delay={100}>
-      //   <Typography variant="h1" color="inherit" className="font-medium mb-16">
-      //     Detail
-      //   </Typography>
-      //   <Avatar>
-      //     <BeachAccessIcon />
-      //   </Avatar>
-      // </FuseAnimate>
-      }
-      <FuseAnimateGroup
-        delay={500}
-        enter={{ animation: "transition.expandIn" }}
-        leave={{ animation: "transition.expandOut" }}
-      // className="hidden md:flex md-flex-1"
-      >  
-      {
-        ( side === 'list' )
-        ?
-        <React.Fragment>
-          <Icon className="mt-32 opacity-25" fontSize="large">add_circle_outline</Icon>
-          <Typography variant="h4" color="textSecondary">
-            There are no items in this list yet
-          </Typography>
-          {
-            this && this.props && this.props.creatable &&
-            <Button className="mt-32" color="secondary" variant="contained" size="large">Add item</Button>
-          }
-        </React.Fragment>
-        :
-        <React.Fragment>
-          <Icon className="mt-32 opacity-25" fontSize="large">library_books</Icon>
-          <Typography variant="body1" color="textSecondary">
-          Select an item to view
-          </Typography>
-        </React.Fragment>
-      }
-      </FuseAnimateGroup>
-    </div>
-  )
+  getEmpty = side => {
+    const { classes, } = this.props;
+    return (
+      <div className={classes.empty}>
+        {
+        // <FuseAnimate animation="transition.expandIn" delay={100}>
+        //   <Typography variant="h1" color="inherit" className="font-medium mb-16">
+        //     Detail
+        //   </Typography>
+        //   <Avatar>
+        //     <BeachAccessIcon />
+        //   </Avatar>
+        // </FuseAnimate>
+        }
+        <FuseAnimateGroup
+          delay={500}
+          enter={{ animation: "transition.expandIn" }}
+          leave={{ animation: "transition.expandOut" }}
+        // className="hidden md:flex md-flex-1"
+        >  
+        {
+          ( side === 'list' )
+          ?
+          <React.Fragment>
+            <Icon className="mt-32 opacity-25" fontSize="large">add_circle_outline</Icon>
+            <Typography variant="h4" color="textSecondary">
+              There are no items in this list yet
+            </Typography>
+            {
+              this && this.props && this.props.creatable &&
+              <Button className="mt-32" color="secondary" variant="contained" size="large">Add item</Button>
+            }
+          </React.Fragment>
+          :
+          <React.Fragment>
+            <Icon className="mt-32 opacity-25" fontSize="large">library_books</Icon>
+            <Typography variant="body1" color="textSecondary">
+            Select an item to view
+            </Typography>
+          </React.Fragment>
+        }
+        </FuseAnimateGroup>
+      </div>
+    )
+  }
 
   // getHeader = () => (
   //   <Hidden xsDown>
