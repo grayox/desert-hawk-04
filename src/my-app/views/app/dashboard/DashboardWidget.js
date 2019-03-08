@@ -13,14 +13,14 @@ class DashboardWidget extends Component {
     const { widget, index, count, } = this.props;
     const { rowName, data, label, } = widget;
 
-    const TARGET = 750;
+    const TARGET = 850;
 
-    // staggered sequencing
-    // const timeout = TARGET * (index + 1) / count;
+    // linear staggered sequencing
+    const timeout = TARGET * (index + 1) / count;
 
     // random staggered sequencing
-    const factor = TARGET * 2;
-    const timeout = Math.round(factor * (index+1) / count * Math.random());
+    // const factor = TARGET * 2;
+    // const timeout = Math.round(factor * (index+1) / count * Math.random());
 
     return (
       // <FuseAnimate
@@ -28,7 +28,7 @@ class DashboardWidget extends Component {
       //   duration={Math.round(Math.random() * 500)}
       //   delay={Math.round(Math.random() * 500)}
       // >
-      <Slide  in direction="left" timeout={timeout}>
+      <Slide  in direction="up" timeout={timeout}>
         <Paper className="w-full rounded-16 shadow-none border-1 border-grey">
           <div className="flex items-center justify-between pr-4 pl-16 pt-4">
             <Typography className="text-16">{rowName}</Typography>
