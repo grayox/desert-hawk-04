@@ -29,7 +29,7 @@ class DashboardWidget extends Component {
       //   delay={Math.round(Math.random() * 500)}
       // >
       <Slide  in direction="left" timeout={timeout}>
-        <Paper className="w-full rounded-8 shadow-none border-1">
+        <Paper className="w-full rounded-16 shadow-none border-1 border-grey">
           <div className="flex items-center justify-between pr-4 pl-16 pt-4">
             <Typography className="text-16">{rowName}</Typography>
             <IconButton aria-label="more"><Icon>more_vert</Icon></IconButton>
@@ -38,7 +38,7 @@ class DashboardWidget extends Component {
             <Typography className="text-72 leading-none text-blue">{data}</Typography>
             <Typography className="text-16" color="textSecondary">{label}</Typography>
           </div>
-          <div className="flex items-center px-16 h-52 border-t-1">
+          <div className="flex items-center px-16 h-52 border-t-1 border-grey-light">
             <Typography className="text-15 flex w-full" color="textSecondary">
               <span className="truncate">{label}</span>
               :
