@@ -4,13 +4,11 @@ import PropTypes from 'prop-types';
 import compose from 'recompose/compose';
 
 import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
-import withWidth from '@material-ui/core/withWidth';
 
 // @material-ui/core
 import {
-  Slide, Zoom, Button, Fab, Icon, IconButton, Paper,
-  Typography, Grid, Hidden, CssBaseline, Divider,
+  withStyles, withWidth, Slide, Zoom, Button, Fab, Paper,
+  Typography, Grid, Hidden, CssBaseline, Divider, Icon, IconButton,
   List, ListItem, ListItemText, ListItemSecondaryAction,
   Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
   // ListSubheader, Avatar, Grow,
@@ -40,6 +38,7 @@ import HashAvatar from 'my-app/components/HashAvatar';
 
 const styles = theme => ({
   root: {
+    // height: '100%',
     // temp-border
     // border: 'solid black',
     boxSizing: 'border-box',
@@ -170,7 +169,7 @@ class CRUDView extends Component {
 
   // getEmpty = () => (<img src="https://via.placeholder.com/800x900.png/e91e63/fff?text=Detail+goes+here"/>)
   getEmpty = side => (
-    <div className="text-center mt-16">
+    <div className="text-center pt-16 h-full align-middle border border-green">
       {
       // <FuseAnimate animation="transition.expandIn" delay={100}>
       //   <Typography variant="h1" color="inherit" className="font-medium mb-16">
@@ -477,9 +476,7 @@ class CRUDView extends Component {
           </div>
         </React.Fragment>
         :
-        <div className="flex-1 mt-32 pt-32 text-center">
-          {getEmpty('list')}
-        </div>
+        getEmpty('list')
       }
       </div>
         

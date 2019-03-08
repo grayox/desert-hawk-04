@@ -6,19 +6,21 @@ import { Icon, Typography, Paper, IconButton, } from '@material-ui/core';
 import { Slide, } from '@material-ui/core';
 // import { FuseAnimate, } from '@fuse';
 
-import ReactFitText from 'react-fittext';
+// import ReactFitText from 'react-fittext';
 
 class DashboardWidget extends Component {
   render() {
     const { widget, index, count, } = this.props;
     const { rowName, data, label, } = widget;
 
-    const TIMEOUT_TARGET = 750;
+    const TARGET = 750;
 
-    // const factor = TIMEOUT_TARGET * 2;
-    // const timeout = Math.round(factor * (index+1) / count * Math.random());
-    
-    const timeout = TIMEOUT_TARGET * (index+1) / count;
+    // staggered sequencing
+    // const timeout = TARGET * (index + 1) / count;
+
+    // random staggered sequencing
+    const factor = TARGET * 2;
+    const timeout = Math.round(factor * (index+1) / count * Math.random());
 
     return (
       // <FuseAnimate
