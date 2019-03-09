@@ -28,7 +28,7 @@ class DashboardWidget extends Component {
       //   duration={Math.round(Math.random() * 500)}
       //   delay={Math.round(Math.random() * 500)}
       // >
-      <Slide  in direction="up" timeout={timeout}>
+      <Slide  in direction="down" timeout={timeout}>
         <Paper className="w-full rounded-16 shadow-none border-1 border-grey">
           <div className="flex items-center justify-between pr-4 pl-16 pt-4">
             <Typography className="text-16">{rowName}</Typography>
