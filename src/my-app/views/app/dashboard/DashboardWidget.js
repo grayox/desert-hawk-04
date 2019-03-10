@@ -16,11 +16,11 @@ class DashboardWidget extends Component {
     const TARGET = 850;
 
     // linear staggered sequencing
-    const timeout = TARGET * (index + 1) / count;
+    // const timeout = TARGET * (index + 1) / count;
 
     // random staggered sequencing
-    // const factor = TARGET * 2;
-    // const timeout = Math.round(factor * (index+1) / count * Math.random());
+    const SCALAR = 1.5; // compensation for random factor
+    const timeout = Math.round(Math.random() * TARGET * SCALAR * (index+1) / count);
 
     return (
       // <FuseAnimate
