@@ -507,7 +507,7 @@ CRUDView.propTypes = {
   condensed: PropTypes.bool, // one-line per list item in detail pane
   actionable: PropTypes.func,
   creatable: PropTypes.bool, // create button in list pane
-  readable: PropTypes.string,
+  // readable: PropTypes.string,
   updatable: PropTypes.string,
   deletable: PropTypes.bool,
 };

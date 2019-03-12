@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, } from 'react-router-dom'; // BrowserRouter as Router, Link 
 
 import { componentsNavConfig } from 'my-app/config/AppConfig';
-// import CRUDLoadData from './CRUDLoadData';
+import CRUDContainer from './CRUDContainer';
 
 const Child = ({ match: { params: { id }}}) => {
   const matches = componentsNavConfig.filter(r => (r.id === id));
@@ -10,16 +10,16 @@ const Child = ({ match: { params: { id }}}) => {
   const config = item.crudConfig;
   const { condensed, actionable, creatable, readable, updatable, deletable, } = config;
   return (
-    <div>{id}</div>
-    // <CRUDLoadData
-    //   // items={items}
-    //   condensed={condensed}
-    //   actionable={actionable}
-    //   creatable={creatable}
-    //   readable={readable}
-    //   updatable={updatable}
-    //   deletable={deletable}
-    // />
+    // <div>{id}</div>
+    <CRUDContainer
+      // items={items}
+      condensed={condensed}
+      actionable={actionable}
+      creatable={creatable}
+      readable={readable}
+      updatable={updatable}
+      deletable={deletable}
+    />
   )
 };
 

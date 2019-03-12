@@ -9,24 +9,44 @@ import '@firebase/firestore';
 
 // ref: https://medium.freecodecamp.org/how-to-master-async-await-with-this-real-world-example-19107e7558ad
 
-export const loadMyAsyncData = path => {
+// export const loadMyAsyncData = () => {
+//   let timeout;
+//   const promise = new Promise((resolve, reject) => {
+//     timeout = setTimeout(
+//       () =>
+//         resolve({
+//           example: "value",
+//           random: Math.random()
+//         }),
+//       1000
+//     );
+//   });
+//   promise.cancel = () => clearTimeout(timeout);
+//   return promise;
+// };
+
+export const loadMyAsyncData = async path => {
+  // console.log('path\n', path);
+  const out = await getItems(path);
+  // console.log('out\n', out);
+
   const promise = new Promise((resolve, reject) => {
-    resolve(getItems(path))
+    resolve(out);
   });
   promise.cancel = () => {};
   return promise;
 };
 
-const getItems = path => {
+const getItems = async path => {
   // console.log('path\n', path);
   // console.log('state\n', this.state);
-  // this.setState({isLoading: true}); // infinite loop?
+  // this.setState({isLoading: true});
   
   // debugger;
-  const out = [];
+  const a = [];
   const db = firebase.firestore();
   if(!db) return;
-  db.collection(path)
+  const out = await db.collection(path)
     // .orderBy('added_at', 'desc')
     // .orderBy('created_at', 'desc')
     .orderBy('timestamp', 'desc')
@@ -40,16 +60,16 @@ const getItems = path => {
         // console.log('timestamp: ', doc.get('created_at')); // undefined
         // console.log('id: ', doc.id); // works
         // console.log('data\n', doc.data()); // works
-        out.push(doc.data());
-        // console.log('out\n', out);
-        // this.setState(out);
+        a.push(doc.data());
+        // console.log('a\n', a);
+        // this.setState(a);
       });
-      return out;
+      return a;
     })
     .then(result => {
       // always set state inside promise!
       // otherwise, function returns before data loads!
-      console.log('result', result);
+      // console.log('result', result);
       // debugger;
       return result;
     })
@@ -64,7 +84,7 @@ const getItems = path => {
   // console.log('out\n', out); // returns before promise settles; therefore, returns empty array
   // always set state inside promise!
   // otherwise, function returns before data loads!
-  // return out;
+  return out;
   // const newState = { items: out };
   // this.setState(newState);
   // }
