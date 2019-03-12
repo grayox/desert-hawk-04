@@ -19,8 +19,8 @@ const styles = theme => ({
     margin   : theme.spacing.unit,
     color    : 'white',
     zIndex   : 1100, // 1099 1100
-    position : 'fixed', // 'absolute', //
-    top      : 0, // theme.spacing.unit, // 2,
+    position : 'fixed', // 'absolute',
+    top      : 0,
     right    : theme.spacing.unit * 9, // 72,
   },
 
