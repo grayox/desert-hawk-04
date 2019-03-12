@@ -18,7 +18,7 @@ const styles = theme => ({
   refresh: {
     margin   : theme.spacing.unit,
     color    : 'white',
-    zIndex   : 1100, // 1099 1100
+    zIndex   : 1201, // tablet: 1201, laptop: 1100, mobile: <= 1100,
     position : 'fixed', // 'absolute',
     top      : 0,
     right    : theme.spacing.unit * 9, // 72,
