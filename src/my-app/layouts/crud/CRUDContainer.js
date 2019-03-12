@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 
-import { componentsNavConfig } from 'my-app/config/AppConfig';
 import CRUDView from './CRUDView';
 import Loading from 'my-app/components/Loading.js';
 import ErrorMaintenance from 'my-app/components/ErrorMaintenance.js';
 
 import { loadMyAsyncData } from 'my-app/containers/loadAsync.js';
 
+// // https://codesandbox.io/s/lrvwm88pv7
 // const loadMyAsyncData = () => {
 //   let timeout;
 //   const promise = new Promise((resolve, reject) => {
@@ -62,8 +62,8 @@ class CRUDContainer extends Component {
     const items = await this._asyncRequest;
     this._asyncRequest = null;
     this.setState({
-      isLoading: false,
       items,
+      isLoading: false,
     });
   }
 
@@ -73,56 +73,57 @@ class CRUDContainer extends Component {
   //   }
   // }
   handleCancel = () => {
+    this.setState(INITIAL_STATE);
     if (this._asyncRequest) {
       // this._asyncRequest.cancel();
       this._asyncRequest = null;
     }
-    this.setState(INITIAL_STATE);
   };
 
   // render() {
-  //   const { condensed, actionable, creatable, readable, updatable, deletable, } = this.props;
-    
   //   return (
-  //     isLoading
-  //     ?
-  //     <Loading />
-  //     :
-  //     (
-  //       isError
-  //       ?
-  //       <ErrorMaintenance />
-  //       :
-  //       (items && (
-  //       <CRUDView
-  //         items={items}
-  //         condensed={condensed}
-  //         actionable={actionable}
-  //         creatable={creatable}
-  //         // readable={readable}
-  //         updatable={updatable}
-  //         deletable={deletable}
-  //       />
-  //     )))
-  //   )
+  //     <div className="App">
+  //       {(isLoading && <button onClick={this.handleCancel}>Cancel</button>) || (
+  //         <button onClick={this.handleLoad}>Load</button>
+  //       )}
+  //       <div>
+  //         <h3>{(isLoading && "Loading...") || "Not loading"}</h3>
+  //       </div>
+  //       <pre>
+  //         <code>{JSON.stringify(this.state)}</code>
+  //       </pre>
+  //     </div>
+  //   );
   // }
 
   render() {
-    const { isLoading, } = this.state;
+    const { isLoading, isError, items, } = this.state;
+    const { condensed, actionable, creatable, updatable, deletable, } = this.props; // readable,
+    
     return (
-      <div className="App">
-        {(isLoading && <button onClick={this.handleCancel}>Cancel</button>) || (
-          <button onClick={this.handleLoad}>Load</button>
-        )}
-        <div>
-          <h3>{(isLoading && "Loading...") || "Not loading"}</h3>
-        </div>
-        <pre>
-          <code>{JSON.stringify(this.state)}</code>
-        </pre>
-      </div>
-    );
+      isLoading
+      ?
+      <Loading />
+      :
+      (
+        isError
+        ?
+        <ErrorMaintenance />
+        :
+        (items && (
+        <CRUDView
+          items={items}
+          condensed={condensed}
+          actionable={actionable}
+          creatable={creatable}
+          // readable={readable}
+          updatable={updatable}
+          deletable={deletable}
+        />
+      )))
+    )
   }
+
 }
 
 export default CRUDContainer;
