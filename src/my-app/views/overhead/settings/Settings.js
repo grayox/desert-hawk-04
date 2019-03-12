@@ -429,7 +429,7 @@ class ProfilePage extends Component {
             classes={{
               root: classes.layoutRoot,
               header: classes.layoutHeader,
-              toolbar: classes.layoutToolbar
+              toolbar: classes.layoutToolbar,
             }}
             header={
               <div className="p-24 flex flex-1 flex-col items-center justify-center md:flex-row md:items-end">

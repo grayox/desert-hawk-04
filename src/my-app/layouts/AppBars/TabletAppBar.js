@@ -28,7 +28,7 @@ import {
 // import MediaWidth from 'my-app/layouts/MediaWidth';
 import { mdSpecs } from 'my-app/config/AppConfig';
 import RoutePageTitle from 'my-app/components/RoutePageTitle';
-import OverflowMenu from '../appBars/OverflowMenu';
+import OverflowMenu from './OverflowMenu';
 
 // import { useMediaPredicate } from 'react-media-hook'; // <20 downloads
 // import MediaQuery from 'react-responsive'; // 122k downloads
