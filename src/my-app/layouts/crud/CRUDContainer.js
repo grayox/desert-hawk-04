@@ -5,11 +5,26 @@
 
 import React, { Component } from 'react';
 
+import { withStyles, Icon, IconButton, } from '@material-ui/core';
+
 import CRUDView from './CRUDView';
 import Loading from 'my-app/components/Loading.js';
 import ErrorMaintenance from 'my-app/components/ErrorMaintenance.js';
 
 import { loadMyAsyncData } from 'my-app/containers/LoadAsync.js';
+
+const styles = theme => ({
+
+  refresh: {
+    margin   : theme.spacing.unit,
+    color    : 'white',
+    zIndex   : 1100, // 1099 1100
+    position : 'fixed', // 'absolute', //
+    top      : 0, // theme.spacing.unit, // 2,
+    right    : theme.spacing.unit * 9, // 72,
+  },
+
+});
 
 // // https://codesandbox.io/s/lrvwm88pv7
 // const loadMyAsyncData = () => {
@@ -102,13 +117,17 @@ class CRUDContainer extends Component {
   // }
 
   render() {
+    const { handleLoad, } = this;
     const { isLoading, isError, items, } = this.state;
-    const { condensed, actionable, creatable, updatable, deletable, } = this.props; // readable,
+    const { classes, condensed, actionable, creatable, updatable, deletable, } = this.props; // readable,
     
     return (
       isLoading
       ?
       <div className="h-full">
+        <IconButton className={classes.refresh} onClick={handleLoad} color="inherit">
+          <Icon>refresh</Icon>
+        </IconButton>
         <Loading />
       </div>
       :
@@ -120,19 +139,25 @@ class CRUDContainer extends Component {
         </div>
         :
         (items && (
-        <CRUDView
-          items={items}
-          condensed={condensed}
-          actionable={actionable}
-          creatable={creatable}
-          // readable={readable}
-          updatable={updatable}
-          deletable={deletable}
-        />
+          <React.Fragment>
+            <IconButton className={classes.refresh} onClick={handleLoad} color="inherit">
+              <Icon>refresh</Icon>
+            </IconButton>
+            <CRUDView
+              items={items}
+              condensed={condensed}
+              actionable={actionable}
+              creatable={creatable}
+              // readable={readable}
+              updatable={updatable}
+              deletable={deletable}
+            />
+          </React.Fragment>
       )))
     )
   }
 
 }
 
-export default CRUDContainer;
+// export default CRUDContainer;
+export default withStyles(styles, {withTheme: true})(CRUDContainer);
