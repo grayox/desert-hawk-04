@@ -1,3 +1,10 @@
+// inspired by
+// src/my-app/layouts/crud/CRUDContainer.js
+// https://codesandbox.io/s/lrvwm88pv7
+// https://stackoverflow.com/a/55093394/1640892
+// https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#fetching-external-data
+
+
 import React, { Component } from 'react';
 
 import CRUDView from '../layouts/crud/CRUDView';
@@ -110,7 +117,9 @@ class DataContainer extends Component {
       (
         isError
         ?
-        <ErrorMaintenance />
+        <div className="h-full">
+          <ErrorMaintenance />
+        </div>
         :
         (items && (
         <CRUDView
