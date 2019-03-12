@@ -17,10 +17,10 @@ import { compose } from 'redux';
 import _ from '@lodash';
 
 // categoryItems
-import HomeIcon from '@material-ui/icons/Home';
-import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
-import AssessmentIcon from '@material-ui/icons/Assessment';
-import AssignmentIcon from '@material-ui/icons/Assignment';
+// import HomeIcon from '@material-ui/icons/Home';
+// import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
+// import AssessmentIcon from '@material-ui/icons/Assessment';
+// import AssignmentIcon from '@material-ui/icons/Assignment';
 
 // logout
 // alt icons
@@ -38,7 +38,7 @@ import { FaSignOutAlt } from 'react-icons/fa'; // https://react-icons.netlify.cI
 // import { IoIosLogOut, IoMdLogOut, } from 'react-icons/io'; // https://react-icons.netlify.cIoIosLogOutom/#/
 
 // utility components
-// import CRUDContainer from 'my-app/layouts/crud/CRUDContainer';
+// import CRUDRouter from 'my-app/layouts/crud/CRUDRouter';
 
 // import { mdSpecs } from 'my-app/config/AppConfig';
 export const mdSpecs = {
@@ -102,10 +102,10 @@ export const brand = {
 }
 
 export const bizCategoryItems = [
-  { value : 'home'      , label : 'Home'      , icon : HomeIcon           } ,
-  { value : 'mortgage'  , label : 'Mortgage'  , icon : AccountBalanceIcon } ,
-  { value : 'financial' , label : 'Financial' , icon : AssessmentIcon     } ,
-  { value : 'insurance' , label : 'Insurance' , icon : AssignmentIcon     } ,
+  { value : 'home'      , label : 'Home'      , icon : 'home'            } ,
+  { value : 'mortgage'  , label : 'Mortgage'  , icon : 'account_balance' } ,
+  { value : 'financial' , label : 'Financial' , icon : 'assessment'      } ,
+  { value : 'insurance' , label : 'Insurance' , icon : 'assignment'      } ,
 ]
 
 // syncronize: changes in either of the following files must be hard coded in the other
@@ -133,7 +133,7 @@ export const componentsNavConfig = [
     icon       : 'cloud_download',
     bottomNav  : true,
     // see src/my-app/config/Routes.js
-    component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDContainer')}),
+    component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
     crudConfig : {
       actionable : () => {},
       condensed  : true    ,
@@ -151,7 +151,7 @@ export const componentsNavConfig = [
     icon       : 'folder',
     bottomNav  : true,
     // see src/my-app/config/Routes.js
-    component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDContainer')}),
+    component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
     crudConfig : {
       actionable : () => {},
       condensed  : true    ,
@@ -168,7 +168,7 @@ export const componentsNavConfig = [
     type       : 'item',
     icon       : 'cloud_upload',
     // see src/my-app/config/Routes.js
-    component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDContainer')}),
+    component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
     crudConfig : {
       actionable : () => {},
       condensed  : true    ,
@@ -185,7 +185,7 @@ export const componentsNavConfig = [
     type       : 'item',
     icon       : 'account_box', // 'contacts',
     // see src/my-app/config/Routes.js
-    component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDContainer')}),
+    component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
     crudConfig : {
       actionable : () => {},
       condensed  : true    ,

@@ -24,10 +24,10 @@ import { FuseAnimateGroup, } from '@fuse'; // FuseAnimate
 
 // @material-ui/core
 import {
-  // Button, Icon, IconButton,
+  // Button, IconButton,
   // AppBar, Toolbar, ListItemIcon, 
-  Typography, Avatar, ListItemAvatar, Card, CardContent, Divider,
-  List, ListSubheader, ListItem, ListItemText, ListItemSecondaryAction,
+  Typography, Avatar, Card, CardContent, Divider, Icon,
+  List, ListItemAvatar, ListSubheader, ListItem, ListItemText, ListItemSecondaryAction,
 } from '@material-ui/core';
 
 // core components
@@ -39,10 +39,10 @@ import DashboardGridItem from './DashboardGridItem'
 import { DashboardGridConfig } from './DashboardGridConfig'
 
 // CategorySelect
-import HomeIcon from '@material-ui/icons/Home';
-import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
-import AssessmentIcon from '@material-ui/icons/Assessment';
-import AssignmentIcon from '@material-ui/icons/Assignment';
+// import HomeIcon from '@material-ui/icons/Home';
+// import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
+// import AssessmentIcon from '@material-ui/icons/Assessment';
+// import AssignmentIcon from '@material-ui/icons/Assignment';
 
 const styles = theme => ({
   root: {
@@ -114,7 +114,8 @@ const DashboardGridItems = props => {
                             }
                               <ListItemAvatar>
                                 <Avatar>
-                                  {React.createElement(cell.icon)}
+                                  {/* {React.createElement(cell.icon)} */}
+                                  <Icon>{cell.icon}</Icon>
                                 </Avatar>
                               </ListItemAvatar>
                               <ListItemText
@@ -368,7 +369,8 @@ const getRows = props => {
                 <li>
                   <Typography className="mt-12">
                     <Typography className="mr-12">Home</Typography>
-                    {React.createElement(HomeIcon)}
+                    {/* {React.createElement(HomeIcon)} */}
+                    <Icon>home</Icon>
                   </Typography>
                   <Typography>
                     Select this if you are a real estate broker or agent selling homes to residential buyers
@@ -377,7 +379,8 @@ const getRows = props => {
                 <li>
                   <Typography className="mt-12">
                     <Typography className="mr-12">Mortgage</Typography>
-                    {React.createElement(AccountBalanceIcon)}
+                    {/* {React.createElement(AccountBalanceIcon)} */}
+                    <Icon>account_balance</Icon>
                   </Typography>
                   <Typography>
                     Select this if you are a real estate mortgage broker or agent selling financing to home buyers
@@ -386,7 +389,8 @@ const getRows = props => {
                 <li>
                   <Typography className="mt-12">
                     <Typography className="mr-12">Insurance</Typography>
-                    {React.createElement(AssessmentIcon)}
+                    {/* {React.createElement(AssessmentIcon)} */}
+                    <Icon>assessment</Icon>
                   </Typography>
                   <Typography>
                     Select this if you are an insurance broker or agent selling property and casualty policies
@@ -395,7 +399,8 @@ const getRows = props => {
                 <li>
                   <Typography className="mt-12">
                     <Typography className="mr-12">Financial</Typography>
-                    {React.createElement(AssignmentIcon)}
+                    {/* {React.createElement(AssignmentIcon)} */}
+                    <Icon>assignment</Icon>
                   </Typography>
                   <Typography>
                     Select this if you are a financial planner and advise clients on their personal finances
