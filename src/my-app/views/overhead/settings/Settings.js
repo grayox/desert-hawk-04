@@ -384,7 +384,9 @@ class ProfilePage extends Component {
     return (
       !dataHasLoaded
       ?
-      <Loading />
+      <div className="h-full">
+        <Loading />
+      </div>
       :
       <div className={classes.wrapper}>
         <FetchFirestore key={firestoreKey} />
@@ -601,7 +603,7 @@ const mapStateToProps = state => {
   // const dataHasLoaded = user && leads && profile && settings;
   const dataHasLoaded = user && settings; // && leads && profile 
 
-  if(dataHasLoaded) {  
+  if(dataHasLoaded) {
     console.log('user\n', user);
     console.log('leads\n', leads);
     console.log('profile\n', profile);
