@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-import CRUDView from './CRUDView';
+import CRUDView from '../layouts/crud/CRUDView';
 import Loading from 'my-app/components/Loading.js';
 import ErrorMaintenance from 'my-app/components/ErrorMaintenance.js';
 
-import { loadMyAsyncData } from 'my-app/containers/LoadAsync.js';
+import { loadMyAsyncData } from './LoadAsync.js';
 
 // // https://codesandbox.io/s/lrvwm88pv7
 // const loadMyAsyncData = () => {
@@ -29,7 +29,7 @@ const INITIAL_STATE = {
   isLoading: true,
 };
 
-class CRUDContainer extends Component {
+class DataContainer extends Component {
   state = INITIAL_STATE;
 
   componentDidMount() {
@@ -128,4 +128,4 @@ class CRUDContainer extends Component {
 
 }
 
-export default CRUDContainer;
+export default DataContainer;
