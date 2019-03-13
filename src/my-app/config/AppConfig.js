@@ -16,6 +16,9 @@ import { compose } from 'redux';
 // utilities
 import _ from '@lodash';
 
+// creatable
+import UserMultiForm from 'my-app/components/forms/UserMultiForm';
+
 // categoryItems
 // import HomeIcon from '@material-ui/icons/Home';
 // import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
@@ -189,7 +192,7 @@ export const componentsNavConfig = [
     crudConfig : {
       actionable : () => {},
       condensed  : true    ,
-      creatable  : true    ,
+      creatable  : <UserMultiForm />,
       readable   : 'leads' ,
       updatable  : true    ,
       deletable  : true    ,

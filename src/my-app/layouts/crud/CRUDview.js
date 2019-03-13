@@ -77,9 +77,9 @@ const styles = theme => ({
 const Transition = props => (<Zoom in {...props} />); // (<Slide direction="up" {...props} />);
 
 const INITIAL_STATE_DIALOG = {
-  dialogIsOpen: false,
-  dialogIsBeingUpdated: false,
-  dialogIsBeingDeleted: false,
+  createDialogIsOpen: false,
+  updateDialogIsOpen: false,
+  deleteDialogIsOpen: false,
 }
 
 const INITIAL_STATE = {
@@ -96,8 +96,28 @@ class CRUDView extends Component {
     this.state = INITIAL_STATE;
   }
 
-  handleOpenDialog = () => {
-    this.setState({ dialogIsOpen: true, });
+  handleOpenCreateDialog = () => {
+    this.setState({
+      createDialogIsOpen: true,
+      updateDialogIsOpen: false,
+      deleteDialogIsOpen: false,
+    });
+  };
+
+  handleOpenUpdateDialog = () => {
+    this.setState({
+      createDialogIsOpen: false,
+      updateDialogIsOpen: true,
+      deleteDialogIsOpen: false,
+    });
+  };
+
+  handleOpenDeleteDialog = () => {
+    this.setState({
+      createDialogIsOpen: false,
+      updateDialogIsOpen: false,
+      deleteDialogIsOpen: true,
+    });
   };
 
   handleCloseDialog = () => {
@@ -145,7 +165,75 @@ class CRUDView extends Component {
     );
   }
 
-  getDialog = () => (
+  getCreateDialog = () => (
+    <Dialog
+      open={this.state.dialogIsOpen}
+      onClose={this.handleCloseDialog}
+      aria-labelledby="form-dialog-title"
+      TransitionComponent={Transition} // https://material-ui.com/demos/dialogs/#alerts
+      keepMounted
+    // aria-labelledby="alert-dialog-slide-title"
+    // aria-describedby="alert-dialog-slide-description"
+    >
+      <DialogTitle id="form-dialog-title">Permanently delete item?</DialogTitle>
+      <DialogContent>
+        <DialogContentText>
+          It&rsquo;s permanent and cannot be undone.
+        {
+          // Are you sure you want to delete this record?
+          // After deleted, this record will not be recoverable.
+        }
+        </DialogContentText>
+        {
+          // <TextField autoFocus margin="dense" id="dialog" label="dialog" type="email" fullWidth />
+        }
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={this.handleCloseDialog} color="primary">
+          Cancel
+        </Button>
+        <Button onClick={this.handleCloseDialog} color="primary">
+          Delete
+        </Button>
+      </DialogActions>
+    </Dialog>
+  )
+
+  getUpdateDialog = () => (
+    <Dialog
+      open={this.state.dialogIsOpen}
+      onClose={this.handleCloseDialog}
+      aria-labelledby="form-dialog-title"
+      TransitionComponent={Transition} // https://material-ui.com/demos/dialogs/#alerts
+      keepMounted
+    // aria-labelledby="alert-dialog-slide-title"
+    // aria-describedby="alert-dialog-slide-description"
+    >
+      <DialogTitle id="form-dialog-title">Permanently delete item?</DialogTitle>
+      <DialogContent>
+        <DialogContentText>
+          It&rsquo;s permanent and cannot be undone.
+        {
+          // Are you sure you want to delete this record?
+          // After deleted, this record will not be recoverable.
+        }
+        </DialogContentText>
+        {
+          // <TextField autoFocus margin="dense" id="dialog" label="dialog" type="email" fullWidth />
+        }
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={this.handleCloseDialog} color="primary">
+          Cancel
+        </Button>
+        <Button onClick={this.handleCloseDialog} color="primary">
+          Delete
+        </Button>
+      </DialogActions>
+    </Dialog>
+  )
+
+  getDeleteDialog = () => (
     <Dialog
       open={this.state.dialogIsOpen}
       onClose={this.handleCloseDialog}
@@ -367,7 +455,7 @@ class CRUDView extends Component {
   }
 
   getNavButtons = () => {
-    const { handleNavBack, handleNavNext, handleToggle, handleOpenDialog, } = this; //  handleCloseDialog,
+    const { handleNavBack, handleNavNext, handleToggle, handleOpenUpdateDialog, handleOpenDeleteDialog, } = this; //  handleCloseDialog,
     const { selectedIndex, } = this.state;
     const { items, } = this.props;
     const limit = items.length - 2;
@@ -377,8 +465,8 @@ class CRUDView extends Component {
         limit={limit}
         selectedIndex={selectedIndex}
         onToggle={handleToggle}
-        onUpdate={handleOpenDialog}
-        onDelete={handleOpenDialog}
+        onUpdate={handleOpenUpdateDialog}
+        onDelete={handleOpenDeleteDialog}
         onNavBack={handleNavBack}
         onNavNext={handleNavNext}
       />
@@ -433,7 +521,7 @@ class CRUDView extends Component {
           <CreateButton onClick={handleOpenDialog} />
         </Zoom>
         }
-        <Paper className={classNames(classes.paper, "z-10")}>
+        <Paper className={classNames(classes.paper, "z-10",)}>
           <List className="m-0 p-0" component="nav">
             {
               // subheader={<ListSubheader className="text-left">Items</ListSubheader>}
@@ -465,7 +553,10 @@ class CRUDView extends Component {
   render() {
     const { classes, items, } = this.props;
     const { detail, } = this.state;
-    const { getListPane, getDetailPane, getEmpty, getDialog, } = this;
+    const {
+      getListPane, getDetailPane, getEmpty,
+      getCreateDialog, getUpdateDialog, getDeleteDialog,
+    } = this;
 
     return (
       // <FuseScrollbars className="overflow-auto">
@@ -475,7 +566,9 @@ class CRUDView extends Component {
         ?
         <React.Fragment>
           <CssBaseline/>
-          {getDialog()}
+          {getCreateDialog()}
+          {getUpdateDialog()}
+          {getDeleteDialog()}
           <div className={classes.wrapper}>
             {/* mobile */}
             <Hidden smUp>{detail ? getDetailPane() : getListPane()}</Hidden>
@@ -506,8 +599,8 @@ CRUDView.propTypes = {
   items: PropTypes.array.isRequired,
   condensed: PropTypes.bool, // one-line per list item in detail pane
   actionable: PropTypes.func,
-  creatable: PropTypes.bool, // create button in list pane
-  // readable: PropTypes.string,
+  creatable: PropTypes.element, // create button in list pane
+  readable: PropTypes.string,
   updatable: PropTypes.string,
   deletable: PropTypes.bool,
 };
