@@ -167,7 +167,7 @@ class CRUDView extends Component {
 
   getCreateDialog = () => (
     <Dialog
-      open={this.state.dialogIsOpen}
+      open={this.state.createDialogIsOpen}
       onClose={this.handleCloseDialog}
       aria-labelledby="form-dialog-title"
       TransitionComponent={Transition} // https://material-ui.com/demos/dialogs/#alerts
@@ -175,33 +175,14 @@ class CRUDView extends Component {
     // aria-labelledby="alert-dialog-slide-title"
     // aria-describedby="alert-dialog-slide-description"
     >
-      <DialogTitle id="form-dialog-title">Permanently delete item?</DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-          It&rsquo;s permanent and cannot be undone.
-        {
-          // Are you sure you want to delete this record?
-          // After deleted, this record will not be recoverable.
-        }
-        </DialogContentText>
-        {
-          // <TextField autoFocus margin="dense" id="dialog" label="dialog" type="email" fullWidth />
-        }
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={this.handleCloseDialog} color="primary">
-          Cancel
-        </Button>
-        <Button onClick={this.handleCloseDialog} color="primary">
-          Delete
-        </Button>
-      </DialogActions>
+      <DialogTitle id="form-dialog-title">{this.props.creatable.title}</DialogTitle>
+      <DialogContent>{this.props.creatable.form}</DialogContent>    
     </Dialog>
   )
 
   getUpdateDialog = () => (
     <Dialog
-      open={this.state.dialogIsOpen}
+      open={this.state.updateDialogIsOpen}
       onClose={this.handleCloseDialog}
       aria-labelledby="form-dialog-title"
       TransitionComponent={Transition} // https://material-ui.com/demos/dialogs/#alerts
@@ -209,7 +190,7 @@ class CRUDView extends Component {
     // aria-labelledby="alert-dialog-slide-title"
     // aria-describedby="alert-dialog-slide-description"
     >
-      <DialogTitle id="form-dialog-title">Permanently delete item?</DialogTitle>
+      <DialogTitle id="form-dialog-title">Update item</DialogTitle>
       <DialogContent>
         <DialogContentText>
           It&rsquo;s permanent and cannot be undone.
@@ -235,7 +216,7 @@ class CRUDView extends Component {
 
   getDeleteDialog = () => (
     <Dialog
-      open={this.state.dialogIsOpen}
+      open={this.state.deleteDialogIsOpen}
       onClose={this.handleCloseDialog}
       aria-labelledby="form-dialog-title"
       TransitionComponent={Transition} // https://material-ui.com/demos/dialogs/#alerts
@@ -511,14 +492,14 @@ class CRUDView extends Component {
 
   getListPane = () => {
     const { classes, items, creatable, } = this.props;
-    const { getSummary, handleOpenDialog, } = this; // getHeader,
+    const { getSummary, handleOpenCreateDialog, } = this; // getHeader,
     return (
       <React.Fragment>
         {
         // getHeader()
         creatable && 
         <Zoom in mountOnEnter unmountOnExit>
-          <CreateButton onClick={handleOpenDialog} />
+          <CreateButton onClick={handleOpenCreateDialog} />
         </Zoom>
         }
         <Paper className={classNames(classes.paper, "z-10",)}>

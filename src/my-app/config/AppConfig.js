@@ -175,7 +175,10 @@ export const componentsNavConfig = [
     crudConfig : {
       actionable : () => {},
       condensed  : true    ,
-      creatable  : true    ,
+      creatable  : {
+        title    : 'Create new lead',
+        form     : <UserMultiForm />,
+      },
       readable   : 'leads' ,
       updatable  : true    ,
       deletable  : true    ,
@@ -192,7 +195,10 @@ export const componentsNavConfig = [
     crudConfig : {
       actionable : () => {},
       condensed  : true    ,
-      creatable  : <UserMultiForm />,
+      creatable  : {
+        title    : 'Create new contact',
+        form     : <UserMultiForm />,
+      },
       readable   : 'leads' ,
       updatable  : true    ,
       deletable  : true    ,
