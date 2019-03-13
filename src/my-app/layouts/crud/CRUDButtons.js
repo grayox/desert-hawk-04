@@ -87,14 +87,14 @@ const ButtonsRow = ({ limit, selectedIndex, deletable, updatable, onToggle, onDe
   </Button>
 );
 
-const UDButtonsUnstyled = ({ classes, deletable, updatable, onClickOpen, }) => (
+const UDButtonsUnstyled = ({ classes, deletable, updatable, onUpdate, onDelete, }) => (
   <React.Fragment>
   {
     deletable && (
       <IconButton
         aria-label="Delete" 
         className={classes.margin}
-        onClick={() => onClickOpen('isBeingDeleted')}
+        onClick={onDelete}
       >
         <Icon>delete</Icon>
       </IconButton>
@@ -105,7 +105,7 @@ const UDButtonsUnstyled = ({ classes, deletable, updatable, onClickOpen, }) => (
       <IconButton
         aria-label="Edit" 
         className={classes.margin}
-        onClick={() => onClickOpen('isBeingUpdated')}
+        onClick={onUpdate}
       >
         <Icon>edit</Icon>
       </IconButton>
