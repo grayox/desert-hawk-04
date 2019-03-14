@@ -20,7 +20,9 @@ class DashboardWidget extends Component {
 
     // random staggered sequencing
     const SCALAR = 1.5; // compensation for random factor
-    const timeout = Math.round(Math.random() * TARGET * SCALAR * (index+1) / count);
+    const forwardIndex = index + 1; // loads first index first
+    const reverseIndex = count - forwardIndex; // loads first index last
+    const timeout = Math.round(Math.random() * TARGET * SCALAR * reverseIndex / count);
 
     return (
       // <FuseAnimate
@@ -28,7 +30,7 @@ class DashboardWidget extends Component {
       //   duration={Math.round(Math.random() * 500)}
       //   delay={Math.round(Math.random() * 500)}
       // >
-      <Slide  in direction="down" timeout={timeout}>
+      <Slide  in direction="up" timeout={timeout}>
         <Paper className="w-full rounded-16 shadow-none border-1 border-grey">
           <div className="flex items-center justify-between pr-4 pl-16 pt-4">
             <Typography className="text-16">{rowName}</Typography>
