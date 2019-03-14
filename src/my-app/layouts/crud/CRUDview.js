@@ -177,6 +177,14 @@ class CRUDView extends Component {
     >
       <DialogTitle id="form-dialog-title">{this.props.creatable.title}</DialogTitle>
       <DialogContent>{this.props.creatable.form}</DialogContent>
+      <DialogActions>
+        <Button onClick={this.handleCloseDialog} color="primary">
+          Cancel
+        </Button>
+        <Button onClick={this.handleCloseDialog} color="primary">
+          Save
+        </Button>
+      </DialogActions>
     </Dialog>
   )
 
@@ -192,6 +200,14 @@ class CRUDView extends Component {
     >
       <DialogTitle id="form-dialog-title">{this.props.creatable.title}</DialogTitle>
       <DialogContent>{this.props.creatable.form}</DialogContent>
+      <DialogActions>
+        <Button onClick={this.handleCloseDialog} color="primary">
+          Cancel
+        </Button>
+        <Button onClick={this.handleCloseDialog} color="primary">
+          Save
+        </Button>
+      </DialogActions>
     </Dialog>
   )
 
