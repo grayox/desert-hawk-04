@@ -424,13 +424,14 @@ class CRUDView extends Component {
   getNavButtons = () => {
     const { handleNavBack, handleNavNext, handleToggle, handleOpenUpdateDialog, handleOpenDeleteDialog, } = this; //  handleCloseDialog,
     const { selectedIndex, } = this.state;
-    const { items, } = this.props;
+    const { items, updatable, deletable, } = this.props; // actionable,
     const limit = items.length - 2;
     return (
       <ButtonsRow
-        deletable updatable
         limit={limit}
         selectedIndex={selectedIndex}
+        deletable={deletable}
+        updatable={updatable}
         onToggle={handleToggle}
         onUpdate={handleOpenUpdateDialog}
         onDelete={handleOpenDeleteDialog}
