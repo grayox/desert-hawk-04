@@ -61,7 +61,7 @@ class UserMultiForm extends Component {
   //   }
   // }
 
-  handleChange = (event) => {
+  handleChange = event => {
     this.setState(
       _.set({ ...this.state }, event.target.name, event.target.type === 'checkbox' ? event.target.checked : event.target.value)
       , () => this.props.onChange(this.state)

@@ -177,38 +177,36 @@ class CRUDView extends Component {
     );
   }
 
-  getCreateDialog = () => {
-    const { title, form, } = this.props.creatable;
-    return (
-      <Dialog
-        open={this.state.createDialogIsOpen}
-        onClose={this.handleCloseDialog}
-        aria-labelledby="form-dialog-title"
-        TransitionComponent={Transition} // https://material-ui.com/demos/dialogs/#alerts
-        keepMounted
-      // aria-labelledby="alert-dialog-slide-title"
-      // aria-describedby="alert-dialog-slide-description"
-      >
-        <DialogTitle id="form-dialog-title">{title}</DialogTitle>
-        <DialogContent className="pt-4">
-        {
-          // https://stackoverflow.com/a/40196365/1640892
-          React.cloneElement(
-            form,
-            { onChange: this.handleChangeCreateDialog }
-          )
-        }
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={this.handleCloseDialog} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={this.handleSaveCreateDialog} color="primary">
-            Save
-          </Button>
-        </DialogActions>
-      </Dialog>
-    )}
+  getCreateDialog = () => (
+    <Dialog
+      open={this.state.createDialogIsOpen}
+      onClose={this.handleCloseDialog}
+      aria-labelledby="form-dialog-title"
+      TransitionComponent={Transition} // https://material-ui.com/demos/dialogs/#alerts
+      keepMounted
+    // aria-labelledby="alert-dialog-slide-title"
+    // aria-describedby="alert-dialog-slide-description"
+    >
+      <DialogTitle id="form-dialog-title">{this.props.creatable.title}</DialogTitle>
+      <DialogContent className="pt-4">
+      {
+        // https://stackoverflow.com/a/40196365/1640892
+        React.cloneElement(
+          this.props.creatable.form,
+          { onChange: this.handleChangeCreateDialog },
+        )
+      }
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={this.handleCloseDialog} color="primary">
+          Cancel
+        </Button>
+        <Button onClick={this.handleSaveCreateDialog} color="primary">
+          Save
+        </Button>
+      </DialogActions>
+    </Dialog>
+  )
 
   getUpdateDialog = () => (
     <Dialog
