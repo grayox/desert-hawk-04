@@ -120,9 +120,21 @@ class CRUDView extends Component {
     });
   };
 
+  handleChangeCreateDialog = model => {
+    console.log('model\n', model);
+  }
+
   handleCloseDialog = () => {
     this.setState({ ...INITIAL_STATE_DIALOG, });
   };
+
+  handleSaveCreateDialog = () => {
+    console.log('state\n', this.state);
+  }
+  
+  handleSaveUpdateDialog = () => {
+    console.log('state\n', this.state);
+  }
 
   handleListItemClick = ( event, index, ) => {
     this.setState({ selectedIndex: index });
@@ -165,28 +177,38 @@ class CRUDView extends Component {
     );
   }
 
-  getCreateDialog = () => (
-    <Dialog
-      open={this.state.createDialogIsOpen}
-      onClose={this.handleCloseDialog}
-      aria-labelledby="form-dialog-title"
-      TransitionComponent={Transition} // https://material-ui.com/demos/dialogs/#alerts
-      keepMounted
-    // aria-labelledby="alert-dialog-slide-title"
-    // aria-describedby="alert-dialog-slide-description"
-    >
-      <DialogTitle id="form-dialog-title">{this.props.creatable.title}</DialogTitle>
-      <DialogContent className="pt-4">{this.props.creatable.form}</DialogContent>
-      <DialogActions>
-        <Button onClick={this.handleCloseDialog} color="primary">
-          Cancel
-        </Button>
-        <Button onClick={this.handleCloseDialog} color="primary">
-          Save
-        </Button>
-      </DialogActions>
-    </Dialog>
-  )
+  getCreateDialog = () => {
+    const { title, form, } = this.props.creatable;
+    return (
+      <Dialog
+        open={this.state.createDialogIsOpen}
+        onClose={this.handleCloseDialog}
+        aria-labelledby="form-dialog-title"
+        TransitionComponent={Transition} // https://material-ui.com/demos/dialogs/#alerts
+        keepMounted
+      // aria-labelledby="alert-dialog-slide-title"
+      // aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle id="form-dialog-title">{title}</DialogTitle>
+        <DialogContent className="pt-4">
+        {
+          // https://stackoverflow.com/a/40196365/1640892
+          React.cloneElement(
+            form,
+            { onChange: this.handleChangeCreateDialog }
+          )
+        }
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={this.handleCloseDialog} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={this.handleSaveCreateDialog} color="primary">
+            Save
+          </Button>
+        </DialogActions>
+      </Dialog>
+    )}
 
   getUpdateDialog = () => (
     <Dialog
@@ -204,7 +226,7 @@ class CRUDView extends Component {
         <Button onClick={this.handleCloseDialog} color="primary">
           Cancel
         </Button>
-        <Button onClick={this.handleCloseDialog} color="primary">
+        <Button onClick={this.handleSaveUpdateDialog} color="primary">
           Save
         </Button>
       </DialogActions>

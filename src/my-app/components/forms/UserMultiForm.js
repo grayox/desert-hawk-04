@@ -17,23 +17,23 @@ const styles = theme => ({
     marginBottom: 24
   }
 });
-const newContactState = {
-  id: '',
-  name: '',
-  lastName: '',
-  avatar: 'assets/images/avatars/profile.jpg',
-  nickname: '',
-  company: '',
-  jobTitle: '',
-  email: '',
-  phone: '',
-  address: '',
-  birthday: '',
-  notes: ''
+const INITIAL_STATE = {
+  id       : null ,
+  name     : null ,
+  lastName : null ,
+  avatar   : 'assets/images/avatars/profile.jpg',
+  nickname : null ,
+  company  : null ,
+  jobTitle : null ,
+  email    : null ,
+  phone    : null ,
+  address  : null ,
+  birthday : null ,
+  notes    : null ,
 };
 
 class UserMultiForm extends Component {
-  state = { ...newContactState };
+  state = { ...INITIAL_STATE };
 
   // componentDidUpdate(prevProps, prevState, snapshot) {
   //   /**
@@ -55,19 +55,22 @@ class UserMultiForm extends Component {
   //      * Update State
   //      */
   //     if (this.props.userMultiForm.type === 'new' &&
-  //       !_.isEqual(newContactState, prevState)) {
-  //       this.setState({ ...newContactState });
+  //       !_.isEqual(INITIAL_STATE, prevState)) {
+  //       this.setState({ ...INITIAL_STATE });
   //     }
   //   }
   // }
 
   handleChange = (event) => {
-    this.setState(_.set({ ...this.state }, event.target.name, event.target.type === 'checkbox' ? event.target.checked : event.target.value));
+    this.setState(
+      _.set({ ...this.state }, event.target.name, event.target.type === 'checkbox' ? event.target.checked : event.target.value)
+      , () => this.props.onChange(this.state)
+    );
   };
 
-  closeComposeDialog = () => {
-    this.props.userMultiForm.type === 'edit' ? this.props.closeEditUserMultiForm() : this.props.closeNewUserMultiForm();
-  };
+  // closeComposeDialog = () => {
+  //   this.props.userMultiForm.type === 'edit' ? this.props.closeEditUserMultiForm() : this.props.closeNewUserMultiForm();
+  // };
 
   canBeSubmitted() {
     const { name } = this.state;
