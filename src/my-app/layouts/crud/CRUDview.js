@@ -21,6 +21,7 @@ import moment from 'moment';
 
 // import CreateButton from './CreateButton';
 import { CreateButton, ButtonsRow, UDButtons, } from './CRUDButtons';
+import FormTemplate from 'my-app/components/forms/FormTemplate';
 
 // import from '@material-ui/core/Avatar';
 // import ImageIcon from '@material-ui/icons/Image';
@@ -177,36 +178,74 @@ class CRUDView extends Component {
     );
   }
 
-  getCreateDialog = () => (
-    <Dialog
-      open={this.state.createDialogIsOpen}
-      onClose={this.handleCloseDialog}
-      aria-labelledby="form-dialog-title"
-      TransitionComponent={Transition} // https://material-ui.com/demos/dialogs/#alerts
-      keepMounted
-    // aria-labelledby="alert-dialog-slide-title"
-    // aria-describedby="alert-dialog-slide-description"
-    >
-      <DialogTitle id="form-dialog-title">{this.props.creatable.title}</DialogTitle>
-      <DialogContent className="pt-4">
-      {
-        // https://stackoverflow.com/a/40196365/1640892
-        React.cloneElement(
-          this.props.creatable.form,
-          { onChange: this.handleChangeCreateDialog },
-        )
-      }
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={this.handleCloseDialog} color="primary">
-          Cancel
-        </Button>
-        <Button onClick={this.handleSaveCreateDialog} color="primary">
-          Save
-        </Button>
-      </DialogActions>
-    </Dialog>
-  )
+  getCreateDialog = () => {
+    // console.log('props\n', this.props);
+    const { title, fields, } = this.props.creatable; // form,
+    const { handleChangeCreateDialog, handleCloseDialog, handleSaveCreateDialog, } = this;
+    const ready1 = title && fields;
+    const ready2 = handleChangeCreateDialog && handleCloseDialog && handleSaveCreateDialog;
+    if(!ready1) return;
+    if(!ready2) return;
+    return (
+      <Dialog
+        open={this.state.createDialogIsOpen}
+        onClose={handleCloseDialog}
+        aria-labelledby="form-dialog-title"
+        TransitionComponent={Transition} // https://material-ui.com/demos/dialogs/#alerts
+        keepMounted
+      // aria-labelledby="alert-dialog-slide-title"
+      // aria-describedby="alert-dialog-slide-description"
+      >
+        {
+        // <AppBar position="static" elevation={1}>
+        //   <Toolbar className="flex w-full">
+        //     <Typography variant="subtitle1" color="inherit">
+        //       {
+        //         // {FormTemplate.type === 'new' ? 'New Contact' : 'Edit Contact'}
+        //       }
+        //       New Contact
+        //     </Typography>
+        //   </Toolbar>
+        //   {
+        //   // <div className="flex flex-col items-center justify-center pb-24">
+        //   //   <Avatar className="w-96 h-96" alt="contact avatar" src={this.state.avatar} />
+        //   //   {FormTemplate.type === 'edit' && (
+        //   //     <Typography variant="h6" color="inherit" className="pt-8">
+        //   //       {this.state.name}
+        //   //     </Typography>
+        //   //   )}
+        //   // </div>
+        //   }
+        // </AppBar>
+        }
+        <DialogTitle id="form-dialog-title">{title}</DialogTitle>
+        <DialogContent className="pt-4">
+          {
+            // // dynamically populate element props
+            // // https://stackoverflow.com/a/40196365/1640892
+            // React.cloneElement(
+            //   form,
+            //   {
+            //     fields,
+            //     onChange: handleChangeCreateDialog,
+            //   },
+            // )
+          }
+          <FormTemplate
+            fields={fields}
+            onChange={handleChangeCreateDialog}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleSaveCreateDialog} color="primary">
+            Save
+          </Button>
+        </DialogActions>
+      </Dialog>
+  )}
 
   getUpdateDialog = () => (
     <Dialog

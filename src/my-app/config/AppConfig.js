@@ -17,7 +17,7 @@ import { compose } from 'redux';
 import _ from '@lodash';
 
 // creatable
-import UserMultiForm from 'my-app/components/forms/UserMultiForm';
+// import UserMultiForm from 'my-app/components/forms/UserMultiForm';
 
 // categoryItems
 // import HomeIcon from '@material-ui/icons/Home';
@@ -177,7 +177,22 @@ export const componentsNavConfig = [
       condensed  : true    ,
       creatable  : {
         title    : 'Create new lead',
-        form     : <UserMultiForm />,
+        // form     : <UserMultiForm />,
+        fields   : [
+          // type must be an HTML5 input type | https://www.w3schools.com/html/html_form_input_types.asp | https://material-ui.com/api/text-field/
+          // button|checkbox|color|date|datetime-local|email|file|hidden|image|month|number|password|radio|range|reset|search|submit|tel|text|time|url|week
+          { autoFocus : true  , required : true  , type : 'text' , id : 'name'     , label : 'Name'      , icon : 'account_circle' , } ,
+          { autoFocus : false , required : false , type : 'text' , id : 'lastName' , label : 'Last name' ,                           } ,
+          { autoFocus : false , required : false , type : 'text' , id : 'nickName' , label : 'Nickname'  , icon : 'star'           , } ,
+          { autoFocus : false , required : false , type : 'text' , id : 'phone'    , label : 'Phone'     , icon : 'phone'          , } ,
+          { autoFocus : false , required : false , type : 'text' , id : 'company'  , label : 'Company'   , icon : 'domain'         , } ,
+          { autoFocus : false , required : false , type : 'text' , id : 'jobTitle' , label : 'Job title' , icon : 'work'           , } ,
+          { autoFocus : false , required : false , type : 'date' , id : 'birthday' , label : 'Birthday'  , icon : 'cake'           , 
+          	InputLabelProps : { shrink : true , }                                                                                  , } ,
+          { autoFocus : false , required : false , type : 'text' , id : 'address'  , label : 'Address'   , icon : 'home'           , } ,
+          { autoFocus : false , required : false , type : 'text' , id : 'address'  , label : 'Address'   , icon : 'home'           ,
+            multiline : true , rows : 5                                                                                            , } ,
+        ],
       },
       readable   : 'leads' ,
       updatable  : true    ,
@@ -197,7 +212,7 @@ export const componentsNavConfig = [
       condensed  : true    ,
       creatable  : {
         title    : 'Create new contact',
-        form     : <UserMultiForm />,
+        // form     : <UserMultiForm />,
       },
       readable   : 'leads' ,
       updatable  : true    ,
