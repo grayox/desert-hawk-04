@@ -73,6 +73,9 @@ const FormTemplate = ({ fields, onChange, }) => {
               variant="outlined"
               required={field.required}
               fullWidth
+              multiline={field.multiline}
+              rows={field.rows}
+              InputLabelProps={field.InputLabelProps}
             />
           </div>
         ))
