@@ -111,6 +111,55 @@ export const bizCategoryItems = [
   { value : 'insurance' , label : 'Insurance' , icon : 'assignment'      } ,
 ]
 
+const formFieldProps = {
+  // type must be an HTML5 input type | https://www.w3schools.com/html/html_form_input_types.asp | https://material-ui.com/api/text-field/
+  // button|checkbox|color|date|datetime-local|email|file|hidden|image|month|number|password|radio|range|reset|search|submit|tel|text|time|url|week
+  name     : { type : 'text' , label : 'Name'      , icon : 'account_circle' , } ,
+  lastName : { type : 'text' , label : 'Last name' ,                           } ,
+  nickname : { type : 'text' , label : 'Nickname'  , icon : 'star'           , } ,
+  phone    : { type : 'text' , label : 'Phone'     , icon : 'phone'          , } ,
+  email    : { type : 'text' , label : 'Email'     , icon : 'email'          , } ,
+  company  : { type : 'text' , label : 'Company'   , icon : 'domain'         , } ,
+  jobTitle : { type : 'text' , label : 'Job title' , icon : 'work'           , } ,
+  birthday : { type : 'date' , label : 'Birthday'  , icon : 'cake'           , 
+  	           InputLabelProps : { shrink : true , }                         , } ,
+  address  : { type : 'text' , label : 'Address'   , icon : 'home'           , } ,
+  notes    : { type : 'text' , label : 'Notes'     , icon : 'note'           ,
+               multiline : true , rows : 5                                   , } ,
+}
+
+const getRequiredField = s => {
+  // s: string: 'name*'
+  const re1 = /\*/gm;
+  const re2 = /[a-zA-Z]+/gm;
+  const test = re1.test(s); // expected result: true|false
+  const a = s.match(re2); // expected result: ['name']
+  const string = a[0]; // expected result: 'name'
+  return { test, string, }; // expected result: { test: true, string: 'name', }
+}
+
+const getFormFieldProps = (s, n,) => {
+  // s: string: 'name' // n: number: >=0
+  // console.log('s\n', s);
+  // console.log('n\n', n);
+  const testForRequiredField = getRequiredField(s);
+  if(!testForRequiredField) return;
+  // console.log('testForRequiredField\n', testForRequiredField);
+  const str = testForRequiredField && testForRequiredField.string;
+  const out = formFieldProps[str];
+  // console.log('out\n', out);
+  if(!out) return;
+  const required = testForRequiredField && testForRequiredField.test;
+  out.autoFocus = !n; // autofocus on first item (index === 0) only
+  out.required = required;
+  // console.log('out\n', out);
+  return out;
+}
+
+export const getForm = arrayOfIds =>
+  // arrayOfIds: array of strings: ['name', 'phone', 'email',]
+  arrayOfIds.map((id, index,) => getFormFieldProps(id, index,))
+
 // syncronize: changes in either of the following files must be hard coded in the other
 // src/fuse-configs/fuseNavigationConfig.js
 // src/main/content/components/ComponentsConfig.js
@@ -179,19 +228,7 @@ export const componentsNavConfig = [
         title    : 'Create new lead',
         // form     : <UserMultiForm />,
         fields   : [
-          // type must be an HTML5 input type | https://www.w3schools.com/html/html_form_input_types.asp | https://material-ui.com/api/text-field/
-          // button|checkbox|color|date|datetime-local|email|file|hidden|image|month|number|password|radio|range|reset|search|submit|tel|text|time|url|week
-          { autoFocus : true  , required : true  , type : 'text' , id : 'name'     , label : 'Name'      , icon : 'account_circle' , } ,
-          { autoFocus : false , required : false , type : 'text' , id : 'lastName' , label : 'Last name' ,                           } ,
-          { autoFocus : false , required : false , type : 'text' , id : 'nickName' , label : 'Nickname'  , icon : 'star'           , } ,
-          { autoFocus : false , required : false , type : 'text' , id : 'phone'    , label : 'Phone'     , icon : 'phone'          , } ,
-          { autoFocus : false , required : false , type : 'text' , id : 'company'  , label : 'Company'   , icon : 'domain'         , } ,
-          { autoFocus : false , required : false , type : 'text' , id : 'jobTitle' , label : 'Job title' , icon : 'work'           , } ,
-          { autoFocus : false , required : false , type : 'date' , id : 'birthday' , label : 'Birthday'  , icon : 'cake'           , 
-          	InputLabelProps : { shrink : true , }                                                                                  , } ,
-          { autoFocus : false , required : false , type : 'text' , id : 'address'  , label : 'Address'   , icon : 'home'           , } ,
-          { autoFocus : false , required : false , type : 'text' , id : 'address'  , label : 'Address'   , icon : 'home'           ,
-            multiline : true , rows : 5                                                                                            , } ,
+          'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
         ],
       },
       readable   : 'leads' ,

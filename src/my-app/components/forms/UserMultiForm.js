@@ -1,4 +1,4 @@
-// inspired by src/my-app/apps/contacts/UserMultiForm.js
+// inspired by src/my-app/apps/contacts/ContactDialog.js
 
 import React, { Component } from 'react';
 import {

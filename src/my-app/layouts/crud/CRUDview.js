@@ -21,6 +21,7 @@ import moment from 'moment';
 
 // import CreateButton from './CreateButton';
 import { CreateButton, ButtonsRow, UDButtons, } from './CRUDButtons';
+import { getForm } from 'my-app/config/AppConfig';
 import FormTemplate from 'my-app/components/forms/FormTemplate';
 
 // import from '@material-ui/core/Avatar';
@@ -232,7 +233,7 @@ class CRUDView extends Component {
             // )
           }
           <FormTemplate
-            fields={fields}
+            fields={getForm(fields)}
             onChange={handleChangeCreateDialog}
           />
         </DialogContent>

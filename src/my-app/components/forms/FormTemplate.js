@@ -1,15 +1,16 @@
 // inspired by src/my-app/apps/contacts/UserMultiForm.js
 
-import React, { Component } from 'react';
+// import React, { Component } from 'react';
+import React from 'react';
 import {
   TextField, Icon,
   // Button, Dialog, DialogActions, DialogContent, IconButton, Typography, Toolbar, AppBar, Avatar
 } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles/index';
+// import { withStyles } from '@material-ui/core/styles/index';
 // import { bindActionCreators } from 'redux';
 // import * as Actions from './store/actions';
 // import { connect } from 'react-redux';
-import _ from '@lodash';
+// import _ from '@lodash';
 
 // const styles = theme => ({
 //   root: {},
@@ -52,7 +53,7 @@ import _ from '@lodash';
 const FormTemplate = ({ fields, onChange, }) => {
   console.log('fields\n', fields);
   return (
-    <div className="p-24">
+    <div className="p-24px">
       {
         fields.map(field => (
           <div className="flex">
