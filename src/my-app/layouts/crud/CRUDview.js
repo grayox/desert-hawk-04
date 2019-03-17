@@ -122,8 +122,8 @@ class CRUDView extends Component {
     });
   };
 
-  handleChangeCreateDialog = model => {
-    console.log('model\n', model);
+  handleChangeCreateDialog = event => {
+    console.log('event\n', event.target.value); // 'lorem'
   }
 
   handleCloseDialog = () => {

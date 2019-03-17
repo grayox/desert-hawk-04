@@ -51,7 +51,7 @@ import {
 // }
 
 const FormTemplate = ({ fields, onChange, }) => {
-  console.log('fields\n', fields);
+  // console.log('fields\n', fields);
   return (
     <div className="p-24px">
       {
@@ -69,6 +69,7 @@ const FormTemplate = ({ fields, onChange, }) => {
               name={field.id}
               type={field.type}
               // value={this.state.name}
+              value={"hello"}
               onChange={onChange}
               variant="outlined"
               required={field.required}
