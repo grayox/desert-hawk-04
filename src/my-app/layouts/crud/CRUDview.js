@@ -30,6 +30,7 @@ import FormTemplate from 'my-app/components/forms/FormTemplate';
 // import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 
 import HashAvatar from 'my-app/components/HashAvatar';
+import { SSL_OP_NETSCAPE_DEMO_CIPHER_CHANGE_BUG } from 'constants';
 // import { componentsNavConfig, } from 'my-app/config/AppConfig';
 
 // 4 Ways to Style React Components: https://codeburst.io/4-four-ways-to-style-react-components-ac6f323da822
@@ -129,9 +130,13 @@ class CRUDView extends Component {
   handleChangeCreateDialog = event => {
     // console.log('target\n', event.target);
     const { id, value, } = event.target;
-    console.log('id\n', id); // 'name'
-    console.log('value\n', value); // 'john doe'
-    this.setState({ createDialogState: { [id]: value, }});
+    // console.log('id\n', id); // 'name'
+    // console.log('value\n', value); // 'john doe'
+    this.setState({
+      createDialogState: {
+        ...this.state.createDialogState,
+        [id]: value,
+      }});
     console.log('state\n', this.state);
   }
 
@@ -189,7 +194,7 @@ class CRUDView extends Component {
   }
 
   setCreateDialogInitialState = fields => {
-    console.log('fields\n', fields);
+    // console.log('fields\n', fields); // some contain '*'
     const arrayOfFieldnames = getCleanFieldnames(fields);
     // const createDialogState = { arrayOfFieldnames, };
     const createDialogState = {};
