@@ -202,7 +202,7 @@ class CRUDView extends Component {
     arrayOfFieldnames.forEach(field => createFormState[field] = null);
     // fields.forEach(field => createFormState[field] = null);
     this.setState({ createFormState, }
-      , () => console.log('state\n', this.state)
+      ,() => console.log('state\n', this.state)
     );
   }
 
