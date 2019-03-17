@@ -128,37 +128,42 @@ const formFieldProps = {
                multiline : true , rows : 5                                   , } ,
 }
 
+const getOnlyAlpha = s => {
+  // s: string: 'name*'
+  const re = /[a-zA-Z]+/gm;
+  const a = s.match(re); // expected result: ['name']
+  const str = a[0]; // expected result: 'name'
+  return str; // 'name'
+}
+
 const getRequiredField = s => {
   // s: string: 'name*'
-  const re1 = /\*/gm;
-  const re2 = /[a-zA-Z]+/gm;
-  const test = re1.test(s); // expected result: true|false
-  const a = s.match(re2); // expected result: ['name']
-  const string = a[0]; // expected result: 'name'
-  return { test, string, }; // expected result: { test: true, string: 'name', }
+  const re = /\*/gm;
+  const test = re.test(s); // expected result: true|false
+  return test; // true
 }
 
 const getFormFieldProps = (s, n,) => {
-  // s: string: 'name' // n: number: >=0
+  // s: string: 'name*' // n: number: >=0
   // console.log('s\n', s);
   // console.log('n\n', n);
-  const testForRequiredField = getRequiredField(s);
-  if(!testForRequiredField) return;
-  // console.log('testForRequiredField\n', testForRequiredField);
-  const str = testForRequiredField && testForRequiredField.string;
+  const str = getOnlyAlpha(s);
   const out = formFieldProps[str];
   // console.log('out\n', out);
   if(!out) return;
-  const required = testForRequiredField && testForRequiredField.test;
-  out.autoFocus = !n; // autofocus on first item (index === 0) only
+  const required = getRequiredField(s);
   out.required = required;
+  out.autoFocus = !n; // autofocus on first item (index === 0) only
+  out.id = str;
   // console.log('out\n', out);
   return out;
 }
 
 export const getForm = arrayOfIds =>
   // arrayOfIds: array of strings: ['name', 'phone', 'email',]
-  arrayOfIds.map((id, index,) => getFormFieldProps(id, index,))
+  arrayOfIds.map((id, index,) => getFormFieldProps(id, index,));
+
+export const getCleanFieldnames = a => a.map(s => getOnlyAlpha(s)); // a: arrayOfStrings: ['name*', 'phone', 'email*']
 
 // syncronize: changes in either of the following files must be hard coded in the other
 // src/fuse-configs/fuseNavigationConfig.js

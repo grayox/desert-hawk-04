@@ -56,7 +56,7 @@ const FormTemplate = ({ fields, onChange, }) => {
     <div className="p-24px">
       {
         fields.map(field => (
-          <div className="flex">
+          <div key={field.key} className="flex">
             <div className="min-w-48 pt-20">
               <Icon color="action">{field.icon}</Icon>
             </div>

@@ -21,7 +21,7 @@ import moment from 'moment';
 
 // import CreateButton from './CreateButton';
 import { CreateButton, ButtonsRow, UDButtons, } from './CRUDButtons';
-import { getForm } from 'my-app/config/AppConfig';
+import { getForm, getCleanFieldnames, } from 'my-app/config/AppConfig';
 import FormTemplate from 'my-app/components/forms/FormTemplate';
 
 // import from '@material-ui/core/Avatar';
@@ -98,6 +98,10 @@ class CRUDView extends Component {
     this.state = INITIAL_STATE;
   }
 
+  componentWillMount() {
+    this.setCreateDialogInitialState(this.props.creatable.fields);
+  }
+
   handleOpenCreateDialog = () => {
     this.setState({
       createDialogIsOpen: true,
@@ -123,7 +127,12 @@ class CRUDView extends Component {
   };
 
   handleChangeCreateDialog = event => {
-    console.log('event\n', event.target.value); // 'lorem'
+    // console.log('target\n', event.target);
+    const { id, value, } = event.target;
+    console.log('id\n', id); // 'name'
+    console.log('value\n', value); // 'john doe'
+    this.setState({ createDialogState: { [id]: value, }});
+    console.log('state\n', this.state);
   }
 
   handleCloseDialog = () => {
@@ -179,14 +188,28 @@ class CRUDView extends Component {
     );
   }
 
+  setCreateDialogInitialState = fields => {
+    console.log('fields\n', fields);
+    const arrayOfFieldnames = getCleanFieldnames(fields);
+    // const createDialogState = { arrayOfFieldnames, };
+    const createDialogState = {};
+    arrayOfFieldnames.forEach(field => createDialogState[field] = null);
+    // fields.forEach(field => createDialogState[field] = null);
+    // this.setState({ createDialogState, }, () => console.log('state\n', this.state));
+    this.setState({ createDialogState, });
+  }
+
   getCreateDialog = () => {
     // console.log('props\n', this.props);
     const { title, fields, } = this.props.creatable; // form,
-    const { handleChangeCreateDialog, handleCloseDialog, handleSaveCreateDialog, } = this;
+    const {
+      handleChangeCreateDialog, handleCloseDialog, handleSaveCreateDialog,
+    } = this;
     const ready1 = title && fields;
     const ready2 = handleChangeCreateDialog && handleCloseDialog && handleSaveCreateDialog;
     if(!ready1) return;
     if(!ready2) return;
+
     return (
       <Dialog
         open={this.state.createDialogIsOpen}
@@ -343,7 +366,7 @@ class CRUDView extends Component {
           <React.Fragment>
             <Icon className="mt-32 opacity-25" fontSize="large">library_books</Icon>
             <Typography variant="body1" color="textSecondary">
-            Select an item to view
+              Select an item to view
             </Typography>
           </React.Fragment>
         }
