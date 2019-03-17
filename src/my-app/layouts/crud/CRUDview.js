@@ -127,17 +127,18 @@ class CRUDView extends Component {
     });
   };
 
-  handleChangeCreateDialog = event => {
+  handleChangeCreateForm = event => {
     // console.log('target\n', event.target);
     const { id, value, } = event.target;
     // console.log('id\n', id); // 'name'
     // console.log('value\n', value); // 'john doe'
     this.setState({
-      createDialogState: {
-        ...this.state.createDialogState,
+      createFormState: {
+        ...this.state.createFormState,
         [id]: value,
-      }});
-    console.log('state\n', this.state);
+      }}
+      ,() => console.log('state\n', this.state)
+    )
   }
 
   handleCloseDialog = () => {
@@ -196,22 +197,30 @@ class CRUDView extends Component {
   setCreateDialogInitialState = fields => {
     // console.log('fields\n', fields); // some contain '*'
     const arrayOfFieldnames = getCleanFieldnames(fields);
-    // const createDialogState = { arrayOfFieldnames, };
-    const createDialogState = {};
-    arrayOfFieldnames.forEach(field => createDialogState[field] = null);
-    // fields.forEach(field => createDialogState[field] = null);
-    // this.setState({ createDialogState, }, () => console.log('state\n', this.state));
-    this.setState({ createDialogState, });
+    // const createFormState = { arrayOfFieldnames, };
+    const createFormState = {};
+    arrayOfFieldnames.forEach(field => createFormState[field] = null);
+    // fields.forEach(field => createFormState[field] = null);
+    this.setState({ createFormState, }
+      , () => console.log('state\n', this.state)
+    );
+  }
+
+  getFormFields = fields => {
+    const formFields = getForm(fields);
+    formFields.map(field => field.value = this.state.createFormState[field.id]);
+    return formFields;
   }
 
   getCreateDialog = () => {
     // console.log('props\n', this.props);
+    const { getFormFields, } = this;
     const { title, fields, } = this.props.creatable; // form,
     const {
-      handleChangeCreateDialog, handleCloseDialog, handleSaveCreateDialog,
+      handleChangeCreateForm, handleCloseDialog, handleSaveCreateDialog,
     } = this;
     const ready1 = title && fields;
-    const ready2 = handleChangeCreateDialog && handleCloseDialog && handleSaveCreateDialog;
+    const ready2 = handleChangeCreateForm && handleCloseDialog && handleSaveCreateDialog;
     if(!ready1) return;
     if(!ready2) return;
 
@@ -256,13 +265,13 @@ class CRUDView extends Component {
             //   form,
             //   {
             //     fields,
-            //     onChange: handleChangeCreateDialog,
+            //     onChange: handleChangeCreateForm,
             //   },
             // )
           }
           <FormTemplate
-            fields={getForm(fields)}
-            onChange={handleChangeCreateDialog}
+            fields={getFormFields(fields)}
+            onChange={handleChangeCreateForm}
           />
         </DialogContent>
         <DialogActions>

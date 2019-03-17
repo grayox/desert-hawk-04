@@ -69,7 +69,8 @@ const FormTemplate = ({ fields, onChange, }) => {
               name={field.id}
               type={field.type}
               // value={this.state.name}
-              value={"hello"}
+              // value={"hello"}
+              value={field.value}
               onChange={onChange}
               variant="outlined"
               required={field.required}
