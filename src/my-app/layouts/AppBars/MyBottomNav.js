@@ -44,11 +44,11 @@ const styles = theme => ({
 
   actionClasses: {
     color: 'white', // theme.palette.text.primary.contrastText, //'yellow',
-    // bgcolor: 'pink',
-    // '&$active': {
-    '&$selected': {
-      color: 'white', // theme.palette.text.primary.contrastText, //'blue', // targets label and icon when selected.color is not used below
-    },
+    // // bgcolor: 'pink',
+    // // '&$active': {
+    // '&$selected': {
+    //   color: 'white', // theme.palette.text.primary.contrastText, //'blue', // targets label and icon when selected.color is not used below
+    // },
   },
   // selected: {
   //   // color: 'red', // targets label only, no icon

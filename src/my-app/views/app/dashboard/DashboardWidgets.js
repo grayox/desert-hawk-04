@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import { DashboardGridConfig } from './DashboardGridConfig'
 import DashboardWidget from './DashboardWidget';
-import { withStyles, GridList, Grid, } from '@material-ui/core';
+import { withStyles, Grid, } from '@material-ui/core'; // GridList,
 
 const styles = theme => ({
   // root: {
@@ -59,7 +59,7 @@ const getItems = () => {
 // )
 
 const DashboardWidgets = props => {
-  const { classes, } = props;
+  // const { classes, } = props;
   const items = getItems();
   const count = items && items.length;
   return (

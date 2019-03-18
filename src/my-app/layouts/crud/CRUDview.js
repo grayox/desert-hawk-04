@@ -30,7 +30,6 @@ import FormTemplate from 'my-app/components/forms/FormTemplate';
 // import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 
 import HashAvatar from 'my-app/components/HashAvatar';
-import { SSL_OP_NETSCAPE_DEMO_CIPHER_CHANGE_BUG } from 'constants';
 // import { componentsNavConfig, } from 'my-app/config/AppConfig';
 
 // 4 Ways to Style React Components: https://codeburst.io/4-four-ways-to-style-react-components-ac6f323da822
@@ -72,7 +71,6 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'center',
     flexDirection: 'column',
-    textAlign: 'center',
   }
 });
 
@@ -85,9 +83,13 @@ const INITIAL_STATE_DIALOG = {
   deleteDialogIsOpen: false,
 }
 
+const INITIAL_STATE_DETAIL = {
+  detail: undefined,
+  selectedIndex: undefined,
+}
+
 const INITIAL_STATE = {
-  detail: null,
-  selectedIndex: null,
+  ...INITIAL_STATE_DETAIL,
   ...INITIAL_STATE_DIALOG,
 };
 
@@ -137,7 +139,7 @@ class CRUDView extends Component {
         ...this.state.createFormState,
         [id]: value,
       }}
-      // ,() => console.log('state\n', this.state)
+      ,() => console.log('state\n', this.state)
     )
   }
 
@@ -181,13 +183,11 @@ class CRUDView extends Component {
   handleToggle = ( model, isList, index, ) => {
     // console.log('model\n', model);
     // const { detail } = this.state;
-    this.setState(
-      { 
-        detail: null,
-        selectedIndex: null,
-      },
+    this.setState({
+      ...INITIAL_STATE_DETAIL,
+    }
       // promise completes animation effect
-      () => {if(isList) this.setState({
+      ,() => {if(isList) this.setState({
         detail: model,
         selectedIndex: index,
       })}
@@ -199,8 +199,8 @@ class CRUDView extends Component {
     const arrayOfFieldnames = getCleanFieldnames(fields);
     // const createFormState = { arrayOfFieldnames, };
     const createFormState = {};
-    arrayOfFieldnames.forEach(field => createFormState[field] = null);
-    // fields.forEach(field => createFormState[field] = null);
+    arrayOfFieldnames.forEach(field => createFormState[field] = '');
+    // fields.forEach(field => createFormState[field] = '');
     this.setState({ createFormState, }
       // ,() => console.log('state\n', this.state)
     );
@@ -680,9 +680,9 @@ CRUDView.propTypes = {
   items: PropTypes.array.isRequired,
   condensed: PropTypes.bool, // one-line per list item in detail pane
   actionable: PropTypes.func,
-  creatable: PropTypes.element, // create button in list pane
+  creatable: PropTypes.object, // create button in list pane
   readable: PropTypes.string,
-  updatable: PropTypes.string,
+  updatable: PropTypes.bool,
   deletable: PropTypes.bool,
 };
 

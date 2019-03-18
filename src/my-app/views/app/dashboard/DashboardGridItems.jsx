@@ -36,7 +36,7 @@ import {
 // custom components
 import SelectControl from 'my-app/components/selects/SelectControl.js';
 import DashboardGridItem from './DashboardGridItem'
-import { DashboardGridConfig } from './DashboardGridConfig'
+// import { DashboardGridConfig } from './DashboardGridConfig'
 
 // CategorySelect
 // import HomeIcon from '@material-ui/icons/Home';

@@ -144,13 +144,14 @@ const getRequiredField = s => {
 }
 
 const getFormFieldProps = (s, n,) => {
-  // s: string: 'name*' // n: number: >=0
+  // s: string: 'name*' // n: number: >=0, index of array element when iterating
   // console.log('s\n', s);
   // console.log('n\n', n);
-  const str = getOnlyAlpha(s);
+  const str = getOnlyAlpha(s); // 'name*' => 'name'
   const out = formFieldProps[str];
   // console.log('out\n', out);
   if(!out) return;
+
   const required = getRequiredField(s);
   out.required = required;
   out.autoFocus = !n; // autofocus on first item (index === 0) only
