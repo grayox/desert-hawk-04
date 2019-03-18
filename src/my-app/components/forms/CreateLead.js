@@ -9,7 +9,7 @@ import { createLead } from 'my-app/store/actions/my-actions'
 class CreateLead extends Component {
   state = {
     title: '',
-    content: ''
+    content: '',
   }
   handleChange = e => {
     this.setState({

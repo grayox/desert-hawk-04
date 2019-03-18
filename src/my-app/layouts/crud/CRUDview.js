@@ -1,7 +1,10 @@
 // import React from 'react';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
 import compose from 'recompose/compose';
+import { connect } from 'react-redux'
+import { createItem } from './store/actions'
 
 import classNames from 'classnames';
 
@@ -139,7 +142,7 @@ class CRUDView extends Component {
         ...this.state.createFormState,
         [id]: value,
       }}
-      ,() => console.log('state\n', this.state)
+      // ,() => console.log('state\n', this.state)
     )
   }
 
@@ -150,8 +153,15 @@ class CRUDView extends Component {
     });
   };
 
-  handleSaveCreateDialog = () => {
-    console.log('state\n', this.state);
+  handleSaveCreateDialog = e => {
+    // console.log('state\n', this.state);
+    
+    // inspired by: src/my-app/components/forms/CreateLead.js
+    e.preventDefault();
+    // console.log(this.state);
+    this.props.createItem(this.state.createFormState);
+    // this.props.history.push('/');
+
     this.handleCloseDialog();
   }
   
@@ -686,8 +696,11 @@ class CRUDView extends Component {
 }
 
 CRUDView.propTypes = {
+  createItem: PropTypes.func.isRequired,
+
   classes: PropTypes.object.isRequired,
   items: PropTypes.array.isRequired,
+
   condensed: PropTypes.bool, // one-line per list item in detail pane
   actionable: PropTypes.func,
   creatable: PropTypes.oneOfType([ // create button in list pane
@@ -708,9 +721,16 @@ CRUDView.defaultProps = {
   deletable: false,
 };
 
+const mapDispatchToProps = dispatch => {
+  return {
+    createItem: item => dispatch(createItem(item)), // inspired by: src/my-app/components/forms/CreateLead.js
+  }
+}
+
 // export default CRUDView;
 // export default withStyles(styles)(CRUDView);
 export default compose(
   withStyles(styles),
   withWidth(),
+  connect(null, mapDispatchToProps),
 )(CRUDView);
