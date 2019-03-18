@@ -114,18 +114,18 @@ export const bizCategoryItems = [
 const formFieldProps = {
   // type must be an HTML5 input type | https://www.w3schools.com/html/html_form_input_types.asp | https://material-ui.com/api/text-field/
   // button|checkbox|color|date|datetime-local|email|file|hidden|image|month|number|password|radio|range|reset|search|submit|tel|text|time|url|week
-  name     : { type : 'text' , label : 'Name'      , icon : 'account_circle' , } ,
-  lastName : { type : 'text' , label : 'Last name' ,                           } ,
-  nickname : { type : 'text' , label : 'Nickname'  , icon : 'star'           , } ,
-  phone    : { type : 'text' , label : 'Phone'     , icon : 'phone'          , } ,
-  email    : { type : 'text' , label : 'Email'     , icon : 'email'          , } ,
-  company  : { type : 'text' , label : 'Company'   , icon : 'domain'         , } ,
-  jobTitle : { type : 'text' , label : 'Job title' , icon : 'work'           , } ,
-  birthday : { type : 'date' , label : 'Birthday'  , icon : 'cake'           , 
-  	           InputLabelProps : { shrink : true , }                         , } ,
-  address  : { type : 'text' , label : 'Address'   , icon : 'home'           , } ,
-  notes    : { type : 'text' , label : 'Notes'     , icon : 'note'           ,
-               multiline : true , rows : 5                                   , } ,
+  name      : { type : 'text' , label : 'Name'       , icon : 'account_circle' , } ,
+  firstName : { type : 'text' , label : 'First name' , icon : 'account_circle' , } ,
+  lastName  : { type : 'text' , label : 'Last name'  , icon : 'account_circle' , } ,
+  nickname  : { type : 'text' , label : 'Nickname'   , icon : 'star'           , } ,
+  address   : { type : 'text' , label : 'Address'    , icon : 'home'           , } ,
+  zip       : { type : 'text' , label : 'Zip code'   , icon : 'place'          , } ,
+  phone     : { type : 'text' , label : 'Phone'      , icon : 'phone'          , } ,
+  email     : { type : 'text' , label : 'Email'      , icon : 'email'          , } ,
+  company   : { type : 'text' , label : 'Company'    , icon : 'domain'         , } ,
+  jobTitle  : { type : 'text' , label : 'Job title'  , icon : 'work'           , } ,
+  birthday  : { type : 'date' , label : 'Birthday'   , icon : 'cake'           , InputLabelProps: {shrink: true,},},
+  notes     : { type : 'text' , label : 'Notes'      , icon : 'note'           , multiline: true, rows: 5,},
 }
 
 const getOnlyAlpha = s => {
@@ -231,11 +231,8 @@ export const componentsNavConfig = [
       actionable : () => {},
       condensed  : true    ,
       creatable  : {
-        title    : 'Create new lead',
-        // form     : <UserMultiForm />,
-        fields   : [
-          'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
-        ],
+        title    : 'Create new lead', // form: <UserMultiForm />,
+        fields   : [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ], // 'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
       },
       readable   : 'leads' ,
       updatable  : true    ,
@@ -254,8 +251,8 @@ export const componentsNavConfig = [
       actionable : () => {},
       condensed  : true    ,
       creatable  : {
-        title    : 'Create new contact',
-        // form     : <UserMultiForm />,
+        title    : 'Create new contact', // form: <UserMultiForm />,
+        fields   : [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ], // 'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
       },
       readable   : 'leads' ,
       updatable  : true    ,

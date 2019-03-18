@@ -195,6 +195,9 @@ class CRUDView extends Component {
   }
 
   setCreateDialogInitialState = fields => {
+    const ready = this.props.creatable;
+    if(!ready) return;
+
     // console.log('fields\n', fields); // some contain '*'
     const arrayOfFieldnames = getCleanFieldnames(fields);
     // const createFormState = { arrayOfFieldnames, };
@@ -680,7 +683,11 @@ CRUDView.propTypes = {
   items: PropTypes.array.isRequired,
   condensed: PropTypes.bool, // one-line per list item in detail pane
   actionable: PropTypes.func,
-  creatable: PropTypes.object, // create button in list pane
+  creatable: PropTypes.oneOfType([
+    // create button in list pane
+    PropTypes.object,
+    PropTypes.bool,
+  ]),
   readable: PropTypes.string,
   updatable: PropTypes.bool,
   deletable: PropTypes.bool,
