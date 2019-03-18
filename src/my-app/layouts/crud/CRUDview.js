@@ -102,7 +102,7 @@ class CRUDView extends Component {
   }
 
   componentWillMount() {
-    this.setCreateDialogInitialState(this.props.creatable.fields);
+    this.setCreateFormInitialState(this.props.creatable.fields);
   }
 
   handleOpenCreateDialog = () => {
@@ -144,11 +144,15 @@ class CRUDView extends Component {
   }
 
   handleCloseDialog = () => {
-    this.setState({ ...INITIAL_STATE_DIALOG, });
+    this.setState({
+      ...INITIAL_STATE_DIALOG,
+      createFormState: this.state.createFormInitialState,
+    });
   };
 
   handleSaveCreateDialog = () => {
     console.log('state\n', this.state);
+    this.handleCloseDialog();
   }
   
   handleSaveUpdateDialog = () => {
@@ -194,7 +198,7 @@ class CRUDView extends Component {
     );
   }
 
-  setCreateDialogInitialState = fields => {
+  setCreateFormInitialState = fields => {
     const ready = this.props.creatable;
     if(!ready) return;
 
@@ -204,7 +208,10 @@ class CRUDView extends Component {
     const createFormState = {};
     arrayOfFieldnames.forEach(field => createFormState[field] = '');
     // fields.forEach(field => createFormState[field] = '');
-    this.setState({ createFormState, }
+    this.setState({
+      createFormState,
+      createFormInitialState: createFormState,
+    }
       // ,() => console.log('state\n', this.state)
     );
   }
@@ -683,8 +690,7 @@ CRUDView.propTypes = {
   items: PropTypes.array.isRequired,
   condensed: PropTypes.bool, // one-line per list item in detail pane
   actionable: PropTypes.func,
-  creatable: PropTypes.oneOfType([
-    // create button in list pane
+  creatable: PropTypes.oneOfType([ // create button in list pane
     PropTypes.object,
     PropTypes.bool,
   ]),
