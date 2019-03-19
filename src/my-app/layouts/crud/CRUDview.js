@@ -147,9 +147,16 @@ class CRUDView extends Component {
   }
 
   handleDeleteItem = () => {
-    console.log('selectedIndex', this.state.selectedIndex,);
-    // console.log('id', this.state.selectedIndex,);
-    // this.props.deleteItem( this.props.readable.path,  );
+    // console.log('state\n', this.state);
+    // console.log('props\n', this.props);
+    const { selectedIndex, } = this.state;
+    const { items, readable, } = this.props;
+    // console.log('selectedIndex', selectedIndex,);
+    // console.log('selectedItem', items[selectedIndex],);
+    const item = items[selectedIndex];
+    const docId = item.docId;
+    // console.log('docId', docId,);
+    this.props.deleteItem( readable, docId, );
     this.handleCloseDialog();
   }
 
@@ -447,9 +454,9 @@ class CRUDView extends Component {
   // )
 
   getSummary = ( item, isList, index, ) => {
-    const { handleToggle, handleOpenUpdateDialog, handleOpenDeleteDialog, } = this;
+    const { handleToggle, } = this; // handleOpenUpdateDialog, handleOpenDeleteDialog,
     const { selectedIndex, } = this.state; // detail
-    const { classes, actionable, updatable, deletable, } = this.props;
+    const { classes, actionable, } = this.props; // updatable, deletable,
     const { timestamp, } = item;
     return (
       <ListItem
@@ -741,8 +748,8 @@ CRUDView.defaultProps = {
 
 const mapDispatchToProps = dispatch => {
   return {
-    createItem: ( path , item , ) => dispatch(createItem( path , item , )), // inspired by: src/my-app/components/forms/CreateLead.js
-    deleteItem: ( path , id   , ) => dispatch(deleteItem( path , id   , )),
+    createItem: ( path , item  , ) => dispatch(createItem( path , item  , )), // inspired by: src/my-app/components/forms/CreateLead.js
+    deleteItem: ( path , docId , ) => dispatch(deleteItem( path , docId , )),
   }
 }
 

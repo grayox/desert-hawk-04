@@ -119,7 +119,7 @@ class CRUDContainer extends Component {
   render() {
     const { handleLoad, } = this;
     const { isLoading, isError, items, } = this.state;
-    const { classes, condensed, actionable, creatable, updatable, deletable, } = this.props; // readable,
+    const { classes, condensed, actionable, creatable, readable, updatable, deletable, } = this.props;
     
     return (
       isLoading
@@ -148,7 +148,7 @@ class CRUDContainer extends Component {
               condensed={condensed}
               actionable={actionable}
               creatable={creatable}
-              // readable={readable}
+              readable={readable}
               updatable={updatable}
               deletable={deletable}
             />

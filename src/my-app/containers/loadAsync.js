@@ -61,7 +61,10 @@ const getItems = async path => {
         // console.log('timestamp: ', doc.get('created_at')); // undefined
         // console.log('id: ', doc.id); // works
         // console.log('data\n', doc.data()); // works
-        a.push(doc.data());
+        a.push({
+          docId: doc.id,
+          ...doc.data(),
+        });
         // console.log('a\n', a);
         // this.setState(a);
       });

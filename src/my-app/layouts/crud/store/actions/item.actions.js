@@ -30,17 +30,17 @@ export const createItem = ( path, item, ) =>
 // Instead, we will update the record with a field: deletedAt: Date.now()
 // Then, we will query records without a deletedAt field as described here: https://firebase.google.com/docs/firestore/query-data/queries#compound_queries
 // example: citiesRef.where("state", "==", "CO").where("deletedAt", "==", false)
-export const deleteItem = ( path, id, ) =>
+export const deleteItem = ( path, docId, ) =>
   (dispatch, getState, { getFirebase, getFirestore, }) => {
     console.log('path\n', path);
-    console.log('id\n', id);
+    console.log('docId\n', docId);
     console.log('getState\n', getState);
-    
+
     // make async call to database
     const firestore = getFirestore();
     firestore
       .collection(path)
-      .doc(id)
+      .doc(docId)
       .set({
         deletedAt: Date.now(),
     }, { merge: true }).then( () => {
