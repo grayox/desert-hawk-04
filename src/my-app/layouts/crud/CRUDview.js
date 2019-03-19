@@ -155,11 +155,13 @@ class CRUDView extends Component {
 
   handleSaveCreateDialog = e => {
     // console.log('state\n', this.state);
+    const { createFormState, } = this.state;
+    const { path, } = this.props.creatable;
     
     // inspired by: src/my-app/components/forms/CreateLead.js
     e.preventDefault();
     // console.log(this.state);
-    this.props.createItem(this.state.createFormState);
+    this.props.createItem(path, createFormState,);
     // this.props.history.push('/');
 
     this.handleCloseDialog();
@@ -707,7 +709,10 @@ CRUDView.propTypes = {
     PropTypes.object,
     PropTypes.bool,
   ]),
-  readable: PropTypes.string,
+  readable: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool,
+  ]),
   updatable: PropTypes.bool,
   deletable: PropTypes.bool,
 };
@@ -723,7 +728,7 @@ CRUDView.defaultProps = {
 
 const mapDispatchToProps = dispatch => {
   return {
-    createItem: item => dispatch(createItem(item)), // inspired by: src/my-app/components/forms/CreateLead.js
+    createItem: (path, item,) => dispatch(createItem(path, item,)), // inspired by: src/my-app/components/forms/CreateLead.js
   }
 }
 
