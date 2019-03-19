@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import compose from 'recompose/compose';
 import { connect } from 'react-redux'
-import { createItem } from './store/actions'
+import { createItem, deleteItem, } from './store/actions'
 
 import classNames from 'classnames';
 
@@ -23,7 +23,7 @@ import { FuseAnimateGroup } from '@fuse'; // FuseScrollbars, FuseAnimate,
 import moment from 'moment';
 
 // import CreateButton from './CreateButton';
-import { CreateButton, ButtonsRow, UDButtons, } from './CRUDButtons';
+import { CreateButton, ButtonsRow, } from './CRUDButtons'; // UDButtons,
 import { getForm, getCleanFieldnames, } from 'my-app/config/AppConfig';
 import FormTemplate from 'my-app/components/forms/FormTemplate';
 
@@ -144,6 +144,13 @@ class CRUDView extends Component {
       }}
       // ,() => console.log('state\n', this.state)
     )
+  }
+
+  handleDeleteItem = () => {
+    console.log('selectedIndex', this.state.selectedIndex,);
+    // console.log('id', this.state.selectedIndex,);
+    // this.props.deleteItem( this.props.readable.path,  );
+    this.handleCloseDialog();
   }
 
   handleCloseDialog = () => {
@@ -358,7 +365,7 @@ class CRUDView extends Component {
         <Button onClick={this.handleCloseDialog} color="primary">
           Cancel
         </Button>
-        <Button onClick={this.handleCloseDialog} color="primary">
+        <Button onClick={this.handleDeleteItem} color="primary">
           Delete
         </Button>
       </DialogActions>
@@ -467,12 +474,17 @@ class CRUDView extends Component {
           isList
           ?
           <React.Fragment>
-            <UDButtons
-              updatable={updatable}
-              deletable={deletable}
-              onUpdate={handleOpenUpdateDialog}
-              onDelete={handleOpenDeleteDialog}
-            />
+            {
+            // Not using this for two reasons:
+            // 1. Does not yet provide selectedIndex to state
+            // 2. Horizontal space constraint on narrow screens
+            // <UDButtons
+            //   updatable={updatable}
+            //   deletable={deletable}
+            //   onUpdate={handleOpenUpdateDialog}
+            //   onDelete={handleOpenDeleteDialog}
+            // />
+            }
             <IconButton color="inherit" aria-label="Update and delete"
               onClick={() => handleToggle( item, isList, index, )}
             >
@@ -729,7 +741,8 @@ CRUDView.defaultProps = {
 
 const mapDispatchToProps = dispatch => {
   return {
-    createItem: (path, item,) => dispatch(createItem(path, item,)), // inspired by: src/my-app/components/forms/CreateLead.js
+    createItem: ( path , item , ) => dispatch(createItem( path , item , )), // inspired by: src/my-app/components/forms/CreateLead.js
+    deleteItem: ( path , id   , ) => dispatch(deleteItem( path , id   , )),
   }
 }
 

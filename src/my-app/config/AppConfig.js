@@ -256,9 +256,9 @@ export const componentsNavConfig = [
         path     : 'contacts',
         fields   : [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ], // 'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
       },
-      readable   : 'leads' ,
-      updatable  : true    ,
-      deletable  : true    ,
+      readable   : 'contacts' ,
+      updatable  : true       ,
+      deletable  : true       ,
     },
   },
 

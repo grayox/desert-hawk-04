@@ -47,6 +47,7 @@ const getItems = async path => {
   const db = firebase.firestore();
   if(!db) return;
   const out = await db.collection(path)
+    // .where('deletedAt', '==', false,) // filters out deleted documents
     // .orderBy('added_at', 'desc')
     // .orderBy('created_at', 'desc')
     .orderBy('timestamp', 'desc')

@@ -20,6 +20,12 @@ const itemsReducer = (state = initState, action) => {
     case 'CREATE_ITEM_ERROR':
       console.log('create item error');
       return state;
+    case 'DELETE_ITEM_SUCCESS':
+      console.log('delete item success');
+      return state;
+    case 'DELETE_ITEM_ERROR':
+      console.log('delete item error');
+      return state;
     default:
       return state;
   }
