@@ -13,9 +13,10 @@ export const createItem = ( path, item, ) =>
     // ref: https://firebase.google.com/docs/firestore/manage-data/add-data#add_a_document
     // firestore.collection('test').add({
     firestore.collection(path).add({
-      // createdAt: new Date(),
-      timestamp: Date.now(),
       ...item,
+      created_at: Date.now(),
+      deleted_at: 0,
+      // createdAt: new Date(),
       // authorFirstName: 'Net',
       // authorLastName: 'Ninja',
       // authorId: 12345,
@@ -27,9 +28,9 @@ export const createItem = ( path, item, ) =>
   }
 
 // To "delete" a record, we do NOT use the .delete() method described here: https://firebase.google.com/docs/firestore/manage-data/delete-data
-// Instead, we will update the record with a field: deletedAt: Date.now()
-// Then, we will query records without a deletedAt field as described here: https://firebase.google.com/docs/firestore/query-data/queries#compound_queries
-// example: citiesRef.where("state", "==", "CO").where("deletedAt", "==", false)
+// Instead, we will update the record with a field: deleted_at: Date.now()
+// Then, we will query records without a deleted_at field as described here: https://firebase.google.com/docs/firestore/query-data/queries#compound_queries
+// example: citiesRef.where("state", "==", "CO").where("deleted_at", "==", false)
 export const deleteItem = ( path, docId, ) =>
   (dispatch, getState, { getFirebase, getFirestore, }) => {
     console.log('path\n', path);
@@ -42,8 +43,11 @@ export const deleteItem = ( path, docId, ) =>
       .collection(path)
       .doc(docId)
       .set({
-        deletedAt: Date.now(),
-    }, { merge: true }).then( () => {
+        deleted_at: Date.now(),
+      }
+      // ,{ merge: true, }
+      )
+    .then( () => {
       dispatch({ type: 'DELETE_ITEM_SUCCESS' });
     }).catch( error => {
       dispatch({ type: 'DELETE_ITEM_ERROR' }, error);

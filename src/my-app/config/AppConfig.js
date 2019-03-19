@@ -423,13 +423,13 @@ export default compose(
 
       // { path: users/${props.profile.uid}/current` }, // fails; used by old version
 
-      { collection: 'leads', orderBy: ['timestamp', 'desc'] }, // success
+      { collection: 'leads', orderBy: ['created_at', 'desc'] }, // success
 
       // // fail
       // { 
       //   collection: path,
       //   limit: 1,
-      //   orderBy: ['timestamp', 'desc'],
+      //   orderBy: ['created_at', 'desc'],
       //   storeAs: 'settings',
       // },
 
@@ -452,7 +452,7 @@ export default compose(
           {
             collection: 'settings',
             // limit: 1,
-            // orderBy: ['timestamp', 'desc',],
+            // orderBy: ['created_at', 'desc',],
             // storeAs: 'settings',
             doc: 'current',
           },

@@ -70,7 +70,7 @@ class FuseAuthorization extends Component {
 
   render() {
     // begin my add
-    // const timestamp = Date.now();
+    // const created_at = Date.now();
     
     // uid forwards to dashboard,
     // loggedIn makes you login before forwarding after every reload
@@ -138,7 +138,7 @@ class FuseAuthorization extends Component {
         uid
         ?
         children
-        // <FetchFirestore key={timestamp}>{children}</FetchFirestore>
+        // <FetchFirestore key={created_at}>{children}</FetchFirestore>
         :
         <Login />
       )} />

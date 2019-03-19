@@ -66,7 +66,7 @@ const optionsAutomation = [
 
 // function getSettings() {
 //   db.collection(path)
-//     .orderBy('timestamp', 'desc')
+//     .orderBy('created_at', 'desc')
 //     .limit(1)
 //     .onSnapshot(snapshot => { // https://firebase.google.com/docs/firestore/query-data/listen
 //       snapshot.docChanges().forEach(change => {

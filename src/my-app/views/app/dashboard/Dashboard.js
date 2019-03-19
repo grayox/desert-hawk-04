@@ -127,7 +127,7 @@ class Dashboard extends Component {
       // .collection('users/userme/settings')
       // .orderBy('added_at', 'desc')
       // .orderBy('created_at', 'desc')
-      .orderBy('timestamp', 'desc')
+      .orderBy('created_at', 'desc')
       .limit(1)
       .get()
       .then(querySnapshot => {
@@ -135,8 +135,8 @@ class Dashboard extends Component {
         querySnapshot.forEach(doc =>
           // doc.data() is always defined for query doc snapshots
           // console.log(doc.id, '\n', doc.data());
-          // console.log('timestamp: ', doc.timestamp()); // throws error
-          // console.log('timestamp: ', doc.get('created_at')); // undefined
+          // console.log('created_at: ', doc.created_at()); // throws error
+          // console.log('created_at: ', doc.get('created_at')); // undefined
           // console.log('id: ', doc.id); // works
           // console.log('data\n', doc.data()); // works
           out = doc.data()
@@ -164,8 +164,8 @@ class Dashboard extends Component {
 
   handleSaveSettingsStepper = data => {
     const { bizCategory, geoNation, geoRegion, geoLocal, } = data;
-    const timestamp = Date.now();
-    const newData = { timestamp, bizCategory, geoNation, geoRegion, geoLocal, };
+    const created_at = Date.now();
+    const newData = { created_at, bizCategory, geoNation, geoRegion, geoLocal, };
     this.setState({
       ...newData,
       show: 'main',
@@ -242,8 +242,8 @@ class Dashboard extends Component {
     const bizCategory = model.target.value;
     this.setState({ bizCategory, });
     // console.log('state\n', this.state);
-    const timestamp = Date.now();
-    const newData = { timestamp, bizCategory, geoNation, geoRegion, geoLocal, };
+    const created_at = Date.now();
+    const newData = { created_at, bizCategory, geoNation, geoRegion, geoLocal, };
     const path = this.getPath();
     db.collection(path)
       .add(newData);
@@ -491,7 +491,7 @@ export default compose(
   // withRouter(connect(mapStateToProps, mapDispatchToProps),
   // firestoreConnect(props => {
   //   return [
-  //     { collection: 'leads', orderBy: ['timestamp', 'desc'] },
+  //     { collection: 'leads', orderBy: ['created_at', 'desc'] },
   //     {
   //       collection: 'users',
   //       doc: props.profile.uid,
@@ -499,7 +499,7 @@ export default compose(
   //         {
   //           collection: 'settings',
   //           limit: 1,
-  //           orderBy: ['timestamp', 'desc',],
+  //           orderBy: ['created_at', 'desc',],
   //           storeAs: 'settings',
   //         },
   //       ],

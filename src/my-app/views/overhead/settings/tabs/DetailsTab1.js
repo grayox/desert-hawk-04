@@ -542,13 +542,13 @@ export default compose(
       // { collection: 'projects', orderBy: ['createdAt', 'desc'] },
       // { collection: 'notifications', limit: 3, orderBy: ['time', 'desc'] },
 
-      { collection: 'leads', orderBy: ['timestamp', 'desc'] }, // success
+      { collection: 'leads', orderBy: ['created_at', 'desc'] }, // success
 
       // // fail
       // { 
       //   collection: path,
       //   limit: 1,
-      //   orderBy: ['timestamp', 'desc'],
+      //   orderBy: ['created_at', 'desc'],
       //   storeAs: 'settings',
       // },
 
@@ -571,7 +571,7 @@ export default compose(
           {
             collection: 'settings',
             limit: 1,
-            orderBy: ['timestamp', 'desc',],
+            orderBy: ['created_at', 'desc',],
             storeAs: 'settings',
           },
         ],

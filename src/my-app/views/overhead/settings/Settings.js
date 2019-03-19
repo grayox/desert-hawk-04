@@ -626,7 +626,7 @@ export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   // firestoreConnect(props => {
   //   return [
-  //     { collection: 'leads', orderBy: ['timestamp', 'desc'] },
+  //     { collection: 'leads', orderBy: ['created_at', 'desc'] },
   //     {
   //       collection: 'users',
   //       doc: props.profile.uid,
@@ -634,7 +634,7 @@ export default compose(
   //         {
   //           collection: 'settings',
   //           limit: 1,
-  //           orderBy: ['timestamp', 'desc',],
+  //           orderBy: ['created_at', 'desc',],
   //           storeAs: 'settings',
   //         },
   //       ],
