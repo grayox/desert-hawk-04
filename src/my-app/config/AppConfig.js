@@ -232,7 +232,7 @@ export const componentsNavConfig = [
       condensed  : true    ,
       creatable  : {
         title    : 'Create new lead', // form: <UserMultiForm />,
-        path     : 'doowah', //'leads',
+        path     : 'leads',
         fields   : [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ], // 'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
       },
       readable   : 'leads' ,
@@ -253,7 +253,7 @@ export const componentsNavConfig = [
       condensed  : true    ,
       creatable  : {
         title    : 'Create new contact', // form: <UserMultiForm />,
-        path     : 'doowah', //'leads',
+        path     : 'contacts',
         fields   : [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ], // 'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
       },
       readable   : 'leads' ,

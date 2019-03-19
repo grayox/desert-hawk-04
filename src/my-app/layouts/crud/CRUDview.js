@@ -161,6 +161,7 @@ class CRUDView extends Component {
     // inspired by: src/my-app/components/forms/CreateLead.js
     e.preventDefault();
     // console.log(this.state);
+    // this.props.createItem('leads', createFormState,);
     this.props.createItem(path, createFormState,);
     // this.props.history.push('/');
 
