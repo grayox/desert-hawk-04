@@ -41,9 +41,11 @@ class firebaseService {
   // };
 
   // begin my add
-  userRef = ({ uid }) => {
+  userRef = ({ uid, }) => {
     try {
       return this.firestore //.doc(`users/${user.uid}`);
+        // Note: The following line assumes a collection named 'users' already exists in the firestore
+        // If this is not the case, you must manually create a colloection named 'users'.
         .collection('users')
         .doc(uid);
     } catch (e) {
@@ -53,13 +55,13 @@ class firebaseService {
   }
 
   getUserData = user => {
-    // console.log('user', user);
+    console.log('user', user);
     // debugger;
-    const { userRef } = this;
+    const { userRef, } = this;
     // getUserData = userId =>
     // console.log('userId', userId);
     // console.log('firebase.apps\n', firebase.apps);
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject,) => {
       if (!firebase.apps.length) {
         reject();
       }
@@ -78,12 +80,12 @@ class firebaseService {
           .then(doc => {
             if (doc.exists) {
               const data = doc.data();
-              // console.log('Document data:\n', data);
+              console.log('Document data:\n', data);
               // debugger;
               resolve(data);
             } else {
               // doc.data() will be undefined in this case
-              // console.log('No such document!');
+              console.log('No such document!');
               // begin my add
               // console.log('Beginning to update user data...');
               // console.log('user\n', user);
@@ -94,14 +96,16 @@ class firebaseService {
               // reject();
             }
           }).catch(error => {
-            // console.log('Error getting document:\n', error);
-            // console.log('user\n', user);
+            console.log('Error getting document:\n', error);
+            console.log('user\n', user);
             // debugger;
-            this.updateUserData(user);
+            userRef
+              .set(user)
+              .then(user => this.updateUserData(user))
             reject();
           });
       } else {
-        // console.log('Saving user to firebase: uid:\n', user.uid);
+        console.log('Saving user to firebase: uid:\n', user.uid);
         this.saveDocToFirestore(user.uid, `users/user/${user.uid}`);
         resolve(user);
       }

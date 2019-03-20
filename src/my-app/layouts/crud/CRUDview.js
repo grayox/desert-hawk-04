@@ -46,6 +46,7 @@ const styles = theme => ({
     // height: '100%',
     // temp-border
     // border: 'solid black 4px',
+    height: 'calc(100vh - 116px)',
     boxSizing: 'border-box',
     display: 'flex',
   },
@@ -55,6 +56,7 @@ const styles = theme => ({
   wrapper: {
     // temp-border
     // border: 'solid red 4px',
+    height: '100%',
     flexGrow: 1,
     boxSizing: 'border-box',
     // overflow: 'auto',
@@ -62,12 +64,14 @@ const styles = theme => ({
   paper: {
     // temp-border
     // border: 'solid blue 4px',
+    height: '100%',
     color: theme.palette.text.secondary,
   },
   empty: {
     // temp-border
-    // border: 'green solid 4px',
+    // border: 'solid green 4px',
     height: '100%',
+    width: '100%',
     textAlign: 'center',
     paddingTop: 16,
     // align middle // https://stackoverflow.com/a/25311805
@@ -403,16 +407,16 @@ class CRUDView extends Component {
         {
           ( side === 'list' )
           ?
-          <React.Fragment>
-            <Icon className="mt-32 opacity-25" fontSize="large">add_circle_outline</Icon>
-            <Typography variant="h4" color="textSecondary">
+          <div className="h-full w-full flex flex-col justify-center content-center">
+            <Icon className="opacity-25 self-center" fontSize="large">add_circle_outline</Icon>
+            <Typography variant="h6" color="textSecondary">
               There are no items in this list yet
             </Typography>
             {
               this && this.props && this.props.creatable &&
               <Button className="mt-32" color="secondary" variant="contained" size="large">Add item</Button>
             }
-          </React.Fragment>
+          </div>
           :
           <React.Fragment>
             <Icon className="mt-32 opacity-25" fontSize="large">library_books</Icon>
@@ -700,7 +704,10 @@ class CRUDView extends Component {
               <div className={classNames(classes.root,)}>
                 <Grid container spacing={16}>
                   <Grid item xs={12} sm={6}>{getListPane()}</Grid>
-                  <Grid item xs={6}>{getDetailPane()}</Grid>
+                  {
+                    items && items.legth &&
+                    <Grid item xs={6}>{getDetailPane()}</Grid>
+                  }
                 </Grid>
               </div>
             </Hidden>
