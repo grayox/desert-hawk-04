@@ -256,14 +256,17 @@ class CRUDView extends Component {
   getCreateDialog = () => {
     // console.log('props\n', this.props);
     const { getFormFields, } = this;
-    const { title, fields, } = this.props.creatable; // form,
+    const { creatable, } = this.props;
+    const { title, fields, } = creatable; // form,
     const {
       handleChangeCreateForm, handleCloseDialog, handleSaveCreateDialog,
     } = this;
-    const ready1 = title && fields;
-    const ready2 = handleChangeCreateForm && handleCloseDialog && handleSaveCreateDialog;
+    const ready1 = creatable;
     if(!ready1) return;
+    const ready2 = title && fields;
     if(!ready2) return;
+    const ready3 = handleChangeCreateForm && handleCloseDialog && handleSaveCreateDialog;
+    if(!ready3) return;
 
     return (
       <Dialog
@@ -327,6 +330,7 @@ class CRUDView extends Component {
   )}
 
   getUpdateDialog = () => (
+    this.props.updatable &&
     <Dialog
       open={this.state.updateDialogIsOpen}
       onClose={this.handleCloseDialog}
@@ -350,6 +354,7 @@ class CRUDView extends Component {
   )
 
   getDeleteDialog = () => (
+    this.props.deletable &&
     <Dialog
       open={this.state.deleteDialogIsOpen}
       onClose={this.handleCloseDialog}
@@ -386,6 +391,7 @@ class CRUDView extends Component {
   // getEmpty = () => (<img src="https://via.placeholder.com/800x900.png/e91e63/fff?text=Detail+goes+here"/>)
   getEmpty = side => {
     const { classes, } = this.props;
+    const { handleOpenCreateDialog, } = this;
     return (
       <div className={classes.empty}>
         {
@@ -414,7 +420,15 @@ class CRUDView extends Component {
             </Typography>
             {
               this && this.props && this.props.creatable &&
-              <Button className="mt-32" color="secondary" variant="contained" size="large">Add item</Button>
+              <Button
+                className="mt-32 max-w-lg self-center"
+                color="secondary"
+                variant="contained"
+                size="large"
+                onClick={handleOpenCreateDialog}
+              >
+                Add item
+              </Button>
             }
           </div>
           :
@@ -688,14 +702,14 @@ class CRUDView extends Component {
     return (
       // <FuseScrollbars className="overflow-auto">
       <div className={classes.root}>
+      { getCreateDialog() }
       {
         items && items.length
         ?
         <React.Fragment>
           <CssBaseline/>
-          {getCreateDialog()}
-          {getUpdateDialog()}
-          {getDeleteDialog()}
+          { getUpdateDialog() }
+          { getDeleteDialog() }
           <div className={classes.wrapper}>
             {/* mobile */}
             <Hidden smUp>{detail ? getDetailPane() : getListPane()}</Hidden>
