@@ -231,7 +231,7 @@ export const componentsNavConfig = [
       actionable : () => {},
       condensed  : true    ,
       creatable  : {
-        title    : 'Create new lead', // form: <UserMultiForm />,
+        title    : 'Send new referral', // form: <UserMultiForm />,
         path     : 'leads',
         fields   : [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ], // 'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
       },

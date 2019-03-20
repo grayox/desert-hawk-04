@@ -269,6 +269,7 @@ class CRUDView extends Component {
     if(!ready3) return;
 
     return (
+      creatable &&
       <Dialog
         open={this.state.createDialogIsOpen}
         onClose={handleCloseDialog}
