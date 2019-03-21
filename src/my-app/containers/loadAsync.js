@@ -69,6 +69,7 @@ const getItems = async path => {
         // console.log('a\n', a);
         // this.setState(a);
       });
+      // console.log('a\n', a);
       return a;
     })
     .then(result => {

@@ -64,7 +64,6 @@ const styles = theme => ({
   paper: {
     // temp-border
     // border: 'solid blue 4px',
-    height: '100%',
     color: theme.palette.text.secondary,
   },
   empty: {
@@ -477,6 +476,7 @@ class CRUDView extends Component {
     const { selectedIndex, } = this.state; // detail
     const { classes, actionable, } = this.props; // updatable, deletable,
     const { created_at, } = item;
+    console.log('created_at\n', created_at);
     return (
       <ListItem
         button
@@ -532,6 +532,7 @@ class CRUDView extends Component {
 
   getDetail = item => {
     const { classes, condensed, } = this.props;
+    console.log('condensed\n', condensed);
     return (
       // <FuseAnimate
       //   // className="px-0"
@@ -600,6 +601,7 @@ class CRUDView extends Component {
     const { selectedIndex, } = this.state;
     const { items, updatable, deletable, } = this.props; // actionable,
     const limit = items.length - 2;
+    console.log('limit\n', limit);
     return (
       <ButtonsRow
         limit={limit}
@@ -619,6 +621,7 @@ class CRUDView extends Component {
     const { getSummary, getDetail, getEmpty, getNavButtons, } = this; // getHeader,
     const { detail, } = this.state;
     const { classes, } = this.props;
+    console.log('detail\n', detail);
     return (
       <Slide // <Zoom // <Grow 
         in //={detail}
@@ -654,6 +657,7 @@ class CRUDView extends Component {
   getListPane = () => {
     const { classes, items, creatable, } = this.props;
     const { getSummary, handleOpenCreateDialog, } = this; // getHeader,
+    console.log('items\n', items);
     return (
       <React.Fragment>
         {
@@ -687,7 +691,6 @@ class CRUDView extends Component {
             </FuseAnimateGroup>
           </List>
         </Paper>
-
       </React.Fragment>
     )
   }
@@ -699,44 +702,39 @@ class CRUDView extends Component {
       getListPane, getDetailPane, getEmpty,
       getCreateDialog, getUpdateDialog, getDeleteDialog,
     } = this;
-
     return (
       // <FuseScrollbars className="overflow-auto">
       <div className={classes.root}>
-      { getCreateDialog() }
-      {
-        items && items.length
-        ?
-        <React.Fragment>
-          <CssBaseline/>
-          { getUpdateDialog() }
-          { getDeleteDialog() }
-          <div className={classes.wrapper}>
-            {/* mobile */}
-            <Hidden smUp>{detail ? getDetailPane() : getListPane()}</Hidden>
-            {/* laptop */}
-            <Hidden xsDown>
-              <div className={classNames(classes.root,)}>
-                <Grid container spacing={16}>
-                  <Grid item xs={12} sm={6}>{getListPane()}</Grid>
-                  {
-                    items && items.legth &&
+        { getCreateDialog() }
+        { 
+          (items && items.length)
+          ?
+          <React.Fragment>
+            <CssBaseline/>
+            { getUpdateDialog() }
+            { getDeleteDialog() }
+            <div className={classes.wrapper}>
+              {/* mobile */}
+              <Hidden smUp>{detail ? getDetailPane() : getListPane()}</Hidden>
+              {/* laptop */}
+              <Hidden xsDown>
+                <div className={classNames(classes.root,)}>
+                  <Grid container spacing={16}>
+                    <Grid item xs={12} sm={6}>{getListPane()}</Grid>
                     <Grid item xs={6}>{getDetailPane()}</Grid>
-                  }
-                </Grid>
-              </div>
-            </Hidden>
-          </div>
-        </React.Fragment>
-        :
-        getEmpty('list')
-      }
-      </div>
-        
+                  </Grid>
+                </div>
+              </Hidden>
+            </div>
+          </React.Fragment>
+          :
+          getEmpty('list')
+        }
+      </div>   
       // </FuseScrollbars>
     );
-
   }
+  
 }
 
 CRUDView.propTypes = {

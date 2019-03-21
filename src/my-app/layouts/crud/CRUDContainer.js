@@ -138,7 +138,8 @@ class CRUDContainer extends Component {
           <ErrorMaintenance />
         </div>
         :
-        (items && (
+        (
+          items &&
           <React.Fragment>
             <IconButton className={classes.refresh} onClick={handleLoad} color="inherit">
               <Icon>refresh</Icon>
@@ -153,7 +154,7 @@ class CRUDContainer extends Component {
               deletable={deletable}
             />
           </React.Fragment>
-      )))
+      ))
     )
   }
 
