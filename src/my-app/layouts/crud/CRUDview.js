@@ -170,19 +170,24 @@ class CRUDView extends Component {
     });
   };
 
+  handleRefresh = () => this.props.onRefresh();
+
   handleSaveCreateDialog = e => {
     // console.log('state\n', this.state);
+    const { handleCloseDialog, handleRefresh, } = this;
     const { createFormState, } = this.state;
-    const { path, } = this.props.creatable;
+    const { createItem, creatable, } = this.props;
+    const { path, } = creatable;
     
     // inspired by: src/my-app/components/forms/CreateLead.js
     e.preventDefault();
     // console.log(this.state);
     // this.props.createItem('leads', createFormState,);
-    this.props.createItem(path, createFormState,);
+    createItem(path, createFormState,);
     // this.props.history.push('/');
 
-    this.handleCloseDialog();
+    handleCloseDialog();
+    handleRefresh();
   }
   
   handleSaveUpdateDialog = () => {
@@ -734,11 +739,12 @@ class CRUDView extends Component {
       // </FuseScrollbars>
     );
   }
-  
+
 }
 
 CRUDView.propTypes = {
   createItem: PropTypes.func.isRequired,
+  onRefresh: PropTypes.func.isRequired,
 
   classes: PropTypes.object.isRequired,
   items: PropTypes.array.isRequired,

@@ -152,6 +152,7 @@ class CRUDContainer extends Component {
               readable={readable}
               updatable={updatable}
               deletable={deletable}
+              onRefresh={handleLoad}
             />
           </React.Fragment>
       ))
