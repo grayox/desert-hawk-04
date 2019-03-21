@@ -263,6 +263,7 @@ class CRUDView extends Component {
   getCreateDialog = () => {
     // console.log('props\n', this.props);
     const { getFormFields, } = this;
+    const { createDialogIsOpen, } = this.state;
     const { creatable, } = this.props;
     const { title, fields, } = creatable; // form,
     const {
@@ -278,7 +279,7 @@ class CRUDView extends Component {
     return (
       creatable &&
       <Dialog
-        open={this.state.createDialogIsOpen}
+        open={createDialogIsOpen}
         onClose={handleCloseDialog}
         aria-labelledby="form-dialog-title"
         TransitionComponent={Transition} // https://material-ui.com/demos/dialogs/#alerts
@@ -337,34 +338,51 @@ class CRUDView extends Component {
       </Dialog>
   )}
 
-  getUpdateDialog = () => (
-    this.props.updatable &&
-    <Dialog
-      open={this.state.updateDialogIsOpen}
-      onClose={this.handleCloseDialog}
-      aria-labelledby="form-dialog-title"
-      TransitionComponent={Transition} // https://material-ui.com/demos/dialogs/#alerts
-      keepMounted
-    // aria-labelledby="alert-dialog-slide-title"
-    // aria-describedby="alert-dialog-slide-description"
-    >
-      <DialogTitle id="form-dialog-title">{this.props.updatable.title}</DialogTitle>
-      <DialogContent className="pt-4">
-        <FormTemplate
-          fields={this.getFormFields(this.props.updatable.fields)}
-          onChange={this.handleChangeCreateForm}
-        />
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={this.handleCloseDialog} color="primary">
-          Cancel
-        </Button>
-        <Button onClick={this.handleSaveUpdateDialog} color="primary">
-          Save
-        </Button>
-      </DialogActions>
-    </Dialog>
-  )
+  getUpdateDialog = () => {
+    // console.log('props\n', this.props);
+    const { getFormFields, } = this;
+    const { updateDialogIsOpen, } = this.state;
+    const { updatable, } = this.props;
+    const { title, fields, } = updatable;
+    const {
+      handleChangeCreateForm, handleCloseDialog, handleSaveUpdateDialog,
+    } = this;
+    const ready1 = updatable;
+    if(!ready1) return;
+    const ready2 = title && fields;
+    if(!ready2) return;
+    const ready3 = handleChangeCreateForm && handleCloseDialog && handleSaveUpdateDialog;
+    if(!ready3) return;
+
+    return (
+      updatable &&
+      <Dialog
+        open={updateDialogIsOpen}
+        onClose={handleCloseDialog}
+        aria-labelledby="form-dialog-title"
+        TransitionComponent={Transition} // https://material-ui.com/demos/dialogs/#alerts
+        keepMounted
+      // aria-labelledby="alert-dialog-slide-title"
+      // aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle id="form-dialog-title">{title}</DialogTitle>
+        <DialogContent className="pt-4">
+          <FormTemplate
+            fields={getFormFields(fields)}
+            onChange={handleChangeCreateForm}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleSaveUpdateDialog} color="primary">
+            Save
+          </Button>
+        </DialogActions>
+      </Dialog>
+    )
+  }
 
   getDeleteDialog = () => (
     this.props.deletable &&
