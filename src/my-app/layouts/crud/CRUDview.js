@@ -120,6 +120,7 @@ class CRUDView extends Component {
   };
 
   handleOpenUpdateDialog = () => {
+    console.log('detail\n', this.state.detail);
     this.setState({
       createDialogIsOpen: false,
       updateDialogIsOpen: true,
@@ -347,8 +348,13 @@ class CRUDView extends Component {
     // aria-labelledby="alert-dialog-slide-title"
     // aria-describedby="alert-dialog-slide-description"
     >
-      <DialogTitle id="form-dialog-title">{this.props.creatable.title}</DialogTitle>
-      <DialogContent className="pt-4">{this.props.creatable.form}</DialogContent>
+      <DialogTitle id="form-dialog-title">{this.props.updatable.title}</DialogTitle>
+      <DialogContent className="pt-4">
+        <FormTemplate
+          fields={this.getFormFields(this.props.updatable.fields)}
+          onChange={this.handleChangeCreateForm}
+        />
+      </DialogContent>
       <DialogActions>
         <Button onClick={this.handleCloseDialog} color="primary">
           Cancel
@@ -761,7 +767,10 @@ CRUDView.propTypes = {
     PropTypes.string,
     PropTypes.bool,
   ]),
-  updatable: PropTypes.bool,
+  updatable: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
+  ]),
   deletable: PropTypes.bool,
 };
 
