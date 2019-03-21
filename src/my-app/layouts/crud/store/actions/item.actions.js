@@ -6,9 +6,9 @@ export const createItem = ( path, item, ) =>
   (dispatch, getState, { getFirebase, getFirestore, }) => {
     // make async call to database
     const firestore = getFirestore();
-    console.log('item\n', item);
-    console.log('firestore\n', firestore);
-    console.log('getState\n', getState);
+    // console.log('item\n', item);
+    // console.log('firestore\n', firestore);
+    // console.log('getState\n', getState);
 
     // ref: https://firebase.google.com/docs/firestore/manage-data/add-data#add_a_document
     // firestore.collection('test').add({
@@ -33,9 +33,9 @@ export const createItem = ( path, item, ) =>
 // example: citiesRef.where("state", "==", "CO").where("deleted_at", "==", false)
 export const deleteItem = ( path, docId, ) =>
   (dispatch, getState, { getFirebase, getFirestore, }) => {
-    console.log('path\n', path);
-    console.log('docId\n', docId);
-    console.log('getState\n', getState);
+    // console.log('path\n', path);
+    // console.log('docId\n', docId);
+    // console.log('getState\n', getState);
 
     // make async call to database
     const firestore = getFirestore();

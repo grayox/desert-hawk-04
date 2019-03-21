@@ -51,33 +51,35 @@ import {
 // }
 
 const FormTemplate = ({ fields, onChange, }) => {
-  // console.log('fields\n', fields);
+  console.log('fields\n', fields);
+  // console.log('values\n', values);
   return (
     <div className="p-24px">
       {
-        fields.map(field => (
-          <div key={field.id} className="flex">
+        fields.map( ({ value, id, icon, label, autoFocus, type, required, multiline, rows, InputLabelProps, }) => (
+          <div key={id} className="flex">
             <div className="min-w-48 pt-20">
-              <Icon color="action">{field.icon}</Icon>
+              <Icon color="action">{icon}</Icon>
             </div>
             <TextField
               // className={classes.formControl}
               className="mb-24"
-              label={field.label}
-              autoFocus={field.autoFocus}
-              id={field.id}
-              name={field.id}
-              type={field.type}
+              label={label}
+              autoFocus={autoFocus}
+              id={id}
+              name={id}
+              type={type}
               // value={this.state.name}
               // value={"hello"}
-              value={field.value}
+              value={value}
+              // defaultValue={'hi'}//{id && values && values[id]}//
               onChange={onChange}
               variant="outlined"
-              required={field.required}
+              required={required}
               fullWidth
-              multiline={field.multiline}
-              rows={field.rows}
-              InputLabelProps={field.InputLabelProps}
+              multiline={multiline}
+              rows={rows}
+              InputLabelProps={InputLabelProps}
             />
           </div>
         ))

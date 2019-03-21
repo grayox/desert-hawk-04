@@ -237,14 +237,18 @@ class CRUDView extends Component {
   }
 
   setCreateFormInitialState = fields => {
+    const detail = this.state;
+
     const ready = this.props.creatable;
     if(!ready) return;
 
-    // console.log('fields\n', fields); // some contain '*'
+    console.log('fields\n', fields); // some contain '*'
+    console.log('detail\n', detail); // some contain '*'
+    
     const arrayOfFieldnames = getCleanFieldnames(fields);
     // const createFormState = { arrayOfFieldnames, };
     const createFormState = {};
-    arrayOfFieldnames.forEach(field => createFormState[field] = '');
+    arrayOfFieldnames.forEach(field => createFormState[field] = (detail && detail[field]) || '');
     // fields.forEach(field => createFormState[field] = '');
     this.setState({
       createFormState,
@@ -255,8 +259,16 @@ class CRUDView extends Component {
   }
 
   getFormFields = fields => {
+    const { detail, } = this.state;
+    // console.log('detail\n', detail);
+    // console.log('fields\n', fields);
     const formFields = getForm(fields);
-    formFields.map(field => field.value = this.state.createFormState[field.id]);
+    // console.log('formFields\n', formFields);
+    formFields.map(field => {
+      // console.log('field: before: \n', field);
+      field.value = detail && detail[field.id];
+      // console.log('field: after: \n', field);
+    });
     return formFields;
   }
 
@@ -341,46 +353,52 @@ class CRUDView extends Component {
   getUpdateDialog = () => {
     // console.log('props\n', this.props);
     const { getFormFields, } = this;
-    const { updateDialogIsOpen, } = this.state;
+    const { updateDialogIsOpen, detail, } = this.state;
     const { updatable, } = this.props;
     const { title, fields, } = updatable;
     const {
       handleChangeCreateForm, handleCloseDialog, handleSaveUpdateDialog,
     } = this;
-    const ready1 = updatable;
+    const ready1 = updatable && detail;
     if(!ready1) return;
     const ready2 = title && fields;
     if(!ready2) return;
     const ready3 = handleChangeCreateForm && handleCloseDialog && handleSaveUpdateDialog;
     if(!ready3) return;
 
+    const updateFormFields = getFormFields(fields);
+
     return (
       updatable &&
-      <Dialog
-        open={updateDialogIsOpen}
-        onClose={handleCloseDialog}
-        aria-labelledby="form-dialog-title"
-        TransitionComponent={Transition} // https://material-ui.com/demos/dialogs/#alerts
-        keepMounted
-      // aria-labelledby="alert-dialog-slide-title"
-      // aria-describedby="alert-dialog-slide-description"
-      >
-        <DialogTitle id="form-dialog-title">{title}</DialogTitle>
-        <DialogContent className="pt-4">
-          <FormTemplate
-            fields={getFormFields(fields)}
-            onChange={handleChangeCreateForm}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDialog} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleSaveUpdateDialog} color="primary">
-            Save
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <div className="mr-12 border border-red">
+        <Dialog
+          open={updateDialogIsOpen}
+          onClose={handleCloseDialog}
+          aria-labelledby="form-dialog-title"
+          TransitionComponent={Transition} // https://material-ui.com/demos/dialogs/#alerts
+          keepMounted
+        // aria-labelledby="alert-dialog-slide-title"
+        // aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle id="form-dialog-title">{title}</DialogTitle>
+          <DialogContent className="pt-4">
+            <FormTemplate
+              // fields={getFormFields(fields)}
+              fields={updateFormFields}
+              // values={detail}
+              onChange={handleChangeCreateForm}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseDialog} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={handleSaveUpdateDialog} color="primary">
+              Save
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
     )
   }
 
