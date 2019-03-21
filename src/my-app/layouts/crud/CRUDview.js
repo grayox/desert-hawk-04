@@ -242,8 +242,8 @@ class CRUDView extends Component {
     const ready = this.props.creatable;
     if(!ready) return;
 
-    console.log('fields\n', fields); // some contain '*'
-    console.log('detail\n', detail); // some contain '*'
+    // console.log('fields\n', fields); // some contain '*'
+    // console.log('detail\n', detail); // some contain '*'
     
     const arrayOfFieldnames = getCleanFieldnames(fields);
     // const createFormState = { arrayOfFieldnames, };
