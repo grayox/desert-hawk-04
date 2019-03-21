@@ -152,15 +152,17 @@ class CRUDView extends Component {
   handleDeleteItem = () => {
     // console.log('state\n', this.state);
     // console.log('props\n', this.props);
+    const { handleCloseDialog, handleRefresh, } = this;
     const { selectedIndex, } = this.state;
-    const { items, readable, } = this.props;
+    const { items, readable, deleteItem, } = this.props;
     // console.log('selectedIndex', selectedIndex,);
     // console.log('selectedItem', items[selectedIndex],);
     const item = items[selectedIndex];
     const docId = item.docId;
     // console.log('docId', docId,);
-    this.props.deleteItem( readable, docId, );
-    this.handleCloseDialog();
+    deleteItem( readable, docId, );
+    handleCloseDialog();
+    handleRefresh();
   }
 
   handleCloseDialog = () => {
@@ -481,7 +483,7 @@ class CRUDView extends Component {
     const { selectedIndex, } = this.state; // detail
     const { classes, actionable, } = this.props; // updatable, deletable,
     const { created_at, } = item;
-    console.log('created_at\n', created_at);
+    // console.log('created_at\n', created_at);
     return (
       <ListItem
         button
@@ -537,7 +539,7 @@ class CRUDView extends Component {
 
   getDetail = item => {
     const { classes, condensed, } = this.props;
-    console.log('condensed\n', condensed);
+    // console.log('condensed\n', condensed);
     return (
       // <FuseAnimate
       //   // className="px-0"
@@ -606,7 +608,7 @@ class CRUDView extends Component {
     const { selectedIndex, } = this.state;
     const { items, updatable, deletable, } = this.props; // actionable,
     const limit = items.length - 2;
-    console.log('limit\n', limit);
+    // console.log('limit\n', limit);
     return (
       <ButtonsRow
         limit={limit}
@@ -626,7 +628,7 @@ class CRUDView extends Component {
     const { getSummary, getDetail, getEmpty, getNavButtons, } = this; // getHeader,
     const { detail, } = this.state;
     const { classes, } = this.props;
-    console.log('detail\n', detail);
+    // console.log('detail\n', detail);
     return (
       <Slide // <Zoom // <Grow 
         in //={detail}
@@ -662,7 +664,7 @@ class CRUDView extends Component {
   getListPane = () => {
     const { classes, items, creatable, } = this.props;
     const { getSummary, handleOpenCreateDialog, } = this; // getHeader,
-    console.log('items\n', items);
+    // console.log('items\n', items);
     return (
       <React.Fragment>
         {
