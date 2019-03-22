@@ -261,23 +261,23 @@ class CRUDView extends Component {
   getFormFields = ( type, fields, ) => {
     // type: string: enum: 'update' | 'create'
     const { detail, createFormState, } = this.state;
-    console.log('state\n', this.state);
-    console.log('detail\n', detail);
-    console.log('fields\n', fields);
+    // console.log('state\n', this.state);
+    // console.log('detail\n', detail);
+    // console.log('fields\n', fields);
     const formFields = getForm(fields);
     // console.log('formFields\n', formFields);
     formFields.map(field => {
-      console.log('field: before: \n', field);
+      // console.log('field: before: \n', field);
 
       // field.value = ( type === 'update' ) ? ( detail && detail[field.id] ) : "";
-      console.log('createFormState\n', createFormState);
+      // console.log('createFormState\n', createFormState);
       const createValue = createFormState && createFormState[field.id];
-      console.log('createValue\n', createValue);
+      // console.log('createValue\n', createValue);
       const updateValue = ( type === 'update' ) ? ( detail && detail[field.id] ) : "";
-      console.log('updateValue\n', updateValue);
+      // console.log('updateValue\n', updateValue);
       field.value = createValue ? createValue : updateValue;
 
-      console.log('field: after: \n', field);
+      // console.log('field: after: \n', field);
     });
     return formFields;
   }
