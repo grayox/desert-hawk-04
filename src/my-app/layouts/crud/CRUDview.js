@@ -258,16 +258,17 @@ class CRUDView extends Component {
     );
   }
 
-  getFormFields = fields => {
+  getFormFields = ( type, fields, ) => {
+    // type: string: enum: 'update' | 'create'
     const { detail, } = this.state;
-    // console.log('detail\n', detail);
-    // console.log('fields\n', fields);
+    console.log('detail\n', detail);
+    console.log('fields\n', fields);
     const formFields = getForm(fields);
-    // console.log('formFields\n', formFields);
+    console.log('formFields\n', formFields);
     formFields.map(field => {
-      // console.log('field: before: \n', field);
-      field.value = detail && detail[field.id];
-      // console.log('field: after: \n', field);
+      console.log('field: before: \n', field);
+      field.value = ( type === 'update' ) ? ( detail && detail[field.id] ) : "";
+      console.log('field: after: \n', field);
     });
     return formFields;
   }
@@ -335,7 +336,7 @@ class CRUDView extends Component {
             // )
           }
           <FormTemplate
-            fields={getFormFields(fields)}
+            fields={getFormFields('create', fields,)}
             onChange={handleChangeCreateForm}
           />
         </DialogContent>
@@ -366,20 +367,20 @@ class CRUDView extends Component {
     const ready3 = handleChangeCreateForm && handleCloseDialog && handleSaveUpdateDialog;
     if(!ready3) return;
 
-    const updateFormFields = getFormFields(fields);
+    const updateFormFields = getFormFields('update', fields,);
 
     return (
       updatable &&
-      <div className="mr-12 border border-red">
-        <Dialog
-          open={updateDialogIsOpen}
-          onClose={handleCloseDialog}
-          aria-labelledby="form-dialog-title"
-          TransitionComponent={Transition} // https://material-ui.com/demos/dialogs/#alerts
-          keepMounted
-        // aria-labelledby="alert-dialog-slide-title"
-        // aria-describedby="alert-dialog-slide-description"
-        >
+      <Dialog
+        open={updateDialogIsOpen}
+        onClose={handleCloseDialog}
+        aria-labelledby="form-dialog-title"
+        TransitionComponent={Transition} // https://material-ui.com/demos/dialogs/#alerts
+        keepMounted
+      // aria-labelledby="alert-dialog-slide-title"
+      // aria-describedby="alert-dialog-slide-description"
+      >
+        <div className="ml-12 mr-16">
           <DialogTitle id="form-dialog-title">{title}</DialogTitle>
           <DialogContent className="pt-4">
             <FormTemplate
@@ -397,8 +398,8 @@ class CRUDView extends Component {
               Save
             </Button>
           </DialogActions>
-        </Dialog>
-      </div>
+        </div>
+      </Dialog>
     )
   }
 
