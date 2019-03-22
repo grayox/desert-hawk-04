@@ -139,14 +139,14 @@ class CRUDView extends Component {
   handleChangeCreateForm = event => {
     // console.log('target\n', event.target);
     const { id, value, } = event.target;
-    // console.log('id\n', id); // 'name'
-    // console.log('value\n', value); // 'john doe'
+    console.log('id\n', id); // 'name'
+    console.log('value\n', value); // 'john doe'
     this.setState({
       createFormState: {
         ...this.state.createFormState,
         [id]: value,
       }}
-      // ,() => console.log('state\n', this.state)
+      ,() => console.log('state\n', this.state)
     )
   }
 
@@ -260,14 +260,23 @@ class CRUDView extends Component {
 
   getFormFields = ( type, fields, ) => {
     // type: string: enum: 'update' | 'create'
-    const { detail, } = this.state;
+    const { detail, createFormState, } = this.state;
+    console.log('state\n', this.state);
     console.log('detail\n', detail);
     console.log('fields\n', fields);
     const formFields = getForm(fields);
-    console.log('formFields\n', formFields);
+    // console.log('formFields\n', formFields);
     formFields.map(field => {
       console.log('field: before: \n', field);
-      field.value = ( type === 'update' ) ? ( detail && detail[field.id] ) : "";
+
+      // field.value = ( type === 'update' ) ? ( detail && detail[field.id] ) : "";
+      console.log('createFormState\n', createFormState);
+      const createValue = createFormState && createFormState[field.id];
+      console.log('createValue\n', createValue);
+      const updateValue = ( type === 'update' ) ? ( detail && detail[field.id] ) : "";
+      console.log('updateValue\n', updateValue);
+      field.value = createValue ? createValue : updateValue;
+
       console.log('field: after: \n', field);
     });
     return formFields;
@@ -322,32 +331,34 @@ class CRUDView extends Component {
         //   }
         // </AppBar>
         }
-        <DialogTitle id="form-dialog-title">{title}</DialogTitle>
-        <DialogContent className="pt-4">
-          {
-            // // dynamically populate element props
-            // // https://stackoverflow.com/a/40196365/1640892
-            // React.cloneElement(
-            //   form,
-            //   {
-            //     fields,
-            //     onChange: handleChangeCreateForm,
-            //   },
-            // )
-          }
-          <FormTemplate
-            fields={getFormFields('create', fields,)}
-            onChange={handleChangeCreateForm}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDialog} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleSaveCreateDialog} color="primary">
-            Save
-          </Button>
-        </DialogActions>
+        <div className="ml-12 mr-16">
+          <DialogTitle id="form-dialog-title">{title}</DialogTitle>
+          <DialogContent className="pt-4">
+            {
+              // // dynamically populate element props
+              // // https://stackoverflow.com/a/40196365/1640892
+              // React.cloneElement(
+              //   form,
+              //   {
+              //     fields,
+              //     onChange: handleChangeCreateForm,
+              //   },
+              // )
+            }
+            <FormTemplate
+              fields={getFormFields('create', fields,)}
+              onChange={handleChangeCreateForm}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseDialog} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={handleSaveCreateDialog} color="primary">
+              Save
+            </Button>
+          </DialogActions>
+        </div>
       </Dialog>
   )}
 

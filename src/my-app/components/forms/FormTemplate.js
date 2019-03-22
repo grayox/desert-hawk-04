@@ -52,7 +52,6 @@ import {
 
 const FormTemplate = ({ fields, onChange, }) => {
   console.log('fields\n', fields);
-  // console.log('values\n', values);
   return (
     <div className="p-24px">
       {
