@@ -84,14 +84,15 @@ const styles = theme => ({
 const Transition = props => (<Zoom in {...props} />); // (<Slide direction="up" {...props} />);
 
 const INITIAL_STATE_DIALOG = {
-  createDialogIsOpen: false,
-  updateDialogIsOpen: false,
-  deleteDialogIsOpen: false,
+  createDialogIsOpen : false     ,
+  updateDialogIsOpen : false     ,
+  deleteDialogIsOpen : false     ,
+  crudForm           : undefined ,
 }
 
 const INITIAL_STATE_DETAIL = {
-  detail: undefined,
-  selectedIndex: undefined,
+  detail        : undefined ,
+  selectedIndex : undefined ,
 }
 
 const INITIAL_STATE = {
@@ -107,9 +108,9 @@ class CRUDView extends Component {
     this.state = INITIAL_STATE;
   }
 
-  componentWillMount() {
-    this.setCreateFormInitialState(this.props.creatable.fields);
-  }
+  // componentWillMount() {
+  //   // this.setCreateFormInitialState(this.props.creatable.fields);
+  // }
 
   handleOpenCreateDialog = () => {
     this.setState({
@@ -120,7 +121,7 @@ class CRUDView extends Component {
   };
 
   handleOpenUpdateDialog = () => {
-    console.log('detail\n', this.state.detail);
+    // console.log('detail\n', this.state.detail);
     this.setState({
       createDialogIsOpen: false,
       updateDialogIsOpen: true,
@@ -136,19 +137,29 @@ class CRUDView extends Component {
     });
   };
 
-  handleChangeCreateForm = event => {
+  handleChangeForm = event => {
     // console.log('target\n', event.target);
     const { id, value, } = event.target;
-    console.log('id\n', id); // 'name'
-    console.log('value\n', value); // 'john doe'
-    this.setState({
-      createFormState: {
-        ...this.state.createFormState,
-        [id]: value,
-      }}
+    // console.log('id\n', id); // 'name'
+    // console.log('value\n', value); // 'john doe'
+    const { crudForm, } = { ...this.state, };
+    // console.log('crudForm\n', crudForm); // 'john doe'
+    const targetFieldIndex = crudForm.findIndex(field => field.id === id);
+    // console.log('targetFieldIndex\n', targetFieldIndex); // 'john doe'
+    crudForm[targetFieldIndex].value = value;
+    this.setState({ crudForm, }
+      ,() => console.log('state\n', this.state)
+    );
+  }
+
+  handleEnterDialog = type =>
+    // type: string: enum: 'loadNewData' | 'loadSavedData'
+    this.setState(
+      { crudForm : this.getFormFields(type, this.props.creatable.fields,) }
       ,() => console.log('state\n', this.state)
     )
-  }
+
+  // handleExitedUpdateDialog = () => // reset state // handled by close dialog handler method
 
   handleDeleteItem = () => {
     // console.log('state\n', this.state);
@@ -169,7 +180,7 @@ class CRUDView extends Component {
   handleCloseDialog = () => {
     this.setState({
       ...INITIAL_STATE_DIALOG,
-      createFormState: this.state.createFormInitialState,
+      crudForm: this.state.createFormInitialState,
     });
   };
 
@@ -178,15 +189,15 @@ class CRUDView extends Component {
   handleSaveCreateDialog = e => {
     // console.log('state\n', this.state);
     const { handleCloseDialog, handleRefresh, } = this;
-    const { createFormState, } = this.state;
+    const { crudForm, } = this.state;
     const { createItem, creatable, } = this.props;
     const { path, } = creatable;
     
     // inspired by: src/my-app/components/forms/CreateLead.js
     e.preventDefault();
     // console.log(this.state);
-    // this.props.createItem('leads', createFormState,);
-    createItem(path, createFormState,);
+    // this.props.createItem('leads', crudForm,);
+    createItem(path, crudForm,);
     // this.props.history.push('/');
 
     handleCloseDialog();
@@ -236,76 +247,81 @@ class CRUDView extends Component {
     );
   }
 
-  setCreateFormInitialState = fields => {
-    const detail = this.state;
+  // setCreateFormInitialState = fields => {
+  //   const detail = this.state;
 
-    const ready = this.props.creatable;
-    if(!ready) return;
+  //   const ready = this.props.creatable;
+  //   if(!ready) return;
 
-    // console.log('fields\n', fields); // some contain '*'
-    // console.log('detail\n', detail); // some contain '*'
+  //   // console.log('fields\n', fields); // some contain '*'
+  //   // console.log('detail\n', detail); // some contain '*'
     
-    const arrayOfFieldnames = getCleanFieldnames(fields);
-    // const createFormState = { arrayOfFieldnames, };
-    const createFormState = {};
-    arrayOfFieldnames.forEach(field => createFormState[field] = (detail && detail[field]) || '');
-    // fields.forEach(field => createFormState[field] = '');
-    this.setState({
-      createFormState,
-      createFormInitialState: createFormState,
-    }
-      // ,() => console.log('state\n', this.state)
-    );
-  }
+  //   const arrayOfFieldnames = getCleanFieldnames(fields);
+  //   // const crudForm = { arrayOfFieldnames, };
+  //   const crudForm = {};
+  //   arrayOfFieldnames.forEach(field => crudForm[field] = (detail && detail[field]) || '');
+  //   // fields.forEach(field => crudForm[field] = '');
+  //   this.setState({
+  //     crudForm,
+  //     createFormInitialState: crudForm,
+  //   }
+  //     // ,() => console.log('state\n', this.state)
+  //   );
+  // }
 
   getFormFields = ( type, fields, ) => {
-    // type: string: enum: 'update' | 'create'
-    const { detail, createFormState, } = this.state;
+    // type: string: enum: 'loadSavedData' | 'loadNewData'
+    // console.log('type\n', type);
     // console.log('state\n', this.state);
+    const { detail, } = this.state;
+    // console.log('updateDialogIsOpen\n', updateDialogIsOpen);
     // console.log('detail\n', detail);
     // console.log('fields\n', fields);
     const formFields = getForm(fields);
-    // console.log('formFields\n', formFields);
+    // console.log('formFields\n', formFields); // debugger;
     formFields.map(field => {
-      // console.log('field: before: \n', field);
-
-      // field.value = ( type === 'update' ) ? ( detail && detail[field.id] ) : "";
-      // console.log('createFormState\n', createFormState);
-      const createValue = createFormState && createFormState[field.id];
-      // console.log('createValue\n', createValue);
-      const updateValue = ( type === 'update' ) ? ( detail && detail[field.id] ) : "";
-      // console.log('updateValue\n', updateValue);
-      field.value = createValue ? createValue : updateValue;
-
-      // console.log('field: after: \n', field);
+      switch(type) {
+        case 'loadNewData':
+          field.value = '';
+          break;
+        case 'loadSavedData':
+          field.value = detail && detail[field.id];
+          break;
+        default:
+          throw 'Type must be one of: "loadSavedData" or "loadNewData"';
+      }
+      // console.log(`field: ${field.id}\n`, field);
     });
+    console.log('formFields\n', formFields);
+    console.log('state\n', this.state);
     return formFields;
   }
 
   getCreateDialog = () => {
     // console.log('props\n', this.props);
-    const { getFormFields, } = this;
-    const { createDialogIsOpen, } = this.state;
+    // const { getFormFields, } = this;
+    const { createDialogIsOpen, crudForm, } = this.state;
     const { creatable, } = this.props;
     const { title, fields, } = creatable; // form,
     const {
-      handleChangeCreateForm, handleCloseDialog, handleSaveCreateDialog,
+      handleEnterDialog, handleChangeForm, handleCloseDialog, handleSaveCreateDialog,
     } = this;
-    const ready1 = creatable;
+    const ready1 = createDialogIsOpen && creatable;
     if(!ready1) return;
     const ready2 = title && fields;
     if(!ready2) return;
-    const ready3 = handleChangeCreateForm && handleCloseDialog && handleSaveCreateDialog;
+    const ready3 = handleChangeForm && handleCloseDialog && handleSaveCreateDialog;
     if(!ready3) return;
 
     return (
       creatable &&
       <Dialog
         open={createDialogIsOpen}
+        onEnter={() => handleEnterDialog('loadNewData')}
         onClose={handleCloseDialog}
         aria-labelledby="form-dialog-title"
         TransitionComponent={Transition} // https://material-ui.com/demos/dialogs/#alerts
-        keepMounted
+        // keepMounted
       // aria-labelledby="alert-dialog-slide-title"
       // aria-describedby="alert-dialog-slide-description"
       >
@@ -341,13 +357,13 @@ class CRUDView extends Component {
               //   form,
               //   {
               //     fields,
-              //     onChange: handleChangeCreateForm,
+              //     onChange: handleChangeForm,
               //   },
               // )
             }
             <FormTemplate
-              fields={getFormFields('create', fields,)}
-              onChange={handleChangeCreateForm}
+              fields={crudForm}
+              onChange={handleChangeForm}
             />
           </DialogContent>
           <DialogActions>
@@ -364,41 +380,44 @@ class CRUDView extends Component {
 
   getUpdateDialog = () => {
     // console.log('props\n', this.props);
-    const { getFormFields, } = this;
-    const { updateDialogIsOpen, detail, } = this.state;
+    const { 
+      handleChangeForm, handleCloseDialog, handleSaveUpdateDialog, handleEnterDialog,
+    } = this; // getFormFields, handleExitedUpdateDialog,
+    const { updateDialogIsOpen, detail, crudForm, } = this.state;
     const { updatable, } = this.props;
     const { title, fields, } = updatable;
-    const {
-      handleChangeCreateForm, handleCloseDialog, handleSaveUpdateDialog,
-    } = this;
-    const ready1 = updatable && detail;
+    const ready1 = updateDialogIsOpen && updatable && detail;
     if(!ready1) return;
     const ready2 = title && fields;
     if(!ready2) return;
-    const ready3 = handleChangeCreateForm && handleCloseDialog && handleSaveUpdateDialog;
+    const ready3 = handleChangeForm && handleCloseDialog && handleSaveUpdateDialog;
     if(!ready3) return;
 
-    const updateFormFields = getFormFields('update', fields,);
+    // const updateFormFields = getFormFields( 'loadSavedData', fields, );
+    // console.log('crudForm\n', crudForm);
+    // debugger;
 
     return (
       updatable &&
       <Dialog
         open={updateDialogIsOpen}
+        onEnter={() => handleEnterDialog('loadSavedData')}
         onClose={handleCloseDialog}
         aria-labelledby="form-dialog-title"
         TransitionComponent={Transition} // https://material-ui.com/demos/dialogs/#alerts
-        keepMounted
-      // aria-labelledby="alert-dialog-slide-title"
-      // aria-describedby="alert-dialog-slide-description"
+        // keepMounted
+        // aria-labelledby="alert-dialog-slide-title"
+        // aria-describedby="alert-dialog-slide-description"
       >
         <div className="ml-12 mr-16">
           <DialogTitle id="form-dialog-title">{title}</DialogTitle>
           <DialogContent className="pt-4">
             <FormTemplate
               // fields={getFormFields(fields)}
-              fields={updateFormFields}
+              // fields={updateFormFields}
+              fields={crudForm}
               // values={detail}
-              onChange={handleChangeCreateForm}
+              onChange={handleChangeForm}
             />
           </DialogContent>
           <DialogActions>
@@ -421,9 +440,9 @@ class CRUDView extends Component {
       onClose={this.handleCloseDialog}
       aria-labelledby="form-dialog-title"
       TransitionComponent={Transition} // https://material-ui.com/demos/dialogs/#alerts
-      keepMounted
-    // aria-labelledby="alert-dialog-slide-title"
-    // aria-describedby="alert-dialog-slide-description"
+      // keepMounted
+      // aria-describedby="alert-dialog-slide-description"
+      // aria-labelledby="alert-dialog-slide-title"
     >
       <DialogTitle id="form-dialog-title">Permanently delete item?</DialogTitle>
       <DialogContent>
