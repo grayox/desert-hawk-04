@@ -179,7 +179,15 @@ class CRUDView extends Component {
     e.preventDefault();
     // console.log(this.state);
     // this.props.createItem('leads', crudForm,);
-    createItem(path, crudForm,);
+
+    const newItem = {};
+    crudForm.forEach(item => {
+      let newVal = item.value;
+      if(newVal === undefined || newVal === null) return; // newVal = null; //
+      newItem[item.id] = newVal;
+    });
+
+    createItem(path, newItem,);
     // this.props.history.push('/');
 
     handleCloseDialog();
@@ -202,9 +210,9 @@ class CRUDView extends Component {
     const newItem = {};
     crudForm.forEach(item => {
       let newVal = item.value;
-      if(newVal === undefined || newVal === null) newVal = '';
+      if(newVal === undefined || newVal === null) return; // newVal = null; //
       newItem[item.id] = newVal;
-    })
+    });
 
     updateItem( readable, docId, newItem, detail, );
     handleCloseDialog();
