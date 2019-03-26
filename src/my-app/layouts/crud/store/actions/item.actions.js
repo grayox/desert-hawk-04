@@ -27,6 +27,35 @@ export const createItem = ( path, item, ) =>
     });
   }
 
+export const updateItem = ( path, docId, newItem , oldItem, ) =>
+(dispatch, getState, { getFirebase, getFirestore, }) => {
+  // console.log('path\n', path);
+  // console.log('docId\n', docId);
+  // console.log('getState\n', getState);
+
+  // make async call to database
+  const timestamp = Date.now();
+  const firestore = getFirestore();
+  firestore
+    .collection(path)
+    .doc(docId)
+    .set({
+      ...newItem,
+      updated_at: timestamp,
+      update: {
+        updated_at: timestamp,
+        item: oldItem,
+      },
+    }
+    // ,{ merge: true, }
+    )
+  .then( () => {
+    dispatch({ type: 'UPDATE_ITEM_SUCCESS' });
+  }).catch( error => {
+    dispatch({ type: 'UPDATE_ITEM_ERROR' }, error);
+  });
+}
+
 // To "delete" a record, we do NOT use the .delete() method described here: https://firebase.google.com/docs/firestore/manage-data/delete-data
 // Instead, we will update the record with a field: deleted_at: Date.now()
 // Then, we will query records without a deleted_at field as described here: https://firebase.google.com/docs/firestore/query-data/queries#compound_queries

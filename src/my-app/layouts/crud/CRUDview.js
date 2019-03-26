@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import compose from 'recompose/compose';
 import { connect } from 'react-redux'
-import { createItem, deleteItem, } from './store/actions'
+import { createItem, updateItem, deleteItem, } from './store/actions'
 
 import classNames from 'classnames';
 
@@ -24,7 +24,7 @@ import moment from 'moment';
 
 // import CreateButton from './CreateButton';
 import { CreateButton, ButtonsRow, } from './CRUDButtons'; // UDButtons,
-import { getForm, getCleanFieldnames, } from 'my-app/config/AppConfig';
+import { getForm, } from 'my-app/config/AppConfig'; // getCleanFieldnames,
 import FormTemplate from 'my-app/components/forms/FormTemplate';
 
 // import from '@material-ui/core/Avatar';
@@ -148,7 +148,7 @@ class CRUDView extends Component {
     // console.log('targetFieldIndex\n', targetFieldIndex); // 'john doe'
     crudForm[targetFieldIndex].value = value;
     this.setState({ crudForm, }
-      ,() => console.log('state\n', this.state)
+      // ,() => console.log('state\n', this.state)
     );
   }
 
@@ -156,26 +156,8 @@ class CRUDView extends Component {
     // type: string: enum: 'loadNewData' | 'loadSavedData'
     this.setState(
       { crudForm : this.getFormFields(type, this.props.creatable.fields,) }
-      ,() => console.log('state\n', this.state)
+      // ,() => console.log('state\n', this.state)
     )
-
-  // handleExitedUpdateDialog = () => // reset state // handled by close dialog handler method
-
-  handleDeleteItem = () => {
-    // console.log('state\n', this.state);
-    // console.log('props\n', this.props);
-    const { handleCloseDialog, handleRefresh, } = this;
-    const { selectedIndex, } = this.state;
-    const { items, readable, deleteItem, } = this.props;
-    // console.log('selectedIndex', selectedIndex,);
-    // console.log('selectedItem', items[selectedIndex],);
-    const item = items[selectedIndex];
-    const docId = item.docId;
-    // console.log('docId', docId,);
-    deleteItem( readable, docId, );
-    handleCloseDialog();
-    handleRefresh();
-  }
 
   handleCloseDialog = () => {
     this.setState({
@@ -186,7 +168,7 @@ class CRUDView extends Component {
 
   handleRefresh = () => this.props.onRefresh();
 
-  handleSaveCreateDialog = e => {
+  handleCreateItem = e => {
     // console.log('state\n', this.state);
     const { handleCloseDialog, handleRefresh, } = this;
     const { crudForm, } = this.state;
@@ -204,8 +186,45 @@ class CRUDView extends Component {
     handleRefresh();
   }
   
-  handleSaveUpdateDialog = () => {
-    console.log('state\n', this.state);
+  handleUpdateItem = () => {
+    // console.log('state\n', this.state);
+    // console.log('props\n', this.props);
+    const { handleCloseDialog, handleRefresh, } = this;
+    const { detail, crudForm, } = this.state; // selectedIndex,
+    const { readable, updateItem, } = this.props; // items,
+    // console.log('selectedIndex', selectedIndex,);
+    // console.log('selectedItem', items[selectedIndex],);
+    // const item = items[selectedIndex];
+    // const docId = item.docId;
+    const docId = detail.docId;
+    // console.log('docId', docId,);
+
+    const newItem = {};
+    crudForm.forEach(item => {
+      let newVal = item.value;
+      if(newVal === undefined || newVal === null) newVal = '';
+      newItem[item.id] = newVal;
+    })
+
+    updateItem( readable, docId, newItem, detail, );
+    handleCloseDialog();
+    handleRefresh();
+  }
+
+  handleDeleteItem = () => {
+    // console.log('state\n', this.state);
+    // console.log('props\n', this.props);
+    const { handleCloseDialog, handleRefresh, } = this;
+    const { selectedIndex, } = this.state;
+    const { items, readable, deleteItem, } = this.props;
+    // console.log('selectedIndex', selectedIndex,);
+    // console.log('selectedItem', items[selectedIndex],);
+    const item = items[selectedIndex];
+    const docId = item.docId;
+    // console.log('docId', docId,);
+    deleteItem( readable, docId, );
+    handleCloseDialog();
+    handleRefresh();
   }
 
   handleListItemClick = ( event, index, ) => {
@@ -292,8 +311,8 @@ class CRUDView extends Component {
       }
       // console.log(`field: ${field.id}\n`, field);
     });
-    console.log('formFields\n', formFields);
-    console.log('state\n', this.state);
+    // console.log('formFields\n', formFields);
+    // console.log('state\n', this.state);
     return formFields;
   }
 
@@ -304,13 +323,13 @@ class CRUDView extends Component {
     const { creatable, } = this.props;
     const { title, fields, } = creatable; // form,
     const {
-      handleEnterDialog, handleChangeForm, handleCloseDialog, handleSaveCreateDialog,
+      handleEnterDialog, handleChangeForm, handleCloseDialog, handleCreateItem,
     } = this;
     const ready1 = createDialogIsOpen && creatable;
     if(!ready1) return;
     const ready2 = title && fields;
     if(!ready2) return;
-    const ready3 = handleChangeForm && handleCloseDialog && handleSaveCreateDialog;
+    const ready3 = handleChangeForm && handleCloseDialog && handleCreateItem;
     if(!ready3) return;
 
     return (
@@ -370,7 +389,7 @@ class CRUDView extends Component {
             <Button onClick={handleCloseDialog} color="primary">
               Cancel
             </Button>
-            <Button onClick={handleSaveCreateDialog} color="primary">
+            <Button onClick={handleCreateItem} color="primary">
               Save
             </Button>
           </DialogActions>
@@ -381,7 +400,7 @@ class CRUDView extends Component {
   getUpdateDialog = () => {
     // console.log('props\n', this.props);
     const { 
-      handleChangeForm, handleCloseDialog, handleSaveUpdateDialog, handleEnterDialog,
+      handleChangeForm, handleCloseDialog, handleUpdateItem, handleEnterDialog,
     } = this; // getFormFields, handleExitedUpdateDialog,
     const { updateDialogIsOpen, detail, crudForm, } = this.state;
     const { updatable, } = this.props;
@@ -390,7 +409,7 @@ class CRUDView extends Component {
     if(!ready1) return;
     const ready2 = title && fields;
     if(!ready2) return;
-    const ready3 = handleChangeForm && handleCloseDialog && handleSaveUpdateDialog;
+    const ready3 = handleChangeForm && handleCloseDialog && handleUpdateItem;
     if(!ready3) return;
 
     // const updateFormFields = getFormFields( 'loadSavedData', fields, );
@@ -413,10 +432,7 @@ class CRUDView extends Component {
           <DialogTitle id="form-dialog-title">{title}</DialogTitle>
           <DialogContent className="pt-4">
             <FormTemplate
-              // fields={getFormFields(fields)}
-              // fields={updateFormFields}
               fields={crudForm}
-              // values={detail}
               onChange={handleChangeForm}
             />
           </DialogContent>
@@ -424,7 +440,7 @@ class CRUDView extends Component {
             <Button onClick={handleCloseDialog} color="primary">
               Cancel
             </Button>
-            <Button onClick={handleSaveUpdateDialog} color="primary">
+            <Button onClick={handleUpdateItem} color="primary">
               Save
             </Button>
           </DialogActions>
@@ -852,8 +868,9 @@ CRUDView.defaultProps = {
 
 const mapDispatchToProps = dispatch => {
   return {
-    createItem: ( path , item  , ) => dispatch(createItem( path , item  , )), // inspired by: src/my-app/components/forms/CreateLead.js
-    deleteItem: ( path , docId , ) => dispatch(deleteItem( path , docId , )),
+    createItem: ( path , item  ,                    ) => dispatch(createItem( path , item  ,                    )), // inspired by: src/my-app/components/forms/CreateLead.js
+    updateItem: ( path , docId , newItem , oldItem, ) => dispatch(updateItem( path , docId , newItem , oldItem, )),
+    deleteItem: ( path , docId ,                    ) => dispatch(deleteItem( path , docId ,                    )),
   }
 }
 
