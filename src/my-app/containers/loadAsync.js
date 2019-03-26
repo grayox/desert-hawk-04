@@ -49,8 +49,6 @@ const getItems = async path => {
   const out = await db.collection(path)
     // .where('deleted_at', '==', 0,) // filters out deleted documents
     // .where('name', '==', 'alpha',)
-    // .orderBy('added_at', 'desc')
-    // .orderBy('created_at', 'desc')
     .orderBy('created_at', 'desc',)
     // .limit(1)
     .get()

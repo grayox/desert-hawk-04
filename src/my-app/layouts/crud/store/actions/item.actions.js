@@ -4,6 +4,18 @@
 // source: https://github.com/iamshaunjp/React-Redux-Firebase-App/blob/lesson-18/marioplan/src/store/actions/projectActions.js
 export const createItem = ( path, item, ) =>
   (dispatch, getState, { getFirebase, getFirestore, }) => {
+
+    const timestamp = Date.now();
+    const newData = {
+      ...item,
+      created_at: timestamp,
+      deleted_at: 0,
+      // createdAt: new Date(),
+      // authorFirstName: 'Net',
+      // authorLastName: 'Ninja',
+      // authorId: 12345,
+    };
+
     // make async call to database
     const firestore = getFirestore();
     // console.log('item\n', item);
@@ -12,15 +24,7 @@ export const createItem = ( path, item, ) =>
 
     // ref: https://firebase.google.com/docs/firestore/manage-data/add-data#add_a_document
     // firestore.collection('test').add({
-    firestore.collection(path).add({
-      ...item,
-      created_at: Date.now(),
-      deleted_at: 0,
-      // createdAt: new Date(),
-      // authorFirstName: 'Net',
-      // authorLastName: 'Ninja',
-      // authorId: 12345,
-    }).then( () => {
+    firestore.collection(path).add(newData).then(() => {
       dispatch({ type: 'CREATE_ITEM_SUCCESS' });
     }).catch( error => {
       dispatch({ type: 'CREATE_ITEM_ERROR' }, error);
@@ -33,23 +37,25 @@ export const updateItem = ( path, docId, newItem , oldItem, ) =>
   // console.log('docId\n', docId);
   // console.log('getState\n', getState);
 
-  // make async call to database
   const timestamp = Date.now();
+  const newData = {
+    ...newItem,
+    updated_at: timestamp,
+    update: {
+      updated_at: timestamp,
+      item: oldItem,
+    },
+  };
+
+  // make async call to database
   const firestore = getFirestore();
   firestore
     .collection(path)
     .doc(docId)
-    .set({
-      ...newItem,
-      updated_at: timestamp,
-      update: {
-        updated_at: timestamp,
-        item: oldItem,
-      },
-    }
+    .set(newData
     // ,{ merge: true, }
     )
-  .then( () => {
+  .then(() => {
     dispatch({ type: 'UPDATE_ITEM_SUCCESS' });
   }).catch( error => {
     dispatch({ type: 'UPDATE_ITEM_ERROR' }, error);
@@ -66,17 +72,18 @@ export const deleteItem = ( path, docId, ) =>
     // console.log('docId\n', docId);
     // console.log('getState\n', getState);
 
+    const timestamp = Date.now();
+    const newData = { deleted_at: timestamp, };
+
     // make async call to database
     const firestore = getFirestore();
     firestore
       .collection(path)
       .doc(docId)
-      .set({
-        deleted_at: Date.now(),
-      }
+      .set(newData
       // ,{ merge: true, }
       )
-    .then( () => {
+    .then(() => {
       dispatch({ type: 'DELETE_ITEM_SUCCESS' });
     }).catch( error => {
       dispatch({ type: 'DELETE_ITEM_ERROR' }, error);
