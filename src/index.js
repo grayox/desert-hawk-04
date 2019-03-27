@@ -19,7 +19,7 @@ import { // FuseLayout,
 // import MainNavbarContent from './main/MainNavbarContent';
 // import MainNavbarHeader from './main/MainNavbarHeader';
 // import MainFooter from './main/MainFooter';
-import jssExtend from 'jss-extend'
+import jssExtend from 'jss-extend';
 // import QuickPanel from 'main/quickPanel/QuickPanel';
 import store from 'store';
 // import SettingsPanel from 'main/SettingsPanel';

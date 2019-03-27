@@ -70,11 +70,11 @@ class FuseAuthorization extends Component {
 
   render() {
     // begin my add
-    // const created_at = Date.now();
+    // const timestamp = Date.now();
     
     // uid forwards to dashboard,
     // loggedIn makes you login before forwarding after every reload
-    const { children, uid, } = this.props; // loggedIn, uid: my add
+    const { children, uid, loggedIn, } = this.props; // loggedIn, uid: my add
     // const { children, uid, loggedIn, } = this.props; // loggedIn, uid: my add
     // console.log('children\n', children);
     // console.log('uid\n', uid);
@@ -138,7 +138,7 @@ class FuseAuthorization extends Component {
         uid
         ?
         children
-        // <FetchFirestore key={created_at}>{children}</FetchFirestore>
+        // <FetchFirestore key={timestamp}>{children}</FetchFirestore>
         :
         <Login />
       )} />
@@ -159,9 +159,12 @@ function mapStateToProps({ fuse, auth, }) {
   // console.log('auth\n', auth);
   // console.log('firestore\n', firestore); // we have firestore data here from the store
   // debugger;
-  const { user: { data: { uid } }, login: { success: loggedIn }, } = auth;
+  // const { user: { data: { uid } }, login: { success: loggedIn }, } = auth;
+  const { user: { uid }, } = auth;
+  // console.log('uid\n', uid);
+  // console.log('loggedIn\n', loggedIn);
   return {
-    uid, loggedIn,
+    uid, // loggedIn,
   }
 // end my add
 }
