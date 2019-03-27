@@ -74,7 +74,7 @@ class FuseAuthorization extends Component {
     
     // uid forwards to dashboard,
     // loggedIn makes you login before forwarding after every reload
-    const { children, uid, loggedIn, } = this.props; // loggedIn, uid: my add
+    const { children, uid, } = this.props; // loggedIn, uid: my add
     // const { children, uid, loggedIn, } = this.props; // loggedIn, uid: my add
     // console.log('children\n', children);
     // console.log('uid\n', uid);
