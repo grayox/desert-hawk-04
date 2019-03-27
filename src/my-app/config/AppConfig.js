@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import { Component } from 'react';
 // import PropTypes from "prop-types";
-// import { withStyles } from '@material-ui/core/styles';
+import { Typography, } from '@material-ui/core'; // withStyles,
 
 // firebase
 import { firestoreConnect } from 'react-redux-firebase';
@@ -174,16 +174,29 @@ export const componentsNavConfig = [
   // * Note: It is currently not possible to use expressions like `loader : () => import(item.path)`
   // The path must be hard coded in src/my-app/config/Routes.js. See https://github.com/jamiebuilds/react-loadable
   {
-    id        : 'dashboard',
-    path      : '/dashboard',
-    title     : 'Dashboard',
-    type      : 'item',
-    icon      : 'dashboard',
-    bottomNav : true,
+    desc :
+      <Typography>
+        This is your overview of metrics summarizing your use of this app.
+      </Typography>,
+    id         : 'dashboard',
+    path       : '/dashboard',
+    title      : 'Dashboard',
+    type       : 'item',
+    icon       : 'dashboard',
+    bottomNav  : true,
     // see src/my-app/config/Routes.js
     component  : () => FuseLoadable({loader: () => import('my-app/views/app/dashboard/Dashboard')}),
   },
   {
+    desc :
+      <Typography>
+        This is the list of leads that are available for you to move to your archive.
+        These leads match your service type and location as you indicated in your settings.
+        You must have a positive net lead balance in order for any leads to show in this list.
+        Your net lead balance is calculated by subtracting the number of leads you have claimed
+        into your archive from the number of lead referrals you have made in your outbox.
+        And after all approprite adjustments for disputed leads have be settled.
+      </Typography>,
     id         : 'inbox',
     path       : '/inbox',
     title      : 'Inbox',
@@ -202,6 +215,13 @@ export const componentsNavConfig = [
     },
   },
   {
+    desc :
+      <Typography>
+        This is the list of leads you have claimed which you now own in the sense they are now
+        exclusive to you only. The total leads in this list are subtracted from the amount of
+        lead referrals you have made, after all dispute adjustments are settled, in order to
+        determine your net lead balance.
+      </Typography>,
     id         : 'archive',
     path       : '/archive',
     title      : 'Archive',
@@ -220,6 +240,12 @@ export const componentsNavConfig = [
     },
   },
   {
+    desc:
+      <Typography>
+        These are all the leads you have submitted as a referral. The more leads you refer to others,
+        the more leads are available to you in your inbox. You must have a positive net lead balance
+        in order to have leads available for you to claim.
+      </Typography>,
     id         : 'outbox',
     path       : '/outbox',
     title      : 'Outbox',
@@ -229,7 +255,7 @@ export const componentsNavConfig = [
     component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
     crudConfig : {
       actionable : () => {},
-      condensed  : true    ,
+      condensed  : true,
       creatable  : {
         title    : 'Send new referral', // form: <UserMultiForm />,
         path     : 'leads',
@@ -241,10 +267,15 @@ export const componentsNavConfig = [
         path     : 'leads',
         fields   : [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ],
       },
-      deletable  : true    ,
+      deletable  : true,
     },
   },
   {
+    desc :
+      <Typography>
+        This is the list of your contacts. The people whom you can feel comfortable sending your referrals to.
+        They will ultimately be matched to your referrals, just as you are, based on location and service field.
+      </Typography>,
     id         : 'contacts',
     path       : '/contacts',
     title      : 'Contacts',
@@ -254,7 +285,7 @@ export const componentsNavConfig = [
     component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
     crudConfig : {
       actionable : () => {},
-      condensed  : true    ,
+      condensed  : true,
       creatable  : {
         title    : 'Create new contact', // form: <UserMultiForm />,
         path     : 'contacts',
@@ -266,7 +297,7 @@ export const componentsNavConfig = [
         path     : 'contacts',
         fields   : [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ],
       },
-      deletable  : true       ,
+      deletable  : true,
     },
   },
 
@@ -276,6 +307,12 @@ export const componentsNavConfig = [
   // overhead views
   // see specs here: https://material.io/design/communication/help-feedback.html#use-placement
   {
+    desc :
+      <Typography>
+        These are the settings we use to control how the app looks and functions for you.
+        For example, this is where you tell us your service field and your location so we
+        can properly match you to the leads that are referred by other members.
+      </Typography>,
     id         : 'settings',
     path       : '/settings',
     title      : 'Settings',
@@ -287,6 +324,10 @@ export const componentsNavConfig = [
     component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/settings/Settings')}),
   },
   {
+    desc :
+      <Typography>
+        Here you can tell us how the app is working for you and suggest ways we can improve it.
+      </Typography>,
     id         : 'feedback',
     path       : '/feedback',
     title      : 'Send feedback',
@@ -298,6 +339,10 @@ export const componentsNavConfig = [
     component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/Feedback')}),
   },
   {
+    desc :
+      <Typography>
+        Here are some questions users commonly ask us. You can read the questions and there answers here.
+      </Typography>,
     id         : 'help',
     path       : '/help',
     title      : 'Help',
@@ -309,6 +354,10 @@ export const componentsNavConfig = [
     component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/Help')}),
   },
   {
+    desc :
+      <Typography>
+        Click here to log out of the app.
+      </Typography>,
     id         : 'logout',
     path       : '/logout',
     title      : 'Logout',
