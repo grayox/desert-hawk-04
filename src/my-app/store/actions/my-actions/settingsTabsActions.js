@@ -22,7 +22,7 @@ export const updateSettings = settings => {
     const targetDoc = targetCollection.doc('current');
     const targetContent = {
       ...settings,
-      created_at: Date.now(),
+      createdAt: Date.now(),
       // createdAt: new Date(),
     };
 
@@ -40,7 +40,7 @@ export const updateSettings = settings => {
     //   .collection('settings')
     //   .add({
     //     ...settings,
-    //     created_at: Date.now(),
+    //     createdAt: Date.now(),
     //     // createdAt: new Date(),
     /// }).then(() => {
       .then(() => {

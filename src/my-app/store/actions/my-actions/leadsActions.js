@@ -11,7 +11,7 @@ export const createLead = lead => {
       authorFirstName: 'Net',
       authorLastName: 'Ninja',
       authorId: 12345,
-      created_at: Date.now(),
+      createdAt: Date.now(),
       // createdAt: new Date(),
     }).then( () => {
       dispatch({ type: 'CREATE_LEAD_SUCCESS' });

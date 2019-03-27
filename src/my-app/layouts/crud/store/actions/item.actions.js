@@ -8,8 +8,8 @@ export const createItem = ( path, item, ) =>
     const timestamp = Date.now();
     const newData = {
       ...item,
-      created_at: timestamp,
-      deleted_at: 0,
+      createdAt: timestamp,
+      deletedAt: 0,
       // createdAt: new Date(),
       // authorFirstName: 'Net',
       // authorLastName: 'Ninja',
@@ -40,9 +40,9 @@ export const updateItem = ( path, docId, newItem , oldItem, ) =>
   const timestamp = Date.now();
   const newData = {
     ...newItem,
-    updated_at: timestamp,
+    updatedAt: timestamp,
     update: {
-      updated_at: timestamp,
+      updatedAt: timestamp,
       item: oldItem,
     },
   };
@@ -63,9 +63,9 @@ export const updateItem = ( path, docId, newItem , oldItem, ) =>
 }
 
 // To "delete" a record, we do NOT use the .delete() method described here: https://firebase.google.com/docs/firestore/manage-data/delete-data
-// Instead, we will update the record with a field: deleted_at: Date.now()
-// Then, we will query records without a deleted_at field as described here: https://firebase.google.com/docs/firestore/query-data/queries#compound_queries
-// example: citiesRef.where("state", "==", "CO").where("deleted_at", "==", false)
+// Instead, we will update the record with a field: deletedAt: Date.now()
+// Then, we will query records without a deletedAt field as described here: https://firebase.google.com/docs/firestore/query-data/queries#compound_queries
+// example: citiesRef.where("state", "==", "CO").where("deletedAt", "==", false)
 export const deleteItem = ( path, docId, ) =>
   (dispatch, getState, { getFirebase, getFirestore, }) => {
     // console.log('path\n', path);
@@ -73,7 +73,7 @@ export const deleteItem = ( path, docId, ) =>
     // console.log('getState\n', getState);
 
     const timestamp = Date.now();
-    const newData = { deleted_at: timestamp, };
+    const newData = { deletedAt: timestamp, };
 
     // make async call to database
     const firestore = getFirestore();

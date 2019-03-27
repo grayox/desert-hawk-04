@@ -41,7 +41,7 @@ class Inbox extends Component {
           <List component="nav">
             {
               items.map(item => (
-                <ListItem button key={item.created_at}>
+                <ListItem button key={item.createdAt}>
                   <Avatar>
                     <BeachAccessIcon />
                   </Avatar>

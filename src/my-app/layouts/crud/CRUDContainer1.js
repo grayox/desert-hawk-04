@@ -55,16 +55,16 @@ class CRUDContainer extends Component {
     if(!db) return;
     db.collection(path)
       // .orderBy('added_at', 'desc')
-      // .orderBy('created_at', 'desc')
-      .orderBy('created_at', 'desc')
+      // .orderBy('createdAt', 'desc')
+      .orderBy('createdAt', 'desc')
       // .limit(1)
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
           // doc.data() is always defined for query doc snapshots
           // console.log(doc.id, '\n', doc.data());
-          // console.log('created_at: ', doc.created_at()); // throws error // must define created_at, then save it
-          // console.log('created_at: ', doc.get('created_at')); // undefined
+          // console.log('createdAt: ', doc.createdAt()); // throws error // must define createdAt, then save it
+          // console.log('createdAt: ', doc.get('createdAt')); // undefined
           // console.log('id: ', doc.id); // works
           // console.log('data\n', doc.data()); // works
           out.push(doc.data());

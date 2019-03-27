@@ -47,17 +47,17 @@ const getItems = async path => {
   const db = firebase.firestore();
   if(!db) return;
   const out = await db.collection(path)
-    // .where( 'deleted_at', '==', 0, ) // filters out deleted documents
+    // .where( 'deletedAt', '==', 0, ) // filters out deleted documents
     // .where( 'name', '==', 'alpha', )
-    .orderBy( 'created_at', 'desc', )
+    .orderBy( 'createdAt', 'desc', )
     // .limit(1)
     .get()
     .then(querySnapshot => {
       querySnapshot.forEach(doc => {
         // doc.data() is always defined for query doc snapshots
         // console.log(doc.id, '\n', doc.data());
-        // console.log('created_at: ', doc.created_at()); // throws error // must define created_at, then save it
-        // console.log('created_at: ', doc.get('created_at')); // undefined
+        // console.log('createdAt: ', doc.createdAt()); // throws error // must define createdAt, then save it
+        // console.log('createdAt: ', doc.get('createdAt')); // undefined
         // console.log('id: ', doc.id); // works
         // console.log('data\n', doc.data()); // works
         a.push({

@@ -51,7 +51,7 @@ import {
 // }
 
 const FormTemplate = ({ fields, onChange, }) => {
-  console.log('fields\n', fields);
+  // console.log('fields\n', fields);
   // debugger;
   const ready = fields;
   if(!ready) return null;

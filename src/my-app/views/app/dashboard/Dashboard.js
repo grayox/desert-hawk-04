@@ -39,8 +39,9 @@ import dashboardStyle from "my-app/vendors/creative-tim/assets/jss/material-dash
 // import classNames from 'classnames';
 
 // Custom Components
-import DashboardWidgets from './DashboardWidgets'
-import DashboardGridItems from './DashboardGridItems'
+import DashboardWidgets from './DashboardWidgets';
+import DashboardGridItems from './DashboardGridItems';
+import Error500Page from 'my-app/components/Error500Page';
 
 // import GeoSelect from 'my-app/components/GeoSelect/GeoSelect';
 // import GeoStepper from 'my-app/components/steppers/GeoStepper';
@@ -89,6 +90,7 @@ const INITIAL_STATE_DIALOG = {
 const INITIAL_STATE = {
   ...INITIAL_STATE_DIALOG,
 
+  isError: false,
   isLoading: true,
   bizCategory: null,
   categoryOpen: false,
@@ -123,11 +125,12 @@ class Dashboard extends Component {
     // console.log('props\n', this.props);
     // debugger;
     const path = this.getPath();
-    db.collection(path)
+    try {
+      db.collection(path)
       // .collection('users/userme/settings')
       // .orderBy('added_at', 'desc')
-      // .orderBy('created_at', 'desc')
-      .orderBy('created_at', 'desc')
+      // .orderBy('createdAt', 'desc')
+      .orderBy('createdAt', 'desc')
       .limit(1)
       .get()
       .then(querySnapshot => {
@@ -135,8 +138,8 @@ class Dashboard extends Component {
         querySnapshot.forEach(doc =>
           // doc.data() is always defined for query doc snapshots
           // console.log(doc.id, '\n', doc.data());
-          // console.log('created_at: ', doc.created_at()); // throws error
-          // console.log('created_at: ', doc.get('created_at')); // undefined
+          // console.log('createdAt: ', doc.createdAt()); // throws error
+          // console.log('createdAt: ', doc.get('createdAt')); // undefined
           // console.log('id: ', doc.id); // works
           // console.log('data\n', doc.data()); // works
           out = doc.data()
@@ -156,16 +159,24 @@ class Dashboard extends Component {
         this.setState(newState);
       })
       .catch(error => {
-        console.log('Error getting documents: \n', error);
+        console.error('Error getting documents: \n', error);
+        throw error;
       });
-    // console.log('out\n', out); // returns before promise settles
-    // return out;                // returns before promise settles
+      // console.log('out\n', out); // returns before promise settles
+      // return out;                // returns before promise settles
+    } catch(error) {
+      console.error(error.message);
+      this.setState({
+        isError: true,
+        isLoading: false,
+      });
+    }
   }
 
   handleSaveSettingsStepper = data => {
     const { bizCategory, geoNation, geoRegion, geoLocal, } = data;
-    const created_at = Date.now();
-    const newData = { created_at, bizCategory, geoNation, geoRegion, geoLocal, };
+    const createdAt = Date.now();
+    const newData = { createdAt, bizCategory, geoNation, geoRegion, geoLocal, };
     this.setState({
       ...newData,
       show: 'main',
@@ -242,8 +253,8 @@ class Dashboard extends Component {
     const bizCategory = model.target.value;
     this.setState({ bizCategory, });
     // console.log('state\n', this.state);
-    const created_at = Date.now();
-    const newData = { created_at, bizCategory, geoNation, geoRegion, geoLocal, };
+    const createdAt = Date.now();
+    const newData = { createdAt, bizCategory, geoNation, geoRegion, geoLocal, };
     const path = this.getPath();
     db.collection(path)
       .add(newData);
@@ -298,7 +309,6 @@ class Dashboard extends Component {
       console.log( 'bizCategory\n' , bizCategory );
     };
 
-    const { show, isLoading, } = this.state;
     const {
       // handleChangeSwitch, 
       handleSaveSettingsStepper, handleClickGeo,
@@ -306,6 +316,7 @@ class Dashboard extends Component {
       handleCloseDialog, handleClickButton, handleClickInfo,
     } = this;
     const {
+      show, isLoading, isError,
       // condensedDashboard, 
       categoryOpen,
       // bizCategory, geoLocal, geoRegion, geoNation,
@@ -439,7 +450,11 @@ class Dashboard extends Component {
       ?
       <Loading />
       :
-      // <Slide in direction="right">
+        isError
+        ?
+        <Error500Page />
+        :
+        // <Slide in direction="right">
         <div className={classes.wrapper}>
           { ( show === 'greet' ) ? <SettingsMessage onClick={handleClickGeo} />           : null }
           { ( show === 'step'  ) ? <SettingsStepper onSave={handleSaveSettingsStepper} /> : null }
@@ -448,8 +463,8 @@ class Dashboard extends Component {
           // <Album />
           }
         </div>
-      // </Slide>
-      // </React.Fragment>
+        // </Slide>
+        // </React.Fragment>
     );
   }
 
@@ -491,7 +506,7 @@ export default compose(
   // withRouter(connect(mapStateToProps, mapDispatchToProps),
   // firestoreConnect(props => {
   //   return [
-  //     { collection: 'leads', orderBy: ['created_at', 'desc'] },
+  //     { collection: 'leads', orderBy: ['createdAt', 'desc'] },
   //     {
   //       collection: 'users',
   //       doc: props.profile.uid,
@@ -499,7 +514,7 @@ export default compose(
   //         {
   //           collection: 'settings',
   //           limit: 1,
-  //           orderBy: ['created_at', 'desc',],
+  //           orderBy: ['createdAt', 'desc',],
   //           storeAs: 'settings',
   //         },
   //       ],

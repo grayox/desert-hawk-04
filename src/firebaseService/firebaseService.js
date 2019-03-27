@@ -135,10 +135,10 @@ class firebaseService {
       auth: { currentUser },
       auth: { currentUser: { uid } }, }
       = this;
-    const created_at = Date.now();
+    const createdAt = Date.now();
     const picked = pickUserFromAuth(currentUser);
     return userRef(picked) ? userRef(picked)
-      .set({ ...picked, created_at })
+      .set({ ...picked, createdAt })
       :
       saveDocToFirestore(picked, `users/user/${uid}`)
 
@@ -153,7 +153,7 @@ class firebaseService {
     // // console.log('photoURLTemp\n', photoURLTemp);
     // const photoURL = photoURLTemp || null;
     // return this.userRef(user)
-    //   .set({...picked, created_at, photoURL, });
+    //   .set({...picked, createdAt, photoURL, });
     //   // .set(user);
 
     // return this.firestore //.doc(`users/${user.uid}`);

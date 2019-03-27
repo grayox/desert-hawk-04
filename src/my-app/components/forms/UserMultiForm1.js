@@ -116,7 +116,7 @@ class UserMultiForm extends Component {
     const picked = _.pick(model, [ 'name', 'email', 'phone', 'bizCategory', 'geoNation', 'geoRegion', 'geoLocal', ]);
     const newData = {
       ...picked,
-      created_at: Date.now(),
+      createdAt: Date.now(),
     };
     this.saveToFirebase(newData);
     this.resetForm();
