@@ -315,7 +315,7 @@ class CRUDView extends Component {
           field.value = detail && detail[field.id];
           break;
         default:
-          throw 'Type must be one of: "loadSavedData" or "loadNewData"';
+          throw new Error('Type must be one of: "loadSavedData" or "loadNewData"');
       }
       // console.log(`field: ${field.id}\n`, field);
     });
@@ -685,7 +685,24 @@ class CRUDView extends Component {
                     condensed
                     ?
                     <ListItemSecondaryAction>
-                      <Typography className="mr-16">{item[keyName]}</Typography>
+                      <Typography className="mr-16">
+                        {
+                          (
+                            // Prevent React from throwing an error if the 'update' field is an object
+                            keyName === 'update'
+                            // because 'update' is constructed as object in src/my-app/layouts/crud/store/actions/item.actions.js
+                            ||
+                            // more error guards against returning objects as fields
+                            typeof item[keyName] === 'string'
+                            ||
+                            typeof item[keyName] === 'number'
+                          )
+                          ?
+                          item[keyName]
+                          :
+                          null
+                        }
+                      </Typography>
                     </ListItemSecondaryAction>
                     :
                     null

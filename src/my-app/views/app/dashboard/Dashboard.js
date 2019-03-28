@@ -160,7 +160,7 @@ class Dashboard extends Component {
       })
       .catch(error => {
         console.error('Error getting documents: \n', error);
-        throw error;
+        throw new Error(error);
       });
       // console.log('out\n', out); // returns before promise settles
       // return out;                // returns before promise settles

@@ -33,6 +33,7 @@ export const createItem = ( path, item, ) =>
 
 export const updateItem = ( path, docId, newItem , oldItem, ) =>
 (dispatch, getState, { getFirebase, getFirestore, }) => {
+  // ref: https://firebase.google.com/docs/firestore/manage-data/add-data#update-data
   // console.log('path\n', path);
   // console.log('docId\n', docId);
   // console.log('getState\n', getState);
@@ -52,7 +53,8 @@ export const updateItem = ( path, docId, newItem , oldItem, ) =>
   firestore
     .collection(path)
     .doc(docId)
-    .set(newData
+    // .set(newData // do NOT use .set() method because it overwrites the data
+    .update(newData // use .update() method: https://firebase.google.com/docs/firestore/manage-data/add-data#update-data
     // ,{ merge: true, }
     )
   .then(() => {
@@ -64,6 +66,7 @@ export const updateItem = ( path, docId, newItem , oldItem, ) =>
 
 // To "delete" a record, we do NOT use the .delete() method described here: https://firebase.google.com/docs/firestore/manage-data/delete-data
 // Instead, we will update the record with a field: deletedAt: Date.now()
+// https://firebase.google.com/docs/firestore/manage-data/add-data#update-data
 // Then, we will query records without a deletedAt field as described here: https://firebase.google.com/docs/firestore/query-data/queries#compound_queries
 // example: citiesRef.where("state", "==", "CO").where("deletedAt", "==", false)
 export const deleteItem = ( path, docId, ) =>
@@ -80,7 +83,8 @@ export const deleteItem = ( path, docId, ) =>
     firestore
       .collection(path)
       .doc(docId)
-      .set(newData
+      // .set(newData // do NOT use .set() method because it overwrites the data
+      .update(newData // use .update() method: https://firebase.google.com/docs/firestore/manage-data/add-data#update-data
       // ,{ merge: true, }
       )
     .then(() => {
