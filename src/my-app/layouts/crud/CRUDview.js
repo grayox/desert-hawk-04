@@ -26,6 +26,7 @@ import moment from 'moment';
 import { CreateButton, ButtonsRow, } from './CRUDButtons'; // UDButtons,
 import { getForm, } from 'my-app/config/AppConfig'; // getCleanFieldnames,
 import FormTemplate from 'my-app/components/forms/FormTemplate';
+import SimpleExpansionPanel from 'my-app/components/SimpleExpansionPanel';
 
 // import from '@material-ui/core/Avatar';
 // import ImageIcon from '@material-ui/icons/Image';
@@ -635,8 +636,63 @@ class CRUDView extends Component {
     )
   }
 
+  getListItem = ( keyName, keyIndex, item, condensed, ) =>
+    // keyName // success
+    // `${keyName}: ${item[keyName]}` // success
+    // // success
+    // <Typography className="text-left">
+    //   {keyName}: {item[keyName]}
+    // </Typography>
+    // attempt
+    <ListItem
+      // key={keyName.createdAt}
+      key={keyIndex}
+      divider
+      // light
+      // button
+      // onClick={() => handleToggle(item)}
+    >
+      {
+      // <Avatar>
+      //   <BeachAccessIcon />
+      // </Avatar>
+      }
+      <ListItemText
+        primary={keyName}
+        secondary={ condensed ? null : item[keyName] }
+      />
+      {
+        condensed
+        ?
+        <ListItemSecondaryAction>
+          <Typography className="mr-16">
+            {
+              (
+                // // Prevent React from throwing an error if the 'update' field is an object
+                // keyName === 'update'
+                // // because 'update' is constructed as object in src/my-app/layouts/crud/store/actions/item.actions.js
+                // ||
+                // Error guards against returning objects as fields
+                typeof item[keyName] === 'string'
+                ||
+                typeof item[keyName] === 'number'
+              )
+              ?
+              item[keyName]
+              :
+              null
+            }
+          </Typography>
+        </ListItemSecondaryAction>
+        :
+        null
+      }
+    </ListItem>
+
   getDetail = item => {
+    const MAX_LENGTH = 40;
     const { classes, condensed, } = this.props;
+    const { getListItem, } = this;
     // console.log('condensed\n', condensed);
     return (
       // <FuseAnimate
@@ -658,57 +714,11 @@ class CRUDView extends Component {
             >
             {
               Object.keys(item).map((keyName, keyIndex,) =>
-                // keyName // success
-                // `${keyName}: ${item[keyName]}` // success
-                // // success
-                // <Typography className="text-left">
-                //   {keyName}: {item[keyName]}
-                // </Typography>
-                // attempt
-                <ListItem
-                  // key={keyName.createdAt}
-                  key={keyIndex}
-                  divider
-                  // light
-                  // button
-                  // onClick={() => handleToggle(item)}
-                >
-                  {
-                  // <Avatar>
-                  //   <BeachAccessIcon />
-                  // </Avatar>
-                  }
-                  <ListItemText
-                    primary={keyName}
-                    secondary={ condensed ? null : item[keyName] }
-                  />
-                  {
-                    condensed
-                    ?
-                    <ListItemSecondaryAction>
-                      <Typography className="mr-16">
-                        {
-                          (
-                            // // Prevent React from throwing an error if the 'update' field is an object
-                            // keyName === 'update'
-                            // // because 'update' is constructed as object in src/my-app/layouts/crud/store/actions/item.actions.js
-                            // ||
-                            // Error guards against returning objects as fields
-                            typeof item[keyName] === 'string'
-                            ||
-                            typeof item[keyName] === 'number'
-                          )
-                          ?
-                          item[keyName]
-                          :
-                          null
-                        }
-                      </Typography>
-                    </ListItemSecondaryAction>
-                    :
-                    null
-                  }
-                </ListItem>
+                item[keyName].length > MAX_LENGTH
+                ?
+                <SimpleExpansionPanel key={keyIndex} heading={keyName} content={item[keyName]} />
+                :
+                getListItem( keyName, keyIndex, item, condensed, )
               )
             }
             </FuseAnimateGroup>
