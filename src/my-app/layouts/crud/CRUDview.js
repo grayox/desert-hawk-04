@@ -758,7 +758,7 @@ class CRUDView extends Component {
     // console.log('dataFields\n', dataFields);
 
     const formFields = this.getFormFields('loadSavedData', creatable.fields,);
-    console.log('formFields\n', formFields);
+    // console.log('formFields\n', formFields);
     
     return (
       // <FuseAnimate
