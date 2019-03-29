@@ -143,7 +143,7 @@ class CRUDView extends Component {
     const { id, value, } = event.target;
     // console.log('id\n', id); // 'name'
     // console.log('value\n', value); // 'john doe'
-    const { crudForm, } = { ...this.state, };
+    const { crudForm, } = { ...this.state, }; // use spread syntax to create and modify a copy only
     // console.log('crudForm\n', crudForm); // 'john doe'
     const targetFieldIndex = crudForm.findIndex(field => field.id === id);
     // console.log('targetFieldIndex\n', targetFieldIndex); // 'john doe'
@@ -636,23 +636,78 @@ class CRUDView extends Component {
     )
   }
 
-  getDetailListItem = ( keyName, keyIndex, item, condensed, ) =>
+  // getDetailListItem = ( keyName, keyIndex, item, condensed, ) =>
+    
+  //   // Prevent React from throwing an error if the 'update' field is an object
+  //   (
+  //     // keyName === 'update'
+  //     // // because 'update' is constructed as object in src/my-app/layouts/crud/store/actions/item.actions.js
+  //     // ||
+  //     // Error guards against returning objects as fields
+  //     typeof item[keyName] === 'string'
+  //     ||
+  //     typeof item[keyName] === 'number'
+  //   )
+
+  //   &&
+
+  //   // skip empty fields
+  //   item[keyName].length
+    
+  //   &&
+
+  //   // keyName // success
+  //   // `${keyName}: ${item[keyName]}` // success
+  //   // // success
+  //   // <Typography className="text-left">
+  //   //   {keyName}: {item[keyName]}
+  //   // </Typography>
+  //   // attempt
+  //   <ListItem
+  //     // key={keyName.createdAt}
+  //     key={keyIndex}
+  //     divider
+  //     // light
+  //     // button
+  //     // onClick={() => handleToggle(item)}
+  //   >
+  //     {
+  //     // <Avatar>
+  //     //   <BeachAccessIcon />
+  //     // </Avatar>
+  //     }
+  //     <ListItemText
+  //       primary={keyName}
+  //       secondary={ condensed ? null : item[keyName] }
+  //     />
+  //     {
+  //       condensed
+  //       ?
+  //       <ListItemSecondaryAction>
+  //         <Typography className="mr-16">{item[keyName]}</Typography>
+  //       </ListItemSecondaryAction>
+  //       :
+  //       null
+  //     }
+  //   </ListItem>
+
+  getDetailListItem = ( label, value, condensed, ) =>
     
     // Prevent React from throwing an error if the 'update' field is an object
     (
-      // keyName === 'update'
+      // field.id === 'update'
       // // because 'update' is constructed as object in src/my-app/layouts/crud/store/actions/item.actions.js
       // ||
       // Error guards against returning objects as fields
-      typeof item[keyName] === 'string'
+      typeof value === 'string'
       ||
-      typeof item[keyName] === 'number'
+      typeof value === 'number'
     )
 
     &&
 
     // skip empty fields
-    item[keyName].length
+    value.length
     
     &&
 
@@ -665,7 +720,7 @@ class CRUDView extends Component {
     // attempt
     <ListItem
       // key={keyName.createdAt}
-      key={keyIndex}
+      key={label}
       divider
       // light
       // button
@@ -677,14 +732,14 @@ class CRUDView extends Component {
       // </Avatar>
       }
       <ListItemText
-        primary={keyName}
-        secondary={ condensed ? null : item[keyName] }
+        primary={label}
+        secondary={ condensed ? null : value }
       />
       {
         condensed
         ?
         <ListItemSecondaryAction>
-          <Typography className="mr-16">{item[keyName]}</Typography>
+          <Typography className="mr-16">{value}</Typography>
         </ListItemSecondaryAction>
         :
         null
@@ -693,9 +748,18 @@ class CRUDView extends Component {
 
   getDetail = item => {
     // const MAX_LENGTH = 40;
-    const { classes, condensed, } = this.props;
+    const { classes, condensed, creatable, } = this.props;
     const { getDetailListItem, } = this;
     // console.log('condensed\n', condensed);
+    
+    // const keys = Object.keys(item);
+
+    // const dataFields = getForm(keys);
+    // console.log('dataFields\n', dataFields);
+
+    const formFields = this.getFormFields('loadSavedData', creatable.fields,);
+    console.log('formFields\n', formFields);
+    
     return (
       // <FuseAnimate
       //   // className="px-0"
@@ -715,12 +779,19 @@ class CRUDView extends Component {
               leave={{ animation: "transition.slideLeftOut" }}
             >
             {
-              Object.keys(item).map((keyName, keyIndex,) =>
-                item[keyName].length > uiSpecs.maxCharsForDetailItemField // MAX_LENGTH
+              // keys.map((keyName, keyIndex,) =>
+              //   item[keyName].length > uiSpecs.maxCharsForDetailItemField // MAX_LENGTH
+              //   ?
+              //   <SimpleExpansionPanel key={keyIndex} heading={keyName} content={item[keyName]} />
+              //   :
+              //   getDetailListItem( keyName, keyIndex, item, condensed, )
+              // )
+              formFields.map( field =>
+                field.value.length > uiSpecs.maxCharsForDetailItemField // MAX_LENGTH
                 ?
-                <SimpleExpansionPanel key={keyIndex} heading={keyName} content={item[keyName]} />
+                <SimpleExpansionPanel key={field.label} heading={field.label} content={field.value} />
                 :
-                getDetailListItem( keyName, keyIndex, item, condensed, )
+                getDetailListItem( field.label, field.value, condensed, )
               )
             }
             </FuseAnimateGroup>
@@ -755,8 +826,8 @@ class CRUDView extends Component {
     const { getSummary, getDetail, getEmpty, getNavButtons, } = this; // getHeader,
     const { detail, } = this.state;
     const { classes, } = this.props;
-    console.log('detail\n', detail);
-    console.log('state\n', this.state);
+    // console.log('detail\n', detail);
+    // console.log('state\n', this.state);
     return (
       <Slide // <Zoom // <Grow 
         in //={detail}
