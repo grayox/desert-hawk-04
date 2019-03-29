@@ -43,11 +43,12 @@ import { FaSignOutAlt } from 'react-icons/fa'; // https://react-icons.netlify.cI
 // utility components
 // import CRUDRouter from 'my-app/layouts/crud/CRUDRouter';
 
-// import { mdSpecs } from 'my-app/config/AppConfig';
-export const mdSpecs = {
+// import { uiSpecs } from 'my-app/config/AppConfig';
+export const uiSpecs = {
   drawerWidth: 256, // https://material.io/design/components/navigation-drawer.html#specs
   // appBarHeight:  64, // 64 per MUI theme // 56 per spec: https://material.io/design/components/app-bars-top.html#specs
   // bottomNavHeight:  56,
+  maxCharsForDetailItemField: 40,
 }
 
 export const firebaseConfig = {
@@ -164,7 +165,7 @@ export const getForm = arrayOfIds =>
   // arrayOfIds: array of strings: ['name', 'phone', 'email',]
   arrayOfIds.map((id, index,) => getFormFieldProps(id, index,));
 
-export const getCleanFieldnames = a => a.map(s => getOnlyAlpha(s)); // a: arrayOfStrings: ['name*', 'phone', 'email*']
+export const getCleanFieldNames = a => a.map(s => getOnlyAlpha(s)); // a: arrayOfStrings: ['name*', 'phone', 'email*']
 
 // syncronize: changes in either of the following files must be hard coded in the other
 // src/fuse-configs/fuseNavigationConfig.js

@@ -19,8 +19,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 
-import { mdSpecs } from 'my-app/config/AppConfig';
-// const mdSpecs.drawerWidth = 240;
+import { uiSpecs } from 'my-app/config/AppConfig';
+// const uiSpecs.drawerWidth = 240;
 
 const styles = theme => ({
   root: {
@@ -28,14 +28,14 @@ const styles = theme => ({
   },
   drawer: {
     [theme.breakpoints.up('sm')]: {
-      width: mdSpecs.drawerWidth,
+      width: uiSpecs.drawerWidth,
       flexShrink: 0,
     },
   },
   appBar: {
-    marginLeft: mdSpecs.drawerWidth,
+    marginLeft: uiSpecs.drawerWidth,
     [theme.breakpoints.up('sm')]: {
-      width: `calc(100% - ${mdSpecs.drawerWidth}px)`,
+      width: `calc(100% - ${uiSpecs.drawerWidth}px)`,
     },
   },
   menuButton: {
@@ -46,7 +46,7 @@ const styles = theme => ({
   },
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
-    width: mdSpecs.drawerWidth,
+    width: uiSpecs.drawerWidth,
   },
   content: {
     flexGrow: 1,

@@ -21,7 +21,7 @@ import RoutePageTitle from 'my-app/components/RoutePageTitle';
 import DrawerContent from './DrawerContent';
 // import DrawerContent1 from './DrawerContent1'; // specs/dimensions reference for sizing, spacing, etc
 
-import { mdSpecs } from 'my-app/config/AppConfig';
+import { uiSpecs } from 'my-app/config/AppConfig';
 // const drawerWidth = 240;
 
 const styles = theme => ({
@@ -36,8 +36,8 @@ const styles = theme => ({
     }),
   },
   appBarShift: {
-    marginLeft: mdSpecs.drawerWidth,
-    width: `calc(100% - ${mdSpecs.drawerWidth}px)`,
+    marginLeft: uiSpecs.drawerWidth,
+    width: `calc(100% - ${uiSpecs.drawerWidth}px)`,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -56,14 +56,14 @@ const styles = theme => ({
     marginLeft: -24,
   },
   drawer: {
-    width: mdSpecs.drawerWidth,
+    width: uiSpecs.drawerWidth,
     flexShrink: 0,
     whiteSpace: 'nowrap',
     height: 'calc(100% - 88px)',
   },
   drawerOpen: {
     backgroundColor: '#303030', // 262933 per styles/index.css
-    width: mdSpecs.drawerWidth,
+    width: uiSpecs.drawerWidth,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,

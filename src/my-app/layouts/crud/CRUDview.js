@@ -24,7 +24,7 @@ import moment from 'moment';
 
 // import CreateButton from './CreateButton';
 import { CreateButton, ButtonsRow, } from './CRUDButtons'; // UDButtons,
-import { getForm, } from 'my-app/config/AppConfig'; // getCleanFieldnames,
+import { getForm, uiSpecs, } from 'my-app/config/AppConfig'; // getCleanFieldNames,
 import FormTemplate from 'my-app/components/forms/FormTemplate';
 import SimpleExpansionPanel from 'my-app/components/SimpleExpansionPanel';
 
@@ -284,10 +284,10 @@ class CRUDView extends Component {
   //   // console.log('fields\n', fields); // some contain '*'
   //   // console.log('detail\n', detail); // some contain '*'
     
-  //   const arrayOfFieldnames = getCleanFieldnames(fields);
-  //   // const crudForm = { arrayOfFieldnames, };
+  //   const arrayOfFieldNames = getCleanFieldNames(fields);
+  //   // const crudForm = { arrayOfFieldNames, };
   //   const crudForm = {};
-  //   arrayOfFieldnames.forEach(field => crudForm[field] = (detail && detail[field]) || '');
+  //   arrayOfFieldNames.forEach(field => crudForm[field] = (detail && detail[field]) || '');
   //   // fields.forEach(field => crudForm[field] = '');
   //   this.setState({
   //     crudForm,
@@ -636,7 +636,26 @@ class CRUDView extends Component {
     )
   }
 
-  getListItem = ( keyName, keyIndex, item, condensed, ) =>
+  getDetailListItem = ( keyName, keyIndex, item, condensed, ) =>
+    
+    // Prevent React from throwing an error if the 'update' field is an object
+    (
+      // keyName === 'update'
+      // // because 'update' is constructed as object in src/my-app/layouts/crud/store/actions/item.actions.js
+      // ||
+      // Error guards against returning objects as fields
+      typeof item[keyName] === 'string'
+      ||
+      typeof item[keyName] === 'number'
+    )
+
+    &&
+
+    // skip empty fields
+    item[keyName].length
+    
+    &&
+
     // keyName // success
     // `${keyName}: ${item[keyName]}` // success
     // // success
@@ -665,24 +684,7 @@ class CRUDView extends Component {
         condensed
         ?
         <ListItemSecondaryAction>
-          <Typography className="mr-16">
-            {
-              (
-                // // Prevent React from throwing an error if the 'update' field is an object
-                // keyName === 'update'
-                // // because 'update' is constructed as object in src/my-app/layouts/crud/store/actions/item.actions.js
-                // ||
-                // Error guards against returning objects as fields
-                typeof item[keyName] === 'string'
-                ||
-                typeof item[keyName] === 'number'
-              )
-              ?
-              item[keyName]
-              :
-              null
-            }
-          </Typography>
+          <Typography className="mr-16">{item[keyName]}</Typography>
         </ListItemSecondaryAction>
         :
         null
@@ -690,9 +692,9 @@ class CRUDView extends Component {
     </ListItem>
 
   getDetail = item => {
-    const MAX_LENGTH = 40;
+    // const MAX_LENGTH = 40;
     const { classes, condensed, } = this.props;
-    const { getListItem, } = this;
+    const { getDetailListItem, } = this;
     // console.log('condensed\n', condensed);
     return (
       // <FuseAnimate
@@ -714,11 +716,11 @@ class CRUDView extends Component {
             >
             {
               Object.keys(item).map((keyName, keyIndex,) =>
-                item[keyName].length > MAX_LENGTH
+                item[keyName].length > uiSpecs.maxCharsForDetailItemField // MAX_LENGTH
                 ?
                 <SimpleExpansionPanel key={keyIndex} heading={keyName} content={item[keyName]} />
                 :
-                getListItem( keyName, keyIndex, item, condensed, )
+                getDetailListItem( keyName, keyIndex, item, condensed, )
               )
             }
             </FuseAnimateGroup>
@@ -753,7 +755,8 @@ class CRUDView extends Component {
     const { getSummary, getDetail, getEmpty, getNavButtons, } = this; // getHeader,
     const { detail, } = this.state;
     const { classes, } = this.props;
-    // console.log('detail\n', detail);
+    console.log('detail\n', detail);
+    console.log('state\n', this.state);
     return (
       <Slide // <Zoom // <Grow 
         in //={detail}
