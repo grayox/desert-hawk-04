@@ -121,7 +121,7 @@ class FaqPage extends Component {
                 animation: "transition.slideUpBigIn"
               }}
             >
-              {faqs.map((faq) => (
+              {faqs.map(faq => (
                 <ExpansionPanel className={classes.panel} key={faq.id} expanded={expanded === faq.id} onChange={this.toogleExpansion(faq.id)} elevation={0}>
 
                   <ExpansionPanelSummary expandIcon={<Icon>expand_more</Icon>}>

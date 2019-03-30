@@ -1,0 +1,12 @@
+{
+  "indexes": [
+    {
+      "collectionId": "leads",
+      "fields": [
+        { "fieldPath": "deletedAt", "mode": "ASCENDING" },
+        { "fieldPath": "createdAt", "mode": "DESCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

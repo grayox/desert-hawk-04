@@ -299,15 +299,20 @@ class CRUDView extends Component {
 
   getFormFields = ( type, fields, ) => {
     // type: string: enum: 'loadSavedData' | 'loadNewData'
+    // fields: arrayOFStrings: example: ['name*', 'phone*', 'email*', 'zip*', 'notes', ]
     // console.log('type\n', type);
+    // console.log('fields\n', fields);
     // console.log('state\n', this.state);
+
+    const ready = fields && typeof fields === 'object';
+    if(!ready) return;
+
     const { detail, } = this.state;
     // console.log('updateDialogIsOpen\n', updateDialogIsOpen);
     // console.log('detail\n', detail);
-    // console.log('fields\n', fields);
     const formFields = getForm(fields);
     // console.log('formFields\n', formFields); // debugger;
-    formFields.map(field => {
+    formFields.forEach(field => {
       switch(type) {
         case 'loadNewData':
           field.value = '';
@@ -756,6 +761,9 @@ class CRUDView extends Component {
 
     // const dataFields = getForm(keys);
     // console.log('dataFields\n', dataFields);
+
+    const ready = creatable && creatable.fields;
+    if(!ready) return;
 
     const formFields = this.getFormFields('loadSavedData', creatable.fields,);
     // console.log('formFields\n', formFields);

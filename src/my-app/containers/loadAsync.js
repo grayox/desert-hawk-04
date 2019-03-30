@@ -49,7 +49,7 @@ const getItems = async path => {
   const out = await db.collection(path)
     .where( 'deletedAt', '==', 0, ) // filters out deleted documents
     // .where( 'name', '==', 'alpha', )
-    // .orderBy( 'createdAt', 'desc', ) // throws error: "firebase error: the query requires an index"
+    .orderBy( 'createdAt', 'desc', ) // throws error: "firebase error: the query requires an index"
     // .limit(10)
     .get()
     .then(querySnapshot => {

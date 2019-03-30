@@ -42,8 +42,8 @@ export const updateItem = ( path, docId, newItem , oldItem, ) =>
   const newData = {
     ...newItem,
     updatedAt: timestamp,
-    update: {
-      updatedAt: timestamp,
+    updates: {
+      replacedAt: timestamp,
       item: oldItem,
     },
   };
