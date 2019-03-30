@@ -6,6 +6,13 @@
         { "fieldPath": "deletedAt", "mode": "ASCENDING" },
         { "fieldPath": "createdAt", "mode": "DESCENDING" }
       ]
+    },
+    {
+      "collectionId": "contacts",
+      "fields": [
+        { "fieldPath": "deletedAt", "mode": "ASCENDING" },
+        { "fieldPath": "createdAt", "mode": "DESCENDING" }
+      ]
     }
   ],
   "fieldOverrides": []
