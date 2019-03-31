@@ -27,7 +27,7 @@ import Brightness4Icon from '@material-ui/icons/Brightness4';
 import AddLocationIcon from '@material-ui/icons/AddLocation';
 import NotInterestedIcon from '@material-ui/icons/NotInterested';
 
-import ErrorMaintenance from 'my-app/components/ErrorMaintenance.js';
+import Error500Page from 'my-app/components/Error500Page';
 
 const styles = theme => ({
   root: {
@@ -409,7 +409,7 @@ function PreferencesTab(props) {
         </div>
       </div>
       :
-      <ErrorMaintenance />
+      <Error500Page />
       }
     </React.Fragment>
   );

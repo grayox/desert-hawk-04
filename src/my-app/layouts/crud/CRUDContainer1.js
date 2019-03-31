@@ -6,8 +6,8 @@ import {
 
 import { componentsNavConfig } from 'my-app/config/AppConfig';
 import CRUDView from './CRUDView';
-import Loading from 'my-app/components/Loading.js';
-import ErrorMaintenance from 'my-app/components/ErrorMaintenance.js';
+import Loading from 'my-app/components/Loading';
+import Error500Page from 'my-app/components/Error500Page';
 
 // firebase
 import firebase from '@firebase/app';
@@ -149,7 +149,7 @@ class CRUDContainer extends Component {
       (
         isError
         ?
-        <ErrorMaintenance />
+        <Error500Page />
         :
         (items && (
         <CRUDView

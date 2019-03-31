@@ -8,10 +8,10 @@ import React, { Component } from 'react';
 import { withStyles, Icon, IconButton, } from '@material-ui/core';
 
 import CRUDView from './CRUDView';
-import Loading from 'my-app/components/Loading.js';
-import ErrorMaintenance from 'my-app/components/ErrorMaintenance.js';
+import Loading from 'my-app/components/Loading';
+import Error500Page from 'my-app/components/Error500Page';
 
-import { loadMyAsyncData } from 'my-app/containers/LoadAsync.js';
+import { loadMyAsyncData } from 'my-app/containers/LoadAsync';
 
 const styles = theme => ({
 
@@ -135,7 +135,7 @@ class CRUDContainer extends Component {
         isError
         ?
         <div className="h-full">
-          <ErrorMaintenance />
+          <Error500Page />
         </div>
         :
         (

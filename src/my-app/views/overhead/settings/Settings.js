@@ -36,17 +36,17 @@ import _ from 'lodash';
 // import * as EmailValidator from 'email-validator';
 // import NumberFormat from 'react-number-format';
 
-import Loading from 'my-app/components/Loading.js';
-import ErrorBoundary from 'my-app/containers/ErrorBoundary.js';
-// import ErrorMaintenance from 'my-app/components/ErrorMaintenance.js';
+import Loading from 'my-app/components/Loading';
+import ErrorBoundary from 'my-app/containers/ErrorBoundary';
+// import Error500Page from 'my-app/components/Error500Page';
 import DetailsTab from './tabs/DetailsTab';
 import PreferencesTab from './tabs/PreferencesTab';
-// note: this page began as src/my-app/profile-orig/ProfilePage.js
+// note: this page began as src/my-app/profile-orig/ProfilePage
 // interface: export class ProfilePage > import Settings ...
 
 // import { FetchFirestore } from 'my-app/config/AppConfig'; // fails
 import FetchFirestore from 'my-app/config/AppConfig'; // success
-// import FuseLoadable from '@fuse/components/FuseLoadable/FuseLoadable.js';
+// import FuseLoadable from '@fuse/components/FuseLoadable/FuseLoadable';
 // end my add
 
 const styles = theme => ({

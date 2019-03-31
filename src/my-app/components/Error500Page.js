@@ -44,7 +44,7 @@ class Error500Page extends Component {
 
                     <FuseAnimate delay={600}>
                         <Typography variant="subtitle1" color="textSecondary" className="mb-48">
-                            Just kidding, looks like we have an internal issue, please try again in couple minutes
+                            Just kidding, looks like we have an internal issue, please try again in a few minutes
                         </Typography>
                     </FuseAnimate>
 
