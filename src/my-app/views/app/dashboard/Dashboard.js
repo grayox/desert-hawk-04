@@ -110,68 +110,68 @@ class Dashboard extends Component {
     this.state = INITIAL_STATE;
   }
 
-  componentDidMount() {
-    this.getSettings();
-  }
+  // componentDidMount() {
+  //   this.getSettings();
+  // }
 
-  getPath() {
-    if(!this.props.user) return;
-    const uid = this && this.props && this.props.user &&
-                this.props.user.data && this.props.user.data.uid;
-    return uid ? [ 'users' , uid , 'settings' , ].join('/') : null;
-  }
+  // getPath() {
+  //   if(!this.props.user) return;
+  //   const uid = this && this.props && this.props.user &&
+  //               this.props.user.data && this.props.user.data.uid;
+  //   return uid ? [ 'users' , uid , 'settings' , ].join('/') : null;
+  // }
 
-  getSettings() {
-    // console.log('props\n', this.props);
-    // debugger;
-    const path = this.getPath();
-    try {
-      db.collection(path)
-      // .collection('users/userme/settings')
-      // .orderBy('added_at', 'desc')
-      // .orderBy('createdAt', 'desc')
-      .orderBy('createdAt', 'desc')
-      .limit(1)
-      .get()
-      .then(querySnapshot => {
-        let out;
-        querySnapshot.forEach(doc =>
-          // doc.data() is always defined for query doc snapshots
-          // console.log(doc.id, '\n', doc.data());
-          // console.log('createdAt: ', doc.createdAt()); // throws error
-          // console.log('createdAt: ', doc.get('createdAt')); // undefined
-          // console.log('id: ', doc.id); // works
-          // console.log('data\n', doc.data()); // works
-          out = doc.data()
-        );
-        console.log('out\n', out);
-        return out;
-      })
-        // }
-      .then(result => {
-        // this.setState(out);
-        // always set state inside promise!
-        // otherwise, function returns before data loads!
-        const newState = {
-          ...result,
-          isLoading: false,
-        };
-        this.setState(newState);
-      })
-      .catch(error => {
-        console.error('Error getting documents: \n', error);
-        throw new Error(error);
-      });
-      // console.log('out\n', out); // returns before promise settles
-      // return out;                // returns before promise settles
-    } catch(error) {
-      console.error(error.message);
-      this.setState({
-        isError: true,
-        isLoading: false,
-      });
-    }
-  }
+  // getSettings() {
+  //   // console.log('props\n', this.props);
+  //   // debugger;
+  //   const path = this.getPath();
+  //   try {
+  //     db.collection(path)
+  //     // .collection('users/userme/settings')
+  //     // .orderBy('added_at', 'desc')
+  //     // .orderBy('createdAt', 'desc')
+  //     .orderBy('createdAt', 'desc')
+  //     .limit(1)
+  //     .get()
+  //     .then(querySnapshot => {
+  //       let out;
+  //       querySnapshot.forEach(doc =>
+  //         // doc.data() is always defined for query doc snapshots
+  //         // console.log(doc.id, '\n', doc.data());
+  //         // console.log('createdAt: ', doc.createdAt()); // throws error
+  //         // console.log('createdAt: ', doc.get('createdAt')); // undefined
+  //         // console.log('id: ', doc.id); // works
+  //         // console.log('data\n', doc.data()); // works
+  //         out = doc.data()
+  //       );
+  //       console.log('out\n', out);
+  //       return out;
+  //     })
+  //       // }
+  //     .then(result => {
+  //       // this.setState(out);
+  //       // always set state inside promise!
+  //       // otherwise, function returns before data loads!
+  //       const newState = {
+  //         ...result,
+  //         isLoading: false,
+  //       };
+  //       this.setState(newState);
+  //     })
+  //     .catch(error => {
+  //       console.error('Error getting documents: \n', error);
+  //       throw new Error(error);
+  //     });
+  //     // console.log('out\n', out); // returns before promise settles
+  //     // return out;                // returns before promise settles
+  //   } catch(error) {
+  //     console.error(error.message);
+  //     this.setState({
+  //       isError: true,
+  //       isLoading: false,
+  //     });
+  //   }
+  // }
 
   handleSaveSettingsStepper = data => {
     const { bizCategory, geoNation, geoRegion, geoLocal, } = data;

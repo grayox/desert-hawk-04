@@ -168,9 +168,9 @@ class ProfilePage extends Component {
   // };
 
   // componentDidMount() {
-  //   axios.get('/api/profile/about').then(res => {
-  //     this.setState(res.data);
-  //   });
+  //   // axios.get('/api/profile/about').then(res => {
+  //   //   this.setState(res.data);
+  //   // });
   // }
 
   // saveToFirebase = data => {

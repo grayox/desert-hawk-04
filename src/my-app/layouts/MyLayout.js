@@ -10,6 +10,8 @@ import LaptopDrawer from './drawers/LaptopDrawer';
 // import ResponsiveDrawer from './drawers/ResponsiveDrawer';
 // import { CssBaseline, } from '@material-ui/core';
 
+// import FetchSettings from 'my-app/containers/FetchSettings';
+
 const styles = theme => ({
   wrapper: {
     height: '100vh',
@@ -23,6 +25,7 @@ const MyLayout = props => {
     // className="w-full"
     className={classNames( "w-full overflow-auto", classes.wrapper, )}
     >
+      {/* <FetchSettings /> */}
     {
     // <div className="border-8 border-blue w-full overflow-auto">
     // <CssBaseline />
