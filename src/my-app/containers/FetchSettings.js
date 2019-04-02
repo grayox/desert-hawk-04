@@ -7,82 +7,77 @@ import { compose } from 'redux';
 import { updateSettings } from 'my-app/store/actions/my-actions';
 
 import { withStyles, } from '@material-ui/core';
+import { loadMyAsyncData } from 'my-app/containers/LoadAsync';
 
-const db = firebase.firestore();
+const INITIAL_STATE = {
+  items: null,
+  isError: false,
+  isLoading: true,
+};
 
 class FetchSettings extends Component {
 
+  // state = INITIAL_STATE;
   constructor(props) {
     super(props);
     this.state = INITIAL_STATE;
   }
 
   componentDidMount() {
-    this.getSettings();
+    this.handleLoad();
+  }
+
+  componentWillUnmount() {
+    this.handleCancel();
   }
 
   getPath() {
+    console.log('props\n', this.props);
     if(!this.props.user) return;
     const uid = this && this.props && this.props.user &&
-                this.props.user.data && this.props.user.data.uid;
+                // this.props.user.data && this.props.user.data.uid;
+                this.props.user.uid;
     return uid ? [ 'users' , uid , 'settings' , ].join('/') : null;
   }
 
-  getSettings() {
+  // refs: https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#fetching-external-data
+  // https://stackoverflow.com/a/55093394/1640892 | https://codesandbox.io/s/lrvwm88pv7
+  // handleLoad() {
+  //   this._asyncRequest = loadMyAsyncData().then(
+  //     externalData => {
+  //       this._asyncRequest = null;
+  //       this.setState({externalData});
+  //     }
+  //   );
+  // }
+  handleLoad = async () => {
     // console.log('props\n', this.props);
-    // debugger;
-    const path = this.getPath();
-    try {
-      db.collection(path)
-      // .collection('users/userme/settings')
-      // .orderBy('added_at', 'desc')
-      // .orderBy('createdAt', 'desc')
-      .orderBy('createdAt', 'desc')
-      .limit(1)
-      .get()
-      .then(querySnapshot => {
-        let out;
-        querySnapshot.forEach(doc =>
-          // doc.data() is always defined for query doc snapshots
-          // console.log(doc.id, '\n', doc.data());
-          // console.log('createdAt: ', doc.createdAt()); // throws error
-          // console.log('createdAt: ', doc.get('createdAt')); // undefined
-          // console.log('id: ', doc.id); // works
-          // console.log('data\n', doc.data()); // works
-          out = doc.data()
-        );
-        console.log('out\n', out);
-        return out;
-      })
-        // }
-      .then(result => {
-        // this.setState(out);
-        // always set state inside promise!
-        // otherwise, function returns before data loads!
-        const newState = {
-          ...result,
-          isLoading: false,
-        };
-        this.setState(newState);
-      })
-      .catch(error => {
-        console.error('Error getting documents: \n', error);
-        throw new Error(error);
-      });
-      // console.log('out\n', out); // returns before promise settles
-      // return out;                // returns before promise settles
-    } catch(error) {
-      console.error(error.message);
-      this.setState({
-        isError: true,
-        isLoading: false,
-      });
-    }
+    const settingsPath = this.getPath();
+    console.log('settingsPath\n', settingsPath);
+
+    this.setState({
+      isLoading: true,
+    });
+    // this._asyncRequest = loadMyAsyncData();
+    this._asyncRequest = loadMyAsyncData(settingsPath);
+    const items = await this._asyncRequest;
+    this._asyncRequest = null;
+    this.setState({
+      items,
+      isLoading: false,
+    });
   }
+
+  handleCancel = () => {
+    this.setState(INITIAL_STATE);
+    if (this._asyncRequest) {
+      // this._asyncRequest.cancel();
+      this._asyncRequest = null;
+    }
+  };
   
   render() {
-    
-    return ();
+    return null;
   }
 
 }
@@ -118,6 +113,6 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default compose(
-  withStyles(styles, { withTheme: true }),
+  // withStyles(styles, { withTheme: true }),
   connect(mapStateToProps, mapDispatchToProps),
 )(FetchSettings)
