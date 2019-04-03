@@ -9,7 +9,7 @@ import '@firebase/firestore';
 
 // ref: https://medium.freecodecamp.org/how-to-master-async-await-with-this-real-world-example-19107e7558ad
 
-// export const loadMyAsyncData = () => {
+// export const loadAsyncData = () => {
 //   let timeout;
 //   const promise = new Promise((resolve, reject) => {
 //     timeout = setTimeout(
@@ -25,9 +25,9 @@ import '@firebase/firestore';
 //   return promise;
 // };
 
-export const loadMyAsyncData = async path => {
+export const loadSettingsData = async path => {
   // console.log('path\n', path);
-  const out = await getItems(path);
+  const out = await getSettings(path);
   // console.log('out\n', out);
 
   const promise = new Promise((resolve, reject) => {
@@ -37,7 +37,7 @@ export const loadMyAsyncData = async path => {
   return promise;
 };
 
-const getItems = async path => {
+const getSettings = async path => {
   // console.log('path\n', path);
   // console.log('state\n', this.state);
   // this.setState({isLoading: true});
@@ -45,7 +45,81 @@ const getItems = async path => {
   // debugger;
   const a = [];
   const db = firebase.firestore();
-  if(!db) return;
+  const ready = db;
+  if(!ready) return;
+
+  const out = await db.collection(path)
+    // .where( 'deletedAt', '==', 0, ) // filters out deleted documents
+    // .where( 'name', '==', 'alpha', )
+    .orderBy( 'createdAt', 'desc', ) // throws error: "firebase error: the query requires an index"
+    .limit(1)
+    .get()
+    .then(querySnapshot => {
+      querySnapshot.forEach(doc => {
+        // doc.data() is always defined for query doc snapshots
+        // console.log(doc.id, '\n', doc.data());
+        // console.log('createdAt: ', doc.createdAt()); // throws error // must define createdAt, then save it
+        // console.log('createdAt: ', doc.get('createdAt')); // undefined
+        // console.log('id: ', doc.id); // works
+        console.log('data\n', doc.data()); // works
+        a.push({
+          docId: doc.id,
+          ...doc.data(),
+        });
+        // console.log('a\n', a);
+        // this.setState(a);
+      });
+      // console.log('a\n', a);
+      return a;
+    })
+    .then(result => {
+      // always set state inside promise!
+      // otherwise, function returns before data loads!
+      // console.log('result', result);
+      // debugger;
+      // return result;
+      return result[0];
+    })
+    // .then(() => {
+    //   this.unsubscribe(path);
+    //   return path;
+    // })
+    .catch(error => {
+      console.error('Error getting documents: \n', error);
+      throw new Error(`Unable to get items from: ${path}\nError:\n${error}`);
+    });
+  // console.log('out\n', out); // returns before promise settles; therefore, returns empty array
+  // always set state inside promise!
+  // otherwise, function returns before data loads!
+  return out;
+  // const newState = { items: out };
+  // this.setState(newState);
+  // }
+};
+
+export const loadAsyncData = async path => {
+  // console.log('path\n', path);
+  const out = await getAsyncItems(path);
+  // console.log('out\n', out);
+
+  const promise = new Promise((resolve, reject) => {
+    resolve(out);
+  });
+  promise.cancel = () => {};
+  return promise;
+};
+
+const getAsyncItems = async path => {
+  // console.log('path\n', path);
+  // console.log('state\n', this.state);
+  // this.setState({isLoading: true});
+  
+  // debugger;
+  const a = [];
+  const db = firebase.firestore();
+  const ready = db;
+  if(!ready) return;
+
   const out = await db.collection(path)
     .where( 'deletedAt', '==', 0, ) // filters out deleted documents
     // .where( 'name', '==', 'alpha', )

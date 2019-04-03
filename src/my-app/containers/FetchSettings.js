@@ -7,7 +7,7 @@ import { compose } from 'redux';
 import { updateSettings } from 'my-app/store/actions/my-actions';
 
 import { withStyles, } from '@material-ui/core';
-import { loadMyAsyncData } from 'my-app/containers/LoadAsync';
+import { loadSettingsData } from 'my-app/containers/LoadAsync';
 
 const INITIAL_STATE = {
   items: null,
@@ -32,7 +32,7 @@ class FetchSettings extends Component {
   }
 
   getPath() {
-    console.log('props\n', this.props);
+    // console.log('props\n', this.props);
     if(!this.props.user) return;
     const uid = this && this.props && this.props.user &&
                 // this.props.user.data && this.props.user.data.uid;
@@ -43,7 +43,7 @@ class FetchSettings extends Component {
   // refs: https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#fetching-external-data
   // https://stackoverflow.com/a/55093394/1640892 | https://codesandbox.io/s/lrvwm88pv7
   // handleLoad() {
-  //   this._asyncRequest = loadMyAsyncData().then(
+  //   this._asyncRequest = loadSettingsData().then(
   //     externalData => {
   //       this._asyncRequest = null;
   //       this.setState({externalData});
@@ -58,12 +58,14 @@ class FetchSettings extends Component {
     this.setState({
       isLoading: true,
     });
-    // this._asyncRequest = loadMyAsyncData();
-    this._asyncRequest = loadMyAsyncData(settingsPath);
-    const items = await this._asyncRequest;
+    // this._asyncRequest = loadSettingsData();
+    this._asyncRequest = loadSettingsData(settingsPath);
+    const settings = await this._asyncRequest;
+    console.log('settings\n', settings);
+
     this._asyncRequest = null;
     this.setState({
-      items,
+      settings,
       isLoading: false,
     });
   }
@@ -83,7 +85,7 @@ class FetchSettings extends Component {
 }
 
 FetchSettings.propTypes = {
-  classes: PropTypes.object.isRequired,
+  // classes: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => {

@@ -11,7 +11,7 @@ import CRUDView from './CRUDView';
 import Loading from 'my-app/components/Loading';
 import Error500Page from 'my-app/components/Error500Page';
 
-import { loadMyAsyncData } from 'my-app/containers/LoadAsync';
+import { loadAsyncData } from 'my-app/containers/LoadAsync';
 
 const styles = theme => ({
 
@@ -27,7 +27,7 @@ const styles = theme => ({
 });
 
 // // https://codesandbox.io/s/lrvwm88pv7
-// const loadMyAsyncData = () => {
+// const loadAsyncData = () => {
 //   let timeout;
 //   const promise = new Promise((resolve, reject) => {
 //     timeout = setTimeout(
@@ -63,7 +63,7 @@ class CRUDContainer extends Component {
   // refs: https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#fetching-external-data
   // https://stackoverflow.com/a/55093394/1640892 | https://codesandbox.io/s/lrvwm88pv7
   // handleLoad() {
-  //   this._asyncRequest = loadMyAsyncData().then(
+  //   this._asyncRequest = loadAsyncData().then(
   //     externalData => {
   //       this._asyncRequest = null;
   //       this.setState({externalData});
@@ -77,8 +77,8 @@ class CRUDContainer extends Component {
     this.setState({
       isLoading: true,
     });
-    // this._asyncRequest = loadMyAsyncData();
-    this._asyncRequest = loadMyAsyncData(readable);
+    // this._asyncRequest = loadAsyncData();
+    this._asyncRequest = loadAsyncData(readable);
     const items = await this._asyncRequest;
     this._asyncRequest = null;
     this.setState({
