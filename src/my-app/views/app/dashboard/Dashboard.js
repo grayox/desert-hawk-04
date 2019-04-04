@@ -450,7 +450,7 @@ class Dashboard extends Component {
       ?
       <Loading />
       :
-        isError
+      isError
         ?
         <Error500Page />
         :
@@ -476,13 +476,14 @@ Dashboard.propTypes = {
 
 const mapStateToProps = state => {
   // console.log('state\n', state);
-  const settings = state.firestore.ordered.users
-                && state.firestore.ordered.users[0]
-                && state.firestore.ordered.users[0].settings
-                && state.firestore.ordered.users[0].settings[0];
+  // const settings = state.firestore.ordered.users
+  //               && state.firestore.ordered.users[0]
+  //               && state.firestore.ordered.users[0].settings
+  //               && state.firestore.ordered.users[0].settings[0];
   const user = state.auth.user;
-  const leads = state.firestore.ordered.leads;
   const profile = state.firebase.profile;
+  const settings = state.settings;
+  const leads = state.firestore.ordered.leads;
   const dataHasLoaded = user && leads && profile && settings;
   
   console.log('user\n', user);
@@ -491,7 +492,8 @@ const mapStateToProps = state => {
   console.log('settings\n', settings);
   console.log('dataHasLoaded\n', dataHasLoaded);
   
-  return { user, leads, profile, settings, dataHasLoaded, }
+  return { user, profile, settings, leads, dataHasLoaded, }
+  //       YES   YES      NO        NO     NO
 }
 
 const mapDispatchToProps = dispatch => {

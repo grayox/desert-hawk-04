@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
-import PropTypes from "prop-types";
+import { Component } from 'react';
+// import React, { Component } from 'react';
+// import PropTypes from "prop-types";
 
 // redux
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { updateSettings } from 'my-app/store/actions/my-actions';
 
-import { withStyles, } from '@material-ui/core';
+// import { withStyles, } from '@material-ui/core';
 import { loadSettingsData } from 'my-app/containers/LoadAsync';
 
 const INITIAL_STATE = {
@@ -53,7 +54,7 @@ class FetchSettings extends Component {
   handleLoad = async () => {
     // console.log('props\n', this.props);
     const settingsPath = this.getPath();
-    console.log('settingsPath\n', settingsPath);
+    // console.log('settingsPath\n', settingsPath);
 
     this.setState({
       isLoading: true,
@@ -61,7 +62,8 @@ class FetchSettings extends Component {
     // this._asyncRequest = loadSettingsData();
     this._asyncRequest = loadSettingsData(settingsPath);
     const settings = await this._asyncRequest;
-    console.log('settings\n', settings);
+    this.props.updateSettings(settings);
+    // console.log('settings\n', settings);
 
     this._asyncRequest = null;
     this.setState({
@@ -90,22 +92,24 @@ FetchSettings.propTypes = {
 
 const mapStateToProps = state => {
   // console.log('state\n', state);
-  const settings = state.firestore.ordered.users
-                && state.firestore.ordered.users[0]
-                && state.firestore.ordered.users[0].settings
-                && state.firestore.ordered.users[0].settings[0];
+  // const settings = state.firestore.ordered.users
+  //               && state.firestore.ordered.users[0]
+  //               && state.firestore.ordered.users[0].settings
+  //               && state.firestore.ordered.users[0].settings[0];
   const user = state.auth.user;
-  const leads = state.firestore.ordered.leads;
-  const profile = state.firebase.profile;
-  const dataHasLoaded = user && leads && profile && settings;
+  // const leads = state.firestore.ordered.leads;
+  // const profile = state.firebase.profile;
+  // const dataHasLoaded = user && leads && profile && settings;
   
   console.log('user\n', user);
-  console.log('leads\n', leads);
-  console.log('profile\n', profile);
-  console.log('settings\n', settings);
-  console.log('dataHasLoaded\n', dataHasLoaded);
+  // console.log('leads\n', leads);
+  // console.log('profile\n', profile);
+  // console.log('settings\n', settings);
+  // console.log('dataHasLoaded\n', dataHasLoaded);
   
-  return { user, leads, profile, settings, dataHasLoaded, }
+  // return { user, profile, settings, leads, dataHasLoaded, }
+  //       YES   YES      NO        NO     NO
+  return { user, }
 }
 
 const mapDispatchToProps = dispatch => {
@@ -116,5 +120,6 @@ const mapDispatchToProps = dispatch => {
 
 export default compose(
   // withStyles(styles, { withTheme: true }),
-  connect(mapStateToProps, mapDispatchToProps),
+  connect( mapStateToProps, mapDispatchToProps, ),
+  // connect( mapDispatchToProps, ),
 )(FetchSettings)
