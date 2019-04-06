@@ -12,7 +12,7 @@ const initialState = {
   geoLocal  : 'Redux geoLocal'  ,
 }
 
-const reducer = (state = initialState, action) => {
+const reducer = ( state = initialState, action, ) => {
   // console.log('action\n', action);
   return state;
 }

@@ -6,7 +6,7 @@ const withReducer = ( key, reducer, ) => WrappedComponent =>
         constructor(props)
         {
             super(props);
-            injectReducer(key, reducer);
+            injectReducer( key, reducer, );
         };
 
         render()
