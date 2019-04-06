@@ -1,5 +1,5 @@
 import * as reduxModule from 'redux';
-import { applyMiddleware, compose, createStore } from 'redux';
+import { applyMiddleware, compose, createStore, } from 'redux';
 import createReducer from 'store/reducers';
 import thunk from 'redux-thunk';
 
@@ -106,7 +106,7 @@ store.subscribe(() => {
 // 4. You can compare two json objects here: http://www.jsondiff.com/
 // end my add
 
-export const injectReducer = (key, reducer) => {
+export const injectReducer = ( key, reducer, ) => {
   if (store.asyncReducers[key]) {
     return;
   }

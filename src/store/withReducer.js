@@ -1,7 +1,7 @@
 import React from "react";
 import {injectReducer} from 'store';
 
-const withReducer = (key, reducer) => WrappedComponent =>
+const withReducer = ( key, reducer, ) => WrappedComponent =>
     class extends React.PureComponent {
         constructor(props)
         {

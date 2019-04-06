@@ -1,5 +1,13 @@
+// inspired by src/store/reducers/fuse/settings.reducer.js
+
 // import * as Actions from '../../actions/fuse/index';
-import * as Actions from '../../actions/my-actions/index'; // my edit
+
+// begin my add
+// import * as Actions from '../../actions/my-actions/index';
+// import * as Actions from 'my-app/store/actions/my-actions/settingsActions';
+import * as Actions from 'my-app/store/actions/my-actions/index';
+// end my add
+
 import _ from 'lodash';
 import { 
   FuseDefaultSettings,
@@ -11,7 +19,9 @@ const initialState = {
   current: _.merge({}, FuseDefaultSettings)
 };
 
-const settings = function (state = initialState, action) {
+// function settingsReducer(state = initialState, action) {
+const settingsReducer = ( state = initialState, action, ) => {
+  console.log('Hallo');
   switch (action.type) {
     // case Actions.SET_SETTINGS:
     //   {
@@ -38,7 +48,8 @@ const settings = function (state = initialState, action) {
     //   }
 
     // begin my add
-    case Actions.UPDATE_SETTINGS:
+    // case Actions.UPDATE_SETTINGS:
+    case Actions.updateSettings:
       {
         console.log('stateSettings\n', action.value);
         debugger;
@@ -56,4 +67,4 @@ const settings = function (state = initialState, action) {
   }
 };
 
-export default settings;
+export default settingsReducer;

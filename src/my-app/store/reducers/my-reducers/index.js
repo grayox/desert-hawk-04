@@ -1,14 +1,14 @@
 import { combineReducers } from 'redux';
 import contacts from './contactsReducer';
 import leads from './leadsReducer';
-import settings from './settingsReducer';
-import settingsTabs from './settingsTabsReducer';
+// import settingsTabsReducer from './settingsTabsReducer';
+import settingsReducer from './settingsReducer';
 
 const reducers = combineReducers({
   contacts,
   leads,
-  settings,
-  settingsTabs,
+  // settingsTabsReducer,
+  settingsReducer,
 });
 
 export default reducers;

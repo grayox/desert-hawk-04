@@ -1,3 +1,5 @@
+// inspired by src/store/actions/fuse/settings.actions.js
+
 // export const SET_SETTINGS = '[SETTINGS] SET SETTINGS';
 // export const SET_DEFAULT_SETTINGS = '[SETTINGS] SET DEFAULT SETTINGS';
 // export const RESET_DEFAULT_SETTINGS = '[SETTINGS] RESET DEFAULT SETTINGS';
@@ -28,8 +30,8 @@ export const UPDATE_SETTINGS = '[SETTINGS] UPDATE SETTINGS';
 
 // begin my add
 
-// export function updateSettings(value) {
-export const updateSettings = value => {
+export function updateSettings(value) {
+// export const updateSettings = value => {
   console.log('updateSettingsValue\n', value);
   return {
     type: UPDATE_SETTINGS,

@@ -11,6 +11,9 @@ import LaptopDrawer from './drawers/LaptopDrawer';
 // import { CssBaseline, } from '@material-ui/core';
 
 import FetchSettings from 'my-app/containers/FetchSettings';
+import withReducer from 'store/withReducer';
+// import reducer from './store/reducers';
+import reducer from 'my-app/store/reducers';
 
 const styles = theme => ({
   wrapper: {
@@ -41,4 +44,5 @@ const MyLayout = props => {
 }
 
 // export default MyLayout;
-export default withStyles(styles, { withTheme: true, })(MyLayout);
+// export default withStyles(styles, { withTheme: true, })(MyLayout);
+export default withReducer( 'myLayout', reducer, )(withStyles(styles, { withTheme: true, })(MyLayout));
