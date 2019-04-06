@@ -10,6 +10,8 @@ import LaptopDrawer from './drawers/LaptopDrawer';
 // import ResponsiveDrawer from './drawers/ResponsiveDrawer';
 // import { CssBaseline, } from '@material-ui/core';
 
+import { compose } from 'redux';
+
 import FetchSettings from 'my-app/containers/FetchSettings';
 import withReducer from 'store/withReducer';
 // import reducer from './store/reducers';
@@ -45,4 +47,8 @@ const MyLayout = props => {
 
 // export default MyLayout;
 // export default withStyles(styles, { withTheme: true, })(MyLayout);
-export default withReducer( 'myLayout', reducer, )(withStyles(styles, { withTheme: true, })(MyLayout));
+// export default withReducer( 'myLayout', reducer, )(withStyles(styles, { withTheme: true, })(MyLayout));
+export default compose(
+  withReducer( 'myApp', reducer, ),
+  withStyles( styles, { withTheme: true } ),
+)(MyLayout)

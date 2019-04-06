@@ -21,7 +21,7 @@ const initialState = {
 
 // function settingsReducer(state = initialState, action) {
 const settingsReducer = ( state = initialState, action, ) => {
-  console.log('Hallo');
+  // console.log('Hallo');
   switch (action.type) {
     // case Actions.SET_SETTINGS:
     //   {
@@ -48,11 +48,9 @@ const settingsReducer = ( state = initialState, action, ) => {
     //   }
 
     // begin my add
-    // case Actions.UPDATE_SETTINGS:
-    case Actions.updateSettings:
+    case Actions.UPDATE_SETTINGS:
       {
-        console.log('stateSettings\n', action.value);
-        debugger;
+        console.log('stateSettings\n', action.value); //debugger;
         return {
           ...state,
           settings: _.merge({}, action.value),
