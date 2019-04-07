@@ -11,10 +11,10 @@ import { defaultSettings } from 'my-app/config/AppConfig';
 // end my add
 
 import _ from 'lodash';
-import { 
-  FuseDefaultSettings,
-  // FuseLayouts,
-} from '@fuse';
+// import { 
+//   FuseDefaultSettings,
+//   // FuseLayouts,
+// } from '@fuse';
 
 const initialState = {
   // defaults: _.merge( {}, FuseDefaultSettings, ),
@@ -52,20 +52,17 @@ const settingsReducer = ( state = initialState, action, ) => {
 
     // begin my add
     case Actions.UPDATE_SETTINGS:
-      {
         console.log('stateSettingsReducer\n', state);
         console.log('action.value\n', action.value); //debugger;
         return {
           ...state,
           settings: _.merge({}, action.value),
         };
-      }
+        break;
     // end my add
 
     default:
-      {
-        return state;
-      }
+      return state;
   }
 };
 
