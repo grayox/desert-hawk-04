@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux';
+import { combineReducers, } from 'redux';
 // import contacts from './contactsReducer';
 // import leads from './leadsReducer';
 // import settingsTabsReducer from './settingsTabsReducer';
