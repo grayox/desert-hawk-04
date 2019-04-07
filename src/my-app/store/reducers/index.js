@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import auth from 'auth/store/reducers/index';
+// import auth from 'auth/store/reducers/index';
 // import fuse from './fuse';
 // import quickPanel from 'main/quickPanel/store/reducers';
 // import chatPanel from 'main/chatPanel/store/reducers';
@@ -12,17 +12,17 @@ import auth from 'auth/store/reducers/index';
 import reducers from './my-reducers'; // my add
 
 const rootReducer = combineReducers({
-    auth,
-    reducers, // my add
-    // fuse,
-    // analyticsDashboardApp,
-    // mailApp,
-    // todoApp,
-    // fileManagerApp,
-    // contactsApp,
-    // calendarApp,
-    // quickPanel,
-    // chatPanel,
+  reducers, // my add
+  // auth,
+  // fuse,
+  // analyticsDashboardApp,
+  // mailApp,
+  // todoApp,
+  // fileManagerApp,
+  // contactsApp,
+  // calendarApp,
+  // quickPanel,
+  // chatPanel,
 });
 
 export default rootReducer;

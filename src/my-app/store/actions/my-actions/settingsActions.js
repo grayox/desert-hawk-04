@@ -32,7 +32,7 @@ export const UPDATE_SETTINGS = '[SETTINGS] UPDATE SETTINGS';
 
 // export function updateSettings(value) {
 export const updateSettings = value => {
-  console.log('updateSettingsValue\n', value);
+  // console.log('updateSettingsValue\n', value);
   return {
     type: UPDATE_SETTINGS,
     value,
