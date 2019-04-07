@@ -6,6 +6,8 @@
 // import * as Actions from '../../actions/my-actions/index';
 // import * as Actions from 'my-app/store/actions/my-actions/settingsActions';
 import * as Actions from 'my-app/store/actions/my-actions/index';
+
+import { defaultSettings } from 'my-app/config/AppConfig';
 // end my add
 
 import _ from 'lodash';
@@ -15,8 +17,9 @@ import {
 } from '@fuse';
 
 const initialState = {
-  defaults: _.merge({}, FuseDefaultSettings),
-  current: _.merge({}, FuseDefaultSettings)
+  // defaults: _.merge( {}, FuseDefaultSettings, ),
+  // current: _.merge( {}, FuseDefaultSettings, ),
+  settings: _.merge( {}, defaultSettings, ),
 };
 
 // function settingsReducer(state = initialState, action) {

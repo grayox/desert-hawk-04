@@ -60,6 +60,10 @@ export const firebaseConfig = {
   messagingSenderId: "682044250674",
 }
 
+export const defaultSettings = {
+  // define default settings
+}
+
 export const avatarOptions = [
   { label : 'Friendly'  , value : 'wavatar'   , } ,
   { label : 'Kitty'     , value : 'robohash4' , } ,
