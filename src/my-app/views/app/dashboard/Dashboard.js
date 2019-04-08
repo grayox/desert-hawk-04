@@ -487,12 +487,15 @@ const mapStateToProps = state => {
                 && state.myApp.reducers
                 && state.myApp.reducers.settingsReducer
                 && state.myApp.reducers.settingsReducer.settings;
-  const user = state.auth.user;
-  const profile = state.firebase.profile;
+  const profile = state
+               && state.firebase
+               && state.firebase.profile;
+  // replace user with profile; user contains default settings
+  // const user = state.auth.user;
   // const leads = state.firestore.ordered.leads;
-  const dataHasLoaded = !!user && !!profile && !!settings; // && !!leads 
+  const dataHasLoaded = !!profile && !!settings; // && !!leads && !!user && 
   
-  console.log('user\n', user);
+  // console.log('user\n', user);
   // console.log('leads\n', leads);
   console.log('profile\n', profile);
   console.log('settings\n', settings);
@@ -500,7 +503,7 @@ const mapStateToProps = state => {
   
   // //       YES   YES      YES       NO     NO
   // return { user, profile, settings, leads, dataHasLoaded, }
-  return { user, profile, settings, dataHasLoaded, }
+  return { profile, settings, dataHasLoaded, }
 }
 
 const mapDispatchToProps = dispatch => {

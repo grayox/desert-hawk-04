@@ -397,12 +397,12 @@ class ProfilePage extends Component {
           open={Boolean(anchorElMenu)}
           onClose={handleCloseMenu}
         >
-          {optionsMenu.map((option, index) => (
+          {optionsMenu.map(( option, index, ) => (
             <MenuItem
               key={option}
               // disabled={index === 0}
               selected={index === selectedIndexMenu}
-              onClick={event => handleMenuItemClickMenu(event, index)}
+              onClick={event => handleMenuItemClickMenu(event, index,)}
             >
               {option}
             </MenuItem>
@@ -435,16 +435,26 @@ class ProfilePage extends Component {
               <div className="p-24 flex flex-1 flex-col items-center justify-center md:flex-row md:items-end">
                 <div className="flex flex-1 flex-col items-center justify-center md:flex-row md:items-center md:justify-start">
                   <FuseAnimate animation="transition.expandIn" delay={300}>
-                    {/* <Avatar className="w-96 h-96" src="assets/images/avatars/Velazquez.jpg" /> */}
-                    {/* begin my add */}
-                    <Avatar className="w-96 h-96" src={user.data.photoURL} />
-                    {/* end my add */}
+                    {
+                    // <Avatar className="w-96 h-96" src="assets/images/avatars/Velazquez.jpg" />
+                    // <Avatar className="w-96 h-96" src={user.data.photoURL} />
+                    // begin my add
+                    }
+                    <Avatar className="w-96 h-96" src={profile.photoURL} />
+                    {
+                    // end my add
+                    }
                   </FuseAnimate>
                   <FuseAnimate animation="transition.slideLeftIn" delay={300}>
-                    {/* <Typography className="md:ml-24" variant="h4" color="inherit">John Doe</Typography> */}
-                    {/* begin my add */}
-                    <Typography className="md:ml-24" variant="h4" color="inherit">{user.data.displayName}</Typography>
-                    {/* end my add */}
+                    {
+                    // <Typography className="md:ml-24" variant="h4" color="inherit">John Doe</Typography>
+                    // <Typography className="md:ml-24" variant="h4" color="inherit">{user.data.displayName}</Typography>
+                    // begin my add
+                    }
+                    <Typography className="md:ml-24" variant="h4" color="inherit">{profile.displayName}</Typography>
+                    {
+                    // end my add
+                    }
                   </FuseAnimate>
                 </div>
 
@@ -603,12 +613,15 @@ const mapStateToProps = state => {
                 && state.myApp.reducers
                 && state.myApp.reducers.settingsReducer
                 && state.myApp.reducers.settingsReducer.settings;
-  const user = state.auth.user;
-  const profile = state.firebase.profile;
+  const profile = state
+               && state.firebase
+               && state.firebase.profile;
+  // replace user with profile; user contains default settings
+  // const user = state.auth.user;
   // const leads = state.firestore.ordered.leads;
-  const dataHasLoaded = !!user && !!profile && !!settings; // && !!leads 
+  const dataHasLoaded = !!profile && !!settings; // && !!leads && !!user && 
   
-  console.log('user\n', user);
+  // console.log('user\n', user);
   // console.log('leads\n', leads);
   console.log('profile\n', profile);
   console.log('settings\n', settings);
@@ -616,7 +629,7 @@ const mapStateToProps = state => {
   
   // //       YES   YES      YES       NO     NO
   // return { user, profile, settings, leads, dataHasLoaded, }
-  return { user, profile, settings, dataHasLoaded, }
+  return { profile, settings, dataHasLoaded, }
 }
 
 const mapDispatchToProps = dispatch => {
