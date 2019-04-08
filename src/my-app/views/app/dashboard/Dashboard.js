@@ -91,7 +91,7 @@ const INITIAL_STATE = {
   ...INITIAL_STATE_DIALOG,
 
   isError: false,
-  isLoading: true,
+  // isLoading: true,
   bizCategory: null,
   categoryOpen: false,
 
@@ -288,7 +288,7 @@ class Dashboard extends Component {
     console.log('user\n', this.props.user);
     console.log('settings\n', this.props.settings);
     console.log('profile\n', this.props.profile);
-    console.log('leads\n', this.props.leads);
+    // console.log('leads\n', this.props.leads);
 
     const { classes, dataHasLoaded, settings, } = this.props; // leads, user, profile,
 
@@ -316,8 +316,8 @@ class Dashboard extends Component {
       handleCloseDialog, handleClickButton, handleClickInfo,
     } = this;
     const {
-      show, isLoading, isError,
-      // condensedDashboard, 
+      show, isError,
+      // isLoading, condensedDashboard, 
       categoryOpen,
       // bizCategory, geoLocal, geoRegion, geoNation,
       dialogOpen, dialogContentText, dialogTitle, dialogButtonLabel,
@@ -446,7 +446,8 @@ class Dashboard extends Component {
         //   //  className={classNames(classes.toolbarWrapper, classes.toolbar,)}
         //   //  onClick={navbarOpenMobile}
         // />
-      isLoading
+      // isLoading
+      !dataHasLoaded
       ?
       <Loading />
       :
@@ -485,7 +486,7 @@ const mapStateToProps = state => {
   // const settings = state.settings;
   const settings = state.myApp.reducers.settingsReducer.settings;
   // const leads = state.firestore.ordered.leads;
-  const dataHasLoaded = user && profile && settings; // && leads 
+  const dataHasLoaded = !!user && !!profile && !!settings; // && !!leads 
   
   console.log('user\n', user);
   // console.log('leads\n', leads);

@@ -52,13 +52,12 @@ const settingsReducer = ( state = initialState, action, ) => {
 
     // begin my add
     case Actions.UPDATE_SETTINGS:
-        console.log('stateSettingsReducer\n', state, );
-        console.log('action.value\n', action.value, ); //debugger;
-        return {
-          ...state,
-          settings: _.merge( {}, action.value, ),
-        };
-        break;
+      // console.log('stateSettingsReducer\n', state, );
+      // console.log('action.value\n', action.value, ); //debugger;
+      return {
+        ...state,
+        settings: _.merge( {}, action.value, ),
+      };
     // end my add
 
     default:
