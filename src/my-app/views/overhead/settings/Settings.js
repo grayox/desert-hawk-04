@@ -593,26 +593,30 @@ ProfilePage.propTypes = {
 
 const mapStateToProps = state => {
   // console.log('state\n', state);
-  const settings = state.firestore.ordered.users
-                && state.firestore.ordered.users[0]
-                && state.firestore.ordered.users[0].settings
-                && state.firestore.ordered.users[0].settings[0];
+  // const settings = state.firestore.ordered.users
+  //               && state.firestore.ordered.users[0]
+  //               && state.firestore.ordered.users[0].settings
+  //               && state.firestore.ordered.users[0].settings[0];
+  // const settings = state.settings;
+  const settings = state
+                && state.myApp
+                && state.myApp.reducers
+                && state.myApp.reducers.settingsReducer
+                && state.myApp.reducers.settingsReducer.settings;
   const user = state.auth.user;
-  const leads = state.firestore.ordered.leads;
   const profile = state.firebase.profile;
-  // const dataHasLoaded = user && leads && profile && settings;
-  const dataHasLoaded = user && settings; // && leads && profile 
-
-  if(dataHasLoaded) {
-    console.log('user\n', user);
-    console.log('leads\n', leads);
-    console.log('profile\n', profile);
-    console.log('settings\n', settings);
-    console.log('dataHasLoaded\n', dataHasLoaded);
-    console.log('all-settings\n', state.firestore.ordered.users[0].settings);
-  }
+  // const leads = state.firestore.ordered.leads;
+  const dataHasLoaded = !!user && !!profile && !!settings; // && !!leads 
   
-  return { user, leads, profile, settings, dataHasLoaded, }
+  console.log('user\n', user);
+  // console.log('leads\n', leads);
+  console.log('profile\n', profile);
+  console.log('settings\n', settings);
+  console.log('dataHasLoaded\n', dataHasLoaded);
+  
+  // //       YES   YES      YES       NO     NO
+  // return { user, profile, settings, leads, dataHasLoaded, }
+  return { user, profile, settings, dataHasLoaded, }
 }
 
 const mapDispatchToProps = dispatch => {

@@ -481,10 +481,14 @@ const mapStateToProps = state => {
   //               && state.firestore.ordered.users[0]
   //               && state.firestore.ordered.users[0].settings
   //               && state.firestore.ordered.users[0].settings[0];
+  // const settings = state.settings;
+  const settings = state
+                && state.myApp
+                && state.myApp.reducers
+                && state.myApp.reducers.settingsReducer
+                && state.myApp.reducers.settingsReducer.settings;
   const user = state.auth.user;
   const profile = state.firebase.profile;
-  // const settings = state.settings;
-  const settings = state.myApp.reducers.settingsReducer.settings;
   // const leads = state.firestore.ordered.leads;
   const dataHasLoaded = !!user && !!profile && !!settings; // && !!leads 
   
