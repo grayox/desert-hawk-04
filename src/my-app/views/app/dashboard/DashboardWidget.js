@@ -1,16 +1,29 @@
 // inspired by: https://github.com/withinpixels/fuse-react/blob/v2.2.3/src/app/main/apps/dashboards/project/widgets/Widget4.js
 
 import React, { Component } from 'react';
-import { Icon, Typography, Paper, IconButton, } from '@material-ui/core';
+import {
+  withStyles, Typography, Slide,
+  Paper, Chip, Icon, IconButton,
+} from '@material-ui/core';
 
-import { Slide, } from '@material-ui/core';
 // import { FuseAnimate, } from '@fuse';
 
 // import ReactFitText from 'react-fittext';
 
+const styles = theme => ({
+  // root: {
+  //   display: 'flex',
+  //   justifyContent: 'center',
+  //   flexWrap: 'wrap',
+  // },
+  chip: {
+    // margin: theme.spacing.unit,
+  },
+});
+
 class DashboardWidget extends Component {
   render() {
-    const { widget, index, count, } = this.props;
+    const { classes, widget, index, count, } = this.props;
     const { rowName, data, label, } = widget;
 
     const TARGET = 850;
@@ -33,7 +46,10 @@ class DashboardWidget extends Component {
       <Slide  in direction="up" timeout={timeout}>
         <Paper className="w-full rounded-16 shadow-none border-1 border-grey">
           <div className="flex items-center justify-between pr-4 pl-16 pt-4">
-            <Typography className="text-16">{rowName}</Typography>
+            {
+            // <Typography className="text-16">{rowName}</Typography>
+            }
+            <Chip label={rowName} className={classes.chip} />
             <IconButton aria-label="more"><Icon>more_vert</Icon></IconButton>
           </div>
           <div className="text-center pt-12 pb-28">
@@ -54,4 +70,5 @@ class DashboardWidget extends Component {
   }
 }
 
-export default DashboardWidget;
+// export default DashboardWidget;
+export default withStyles(styles)(DashboardWidget);
