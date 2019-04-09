@@ -124,7 +124,7 @@ function mapStateToProps({ fuse, firebase, }) { // auth,
   return {
     navigation: fuse.navigation,
     layoutStyle: fuse.settings.current.layout.style,
-    // user: auth.user,
+    // user: auth.user, // replace user with profile; user contains defaults
     profile: firebase.profile,
   }
 }
