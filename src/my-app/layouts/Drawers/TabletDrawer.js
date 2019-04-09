@@ -189,7 +189,7 @@ class MiniDrawer extends Component {
           open={open}
         >
           <BrandAppBar />
-          <DrawerContent/>
+          <DrawerContent />
           {
           // <React.Fragment>
           //   <div className={classes.toolbar}>

@@ -37,10 +37,12 @@ const styles = theme => ({
 
 
 // function MainNavbar({ classes, navigation, layoutStyle, user }) {
-function DrawerContent({ classes, navigation, layoutStyle, user, userHeader }) {
+// function DrawerContent({ classes, navigation, layoutStyle, user, userHeader }) {
+const DrawerContent = ({ classes, navigation, layoutStyle, profile, userHeader, }) => { // user,
 
   // username, email, photo
-  function UserHeader() {
+  // function UserHeader() {
+  const UserHeader = () => {
     return (
       <AppBar
         position="static"
@@ -52,14 +54,16 @@ function DrawerContent({ classes, navigation, layoutStyle, user, userHeader }) {
       {
         // username
         // originally: text-16
+        // <Typography className="username text-18 whitespace-no-wrap" color="inherit">{user.data.displayName}</Typography>
       }
-        <Typography className="username text-18 whitespace-no-wrap" color="inherit">{user.data.displayName}</Typography>
+        <Typography className="username text-18 whitespace-no-wrap" color="inherit">{profile.displayName}</Typography>
       
       {
         // email
         // originally: text-13
+        // <Typography className="email text-14 mt-8 opacity-50 whitespace-no-wrap" color="inherit">{user.data.email}</Typography>
       }
-        <Typography className="email text-14 mt-8 opacity-50 whitespace-no-wrap" color="inherit">{user.data.email}</Typography>
+        <Typography className="email text-14 mt-8 opacity-50 whitespace-no-wrap" color="inherit">{profile.email}</Typography>
       
       {
         // photo
@@ -68,8 +72,10 @@ function DrawerContent({ classes, navigation, layoutStyle, user, userHeader }) {
           className={classNames(classes.avatar, "avatar")}
           alt="user photo"
           src={
-            ( user && user.data && user.data.photoURL && (user.data.photoURL.length > 5) )
-            ? user.data.photoURL
+            // ( user && user.data && user.data.photoURL && (user.data.photoURL.length > 5) )
+            // ? user.data.photoURL
+            ( profile && profile.photoURL && (profile.photoURL.length > 5) )
+            ? profile.photoURL
             : "assets/images/avatars/profile.jpg"
           }
         />
@@ -114,11 +120,12 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({}, dispatch);
 }
 
-function mapStateToProps({ fuse, auth }) {
+function mapStateToProps({ fuse, firebase, }) { // auth,
   return {
     navigation: fuse.navigation,
     layoutStyle: fuse.settings.current.layout.style,
-    user: auth.user
+    // user: auth.user,
+    profile: firebase.profile,
   }
 }
 
