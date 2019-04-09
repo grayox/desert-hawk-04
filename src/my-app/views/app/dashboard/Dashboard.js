@@ -284,30 +284,32 @@ class Dashboard extends Component {
   // };
   
   render() {
-    console.log('dataHasLoaded\n', this.props.dataHasLoaded);
-    console.log('user\n', this.props.user);
-    console.log('settings\n', this.props.settings);
-    console.log('profile\n', this.props.profile);
+    // console.log('user\n', this.props.user);
     // console.log('leads\n', this.props.leads);
+    console.log('profile\n', this.props.profile);
+    console.log('settings\n', this.props.settings);
+    console.log('dataHasLoaded\n', this.props.dataHasLoaded);
 
-    const { classes, dataHasLoaded, settings, } = this.props; // leads, user, profile,
+    const { classes, settings, dataHasLoaded, } = this.props; // leads, user, profile,
+    const { geoNation, geoRegion, geoLocal, bizCategory, } = settings; // isValidGeo,
 
     // const { isValidGeo, geoNation, geoRegion, geoLocal, bizCategory }
     //   = this && this.props && this.props.settings;// ? this.props.settings : this.state.settings;
-    let isValidGeo, geoNation, geoRegion, geoLocal, bizCategory;
-    if(dataHasLoaded && settings && this && this.props && this.props.settings) {
-      // { isValidGeo, geoNation, geoRegion, geoLocal, bizCategory } = this.props.settings;
-      isValidGeo  = this.props.settings.isValidGeo ;
-      geoNation   = this.props.settings.geoNation  ;
-      geoRegion   = this.props.settings.geoRegion  ;
-      geoLocal    = this.props.settings.geoLocal   ;
-      bizCategory = this.props.settings.bizCategory;
-      console.log( 'isValidGeo\n'  , isValidGeo  );
-      console.log( 'geoNation\n'   , geoNation   );
-      console.log( 'geoRegion\n'   , geoRegion   );
-      console.log( 'geoLocal\n'    , geoLocal    );
-      console.log( 'bizCategory\n' , bizCategory );
-    };
+    // let isValidGeo, geoNation, geoRegion, geoLocal, bizCategory;
+    // if(dataHasLoaded) {
+    // // if(dataHasLoaded && settings && this && this.props && this.props.settings) {
+    //   // { isValidGeo, geoNation, geoRegion, geoLocal, bizCategory } = this.props.settings;
+    //   isValidGeo  = this.props.settings.isValidGeo ;
+    //   geoNation   = this.props.settings.geoNation  ;
+    //   geoRegion   = this.props.settings.geoRegion  ;
+    //   geoLocal    = this.props.settings.geoLocal   ;
+    //   bizCategory = this.props.settings.bizCategory;
+    //   console.log( 'isValidGeo\n'  , isValidGeo  );
+    //   console.log( 'geoNation\n'   , geoNation   );
+    //   console.log( 'geoRegion\n'   , geoRegion   );
+    //   console.log( 'geoLocal\n'    , geoLocal    );
+    //   console.log( 'bizCategory\n' , bizCategory );
+    // };
 
     const {
       // handleChangeSwitch, 
@@ -316,10 +318,9 @@ class Dashboard extends Component {
       handleCloseDialog, handleClickButton, handleClickInfo,
     } = this;
     const {
-      show, isError,
       // isLoading, condensedDashboard, 
-      categoryOpen,
       // bizCategory, geoLocal, geoRegion, geoNation,
+      show, isError, categoryOpen,
       dialogOpen, dialogContentText, dialogTitle, dialogButtonLabel,
     } = this.state;
     // const {
