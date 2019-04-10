@@ -33,9 +33,9 @@ const WidgetNugget = ({ type, data, label, message, }) => {
     },
   };
 
-  const [ dialogIsOpen, setDialogOpen, ] = useState(false);
-  const handleOpenDialog = () => setDialogOpen(true);
-  const handleCloseDialog = () => setDialogOpen(false);
+  const [ dialogIsOpen, setDialogIsOpen, ] = useState(false);
+  const handleOpenDialog = () => setDialogIsOpen(true);
+  const handleCloseDialog = () => setDialogIsOpen(false);
   // const Transition = props => (<Slide direction={config[type].direction} {...props} />);
   return (
     <div>
