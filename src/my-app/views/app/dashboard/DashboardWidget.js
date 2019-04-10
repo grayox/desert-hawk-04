@@ -4,7 +4,7 @@
 import React from 'react';
 import { Slide, Paper, } from '@material-ui/core'; // withStyles, Icon, IconButton, Typography,
 
-import WidgetChip from './WidgetChip';
+import WidgetNugget from './WidgetNugget';
 import WidgetMenu from './WidgetMenu';
 
 // import { FuseAnimate, } from '@fuse';
@@ -38,10 +38,10 @@ const DashboardWidget = ({ widget, index, count, }) => { // classes,
           // <Typography className="text-16">{rowName}</Typography>
           // <IconButton aria-label="more"><Icon>more_vert</Icon></IconButton>
           }
-          <WidgetChip type="chip" label={rowName} message={rowDesc} />
+          <WidgetNugget type="chip" label={rowName} message={rowDesc} />
           <WidgetMenu />
         </div>
-        <WidgetChip type="data" label={label} message={desc} data={data} />
+        <WidgetNugget type="kernel" label={label} message={desc} data={data} />
         {
         // // "room to grow"
         // <div className="flex items-center px-16 h-52 border-t-1 border-grey-light">

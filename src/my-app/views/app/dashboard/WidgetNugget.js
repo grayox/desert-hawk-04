@@ -14,15 +14,15 @@ const Transition = props => <Slide direction="up" {...props} />
 // const handleClick = () => alert('You clicked the Chip.') // eslint-disable-line no-alert
 // const handleClick = msg => alert(msg)
 
-// const WidgetChip = props => <Chip className={classes.chip} />
-// const WidgetChip = ({ label, message, }) => <Chip label={label} onClick={() => handleClick(message)} />
-const WidgetChip = ({ type, data, label, message, }) => {
+// const WidgetNugget = props => <Chip className={classes.chip} />
+// const WidgetNugget = ({ label, message, }) => <Chip label={label} onClick={() => handleClick(message)} />
+const WidgetNugget = ({ type, data, label, message, }) => {
   const config = {
     chip: {
       // direction: 'up',
       element: (<Chip label={label} onClick={() => handleOpenDialog(message)} />),
     },
-    data: {
+    kernel: {
       // direction: 'right',
       element: (
         <div className="text-center pt-12 pb-28 cursor-pointer" onClick={() => handleOpenDialog(message)}>
@@ -77,4 +77,4 @@ const WidgetChip = ({ type, data, label, message, }) => {
   );
 }
 
-export default WidgetChip;
+export default WidgetNugget;
