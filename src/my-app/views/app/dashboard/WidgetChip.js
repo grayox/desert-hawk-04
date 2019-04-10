@@ -6,6 +6,8 @@ import {
   Chip, // withStyles
 } from '@material-ui/core';
 
+import { DashboardGridConfig, } from 'my-app/views/app/dashboard/DashboardGridConfig.js';
+
 // const styles = theme => ({
 //   // root: {
 //   //   display: 'flex',
