@@ -19,11 +19,11 @@ const Transition = props => <Slide direction="up" {...props} />
 const WidgetChip = ({ type, data, label, message, }) => {
   const config = {
     chip: {
-      direction: 'up',
+      // direction: 'up',
       element: (<Chip label={label} onClick={() => handleOpenDialog(message)} />),
     },
     data: {
-      direction: 'right',
+      // direction: 'right',
       element: (
         <div className="text-center pt-12 pb-28 cursor-pointer" onClick={() => handleOpenDialog(message)}>
           <Typography className="text-72 leading-none text-blue">{data}</Typography>
