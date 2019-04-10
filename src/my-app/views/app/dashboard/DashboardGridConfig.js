@@ -20,9 +20,9 @@ export const DashboardGridConfig = [
       desc:
         <React.Fragment>
           <Typography>
-            These are a running total of how many times you have done important activities we need to track.
+            A running total count of how many times you have done important activities we need to track.
             Your net balance is key. Because when it&rsquo;s at zero, you will need to make more &ldquo;deposits&rdquo;
-            by making at least one referral in order to receive more leads.
+            by making at least one referral. Then you can receive more leads when you have a positive net balance.
           </Typography>
         </React.Fragment>,
       cells: [
