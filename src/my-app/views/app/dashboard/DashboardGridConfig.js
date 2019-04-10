@@ -16,7 +16,7 @@ const marketDescription = (
 
 export const DashboardGridConfig = [
     {
-      name: 'Balances',
+      name: 'Balance',
       desc:
         <React.Fragment>
           <Typography>
@@ -118,7 +118,7 @@ export const DashboardGridConfig = [
       ]
     },
     {
-      name: 'Inventories',
+      name: 'Inventory',
       desc:
         <React.Fragment>
           <Typography>
@@ -179,7 +179,7 @@ export const DashboardGridConfig = [
       ]
     },
     {
-      name: 'Details',
+      name: 'Detail',
       desc:
         <React.Fragment>
           <Typography>
