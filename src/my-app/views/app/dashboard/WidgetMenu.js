@@ -9,18 +9,20 @@ import {
   Menu, MenuItem, Icon, IconButton,
 } from '@material-ui/core';
 
+// function SimpleMenu() {
 const WidgetMenu = () => {
-  // function SimpleMenu() {
   // console.log('React Version: ', React.version); // 16.6.3 -> 16.8.6
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [ anchorEl, setAnchorEl, ] = React.useState(null);
 
-  function handleClick(event) {
-    setAnchorEl(event.currentTarget);
-  }
+  // function handleClick(event) {
+  //   setAnchorEl(event.currentTarget);
+  // }
+  const handleClick = event => setAnchorEl(event.currentTarget);
 
-  function handleClose() {
-    setAnchorEl(null);
-  }
+  // function handleClose() {
+  //   setAnchorEl(null);
+  // }
+  const handleClose = () => setAnchorEl(null);
 
   return (
     <div>

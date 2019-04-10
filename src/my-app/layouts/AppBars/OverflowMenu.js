@@ -11,6 +11,7 @@ import { componentsNavConfig, } from 'my-app/config/AppConfig.js';
 
 const items = componentsNavConfig.filter(r => r.overhead) // filters in only objects with overhead property
 
+// class SimpleMenu extends Component {
 class OverflowMenu extends Component {
   state = {
     anchorEl: null,
@@ -76,4 +77,5 @@ class OverflowMenu extends Component {
   }
 }
 
+// export default SimpleMenu;
 export default OverflowMenu;

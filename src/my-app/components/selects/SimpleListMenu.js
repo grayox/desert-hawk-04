@@ -1,4 +1,5 @@
-// https://material-ui.com/demos/menus/
+// inspired by https://material-ui.com/demos/menus/
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
