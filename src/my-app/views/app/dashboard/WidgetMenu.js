@@ -1,6 +1,6 @@
 // inspired by // https://material-ui.com/demos/menus/
 
-import React from 'react';
+import React, { useState, } from 'react';
 // import Button from '@material-ui/core/Button';
 // import Menu from '@material-ui/core/Menu';
 // import MenuItem from '@material-ui/core/MenuItem';
@@ -12,7 +12,7 @@ import {
 // function SimpleMenu() {
 const WidgetMenu = () => {
   // console.log('React Version: ', React.version); // 16.6.3 -> 16.8.6
-  const [ anchorEl, setAnchorEl, ] = React.useState(null);
+  const [ anchorEl, setAnchorEl, ] = useState(null);
 
   // function handleClick(event) {
   //   setAnchorEl(event.currentTarget);
