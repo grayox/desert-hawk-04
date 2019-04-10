@@ -2,9 +2,7 @@
 
 // import React, { Component } from 'react';
 import React from 'react';
-import {
-  Typography, Slide, Paper, // withStyles, Icon, IconButton,
-} from '@material-ui/core';
+import { Slide, Paper, } from '@material-ui/core'; // withStyles, Icon, IconButton, Typography,
 
 import WidgetChip from './WidgetChip';
 import WidgetMenu from './WidgetMenu';
@@ -17,7 +15,7 @@ const TARGET = 850; // target in milliseconds of entry animation duration
 const SCALAR = 1.5; // compensation for random factor; when combined with index, makes higher indexes trend differently than lower indexes
 
 const DashboardWidget = ({ widget, index, count, }) => { // classes,
-  const { rowName, data, label, rowDesc, } = widget;
+  const { rowName, data, label, rowDesc, desc, } = widget;
 
   // linear staggered sequencing
   // const timeout = TARGET * (index + 1) / count;
@@ -38,17 +36,12 @@ const DashboardWidget = ({ widget, index, count, }) => { // classes,
         <div className="flex items-center justify-between pr-4 pl-16 pt-4">
           {
           // <Typography className="text-16">{rowName}</Typography>
-          }
-          <WidgetChip label={rowName} message={rowDesc} />
-          {
           // <IconButton aria-label="more"><Icon>more_vert</Icon></IconButton>
           }
+          <WidgetChip type="chip" label={rowName} message={rowDesc} />
           <WidgetMenu />
         </div>
-        <div className="text-center pt-12 pb-28">
-          <Typography className="text-72 leading-none text-blue">{data}</Typography>
-          <Typography className="text-xs uppercase" color="textSecondary">{label}</Typography>
-        </div>
+        <WidgetChip type="data" label={label} message={desc} data={data} />
         {
         // // "room to grow"
         // <div className="flex items-center px-16 h-52 border-t-1 border-grey-light">

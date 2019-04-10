@@ -3,7 +3,7 @@
 import React from 'react';
 
 import {
-  Button, Slide, Chip, // withStyles
+  Button, Slide, Chip, Typography, // withStyles
   Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
 } from '@material-ui/core';
 
@@ -16,7 +16,7 @@ const Transition = props => <Slide direction="up" {...props} />
 
 // const WidgetChip = props => <Chip className={classes.chip} />
 // const WidgetChip = ({ label, message, }) => <Chip label={label} onClick={() => handleClick(message)} />
-const WidgetChip = ({ label, message, }) => {
+const WidgetChip = ({ label, message, data, type, }) => {
   const [ dialogIsOpen, setDialogOpen, ] = React.useState(false);
   const handleOpenDialog = () => setDialogOpen(true);
   const handleCloseDialog = () => setDialogOpen(false);
@@ -26,8 +26,15 @@ const WidgetChip = ({ label, message, }) => {
       // <Button variant="outlined" color="primary" onClick={handleOpenDialog}>
       //   Slide in alert dialog
       // </Button>
-      }
+      (type === 'chip')
+      ?
       <Chip label={label} onClick={() => handleOpenDialog(message)} />
+      :
+      <div className="text-center pt-12 pb-28 cursor-pointer" onClick={() => handleOpenDialog(message)}>
+        <Typography className="text-72 leading-none text-blue">{data}</Typography>
+        <Typography className="text-xs uppercase" color="textSecondary">{label}</Typography>
+      </div>
+      }
       <Dialog
         open={dialogIsOpen}
         TransitionComponent={Transition}

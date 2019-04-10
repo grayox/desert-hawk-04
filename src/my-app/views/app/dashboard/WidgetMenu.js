@@ -49,7 +49,6 @@ const WidgetMenu = () => {
         // <MenuItem onClick={handleClose}>Logout</MenuItem>
         }
         <MenuItem onClick={handleClose}>Action</MenuItem>
-        <MenuItem onClick={handleClose}>Help</MenuItem>
       </Menu>
     </div>
   );
