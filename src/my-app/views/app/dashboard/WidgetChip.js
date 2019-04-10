@@ -17,8 +17,10 @@ import {
 //   },
 // });
 
-// const WidgetChip = props => <Chip label={rowName} className={classes.chip} onClick={handleClick} />
-const WidgetChip = ({label, }) => <Chip label={label} />
+const handleClick = () => alert('You clicked the Chip.') // eslint-disable-line no-alert
+
+// const WidgetChip = props => <Chip className={classes.chip} />
+const WidgetChip = ({ label, }) => <Chip label={label} onClick={handleClick} />
 
 // export default withStyles(WidgetChip);
 export default WidgetChip;

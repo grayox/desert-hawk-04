@@ -50,8 +50,7 @@ const DashboardWidget = ({ widget, index, count, }) => { // classes,
           <Typography className="text-xs uppercase" color="textSecondary">{label}</Typography>
         </div>
         {
-        // "room to grow"
-        }{
+        // // "room to grow"
         // <div className="flex items-center px-16 h-52 border-t-1 border-grey-light">
         //   <Typography className="text-15 flex w-full" color="textSecondary">
         //     <span className="truncate">{label}</span>
