@@ -124,7 +124,10 @@ export const DashboardGridConfig = [
           <Typography>
             These are the count of individual items you have available or
             have made available in the individual categories we are tracking.
-            When an item is added to your inventory, it increases your balance.
+            When a new item is added to your inventory (like a new referral going to your inbox),
+            it increases your count. When you consume an item of inventory, (like claiming a lead
+            from your inbox and moving it to your archive), it decreases the count of your inbox
+            inventory and increases the count of your archive inventory.
           </Typography>
         </React.Fragment>,
       cells: [
