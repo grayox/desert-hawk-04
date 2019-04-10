@@ -82,7 +82,7 @@ const DashboardWidgets = props => {
 
     <div className="pt-16 sm:pt-0">
       <Grid container spacing={16}>
-        {items && items.map((item, index) =>
+        {items && items.map((item, index,) =>
           <Grid
             item key={`${item.name}${item.label}`}
             // className={classes.gridList}

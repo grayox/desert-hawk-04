@@ -17,7 +17,7 @@ const TARGET = 850; // target in milliseconds of entry animation duration
 const SCALAR = 1.5; // compensation for random factor; when combined with index, makes higher indexes trend differently than lower indexes
 
 const DashboardWidget = ({ widget, index, count, }) => { // classes,
-  const { rowName, data, label, } = widget;
+  const { rowName, data, label, desc, } = widget;
 
   // linear staggered sequencing
   // const timeout = TARGET * (index + 1) / count;
@@ -39,7 +39,7 @@ const DashboardWidget = ({ widget, index, count, }) => { // classes,
           {
           // <Typography className="text-16">{rowName}</Typography>
           }
-          <WidgetChip label={rowName} />
+          <WidgetChip label={rowName} message={desc} />
           {
           // <IconButton aria-label="more"><Icon>more_vert</Icon></IconButton>
           }

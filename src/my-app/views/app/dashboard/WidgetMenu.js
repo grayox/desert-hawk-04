@@ -43,9 +43,13 @@ const WidgetMenu = () => {
         <Icon>more_vert</Icon>
       </IconButton>
       <Menu id="simple-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        {
+        // <MenuItem onClick={handleClose}>Profile</MenuItem>
+        // <MenuItem onClick={handleClose}>My account</MenuItem>
+        // <MenuItem onClick={handleClose}>Logout</MenuItem>
+        }
+        <MenuItem onClick={handleClose}>Action</MenuItem>
+        <MenuItem onClick={handleClose}>Help</MenuItem>
       </Menu>
     </div>
   );
