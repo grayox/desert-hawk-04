@@ -13,7 +13,7 @@ import WidgetMenu from './WidgetMenu';
 
 // import ReactFitText from 'react-fittext';
 
-const TARGET = 850;
+const TARGET = 850; // target in milliseconds of entry animation duration
 const SCALAR = 1.5; // compensation for random factor; when combined with index, makes higher indexes trend differently than lower indexes
 
 const DashboardWidget = ({ widget, index, count, }) => { // classes,
