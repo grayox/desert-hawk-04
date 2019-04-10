@@ -15,6 +15,9 @@ const TARGET = 850; // target in milliseconds of entry animation duration
 const SCALAR = 1.5; // compensation for random factor; when combined with index, makes higher indexes trend differently than lower indexes
 
 const DashboardWidget = ({ widget, index, count, }) => { // classes,
+  // count: number: total number of widgets on the dashboard (for purpose of calculating entry animation)
+  // index: number: sequence number of this widget relative to all widgets on the dashboard (for purpose of calculating entry animation)
+  // widget: object: data defining the widget content
   const { rowName, data, label, rowDesc, desc, } = widget;
 
   // linear staggered sequencing

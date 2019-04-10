@@ -20,12 +20,12 @@ const WidgetNugget = ({ type, data, label, message, }) => {
   const config = {
     chip: {
       // direction: 'up',
-      element: (<Chip label={label} onClick={() => handleOpenDialog(message)} />),
+      element: (<Chip label={label} onClick={() => handleOpenDialog()} />),
     },
     kernel: {
       // direction: 'right',
       element: (
-        <div className="text-center pt-12 pb-28 cursor-pointer" onClick={() => handleOpenDialog(message)}>
+        <div className="text-center pt-12 pb-28 cursor-pointer" onClick={() => handleOpenDialog()}>
           <Typography className="text-72 leading-none text-blue">{data}</Typography>
           <Typography className="text-xs uppercase" color="textSecondary">{label}</Typography>
         </div>
@@ -39,25 +39,12 @@ const WidgetNugget = ({ type, data, label, message, }) => {
   // const Transition = props => (<Slide direction={config[type].direction} {...props} />);
   return (
     <div>
-      {
-      // <Button variant="outlined" color="primary" onClick={handleOpenDialog}>
-      //   Slide in alert dialog
-      // </Button>
-      // (type === 'chip')
-      // ?
-      // <Chip label={label} onClick={() => handleOpenDialog(message)} />
-      // :
-      // <div className="text-center pt-12 pb-28 cursor-pointer" onClick={() => handleOpenDialog(message)}>
-      //   <Typography className="text-72 leading-none text-blue">{data}</Typography>
-      //   <Typography className="text-xs uppercase" color="textSecondary">{label}</Typography>
-      // </div>
-      config[type].element
-      }
+      {config[type].element}
       <Dialog
-        open={dialogIsOpen}
-        TransitionComponent={Transition}
         keepMounted
+        open={dialogIsOpen}
         onClose={handleCloseDialog}
+        TransitionComponent={Transition}
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
       >

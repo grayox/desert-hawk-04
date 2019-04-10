@@ -69,6 +69,7 @@ const styles = theme => ({
   root: {
     // display: 'flex',
     ...dashboardStyle,
+    height: '100vh',
   },
   
   wrapper: {
