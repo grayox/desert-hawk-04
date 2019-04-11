@@ -18,7 +18,7 @@ const DashboardWidget = ({ widget, index, count, }) => { // classes,
   // count: number: total number of widgets on the dashboard (for purpose of calculating entry animation)
   // index: number: sequence number of this widget relative to all widgets on the dashboard (for purpose of calculating entry animation)
   // widget: object: data defining the widget content
-  console.log('widget\n', widget,);
+  // console.log('widget\n', widget,);
 
   const { rowName, data, label, rowDesc, desc, links, } = widget;
 
