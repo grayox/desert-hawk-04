@@ -59,7 +59,7 @@ export const DashboardGridConfig = [
           color: 'success',
           buttonLabel: 'Deposit new',
           links: [
-            { label: '', id: '', },
+            { label: 'Make a deposit', id: 'outbox', },
           ],
           desc:
             <React.Fragment>
@@ -88,7 +88,7 @@ export const DashboardGridConfig = [
           color: 'danger',
           buttonLabel: 'See available',
           links: [
-            { label: '', id: '', },
+            { label: 'Look for leads', id: 'inbox', },
           ],
           desc:
             <React.Fragment>
@@ -111,7 +111,7 @@ export const DashboardGridConfig = [
           color: 'primary',
           buttonLabel: 'See challenges',
           links: [
-            { label: '', id: '', },
+            { label: 'Look for leads', id: 'inbox', },
           ],
           desc:
             <React.Fragment>
@@ -151,7 +151,7 @@ export const DashboardGridConfig = [
           color: 'info',
           buttonLabel: 'View inbox',
           links: [
-            { label: '', id: '', },
+            { label: 'Jump to inbox', id: 'inbox', },
           ],
           desc:
             <Typography>
@@ -166,7 +166,7 @@ export const DashboardGridConfig = [
           color: 'success',
           buttonLabel: 'View archive',
           links: [
-            { label: '', id: '', },
+            { label: 'Jump to archive', id: 'archive', },
           ],
           desc:
             <Typography>
@@ -181,7 +181,7 @@ export const DashboardGridConfig = [
           color: 'primary',
           buttonLabel: 'View outbox',
           links: [
-            { label: '', id: '', },
+            { label: 'Jump to outbox', id: 'outbox', },
           ],
           desc:
             <Typography>
@@ -196,7 +196,7 @@ export const DashboardGridConfig = [
           color: 'success',
           buttonLabel: 'Add contact',
           links: [
-            { label: '', id: '', },
+            { label: 'Jump to contacts', id: 'contacts', },
           ],
           desc:
             <Typography>
@@ -240,7 +240,7 @@ export const DashboardGridConfig = [
           //   />
           // ,
           links: [
-            { label: '', id: '', },
+            { label: 'Jump to settings', id: 'settings', },
           ],
           desc:
             <React.Fragment>
@@ -296,7 +296,7 @@ export const DashboardGridConfig = [
           typog: 'subtitle1',
           buttonLabel: 'Edit',
           links: [
-            { label: '', id: '', },
+            { label: 'Jump to settings', id: 'settings', },
           ],
           desc:
             <React.Fragment>
@@ -319,7 +319,7 @@ export const DashboardGridConfig = [
           typog: 'subtitle1',
           buttonLabel: 'Edit',
           links: [
-            { label: '', id: '', },
+            { label: 'Jump to settings', id: 'settings', },
           ],
           desc:
             <React.Fragment>
@@ -340,7 +340,7 @@ export const DashboardGridConfig = [
           typog: 'subtitle1',
           buttonLabel: 'Edit',
           links: [
-            { label: '', id: '', },
+            { label: 'Jump to settings', id: 'settings', },
           ],
           desc:
             <React.Fragment>
