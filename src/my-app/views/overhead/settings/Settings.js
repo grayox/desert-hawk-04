@@ -45,7 +45,7 @@ import PreferencesTab from './tabs/PreferencesTab';
 // interface: export class ProfilePage > import Settings ...
 
 // import { FetchFirestore } from 'my-app/config/AppConfig'; // fails
-import FetchFirestore from 'my-app/config/AppConfig'; // success
+// import FetchFirestore from 'my-app/config/AppConfig'; // success
 // import FuseLoadable from '@fuse/components/FuseLoadable/FuseLoadable';
 // end my add
 
@@ -389,7 +389,9 @@ class ProfilePage extends Component {
       </div>
       :
       <div className={classes.wrapper}>
-        <FetchFirestore key={firestoreKey} />
+      {
+        // <FetchFirestore key={firestoreKey} />
+      }
 
         <Menu
           id="menu"

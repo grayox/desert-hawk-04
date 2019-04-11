@@ -379,75 +379,73 @@ export const componentsNavConfig = [
   },
 ]
 
-export const standardNavConfig = [
+// export const standardNavConfig = []
 
-]
-
-class FetchFirestore extends Component {
-  render() {
-    const { key, children, } = this.props;
-    // called wherever firestore data is needed by: <FetchFirestore>...</FetchFirestore>
-    return (
-      // <React.Fragment key={key}>
-      <div key={key}>
-        {key}
-        {children}
-      </div>
-      // </React.Fragment>
-    )
-  }
-}
+// class FetchFirestore extends Component {
+//   render() {
+//     const { key, children, } = this.props;
+//     // called wherever firestore data is needed by: <FetchFirestore>...</FetchFirestore>
+//     return (
+//       // <React.Fragment key={key}>
+//       <div key={key}>
+//         {key}
+//         {children}
+//       </div>
+//       // </React.Fragment>
+//     )
+//   }
+// }
 
 // function mapStateToProps({ auth }) {
-function mapStateToProps( state ) {
-  console.log('state\n', state);
-  const settings = state.firestore.ordered.users
-                && state.firestore.ordered.users[0]
-                && state.firestore.ordered.users[0].settings
-                && state.firestore.ordered.users[0].settings[0];
-  const user = state.auth.user;
-  const leads = state.firestore.ordered.leads;
-  const profile = state.firebase.profile;
-  const dataHasLoaded = user && leads && profile && settings;
+// function mapStateToProps( state ) {
+//   console.log('state\n', state);
+//   const settings = state.firestore.ordered.users
+//                 && state.firestore.ordered.users[0]
+//                 && state.firestore.ordered.users[0].settings
+//                 && state.firestore.ordered.users[0].settings[0];
+//   const user = state.auth.user;
+//   const leads = state.firestore.ordered.leads;
+//   const profile = state.firebase.profile;
+//   const dataHasLoaded = user && leads && profile && settings;
 
-  if(dataHasLoaded) {
-    console.log('user\n', user);
-    console.log('leads\n', leads);
-    console.log('profile\n', profile);
-    console.log('settings\n', settings);
-    console.log('dataHasLoaded\n', dataHasLoaded);
-    console.log('all-settings\n', state.firestore.ordered.users[0].settings);
-  }
+//   if(dataHasLoaded) {
+//     console.log('user\n', user);
+//     console.log('leads\n', leads);
+//     console.log('profile\n', profile);
+//     console.log('settings\n', settings);
+//     console.log('dataHasLoaded\n', dataHasLoaded);
+//     console.log('all-settings\n', state.firestore.ordered.users[0].settings);
+//   }
   
-  return {
-    // user: auth.user
-    user, //: state.auth.user, // {role, data: {uid, displayName, email, ...}}
-    // settings: state.settings,
+//   return {
+//     // user: auth.user
+//     user, //: state.auth.user, // {role, data: {uid, displayName, email, ...}}
+//     // settings: state.settings,
 
-    // projects: state.firestore.ordered.projects,
-    // auth: state.firebase.auth,
-    // notifications: state.firestore.ordered.notifications,
+//     // projects: state.firestore.ordered.projects,
+//     // auth: state.firebase.auth,
+//     // notifications: state.firestore.ordered.notifications,
 
-    // template for top-level stored objects from firebase using FirebaseConnect to fetch it
-    leads, //: state.firestore.ordered.leads,
-    // from docs: http://docs.react-redux-firebase.com/history/v2.0.0/docs/recipes/profile.html#basic
-    profile, //: state.firebase.profile, // profile passed as props.profile
+//     // template for top-level stored objects from firebase using FirebaseConnect to fetch it
+//     leads, //: state.firestore.ordered.leads,
+//     // from docs: http://docs.react-redux-firebase.com/history/v2.0.0/docs/recipes/profile.html#basic
+//     profile, //: state.firebase.profile, // profile passed as props.profile
 
-    // trying
+//     // trying
     
-    // success
-    settings,
-    // settings: state.firestore.ordered.users,//[0],//.settings[0],
-    dataHasLoaded,
+//     // success
+//     settings,
+//     // settings: state.firestore.ordered.users,//[0],//.settings[0],
+//     dataHasLoaded,
     
-    // fail
-    // settings: state.firestore.ordered.users.0,//.settings[0], // does not compile, unextected token
-    // settings: state.firestore.ordered.users[0],//.settings[0], // can not find [0] of undefined
-    // settings: state.firestore.data.users[state.auth.user.data.uid].settings,
-    // settings: state.firestore.data.users.settings,
-    // settings: state.firestore.ordered.users.settings,
-  }
-}
+//     // fail
+//     // settings: state.firestore.ordered.users.0,//.settings[0], // does not compile, unextected token
+//     // settings: state.firestore.ordered.users[0],//.settings[0], // can not find [0] of undefined
+//     // settings: state.firestore.data.users[state.auth.user.data.uid].settings,
+//     // settings: state.firestore.data.users.settings,
+//     // settings: state.firestore.ordered.users.settings,
+//   }
+// }
   
 //   const mapDispatchToProps = dispatch => {
 //     return {
@@ -457,71 +455,71 @@ function mapStateToProps( state ) {
 
 // export const FetchFirestore = () => {return compose(
 // export compose(
-export default compose(
+// export default compose(
 
-  // withStyles(styles, { withTheme: true }),
+//   // withStyles(styles, { withTheme: true }),
   
-  // connect(),
-  connect(mapStateToProps),
-  // connect(mapStateToProps, mapDispatchToProps),
-  // ref: https://github.com/prescottprue/react-redux-firebase/issues/344
-  // connect auth from redux state to the auth prop
-  // connect(({ firebase: { auth } }) => ({ auth })),
-  // show spinner while auth is loading
-  // spinnerWhileLoading(['auth']),
+//   // connect(),
+//   connect(mapStateToProps),
+//   // connect(mapStateToProps, mapDispatchToProps),
+//   // ref: https://github.com/prescottprue/react-redux-firebase/issues/344
+//   // connect auth from redux state to the auth prop
+//   // connect(({ firebase: { auth } }) => ({ auth })),
+//   // show spinner while auth is loading
+//   // spinnerWhileLoading(['auth']),
 
-  // connect(({ firestore }, props) => ({
-  //   // settings: /*getVal*/_.get(firestore, `users/${props.profile.uid}/settings/current`), // lodash's get can also be used
-  //   settings: /*getVal*/_.get(firestore, `users/3lq9cr3A3eNSehv4X35Q2HBtUty2/settings/current`), // lodash's get can also be used
-  // })),
+//   // connect(({ firestore }, props) => ({
+//   //   // settings: /*getVal*/_.get(firestore, `users/${props.profile.uid}/settings/current`), // lodash's get can also be used
+//   //   settings: /*getVal*/_.get(firestore, `users/3lq9cr3A3eNSehv4X35Q2HBtUty2/settings/current`), // lodash's get can also be used
+//   // })),
 
-  firestoreConnect( props => {
-    console.log('props\n', props);
-    // const path = [ 'users', props.profile.uid, 'settings' ].join('/'); // fail
-    return [
-      // ref: https://github.com/prescottprue/react-redux-firebase/issues/344
-      // { collection: 'projects', orderBy: ['createdAt', 'desc'] },
-      // { collection: 'notifications', limit: 3, orderBy: ['time', 'desc'] },
+//   firestoreConnect( props => {
+//     console.log('props\n', props);
+//     // const path = [ 'users', props.profile.uid, 'settings' ].join('/'); // fail
+//     return [
+//       // ref: https://github.com/prescottprue/react-redux-firebase/issues/344
+//       // { collection: 'projects', orderBy: ['createdAt', 'desc'] },
+//       // { collection: 'notifications', limit: 3, orderBy: ['time', 'desc'] },
 
-      // { path: users/${props.profile.uid}/current` }, // fails; used by old version
+//       // { path: users/${props.profile.uid}/current` }, // fails; used by old version
 
-      { collection: 'leads', orderBy: ['createdAt', 'desc'] }, // success
+//       { collection: 'leads', orderBy: ['createdAt', 'desc'] }, // success
 
-      // // fail
-      // { 
-      //   collection: path,
-      //   limit: 1,
-      //   orderBy: ['createdAt', 'desc'],
-      //   storeAs: 'settings',
-      // },
+//       // // fail
+//       // { 
+//       //   collection: path,
+//       //   limit: 1,
+//       //   orderBy: ['createdAt', 'desc'],
+//       //   storeAs: 'settings',
+//       // },
 
-      {
-        collection: 'users',
-        // doc: props.auth.uid,
-        // doc: props.auth.user.data.uid,
-        // doc: '3lq9cr3A3eNSehv4X35Q2HBtUty2',
-        // doc: props.user.data.uid, // success
+//       {
+//         collection: 'users',
+//         // doc: props.auth.uid,
+//         // doc: props.auth.user.data.uid,
+//         // doc: '3lq9cr3A3eNSehv4X35Q2HBtUty2',
+//         // doc: props.user.data.uid, // success
         
-        // where: ['id', '==', props.profile.uid],
+//         // where: ['id', '==', props.profile.uid],
         
-        // ref: https://github.com/prescottprue/redux-firestore/blob/master/README.md#document
-        // ref: https://github.com/prescottprue/react-redux-firebase/issues/344
-        doc: props.profile.uid, //props.store.firestore.get('cities/SF'/zipcodes),
+//         // ref: https://github.com/prescottprue/redux-firestore/blob/master/README.md#document
+//         // ref: https://github.com/prescottprue/react-redux-firebase/issues/344
+//         doc: props.profile.uid, //props.store.firestore.get('cities/SF'/zipcodes),
         
-        // ref: https://github.com/prescottprue/redux-firestore/blob/master/README.md#sub-collections
-        // ref: https://github.com/prescottprue/react-redux-firebase/issues/344
-        subcollections: [
-          {
-            collection: 'settings',
-            // limit: 1,
-            // orderBy: ['createdAt', 'desc',],
-            // storeAs: 'settings',
-            doc: 'current',
-          },
-        ],
-      },
+//         // ref: https://github.com/prescottprue/redux-firestore/blob/master/README.md#sub-collections
+//         // ref: https://github.com/prescottprue/react-redux-firebase/issues/344
+//         subcollections: [
+//           {
+//             collection: 'settings',
+//             // limit: 1,
+//             // orderBy: ['createdAt', 'desc',],
+//             // storeAs: 'settings',
+//             doc: 'current',
+//           },
+//         ],
+//       },
 
-    ];
-  }),
+//     ];
+//   }),
 
-)(FetchFirestore)//}
+// )(FetchFirestore)//}
