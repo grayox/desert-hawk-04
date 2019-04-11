@@ -187,46 +187,46 @@ class Dashboard extends Component {
       .add(newData);
   }
 
-  handleClickButton = name => {
-    // console.log('name', name);
-    switch(name) {
-      case 'Net':
-        this.handleCloseCategory();
-        break;
-      case 'Deposits':
-        this.handleCloseCategory();
-        break;
-      case 'Withdrawals':
-        this.handleCloseCategory();
-        break;
-      case 'Challenges':
-        this.handleCloseCategory();
-        break;
-      case 'Inbox':
-        this.handleCloseCategory();
-        break;
-      case 'Archive':
-        this.handleCloseCategory();
-        break;
-      case 'Contacts':
-        this.handleCloseCategory();
-        break;
-      case 'Category':
-        this.handleOpenCategory();
-        break;
-      case 'Locaction':
-        this.handleClickGeo();
-        break;
-      case 'State':
-        this.handleClickGeo();
-        break;
-      case 'Country':
-        this.handleClickGeo();
-        break;
-      default:
-        // code block
-    }
-  }
+  // handleClickButton = name => {
+  //   // console.log('name', name);
+  //   switch(name) {
+  //     case 'Net':
+  //       this.handleCloseCategory();
+  //       break;
+  //     case 'Deposits':
+  //       this.handleCloseCategory();
+  //       break;
+  //     case 'Withdrawals':
+  //       this.handleCloseCategory();
+  //       break;
+  //     case 'Challenges':
+  //       this.handleCloseCategory();
+  //       break;
+  //     case 'Inbox':
+  //       this.handleCloseCategory();
+  //       break;
+  //     case 'Archive':
+  //       this.handleCloseCategory();
+  //       break;
+  //     case 'Contacts':
+  //       this.handleCloseCategory();
+  //       break;
+  //     case 'Category':
+  //       this.handleOpenCategory();
+  //       break;
+  //     case 'Locaction':
+  //       this.handleClickGeo();
+  //       break;
+  //     case 'State':
+  //       this.handleClickGeo();
+  //       break;
+  //     case 'Country':
+  //       this.handleClickGeo();
+  //       break;
+  //     default:
+  //       // code block
+  //   }
+  // }
 
   handleClickGeo = () => {
     this.setState({ show: 'step', });
@@ -315,14 +315,15 @@ class Dashboard extends Component {
     const {
       // handleChangeSwitch, 
       handleSaveSettingsStepper, handleClickGeo,
-      handleOpenCategory, handleChangeCategory, handleCloseCategory,
-      handleCloseDialog, handleClickButton, handleClickInfo,
+      // handleOpenCategory, handleChangeCategory, handleCloseCategory,
+      // handleCloseDialog, handleClickButton, handleClickInfo,
     } = this;
     const {
       // isLoading, condensedDashboard, 
       // bizCategory, geoLocal, geoRegion, geoNation,
-      show, isError, categoryOpen,
-      dialogOpen, dialogContentText, dialogTitle, dialogButtonLabel,
+      show, isError,
+      // categoryOpen,
+      // dialogOpen, dialogContentText, dialogTitle, dialogButtonLabel,
     } = this.state;
     // const {
     //   classes,
@@ -331,40 +332,39 @@ class Dashboard extends Component {
     // console.log('this-props\n', this.props);
     // const { categoryOpen, bizCategory, } = this.props;
 
-    const dialog = (
-      <Dialog
-        open={dialogOpen}
-        onClose={handleCloseDialog}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{dialogTitle}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            {dialogContentText}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            autoFocus
-            // color="secondary"
-            onClick={handleCloseDialog}
-          >
-            Cancel
-          </Button>
-          <Button
-            onClick={() => handleClickButton(dialogTitle)}
-          >
-            {dialogButtonLabel}
-          </Button>
-        </DialogActions>
-      </Dialog>
-    );
+    // const dialog = (
+    //   <Dialog
+    //     open={dialogOpen}
+    //     onClose={handleCloseDialog}
+    //     aria-labelledby="alert-dialog-title"
+    //     aria-describedby="alert-dialog-description"
+    //   >
+    //     <DialogTitle id="alert-dialog-title">{dialogTitle}</DialogTitle>
+    //     <DialogContent>
+    //       <DialogContentText id="alert-dialog-description">
+    //         {dialogContentText}
+    //       </DialogContentText>
+    //     </DialogContent>
+    //     <DialogActions>
+    //       <Button
+    //         autoFocus
+    //         // color="secondary"
+    //         onClick={handleCloseDialog}
+    //       >
+    //         Cancel
+    //       </Button>
+    //       <Button
+    //         onClick={() => handleClickButton(dialogTitle)}
+    //       >
+    //         {dialogButtonLabel}
+    //       </Button>
+    //     </DialogActions>
+    //   </Dialog>
+    // );
 
     const main = (
       <React.Fragment>
-        {dialog}
-
+        {/* {dialog} */}
         {
         // <AppBar
         //   className="m-0"
@@ -402,38 +402,42 @@ class Dashboard extends Component {
 
         <Hidden smUp>
           <DashboardWidgets />
-          <DashboardGridItems 
-            // condensedDashboard={condensedDashboard}
-            condensedDashboard
-            geoLocal={geoLocal}
-            geoRegion={geoRegion}
-            geoNation={geoNation}
-            categoryOpen={categoryOpen}
-            categoryItems={bizCategoryItems}
-            bizCategory={bizCategory}
-            onCategoryOpen={handleOpenCategory}
-            onCategoryChange={handleChangeCategory}
-            onCategoryClose={handleCloseCategory}
-            onClickInfo={handleClickInfo}
-          />
+          {
+          // <DashboardGridItems 
+          //   // condensedDashboard={condensedDashboard}
+          //   condensedDashboard
+          //   geoLocal={geoLocal}
+          //   geoRegion={geoRegion}
+          //   geoNation={geoNation}
+          //   categoryOpen={categoryOpen}
+          //   categoryItems={bizCategoryItems}
+          //   bizCategory={bizCategory}
+          //   onCategoryOpen={handleOpenCategory}
+          //   onCategoryChange={handleChangeCategory}
+          //   onCategoryClose={handleCloseCategory}
+          //   onClickInfo={handleClickInfo}
+          // />
+          }
         </Hidden>
 
         <Hidden xsDown>
           <DashboardWidgets />
-          <DashboardGridItems 
-            // condensedDashboard={condensedDashboard}
-            // condensedDashboard
-            geoLocal={geoLocal}
-            geoRegion={geoRegion}
-            geoNation={geoNation}
-            categoryOpen={categoryOpen}
-            categoryItems={bizCategoryItems}
-            bizCategory={bizCategory}
-            onCategoryOpen={handleOpenCategory}
-            onCategoryChange={handleChangeCategory}
-            onCategoryClose={handleCloseCategory}
-            onClickInfo={handleClickInfo}
-          />
+          {
+          // <DashboardGridItems 
+          //   // condensedDashboard={condensedDashboard}
+          //   // condensedDashboard
+          //   geoLocal={geoLocal}
+          //   geoRegion={geoRegion}
+          //   geoNation={geoNation}
+          //   categoryOpen={categoryOpen}
+          //   categoryItems={bizCategoryItems}
+          //   bizCategory={bizCategory}
+          //   onCategoryOpen={handleOpenCategory}
+          //   onCategoryChange={handleChangeCategory}
+          //   onCategoryClose={handleCloseCategory}
+          //   onClickInfo={handleClickInfo}
+          // />
+          }
         </Hidden>
         
       </React.Fragment>
@@ -497,11 +501,11 @@ const mapStateToProps = state => {
   // const leads = state.firestore.ordered.leads;
   const dataHasLoaded = !!profile && !!settings; // && !!leads && !!user && 
   
-  // console.log('user\n', user);
-  // console.log('leads\n', leads);
-  console.log('profile\n', profile);
-  console.log('settings\n', settings);
-  console.log('dataHasLoaded\n', dataHasLoaded);
+  // // console.log('user\n', user);
+  // // console.log('leads\n', leads);
+  // console.log('profile\n', profile);
+  // console.log('settings\n', settings);
+  // console.log('dataHasLoaded\n', dataHasLoaded);
   
   // //       YES   YES      YES       NO     NO
   // return { user, profile, settings, leads, dataHasLoaded, }
