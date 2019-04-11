@@ -21,8 +21,9 @@ import { updateSettings } from 'my-app/store/actions/my-actions';
 // @material-ui/core
 // import Icon from "@material-ui/core/Icon";
 import {
+  withStyles, Hidden,
   // AppBar, Toolbar, Typography, // CssBaseline, Slide,
-  withStyles, Hidden, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
+  // Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
 } from '@material-ui/core';
 
 // import ViewListIcon from '@material-ui/icons/ViewList';
@@ -33,14 +34,14 @@ import {
 // import Switch from '@material-ui/core/Switch';
 
 // @material-ui/icons
-import Button from "@material-ui/core/Button";
+// import Button from "@material-ui/core/Button";
 
 import dashboardStyle from "my-app/vendors/creative-tim/assets/jss/material-dashboard-react/views/dashboardStyle";
 // import classNames from 'classnames';
 
 // Custom Components
 import DashboardWidgets from './DashboardWidgets';
-import DashboardGridItems from './DashboardGridItems';
+// import DashboardGridItems from './DashboardGridItems';
 import Error500Page from 'my-app/components/Error500Page';
 
 // import GeoSelect from 'my-app/components/GeoSelect/GeoSelect';
@@ -51,7 +52,7 @@ import SettingsStepper from 'my-app/components/steppers/SettingsStepper';
 
 // config
 import { uiSpecs } from 'my-app/config/AppConfig';
-import { bizCategoryItems } from 'my-app/config/AppConfig';
+// import { bizCategoryItems } from 'my-app/config/AppConfig';
 
 // firebase
 import firebase from '@firebase/app';
@@ -291,8 +292,8 @@ class Dashboard extends Component {
     // console.log('settings\n', this.props.settings);
     // console.log('dataHasLoaded\n', this.props.dataHasLoaded);
 
-    const { classes, settings, dataHasLoaded, } = this.props; // leads, user, profile,
-    const { geoNation, geoRegion, geoLocal, bizCategory, } = settings; // isValidGeo,
+    const { classes, dataHasLoaded, } = this.props; // leads, user, profile, settings,
+    // const { geoNation, geoRegion, geoLocal, bizCategory, } = settings; // isValidGeo,
 
     // const { isValidGeo, geoNation, geoRegion, geoLocal, bizCategory }
     //   = this && this.props && this.props.settings;// ? this.props.settings : this.state.settings;

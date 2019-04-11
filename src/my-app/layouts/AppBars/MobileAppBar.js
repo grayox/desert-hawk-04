@@ -1,12 +1,13 @@
 // cloned from // import MainToolbar from './main/MainToolbar';
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles/index';
-import { connect } from 'react-redux';
-import * as authActions from 'auth/store/actions';
-import { bindActionCreators } from 'redux';
-import classNames from 'classnames';
 
-import * as Actions from 'store/actions';
+// import { connect } from 'react-redux';
+// import * as authActions from 'auth/store/actions';
+// import { bindActionCreators } from 'redux';
+// import * as Actions from 'store/actions';
+
+import classNames from 'classnames';
 
 // import {FuseShortcuts, FuseAnimate, FuseSearch} from '@fuse';
 

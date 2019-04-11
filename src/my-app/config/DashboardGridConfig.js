@@ -3,16 +3,16 @@ import React from 'react';
 // @material-ui/core
 import { Typography, Icon, } from '@material-ui/core';
 
-const marketDescription = (
-  <Typography className="mt-12">
-    To specify the location of your market, you must identify all three levels:
-    <ul>
-      <li>country</li>
-      <li>state or region</li>
-      <li>location</li>
-    </ul>
-  </Typography>
-);
+// const marketDescription = (
+//   <Typography className="mt-12">
+//     To specify the location of your market, you must identify all three levels:
+//     <ul>
+//       <li>country</li>
+//       <li>state or region</li>
+//       <li>location</li>
+//     </ul>
+//   </Typography>
+// );
 
 export const DashboardGridConfig = [
     {
@@ -305,7 +305,7 @@ export const DashboardGridConfig = [
                 (In some small states or regions, it can be the only third level choice.
                 In that case, the third level choice is usually identical to the name of the state or region.)
               </Typography>
-              {marketDescription}
+              {/*marketDescription*/}
             </React.Fragment>
           ,
         },
@@ -326,7 +326,7 @@ export const DashboardGridConfig = [
               <Typography>
                 The second level of your location selection. (Called &ldquo;region&rdquo; in certain countries.)
               </Typography>
-              {marketDescription}
+              {/*marketDescription*/}
             </React.Fragment>
           ,
         },
@@ -347,7 +347,7 @@ export const DashboardGridConfig = [
               <Typography>
                 The first level of your location selection.
               </Typography>
-              {marketDescription}
+              {/*marketDescription*/}
             </React.Fragment>
           ,
         },

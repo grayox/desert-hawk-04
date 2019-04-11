@@ -1,12 +1,12 @@
 // cloned from // import MainToolbar from './main/MainToolbar';
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles/index';
-import { connect } from 'react-redux';
-import * as authActions from 'auth/store/actions';
-import { bindActionCreators } from 'redux';
 import classNames from 'classnames';
 
-import * as Actions from 'store/actions';
+// import { connect } from 'react-redux';
+// import * as authActions from 'auth/store/actions';
+// import { bindActionCreators } from 'redux';
+// import * as Actions from 'store/actions';
 
 // import {FuseShortcuts, FuseAnimate, FuseSearch} from '@fuse';
 
@@ -177,24 +177,25 @@ class TabletAppBar extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    logout: authActions.logoutUser,
+// function mapDispatchToProps(dispatch) {
+//   return bindActionCreators({
+//     logout: authActions.logoutUser,
 
-    navbarOpenMobile: Actions.navbarOpenMobile,
-    // setSettings: Actions.setSettings,
-    // setDefaultSettings: Actions.setDefaultSettings,
-    // resetSettings: Actions.resetSettings,
-    // navbarOpenFolded: Actions.navbarOpenFolded,
-    // navbarCloseFolded: Actions.navbarCloseFolded,
-    // navbarCloseMobile: Actions.navbarCloseMobile,
-  }, dispatch);
-}
+//     navbarOpenMobile: Actions.navbarOpenMobile,
+//     // setSettings: Actions.setSettings,
+//     // setDefaultSettings: Actions.setDefaultSettings,
+//     // resetSettings: Actions.resetSettings,
+//     // navbarOpenFolded: Actions.navbarOpenFolded,
+//     // navbarCloseFolded: Actions.navbarCloseFolded,
+//     // navbarCloseMobile: Actions.navbarCloseMobile,
+//   }, dispatch);
+// }
 
-function mapStateToProps({ auth }) {
-  return {
-    user: auth.user
-  }
-}
+// function mapStateToProps({ auth }) {
+//   return {
+//     user: auth.user
+//   }
+// }
 
-export default withStyles(styles, { withTheme: true })(connect(mapStateToProps, mapDispatchToProps)(TabletAppBar));
+// export default withStyles(styles, { withTheme: true })(connect(mapStateToProps, mapDispatchToProps)(TabletAppBar));
+export default withStyles(styles, { withTheme: true })(TabletAppBar);
