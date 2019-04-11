@@ -287,9 +287,9 @@ class Dashboard extends Component {
   render() {
     // console.log('user\n', this.props.user);
     // console.log('leads\n', this.props.leads);
-    console.log('profile\n', this.props.profile);
-    console.log('settings\n', this.props.settings);
-    console.log('dataHasLoaded\n', this.props.dataHasLoaded);
+    // console.log('profile\n', this.props.profile);
+    // console.log('settings\n', this.props.settings);
+    // console.log('dataHasLoaded\n', this.props.dataHasLoaded);
 
     const { classes, settings, dataHasLoaded, } = this.props; // leads, user, profile,
     const { geoNation, geoRegion, geoLocal, bizCategory, } = settings; // isValidGeo,

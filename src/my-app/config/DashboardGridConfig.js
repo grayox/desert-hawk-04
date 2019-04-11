@@ -33,8 +33,8 @@ export const DashboardGridConfig = [
           color: 'warning',
           buttonLabel: 'Hai',
           links: [
-            { label: 'Deposit new referral', id: 'outbox', },
-            { label: 'Shop for new leads', id: 'inbox', },
+            { id: 'outbox' , label: 'Deposit new referral' , },
+            { id: 'inbox'  , label: 'Shop for new leads'   , },
           ],
           desc:
             <React.Fragment>
@@ -59,7 +59,7 @@ export const DashboardGridConfig = [
           color: 'success',
           buttonLabel: 'Deposit new',
           links: [
-            { label: 'Deposit new referral', id: 'outbox', },
+            { id: 'outbox', label: 'Deposit new referral', },
           ],
           desc:
             <React.Fragment>
@@ -88,7 +88,7 @@ export const DashboardGridConfig = [
           color: 'danger',
           buttonLabel: 'See available',
           links: [
-            { label: 'Look for leads', id: 'inbox', },
+            { id: 'inbox', label: 'Search for leads', },
           ],
           desc:
             <React.Fragment>
@@ -111,7 +111,7 @@ export const DashboardGridConfig = [
           color: 'primary',
           buttonLabel: 'See challenges',
           links: [
-            { label: 'Look for leads', id: 'inbox', },
+            { id: 'inbox', label: 'Search for leads', },
           ],
           desc:
             <React.Fragment>
@@ -151,7 +151,7 @@ export const DashboardGridConfig = [
           color: 'info',
           buttonLabel: 'View inbox',
           links: [
-            { label: 'Jump to inbox', id: 'inbox', },
+            { id: 'inbox', label: 'Jump to inbox', },
           ],
           desc:
             <Typography>
@@ -166,7 +166,7 @@ export const DashboardGridConfig = [
           color: 'success',
           buttonLabel: 'View archive',
           links: [
-            { label: 'Jump to archive', id: 'archive', },
+            { id: 'archive', label: 'Jump to archive', },
           ],
           desc:
             <Typography>
@@ -181,7 +181,7 @@ export const DashboardGridConfig = [
           color: 'primary',
           buttonLabel: 'View outbox',
           links: [
-            { label: 'Jump to outbox', id: 'outbox', },
+            { id: 'outbox', label: 'Jump to outbox', },
           ],
           desc:
             <Typography>
@@ -196,7 +196,7 @@ export const DashboardGridConfig = [
           color: 'success',
           buttonLabel: 'Add contact',
           links: [
-            { label: 'Edit contacts', id: 'contacts', },
+            { id: 'contacts', label: 'Edit contacts', },
           ],
           desc:
             <Typography>
@@ -240,7 +240,7 @@ export const DashboardGridConfig = [
           //   />
           // ,
           links: [
-            { label: 'Edit category', id: 'settings', },
+            { id: 'settings', label: 'Edit category', },
           ],
           desc:
             <React.Fragment>
@@ -296,7 +296,7 @@ export const DashboardGridConfig = [
           typog: 'subtitle1',
           buttonLabel: 'Edit',
           links: [
-            { label: 'Edit location', id: 'settings', },
+            { id: 'settings', label: 'Edit location', },
           ],
           desc:
             <React.Fragment>
@@ -319,7 +319,7 @@ export const DashboardGridConfig = [
           typog: 'subtitle1',
           buttonLabel: 'Edit',
           links: [
-            { label: 'Edit state', id: 'settings', },
+            { id: 'settings', label: 'Edit state', },
           ],
           desc:
             <React.Fragment>
@@ -340,7 +340,7 @@ export const DashboardGridConfig = [
           typog: 'subtitle1',
           buttonLabel: 'Edit',
           links: [
-            { label: 'Edit country', id: 'settings', },
+            { id: 'settings', label: 'Edit country', },
           ],
           desc:
             <React.Fragment>
