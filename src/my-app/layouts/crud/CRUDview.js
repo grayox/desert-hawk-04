@@ -984,13 +984,11 @@ CRUDView.defaultProps = {
   deletable: false,
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    createItem: ( path , item  ,                    ) => dispatch(createItem( path , item  ,                    )), // inspired by: src/my-app/components/forms/CreateLead.js
-    updateItem: ( path , docId , newItem , oldItem, ) => dispatch(updateItem( path , docId , newItem , oldItem, )),
-    deleteItem: ( path , docId ,                    ) => dispatch(deleteItem( path , docId ,                    )),
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  createItem: ( path , item  ,                    ) => dispatch(createItem( path , item  ,                    )), // inspired by: src/my-app/components/forms/CreateLead.js
+  updateItem: ( path , docId , newItem , oldItem, ) => dispatch(updateItem( path , docId , newItem , oldItem, )),
+  deleteItem: ( path , docId ,                    ) => dispatch(deleteItem( path , docId ,                    )),
+})
 
 // export default CRUDView;
 // export default withStyles(styles)(CRUDView);
