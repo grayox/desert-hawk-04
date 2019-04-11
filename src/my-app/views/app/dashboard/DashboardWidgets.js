@@ -3,7 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { DashboardGridConfig } from './DashboardGridConfig'
+import { DashboardGridConfig } from 'my-app/config/DashboardGridConfig';
 import DashboardWidget from './DashboardWidget';
 import { withStyles, Grid, } from '@material-ui/core'; // GridList,
 

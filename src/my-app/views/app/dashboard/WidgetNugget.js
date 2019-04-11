@@ -7,8 +7,6 @@ import {
   Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
 } from '@material-ui/core';
 
-import { DashboardGridConfig, } from 'my-app/views/app/dashboard/DashboardGridConfig.js';
-
 const Transition = props => <Slide direction="up" {...props} />
 
 // const handleClick = () => alert('You clicked the Chip.') // eslint-disable-line no-alert

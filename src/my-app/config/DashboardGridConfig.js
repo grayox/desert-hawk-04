@@ -196,7 +196,7 @@ export const DashboardGridConfig = [
           color: 'success',
           buttonLabel: 'Add contact',
           links: [
-            { label: 'Jump to contacts', id: 'contacts', },
+            { label: 'Edit contacts', id: 'contacts', },
           ],
           desc:
             <Typography>
@@ -240,7 +240,7 @@ export const DashboardGridConfig = [
           //   />
           // ,
           links: [
-            { label: 'Jump to settings', id: 'settings', },
+            { label: 'Edit category', id: 'settings', },
           ],
           desc:
             <React.Fragment>
@@ -296,7 +296,7 @@ export const DashboardGridConfig = [
           typog: 'subtitle1',
           buttonLabel: 'Edit',
           links: [
-            { label: 'Jump to settings', id: 'settings', },
+            { label: 'Edit location', id: 'settings', },
           ],
           desc:
             <React.Fragment>
@@ -319,7 +319,7 @@ export const DashboardGridConfig = [
           typog: 'subtitle1',
           buttonLabel: 'Edit',
           links: [
-            { label: 'Jump to settings', id: 'settings', },
+            { label: 'Edit state', id: 'settings', },
           ],
           desc:
             <React.Fragment>
@@ -340,7 +340,7 @@ export const DashboardGridConfig = [
           typog: 'subtitle1',
           buttonLabel: 'Edit',
           links: [
-            { label: 'Jump to settings', id: 'settings', },
+            { label: 'Edit country', id: 'settings', },
           ],
           desc:
             <React.Fragment>
