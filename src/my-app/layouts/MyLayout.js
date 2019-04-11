@@ -27,14 +27,14 @@ const MyLayout = props => {
   const { classes, } = props;
   return (
     <div
-    // className="w-full"
-    className={classNames( "w-full overflow-auto", classes.wrapper, )}
+      // className="w-full"
+      className={classNames( "w-full overflow-auto", classes.wrapper, )}
     >
       <FetchSettings />
-    {
-    // <div className="border-8 border-blue w-full overflow-auto">
-    // <CssBaseline />
-    }
+      {
+      // <div className="border-8 border-blue w-full overflow-auto">
+      // <CssBaseline />
+      }
       <MediaWidth
         mobile={<MobileDrawer/>}
         tablet={<TabletDrawer/>}

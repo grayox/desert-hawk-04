@@ -181,24 +181,25 @@ class MobileAppBar extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    logout: authActions.logoutUser,
+// function mapDispatchToProps(dispatch) {
+//   return bindActionCreators({
+//     logout: authActions.logoutUser,
 
-    navbarOpenMobile: Actions.navbarOpenMobile,
-    // setSettings: Actions.setSettings,
-    // setDefaultSettings: Actions.setDefaultSettings,
-    // resetSettings: Actions.resetSettings,
-    // navbarOpenFolded: Actions.navbarOpenFolded,
-    // navbarCloseFolded: Actions.navbarCloseFolded,
-    // navbarCloseMobile: Actions.navbarCloseMobile,
-  }, dispatch);
-}
+//     navbarOpenMobile: Actions.navbarOpenMobile,
+//     // setSettings: Actions.setSettings,
+//     // setDefaultSettings: Actions.setDefaultSettings,
+//     // resetSettings: Actions.resetSettings,
+//     // navbarOpenFolded: Actions.navbarOpenFolded,
+//     // navbarCloseFolded: Actions.navbarCloseFolded,
+//     // navbarCloseMobile: Actions.navbarCloseMobile,
+//   }, dispatch);
+// }
 
-function mapStateToProps({ auth }) {
-  return {
-    user: auth.user
-  }
-}
+// function mapStateToProps({ auth }) {
+//   return {
+//     user: auth.user
+//   }
+// }
 
-export default withStyles(styles, { withTheme: true })(connect(mapStateToProps, mapDispatchToProps)(MobileAppBar));
+// export default withStyles(styles, { withTheme: true })(connect(mapStateToProps, mapDispatchToProps)(MobileAppBar));
+export default withStyles(styles, { withTheme: true })(MobileAppBar);
