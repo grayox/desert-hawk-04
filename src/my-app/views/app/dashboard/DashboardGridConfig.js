@@ -32,6 +32,10 @@ export const DashboardGridConfig = [
           icon: 'drag_handle',
           color: 'warning',
           buttonLabel: 'Hai',
+          links: [
+            { label: 'Make a deposit', id: 'outbox', },
+            { label: 'Look for leads', id: 'inbox', },
+          ],
           desc:
             <React.Fragment>
               <Typography>
@@ -54,6 +58,9 @@ export const DashboardGridConfig = [
           icon: 'add',
           color: 'success',
           buttonLabel: 'Deposit new',
+          links: [
+            { label: '', id: '', },
+          ],
           desc:
             <React.Fragment>
               <Typography>
@@ -80,6 +87,9 @@ export const DashboardGridConfig = [
           icon: 'remove',
           color: 'danger',
           buttonLabel: 'See available',
+          links: [
+            { label: '', id: '', },
+          ],
           desc:
             <React.Fragment>
               <Typography>
@@ -100,6 +110,9 @@ export const DashboardGridConfig = [
           icon: 'warning',
           color: 'primary',
           buttonLabel: 'See challenges',
+          links: [
+            { label: '', id: '', },
+          ],
           desc:
             <React.Fragment>
               <Typography>
@@ -137,6 +150,9 @@ export const DashboardGridConfig = [
           icon: 'cloud_download',
           color: 'info',
           buttonLabel: 'View inbox',
+          links: [
+            { label: '', id: '', },
+          ],
           desc:
             <Typography>
               List of all leads matching your type category and market location
@@ -149,6 +165,9 @@ export const DashboardGridConfig = [
           icon: 'folder',
           color: 'success',
           buttonLabel: 'View archive',
+          links: [
+            { label: '', id: '', },
+          ],
           desc:
             <Typography>
               List of all previously available leads you claimed that are now exclusively yours
@@ -161,6 +180,9 @@ export const DashboardGridConfig = [
           icon: 'cloud_upload',
           color: 'primary',
           buttonLabel: 'View outbox',
+          links: [
+            { label: '', id: '', },
+          ],
           desc:
             <Typography>
               List of all leads you submitted and referred to your peers on the network
@@ -173,6 +195,9 @@ export const DashboardGridConfig = [
           icon: 'account_box',
           color: 'success',
           buttonLabel: 'Add contact',
+          links: [
+            { label: '', id: '', },
+          ],
           desc:
             <Typography>
               List of everyone you invited to join the network
@@ -214,6 +239,9 @@ export const DashboardGridConfig = [
           //     onChange={onCategoryChange}
           //   />
           // ,
+          links: [
+            { label: '', id: '', },
+          ],
           desc:
             <React.Fragment>
               Tell us the type of leads you want.
@@ -267,6 +295,9 @@ export const DashboardGridConfig = [
           color: 'primary',
           typog: 'subtitle1',
           buttonLabel: 'Edit',
+          links: [
+            { label: '', id: '', },
+          ],
           desc:
             <React.Fragment>
               <Typography>
@@ -287,6 +318,9 @@ export const DashboardGridConfig = [
           color: 'warning',
           typog: 'subtitle1',
           buttonLabel: 'Edit',
+          links: [
+            { label: '', id: '', },
+          ],
           desc:
             <React.Fragment>
               <Typography>
@@ -305,6 +339,9 @@ export const DashboardGridConfig = [
           color: 'primary',
           typog: 'subtitle1',
           buttonLabel: 'Edit',
+          links: [
+            { label: '', id: '', },
+          ],
           desc:
             <React.Fragment>
               <Typography>

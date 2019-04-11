@@ -18,7 +18,9 @@ const DashboardWidget = ({ widget, index, count, }) => { // classes,
   // count: number: total number of widgets on the dashboard (for purpose of calculating entry animation)
   // index: number: sequence number of this widget relative to all widgets on the dashboard (for purpose of calculating entry animation)
   // widget: object: data defining the widget content
-  const { rowName, data, label, rowDesc, desc, } = widget;
+  console.log('widget\n', widget,);
+
+  const { rowName, data, label, rowDesc, desc, links, } = widget;
 
   // linear staggered sequencing
   // const timeout = TARGET * (index + 1) / count;
@@ -42,7 +44,7 @@ const DashboardWidget = ({ widget, index, count, }) => { // classes,
           // <IconButton aria-label="more"><Icon>more_vert</Icon></IconButton>
           }
           <WidgetNugget type="chip" label={rowName} message={rowDesc} />
-          <WidgetMenu />
+          <WidgetMenu links={links} />
         </div>
         <WidgetNugget type="kernel" label={label} message={desc} data={data} />
         {
