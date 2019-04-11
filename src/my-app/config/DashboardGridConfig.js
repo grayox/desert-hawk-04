@@ -33,8 +33,8 @@ export const DashboardGridConfig = [
           color: 'warning',
           buttonLabel: 'Hai',
           links: [
-            { label: 'Make a deposit', id: 'outbox', },
-            { label: 'Look for leads', id: 'inbox', },
+            { label: 'Deposit new referral', id: 'outbox', },
+            { label: 'Shop for new leads', id: 'inbox', },
           ],
           desc:
             <React.Fragment>
@@ -59,7 +59,7 @@ export const DashboardGridConfig = [
           color: 'success',
           buttonLabel: 'Deposit new',
           links: [
-            { label: 'Make a deposit', id: 'outbox', },
+            { label: 'Deposit new referral', id: 'outbox', },
           ],
           desc:
             <React.Fragment>
