@@ -3,21 +3,19 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles/index';
 import classNames from 'classnames';
 
-import { connect } from 'react-redux';
-import * as authActions from 'auth/store/actions';
-import { bindActionCreators } from 'redux';
-import * as Actions from 'store/actions';
+// import { connect } from 'react-redux';
+// import * as authActions from 'auth/store/actions';
+// import { bindActionCreators } from 'redux';
+// import * as Actions from 'store/actions';
 
 import { FuseSearch, } from '@fuse'; // FuseShortcuts, FuseAnimate,
 
 // @material-ui/core
 // import Icon from "@material-ui/core/Icon";
 import {
-  AppBar, CssBaseline,
-  Toolbar, Typography,
-  Icon, IconButton,
   // Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
   // Avatar, ListItemIcon, ListItemText, Popover, MenuItem, Hidden
+  CssBaseline, AppBar, Toolbar, Typography, Icon, IconButton,
 } from '@material-ui/core';
 
 // import '@vaadin/vaadin-icons/vaadin-icons.js'; // fail

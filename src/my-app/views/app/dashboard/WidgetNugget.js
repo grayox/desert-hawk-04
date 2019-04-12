@@ -3,7 +3,7 @@
 import React, { useState, } from 'react';
 
 import {
-  Button, Slide, Chip, Typography, // withStyles
+  Button, Slide, Chip, // Typography, // withStyles
   Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
 } from '@material-ui/core';
 
@@ -24,8 +24,8 @@ const WidgetNugget = ({ type, data, label, message, }) => {
       // direction: 'right',
       element: (
         <div className="text-center pt-12 pb-28 cursor-pointer" onClick={() => handleOpenDialog()}>
-          <Typography className="text-72 leading-none text-blue">{data}</Typography>
-          <Typography className="text-xs uppercase" color="textSecondary">{label}</Typography>
+          <div className="text-72 leading-none text-blue">{data}</div>
+          <div className="text-xs uppercase" color="textSecondary">{label}</div>
         </div>
       ),
     },

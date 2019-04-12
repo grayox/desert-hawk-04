@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
 import { Typography, Button, TextField, Paper, } from '@material-ui/core';
 
@@ -67,10 +67,10 @@ class FeedbackForm extends Component {
   }
 }
 
-FeedbackForm.propTypes = {
-  classes: PropTypes.object.isRequired,
-  // heading: PropTypes.string,
-  // savePath: PropTypes.string,
-};
+// FeedbackForm.propTypes = {
+//   classes: PropTypes.object.isRequired,
+//   // heading: PropTypes.string,
+//   // savePath: PropTypes.string,
+// };
 
 export default withStyles(styles)(FeedbackForm);

@@ -40,7 +40,7 @@ const DashboardWidget = ({ widget, index, count, }) => { // classes,
       <Paper className="w-full rounded-16 shadow-none border-1 border-grey">
         <div className="flex items-center justify-between pr-4 pl-16 pt-4">
           {
-          // <Typography className="text-16">{rowName}</Typography>
+          // <div className="text-16">{rowName}</div>
           // <IconButton aria-label="more"><Icon>more_vert</Icon></IconButton>
           }
           <WidgetNugget type="chip" label={rowName} message={rowDesc} />
@@ -50,11 +50,11 @@ const DashboardWidget = ({ widget, index, count, }) => { // classes,
         {
         // // "room to grow"
         // <div className="flex items-center px-16 h-52 border-t-1 border-grey-light">
-        //   <Typography className="text-15 flex w-full" color="textSecondary">
+        //   <div className="text-15 flex w-full" color="textSecondary">
         //     <span className="truncate">{label}</span>
         //     :
         //     <b className="pl-8">{data}</b>
-        //   </Typography>
+        //   </div>
         // </div>
         }
       </Paper>

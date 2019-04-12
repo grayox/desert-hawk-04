@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-// import { Component } from 'react';
+import React from 'react';
+// import React, { Component } from 'react';
 // import PropTypes from "prop-types";
-import { Typography, } from '@material-ui/core'; // withStyles,
+// import { Typography, } from '@material-ui/core'; // withStyles,
 
 // firebase
-import { firestoreConnect } from 'react-redux-firebase';
+// import { firestoreConnect } from 'react-redux-firebase';
 
 // fuse
 import { FuseLoadable } from '@fuse';
 
 // redux
-import { connect } from 'react-redux';
-import { compose } from 'redux';
+// import { connect } from 'react-redux';
+// import { compose } from 'redux';
 
 // utilities
 import _ from '@lodash';
@@ -30,11 +30,11 @@ import _ from '@lodash';
 // install https://www.npmjs.com/package/react-icons
 // icons   https://react-icons.netlify.com/#/
 import { IconContext } from "react-icons"; // my add
-// MenuItem><FiLogOut /><Typography className="ml-12">FiLogOut</Typography></MenuItem>
-// MenuItem><IoMdLogOut /><Typography className="ml-12">IoMdLogOut</Typography></MenuItem>
-// MenuItem><FaSignOutAlt /><Typography className="ml-12">FaSignOutAlt</Typography></MenuItem>
-// MenuItem><IoIosLogOut /><Typography className="ml-12">IoIosLogOut</Typography></MenuItem>
-// MenuItem><GoSignOut /><Typography className="ml-12">GoSignOut</Typography></MenuItem>
+// MenuItem><FiLogOut /><div className="ml-12">FiLogOut</div></MenuItem>
+// MenuItem><IoMdLogOut /><div className="ml-12">IoMdLogOut</div></MenuItem>
+// MenuItem><FaSignOutAlt /><div className="ml-12">FaSignOutAlt</div></MenuItem>
+// MenuItem><IoIosLogOut /><div className="ml-12">IoIosLogOut</div></MenuItem>
+// MenuItem><GoSignOut /><div className="ml-12">GoSignOut</div></MenuItem>
 import { FaSignOutAlt } from 'react-icons/fa'; // https://react-icons.netlify.cIoIosLogOutom/#/
 // import { FiLogOut } from 'react-icons/fi'; // https://react-icons.netlify.cIoIosLogOutom/#/
 // import { GoSignOut, } from 'react-icons/go'; // https://react-icons.netlify.com/#/
@@ -180,9 +180,9 @@ export const componentsNavConfig = [
   // The path must be hard coded in src/my-app/config/Routes.js. See https://github.com/jamiebuilds/react-loadable
   {
     desc :
-      <Typography>
+      <div>
         This is your overview of metrics summarizing your use of this app.
-      </Typography>,
+      </div>,
     id         : 'dashboard',
     path       : '/dashboard',
     title      : 'Dashboard',
@@ -194,14 +194,14 @@ export const componentsNavConfig = [
   },
   {
     desc :
-      <Typography>
+      <div>
         This is the list of leads that are available for you to move to your archive.
         These leads match your service type and location as you indicated in your settings.
         You must have a positive net lead balance in order for any leads to show in this list.
         Your net lead balance is calculated by subtracting the number of leads you have claimed
         into your archive from the number of lead referrals you have made in your outbox.
         And after all approprite adjustments for disputed leads have be settled.
-      </Typography>,
+      </div>,
     id         : 'inbox',
     path       : '/inbox',
     title      : 'Inbox',
@@ -221,12 +221,12 @@ export const componentsNavConfig = [
   },
   {
     desc :
-      <Typography>
+      <div>
         This is the list of leads you have claimed which you now own in the sense they are now
         exclusive to you only. The total leads in this list are subtracted from the amount of
         lead referrals you have made, after all dispute adjustments are settled, in order to
         determine your net lead balance.
-      </Typography>,
+      </div>,
     id         : 'archive',
     path       : '/archive',
     title      : 'Archive',
@@ -246,11 +246,11 @@ export const componentsNavConfig = [
   },
   {
     desc:
-      <Typography>
+      <div>
         These are all the leads you have submitted as a referral. The more leads you refer to others,
         the more leads are available to you in your inbox. You must have a positive net lead balance
         in order to have leads available for you to claim.
-      </Typography>,
+      </div>,
     id         : 'outbox',
     path       : '/outbox',
     title      : 'Outbox',
@@ -277,10 +277,10 @@ export const componentsNavConfig = [
   },
   {
     desc :
-      <Typography>
+      <div>
         This is the list of your contacts. The people whom you can feel comfortable sending your referrals to.
         They will ultimately be matched to your referrals, just as you are, based on location and service field.
-      </Typography>,
+      </div>,
     id         : 'contacts',
     path       : '/contacts',
     title      : 'Contacts',
@@ -313,11 +313,11 @@ export const componentsNavConfig = [
   // see specs here: https://material.io/design/communication/help-feedback.html#use-placement
   {
     desc :
-      <Typography>
+      <div>
         These are the settings we use to control how the app looks and functions for you.
         For example, this is where you tell us your service field and your location so we
         can properly match you to the leads that are referred by other members.
-      </Typography>,
+      </div>,
     id         : 'settings',
     path       : '/settings',
     title      : 'Settings',
@@ -330,9 +330,9 @@ export const componentsNavConfig = [
   },
   {
     desc :
-      <Typography>
+      <div>
         Here you can tell us how the app is working for you and suggest ways we can improve it.
-      </Typography>,
+      </div>,
     id         : 'feedback',
     path       : '/feedback',
     title      : 'Send feedback',
@@ -345,9 +345,9 @@ export const componentsNavConfig = [
   },
   {
     desc :
-      <Typography>
+      <div>
         Here are some questions users commonly ask us. You can read the questions and there answers here.
-      </Typography>,
+      </div>,
     id         : 'help',
     path       : '/help',
     title      : 'Help',
@@ -360,9 +360,9 @@ export const componentsNavConfig = [
   },
   {
     desc :
-      <Typography>
+      <div>
         Click here to log out of the app.
-      </Typography>,
+      </div>,
     id         : 'logout',
     path       : '/logout',
     title      : 'Logout',

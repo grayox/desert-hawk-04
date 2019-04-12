@@ -172,14 +172,14 @@ const DashboardGridItems = props => {
 }
 
 const marketDescription = (
-  <Typography className="mt-12">
+  <div className="mt-12">
     To specify the location of your market, you must identify all three levels:
     <ul>
       <li>country</li>
       <li>state or region</li>
       <li>location</li>
     </ul>
-  </Typography>
+  </div>
 );
 
 const getRows = props => {
@@ -200,17 +200,17 @@ const getRows = props => {
           buttonLabel: 'Hai',
           desc:
             <React.Fragment>
-              <Typography>
+              <div>
                 Your net balance is the most important balance for you to maintain above zero.
                 It represents the difference between your deposits and withdrawals.
                 Or, in other words, how many leads you referred compared to how many you received.
-              </Typography>
-              <Typography className="mt-12">
+              </div>
+              <div className="mt-12">
                 If you maintain a positive net balance, you will always be able to see your inbox
                 and claim new leads as they arrive.
                 If your net balance reaches zero, your inbox will lock and you won&rsquo;t be able
                 to view it until you deposit more leads.
-              </Typography>
+              </div>
             </React.Fragment>
           ,
         },
@@ -222,13 +222,13 @@ const getRows = props => {
           buttonLabel: 'Deposit new',
           desc:
             <React.Fragment>
-              <Typography>
+              <div>
                 Here we keep track of all the valid leads you submitted and referred into the network.
                 To make a deposit, click the button then fill out the form.
                 The form&rsquo;s &ldquo;save&rdquo; button will remain disabled
                 until you complete all required fields.
-              </Typography>
-              <Typography className="mt-12">
+              </div>
+              <div className="mt-12">
                 These are all your required fields.
                   <ul>
                   <li>name</li>
@@ -236,7 +236,7 @@ const getRows = props => {
                   <li>zip code</li>
                   <li>lead type</li>
                 </ul>
-              </Typography>
+              </div>
             </React.Fragment>
           ,
         },
@@ -248,15 +248,15 @@ const getRows = props => {
           buttonLabel: 'See available',
           desc:
             <React.Fragment>
-              <Typography>
+              <div>
                 This is the number of leads you claimed from your inbox and placed into your archive for your use.
                 To claim a lead from your inbox, just click it.
                 Then we will automatically place that lead in your archive and you will be able to see it continuously.
-              </Typography>
-              <Typography className="mt-12">
+              </div>
+              <div className="mt-12">
                 Unlike new leads in your inbox, you will always be able to see your archived leads &mdash;
                 even if your net balance falls to zero.
-              </Typography>
+              </div>
             </React.Fragment>
           ,
         },
@@ -268,16 +268,16 @@ const getRows = props => {
           buttonLabel: 'See challenges',
           desc:
             <React.Fragment>
-              <Typography>
+              <div>
                 This is the number of net lead challenges you have won.
                 Lost challenges are shown as a negative number.
                 Users can challenge leads they believe are not legitimate.
-              </Typography>
-              <Typography className="mt-12">
+              </div>
+              <div className="mt-12">
                 You can challenge any lead you think is of poor quality.
                 Those who make or receive too many challenges could have negative consequences as a result.
                 So strive to submit high quality leads and be judicious in your challenges of others.
-              </Typography>
+              </div>
             </React.Fragment>
           ,
         },
@@ -293,9 +293,9 @@ const getRows = props => {
           color: 'info',
           buttonLabel: 'View inbox',
           desc:
-            <Typography>
+            <div>
               List of all leads matching your type category and market location
-            </Typography>
+            </div>
           ,
         },
         {
@@ -305,9 +305,9 @@ const getRows = props => {
           color: 'success',
           buttonLabel: 'View archive',
           desc:
-            <Typography>
+            <div>
               List of all previously available leads you claimed that are now exclusively yours
-            </Typography>
+            </div>
           ,
         },
         {
@@ -317,9 +317,9 @@ const getRows = props => {
           color: 'primary',
           buttonLabel: 'View outbox',
           desc:
-            <Typography>
+            <div>
               List of all leads you submitted and referred to your peers on the network
-            </Typography>
+            </div>
           ,
         },
         {
@@ -329,9 +329,9 @@ const getRows = props => {
           color: 'success',
           buttonLabel: 'Add contact',
           desc:
-            <Typography>
+            <div>
               List of everyone you invited to join the network
-            </Typography>
+            </div>
           ,
         },
       ]
@@ -365,40 +365,40 @@ const getRows = props => {
               Tell us the type of leads you want.
                 <ul>
                 <li>
-                  <Typography className="mt-12">
-                    <Typography className="mr-12">Home</Typography>
-                    {React.createElement(HomeIcon)}
-                  </Typography>
-                  <Typography>
+                  <div className="mt-12">
+                    <div className="mr-12">Home</div>
+                      {React.createElement(HomeIcon)}
+                    </div>
+                  <div>
                     Select this if you are a real estate broker or agent selling homes to residential buyers
-                  </Typography>
+                  </div>
                 </li>
                 <li>
-                  <Typography className="mt-12">
-                    <Typography className="mr-12">Mortgage</Typography>
-                    {React.createElement(AccountBalanceIcon)}
-                  </Typography>
-                  <Typography>
+                  <div className="mt-12">
+                    <div className="mr-12">Mortgage</div>
+                      {React.createElement(AccountBalanceIcon)}
+                    </div>
+                  <div>
                     Select this if you are a real estate mortgage broker or agent selling financing to home buyers
-                  </Typography>
+                  </div>
                 </li>
                 <li>
-                  <Typography className="mt-12">
-                    <Typography className="mr-12">Insurance</Typography>
-                    {React.createElement(AssessmentIcon)}
-                  </Typography>
-                  <Typography>
+                  <div className="mt-12">
+                    <div className="mr-12">Insurance</div>
+                      {React.createElement(AssessmentIcon)}
+                    </div>
+                  <div>
                     Select this if you are an insurance broker or agent selling property and casualty policies
-                  </Typography>
+                  </div>
                 </li>
                 <li>
-                  <Typography className="mt-12">
-                    <Typography className="mr-12">Financial</Typography>
-                    {React.createElement(AssignmentIcon)}
-                  </Typography>
-                  <Typography>
+                  <div className="mt-12">
+                    <div className="mr-12">Financial</div>
+                      {React.createElement(AssignmentIcon)}
+                    </div>
+                  <div>
                     Select this if you are a financial planner and advise clients on their personal finances
-                  </Typography>
+                  </div>
                 </li>
               </ul>
             </React.Fragment>
@@ -414,11 +414,11 @@ const getRows = props => {
           buttonLabel: 'Edit',
           desc:
             <React.Fragment>
-              <Typography>
+              <div>
                 The third level of your location selection.
                 (In some small states or regions, it can be the only third level choice.
                 In that case, the third level choice is usually identical to the name of the state or region.)
-              </Typography>
+              </div>
               {marketDescription}
             </React.Fragment>
           ,
@@ -433,9 +433,9 @@ const getRows = props => {
           buttonLabel: 'Edit',
           desc:
             <React.Fragment>
-              <Typography>
+              <div>
                 The second level of your location selection. (Called &ldquo;region&rdquo; in certain countries.)
-              </Typography>
+              </div>
               {marketDescription}
             </React.Fragment>
           ,
@@ -450,9 +450,9 @@ const getRows = props => {
           buttonLabel: 'Edit',
           desc:
             <React.Fragment>
-              <Typography>
+              <div>
                 The first level of your location selection.
-              </Typography>
+              </div>
               {marketDescription}
             </React.Fragment>
           ,

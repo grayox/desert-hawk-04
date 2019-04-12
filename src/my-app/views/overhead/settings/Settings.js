@@ -365,8 +365,8 @@ class ProfilePage extends Component {
     const {
       dialogIsOpen, dialogContent, dialogContentText, dialogTitle,
       isDialogTextField, dialogTextFieldLabel, dialogFieldName,
-      firestoreKey, geoKey, value, checked, anchorElMenu, selectedIndexMenu,
-      // isValidName, isValidEmail, isValidPhone, isValidBizCategory, isValidForm,
+      geoKey, value, checked, anchorElMenu, selectedIndexMenu,
+      // firestoreKey, isValidName, isValidEmail, isValidPhone, isValidBizCategory, isValidForm,
       anchorElMenu1, anchorElMenu2,
       selectedIndexMenu1, selectedIndexMenu2,
     } = this.state;

@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 
 // @material-ui/core
-import { Typography } from "@material-ui/core";
+// import { Typography } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 
@@ -55,8 +55,8 @@ function DashboardGridItem(props) {
           >
             {React.createElement(item.icon)}
           </CardIcon>
-          <Typography className={classes.cardCategory}>{item.label}</Typography>
-          <Typography variant={item.typog || 'h4'}>{item.data}</Typography>
+          <div className={classes.cardCategory}>{item.label}</div>
+          <div variant={item.typog || 'h4'}>{item.data}</div>
         </CardHeader>
         <CardFooter stats>
           <div className={classes.stats}>
@@ -69,9 +69,9 @@ function DashboardGridItem(props) {
             </IconButton>
           </div>
           <div className={classes.stats}>
-            <Typography className="text-right">
+            <div className="text-right">
               <Button size='small'>{item.buttonLabel}</Button>
-            </Typography>
+            </div>
           </div>
         </CardFooter>
       </Card>
