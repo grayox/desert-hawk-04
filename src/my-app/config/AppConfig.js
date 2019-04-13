@@ -30,11 +30,11 @@ import _ from '@lodash';
 // install https://www.npmjs.com/package/react-icons
 // icons   https://react-icons.netlify.com/#/
 import { IconContext } from "react-icons"; // my add
-// MenuItem><FiLogOut /><div className="ml-12">FiLogOut</div></MenuItem>
-// MenuItem><IoMdLogOut /><div className="ml-12">IoMdLogOut</div></MenuItem>
-// MenuItem><FaSignOutAlt /><div className="ml-12">FaSignOutAlt</div></MenuItem>
-// MenuItem><IoIosLogOut /><div className="ml-12">IoIosLogOut</div></MenuItem>
-// MenuItem><GoSignOut /><div className="ml-12">GoSignOut</div></MenuItem>
+// MenuItem><FiLogOut /><span className="ml-12">FiLogOut</span></MenuItem>
+// MenuItem><IoMdLogOut /><span className="ml-12">IoMdLogOut</span></MenuItem>
+// MenuItem><FaSignOutAlt /><span className="ml-12">FaSignOutAlt</span></MenuItem>
+// MenuItem><IoIosLogOut /><span className="ml-12">IoIosLogOut</span></MenuItem>
+// MenuItem><GoSignOut /><span className="ml-12">GoSignOut</span></MenuItem>
 import { FaSignOutAlt } from 'react-icons/fa'; // https://react-icons.netlify.cIoIosLogOutom/#/
 // import { FiLogOut } from 'react-icons/fi'; // https://react-icons.netlify.cIoIosLogOutom/#/
 // import { GoSignOut, } from 'react-icons/go'; // https://react-icons.netlify.com/#/
@@ -180,9 +180,9 @@ export const componentsNavConfig = [
   // The path must be hard coded in src/my-app/config/Routes.js. See https://github.com/jamiebuilds/react-loadable
   {
     desc :
-      <div>
+      <span>
         This is your overview of metrics summarizing your use of this app.
-      </div>,
+      </span>,
     id         : 'dashboard',
     path       : '/dashboard',
     title      : 'Dashboard',
@@ -194,14 +194,14 @@ export const componentsNavConfig = [
   },
   {
     desc :
-      <div>
+      <span>
         This is the list of leads that are available for you to move to your archive.
         These leads match your service type and location as you indicated in your settings.
         You must have a positive net lead balance in order for any leads to show in this list.
         Your net lead balance is calculated by subtracting the number of leads you have claimed
         into your archive from the number of lead referrals you have made in your outbox.
         And after all approprite adjustments for disputed leads have be settled.
-      </div>,
+      </span>,
     id         : 'inbox',
     path       : '/inbox',
     title      : 'Inbox',
@@ -221,12 +221,12 @@ export const componentsNavConfig = [
   },
   {
     desc :
-      <div>
+      <span>
         This is the list of leads you have claimed which you now own in the sense they are now
         exclusive to you only. The total leads in this list are subtracted from the amount of
         lead referrals you have made, after all dispute adjustments are settled, in order to
         determine your net lead balance.
-      </div>,
+      </span>,
     id         : 'archive',
     path       : '/archive',
     title      : 'Archive',
@@ -246,11 +246,11 @@ export const componentsNavConfig = [
   },
   {
     desc:
-      <div>
+      <span>
         These are all the leads you have submitted as a referral. The more leads you refer to others,
         the more leads are available to you in your inbox. You must have a positive net lead balance
         in order to have leads available for you to claim.
-      </div>,
+      </span>,
     id         : 'outbox',
     path       : '/outbox',
     title      : 'Outbox',
@@ -277,10 +277,10 @@ export const componentsNavConfig = [
   },
   {
     desc :
-      <div>
+      <span>
         This is the list of your contacts. The people whom you can feel comfortable sending your referrals to.
         They will ultimately be matched to your referrals, just as you are, based on location and service field.
-      </div>,
+      </span>,
     id         : 'contacts',
     path       : '/contacts',
     title      : 'Contacts',
@@ -313,11 +313,11 @@ export const componentsNavConfig = [
   // see specs here: https://material.io/design/communication/help-feedback.html#use-placement
   {
     desc :
-      <div>
+      <span>
         These are the settings we use to control how the app looks and functions for you.
         For example, this is where you tell us your service field and your location so we
         can properly match you to the leads that are referred by other members.
-      </div>,
+      </span>,
     id         : 'settings',
     path       : '/settings',
     title      : 'Settings',
@@ -330,9 +330,9 @@ export const componentsNavConfig = [
   },
   {
     desc :
-      <div>
+      <span>
         Here you can tell us how the app is working for you and suggest ways we can improve it.
-      </div>,
+      </span>,
     id         : 'feedback',
     path       : '/feedback',
     title      : 'Send feedback',
@@ -345,9 +345,9 @@ export const componentsNavConfig = [
   },
   {
     desc :
-      <div>
+      <span>
         Here are some questions users commonly ask us. You can read the questions and there answers here.
-      </div>,
+      </span>,
     id         : 'help',
     path       : '/help',
     title      : 'Help',
@@ -360,16 +360,16 @@ export const componentsNavConfig = [
   },
   {
     desc :
-      <div>
+      <span>
         Click here to log out of the app.
-      </div>,
+      </span>,
     id         : 'logout',
     path       : '/logout',
     title      : 'Logout',
     type       : 'item',
     altIcon    : (
       <IconContext.Provider value={{ color: "white", className: "text-20 flex-no-shrink" }}>
-        <div><FaSignOutAlt /></div>
+        <span><FaSignOutAlt /></span>
       </IconContext.Provider>
     ),
     bottomNav  : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
@@ -387,10 +387,10 @@ export const componentsNavConfig = [
 //     // called wherever firestore data is needed by: <FetchFirestore>...</FetchFirestore>
 //     return (
 //       // <React.Fragment key={key}>
-//       <div key={key}>
+//       <span key={key}>
 //         {key}
 //         {children}
-//       </div>
+//       </span>
 //       // </React.Fragment>
 //     )
 //   }

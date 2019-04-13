@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 // import PropTypes from "prop-types";
+import classNames from 'classnames';
 
 import { Typography, Button, TextField, Paper, } from '@material-ui/core';
 
@@ -39,7 +40,7 @@ class FeedbackForm extends Component {
         <Typography className="h1 mb-24">Write a note</Typography>
         <form className={classes.container} noValidate autoComplete="off">
           <TextField
-            className={{...classes.margin, ...classes.textField}}
+            className={classNames(classes.margin, classes.textField,)}
             // className={classes.textField}
             variant="outlined"
             id="feedback-form"

@@ -107,7 +107,7 @@ function Control(props)
     return (
         <TextField
             fullWidth
-            className={classNames(props.selectProps.classes.root, props.selectProps.textFieldProps.variant)}
+            className={classNames(props.selectProps.classes.root, props.selectProps.textFieldProps.variant,)}
             InputProps={{
                 inputComponent,
                 inputProps: {

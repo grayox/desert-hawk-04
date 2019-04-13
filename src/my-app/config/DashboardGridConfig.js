@@ -7,27 +7,25 @@ import {
 } from '@material-ui/core';
 
 // const marketDescription = (
-//   <Typography className="mt-12">
+//   <span>
 //     To specify the location of your market, you must identify all three levels:
 //     <ul>
 //       <li>country</li>
 //       <li>state or region</li>
 //       <li>location</li>
 //     </ul>
-//   </div>
+//   </span>
 // );
 
 export const DashboardGridConfig = [
     {
       name: 'Balance',
       desc:
-        <div>
-          <div>
-            A running total count of how many times you have done important activities we need to track.
-            Your net balance is key. Because when it&rsquo;s at zero, you will need to make more &ldquo;deposits&rdquo;
-            by making at least one referral. Then you can receive more leads when you have a positive net balance.
-          </div>
-        </div>,
+        <span>
+          A running total count of how many times you have done important activities we need to track.
+          Your net balance is key. Because when it&rsquo;s at zero, you will need to make more &ldquo;deposits&rdquo;
+          by making at least one referral. Then you can receive more leads when you have a positive net balance.
+        </span>,
       cells: [
         {
           label: 'Net',
@@ -40,19 +38,20 @@ export const DashboardGridConfig = [
             { id: 'inbox'  , label: 'Shop for new leads'   , },
           ],
           desc:
-            <div>
-              <div>
+            <span>
+              <span>
                 Your net balance is the most important balance for you to maintain above zero.
                 It represents the difference between your deposits and withdrawals.
                 Or, in other words, how many leads you referred compared to how many you received.
-              </div>
-              <div className="mt-12">
+              </span>
+              <br/><br/>
+              <span>
                 If you maintain a positive net balance, you will always be able to see your inbox
                 and claim new leads as they arrive.
                 If your net balance reaches zero, your inbox will lock and you won&rsquo;t be able
                 to view it until you deposit more leads.
-              </div>
-            </div>
+              </span>
+            </span>
           ,
         },
         {
@@ -65,14 +64,15 @@ export const DashboardGridConfig = [
             { id: 'outbox', label: 'Deposit new referral', },
           ],
           desc:
-            <div>
-              <div>
+            <span>
+              <span>
                 Here we keep track of all the valid leads you submitted and referred into the network.
                 To make a deposit, click the button then fill out the form.
                 The form&rsquo;s &ldquo;save&rdquo; button will remain disabled
                 until you complete all required fields.
-              </div>
-              <div className="mt-12">
+              </span>
+              <br/><br/>
+              <span>
                 These are all your required fields.
                 <ul>
                   <li>name</li>
@@ -80,8 +80,8 @@ export const DashboardGridConfig = [
                   <li>zip code</li>
                   <li>lead type</li>
                 </ul>
-              </div>
-            </div>
+              </span>
+            </span>
           ,
         },
         {
@@ -95,17 +95,18 @@ export const DashboardGridConfig = [
             { id: 'inbox'   , label: 'Shop for new leads'   , },
           ],
           desc:
-            <div>
-              <div>
+            <span>
+              <span>
                 This is the number of leads you claimed from your inbox and placed into your archive for your use.
                 To claim a lead from your inbox, just click it.
                 Then we will automatically place that lead in your archive and you will be able to see it continuously.
-              </div>
-              <div className="mt-12">
+              </span>
+              <br/><br/>
+              <span>
                 Unlike new leads in your inbox, you will always be able to see your archived leads &mdash;
                 even if your net balance falls to zero.
-              </div>
-            </div>
+              </span>
+            </span>
           ,
         },
         {
@@ -118,18 +119,19 @@ export const DashboardGridConfig = [
             { id: 'inbox', label: 'Search for leads', },
           ],
           desc:
-            <div>
-              <div>
+            <span>
+              <span>
                 This is the number of net lead challenges you have won.
                 Lost challenges are shown as a negative number.
                 Users can challenge leads they believe are not legitimate.
-              </div>
-              <div className="mt-12">
+              </span>
+              <br/><br/>
+              <span>
                 You can challenge any lead you think is of poor quality.
                 Those who make or receive too many challenges could have negative consequences as a result.
                 So strive to submit high quality leads and be judicious in your challenges of others.
-              </div>
-            </div>
+              </span>
+            </span>
           ,
         },
       ]
@@ -137,14 +139,14 @@ export const DashboardGridConfig = [
     {
       name: 'Inventory',
       desc:
-        <div>
+        <span>
           These are the count of individual items you have available or
           have made available in the individual categories we are tracking.
           When a new item is added to your inventory (like a new referral going to your inbox),
           it increases your count. When you consume an item of inventory, (like claiming a lead
           from your inbox and moving it to your archive), it decreases the count of your inbox
           inventory and increases the count of your archive inventory.
-        </div>,
+        </span>,
       cells: [
         {
           label: 'Inbox',
@@ -156,9 +158,9 @@ export const DashboardGridConfig = [
             { id: 'inbox', label: 'Jump to inbox', },
           ],
           desc:
-            <div>
+            <span>
               List of all leads matching your type category and market location
-            </div>
+            </span>
           ,
         },
         {
@@ -171,9 +173,9 @@ export const DashboardGridConfig = [
             { id: 'archive', label: 'Jump to archive', },
           ],
           desc:
-            <div>
+            <span>
               List of all previously available leads you claimed that are now exclusively yours
-            </div>
+            </span>
           ,
         },
         {
@@ -186,9 +188,9 @@ export const DashboardGridConfig = [
             { id: 'outbox', label: 'Jump to outbox', },
           ],
           desc:
-            <div>
+            <span>
               List of all leads you submitted and referred to your peers on the network
-            </div>
+            </span>
           ,
         },
         {
@@ -201,9 +203,9 @@ export const DashboardGridConfig = [
             { id: 'contacts', label: 'Edit contacts', },
           ],
           desc:
-            <div>
+            <span>
               List of everyone you invited to join the network
-            </div>
+            </span>
           ,
         },
       ]
@@ -211,10 +213,10 @@ export const DashboardGridConfig = [
     {
       name: 'Detail',
       desc:
-        <div>
+        <span>
           This is information about you that we require in order to match you with the correct leads.
           We also use this information to help send leads from you to the correct geographical location.
-        </div>,
+        </span>,
       cells: [
         {
           label: 'Category',
@@ -243,7 +245,7 @@ export const DashboardGridConfig = [
             { id: 'settings', label: 'Edit category', },
           ],
           desc:
-            <div>
+            <span>
               Select the type of leads you want.
               <List>
                 <ListItem>
@@ -291,7 +293,7 @@ export const DashboardGridConfig = [
                   />
                 </ListItem>
               </List>
-            </div>
+            </span>
           ,
         },
         {
@@ -307,14 +309,14 @@ export const DashboardGridConfig = [
             { id: 'settings', label: 'Edit location', },
           ],
           desc:
-            <div>
-              <div>
+            <span>
+              <span>
                 The third level of your location selection.
                 (In some small states or regions, it can be the only third level choice.
                 In that case, the third level choice is usually identical to the name of the state or region.)
-              </div>
+              </span>
               {/*marketDescription*/}
-            </div>
+            </span>
           ,
         },
         {
@@ -330,12 +332,12 @@ export const DashboardGridConfig = [
             { id: 'settings', label: 'Edit state', },
           ],
           desc:
-            <div>
-              <div>
+            <span>
+              <span>
                 The second level of your location selection. (Called &ldquo;region&rdquo; in certain countries.)
-              </div>
+              </span>
               {/*marketDescription*/}
-            </div>
+            </span>
           ,
         },
         {
@@ -351,12 +353,12 @@ export const DashboardGridConfig = [
             { id: 'settings', label: 'Edit country', },
           ],
           desc:
-            <div>
-              <div>
+            <span>
+              <span>
                 The first level of your location selection.
-              </div>
+              </span>
               {/*marketDescription*/}
-            </div>
+            </span>
           ,
         },
       ]

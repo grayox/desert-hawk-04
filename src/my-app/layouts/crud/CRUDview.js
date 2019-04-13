@@ -10,7 +10,7 @@ import classNames from 'classnames';
 
 // @material-ui/core
 import {
-  withStyles, withWidth, Slide, Zoom, Button, Fab, Paper,
+  withStyles, withWidth, Slide, Zoom, Button, Fab, Paper, Tooltip,
   Typography, Grid, Hidden, CssBaseline, Divider, Icon, IconButton,
   List, ListItem, ListItemText, ListItemSecondaryAction,
   Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
@@ -543,12 +543,14 @@ class CRUDView extends Component {
             }
           </div>
           :
-          <React.Fragment>
-            <Icon className="mt-32 opacity-25" fontSize="large">library_books</Icon>
-            <Typography variant="body1" color="textSecondary">
-              Select an item to view
-            </Typography>
-          </React.Fragment>
+          <Tooltip title="Click list item" placement="top">
+            <div>
+              <Icon className="mt-32 opacity-25" fontSize="large">library_books</Icon>
+              <Typography variant="body1" color="textSecondary">
+                Select an item to view
+              </Typography>
+            </div>
+          </Tooltip>
         }
         </FuseAnimateGroup>
       </div>
@@ -589,55 +591,55 @@ class CRUDView extends Component {
     const { createdAt, } = item;
     // console.log('createdAt\n', createdAt);
     return (
-      <ListItem
-        button
-        // divider light // use <Divider /> instead
-        key={createdAt}
-        onClick={() => handleToggle( item, isList, index, )}
-        selected={selectedIndex === index}
-      >
-        {
-        // <Avatar>
-        //   <BeachAccessIcon />
-        // </Avatar>
-        }
-        <HashAvatar
-          message={createdAt}
-          // variant="uic" //"robohashx" //"robohash4" //"retro" //"monsterid" //"wavatar" //"adorable" //"identicon" //"mp" //"ui" //"random"(deprecated)
-        />
-        <ListItemText primary={item.geoLocal} secondary={moment(createdAt).fromNow()} />
-        <ListItemSecondaryAction>
+        <ListItem
+          button
+          // divider light // use <Divider /> instead
+          key={createdAt}
+          onClick={() => handleToggle( item, isList, index, )}
+          selected={selectedIndex === index}
+        >
           {
-          isList
-          ?
-          <React.Fragment>
+          // <Avatar>
+          //   <BeachAccessIcon />
+          // </Avatar>
+          }
+          <HashAvatar
+            message={createdAt}
+            // variant="uic" //"robohashx" //"robohash4" //"retro" //"monsterid" //"wavatar" //"adorable" //"identicon" //"mp" //"ui" //"random"(deprecated)
+          />
+          <ListItemText primary={item.geoLocal} secondary={moment(createdAt).fromNow()} />
+          <ListItemSecondaryAction>
             {
-            // Not using this for two reasons:
-            // 1. Does not yet provide selectedIndex to state
-            // 2. Horizontal space constraint on narrow screens
-            // <UDButtons
-            //   updatable={updatable}
-            //   deletable={deletable}
-            //   onUpdate={handleOpenUpdateDialog}
-            //   onDelete={handleOpenDeleteDialog}
-            // />
-            }
-            <IconButton color="inherit" aria-label="Update and delete"
-              onClick={() => handleToggle( item, isList, index, )}
-            >
-              <Icon>more_horiz</Icon>
-            </IconButton>
-          </React.Fragment>
-          :
+            isList
+            ?
+            <Tooltip title="See detail" placement="left">
+              {
+              // Not using this for two reasons:
+              // 1. Does not yet provide selectedIndex to state
+              // 2. Horizontal space constraint on narrow screens
+              // <UDButtons
+              //   updatable={updatable}
+              //   deletable={deletable}
+              //   onUpdate={handleOpenUpdateDialog}
+              //   onDelete={handleOpenDeleteDialog}
+              // />
+              }
+              <IconButton color="inherit" aria-label="More detail"
+                onClick={() => handleToggle( item, isList, index, )}
+              >
+                <Icon>more_horiz</Icon>
+              </IconButton>
+            </Tooltip>
+            :
             (
               actionable &&
               <Zoom in mountOnEnter unmountOnExit>
                 <Fab size="small" color="primary" className={classes.margin}><Icon>send</Icon></Fab>
               </Zoom>
             )
-          }
-        </ListItemSecondaryAction>
-      </ListItem>
+            }
+          </ListItemSecondaryAction>
+        </ListItem>
     )
   }
 
@@ -874,13 +876,15 @@ class CRUDView extends Component {
     // console.log('items\n', items);
     return (
       <React.Fragment>
-        {
+        {(
         // getHeader()
-        creatable && 
-        <Zoom in mountOnEnter unmountOnExit>
-          <CreateButton onClick={handleOpenCreateDialog} />
-        </Zoom>
-        }
+        creatable &&
+          (
+          <Zoom in mountOnEnter unmountOnExit>
+            <CreateButton onClick={handleOpenCreateDialog} />
+          </Zoom>
+          )
+        )}
         <Paper className={classNames(classes.paper, "z-10",)}>
           <List className="m-0 p-0" component="nav">
             {
