@@ -543,7 +543,7 @@ class CRUDView extends Component {
             }
           </div>
           :
-          <Tooltip title="Click list" placement="top" TransitionComponent={Zoom}>
+          <Tooltip title="Nothing selected" placement="top" TransitionComponent={Zoom}>
             <div>
               <Icon className="mt-32 opacity-25" fontSize="large">library_books</Icon>
               <Typography variant="body1" color="textSecondary">

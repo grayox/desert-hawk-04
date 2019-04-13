@@ -2,7 +2,7 @@
 
 // import React, { Component } from 'react';
 import React from 'react';
-import { Slide, Paper, Tooltip, } from '@material-ui/core'; // withStyles, Icon, IconButton, Typography,
+import { Slide, Paper, Tooltip, Zoom, } from '@material-ui/core'; // withStyles, Icon, IconButton, Typography,
 
 import WidgetNugget from './WidgetNugget';
 import WidgetMenu from './WidgetMenu';
@@ -43,15 +43,21 @@ const DashboardWidget = ({ widget, index, count, }) => { // classes,
           // <div className="text-16">{rowName}</div>
           // <IconButton aria-label="more"><Icon>more_vert</Icon></IconButton>
           }
-          <Tooltip title={rowDesc}>
-            <WidgetNugget type="chip" label={rowName} message={rowDesc} />
+          <Tooltip TransitionComponent={Zoom} title={rowDesc}>
+            <div>
+              <WidgetNugget type="chip" label={rowName} message={rowDesc} />
+            </div>
           </Tooltip>
-          <Tooltip title="Links">
-            <WidgetMenu links={links} />
+          <Tooltip TransitionComponent={Zoom} title="Links">
+            <div>
+              <WidgetMenu links={links} />
+            </div>
           </Tooltip>
         </div>
-        <Tooltip title={desc}>
-          <WidgetNugget type="kernel" label={label} message={desc} data={data} />
+        <Tooltip TransitionComponent={Zoom} title={desc}>
+          <div>
+            <WidgetNugget type="kernel" label={label} message={desc} data={data} />
+          </div>
         </Tooltip>
         {
         // // "room to grow"
