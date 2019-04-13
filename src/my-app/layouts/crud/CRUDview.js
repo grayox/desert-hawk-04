@@ -543,7 +543,7 @@ class CRUDView extends Component {
             }
           </div>
           :
-          <Tooltip title="Click list item" placement="top">
+          <Tooltip title="Click list" placement="top" TransitionComponent={Zoom}>
             <div>
               <Icon className="mt-32 opacity-25" fontSize="large">library_books</Icon>
               <Typography variant="body1" color="textSecondary">
@@ -612,7 +612,7 @@ class CRUDView extends Component {
             {
             isList
             ?
-            <Tooltip title="See detail" placement="left">
+            <Tooltip title="See detail" placement="left" TransitionComponent={Zoom}>
               {
               // Not using this for two reasons:
               // 1. Does not yet provide selectedIndex to state

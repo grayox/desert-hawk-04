@@ -3,7 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // import classNames from 'classnames';
-import { withStyles, Button, Icon, IconButton, Tooltip, } from '@material-ui/core';
+import { withStyles, Button, Icon, IconButton, Tooltip, Zoom, } from '@material-ui/core';
 
 const styles = theme => ({
   margin: {
@@ -38,7 +38,7 @@ const styles = theme => ({
 
 const ButtonsRow = ({ limit, selectedIndex, deletable, updatable, onToggle, onDelete, onUpdate, onNavBack, onNavNext, }) => (
   <div className="flex mx-8">
-    <Tooltip title="Previous">
+    <Tooltip TransitionComponent={Zoom} title="Previous">
       <span className="flex-1 text-center mt-8">
         <IconButton onClick={onNavBack} disabled={selectedIndex === 0}>
           <Icon>arrow_back_ios</Icon>
@@ -47,7 +47,7 @@ const ButtonsRow = ({ limit, selectedIndex, deletable, updatable, onToggle, onDe
     </Tooltip>
     {
     deletable &&
-    <Tooltip title="Delete...">
+    <Tooltip TransitionComponent={Zoom} title="Delete...">
       <span className="flex-1 text-center mt-8">
         <IconButton onClick={onDelete}>
           <Icon>delete</Icon>
@@ -55,7 +55,7 @@ const ButtonsRow = ({ limit, selectedIndex, deletable, updatable, onToggle, onDe
       </span>
     </Tooltip>
     }
-    <Tooltip title="Clear">
+    <Tooltip TransitionComponent={Zoom} title="Clear">
       <span className="flex-1 text-center mt-8">
         <IconButton onClick={onToggle}>
           <Icon>clear</Icon>
@@ -64,7 +64,7 @@ const ButtonsRow = ({ limit, selectedIndex, deletable, updatable, onToggle, onDe
     </Tooltip>
     {
     updatable &&
-    <Tooltip title="Edit">
+    <Tooltip TransitionComponent={Zoom} title="Edit">
       <span className="flex-1 text-center mt-8">
         <IconButton onClick={onUpdate}>
           <Icon>edit</Icon>
@@ -72,7 +72,7 @@ const ButtonsRow = ({ limit, selectedIndex, deletable, updatable, onToggle, onDe
       </span>
     </Tooltip>
     }
-    <Tooltip title="Next">
+    <Tooltip TransitionComponent={Zoom} title="Next">
       <span className="flex-1 text-center mt-8">
         <IconButton onClick={onNavNext} disabled={selectedIndex > limit}>
           <Icon>arrow_forward_ios</Icon>
@@ -83,7 +83,7 @@ const ButtonsRow = ({ limit, selectedIndex, deletable, updatable, onToggle, onDe
  );
  
  const CreateButton = ({ onClick, }) => (
-  <Tooltip title="Create new item">
+  <Tooltip TransitionComponent={Zoom} title="Add new item">
     <Button
       variant="contained"
       color="primary"
