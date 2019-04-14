@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import {
   // Button,
-  Menu, MenuItem, IconButton, Icon,
+  Menu, MenuItem, IconButton, Icon, Tooltip, Zoom,
 } from '@material-ui/core';
 
 import { Link, } from 'react-router-dom';
@@ -39,17 +39,19 @@ class OverflowMenu extends Component {
         //   Open Menu
         // </Button>
         }
-        <IconButton
-          // className={classes.rightButton}
-          color="inherit"
-          aria-label="Overflow"
+        <Tooltip TransitionComponent={Zoom} title="Open links menu">
+          <IconButton
+            // className={classes.rightButton}
+            color="inherit"
+            aria-label="Overflow"
 
-          aria-owns={anchorEl ? 'simple-menu' : undefined}
-          aria-haspopup="true"
-          onClick={this.handleClick}
-        >
-          <Icon>more_vert</Icon>
-        </IconButton>
+            aria-owns={anchorEl ? 'simple-menu' : undefined}
+            aria-haspopup="true"
+            onClick={this.handleClick}
+          >
+            <Icon>more_vert</Icon>
+          </IconButton>
+        </Tooltip>
         <Menu
           id="simple-menu"
           anchorEl={anchorEl}

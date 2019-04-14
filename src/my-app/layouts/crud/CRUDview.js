@@ -543,7 +543,7 @@ class CRUDView extends Component {
             }
           </div>
           :
-          <Tooltip title="Detail shows here after clicking a list item" placement="top" TransitionComponent={Zoom}>
+          <Tooltip TransitionComponent={Zoom} placement="top" title="Detail shows here after clicking a list item">
             <div>
               <Icon className="mt-32 opacity-25" fontSize="large">library_books</Icon>
               <Typography variant="body1" color="textSecondary">
@@ -612,7 +612,7 @@ class CRUDView extends Component {
             {
             isList
             ?
-            <Tooltip title="See detail" placement="left" TransitionComponent={Zoom}>
+            <Tooltip TransitionComponent={Zoom} placement="left" title="See detail">
               {
               // Not using this for two reasons:
               // 1. Does not yet provide selectedIndex to state
@@ -897,13 +897,15 @@ class CRUDView extends Component {
             >
               {
                 items && items.map( ( item, index, ) =>
-                  <div
-                    key={item.createdAt}
-                    // className="border-b" // use divider instead
-                  >
-                    { getSummary( item, true, index, ) }
-                    <Divider />
-                  </div>
+                  <Tooltip TransitionComponent={Zoom} placement="top" title="Click for detail">
+                    <div
+                      key={item.createdAt}
+                      // className="border-b" // use divider instead
+                    >
+                      { getSummary( item, true, index, ) }
+                      <Divider />
+                    </div>
+                  </Tooltip>
                 )
               }
             </FuseAnimateGroup>
