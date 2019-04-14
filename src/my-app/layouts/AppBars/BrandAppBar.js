@@ -4,9 +4,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+// import { withStyles, } from '@material-ui/core/styles';
 import {
-  AppBar, Toolbar, Typography, 
+  AppBar, Toolbar, Typography,
+  withStyles, Tooltip, Zoom, 
   // CssBaseline, IconButton, Icon,
 } from '@material-ui/core';
 
@@ -35,7 +36,9 @@ function BrandAppBar(props) {
           {
             ( brand && brand.logoPath )
             ?
-            <img className="h-24" src={brand.logoPath} alt="logo" />
+            <Tooltip TransitionComponent={Zoom} title={brand.tagLine}>
+              <img className="h-24" src={brand.logoPath} alt="logo" />
+            </Tooltip>
             :
             <Typography variant="h6" color="inherit">
               {(brand && brand.appName) || 'Photos'}

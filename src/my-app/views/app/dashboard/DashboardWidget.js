@@ -48,7 +48,7 @@ const DashboardWidget = ({ widget, index, count, }) => { // classes,
               <WidgetNugget type="chip" label={rowName} message={rowDesc} />
             </div>
           </Tooltip>
-          <Tooltip TransitionComponent={Zoom} title="Links">
+          <Tooltip TransitionComponent={Zoom} title="Action links">
             <div>
               <WidgetMenu links={links} />
             </div>

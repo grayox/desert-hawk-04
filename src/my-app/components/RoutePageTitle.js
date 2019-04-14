@@ -3,7 +3,7 @@ import { Route, Redirect, } from "react-router-dom";
 import { componentsNavConfig, } from 'my-app/config/AppConfig.js';
 
 import {
-  Button, Slide, // Chip, Typography, // withStyles
+  Button, Slide, Tooltip, Zoom, // Chip, Typography, // withStyles
   Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
 } from '@material-ui/core';
 
@@ -36,7 +36,9 @@ const pageTitle = ({ location, }) => {
 
   return (
     <div>
-      <div className="cursor-pointer" onClick={handleOpenDialog}>{item.title}</div>
+      <Tooltip TransitionComponent={Zoom} title={item.desc}>
+        <span className="cursor-pointer" onClick={handleOpenDialog}>{item.title}</span>
+      </Tooltip>
       <Dialog
         keepMounted
         open={dialogIsOpen}

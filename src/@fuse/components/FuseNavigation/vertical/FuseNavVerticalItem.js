@@ -57,10 +57,11 @@ const styles = theme => ({
   },
 });
 
-function FuseNavVerticalItem({ item, classes, /*nestedLevel,*/ userRole, navbarCloseMobile, active }) {
-  if (item.auth && (!item.auth.includes(userRole) || (userRole !== 'guest' && item.auth.length === 1 && item.auth.includes('guest')))) {
-    return null;
-  }
+const FuseNavVerticalItem = ({ item, classes, navbarCloseMobile, active }) => { // nestedLevel, userRole,
+  // if (item.auth && (!item.auth.includes(userRole) || (userRole !== 'guest' && item.auth.length === 1 && item.auth.includes('guest')))) {
+  //   return null;
+  // }
+  // console.log('item\n', item,);
 
   // control indentation level based on nested hierarchy
   // note: original text sizes can be retrieved from original -orig version of this file: icons: text-16, text: text-14
@@ -77,6 +78,7 @@ function FuseNavVerticalItem({ item, classes, /*nestedLevel,*/ userRole, navbarC
       className={classNames(classes.item, listItemPadding, 'list-item text-white', active)} // md:rounded-full
       onClick={navbarCloseMobile}
       exact={item.exact}
+      title={item.title}
     >
       {item && item.icon && (
         <Icon
@@ -110,14 +112,17 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps({ auth, fuse }) {
-  return {
-    userRole: auth.user.role
-  }
+  // return {
+  //   userRole: auth.user.role
+  // }
 }
 
 FuseNavVerticalItem.propTypes = propTypes;
 FuseNavVerticalItem.defaultProps = defaultProps;
 
-const NavVerticalItem = withStyles(styles, { withTheme: true })(withRouter(connect(mapStateToProps, mapDispatchToProps)(FuseNavVerticalItem)));
+const NavVerticalItem = withStyles(styles, {withTheme: true })(withRouter(connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(FuseNavVerticalItem)));
 
 export default NavVerticalItem;

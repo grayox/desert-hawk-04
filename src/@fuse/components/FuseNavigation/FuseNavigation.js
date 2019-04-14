@@ -24,10 +24,10 @@ class FuseNavigation extends Component {
     const verticalNav = (
       <List className="whitespace-no-wrap">
         {
-          navigation.map((item) => (
+          navigation.map( item => (
 
             <React.Fragment key={item.id}>
-
+          
               {item.type === 'group' && (
                 <FuseNavVerticalGroup item={item} nestedLevel={0} active={active} />
               )}
@@ -43,6 +43,23 @@ class FuseNavigation extends Component {
               {item.type === 'divider' && (
                 <Divider className="my-24 opacity-25 border border-white color-white bg-white" />
               )}
+          
+              {
+                // () => {
+                //   switch(item.type) {
+                //     case 'group':
+                //       return <FuseNavVerticalGroup item={item} nestedLevel={0} active={active} />
+                //     case 'collapse':
+                //       return <FuseNavVerticalCollapse item={item} nestedLevel={0} active={active} />
+                //     case 'item':
+                //       return <FuseNavVerticalItem item={item} nestedLevel={0} active={active} />
+                //     case 'divider':
+                //       return <Divider className="my-24 opacity-25 border border-white color-white bg-white" />
+                //     default:
+                //       return null;
+                // }}
+              }
+
             </React.Fragment>
           ))
         }

@@ -5,7 +5,7 @@
 
 import React, { Component } from 'react';
 
-import { withStyles, Icon, IconButton, } from '@material-ui/core';
+import { withStyles, Icon, IconButton, Tooltip, Zoom, } from '@material-ui/core';
 
 import CRUDView from './CRUDView';
 import Loading from 'my-app/components/Loading';
@@ -141,9 +141,11 @@ class CRUDContainer extends Component {
         (
           items &&
           <React.Fragment>
-            <IconButton className={classes.refresh} onClick={handleLoad} color="inherit">
-              <Icon>refresh</Icon>
-            </IconButton>
+            <Tooltip TransitionComponent={Zoom} title="Refresh data">
+              <IconButton className={classes.refresh} onClick={handleLoad} color="inherit">
+                <Icon>refresh</Icon>
+              </IconButton>
+            </Tooltip>
             <CRUDView
               items={items}
               condensed={condensed}

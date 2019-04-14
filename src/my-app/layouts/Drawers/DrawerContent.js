@@ -56,19 +56,20 @@ const DrawerContent = ({ classes, navigation, layoutStyle, profile, userHeader, 
         // originally: text-16
         // <Typography className="username text-18 whitespace-no-wrap" color="inherit">{user.data.displayName}</Typography>
       }
-        <Typography className="username text-18 whitespace-no-wrap" color="inherit">{profile.displayName}</Typography>
+        <Typography title="Logged in" className="username text-18 whitespace-no-wrap" color="inherit">{profile.displayName}</Typography>
       
       {
         // email
         // originally: text-13
         // <Typography className="email text-14 mt-8 opacity-50 whitespace-no-wrap" color="inherit">{user.data.email}</Typography>
       }
-        <Typography className="email text-14 mt-8 opacity-50 whitespace-no-wrap" color="inherit">{profile.email}</Typography>
+        <Typography title="Logged in" className="email text-14 mt-8 opacity-50 whitespace-no-wrap" color="inherit">{profile.email}</Typography>
       
       {
         // photo
       }
         <Avatar
+          title={profile.displayName}
           className={classNames(classes.avatar, "avatar")}
           alt="user photo"
           src={
