@@ -31,25 +31,25 @@ const styles = theme => ({
 //   }
 // }
 
-const getItems = () => {
-  const out = [];
-  const rows = DashboardGridConfig;
-  let i = rows.length;
-  while(i--) {
-    const row = rows[i];
-    let j = row.cells.length;
-    while(j--) {
-      const cell = row.cells[j];
-      out.unshift({
-        rowName: row.name,
-        rowDesc: row.desc,
-        ...cell,
-      });
-    }
-  }
-  console.log('out\n', out);
-  return out;
-}
+// const getItems = () => {
+//   const out = [];
+//   const rows = DashboardGridConfig;
+//   let i = rows.length;
+//   while(i--) {
+//     const row = rows[i];
+//     let j = row.cells.length;
+//     while(j--) {
+//       const cell = row.cells[j];
+//       out.unshift({
+//         rowName: row.name,
+//         rowDesc: row.desc,
+//         ...cell,
+//       });
+//     }
+//   }
+//   console.log('out\n', out);
+//   return out;
+// }
 
 // const DashboardWidgets = props =>
 // (
@@ -60,7 +60,7 @@ const getItems = () => {
 
 const DashboardWidgets = props => {
   // const { classes, } = props;
-  const items = getItems();
+  const items = DashboardGridConfig.cells; // getItems();
   const count = items && items.length;
   return (
     // <div className={classes.root}>
@@ -84,7 +84,8 @@ const DashboardWidgets = props => {
       <Grid container spacing={16}>
         {items && items.map((item, index,) =>
           <Grid
-            item key={`${item.name}${item.label}`}
+          // item key={`${item.name}${item.label}`}
+            item key={item.id}
             // className={classes.gridList}
             className="widget flex w-full mx-16 sm:mx-0 sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-16"
           >

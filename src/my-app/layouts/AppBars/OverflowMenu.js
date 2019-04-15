@@ -39,7 +39,7 @@ class OverflowMenu extends Component {
         //   Open Menu
         // </Button>
         }
-        <Tooltip TransitionComponent={Zoom} title="Open links menu">
+        <Tooltip TransitionComponent={Zoom} title="Links">
           <IconButton
             // className={classes.rightButton}
             color="inherit"

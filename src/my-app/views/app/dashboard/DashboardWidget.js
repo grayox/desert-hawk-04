@@ -4,6 +4,7 @@
 import React from 'react';
 import { Slide, Paper, Tooltip, Zoom, } from '@material-ui/core'; // withStyles, Icon, IconButton, Typography,
 
+import { DashboardGridConfig } from 'my-app/config/DashboardGridConfig';
 import WidgetNugget from './WidgetNugget';
 import WidgetMenu from './WidgetMenu';
 
@@ -14,13 +15,15 @@ import WidgetMenu from './WidgetMenu';
 const TARGET = 850; // target in milliseconds of entry animation duration
 const SCALAR = 1.5; // compensation for random factor; when combined with index, makes higher indexes trend differently than lower indexes
 
+const { groups, } = DashboardGridConfig;
+
 const DashboardWidget = ({ widget, index, count, }) => { // classes,
   // count: number: total number of widgets on the dashboard (for purpose of calculating entry animation)
   // index: number: sequence number of this widget relative to all widgets on the dashboard (for purpose of calculating entry animation)
   // widget: object: data defining the widget content
   // console.log('widget\n', widget,);
 
-  const { rowName, data, label, rowDesc, desc, links, } = widget;
+  const { group, data, label, description, links, } = widget; // desc, rowDesc,rowName, 
 
   // linear staggered sequencing
   // const timeout = TARGET * (index + 1) / count;
@@ -30,6 +33,8 @@ const DashboardWidget = ({ widget, index, count, }) => { // classes,
   const reverseIndex = count - forwardIndex; // loads first index last
   const timeout = Math.round(Math.random() * TARGET * SCALAR * reverseIndex / count);
 
+  const chipDescription = groups[group].description;
+  const chipLabel =  groups[group].label;
   return (
     // <FuseAnimate
     //   animation="transition.slideUpIn"
@@ -42,10 +47,11 @@ const DashboardWidget = ({ widget, index, count, }) => { // classes,
           {
           // <div className="text-16">{rowName}</div>
           // <IconButton aria-label="more"><Icon>more_vert</Icon></IconButton>
+          // substitutions: desc > description, rowDesc > groupDescription, rowName > group,
           }
-          <Tooltip TransitionComponent={Zoom} title={rowDesc}>
+          <Tooltip TransitionComponent={Zoom} title={chipDescription}>
             <div>
-              <WidgetNugget type="chip" label={rowName} message={rowDesc} />
+              <WidgetNugget type="chip" label={chipLabel} message={chipDescription} />
             </div>
           </Tooltip>
           <Tooltip TransitionComponent={Zoom} title="Action links">
@@ -54,9 +60,9 @@ const DashboardWidget = ({ widget, index, count, }) => { // classes,
             </div>
           </Tooltip>
         </div>
-        <Tooltip TransitionComponent={Zoom} title={desc}>
+        <Tooltip TransitionComponent={Zoom} title={description}>
           <div>
-            <WidgetNugget type="kernel" label={label} message={desc} data={data} />
+            <WidgetNugget type="kernel" label={label} message={description} data={data} />
           </div>
         </Tooltip>
         {

@@ -106,7 +106,7 @@ export const brand = {
   logoPath: 'assets/images/logos/fuse.svg', // public/assets/images/logos/fuse.svg
   appName: 'Swap',
   tagLine: 'Give leads. Get leads.',
-  desc: 'Real estate agents, mortgage brokers, insurance agents and financial planners need leads. Referrals are a good way to get them. Swap lets you turn your clients into referrals and get back referrals in exchange.',
+  description: 'Real estate agents, mortgage brokers, insurance agents and financial planners need leads. Referrals are a good way to get them. Swap lets you turn your clients into referrals and get back referrals in exchange.',
 }
 
 export const bizCategoryItems = [
@@ -179,7 +179,7 @@ export const componentsNavConfig = [
   // * Note: It is currently not possible to use expressions like `loader : () => import(item.path)`
   // The path must be hard coded in src/my-app/config/Routes.js. See https://github.com/jamiebuilds/react-loadable
   {
-    desc :
+    description:
       <span>
         This is your overview of metrics summarizing your use of this app.
       </span>,
@@ -193,7 +193,7 @@ export const componentsNavConfig = [
     component  : () => FuseLoadable({loader: () => import('my-app/views/app/dashboard/Dashboard')}),
   },
   {
-    desc :
+    description:
       <span>
         This is the list of leads that are available for you to move to your archive.
         These leads match your service type and location as you indicated in your settings.
@@ -218,9 +218,14 @@ export const componentsNavConfig = [
       updatable  : false   ,
       deletable  : true    ,
     },
+    dashboardConfig: {
+      net: 'decrement',
+      withdrawals: 'increment',
+      archive: 'increment',
+    },
   },
   {
-    desc :
+    description:
       <span>
         This is the list of leads you have claimed which you now own in the sense they are now
         exclusive to you only. The total leads in this list are subtracted from the amount of
@@ -245,7 +250,7 @@ export const componentsNavConfig = [
     },
   },
   {
-    desc:
+    description:
       <span>
         These are all the leads you have submitted as a referral. The more leads you refer to others,
         the more leads are available to you in your inbox. You must have a positive net lead balance
@@ -274,9 +279,12 @@ export const componentsNavConfig = [
       },
       deletable  : true,
     },
+    dashboardConfig: {
+      outbox: 'increment',
+    },
   },
   {
-    desc :
+    description:
       <span>
         This is the list of your contacts. The people whom you can feel comfortable sending your referrals to.
         They will ultimately be matched to your referrals, just as you are, based on location and service field.
@@ -304,6 +312,9 @@ export const componentsNavConfig = [
       },
       deletable  : true,
     },
+    dashboardConfig: {
+      contacts: 'increment',
+    },
   },
 
   // divider
@@ -312,7 +323,7 @@ export const componentsNavConfig = [
   // overhead views
   // see specs here: https://material.io/design/communication/help-feedback.html#use-placement
   {
-    desc :
+    description:
       <span>
         These are the settings we use to control how the app looks and functions for you.
         For example, this is where you tell us your service field and your location so we
@@ -329,7 +340,7 @@ export const componentsNavConfig = [
     component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/settings/Settings')}),
   },
   {
-    desc :
+    description:
       <span>
         Here you can tell us how the app is working for you and suggest ways we can improve it.
       </span>,
@@ -344,7 +355,7 @@ export const componentsNavConfig = [
     component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/Feedback')}),
   },
   {
-    desc :
+    description:
       <span>
         Here are some questions users commonly ask us. You can read the questions and there answers here.
       </span>,
@@ -359,7 +370,7 @@ export const componentsNavConfig = [
     component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/Help')}),
   },
   {
-    desc :
+    description:
       <span>
         Click here to log out of the app.
       </span>,
@@ -478,18 +489,18 @@ export const componentsNavConfig = [
 //     // const path = [ 'users', props.profile.uid, 'settings' ].join('/'); // fail
 //     return [
 //       // ref: https://github.com/prescottprue/react-redux-firebase/issues/344
-//       // { collection: 'projects', orderBy: ['createdAt', 'desc'] },
-//       // { collection: 'notifications', limit: 3, orderBy: ['time', 'desc'] },
+//       // { collection: 'projects', orderBy: ['createdAt', 'description'] },
+//       // { collection: 'notifications', limit: 3, orderBy: ['time', 'description'] },
 
 //       // { path: users/${props.profile.uid}/current` }, // fails; used by old version
 
-//       { collection: 'leads', orderBy: ['createdAt', 'desc'] }, // success
+//       { collection: 'leads', orderBy: ['createdAt', 'description'] }, // success
 
 //       // // fail
 //       // { 
 //       //   collection: path,
 //       //   limit: 1,
-//       //   orderBy: ['createdAt', 'desc'],
+//       //   orderBy: ['createdAt', 'description'],
 //       //   storeAs: 'settings',
 //       // },
 
@@ -512,7 +523,7 @@ export const componentsNavConfig = [
 //           {
 //             collection: 'settings',
 //             // limit: 1,
-//             // orderBy: ['createdAt', 'desc',],
+//             // orderBy: ['createdAt', 'description',],
 //             // storeAs: 'settings',
 //             doc: 'current',
 //           },
