@@ -404,7 +404,7 @@ class Dashboard extends Component {
         }
 
         <Hidden smUp>
-          <DashboardWidgets />
+          <DashboardWidgets data={this.props.dashboard} />
           {
           // <DashboardGridItems 
           //   // condensedDashboard={condensedDashboard}
@@ -424,7 +424,7 @@ class Dashboard extends Component {
         </Hidden>
 
         <Hidden xsDown>
-          <DashboardWidgets />
+          <DashboardWidgets data={this.props.dashboard} />
           {
           // <DashboardGridItems 
           //   // condensedDashboard={condensedDashboard}
@@ -459,7 +459,7 @@ class Dashboard extends Component {
       !dataHasLoaded
       ?
       <React.Fragment>
-        <FetchUserData path="dashboard" />
+        
         <Loading />
       </React.Fragment>
       :

@@ -59,7 +59,7 @@ const styles = theme => ({
 // )
 
 const DashboardWidgets = props => {
-  // const { classes, } = props;
+  const { data, } = props; // classes,
   const items = DashboardGridConfig.cells; // getItems();
   const count = items && items.length;
   return (
@@ -82,15 +82,21 @@ const DashboardWidgets = props => {
 
     <div className="pt-16 sm:pt-0">
       <Grid container spacing={16}>
-        {items && items.map((item, index,) =>
-          <Grid
-          // item key={`${item.name}${item.label}`}
-            item key={item.id}
-            // className={classes.gridList}
-            className="widget flex w-full mx-16 sm:mx-0 sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-16"
-          >
-            <DashboardWidget widget={item} index={index} count={count} />
-          </Grid>
+        {items && items.map((item, index,) => {
+          console.log('data\n', data,);
+          const { id, } = item;
+          const itemData = data[id];
+          // item.data = 
+          return (
+            <Grid
+            // item key={`${item.name}${item.label}`}
+              item key={item.id}
+              // className={classes.gridList}
+              className="widget flex w-full mx-16 sm:mx-0 sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-16"
+            >
+              <DashboardWidget widget={item} index={index} count={count} data={itemData} />
+            </Grid>
+          )}
         )}
       </Grid>
     </div>

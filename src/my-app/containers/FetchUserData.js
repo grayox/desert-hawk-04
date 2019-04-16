@@ -83,7 +83,7 @@ class FetchUserData extends Component {
         });
         break;
       case 'dashboard':
-        // console.log('dashboard\n', data);
+        console.log('dashboard\n', data);
         this.props.updateDashboard(data);
         this.setState({
           dashboard: data,
