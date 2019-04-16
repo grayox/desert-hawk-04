@@ -11,7 +11,7 @@ import { compose } from 'redux';
 import { updateSettings, updateDashboard, } from 'my-app/store/actions/my-actions';
 
 // import { withStyles, } from '@material-ui/core';
-import { loadUserData } from 'my-app/containers/LoadAsync';
+import { loadUserData, } from 'my-app/containers/LoadAsync';
 
 const INITIAL_STATE = {
   items: null,
@@ -75,16 +75,16 @@ class FetchUserData extends Component {
 
     switch(this.props.path) {
       case 'settings':
+        // console.log('settings\n', data);
         this.props.updateSettings(data);
-        // console.log('data\n', data);
         this.setState({
           settings: data,
           isLoading: false,
         });
         break;
       case 'dashboard':
+        // console.log('dashboard\n', data);
         this.props.updateDashboard(data);
-        // console.log('data\n', data);
         this.setState({
           dashboard: data,
           isLoading: false,

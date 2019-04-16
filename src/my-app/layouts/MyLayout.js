@@ -31,7 +31,7 @@ const MyLayout = props => {
       // className="w-full"
       className={classNames( "w-full overflow-auto", classes.wrapper, )}
     >
-      <FetchUserData path="settings"  />
+      <FetchUserData path="settings" />
       {
       // <FetchSettings />
       // <div className="border-8 border-blue w-full overflow-auto">

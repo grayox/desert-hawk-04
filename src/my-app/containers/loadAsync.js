@@ -28,7 +28,7 @@ import '@firebase/firestore';
 export const loadUserData = async path => {
   // path: string: example: 'users/myUserID/settings' | 'users/myUserID/dashboard'
   // console.log('path\n', path);
-  const out = await getData(path);
+  const out = await getUserData(path);
   // console.log('out\n', out);
 
   const promise = new Promise((resolve, reject) => {
@@ -38,7 +38,7 @@ export const loadUserData = async path => {
   return promise;
 };
 
-const getData = async path => {
+const getUserData = async path => {
   // console.log('path\n', path);
   // console.log('state\n', this.state);
   // this.setState({isLoading: true});
@@ -62,7 +62,7 @@ const getData = async path => {
         // console.log('createdAt: ', doc.createdAt()); // throws error // must define createdAt, then save it
         // console.log('createdAt: ', doc.get('createdAt')); // undefined
         // console.log('id: ', doc.id); // works
-        console.log('data\n', doc.data()); // works
+        // console.log('data\n', doc.data()); // works
         a.push({
           docId: doc.id,
           ...doc.data(),

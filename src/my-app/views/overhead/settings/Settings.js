@@ -613,8 +613,8 @@ const mapStateToProps = state => {
   const settings = state
                 && state.myApp
                 && state.myApp.reducers
-                && state.myApp.reducers.settingsReducer
-                && state.myApp.reducers.settingsReducer.settings;
+                && state.myApp.reducers.userDataReducer
+                && state.myApp.reducers.userDataReducer.settings;
   const profile = state
                && state.firebase
                && state.firebase.profile;

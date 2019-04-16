@@ -14,7 +14,7 @@ import PropTypes from "prop-types";
 // redux
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { updateSettings } from 'my-app/store/actions/my-actions';
+// import { updateSettings } from 'my-app/store/actions/my-actions';
 // import store from '../../store';
 // import { firestoreConnect } from 'react-redux-firebase';
 
@@ -47,6 +47,8 @@ import Error500Page from 'my-app/components/Error500Page';
 // import GeoSelect from 'my-app/components/GeoSelect/GeoSelect';
 // import GeoStepper from 'my-app/components/steppers/GeoStepper';
 import Loading from 'my-app/components/Loading.js';
+import FetchUserData from 'my-app/containers/FetchUserData';
+
 import SettingsMessage from 'my-app/components/SettingsMessage';
 import SettingsStepper from 'my-app/components/steppers/SettingsStepper';
 
@@ -456,7 +458,10 @@ class Dashboard extends Component {
       // isLoading
       !dataHasLoaded
       ?
-      <Loading />
+      <React.Fragment>
+        <FetchUserData path="dashboard" />
+        <Loading />
+      </React.Fragment>
       :
       isError
         ?
@@ -498,8 +503,8 @@ const mapStateToProps = state => {
   const dashboard = state
                  && state.myApp
                  && state.myApp.reducers
-                 && state.myApp.reducers.dashboardReducer
-                 && state.myApp.reducers.dashboardReducer.dashboard;
+                 && state.myApp.reducers.userDataReducer
+                 && state.myApp.reducers.userDataReducer.dashboard;
 
   const profile = state
                && state.firebase
@@ -524,7 +529,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateSettings: settings => dispatch(updateSettings(settings)),
+    // updateSettings: settings => dispatch(updateSettings(settings)),
   }
 }
 
