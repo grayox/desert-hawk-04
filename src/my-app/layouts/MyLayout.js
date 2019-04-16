@@ -12,7 +12,8 @@ import LaptopDrawer from './drawers/LaptopDrawer';
 
 import { compose } from 'redux';
 
-import FetchSettings from 'my-app/containers/FetchSettings';
+// import FetchSettings from 'my-app/containers/FetchSettings';
+import FetchUserData from 'my-app/containers/FetchUserData';
 import withReducer from 'store/withReducer';
 // import reducer from './store/reducers';
 import reducer from 'my-app/store/reducers';
@@ -30,8 +31,9 @@ const MyLayout = props => {
       // className="w-full"
       className={classNames( "w-full overflow-auto", classes.wrapper, )}
     >
-      <FetchSettings />
+      <FetchUserData path="settings" />
       {
+      // <FetchSettings />
       // <div className="border-8 border-blue w-full overflow-auto">
       // <CssBaseline />
       }

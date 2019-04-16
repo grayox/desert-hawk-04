@@ -36,7 +36,7 @@ const pageTitle = ({ location, }) => {
 
   return (
     <div>
-      <Tooltip TransitionComponent={Zoom} title={item.desc}>
+      <Tooltip TransitionComponent={Zoom} title={item.description}>
         <span className="cursor-pointer" onClick={handleOpenDialog}>{item.title}</span>
       </Tooltip>
       <Dialog
@@ -51,7 +51,7 @@ const pageTitle = ({ location, }) => {
           {item.title || <Redirect to='/error404' />}
         </DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-slide-description">{item.desc}</DialogContentText>
+          <DialogContentText id="alert-dialog-slide-description">{item.description}</DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDialog} color="primary">Ok, got it</Button>

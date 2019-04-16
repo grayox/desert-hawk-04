@@ -47,7 +47,7 @@ const DashboardWidget = ({ widget, index, count, }) => { // classes,
           {
           // <div className="text-16">{rowName}</div>
           // <IconButton aria-label="more"><Icon>more_vert</Icon></IconButton>
-          // substitutions: desc > description, rowDesc > groupDescription, rowName > group,
+          // substitutions: desc > description, rowName > chipLabel, rowDesc > chipDescription, rowName > group,
           }
           <Tooltip TransitionComponent={Zoom} title={chipDescription}>
             <div>

@@ -25,10 +25,10 @@ import '@firebase/firestore';
 //   return promise;
 // };
 
-export const loadUserData = async path => {
-  // path: string: example: 'users/myUserID/settings' | 'users/myUserID/dashboard'
+export const loadSettingsData = async path => {
+  // path: string: example: 'users/myUserID/settings'
   // console.log('path\n', path);
-  const out = await getData(path);
+  const out = await getSettings(path);
   // console.log('out\n', out);
 
   const promise = new Promise((resolve, reject) => {
@@ -38,7 +38,7 @@ export const loadUserData = async path => {
   return promise;
 };
 
-const getData = async path => {
+const getSettings = async path => {
   // console.log('path\n', path);
   // console.log('state\n', this.state);
   // this.setState({isLoading: true});
@@ -111,7 +111,6 @@ export const loadAsyncData = async path => {
 };
 
 const getAsyncItems = async path => {
-  // used for reading CRUD objects
   // console.log('path\n', path);
   // console.log('state\n', this.state);
   // this.setState({isLoading: true});

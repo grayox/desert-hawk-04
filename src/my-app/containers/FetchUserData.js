@@ -1,3 +1,6 @@
+// next generation version of FetchSettings.js:
+// enables fetching of 'settings' and 'dashboard' via prop.path
+
 import { Component } from 'react';
 // import React, { Component } from 'react';
 // import PropTypes from "prop-types";
@@ -5,10 +8,10 @@ import { Component } from 'react';
 // redux
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { updateSettings } from 'my-app/store/actions/my-actions';
+import { updateSettings, updateDashboard, } from 'my-app/store/actions/my-actions';
 
 // import { withStyles, } from '@material-ui/core';
-import { loadSettingsData } from 'my-app/containers/LoadAsync';
+import { loadUserData } from 'my-app/containers/LoadAsync';
 
 const INITIAL_STATE = {
   items: null,
@@ -16,7 +19,7 @@ const INITIAL_STATE = {
   isLoading: true,
 };
 
-class FetchSettings extends Component {
+class FetchUserData extends Component {
 
   // state = INITIAL_STATE;
   constructor(props) {
@@ -34,17 +37,24 @@ class FetchSettings extends Component {
 
   getPath() {
     // console.log('props\n', this.props);
-    if(!this.props.user) return;
-    const uid = this && this.props && this.props.user &&
-                // this.props.user.data && this.props.user.data.uid;
-                this.props.user.uid;
-    return uid ? [ 'users' , uid , 'settings' , ].join('/') : null;
+    const uid = this && this.props && this.props.user && this.props.user.uid;
+    if(!uid) {
+      throw 'uid not available';
+      return;
+    }
+    const path = this && this.props && this.props.path;
+    if(!path) {
+      throw 'path variable not available';
+      return;
+    }
+
+    return uid ? [ 'users' , uid , path , ].join('/') : null;
   }
 
   // refs: https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#fetching-external-data
   // https://stackoverflow.com/a/55093394/1640892 | https://codesandbox.io/s/lrvwm88pv7
   // handleLoad() {
-  //   this._asyncRequest = loadSettingsData().then(
+  //   this._asyncRequest = loadUserData().then(
   //     externalData => {
   //       this._asyncRequest = null;
   //       this.setState({externalData});
@@ -53,23 +63,38 @@ class FetchSettings extends Component {
   // }
   handleLoad = async () => {
     // console.log('props\n', this.props);
-    const settingsPath = this.getPath();
-    // console.log('settingsPath\n', settingsPath);
+    const dataPath = this.getPath();
+    // console.log('dataPath\n', dataPath);
 
     this.setState({
       isLoading: true,
     });
-    // this._asyncRequest = loadSettingsData();
-    this._asyncRequest = loadSettingsData(settingsPath);
-    const settings = await this._asyncRequest;
-    this.props.updateSettings(settings);
-    // console.log('settings\n', settings);
+    // this._asyncRequest = loadUserData();
+    this._asyncRequest = loadUserData(dataPath);
+    const data = await this._asyncRequest;
+
+    switch(this.props.path) {
+      case 'settings':
+        this.props.updateSettings(data);
+        // console.log('data\n', data);
+        this.setState({
+          settings: data,
+          isLoading: false,
+        });
+        break;
+      case 'dashboard':
+        this.props.updateDashboard(data);
+        // console.log('data\n', data);
+        this.setState({
+          dashboard: data,
+          isLoading: false,
+        });
+        break;
+      default:
+        throw 'Path must be one of: "settings" or "dashboard"';
+    }
 
     this._asyncRequest = null;
-    this.setState({
-      settings,
-      isLoading: false,
-    });
   }
 
   handleCancel = () => {
@@ -86,7 +111,7 @@ class FetchSettings extends Component {
 
 }
 
-FetchSettings.propTypes = {
+FetchUserData.propTypes = {
   // classes: PropTypes.object.isRequired,
 };
 
@@ -122,4 +147,4 @@ export default compose(
   // withStyles(styles, { withTheme: true }),
   connect( mapStateToProps, mapDispatchToProps, ),
   // connect( mapDispatchToProps, ),
-)(FetchSettings)
+)(FetchUserData)
