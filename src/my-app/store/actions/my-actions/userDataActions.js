@@ -5,6 +5,7 @@
 // export const RESET_DEFAULT_SETTINGS = '[SETTINGS] RESET DEFAULT SETTINGS';
 // begin my add
 export const UPDATE_SETTINGS = '[SETTINGS] UPDATE SETTINGS';
+export const UPDATE_DASHBOARD = '[DASHBOARD] UPDATE DASHBOARD';
 // end my add
 
 // export function setSettings(value) {
@@ -35,6 +36,14 @@ export const updateSettings = value => {
   // console.log('updateSettingsValue\n', value);
   return {
     type: UPDATE_SETTINGS,
+    value,
+  }
+}
+
+export const updateDashboard = value => {
+  // console.log('updateDashboardValue\n', value);
+  return {
+    type: UPDATE_DASHBOARD,
     value,
   }
 }

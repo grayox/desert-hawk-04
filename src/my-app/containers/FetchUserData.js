@@ -137,11 +137,10 @@ const mapStateToProps = state => {
   return { user, }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    updateSettings: settings => dispatch(updateSettings(settings)),
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  updateSettings  : settings  => dispatch(updateSettings (settings )),
+  updateDashboard : dashboard => dispatch(updateDashboard(dashboard)),
+})
 
 export default compose(
   // withStyles(styles, { withTheme: true }),

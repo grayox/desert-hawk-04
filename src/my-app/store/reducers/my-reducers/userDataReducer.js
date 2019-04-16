@@ -20,10 +20,11 @@ const initialState = {
   // defaults: _.merge( {}, FuseDefaultSettings, ),
   // current: _.merge( {}, FuseDefaultSettings, ),
   settings: _.merge( {}, defaultSettings, ),
+  dashboard: _.merge( {}, defaultSettings, ),
 };
 
-// function settingsReducer(state = initialState, action) {
-const settingsReducer = ( state = initialState, action, ) => {
+// function userDataReducer(state = initialState, action) {
+const userDataReducer = ( state = initialState, action, ) => {
   // console.log('Hallo');
   switch (action.type) {
     // case Actions.SET_SETTINGS:
@@ -58,6 +59,14 @@ const settingsReducer = ( state = initialState, action, ) => {
         ...state,
         settings: _.merge( {}, action.value, ),
       };
+      
+    case Actions.UPDATE_DASHBOARD:
+      // console.log('stateDashboardReducer\n', state, );
+      // console.log('action.value\n', action.value, ); //debugger;
+      return {
+        ...state,
+        dashboard: _.merge( {}, action.value, ),
+      };
     // end my add
 
     default:
@@ -65,4 +74,5 @@ const settingsReducer = ( state = initialState, action, ) => {
   }
 };
 
-export default settingsReducer;
+// export default settingsReducer;
+export default userDataReducer;

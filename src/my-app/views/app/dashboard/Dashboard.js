@@ -489,28 +489,37 @@ const mapStateToProps = state => {
   //               && state.firestore.ordered.users[0].settings
   //               && state.firestore.ordered.users[0].settings[0];
   // const settings = state.settings;
-  const settings = state
-                && state.myApp
-                && state.myApp.reducers
-                && state.myApp.reducers.settingsReducer
-                && state.myApp.reducers.settingsReducer.settings;
+
+  // const settings = state
+  //               && state.myApp
+  //               && state.myApp.reducers
+  //               && state.myApp.reducers.settingsReducer
+  //               && state.myApp.reducers.settingsReducer.settings;
+  const dashboard = state
+                 && state.myApp
+                 && state.myApp.reducers
+                 && state.myApp.reducers.dashboardReducer
+                 && state.myApp.reducers.dashboardReducer.dashboard;
+
   const profile = state
                && state.firebase
                && state.firebase.profile;
   // replace user with profile; user contains default settings
   // const user = state.auth.user;
   // const leads = state.firestore.ordered.leads;
-  const dataHasLoaded = !!profile && !!settings; // && !!leads && !!user && 
+  const dataHasLoaded = !!profile && !!dashboard; // !!settings; // && !!leads && !!user && 
   
-  // // console.log('user\n', user);
-  // // console.log('leads\n', leads);
-  // console.log('profile\n', profile);
-  // console.log('settings\n', settings);
-  // console.log('dataHasLoaded\n', dataHasLoaded);
+  // // console.log('user\n', user,);
+  // // console.log('leads\n', leads,);
+  console.log('profile\n', profile,);
+  // console.log('settings\n', settings,);
+  console.log('dashboard\n', dashboard,);
+  // console.log('dataHasLoaded\n', dataHasLoaded,);
   
   // //       YES   YES      YES       NO     NO
   // return { user, profile, settings, leads, dataHasLoaded, }
-  return { profile, settings, dataHasLoaded, }
+  // return { profile, settings, dataHasLoaded, }
+  return { profile, dashboard, dataHasLoaded, }
 }
 
 const mapDispatchToProps = dispatch => {
