@@ -96,7 +96,7 @@ const mapStateToProps = state => {
   //               && state.firestore.ordered.users[0]
   //               && state.firestore.ordered.users[0].settings
   //               && state.firestore.ordered.users[0].settings[0];
-  const user = state.auth.user;
+  const user = state.auth.user; // better source might be: const profile = state.firebase.profile;
   // const leads = state.firestore.ordered.leads;
   // const profile = state.firebase.profile;
   // const dataHasLoaded = user && leads && profile && settings;

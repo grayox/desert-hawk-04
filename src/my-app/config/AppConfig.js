@@ -43,6 +43,7 @@ import { FaSignOutAlt } from 'react-icons/fa'; // https://react-icons.netlify.cI
 // utility components
 // import CRUDRouter from 'my-app/layouts/crud/CRUDRouter';
 
+// usage
 // import { uiSpecs } from 'my-app/config/AppConfig';
 export const uiSpecs = {
   drawerWidth: 256, // https://material.io/design/components/navigation-drawer.html#specs
@@ -62,6 +63,8 @@ export const firebaseConfig = {
 
 export const defaultSettings = {
   // define default settings
+  createdAt: Date.now(),
+  
 }
 
 export const avatarOptions = [

@@ -6,6 +6,9 @@ import {
   List, ListItem, ListItemText, ListItemAvatar, Avatar, Icon,
 } from '@material-ui/core';
 
+// usage
+// import { DashboardGridConfig } from 'my-app/config/DashboardGridConfig';
+
 // const marketDescription = (
 //   <span>
 //     To specify the location of your market, you must identify all three levels:
@@ -16,6 +19,13 @@ import {
 //     </ul>
 //   </span>
 // );
+
+export const getDashboardInitialValues = () => {
+  const { cells, } = DashboardGridConfig;
+  const out = {};
+  cells.forEach(cell => out[cell.id] = cell.initialValue);
+  return out;
+}
 
 export const DashboardGridConfig = {
   groups: {
@@ -53,7 +63,8 @@ export const DashboardGridConfig = {
     {
       id: 'net',
       label: 'Net',
-      data: 5,
+      // data: 5,
+      initialValue: 0,
       group: 'balance',
       // icon: 'drag_handle',
       // color: 'warning',
@@ -82,7 +93,8 @@ export const DashboardGridConfig = {
     {
       id: 'deposits',
       label: 'Deposits',
-      data: 5,
+      // data: 5,
+      initialValue: 0,
       group: 'balance',
       // icon: 'add',
       // color: 'success',
@@ -114,7 +126,8 @@ export const DashboardGridConfig = {
     {
       id: 'withdrawals',
       label: 'Withdrawals',
-      data: 5,
+      // data: 5,
+      initialValue: 0,
       group: 'balance',
       // icon: 'remove',
       // color: 'danger',
@@ -141,7 +154,8 @@ export const DashboardGridConfig = {
     {
       id: 'challenges',
       label: 'Challenges',
-      data: <span>&minus;5</span>,
+      // data: <span>&minus;5</span>,
+      initialValue: 0,
       group: 'balance',
       // icon: 'warning',
       // color: 'primary',
@@ -168,7 +182,8 @@ export const DashboardGridConfig = {
     {
       id: 'inbox',
       label: 'Inbox',
-      data: 5,
+      // data: 5,
+      initialValue: 0,
       group: 'inventory',
       // icon: 'cloud_download',
       // color: 'info',
@@ -185,7 +200,8 @@ export const DashboardGridConfig = {
     {
       id: 'archive',
       label: 'Archive',
-      data: 5,
+      // data: 5,
+      initialValue: 0,
       group: 'inventory',
       // icon: 'folder',
       // color: 'success',
@@ -202,7 +218,8 @@ export const DashboardGridConfig = {
     {
       id: 'outbox',
       label: 'Outbox',
-      data: 5,
+      // data: 5,
+      initialValue: 0,
       group: 'inventory',
       // icon: 'cloud_upload',
       // color: 'primary',
@@ -219,7 +236,8 @@ export const DashboardGridConfig = {
     {
       id: 'contacts',
       label: 'Contacts',
-      data: 5,
+      // data: 5,
+      initialValue: 0,
       group: 'inventory',
       // icon: 'account_box',
       // color: 'success',
@@ -238,11 +256,12 @@ export const DashboardGridConfig = {
       label: 'Category',
       // data: <span className="capitalize">{bizCategory}</span>,
       // data: 'Mortgage',
-      data: <Icon>warning</Icon>,
+      // data: <Icon>warning</Icon>,
+      initialValue: 0,
       group: 'detail',
       // icon: 'label',
       // color: 'info',
-      typog: 'subtitle1',
+      // typog: 'subtitle1',
       // buttonLabel: 'Edit',
       // btn:
       //   <SelectControl
@@ -315,13 +334,14 @@ export const DashboardGridConfig = {
     {
       id: 'Location',
       label: 'Location',
-      data: <Icon>done</Icon>,
       // data: 'Scholes',
       // data: geoLocal,
+      //data: <Icon>done</Icon>,
+      initialValue: 0,
       group: 'detail',
       // icon: 'place',
       // color: 'primary',
-      typog: 'subtitle1',
+      // typog: 'subtitle1',
       // buttonLabel: 'Edit',
       links: [
         { id: 'settings', label: 'Edit location', },
@@ -340,13 +360,14 @@ export const DashboardGridConfig = {
     {
       id: 'state',
       label: 'State',
-      data: <Icon>done</Icon>,
       // data: 'Mississippi',
       // data: geoRegion,
+      // data: <Icon>done</Icon>,
+      initialValue: 0,
       group: 'detail',
       // icon: 'track_changes',
       // color: 'warning',
-      typog: 'subtitle1',
+      // typog: 'subtitle1',
       // buttonLabel: 'Edit',
       links: [
         { id: 'settings', label: 'Edit state', },
@@ -363,13 +384,14 @@ export const DashboardGridConfig = {
     {
       id: 'country',
       label: 'Country',
-      data: <Icon>done</Icon>,
       // data: 'United States',
       // data: geoNation,
+      // data: <Icon>done</Icon>,
+      initialValue: 0,
       group: 'detail',
       // icon: 'flag',
       // color: 'primary',
-      typog: 'subtitle1',
+      // typog: 'subtitle1',
       // buttonLabel: 'Edit',
       links: [
         { id: 'settings', label: 'Edit country', },

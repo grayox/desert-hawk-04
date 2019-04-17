@@ -333,7 +333,7 @@ class ProfilePage extends Component {
   // --------------------------------
 
   handleToggle = value => () => {
-    const { checked } = this.state;
+    const { checked, } = this.state;
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
 
