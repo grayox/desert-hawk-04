@@ -41,7 +41,7 @@ export const updateSettings = value => {
 }
 
 export const updateDashboard = value => {
-  console.log('updateDashboardValue\n', value);
+  // console.log('updateDashboardValue\n', value);
   return {
     type: UPDATE_DASHBOARD,
     value,
