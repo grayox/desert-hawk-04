@@ -8,7 +8,7 @@ import { Component } from 'react';
 // redux
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { updateSettings, updateDashboard, } from 'my-app/store/actions/my-actions';
+import { updateUserData, } from 'my-app/store/actions/my-actions'; // updateSettings, updateDashboard,
 
 // import { withStyles, } from '@material-ui/core';
 import { loadUserData, } from 'my-app/containers/LoadAsync';
@@ -63,36 +63,39 @@ class FetchUserData extends Component {
   // }
   handleLoad = async () => {
     // console.log('props\n', this.props);
-    const dataPath = this.getPath();
+    const { path, updateUserData, } = this.props;
+    const dataPath = await this.getPath();
     // console.log('dataPath\n', dataPath);
 
-    this.setState({
-      isLoading: true,
-    });
+    this.setState({ isLoading: true, });
     // this._asyncRequest = loadUserData();
     this._asyncRequest = loadUserData(dataPath);
-    const data = await this._asyncRequest;
+    const newData = await this._asyncRequest;
+    updateUserData(path, newData,);
+    const newState = { isLoading: false, };
+    newState[path] = newData;
+    this.setState({...newData});
 
-    switch(this.props.path) {
-      case 'settings':
-        // console.log('settings\n', data);
-        this.props.updateSettings(data);
-        this.setState({
-          settings: data,
-          isLoading: false,
-        });
-        break;
-      case 'dashboard':
-        // console.log('dashboard\n', data);
-        this.props.updateDashboard(data);
-        this.setState({
-          dashboard: data,
-          isLoading: false,
-        });
-        break;
-      default:
-        throw 'Path must be one of: "settings" or "dashboard"';
-    }
+    // switch(path) {
+    //   case 'settings':
+    //     // console.log('settings\n', data);
+    //     this.props.updateSettings(data);
+    //     this.setState({
+    //       settings: data,
+    //       isLoading: false,
+    //     });
+    //     break;
+    //   case 'dashboard':
+    //     // console.log('dashboard\n', data);
+    //     this.props.updateDashboard(data);
+    //     this.setState({
+    //       dashboard: data,
+    //       isLoading: false,
+    //     });
+    //     break;
+    //   default:
+    //     throw 'Path must be one of: "settings" or "dashboard"';
+    // }
 
     this._asyncRequest = null;
   }
@@ -138,8 +141,9 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  updateSettings  : settings  => dispatch(updateSettings (settings )),
-  updateDashboard : dashboard => dispatch(updateDashboard(dashboard)),
+  updateUserData: (path, newData,)  => dispatch(updateUserData(path, newData,)),
+  // updateSettings  : settings  => dispatch(updateSettings (settings )),
+  // updateDashboard : dashboard => dispatch(updateDashboard(dashboard)),
 })
 
 export default compose(

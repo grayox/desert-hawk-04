@@ -2,6 +2,7 @@
 
 // begin my add
 import { getDashboardInitialValues, } from 'my-app/config/DashboardGridConfig';
+import { settingsConfig, } from 'my-app/config/AppConfig';
 
 export const UPDATE_SETTINGS = '[SETTINGS] UPDATE SETTINGS';
 export const UPDATE_DASHBOARD = '[DASHBOARD] UPDATE DASHBOARD';
@@ -34,63 +35,90 @@ export const UPDATE_DASHBOARD = '[DASHBOARD] UPDATE DASHBOARD';
 
 // begin my add
 
-// export function updateSettings(value) {
-export const updateSettings = value => {
-  // console.log('updateSettingsValue\n', value);
-  const newData = value; // || getSettingsInitialValues();
+export const updateUserData = (path, value,) => {
+  console.log('path\n', path);
+  console.log('value\n', value);
+  const typeConfig = {
+    settings: UPDATE_SETTINGS,
+    dashboard: UPDATE_DASHBOARD,
+  }
+  const newData = value || handleInitialValues(path);
   return {
-    type: UPDATE_SETTINGS,
+    type: typeConfig[path],
     value: newData, // value,
   }
 }
 
-export const updateDashboard = value => {
-  console.log('updateDashboardValue\n', value);
-  const newData = value || getDashboardInitialValues();
-  return {
-    type: UPDATE_DASHBOARD,
-    value: newData, // value,
-  }
-}
+// // export function updateSettings(value) {
+// export const updateSettings = value => {
+//   // console.log('updateSettingsValue\n', value);
+//   const newData = value || handleInitialValues();
+//   return {
+//     type: UPDATE_SETTINGS,
+//     value: newData, // value,
+//   }
+// }
+
+// export const updateDashboard = value => {
+//   console.log('updateDashboardValue\n', value);
+//   const newData = value || handleInitialValues();
+//   return {
+//     type: UPDATE_DASHBOARD,
+//     value: newData, // value,
+//   }
+// }
 
 // end my add
 
-// // begin my add 2
+// begin my add 2
 
-// // inspired by: src/my-app/layouts/crud/store/actions/crud.actions.js
-// // which was, in turn,
-// // inspired by: src/my-app/store/actions/my-actions/leadsActions.js
-// // ref: https://firebase.google.com/docs/firestore/quickstart#next_steps
+// inspired by: src/my-app/layouts/crud/store/actions/crud.actions.js
+// which was, in turn,
+// inspired by: src/my-app/store/actions/my-actions/leadsActions.js
+// ref: https://firebase.google.com/docs/firestore/quickstart#next_steps
 
-// // source: https://github.com/iamshaunjp/React-Redux-Firebase-App/blob/lesson-18/marioplan/src/store/actions/projectActions.js
+const handleInitialValues = path => {
+  const initialValuesConfig = {
+    settings: settingsConfig,
+    dashboard: getDashboardInitialValues(),
+  }
+  const initialValues = initialValuesConfig[path];
+  saveInitialValuesToFirebase(path, initialValues,); // write initialValues to firebase
+  return initialValues;
+}
+
+// source: https://github.com/iamshaunjp/React-Redux-Firebase-App/blob/lesson-18/marioplan/src/store/actions/projectActions.js
 // export const createItem = ( path, item, ) =>
-//   (dispatch, getState, { getFirebase, getFirestore, }) => {
+export const saveInitialValuesToFirebase = ( path, item, ) =>
+  (dispatch, getState, { getFirebase, getFirestore, }) => {
 
-//     const timestamp = Date.now();
-//     const newData = {
-//       ...item,
-//       createdAt: timestamp,
-//       deletedAt: 0,
-//       // createdAt: new Date(),
-//       // authorFirstName: 'Net',
-//       // authorLastName: 'Ninja',
-//       // authorId: 12345,
-//     };
+    const timestamp = Date.now();
+    const newData = {
+      ...item,
+      createdAt: timestamp,
+      // deletedAt: 0,
+      // createdAt: new Date(),
+      // authorFirstName: 'Net',
+      // authorLastName: 'Ninja',
+      // authorId: 12345,
+    };
 
-//     // make async call to database
-//     const firestore = getFirestore();
-//     // console.log('item\n', item);
-//     // console.log('firestore\n', firestore);
-//     // console.log('getState\n', getState);
+    // make async call to database
+    const firestore = getFirestore();
+    // console.log('item\n', item);
+    // console.log('firestore\n', firestore);
+    // console.log('getState\n', getState);
 
-//     // ref: https://firebase.google.com/docs/firestore/manage-data/add-data#add_a_document
-//     // firestore.collection('test').add({
-//     firestore.collection(path).add(newData).then(() => {
-//       dispatch({ type: 'CREATE_ITEM_SUCCESS' });
-//     }).catch( error => {
-//       dispatch({ type: 'CREATE_ITEM_ERROR' }, error);
-//     });
-//   }
+    // ref: https://firebase.google.com/docs/firestore/manage-data/add-data#add_a_document
+    // firestore.collection('test').add({
+    firestore.collection(path).add(newData).then(() => {
+      // dispatch({ type: 'CREATE_ITEM_SUCCESS' });
+      dispatch({ type: 'SAVE_INITIAL_VALUES_SUCCESS' });
+    }).catch( error => {
+      // dispatch({ type: 'CREATE_ITEM_ERROR' }, error);
+      dispatch({ type: 'SAVE_INITIAL_VALUES_ERROR' }, error);
+    });
+  }
 
 // export const updateItem = ( path, docId, newItem , oldItem, ) =>
 // (dispatch, getState, { getFirebase, getFirestore, }) => {
@@ -155,4 +183,4 @@ export const updateDashboard = value => {
 //     });
 //   }
 
-// // end my add 2
+// end my add 2

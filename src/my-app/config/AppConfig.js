@@ -69,7 +69,6 @@ export const defaultSettings = {
 
 export const settingsConfig = {
   // define default settings
-  createdAt: Date.now(),
   name: undefined,
   email: undefined,
   mobile: undefined,
