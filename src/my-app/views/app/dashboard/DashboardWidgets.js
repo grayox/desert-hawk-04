@@ -80,10 +80,11 @@ const DashboardWidgets = props => {
       //   )}
       // </GridList>
 
+    // console.log('data\n', data,);
     <div className="pt-16 sm:pt-0">
       <Grid container spacing={16}>
         {items && items.map((item, index,) => {
-          console.log('data\n', data,);
+          // console.log('data\n', data,);
           const { id, } = item;
           const itemData = data[id];
           // item.data = 

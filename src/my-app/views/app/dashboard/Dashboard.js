@@ -46,8 +46,8 @@ import Error500Page from 'my-app/components/Error500Page';
 
 // import GeoSelect from 'my-app/components/GeoSelect/GeoSelect';
 // import GeoStepper from 'my-app/components/steppers/GeoStepper';
+// import FetchUserData from 'my-app/containers/FetchUserData';
 import Loading from 'my-app/components/Loading.js';
-import FetchUserData from 'my-app/containers/FetchUserData';
 
 import SettingsMessage from 'my-app/components/SettingsMessage';
 import SettingsStepper from 'my-app/components/steppers/SettingsStepper';
@@ -459,7 +459,6 @@ class Dashboard extends Component {
       !dataHasLoaded
       ?
       <React.Fragment>
-        
         <Loading />
       </React.Fragment>
       :
@@ -516,9 +515,10 @@ const mapStateToProps = state => {
   
   // // console.log('user\n', user,);
   // // console.log('leads\n', leads,);
-  console.log('profile\n', profile,);
   // console.log('settings\n', settings,);
-  console.log('dashboard\n', dashboard,);
+
+  // console.log('profile\n', profile,);
+  // console.log('dashboard\n', dashboard,);
   // console.log('dataHasLoaded\n', dataHasLoaded,);
   
   // //       YES   YES      YES       NO     NO

@@ -38,15 +38,9 @@ class FetchUserData extends Component {
   getPath() {
     // console.log('props\n', this.props);
     const uid = this && this.props && this.props.user && this.props.user.uid;
-    if(!uid) {
-      throw 'uid not available';
-      return;
-    }
+    if(!uid) throw new Error('uid not available');
     const path = this && this.props && this.props.path;
-    if(!path) {
-      throw 'path variable not available';
-      return;
-    }
+    if(!path) throw new Error('path variable not available');
 
     return uid ? [ 'users' , uid , path , ].join('/') : null;
   }
@@ -75,28 +69,7 @@ class FetchUserData extends Component {
     const newState = { isLoading: false, };
     newState[path] = newData;
     this.setState({...newData});
-
-    // switch(path) {
-    //   case 'settings':
-    //     // console.log('settings\n', data);
-    //     this.props.updateSettings(data);
-    //     this.setState({
-    //       settings: data,
-    //       isLoading: false,
-    //     });
-    //     break;
-    //   case 'dashboard':
-    //     // console.log('dashboard\n', data);
-    //     this.props.updateDashboard(data);
-    //     this.setState({
-    //       dashboard: data,
-    //       isLoading: false,
-    //     });
-    //     break;
-    //   default:
-    //     throw 'Path must be one of: "settings" or "dashboard"';
-    // }
-
+    
     this._asyncRequest = null;
   }
 

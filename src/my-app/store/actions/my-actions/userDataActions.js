@@ -36,13 +36,14 @@ export const UPDATE_DASHBOARD = '[DASHBOARD] UPDATE DASHBOARD';
 // begin my add
 
 export const updateUserData = (path, value,) => {
-  console.log('path\n', path);
-  console.log('value\n', value);
+  // console.log('path\n', path);
+  // console.log('value\n', value);
   const typeConfig = {
     settings: UPDATE_SETTINGS,
     dashboard: UPDATE_DASHBOARD,
   }
   const newData = value || handleInitialValues(path);
+  console.log('newData\n', newData);
   return {
     type: typeConfig[path],
     value: newData, // value,
@@ -77,14 +78,16 @@ export const updateUserData = (path, value,) => {
 // inspired by: src/my-app/store/actions/my-actions/leadsActions.js
 // ref: https://firebase.google.com/docs/firestore/quickstart#next_steps
 
-const handleInitialValues = path => {
+const handleInitialValues = ( path ) => {
   const initialValuesConfig = {
     settings: settingsConfig,
     dashboard: getDashboardInitialValues(),
-  }
-  const initialValues = initialValuesConfig[path];
-  saveInitialValuesToFirebase(path, initialValues,); // write initialValues to firebase
-  return initialValues;
+  };
+  return initialValuesConfig[path];
+  // const initialValues = initialValuesConfig[path];
+  // const out = await saveInitialValuesToFirebase(path, initialValues,); // write initialValues to firebase
+  // console.log('out\n', out,);
+  // return out;
 }
 
 // source: https://github.com/iamshaunjp/React-Redux-Firebase-App/blob/lesson-18/marioplan/src/store/actions/projectActions.js
@@ -106,6 +109,7 @@ export const saveInitialValuesToFirebase = ( path, item, ) =>
     // make async call to database
     const firestore = getFirestore();
     // console.log('item\n', item);
+    console.log('newData\n', newData,);
     // console.log('firestore\n', firestore);
     // console.log('getState\n', getState);
 
@@ -114,6 +118,7 @@ export const saveInitialValuesToFirebase = ( path, item, ) =>
     firestore.collection(path).add(newData).then(() => {
       // dispatch({ type: 'CREATE_ITEM_SUCCESS' });
       dispatch({ type: 'SAVE_INITIAL_VALUES_SUCCESS' });
+      return item;
     }).catch( error => {
       // dispatch({ type: 'CREATE_ITEM_ERROR' }, error);
       dispatch({ type: 'SAVE_INITIAL_VALUES_ERROR' }, error);
