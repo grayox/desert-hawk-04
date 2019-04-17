@@ -17,13 +17,13 @@ const SCALAR = 1.5; // compensation for random factor; when combined with index,
 
 const { groups, } = DashboardGridConfig;
 
-const DashboardWidget = ({ widget, data, index, count, }) => { // classes,
+const DashboardWidget = ({ widget, data, index, count, }) => { // data, classes,
   // count: number: total number of widgets on the dashboard (for purpose of calculating entry animation)
   // index: number: sequence number of this widget relative to all widgets on the dashboard (for purpose of calculating entry animation)
   // widget: object: data defining the widget content
   // console.log('widget\n', widget,);
 
-  const { group, id, label, description, links, } = widget; //data, // desc, rowDesc,rowName, 
+  const { group, label, description, links, } = widget; // data, desc, rowDesc,rowName,
 
   // linear staggered sequencing
   // const timeout = TARGET * (index + 1) / count;

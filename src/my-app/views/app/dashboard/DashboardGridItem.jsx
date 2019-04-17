@@ -56,7 +56,7 @@ function DashboardGridItem(props) {
             {React.createElement(item.icon)}
           </CardIcon>
           <div className={classes.cardCategory}>{item.label}</div>
-          <div variant={item.typog || 'h4'}>{item.data}</div>
+          <div variant="h4">{item.data}</div>
         </CardHeader>
         <CardFooter stats>
           <div className={classes.stats}>
