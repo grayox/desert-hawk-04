@@ -62,9 +62,31 @@ export const firebaseConfig = {
 }
 
 export const defaultSettings = {
+  // placeholeder only for now
+  // prevents import error at userDataReducer.js
+  // experimenting with replacement by settingsConfig
+}
+
+export const settingsConfig = {
   // define default settings
   createdAt: Date.now(),
-  
+  name: undefined,
+  email: undefined,
+  mobile: undefined,
+  businessType: undefined,
+  geoNation: undefined,
+  geoRegion: undefined,
+  geoLocation: undefined,
+  autoClaimNewLeads: false,
+  autoTextMe: false,
+  autoTextMeToNumber: undefined,
+  autoEmailMe: false,
+  autoEmailMeToEmail: undefined,
+  autoTextProspect: false,
+  autoTextProspectToNumber: undefined,
+  autoEmailProspect: false,
+  autoEmailProspectToEmail: undefined,
+  displayAvatar: 'Friendly',
 }
 
 export const avatarOptions = [
