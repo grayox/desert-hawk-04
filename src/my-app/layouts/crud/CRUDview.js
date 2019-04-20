@@ -897,9 +897,8 @@ class CRUDView extends Component {
             >
               {
                 items && items.map( ( item, index, ) =>
-                  <Tooltip TransitionComponent={Zoom} placement="top" title="Click for detail">
+                  <Tooltip key={item.createdAt} TransitionComponent={Zoom} placement="top" title="Click for detail">
                     <div
-                      key={item.createdAt}
                       // className="border-b" // use divider instead
                     >
                       { getSummary( item, true, index, ) }

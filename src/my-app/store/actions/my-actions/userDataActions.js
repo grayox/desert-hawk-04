@@ -1,9 +1,6 @@
 // inspired by src/store/actions/fuse/settings.actions.js
 
 // begin my add
-import { getDashboardInitialValues, } from 'my-app/config/DashboardGridConfig';
-import { settingsConfig, } from 'my-app/config/AppConfig';
-
 export const UPDATE_SETTINGS = '[SETTINGS] UPDATE SETTINGS';
 export const UPDATE_DASHBOARD = '[DASHBOARD] UPDATE DASHBOARD';
 // end my add
@@ -42,18 +39,18 @@ export const updateUserData = (path, value,) => {
     settings: UPDATE_SETTINGS,
     dashboard: UPDATE_DASHBOARD,
   }
-  const newData = value || handleInitialValues(path);
-  console.log('newData\n', newData);
-  return {
+  const out = {
     type: typeConfig[path],
-    value: newData, // value,
+    value,
   }
+  // console.log('out\n', out);
+  return out; 
 }
 
 // // export function updateSettings(value) {
 // export const updateSettings = value => {
 //   // console.log('updateSettingsValue\n', value);
-//   const newData = value || handleInitialValues();
+//   const newData = value || getInitialValues();
 //   return {
 //     type: UPDATE_SETTINGS,
 //     value: newData, // value,
@@ -62,7 +59,7 @@ export const updateUserData = (path, value,) => {
 
 // export const updateDashboard = value => {
 //   console.log('updateDashboardValue\n', value);
-//   const newData = value || handleInitialValues();
+//   const newData = value || getInitialValues();
 //   return {
 //     type: UPDATE_DASHBOARD,
 //     value: newData, // value,
@@ -73,27 +70,16 @@ export const updateUserData = (path, value,) => {
 
 // begin my add 2
 
-// inspired by: src/my-app/layouts/crud/store/actions/crud.actions.js
-// which was, in turn,
-// inspired by: src/my-app/store/actions/my-actions/leadsActions.js
-// ref: https://firebase.google.com/docs/firestore/quickstart#next_steps
-
-const handleInitialValues = ( path ) => {
-  const initialValuesConfig = {
-    settings: settingsConfig,
-    dashboard: getDashboardInitialValues(),
-  };
-  return initialValuesConfig[path];
-  // const initialValues = initialValuesConfig[path];
-  // const out = await saveInitialValuesToFirebase(path, initialValues,); // write initialValues to firebase
-  // console.log('out\n', out,);
-  // return out;
-}
-
 // source: https://github.com/iamshaunjp/React-Redux-Firebase-App/blob/lesson-18/marioplan/src/store/actions/projectActions.js
 // export const createItem = ( path, item, ) =>
-export const saveInitialValuesToFirebase = ( path, item, ) =>
+export const saveUserDataToFirebase = ( path, item, ) => 
+  // {
+  //   console.log('path\n', path,);
+  //   console.log('item\n', item,);
+  // }
   (dispatch, getState, { getFirebase, getFirestore, }) => {
+    console.log('path\n', path,);
+    console.log('item\n', item,);
 
     const timestamp = Date.now();
     const newData = {
@@ -116,12 +102,11 @@ export const saveInitialValuesToFirebase = ( path, item, ) =>
     // ref: https://firebase.google.com/docs/firestore/manage-data/add-data#add_a_document
     // firestore.collection('test').add({
     firestore.collection(path).add(newData).then(() => {
-      // dispatch({ type: 'CREATE_ITEM_SUCCESS' });
-      dispatch({ type: 'SAVE_INITIAL_VALUES_SUCCESS' });
+      // dispatch({ type: 'SAVE_INITIAL_VALUES_SUCCESS' }); // dispatch({ type: 'CREATE_ITEM_SUCCESS' });
       return item;
     }).catch( error => {
       // dispatch({ type: 'CREATE_ITEM_ERROR' }, error);
-      dispatch({ type: 'SAVE_INITIAL_VALUES_ERROR' }, error);
+      // dispatch({ type: 'SAVE_INITIAL_VALUES_ERROR' }, error);
     });
   }
 

@@ -1,17 +1,39 @@
 // next generation version of FetchSettings.js:
 // enables fetching of 'settings' and 'dashboard' via prop.path
 
-import { Component } from 'react';
-// import React, { Component } from 'react';
+import React, { Component } from 'react';
+// import { Component } from 'react';
 // import PropTypes from "prop-types";
 
 // redux
 import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { updateUserData, } from 'my-app/store/actions/my-actions'; // updateSettings, updateDashboard,
+// import { compose } from 'redux';
+import compose from 'recompose/compose';
+import { updateUserData, saveUserDataToFirebase, } from 'my-app/store/actions/my-actions'; // updateSettings, updateDashboard,
+
 
 // import { withStyles, } from '@material-ui/core';
 import { loadUserData, } from 'my-app/containers/LoadAsync';
+
+// begin my add
+
+import { getDashboardInitialValues, } from 'my-app/config/DashboardGridConfig';
+import { settingsConfig, } from 'my-app/config/AppConfig';
+
+// inspired by: src/my-app/layouts/crud/store/actions/crud.actions.js
+// which was, in turn,
+// inspired by: src/my-app/store/actions/my-actions/leadsActions.js
+// ref: https://firebase.google.com/docs/firestore/quickstart#next_steps
+
+const getInitialValues = path => {
+  const initialValuesConfig = {
+    settings: settingsConfig,
+    dashboard: getDashboardInitialValues(),
+  };
+  const out = initialValuesConfig[path];
+  // console.log('out\n', out,);
+  return out;
+}
 
 const INITIAL_STATE = {
   items: null,
@@ -65,11 +87,21 @@ class FetchUserData extends Component {
     // this._asyncRequest = loadUserData();
     this._asyncRequest = loadUserData(dataPath);
     const newData = await this._asyncRequest;
-    updateUserData(path, newData,);
+
+    if(!!newData) {
+      updateUserData(path, newData,);
+    } else {
+      const initialValues = getInitialValues(path);
+      // console.log('path\n', path,);
+      // console.log('initialValues\n', initialValues,);  
+      updateUserData( path, initialValues, );
+      saveUserDataToFirebase( path, initialValues, );
+    }
+
     const newState = { isLoading: false, };
     newState[path] = newData;
     this.setState({...newData});
-    
+
     this._asyncRequest = null;
   }
 
@@ -114,9 +146,14 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  updateUserData: (path, newData,)  => dispatch(updateUserData(path, newData,)),
+  updateUserData         : (path, newData,)  => dispatch(updateUserData(path, newData,)),
+  saveUserDataToFirebase : (path, newData,)  => dispatch(updateUserData(path, newData,)),
   // updateSettings  : settings  => dispatch(updateSettings (settings )),
   // updateDashboard : dashboard => dispatch(updateDashboard(dashboard)),
+
+  // createItem: ( path , item  ,                    ) => dispatch(createItem( path , item  ,                    )), // inspired by: src/my-app/components/forms/CreateLead.js
+  // updateItem: ( path , docId , newItem , oldItem, ) => dispatch(updateItem( path , docId , newItem , oldItem, )),
+  // deleteItem: ( path , docId ,                    ) => dispatch(deleteItem( path , docId ,                    )),
 })
 
 export default compose(
