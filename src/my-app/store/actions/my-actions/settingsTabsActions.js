@@ -1,15 +1,18 @@
 // from marioplan...projectActions
 export const updateSettings = settings => {
+  console.log('settings\n', settings,);
   // prevent saving settings.id of previous settings object
   if(settings && settings.id) delete settings.id;
   return (dispatch, getState, {getFirestore}) => {
-    // console.log('Hello world from editSetting');
+    // console.log('Hello, world!');
     // console.log('newSettings\n', newSettings);
     // debugger;
 
     const state = getState();
     // console.log('state\n', state);
-    const uid = state.auth.user.data.uid;
+    // const uid = state.auth.user.data.uid; // avoid; instead, use state.firebase.profile.uid
+    const uid = state.firebase.profile.uid; // best practice
+    // console.log('uid\n', uid);
 
     const firestore = getFirestore();
     // const profile = getState().firebase.profile;

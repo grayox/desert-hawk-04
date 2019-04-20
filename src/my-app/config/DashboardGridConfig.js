@@ -80,7 +80,6 @@ export const DashboardGridConfig = {
             It represents the difference between your deposits and withdrawals.
             Or, in other words, how many leads you referred compared to how many you received.
           </span>
-          <br/><br/>
           <span>
             If you maintain a positive net balance, you will always be able to see your inbox
             and claim new leads as they arrive.
@@ -110,7 +109,6 @@ export const DashboardGridConfig = {
             The form&rsquo;s &ldquo;save&rdquo; button will remain disabled
             until you complete all required fields.
           </span>
-          <br/><br/>
           <span>
             These are all your required fields.
             <ul>
@@ -143,7 +141,6 @@ export const DashboardGridConfig = {
             To claim a lead from your inbox, just click it.
             Then we will automatically place that lead in your archive and you will be able to see it continuously.
           </span>
-          <br/><br/>
           <span>
             Unlike new leads in your inbox, you will always be able to see your archived leads &mdash;
             even if your net balance falls to zero.
@@ -170,7 +167,6 @@ export const DashboardGridConfig = {
             Lost challenges are shown as a negative number.
             Users can challenge leads they believe are not legitimate.
           </span>
-          <br/><br/>
           <span>
             You can challenge any lead you think is of poor quality.
             Those who make or receive too many challenges could have negative consequences as a result.

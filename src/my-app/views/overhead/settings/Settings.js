@@ -7,6 +7,7 @@ import { Avatar, Tab, Tabs, Typography, } from '@material-ui/core'; // Button,
 // import AboutTab from 'main/content/pages/profile/tabs/AboutTab';
 
 // begin my add
+
 import PropTypes from 'prop-types';
 // import classNames from 'classnames';
 
@@ -642,7 +643,7 @@ const mapDispatchToProps = dispatch => {
 
 export default compose(
   withStyles(styles, { withTheme: true }),  
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(mapStateToProps, mapDispatchToProps,),
   // firestoreConnect(props => {
   //   return [
   //     { collection: 'leads', orderBy: ['createdAt', 'desc'] },

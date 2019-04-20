@@ -73,11 +73,10 @@ export const updateUserData = (path, value,) => {
 // source: https://github.com/iamshaunjp/React-Redux-Firebase-App/blob/lesson-18/marioplan/src/store/actions/projectActions.js
 // export const createItem = ( path, item, ) =>
 export const saveUserDataToFirebase = ( path, item, ) => 
-  // {
-  //   console.log('path\n', path,);
-  //   console.log('item\n', item,);
-  // }
-  (dispatch, getState, { getFirebase, getFirestore, }) => {
+  {
+    console.log('path\n', path,);
+    console.log('item\n', item,);
+  return (dispatch, getState, { getFirebase, getFirestore, }) => {
     console.log('path\n', path,);
     console.log('item\n', item,);
 
@@ -108,7 +107,7 @@ export const saveUserDataToFirebase = ( path, item, ) =>
       // dispatch({ type: 'CREATE_ITEM_ERROR' }, error);
       // dispatch({ type: 'SAVE_INITIAL_VALUES_ERROR' }, error);
     });
-  }
+  }}
 
 // export const updateItem = ( path, docId, newItem , oldItem, ) =>
 // (dispatch, getState, { getFirebase, getFirestore, }) => {

@@ -1,22 +1,21 @@
 // next generation version of FetchSettings.js:
 // enables fetching of 'settings' and 'dashboard' via prop.path
 
-import React, { Component } from 'react';
-// import { Component } from 'react';
+// import React, { Component } from 'react';
+import { Component } from 'react';
 // import PropTypes from "prop-types";
 
 // redux
 import { connect } from 'react-redux';
 // import { compose } from 'redux';
 import compose from 'recompose/compose';
-import { updateUserData, saveUserDataToFirebase, } from 'my-app/store/actions/my-actions'; // updateSettings, updateDashboard,
-
 
 // import { withStyles, } from '@material-ui/core';
 import { loadUserData, } from 'my-app/containers/LoadAsync';
 
 // begin my add
 
+import { updateUserData, saveUserDataToFirebase, } from 'my-app/store/actions/my-actions'; // updateSettings, updateDashboard,
 import { getDashboardInitialValues, } from 'my-app/config/DashboardGridConfig';
 import { settingsConfig, } from 'my-app/config/AppConfig';
 
@@ -77,9 +76,10 @@ class FetchUserData extends Component {
   //     }
   //   );
   // }
+
   handleLoad = async () => {
     // console.log('props\n', this.props);
-    const { path, updateUserData, } = this.props;
+    const { path, updateUserData, saveUserDataToFirebase, } = this.props;
     const dataPath = await this.getPath();
     // console.log('dataPath\n', dataPath);
 
@@ -146,8 +146,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  updateUserData         : (path, newData,)  => dispatch(updateUserData(path, newData,)),
-  saveUserDataToFirebase : (path, newData,)  => dispatch(updateUserData(path, newData,)),
+  updateUserData         : (path, newData,)  => dispatch(updateUserData        (path, newData,)),
+  saveUserDataToFirebase : (path, newData,)  => dispatch(saveUserDataToFirebase(path, newData,)), // common mistakes: 1. forget to use this.props... when calling function in class 2. copy/paste forget to change function name in mapStateToProps => dispatch
   // updateSettings  : settings  => dispatch(updateSettings (settings )),
   // updateDashboard : dashboard => dispatch(updateDashboard(dashboard)),
 
