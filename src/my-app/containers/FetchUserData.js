@@ -58,7 +58,7 @@ class FetchUserData extends Component {
 
   getPath() {
     // console.log('props\n', this.props);
-    const uid = this && this.props && this.props.user && this.props.user.uid;
+    const uid = this && this.props && this.props.profile && this.props.profile.uid;
     if(!uid) throw new Error('uid not available');
     const path = this && this.props && this.props.path;
     if(!path) throw new Error('path variable not available');
@@ -95,7 +95,7 @@ class FetchUserData extends Component {
       // console.log('path\n', path,);
       // console.log('initialValues\n', initialValues,);  
       updateUserData( path, initialValues, );
-      saveUserDataToFirebase( path, initialValues, );
+      saveUserDataToFirebase( dataPath, initialValues, );
     }
 
     const newState = { isLoading: false, };
@@ -129,12 +129,12 @@ const mapStateToProps = state => {
   //               && state.firestore.ordered.users[0]
   //               && state.firestore.ordered.users[0].settings
   //               && state.firestore.ordered.users[0].settings[0];
-  const user = state.auth.user; // better source might be: const profile = state.firebase.profile;
+  // const user = state.auth.user; // better source might be: const profile = state.firebase.profile;
   // const leads = state.firestore.ordered.leads;
-  // const profile = state.firebase.profile;
+  const profile = state.firebase.profile;
   // const dataHasLoaded = user && leads && profile && settings;
   
-  console.log('user\n', user);
+  // console.log('user\n', user);
   // console.log('leads\n', leads);
   // console.log('profile\n', profile);
   // console.log('settings\n', settings);
@@ -142,7 +142,7 @@ const mapStateToProps = state => {
   
   // return { user, profile, settings, leads, dataHasLoaded, }
   //          YES   YES      NO        NO     NO
-  return { user, }
+  return { profile, } // user,
 }
 
 const mapDispatchToProps = dispatch => ({
