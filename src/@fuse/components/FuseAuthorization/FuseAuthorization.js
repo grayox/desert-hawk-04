@@ -38,22 +38,40 @@ class FuseAuthorization extends Component {
   }
 
   checkAuth() {
-    const matched = matchRoutes(this.props.routes, this.props.location.pathname)[0];
-    if (matched && matched.route && matched.route.auth && matched.route.auth.length > 0) {
-      if (!matched.route.auth.includes(this.props.user.role)) {
-        redirect = true;
-        if (this.props.user.role === 'guest') {
-        // if (!this.props.loggedIn) { // my add
-          this.props.history.push({
-            pathname: '/login',
-            state: { redirectUrl: this.props.location.pathname }
-          });
-        }
-        else {
-          this.props.history.push({
-            pathname: '/'
-          });
-        }
+
+    const ready1 = this && this.props;
+    if(!ready1) return;
+
+    const { routes, location, user, history, } = this.props; // profile, loggedIn,
+    const ready2 = routes && location && user && history; // && profile && loggedIn
+    if(!ready2) return;
+
+    const { pathname, } = location;
+    const ready3 =  pathname;
+    if(!ready3) return;
+    
+    const { auth, } = matched && matched.route;
+    const ready4 = auth && auth.length;
+    if(!ready4) return;
+
+    const ready5 = user && user.role;
+    if(!ready5) return;
+    const { role, } = user;
+
+    const matched = matchRoutes(routes, pathname,)[0];
+    if (!auth.includes(role)) {
+      redirect = true;
+      if (role === 'guest') {
+      // if (!loggedIn) { // my add
+        history.push({
+          pathname: '/login',
+          state: { redirectUrl: pathname }
+        });
+      }
+      else {
+        history.push({
+          pathname: '/'
+        });
       }
     }
   }
