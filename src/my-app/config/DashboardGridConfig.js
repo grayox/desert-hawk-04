@@ -328,7 +328,7 @@ export const DashboardGridConfig = {
         </span>
     },
     {
-      id: 'Location',
+      id: 'geoLocation',
       label: 'Location',
       // data: 'Scholes',
       // data: geoLocal,
@@ -354,7 +354,7 @@ export const DashboardGridConfig = {
       ,
     },
     {
-      id: 'state',
+      id: 'geoRegion',
       label: 'State',
       // data: 'Mississippi',
       // data: geoRegion,
@@ -378,7 +378,7 @@ export const DashboardGridConfig = {
       ,
     },
     {
-      id: 'country',
+      id: 'geoNation',
       label: 'Country',
       // data: 'United States',
       // data: geoNation,
