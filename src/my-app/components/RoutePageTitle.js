@@ -27,8 +27,10 @@ const getItem = pathname => {
 const Transition = props => <Slide direction="up" {...props} />
 
 const pageTitle = ({ location, }) => {
+  // console.log('location\n', location,);
   const { pathname, } = location;
   const item = getItem(pathname);
+  if(!item) return null;
 
   const [ dialogIsOpen, setDialogIsOpen, ] = useState(false);
   const handleOpenDialog = () => setDialogIsOpen(true);
@@ -58,7 +60,7 @@ const pageTitle = ({ location, }) => {
         </DialogActions>
       </Dialog>
     </div>
-  );
+  )
 }
  
 export default RoutePageTitle;
