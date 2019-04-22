@@ -4,6 +4,8 @@ import React, {Component} from 'react';
 import { withStyles } from '@material-ui/core/styles/index';
 import classNames from 'classnames';
 
+import ErrorBoundary from 'my-app/containers/ErrorBoundary';
+
 import { Typography, } from '@material-ui/core';
 import { FuseAnimate, } from '@fuse';
 
@@ -56,28 +58,31 @@ class Feedback extends Component {
     return (
       <div className={classNames(classes.root, classes.wrapper, "")}>
 
-        <div className={classNames(classes.header, "flex flex-col items-center justify-center text-center p-16 sm:p-24 h-200 sm:h-360")}>
+        <ErrorBoundary>
+          <div className={classNames(classes.header, "flex flex-col items-center justify-center text-center p-16 sm:p-24 h-200 sm:h-360")}>
+            <FuseAnimate animation="transition.slideUpIn" duration={400} delay={100}>
+              <Typography color="inherit" className="text-36 sm:text-56 font-light">
+                Send feedback
+              </Typography>
+            </FuseAnimate>
+          </div>
+        </ErrorBoundary>
 
-          <FuseAnimate animation="transition.slideUpIn" duration={400} delay={100}>
-            <Typography color="inherit" className="text-36 sm:text-56 font-light">
-              Send feedback
-            </Typography>
-          </FuseAnimate>
+        <ErrorBoundary>
+          <div className={classNames(classes.content, "flex")}>
+            <FuseAnimate animation="transition.slideUpIn" duration={450} delay={200}>
+              <div className="flex-1 max-w-xl w-full mx-auto px-16 sm:px-24 py-24 sm:py-32">
+                <FeedbackForm />
+              </div>
+            </FuseAnimate>
+            <FuseAnimate animation="transition.slideUpIn" duration={300} delay={300}>
+              <div className="flex-1 max-w-xl w-full mx-auto px-16 sm:px-24 py-24 sm:py-32">
+                <RatingSelect />
+              </div>
+            </FuseAnimate>
+          </div>
+        </ErrorBoundary>
 
-        </div>
-
-        <div className={classNames(classes.content, "flex")}>
-          <FuseAnimate animation="transition.slideUpIn" duration={450} delay={200}>
-            <div className="flex-1 max-w-xl w-full mx-auto px-16 sm:px-24 py-24 sm:py-32">
-              <FeedbackForm />
-            </div>
-          </FuseAnimate>
-          <FuseAnimate animation="transition.slideUpIn" duration={300} delay={300}>
-            <div className="flex-1 max-w-xl w-full mx-auto px-16 sm:px-24 py-24 sm:py-32">
-              <RatingSelect />
-            </div>
-          </FuseAnimate>
-        </div>
       </div>
     );
   }
