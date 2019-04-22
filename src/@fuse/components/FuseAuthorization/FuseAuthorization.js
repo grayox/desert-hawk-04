@@ -50,6 +50,7 @@ class FuseAuthorization extends Component {
     const ready3 =  pathname;
     if(!ready3) return;
     
+    const matched = matchRoutes(routes, pathname,)[0];
     const { auth, } = matched && matched.route;
     const ready4 = auth && auth.length;
     if(!ready4) return;
@@ -58,7 +59,6 @@ class FuseAuthorization extends Component {
     if(!ready5) return;
     const { role, } = user;
 
-    const matched = matchRoutes(routes, pathname,)[0];
     if (!auth.includes(role)) {
       redirect = true;
       if (role === 'guest') {

@@ -1,49 +1,64 @@
 // ref: http://dreyescat.github.io/react-rating/
 
-import React, { Component } from 'react';
+import React, { useState, } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 // import PropTypes from "prop-types";
 
-import { Typography, Paper, } from '@material-ui/core';
+import { Typography, Paper, Button, } from '@material-ui/core';
+
+import { FaStar, FaRegStar, } from 'react-icons/fa'; // https://react-icons.netlify.com/#/
 
 import Rating from 'react-rating';
 
 const styles = theme => ({});
 
-class RatingSelect extends Component {
+const RatingSelect = props => {
+  const [ value           , setValue           , ] = useState(undefined);
+  const [ disabledButtons , setDisabledButtons , ] = useState(true);
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: undefined,
-    };
+  const handleChange = n => {
+    console.log('value\n', n,);
+    setValue(n);
   }
 
-  handleChange = value => {
-    // console.log('value\n', value);
-    this.setState({ value, });
+  const handleClick = n => {
+    console.log('value\n', n,);
+    if(n === value) {
+      handleReset();
+    } else {
+      handleChange(n);
+      setDisabledButtons(false);
+    }
   }
 
-  render() {
-    // const { classes, } = this.props;
-    const { value } = this.state;
-    const { handleChange } = this;
-    
-    return (
-      <Paper className="max-w-sm m-32 p-32">
-        <Typography className="h1 mb-12">
-          Rate us
-          {
-            value && `: ${value}/5 stars`
-          }
-        </Typography>
+  const handleReset = () => {
+    setValue(undefined);
+    setDisabledButtons(true);
+  }
+
+  return (
+    <Paper className="max-w-sm m-32 p-32">
+      <Typography className="h1 mb-12">
+        Rate us
         {
-        // <Typography className="body1 mb-24">{value}</Typography>
+          value && `: ${value}/5 stars`
         }
-        <Rating stop={5} fractions={2} initialRating={value} onChange={handleChange} />
-      </Paper>
-    );
-  }
+      </Typography>
+      {
+      // <Typography className="body1 mb-24">{value}</Typography>
+      // <Rating fractions={2} />
+      }
+      <Rating
+        stop={5} initialRating={value} onClick={handleClick} // onChange={handleChange}
+        emptySymbol={<FaRegStar className="mx-8 text-3xl text-orange" />}
+        fullSymbol={<FaStar className="mx-8 text-3xl text-orange" />}
+      /> 
+      <div className="mt-24 justify-right">
+        <Button disabled={disabledButtons} onClick={handleReset}>Reset</Button>
+        <Button variant="contained" color="secondary" disabled={disabledButtons}>Save</Button>
+      </div>
+    </Paper>
+  );
 }
 
 // RatingSelect.propTypes = {

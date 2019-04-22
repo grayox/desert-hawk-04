@@ -35,10 +35,10 @@ import { IconContext } from "react-icons"; // my add
 // MenuItem><FaSignOutAlt /><span className="ml-12">FaSignOutAlt</span></MenuItem>
 // MenuItem><IoIosLogOut /><span className="ml-12">IoIosLogOut</span></MenuItem>
 // MenuItem><GoSignOut /><span className="ml-12">GoSignOut</span></MenuItem>
-import { FaSignOutAlt } from 'react-icons/fa'; // https://react-icons.netlify.cIoIosLogOutom/#/
-// import { FiLogOut } from 'react-icons/fi'; // https://react-icons.netlify.cIoIosLogOutom/#/
+import { FaSignOutAlt } from 'react-icons/fa'; // https://react-icons.netlify.com/#/
+// import { FiLogOut } from 'react-icons/fi'; // https://react-icons.netlify.com/#/
 // import { GoSignOut, } from 'react-icons/go'; // https://react-icons.netlify.com/#/
-// import { IoIosLogOut, IoMdLogOut, } from 'react-icons/io'; // https://react-icons.netlify.cIoIosLogOutom/#/
+// import { IoIosLogOut, IoMdLogOut, } from 'react-icons/io'; // https://react-icons.netlify.com/#/
 
 // utility components
 // import CRUDRouter from 'my-app/layouts/crud/CRUDRouter';
