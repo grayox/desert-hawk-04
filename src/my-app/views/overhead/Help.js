@@ -140,7 +140,7 @@ const FaqPage = props => {
                 </ExpansionPanelSummary>
 
                 <ExpansionPanelDetails>
-                  <Typography className="">{faq.answer}</Typography>
+                  <Typography className="mx-32">{faq.answer}</Typography>
                 </ExpansionPanelDetails>
               </ExpansionPanel>
             ))}

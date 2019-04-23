@@ -1,6 +1,6 @@
 import React from 'react';
 // import React, { Component } from 'react';
-// import PropTypes from "prop-types";
+// import PropTypes from 'prop-types';
 // import { Typography, } from '@material-ui/core'; // withStyles,
 
 // firebase
@@ -29,12 +29,12 @@ import _ from '@lodash';
 // alt icons
 // install https://www.npmjs.com/package/react-icons
 // icons   https://react-icons.netlify.com/#/
-import { IconContext } from "react-icons"; // my add
-// MenuItem><FiLogOut /><span className="ml-12">FiLogOut</span></MenuItem>
-// MenuItem><IoMdLogOut /><span className="ml-12">IoMdLogOut</span></MenuItem>
-// MenuItem><FaSignOutAlt /><span className="ml-12">FaSignOutAlt</span></MenuItem>
-// MenuItem><IoIosLogOut /><span className="ml-12">IoIosLogOut</span></MenuItem>
-// MenuItem><GoSignOut /><span className="ml-12">GoSignOut</span></MenuItem>
+import { IconContext } from 'react-icons'; // my add
+// MenuItem><FiLogOut /><span className='ml-12'>FiLogOut</span></MenuItem>
+// MenuItem><IoMdLogOut /><span className='ml-12'>IoMdLogOut</span></MenuItem>
+// MenuItem><FaSignOutAlt /><span className='ml-12'>FaSignOutAlt</span></MenuItem>
+// MenuItem><IoIosLogOut /><span className='ml-12'>IoIosLogOut</span></MenuItem>
+// MenuItem><GoSignOut /><span className='ml-12'>GoSignOut</span></MenuItem>
 import { FaSignOutAlt } from 'react-icons/fa'; // https://react-icons.netlify.com/#/
 // import { FiLogOut } from 'react-icons/fi'; // https://react-icons.netlify.com/#/
 // import { GoSignOut, } from 'react-icons/go'; // https://react-icons.netlify.com/#/
@@ -53,12 +53,12 @@ export const uiSpecs = {
 }
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyAOEXILaYcxjmJsJ81_WfubS_h3AQ3lLdA",
-  authDomain: "green-comet-e2c85.firebaseapp.com",
-  databaseURL: "https://green-comet-e2c85.firebaseio.com",
-  projectId: "green-comet-e2c85",
-  storageBucket: "green-comet-e2c85.appspot.com",
-  messagingSenderId: "682044250674",
+  apiKey: 'AIzaSyAOEXILaYcxjmJsJ81_WfubS_h3AQ3lLdA',
+  authDomain: 'green-comet-e2c85.firebaseapp.com',
+  databaseURL: 'https://green-comet-e2c85.firebaseio.com',
+  projectId: 'green-comet-e2c85',
+  storageBucket: 'green-comet-e2c85.appspot.com',
+  messagingSenderId: '682044250674',
 }
 
 export const defaultSettings = {
@@ -403,7 +403,7 @@ export const componentsNavConfig = [
     title      : 'Logout',
     type       : 'item',
     altIcon    : (
-      <IconContext.Provider value={{ color: "white", className: "text-20 flex-no-shrink" }}>
+      <IconContext.Provider value={{ color: 'white', className: 'text-20 flex-no-shrink' }}>
         <span><FaSignOutAlt /></span>
       </IconContext.Provider>
     ),
@@ -426,19 +426,20 @@ export const faqDB = [
   },
   {
     'id'       : '2',
-    'question' : 'What problem does Swap solve?',
+    'question' : 'What central problem does Swap solve?',
     // eslint-disable-next-line
-    'answer'   : '...',
+    'answer'   : 'Swap is the best way to generate sales lead referrals. Other similar systems of leveraging\
+                  referral networks to generate sales leads, like BNI for example, fail to\
+                  adequately motivate all the members to contribute leads to the network.\
+                  Members are often frustrated because they contribute a volume of leads to the system,\
+                  but don’t receive in turn an adequate supply of leads back out of the system sufficient\
+                  to justify their time investment.',
   },
   {
     'id'       : '3',
-    'question' : 'How is Swap better than other ways of generating referral leads?',
+    'question' : 'How does Swap solve this central problem?',
     // eslint-disable-next-line
-    'answer'   : 'Other similar systems of generating referral networks, like BNI for example, fail to\
-                  adequately motivate all the members to contribute leads. Members are often frustrated\
-                  by contributing leads to the system, but don’t receive in turn an adequate supply of leads\
-                  out of the system to justify their time investment.\
-                  \n\nSwap solves this problem by adding a layer of speed and accountability.\
+    'answer'   : 'Swap solves this problem by adding a layer of speed and accountability.\
                   Speed because everything is online and you can do all your referral networking by the press\
                   of a button on your laptop or smart phone. Accountability is added by enforcing our central\
                   rule: All members must maintain a net positive contribution balance of leads at all times\
@@ -472,57 +473,73 @@ export const faqDB = [
   },
   {
     'id'       : '7',
-    'question' : 'How do you keep the leads good quality?',
+    'question' : 'How do you ensure the lead referrals are of good quality?',
     // eslint-disable-next-line
-    'answer'   : 'Deserunt veniam reprehenderit do elit magna ut.',
+    'answer'   : 'We have a challenge system that allows the network to self-police the quality of the leads\
+                  in the system.',
   },
   {
     'id'       : '8',
     'question' : 'What happens if I get a bad lead?',
     // eslint-disable-next-line
-    'answer'   : 'You can dispute it with what we calla a "challenge."'
+    'answer'   : 'You can dispute it with a “challenge.”',
   },
   {
     'id'       : '9',
+    'question' : 'How many challenges am I allowed?',
+    // eslint-disable-next-line
+    'answer'   : 'You have an unlimited number of challenges. And we encourage you to challenge any leads\
+                  you consider problematic. However, we also monitor all challenges for abuse.',
+  },
+  {
+    'id'       : '10',
+    'question' : 'What happens if I get flagged as a “challenge abuser?”',
+    // eslint-disable-next-line
+    'answer'   : 'If we verify the abuse in bad faith, you could have your account restricted or banned.\
+                  This is done to protect the integrity of the network to maintain a high standard of\
+                  quality to make the network as valuable as possible to all our members.',
+  },
+  {
+    'id'       : '11',
     'question' : 'What if I submit a bad lead?',
     // eslint-disable-next-line
     'answer'   : 'If you receive a challenge and you agree it was a bad lead, you should correct it or\
                   settle the challenge by crediting the challenger. We will keep records of how many times\
                   this happens and those who are found to be abusing the system will have their account\
-                  limited or restricted to protect the network from abuse.'
+                  limited or restricted to protect the network from abuse.',
   },
   {
-    'id'       : '10',
+    'id'       : '12',
     'question' : 'Can I send referrals to a specific member?',
     // eslint-disable-next-line
     'answer'   : 'Yes. We let you invite that person to the network and then select that person to receive\
                   all your referrals of a specific type provided the lead is within the geographic territory\
-                  your target member serves.'
+                  your target member serves.',
   },
   {
-    'id': '11',
-    'question': 'Amet sunt et quis amet commodo quis?',
+    'id'       : '13',
+    'question' : 'What do I need to do before I can get my first referral?',
     // eslint-disable-next-line
-    'answer': 'Nulla dolore consequat aliqua sint consequat elit qui occaecat et.'
+    'answer'   : 'After you sign in with your Google, Facebook or Twitter account, we will need two pieces\
+                  of information from you. Firstly, we need you to tell us what line of business you are in.\
+                  Secondly, we need you to tell us the city or area of your physical geographic location.\
+                  And lastly, we need you to earn a positive net lead balance by submitting your first\
+                  qualified referral. Then we can show you the lead referrals that you qualify to receive.',
   },
   {
-    'id': '12',
-    'question': 'Ut eiusmod ex ea eiusmod culpa incididunt?',
+    'id'       : '14',
+    'question' : 'Why do you need me to sign in with my Google, Facebook or Twitter account?',
     // eslint-disable-next-line
-    'answer': 'Fugiat non incididunt officia ex incididunt occaecat. Voluptate nostrud culpa aliquip mollit incididunt non dolore.'
+    'answer'   : 'We need to verify you are a real person.',
   },
   {
-    'id': '13',
-    'question': 'Proident reprehenderit laboris pariatur ut et nisi?',
+    'id'       : '15',
+    'question' : 'Why do you need my line of business and geographical location?',
     // eslint-disable-next-line
-    'answer': 'Reprehenderit proident ut ad cillum quis velit quis aliqua ut aliquip tempor ullamco.'
+    'answer'   : 'Because that is the way we match you to the lead referrals that are submitted to the network.\
+                  We only show you the leads you can serve based on your line of business and physical\
+                  geographic location.',
   },
-  {
-    'id': '14',
-    'question': 'Aliqua aliquip aliquip aliquip et exercitation aute?',
-    // eslint-disable-next-line
-    'answer': 'Adipisicing Lorem tempor ex anim. Labore tempor laboris nostrud dolore voluptate ullamco. Fugiat ex deserunt anim minim esse velit laboris aute ea duis incididunt. Elit irure id Lorem incididunt laborum aliquip consectetur est irure sunt. Ut labore anim nisi aliqua tempor laborum nulla cillum. Duis irure consequat cillum magna cillum eiusmod ut. Et exercitation voluptate quis deserunt elit quis dolor deserunt ex ex esse ex.'
-  }
 ]
 
 // export const standardNavConfig = []
