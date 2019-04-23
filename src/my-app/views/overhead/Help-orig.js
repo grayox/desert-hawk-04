@@ -53,12 +53,13 @@ class FaqPage extends Component {
   };
 
   componentDidMount() {
+    // data source: src/fake-db/faq-db.js // text search on faq page leads there // my add
     axios.get('/api/faq').then(res => {
       this.setState({ data: res.data });
     });
   }
 
-  toogleExpansion = panel => (event, expanded) => {
+  toggleExpansion = panel => (event, expanded) => {
     this.setState({
       expanded: expanded ? panel : false
     });
@@ -122,7 +123,7 @@ class FaqPage extends Component {
               }}
             >
               {faqs.map(faq => (
-                <ExpansionPanel className={classes.panel} key={faq.id} expanded={expanded === faq.id} onChange={this.toogleExpansion(faq.id)} elevation={0}>
+                <ExpansionPanel className={classes.panel} key={faq.id} expanded={expanded === faq.id} onChange={this.toggleExpansion(faq.id)} elevation={0}>
 
                   <ExpansionPanelSummary expandIcon={<Icon>expand_more</Icon>}>
                     <div className="flex items-center">

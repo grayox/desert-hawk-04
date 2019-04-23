@@ -414,6 +414,94 @@ export const componentsNavConfig = [
   },
 ]
 
+export const faqDB = [
+  {
+    'id'       : '1',
+    'question' : 'Who is Swap made for?',
+    'answer'   : 'Swap is made for sales professionals.\
+                  Especially those selling mortgages, real estate, insurance and financial advisory services\
+                  who want to decrease their marketing costs and increase their sales volume by leveraging\
+                  the power of their referral network to generate a steady supply of leads.',
+  },
+  {
+    'id'       : '2',
+    'question' : 'How is Swap better than other ways of generating referral leads?',
+    'answer'   : 'Other similar systems of generating referral networks, like BNI for example, fail to\
+                  adequately motivate all the members to contribute leads. Members are often frustrated\
+                  by contributing leads to the system, but don’t receive in turn an adequate supply of leads\
+                  out of the system to justify their time investment.\
+                  \n\nSwap solves this problem by adding a layer of speed and accountability.\
+                  Speed because everything is online and you can do all your referral networking by the press\
+                  of a button on your laptop or smart phone. Accountability is added by enforcing our central\
+                  rule: All members must maintain a net positive contribution balance of leads at all times\
+                  in order to receive leads from the system.'
+  },
+  {
+    'id'       : '3',
+    'question' : 'What if I receive bogus leads? Will they count against me?',
+    'answer'   : 'No. At least that’s our goal. Our first release will not have our technology in this area\
+                  fully solved. But it will be a high priority to solve for this in future iterations\
+                  very soon after we release the initial product.'
+  },
+  {
+    'id'       : '4',
+    'question' : 'How does your pricing work?',
+    'answer'   : 'We are a free service during our initial phase. We reserve the right to charge a very small\
+                  fee in the future. After we have most of the bugs worked out and you are doing so much\
+                  extra business from our service, we will have earned every penny and then some in your eyes.'
+  },
+  {
+    'id': '5',
+    'question': 'Quis irure cupidatat ad consequat reprehenderit excepteur?',
+    'answer': 'Esse nisi mollit aliquip mollit aute consequat adipisicing. Do excepteur dolore proident cupidatat pariatur irure consequat incididunt.'
+  },
+  {
+    'id': '6',
+    'question': 'Officia voluptate tempor ut mollit ea cillum?',
+    'answer': 'Deserunt veniam reprehenderit do elit magna ut.'
+  },
+  {
+    'id': '7',
+    'question': 'Sunt fugiat officia nisi minim sunt duis?',
+    'answer': 'Eiusmod eiusmod sint aliquip exercitation cillum. Magna nulla officia ex consectetur ea ad excepteur in qui.'
+  },
+  {
+    'id': '8',
+    'question': 'Non cupidatat enim quis aliquip minim laborum?',
+    'answer': 'Qui cillum eiusmod nostrud sunt dolore velit nostrud labore voluptate ad dolore. Eu Lorem anim pariatur aliqua. Ullamco ut dolor velit esse occaecat dolore eu cillum commodo qui. Nulla dolor consequat voluptate magna ut commodo magna consectetur non aute proident.'
+  },
+  {
+    'id': '9',
+    'question': 'Dolor ex occaecat magna labore laboris qui?',
+    'answer': 'Incididunt qui excepteur eiusmod elit cillum occaecat voluptate cillum nostrud. Dolor ullamco ullamco eiusmod do sunt adipisicing pariatur. In esse esse labore id reprehenderit sint do. Pariatur culpa dolor tempor qui excepteur duis do anim minim ipsum.'
+  },
+  {
+    'id': '10',
+    'question': 'Nisi et ullamco minim ea proident tempor?',
+    'answer': 'Dolor veniam dolor cillum Lorem magna nisi in occaecat nulla dolor ea eiusmod.'
+  },
+  {
+    'id': '11',
+    'question': 'Amet sunt et quis amet commodo quis?',
+    'answer': 'Nulla dolore consequat aliqua sint consequat elit qui occaecat et.'
+  },
+  {
+    'id': '12',
+    'question': 'Ut eiusmod ex ea eiusmod culpa incididunt?',
+    'answer': 'Fugiat non incididunt officia ex incididunt occaecat. Voluptate nostrud culpa aliquip mollit incididunt non dolore.'
+  },
+  {
+    'id': '13',
+    'question': 'Proident reprehenderit laboris pariatur ut et nisi?',
+    'answer': 'Reprehenderit proident ut ad cillum quis velit quis aliqua ut aliquip tempor ullamco.'
+  },
+  {
+    'id': '14',
+    'question': 'Aliqua aliquip aliquip aliquip et exercitation aute?',
+    'answer': 'Adipisicing Lorem tempor ex anim. Labore tempor laboris nostrud dolore voluptate ullamco. Fugiat ex deserunt anim minim esse velit laboris aute ea duis incididunt. Elit irure id Lorem incididunt laborum aliquip consectetur est irure sunt. Ut labore anim nisi aliqua tempor laborum nulla cillum. Duis irure consequat cillum magna cillum eiusmod ut. Et exercitation voluptate quis deserunt elit quis dolor deserunt ex ex esse ex.'
+  }
+]
+
 // export const standardNavConfig = []
 
 // class FetchFirestore extends Component {
