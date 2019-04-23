@@ -4,7 +4,7 @@ import React, { useState, } from 'react';
 import { withStyles } from '@material-ui/core/styles/index';
 import {
   ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary,
-  Icon, Input, Paper, Typography
+  Icon, IconButton, Input, Paper, Typography
 } from '@material-ui/core';
 import classNames from 'classnames';
 import { faqDB } from 'my-app/config/AppConfig';
@@ -47,18 +47,19 @@ const styles = theme => ({
 const HEADER = 'We’re here to help';
 const SUBHEADER = 'Frequently asked questions';
 const PLACEHOLDER = 'Search in faqs...';
+const INITIAL_SEARCH_TEXT = '';
 
 const FaqPage = props => {
   const { classes, } = props;
 
   const [ data       ,                 ] = useState(faqDB); // setData,
   const [ expanded   , setExpanded   , ] = useState(null);
-  const [ searchText , setSearchText , ] = useState('');
+  const [ searchText , setSearchText , ] = useState(INITIAL_SEARCH_TEXT);
 
-  const getFilteredArray = (a, searchText,) => {
+  const getFilteredArray = ( a, searchText, ) => {
     const { length, } = searchText;
     if(!length) return a;
-    return FuseUtils.filterArrayByString(a, searchText);
+    return FuseUtils.filterArrayByString(a, searchText,);
   };
 
   const faqs = getFilteredArray(data, searchText,);
@@ -74,6 +75,10 @@ const FaqPage = props => {
     const { value, } = event.target;
     setSearchText(value);
   };
+
+  const handleClear = () => {
+    setSearchText(INITIAL_SEARCH_TEXT);
+  }
 
   return (
     <div className={classNames(classes.root, classes.wrapper, "")}>
@@ -105,6 +110,9 @@ const FaqPage = props => {
             value={searchText}
             onChange={handleSearch}
           />
+          <IconButton className="mr-16" onClick={handleClear}>
+            <Icon color="action">clear</Icon>
+          </IconButton>
         </Paper>
       </div>
 
@@ -116,7 +124,7 @@ const FaqPage = props => {
               animation: "transition.slideUpBigIn"
             }}
           >
-            {faqs.map(faq => (
+            {faqs.map((faq, index,) => (
               <ExpansionPanel
                 className={classes.panel}
                 key={faq.id}
@@ -127,7 +135,7 @@ const FaqPage = props => {
                 <ExpansionPanelSummary expandIcon={<Icon>expand_more</Icon>}>
                   <div className="flex items-center">
                     <Icon className="mr-8" color="action">help_outline</Icon>
-                    <Typography className="">{faq.question}</Typography>
+                    <Typography className="">{index+1}. {faq.question}</Typography>
                   </div>
                 </ExpansionPanelSummary>
 

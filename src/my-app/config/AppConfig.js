@@ -366,21 +366,6 @@ export const componentsNavConfig = [
   {
     description:
       <span>
-        Here you can tell us how the app is working for you and suggest ways we can improve it.
-      </span>,
-    id         : 'feedback',
-    path       : '/feedback',
-    title      : 'Send feedback',
-    type       : 'item',
-    icon       : 'feedback',
-    bottomNav  : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
-    overhead   : true,
-    // see src/my-app/config/Routes.js
-    component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/Feedback')}),
-  },
-  {
-    description:
-      <span>
         Here are some questions users commonly ask us. You can read the questions and there answers here.
       </span>,
     id         : 'help',
@@ -392,6 +377,21 @@ export const componentsNavConfig = [
     overhead   : true,
     // see src/my-app/config/Routes.js
     component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/Help')}),
+  },
+  {
+    description:
+      <span>
+        Here you can tell us how the app is working for you and suggest ways we can improve it.
+      </span>,
+    id         : 'feedback',
+    path       : '/feedback',
+    title      : 'Send feedback',
+    type       : 'item',
+    icon       : 'feedback',
+    bottomNav  : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
+    overhead   : true,
+    // see src/my-app/config/Routes.js
+    component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/Feedback')}),
   },
   {
     description:
@@ -425,6 +425,11 @@ export const faqDB = [
   },
   {
     'id'       : '2',
+    'question' : 'What problem does Swap solve?',
+    'answer'   : '...',
+  },
+  {
+    'id'       : '3',
     'question' : 'How is Swap better than other ways of generating referral leads?',
     'answer'   : 'Other similar systems of generating referral networks, like BNI for example, fail to\
                   adequately motivate all the members to contribute leads. Members are often frustrated\
@@ -434,51 +439,55 @@ export const faqDB = [
                   Speed because everything is online and you can do all your referral networking by the press\
                   of a button on your laptop or smart phone. Accountability is added by enforcing our central\
                   rule: All members must maintain a net positive contribution balance of leads at all times\
-                  in order to receive leads from the system.'
-  },
-  {
-    'id'       : '3',
-    'question' : 'What if I receive bogus leads? Will they count against me?',
-    'answer'   : 'No. At least that’s our goal. Our first release will not have our technology in this area\
-                  fully solved. But it will be a high priority to solve for this in future iterations\
-                  very soon after we release the initial product.'
+                  in order to receive leads from the system.',
   },
   {
     'id'       : '4',
+    'question' : 'What if I receive bad or bogus leads? Will they count against me?',
+    'answer'   : 'No. At least that’s our goal. Our first release will not have our technology in this area\
+                  fully refined so we might just have to ban users who abuse the system. However, in future\
+                  versions we will implement a system of fair resolution and settlement of bad leads.\
+                  Until we roll out this technology, it will remain a high priority item fo us to solve.',
+  },
+  {
+    'id'       : '5',
     'question' : 'How does your pricing work?',
     'answer'   : 'We are a free service during our initial phase. We reserve the right to charge a very small\
                   fee in the future. After we have most of the bugs worked out and you are doing so much\
-                  extra business from our service, we will have earned every penny and then some in your eyes.'
+                  extra business from our service, we will have earned every penny and then some in your eyes.',
   },
   {
-    'id': '5',
-    'question': 'Quis irure cupidatat ad consequat reprehenderit excepteur?',
-    'answer': 'Esse nisi mollit aliquip mollit aute consequat adipisicing. Do excepteur dolore proident cupidatat pariatur irure consequat incididunt.'
+    'id'       : '6',
+    'question' : 'Will I get to meet the members whom I send and receive leads?',
+    'answer'   : 'We leave that decision in your capable hands. Swap does not require personal meetings\
+                  with your network referral partners. But we do facilitate you working with,\
+                  sending leads to and receiving leads from network partners who you already\
+                  know or meet via Swap.',
   },
   {
-    'id': '6',
-    'question': 'Officia voluptate tempor ut mollit ea cillum?',
-    'answer': 'Deserunt veniam reprehenderit do elit magna ut.'
+    'id'       : '7',
+    'question' : 'How do you keep the leads good quality?',
+    'answer'   : 'Deserunt veniam reprehenderit do elit magna ut.',
   },
   {
-    'id': '7',
-    'question': 'Sunt fugiat officia nisi minim sunt duis?',
-    'answer': 'Eiusmod eiusmod sint aliquip exercitation cillum. Magna nulla officia ex consectetur ea ad excepteur in qui.'
+    'id'       : '8',
+    'question' : 'What happens if I get a bad lead?',
+    'answer'   : 'You can dispute it with what we calla a "challenge."'
   },
   {
-    'id': '8',
-    'question': 'Non cupidatat enim quis aliquip minim laborum?',
-    'answer': 'Qui cillum eiusmod nostrud sunt dolore velit nostrud labore voluptate ad dolore. Eu Lorem anim pariatur aliqua. Ullamco ut dolor velit esse occaecat dolore eu cillum commodo qui. Nulla dolor consequat voluptate magna ut commodo magna consectetur non aute proident.'
+    'id'       : '9',
+    'question' : 'What if I submit a bad lead?',
+    'answer'   : 'If you receive a challenge and you agree it was a bad lead, you should correct it or\
+                  settle the challenge by crediting the challenger. We will keep records of how many times\
+                  this happens and those who are found to be abusing the system will have their account\
+                  limited or restricted to protect the network from abuse.'
   },
   {
-    'id': '9',
-    'question': 'Dolor ex occaecat magna labore laboris qui?',
-    'answer': 'Incididunt qui excepteur eiusmod elit cillum occaecat voluptate cillum nostrud. Dolor ullamco ullamco eiusmod do sunt adipisicing pariatur. In esse esse labore id reprehenderit sint do. Pariatur culpa dolor tempor qui excepteur duis do anim minim ipsum.'
-  },
-  {
-    'id': '10',
-    'question': 'Nisi et ullamco minim ea proident tempor?',
-    'answer': 'Dolor veniam dolor cillum Lorem magna nisi in occaecat nulla dolor ea eiusmod.'
+    'id'       : '10',
+    'question' : 'Can I send referrals to a specific member?',
+    'answer'   : 'Yes. We let you invite that person to the network and then select that person to receive\
+                  all your referrals of a specific type provided the lead is within the geographic territory\
+                  your target member serves.'
   },
   {
     'id': '11',
