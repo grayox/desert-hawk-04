@@ -43,6 +43,7 @@ const RatingSelect = props => {
   const handleSave = () => {
     if(value < forwardMinimum) {
       // alert(value);
+      // alert(`${value}. ${FEEDBACK_REQUEST}`);
       alert(FEEDBACK_REQUEST);
       return;
     }
@@ -61,7 +62,7 @@ const RatingSelect = props => {
         emptySymbol={<FaRegStar className="mx-8 text-3xl text-orange" />}
         fullSymbol={<FaStar className="mx-8 text-3xl text-orange" />}
       />
-      <Typography className="ml-8 opacity-50">
+      <Typography className="ml-12 opacity-50">
         { value && `${value}/5 stars` }
       </Typography>
       <div className="mt-24 text-right">

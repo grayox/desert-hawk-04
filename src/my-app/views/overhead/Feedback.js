@@ -60,7 +60,7 @@ const Feedback = props => {
       </div>
 
       <div className={classNames(classes.content, "flex")}>
-        <FuseAnimate animation="transition.slideLeftIn" duration={600} delay={500}>
+        <FuseAnimate animation="transition.slideLeftIn" duration={600} delay={600}>
           <ErrorBoundary>
             {/* <div className="border border-red flex-1 max-w-xl mx-auto px-16 sm:px-24 py-24 sm:py-32"> */}
             <div className="xborder xborder-red flex-1">
@@ -69,7 +69,7 @@ const Feedback = props => {
           </ErrorBoundary>
         </FuseAnimate>
 
-        <FuseAnimate animation="transition.slideRightIn" duration={800} delay={700}>
+        <FuseAnimate animation="transition.slideRightIn" duration={800} delay={900}>
           <ErrorBoundary>
             {/* <div className="border border-red border flex-1 max-w-xl mx-auto px-16 sm:px-24 py-24 sm:py-32"> */}
             <div className="xborder xborder-red flex-1">
