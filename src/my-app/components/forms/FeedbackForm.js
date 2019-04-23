@@ -7,19 +7,20 @@ import { Typography, Button, TextField, Paper, } from '@material-ui/core';
 
 // const styles = theme => ({});
 
-const ALERT_MESSAGE = 'Your note has exceeded the maximum allowable size. Consider shortening it or splitting it into two parts.';
+const ALERT_SUCCESS = 'Your note was submitted. Thank you!';
+const ALERT_WARN = 'Your note has exceeded the maximum allowable size.\
+                    Consider shortening it or splitting it into two parts.';
 
 const FeedbackForm = props => {
   // const { classes, } = props;
   // const { container, margin, textField, } = classes;
   const { heading, label, rowsCount, minLength, maxLength, initialContent, initialCanSubmit, } = props;
-    
   const [ content   , setContent   , ] = useState(initialContent);
   const [ canSubmit , setCanSubmit , ] = useState(initialCanSubmit);
 
   const handleSubmit = () => {
-    console.log('content\n', content);
-    alert(`Your note was submitted. Thank you!\n\n${content}`);
+    // console.log('content\n', content,);
+    alert(`${ALERT_SUCCESS}\n\n${content}`);
     setContent(initialContent);
     setCanSubmit(initialCanSubmit);
   };
@@ -35,9 +36,11 @@ const FeedbackForm = props => {
     const { value, } = target;
     // console.log('value\n', value,);
     const { length, } = content;
-    const ready = length < maxLength;
-    if(!ready) {
-      alert(ALERT_MESSAGE);
+    const triggerWarning = length > maxLength;
+    if(triggerWarning) {
+      alert(ALERT_WARN);
+      const newStr = content.slice(0, -1);
+      setContent(newStr);
       return;
     }
     setContent(value);
@@ -47,31 +50,29 @@ const FeedbackForm = props => {
   return (
     <Paper className="max-w-sm m-32 p-32">
       <Typography className="h1 mb-24">{heading}</Typography>
-      {/* <form className={container} noValidate autoComplete="off"> */}
-        <TextField
-          // className={classNames(margin, textField,)} // className={textField}
-          variant="outlined"
-          id="feedback-form"
-          label={label}
-          fullWidth
-          multiline
-          rows={rowsCount}
-          value={content}
-          onChange={handleChange}
-          margin="normal"
-        />
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          className="mx-auto mt-16"
-          aria-label="Submit"
-          disabled={!canSubmit}
-          onClick={handleSubmit}
-        >
-          Submit
-        </Button>
-      {/* </form> */}
+      <TextField
+        // className={classNames(margin, textField,)} // className={textField}
+        variant="outlined"
+        id="feedback-form"
+        label={label}
+        fullWidth
+        multiline
+        rows={rowsCount}
+        value={content}
+        onChange={handleChange}
+        margin="normal"
+      />
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        className="mx-auto mt-16"
+        aria-label="Submit"
+        disabled={!canSubmit}
+        onClick={handleSubmit}
+      >
+        Submit
+      </Button>
     </Paper>
   );
 }

@@ -10,12 +10,11 @@ import { FaStar, FaRegStar, } from 'react-icons/fa'; // https://react-icons.netl
 
 import Rating from 'react-rating';
 
-const styles = theme => ({});
+// const styles = theme => ({});
 
 const RatingSelect = props => {
-  const { heading, stop, forwardMinimum, redirectPath, } = props;
-
-  const [ value           , setValue           , ] = useState(undefined);
+  const { heading, initialRating, stop, forwardMinimum, redirectPath, } = props;
+  const [ value           , setValue           , ] = useState(initialRating);
   const [ disabledButtons , setDisabledButtons , ] = useState(true);
 
   const handleClick = n => {
@@ -54,10 +53,10 @@ const RatingSelect = props => {
       // <Rating fractions={2} />
       }
       <Rating
-        stop={stop} initialRating={initialRating} onClick={handleClick} // onChange={handleChange}
+        stop={stop} initialRating={value} onClick={handleClick} // onChange={handleChange}
         emptySymbol={<FaRegStar className="mx-8 text-3xl text-orange" />}
         fullSymbol={<FaStar className="mx-8 text-3xl text-orange" />}
-      /> 
+      />
       <Typography className="opacity-50">
         { value && `${value}/5 stars` }
       </Typography>
@@ -71,7 +70,7 @@ const RatingSelect = props => {
 
 RatingSelect.defaultProps = {
   heading: 'Rate us',
-  initialRating: 2,
+  initialRating: undefined,
   stop: 5,
   forwardMinimum: 5,
   redirectPath: 'example.com',
