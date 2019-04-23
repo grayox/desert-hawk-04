@@ -8,6 +8,7 @@ import { Typography, Button, TextField, Paper, } from '@material-ui/core';
 // const styles = theme => ({});
 
 const ALERT_SUCCESS = 'Your note was submitted. Thank you!';
+// eslint-disable-next-line
 const ALERT_WARN = 'Your note has exceeded the maximum allowable size.\
                     Consider shortening it or splitting it into two parts.';
 
