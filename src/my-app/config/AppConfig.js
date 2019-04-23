@@ -417,7 +417,7 @@ export const componentsNavConfig = [
 export const faqDB = [
   {
     'id'       : '1',
-    'question' : 'Who is Swap made for?',
+    'question' : 'Whom is Swap made for?',
     // eslint-disable-next-line
     'answer'   : 'Swap is made for sales professionals.\
                   Especially those selling mortgages, real estate, insurance and financial advisory services\
@@ -441,7 +441,7 @@ export const faqDB = [
     // eslint-disable-next-line
     'answer'   : 'Swap solves this problem by adding a layer of speed and accountability.\
                   Speed because everything is online and you can do all your referral networking by the press\
-                  of a button on your laptop or smart phone. Accountability is added by enforcing our central\
+                  of a button on your laptop or smart phone. We add accountability by enforcing our primary\
                   rule: All members must maintain a net positive contribution balance of leads at all times\
                   in order to receive leads from the system.',
   },
@@ -468,15 +468,15 @@ export const faqDB = [
     // eslint-disable-next-line
     'answer'   : 'We leave that decision in your capable hands. Swap does not require personal meetings\
                   with your network referral partners. But we do facilitate you working with,\
-                  sending leads to and receiving leads from network partners who you already\
+                  sending leads to and receiving leads from network partners whom you already\
                   know or meet via Swap.',
   },
   {
     'id'       : '7',
     'question' : 'How do you ensure the lead referrals are of good quality?',
     // eslint-disable-next-line
-    'answer'   : 'We have a challenge system that allows the network to self-police the quality of the leads\
-                  in the system.',
+    'answer'   : 'We have a challenge system that allows the network to self-police\
+                  the lead quality of the system.',
   },
   {
     'id'       : '8',
@@ -505,8 +505,9 @@ export const faqDB = [
     // eslint-disable-next-line
     'answer'   : 'If you receive a challenge and you agree it was a bad lead, you should correct it or\
                   settle the challenge by crediting the challenger. We will keep records of how many times\
-                  this happens and those who are found to be abusing the system will have their account\
-                  limited or restricted to protect the network from abuse.',
+                  this happens and those who abuse the system will have their account\
+                  limited or restricted to protect the integrity of the network and the value it delivers\
+                  to our members.',
   },
   {
     'id'       : '12',
@@ -536,7 +537,7 @@ export const faqDB = [
     'id'       : '15',
     'question' : 'Why do you need my line of business and geographical location?',
     // eslint-disable-next-line
-    'answer'   : 'Because that is the way we match you to the lead referrals that are submitted to the network.\
+    'answer'   : 'Because that is the way we match you to the lead referrals in the network.\
                   We only show you the leads you can serve based on your line of business and physical\
                   geographic location.',
   },
