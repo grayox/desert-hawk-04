@@ -8,8 +8,8 @@ import { Typography, Button, TextField, Paper, } from '@material-ui/core';
 // const styles = theme => ({});
 
 const ALERT_SUCCESS = 'Your note was submitted. Thank you!';
-const ALERT_WARN = `Your note has exceeded the maximum allowable size.
-                    Consider shortening it or splitting it into two parts.`;
+const ALERT_WARN = 'Your note has exceeded the maximum allowable size.\
+                    Consider shortening it or splitting it into two parts.';
 
 const FeedbackForm = props => {
   // const { classes, } = props;
@@ -62,17 +62,20 @@ const FeedbackForm = props => {
         onChange={handleChange}
         margin="normal"
       />
-      <Button
-        type="submit"
-        variant="contained"
-        color="primary"
-        className="mx-auto mt-16"
-        aria-label="Submit"
-        disabled={!canSubmit}
-        onClick={handleSubmit}
-      >
-        Submit
-      </Button>
+      <div className="text-right">
+        <Button
+          type="submit"
+          variant="contained"
+          // color="primary"
+          color="secondary"
+          className="mx-auto mt-16"
+          aria-label="Submit"
+          disabled={!canSubmit}
+          onClick={handleSubmit}
+        >
+          Submit
+        </Button>
+      </div>
     </Paper>
   );
 }
@@ -80,9 +83,9 @@ const FeedbackForm = props => {
 FeedbackForm.defaultProps = {
   heading: 'Send us a note',
   label: 'What’s on your mind?',
-  rowsCount: 5,
+  rowsCount: 8,
   minLength: 4,
-  maxLength: 10, // 500000, // 1Mb/document, firestore limit
+  maxLength: 9999, // 1Mb/document, firestore limit
   initialContent: '',
   initialCanSubmit: false,
 };

@@ -12,6 +12,9 @@ import Rating from 'react-rating';
 
 // const styles = theme => ({});
 
+const THANKS_MESSAGE = 'Thanks! 👼 Please consider also rating us at';
+const FEEDBACK_REQUEST = 'Feedback submitted. Thank you. 🙏\n\nPlease consider sending us a note about how we can improve.';
+
 const RatingSelect = props => {
   const { heading, initialRating, stop, forwardMinimum, redirectPath, } = props;
   const [ value           , setValue           , ] = useState(initialRating);
@@ -39,14 +42,15 @@ const RatingSelect = props => {
   
   const handleSave = () => {
     if(value < forwardMinimum) {
-      alert(value);
+      // alert(value);
+      alert(FEEDBACK_REQUEST);
       return;
     }
-    alert(`Would you like to go to ${redirectPath}?`)
+    alert(`${THANKS_MESSAGE} ${redirectPath}`);
   }
   
   return (
-    <Paper className="max-w-sm m-32 p-32 w-full">
+    <Paper className="max-w-sm m-32 p-32">
       <Typography className="h1 mb-36">{heading}</Typography>
       {
       // <Typography className="body1 mb-24">{value}</Typography>
@@ -57,10 +61,10 @@ const RatingSelect = props => {
         emptySymbol={<FaRegStar className="mx-8 text-3xl text-orange" />}
         fullSymbol={<FaStar className="mx-8 text-3xl text-orange" />}
       />
-      <Typography className="opacity-50">
+      <Typography className="ml-8 opacity-50">
         { value && `${value}/5 stars` }
       </Typography>
-      <div className="mt-24 justify-right">
+      <div className="mt-24 text-right">
         <Button disabled={disabledButtons} onClick={handleReset}>Reset</Button>
         <Button variant="contained" color="secondary" disabled={disabledButtons} onClick={handleSave}>Submit</Button>
       </div>
