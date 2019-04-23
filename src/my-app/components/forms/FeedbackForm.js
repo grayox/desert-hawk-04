@@ -36,8 +36,8 @@ const FeedbackForm = props => {
     const { value, } = target;
     // console.log('value\n', value,);
     const { length, } = content;
-    const triggerWarning = length > maxLength;
-    if(triggerWarning) {
+    const isWarning = length > maxLength;
+    if(isWarning) {
       alert(ALERT_WARN);
       const newStr = content.slice(0, -1);
       setContent(newStr);
