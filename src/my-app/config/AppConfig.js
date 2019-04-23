@@ -418,6 +418,7 @@ export const faqDB = [
   {
     'id'       : '1',
     'question' : 'Who is Swap made for?',
+    // eslint-disable-next-line
     'answer'   : 'Swap is made for sales professionals.\
                   Especially those selling mortgages, real estate, insurance and financial advisory services\
                   who want to decrease their marketing costs and increase their sales volume by leveraging\
@@ -426,11 +427,13 @@ export const faqDB = [
   {
     'id'       : '2',
     'question' : 'What problem does Swap solve?',
+    // eslint-disable-next-line
     'answer'   : '...',
   },
   {
     'id'       : '3',
     'question' : 'How is Swap better than other ways of generating referral leads?',
+    // eslint-disable-next-line
     'answer'   : 'Other similar systems of generating referral networks, like BNI for example, fail to\
                   adequately motivate all the members to contribute leads. Members are often frustrated\
                   by contributing leads to the system, but don’t receive in turn an adequate supply of leads\
@@ -444,6 +447,7 @@ export const faqDB = [
   {
     'id'       : '4',
     'question' : 'What if I receive bad or bogus leads? Will they count against me?',
+    // eslint-disable-next-line
     'answer'   : 'No. At least that’s our goal. Our first release will not have our technology in this area\
                   fully refined so we might just have to ban users who abuse the system. However, in future\
                   versions we will implement a system of fair resolution and settlement of bad leads.\
@@ -452,6 +456,7 @@ export const faqDB = [
   {
     'id'       : '5',
     'question' : 'How does your pricing work?',
+    // eslint-disable-next-line
     'answer'   : 'We are a free service during our initial phase. We reserve the right to charge a very small\
                   fee in the future. After we have most of the bugs worked out and you are doing so much\
                   extra business from our service, we will have earned every penny and then some in your eyes.',
@@ -459,6 +464,7 @@ export const faqDB = [
   {
     'id'       : '6',
     'question' : 'Will I get to meet the members whom I send and receive leads?',
+    // eslint-disable-next-line
     'answer'   : 'We leave that decision in your capable hands. Swap does not require personal meetings\
                   with your network referral partners. But we do facilitate you working with,\
                   sending leads to and receiving leads from network partners who you already\
@@ -467,16 +473,19 @@ export const faqDB = [
   {
     'id'       : '7',
     'question' : 'How do you keep the leads good quality?',
+    // eslint-disable-next-line
     'answer'   : 'Deserunt veniam reprehenderit do elit magna ut.',
   },
   {
     'id'       : '8',
     'question' : 'What happens if I get a bad lead?',
+    // eslint-disable-next-line
     'answer'   : 'You can dispute it with what we calla a "challenge."'
   },
   {
     'id'       : '9',
     'question' : 'What if I submit a bad lead?',
+    // eslint-disable-next-line
     'answer'   : 'If you receive a challenge and you agree it was a bad lead, you should correct it or\
                   settle the challenge by crediting the challenger. We will keep records of how many times\
                   this happens and those who are found to be abusing the system will have their account\
@@ -485,6 +494,7 @@ export const faqDB = [
   {
     'id'       : '10',
     'question' : 'Can I send referrals to a specific member?',
+    // eslint-disable-next-line
     'answer'   : 'Yes. We let you invite that person to the network and then select that person to receive\
                   all your referrals of a specific type provided the lead is within the geographic territory\
                   your target member serves.'
@@ -492,21 +502,25 @@ export const faqDB = [
   {
     'id': '11',
     'question': 'Amet sunt et quis amet commodo quis?',
+    // eslint-disable-next-line
     'answer': 'Nulla dolore consequat aliqua sint consequat elit qui occaecat et.'
   },
   {
     'id': '12',
     'question': 'Ut eiusmod ex ea eiusmod culpa incididunt?',
+    // eslint-disable-next-line
     'answer': 'Fugiat non incididunt officia ex incididunt occaecat. Voluptate nostrud culpa aliquip mollit incididunt non dolore.'
   },
   {
     'id': '13',
     'question': 'Proident reprehenderit laboris pariatur ut et nisi?',
+    // eslint-disable-next-line
     'answer': 'Reprehenderit proident ut ad cillum quis velit quis aliqua ut aliquip tempor ullamco.'
   },
   {
     'id': '14',
     'question': 'Aliqua aliquip aliquip aliquip et exercitation aute?',
+    // eslint-disable-next-line
     'answer': 'Adipisicing Lorem tempor ex anim. Labore tempor laboris nostrud dolore voluptate ullamco. Fugiat ex deserunt anim minim esse velit laboris aute ea duis incididunt. Elit irure id Lorem incididunt laborum aliquip consectetur est irure sunt. Ut labore anim nisi aliqua tempor laborum nulla cillum. Duis irure consequat cillum magna cillum eiusmod ut. Et exercitation voluptate quis deserunt elit quis dolor deserunt ex ex esse ex.'
   }
 ]

@@ -12,6 +12,7 @@ import Rating from 'react-rating';
 
 // const styles = theme => ({});
 
+// eslint-disable-next-line
 const THANKS_MESSAGE = 'Thanks! 👼 Please consider also rating us at';
 const FEEDBACK_REQUEST = 'Feedback submitted. Thank you. 🙏\n\nPlease consider sending us a note about how we can improve.';
 
@@ -62,8 +63,8 @@ const RatingSelect = props => {
         emptySymbol={<FaRegStar className="mx-8 text-3xl text-orange" />}
         fullSymbol={<FaStar className="mx-8 text-3xl text-orange" />}
       />
-      <Typography className="ml-12 opacity-50">
-        { value && `${value}/5 stars` }
+      <Typography className="ml-12 opacity-50" hidden={!value} >
+        {value && `${value}/5 stars`}
       </Typography>
       <div className="mt-24 text-right">
         <Button disabled={disabledButtons} onClick={handleReset}>Reset</Button>
