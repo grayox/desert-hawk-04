@@ -8,8 +8,8 @@ import { Typography, Button, TextField, Paper, } from '@material-ui/core';
 // const styles = theme => ({});
 
 const ALERT_SUCCESS = 'Your note was submitted. Thank you!';
-const ALERT_WARN = 'Your note has exceeded the maximum allowable size.\
-                    Consider shortening it or splitting it into two parts.';
+const ALERT_WARN = `Your note has exceeded the maximum allowable size.
+                    Consider shortening it or splitting it into two parts.`;
 
 const FeedbackForm = props => {
   // const { classes, } = props;

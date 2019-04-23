@@ -1,6 +1,6 @@
 // inspired by src/main/content/pages/faq/FaqPage.js
 
-import React, {Component} from 'react';
+import React from 'react';
 import { withStyles } from '@material-ui/core/styles/index';
 import classNames from 'classnames';
 
@@ -52,26 +52,28 @@ const Feedback = props => {
     <div className={classNames(classes.root, classes.wrapper, "")}>
 
       <div className={classNames(classes.header, "flex flex-col items-center justify-center text-center p-16 sm:p-24 h-200 sm:h-360")}>
-        <FuseAnimate animation="transition.slideUpIn" duration={400} delay={100}>
+        <FuseAnimate animation="transition.slideDownIn" duration={400} delay={300}>
           <Typography color="inherit" className="text-36 sm:text-56 font-light">
             Send feedback
-              </Typography>
+          </Typography>
         </FuseAnimate>
       </div>
 
       <div className={classNames(classes.content, "flex")}>
-        <FuseAnimate animation="transition.slideUpIn" duration={450} delay={200}>
+        <FuseAnimate animation="transition.slideLeftIn" duration={600} delay={500}>
           <ErrorBoundary>
-            <div className="flex-1 max-w-xl w-full mx-auto px-16 sm:px-24 py-24 sm:py-32">
+            {/* <div className="border border-red flex-1 max-w-xl mx-auto px-16 sm:px-24 py-24 sm:py-32"> */}
+            <div className="border border-red flex-1">
               <FeedbackForm />
             </div>
           </ErrorBoundary>
         </FuseAnimate>
 
-        <FuseAnimate animation="transition.slideUpIn" duration={300} delay={300}>
+        <FuseAnimate animation="transition.slideRightIn" duration={800} delay={700}>
           <ErrorBoundary>
-            <div className="flex-1 max-w-xl w-full mx-auto px-16 sm:px-24 py-24 sm:py-32">
-              <RatingSelect initialRating={2} />
+            {/* <div className="border border-red border flex-1 max-w-xl mx-auto px-16 sm:px-24 py-24 sm:py-32"> */}
+            <div className="border border-red flex-1">
+              <RatingSelect initialRating={undefined} />
             </div>
           </ErrorBoundary>
         </FuseAnimate>
