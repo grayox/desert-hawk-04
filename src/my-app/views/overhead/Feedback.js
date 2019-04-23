@@ -46,46 +46,38 @@ const styles = theme => ({
   }
 });
 
-// function Feedback(props) {
-class Feedback extends Component {
+const Feedback = props => {
+  const { classes, } = props;
+  return (
+    <div className={classNames(classes.root, classes.wrapper, "")}>
 
-  // const { list, detail } = props;
-
-  render()
-  { 
-    const { classes } = this.props;
-    
-    return (
-      <div className={classNames(classes.root, classes.wrapper, "")}>
-
-        <ErrorBoundary>
-          <div className={classNames(classes.header, "flex flex-col items-center justify-center text-center p-16 sm:p-24 h-200 sm:h-360")}>
-            <FuseAnimate animation="transition.slideUpIn" duration={400} delay={100}>
-              <Typography color="inherit" className="text-36 sm:text-56 font-light">
-                Send feedback
+      <div className={classNames(classes.header, "flex flex-col items-center justify-center text-center p-16 sm:p-24 h-200 sm:h-360")}>
+        <FuseAnimate animation="transition.slideUpIn" duration={400} delay={100}>
+          <Typography color="inherit" className="text-36 sm:text-56 font-light">
+            Send feedback
               </Typography>
-            </FuseAnimate>
-          </div>
-        </ErrorBoundary>
-
-        <ErrorBoundary>
-          <div className={classNames(classes.content, "flex")}>
-            <FuseAnimate animation="transition.slideUpIn" duration={450} delay={200}>
-              <div className="flex-1 max-w-xl w-full mx-auto px-16 sm:px-24 py-24 sm:py-32">
-                <FeedbackForm />
-              </div>
-            </FuseAnimate>
-            <FuseAnimate animation="transition.slideUpIn" duration={300} delay={300}>
-              <div className="flex-1 max-w-xl w-full mx-auto px-16 sm:px-24 py-24 sm:py-32">
-                <RatingSelect />
-              </div>
-            </FuseAnimate>
-          </div>
-        </ErrorBoundary>
-
+        </FuseAnimate>
       </div>
-    );
-  }
+
+      <div className={classNames(classes.content, "flex")}>
+        <FuseAnimate animation="transition.slideUpIn" duration={450} delay={200}>
+          <ErrorBoundary>
+            <div className="flex-1 max-w-xl w-full mx-auto px-16 sm:px-24 py-24 sm:py-32">
+              <FeedbackForm />
+            </div>
+          </ErrorBoundary>
+        </FuseAnimate>
+
+        <FuseAnimate animation="transition.slideUpIn" duration={300} delay={300}>
+          <ErrorBoundary>
+            <div className="flex-1 max-w-xl w-full mx-auto px-16 sm:px-24 py-24 sm:py-32">
+              <RatingSelect />
+            </div>
+          </ErrorBoundary>
+        </FuseAnimate>
+      </div>
+    </div>
+  );
 }
 
 export default withStyles(styles, { withTheme: true })(Feedback);

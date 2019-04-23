@@ -1,7 +1,7 @@
 // ref: http://dreyescat.github.io/react-rating/
 
 import React, { useState, } from 'react';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 // import { withStyles, } from '@material-ui/core/styles';
 import { Typography, Paper, Button, } from '@material-ui/core'; // withStyles,
@@ -48,18 +48,18 @@ const RatingSelect = props => {
   
   return (
     <Paper className="max-w-sm m-32 p-32 w-full">
-      <Typography className="h1 mb-12">{heading}</Typography>
+      <Typography className="h1 mb-36">{heading}</Typography>
       {
       // <Typography className="body1 mb-24">{value}</Typography>
       // <Rating fractions={2} />
       }
       <Rating
-        stop={stop} initialRating={value} onClick={handleClick} // onChange={handleChange}
+        stop={stop} initialRating={initialRating} onClick={handleClick} // onChange={handleChange}
         emptySymbol={<FaRegStar className="mx-8 text-3xl text-orange" />}
         fullSymbol={<FaStar className="mx-8 text-3xl text-orange" />}
       /> 
       <Typography className="opacity-50">
-        { value && `${value}/5 stars`}
+        { value && `${value}/5 stars` }
       </Typography>
       <div className="mt-24 justify-right">
         <Button disabled={disabledButtons} onClick={handleReset}>Reset</Button>
@@ -71,6 +71,7 @@ const RatingSelect = props => {
 
 RatingSelect.defaultProps = {
   heading: 'Rate us',
+  initialRating: 2,
   stop: 5,
   forwardMinimum: 5,
   redirectPath: 'example.com',
@@ -79,6 +80,7 @@ RatingSelect.defaultProps = {
 RatingSelect.propTypes = {
   // classes: PropTypes.object.isRequired,
   heading: PropTypes.string,
+  initialRating: PropTypes.number,
   stop: PropTypes.number,
   forwardMinimum: PropTypes.number,
   redirectPath: PropTypes.string,
