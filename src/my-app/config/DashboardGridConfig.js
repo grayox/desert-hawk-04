@@ -28,6 +28,55 @@ import {
 // // https://www.freecodecamp.org/forum/t/newline-in-react-string-solved/68484/10
 // let newText = text.split ('\n').map( (item, index,) => <p key={farmhash.hash32(item+index)}>{item}</p>);
 
+const categoryDescription = (
+  <List>
+    <ListItem>
+      <ListItemAvatar>
+        <Avatar>
+          <Icon>home</Icon>
+        </Avatar>
+      </ListItemAvatar>
+      <ListItemText
+        primary="Home"
+        secondary="Select this if you are a real estate broker or agent selling homes to residential buyers"
+      />
+    </ListItem>
+    <ListItem>
+      <ListItemAvatar>
+        <Avatar>
+          <Icon>account_balance</Icon>
+        </Avatar>
+      </ListItemAvatar>
+      <ListItemText
+        primary="Mortgage"
+        secondary="Select this if you are a real estate mortgage broker or agent selling financing to home buyers"
+      />
+    </ListItem>
+    <ListItem>
+      <ListItemAvatar>
+        <Avatar>
+          <Icon>assessment</Icon>
+        </Avatar>
+      </ListItemAvatar>
+      <ListItemText
+        primary="Insurance"
+        secondary="Select this if you are an insurance broker or agent selling property and casualty policies"
+      />
+    </ListItem>
+    <ListItem>
+      <ListItemAvatar>
+        <Avatar>
+          <Icon>assignment</Icon>
+        </Avatar>
+      </ListItemAvatar>
+      <ListItemText
+        primary="Financial"
+        secondary="Select this if you are a financial planner and advise clients on their personal finances"
+      />
+    </ListItem>
+  </List>
+)
+
 export const getDashboardInitialValues = () => {
   const { cells, } = DashboardGridConfig;
   const out = {};
@@ -261,56 +310,7 @@ export const DashboardGridConfig = {
         { id: 'settings', label: 'Edit category', },
       ],
       // eslint-disable-next-line
-      description:
-        <span>
-          Select the type of leads you want.
-          <List>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>
-                  <Icon>home</Icon>
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary="Home"
-                secondary="Select this if you are a real estate broker or agent selling homes to residential buyers"
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>
-                  <Icon>account_balance</Icon>
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary="Mortgage"
-                secondary="Select this if you are a real estate mortgage broker or agent selling financing to home buyers"
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>
-                  <Icon>assessment</Icon>
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary="Insurance"
-                secondary="Select this if you are an insurance broker or agent selling property and casualty policies"
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>
-                  <Icon>assignment</Icon>
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary="Financial"
-                secondary="Select this if you are a financial planner and advise clients on their personal finances"
-              />
-            </ListItem>
-          </List>
-        </span>
+      description: `Select the type of leads you want. ${categoryDescription}`,
     },
     {
       id: 'geoLocation',
