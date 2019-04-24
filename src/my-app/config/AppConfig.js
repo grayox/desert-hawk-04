@@ -366,21 +366,6 @@ export const componentsNavConfig = [
   {
     description:
       <span>
-        Here are some questions users commonly ask us. You can read the questions and there answers here.
-      </span>,
-    id         : 'help',
-    path       : '/help',
-    title      : 'Help',
-    type       : 'item',
-    icon       : 'help',
-    bottomNav  : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
-    overhead   : true,
-    // see src/my-app/config/Routes.js
-    component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/Help')}),
-  },
-  {
-    description:
-      <span>
         Here you can tell us how the app is working for you and suggest ways we can improve it.
       </span>,
     id         : 'feedback',
@@ -392,6 +377,21 @@ export const componentsNavConfig = [
     overhead   : true,
     // see src/my-app/config/Routes.js
     component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/Feedback')}),
+  },
+  {
+    description:
+      <span>
+        Here are some questions users commonly ask us. You can read the questions and there answers here.
+      </span>,
+    id         : 'help',
+    path       : '/help',
+    title      : 'Help',
+    type       : 'item',
+    icon       : 'help',
+    bottomNav  : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
+    overhead   : true,
+    // see src/my-app/config/Routes.js
+    component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/Help')}),
   },
   {
     description:
@@ -482,7 +482,7 @@ export const faqDB = [
     'id'       : '8',
     'question' : 'What happens if I get a bad lead?',
     // eslint-disable-next-line
-    'answer'   : 'You can dispute it with a “challenge.”',
+    'answer'   : 'You can dispute it by clicking a button that creates a “challenge.”',
   },
   {
     'id'       : '9',

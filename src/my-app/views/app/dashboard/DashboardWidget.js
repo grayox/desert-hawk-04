@@ -61,7 +61,7 @@ const DashboardWidget = ({ widget, data, index, count, }) => { // data, classes,
           </Tooltip>
         </div>
         <Tooltip TransitionComponent={Zoom} title={description}>
-          <div>
+          <div className="mt-8 mb-16">
             <WidgetNugget type="kernel" label={label} message={description} data={data} />
           </div>
         </Tooltip>

@@ -31,32 +31,32 @@ export const DashboardGridConfig = {
   groups: {
     balance: {
       label: 'Balance',
-      description:
-        <span>
-          A running total count of how many times you have done important activities we need to track.
-          Your net balance is key. Because when it&rsquo;s at zero, you will need to make more &ldquo;deposits&rdquo;
-          by making at least one referral. Then you can receive more leads when you have a positive net balance.
-        </span>,
+      // eslint-disable-next-line
+      description: '\
+        A running total count of how many times you have done important activities we need to track.\
+        Your net balance is key. Because when it’s at zero, you will need to make more “deposits”\
+        by making at least one referral. Then you can receive more leads when you have a positive net balance.\
+      ',
     },
     inventory: {
       label: 'Inventory',
-      description:
-        <span>
-          These are the count of individual items you have available or
-          have made available in the individual categories we are tracking.
-          When a new item is added to your inventory (like a new referral going to your inbox),
-          it increases your count. When you consume an item of inventory, (like claiming a lead
-          from your inbox and moving it to your archive), it decreases the count of your inbox
-          inventory and increases the count of your archive inventory.
-        </span>,
+      // eslint-disable-next-line
+      description: '\
+        These are the count of individual items you have available or\
+        have made available in the individual categories we are tracking.\
+        When a new item is added to your inventory (like a new referral going to your inbox),\
+        it increases your count. When you consume an item of inventory, (like claiming a lead\
+        from your inbox and moving it to your archive), it decreases the count of your inbox\
+        inventory and increases the count of your archive inventory.\
+      ',
     },
     detail: {
       label: 'Detail',
-      description:
-        <span>
-          This is information about you that we require in order to match you with the correct leads.
-          We also use this information to help send leads from you to the correct geographical location.
-        </span>,
+      // eslint-disable-next-line
+      description: '\
+        This is information about you that we require in order to match you with the correct leads.\
+        We also use this information to help send leads from you to the correct geographical location.\
+      ',
     },
   },
   cells: [
@@ -73,21 +73,16 @@ export const DashboardGridConfig = {
         { id: 'outbox' , label: 'Deposit new referral' , },
         { id: 'inbox'  , label: 'Shop for new leads'   , },
       ],
-      description:
-        <span>
-          <span>
-            Your net balance is the most important balance for you to maintain above zero.
-            It represents the difference between your deposits and withdrawals.
-            Or, in other words, how many leads you referred compared to how many you received.
-          </span>
-          <span>
-            If you maintain a positive net balance, you will always be able to see your inbox
-            and claim new leads as they arrive.
-            If your net balance reaches zero, your inbox will lock and you won&rsquo;t be able
-            to view it until you deposit more leads.
-          </span>
-        </span>
-      ,
+      // eslint-disable-next-line
+      description: '\
+        Your net balance is the most important balance for you to maintain above zero.\
+        It represents the difference between your deposits and withdrawals.\
+        Or, in other words, how many leads you referred compared to how many you received.\
+        \n\n\
+        If you maintain a positive net balance, you will always be able to see your inbox\
+        and claim new leads as they arrive. If your net balance reaches zero, your inbox\
+        will lock and you won’t be able to view it until you deposit more leads.\
+      ',
     },
     {
       id: 'deposits',
@@ -101,25 +96,18 @@ export const DashboardGridConfig = {
       links: [
         { id: 'outbox', label: 'Deposit new referral', },
       ],
-      description:
-        <span>
-          <span>
-            Here we keep track of all the valid leads you submitted and referred into the network.
-            To make a deposit, click the button then fill out the form.
-            The form&rsquo;s &ldquo;save&rdquo; button will remain disabled
-            until you complete all required fields.
-          </span>
-          <span>
-            These are all your required fields.
-            <ul>
-              <li>name</li>
-              <li>phone number or email</li>
-              <li>zip code</li>
-              <li>lead type</li>
-            </ul>
-          </span>
-        </span>
-      ,
+      // eslint-disable-next-line
+      description: '\
+        Here we keep track of all the valid leads you submitted and referred into the network.\
+        To make a deposit, click the button then fill out the form. The form’s “save” button will\
+        remain disabled until you complete all required fields.\
+        \n\n\
+        These are all your required fields.\n\
+        • name\n\
+        • phone number or email\n\
+        • zip code\n\
+        • lead type\n\
+      ',
     },
     {
       id: 'withdrawals',
@@ -134,19 +122,15 @@ export const DashboardGridConfig = {
         { id: 'archive' , label: 'Jump to lead archive' , },
         { id: 'inbox'   , label: 'Shop for new leads'   , },
       ],
-      description:
-        <span>
-          <span>
-            This is the number of leads you claimed from your inbox and placed into your archive for your use.
-            To claim a lead from your inbox, just click it.
-            Then we will automatically place that lead in your archive and you will be able to see it continuously.
-          </span>
-          <span>
-            Unlike new leads in your inbox, you will always be able to see your archived leads &mdash;
-            even if your net balance falls to zero.
-          </span>
-        </span>
-      ,
+      // eslint-disable-next-line
+      description: '\
+        This is the number of leads you claimed from your inbox and placed into your archive for your use.\
+        To claim a lead from your inbox, just click it. Then we will automatically place that lead\
+        in your archive and you will be able to see it continuously.\
+        \n\n\
+        Unlike new leads in your inbox, you will always be able to see your archived leads &mdash;\
+        even if your net balance falls to zero.\
+      ',
     },
     {
       id: 'challenges',
@@ -160,20 +144,16 @@ export const DashboardGridConfig = {
       links: [
         { id: 'inbox', label: 'Search for leads', },
       ],
-      description:
-        <span>
-          <span>
-            This is the number of net lead challenges you have won.
-            Lost challenges are shown as a negative number.
-            Users can challenge leads they believe are not legitimate.
-          </span>
-          <span>
-            You can challenge any lead you think is of poor quality.
-            Those who make or receive too many challenges could have negative consequences as a result.
-            So strive to submit high quality leads and be judicious in your challenges of others.
-          </span>
-        </span>
-      ,
+      // eslint-disable-next-line
+      description: '\
+        This is the number of net lead challenges you have won.\
+        Lost challenges are shown as a negative number.\
+        Users can challenge leads they believe are not legitimate.\
+        \n\n\
+        You can challenge any lead you think is of poor quality.\
+        Those who make or receive too many challenges could have negative consequences as a result.\
+        So strive to submit high quality leads and be judicious in your challenges of others.\
+      ',
     },
     {
       id: 'inbox',
@@ -187,11 +167,10 @@ export const DashboardGridConfig = {
       links: [
         { id: 'inbox', label: 'Jump to inbox', },
       ],
-      description:
-        <span>
-          List of all leads matching your type category and market location
-        </span>
-      ,
+      // eslint-disable-next-line
+      description: '\
+        List of all leads matching your type category and market location\
+      ',
     },
     {
       id: 'archive',
@@ -205,11 +184,10 @@ export const DashboardGridConfig = {
       links: [
         { id: 'archive', label: 'Jump to archive', },
       ],
-      description:
-        <span>
-          List of all previously available leads you claimed that are now exclusively yours
-        </span>
-      ,
+      // eslint-disable-next-line
+      description: '\
+        List of all previously available leads you claimed that are now exclusively yours\
+      ',
     },
     {
       id: 'outbox',
@@ -223,11 +201,10 @@ export const DashboardGridConfig = {
       links: [
         { id: 'outbox', label: 'Jump to outbox', },
       ],
-      description:
-        <span>
-          List of all leads you submitted and referred to your peers on the network
-        </span>
-      ,
+      // eslint-disable-next-line
+      description: '\
+        List of all leads you submitted and referred to your peers on the network\
+      ',
     },
     {
       id: 'contacts',
@@ -241,11 +218,10 @@ export const DashboardGridConfig = {
       links: [
         { id: 'contacts', label: 'Edit contacts', },
       ],
-      description:
-        <span>
-          List of everyone you invited to join the network
-        </span>
-      ,
+      // eslint-disable-next-line
+      description: '\
+        List of everyone you invited to join the network\
+      ',
     },
     {
       id: 'category',
@@ -276,6 +252,7 @@ export const DashboardGridConfig = {
       links: [
         { id: 'settings', label: 'Edit category', },
       ],
+      // eslint-disable-next-line
       description:
         <span>
           Select the type of leads you want.
@@ -342,16 +319,12 @@ export const DashboardGridConfig = {
       links: [
         { id: 'settings', label: 'Edit location', },
       ],
-      description:
-        <span>
-          <span>
-            The third level of your location selection.
-            (In some small states or regions, it can be the only third level choice.
-            In that case, the third level choice is usually identical to the name of the state or region.)
-          </span>
-          {/*marketDescription*/}
-        </span>
-      ,
+      // eslint-disable-next-line
+      description: '\
+        The third level of your location selection.\
+        (In some small states or regions, it can be the only third level choice.\
+        In that case, the third level choice is usually identical to the name of the state or region.)\
+      ',
     },
     {
       id: 'geoRegion',
@@ -368,14 +341,11 @@ export const DashboardGridConfig = {
       links: [
         { id: 'settings', label: 'Edit state', },
       ],
-      description:
-        <span>
-          <span>
-            The second level of your location selection. (Called &ldquo;region&rdquo; in certain countries.)
-          </span>
-          {/*marketDescription*/}
-        </span>
-      ,
+      // eslint-disable-next-line
+      description: '\
+        The second level of your location selection.\
+        (Called &ldquo;region&rdquo; in certain countries.)\
+      ',
     },
     {
       id: 'geoNation',
@@ -392,14 +362,10 @@ export const DashboardGridConfig = {
       links: [
         { id: 'settings', label: 'Edit country', },
       ],
-      description:
-        <span>
-          <span>
-            The first level of your location selection.
-          </span>
-          {/*marketDescription*/}
-        </span>
-      ,
+      // eslint-disable-next-line
+      description: '\
+        The first level of your location selection\
+      ',
     },
   ],
 }
