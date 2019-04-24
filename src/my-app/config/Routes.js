@@ -17,7 +17,7 @@ import { componentsNavConfig } from 'my-app/config/AppConfig';
 // import Contacts from 'my-app/views/app/contacts/Contacts';
 
 // import Settings from 'my-app/views/overhead/settings/Settings';
-// import Feedback from 'my-app/views/overhead/Feedback';
+// import Feedback from 'my-app/views/overhead/feedback/Feedback';
 // import Help from 'my-app/views/overhead/Help';
 // import Logout from 'my-app/views/overhead/Logout';
 

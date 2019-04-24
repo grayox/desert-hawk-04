@@ -222,6 +222,7 @@ export const componentsNavConfig = [
     icon       : 'dashboard',
     bottomNav  : true,
     // see src/my-app/config/Routes.js
+    // also update in: src/main/content/components/ComponentsConfig.js
     component  : () => FuseLoadable({loader: () => import('my-app/views/app/dashboard/Dashboard')}),
   },
   {
@@ -241,6 +242,7 @@ export const componentsNavConfig = [
     icon       : 'cloud_download',
     bottomNav  : true,
     // see src/my-app/config/Routes.js
+    // also update in: src/main/content/components/ComponentsConfig.js
     component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
     crudConfig : {
       actionable : () => {},
@@ -271,6 +273,7 @@ export const componentsNavConfig = [
     icon       : 'folder',
     bottomNav  : true,
     // see src/my-app/config/Routes.js
+    // also update in: src/main/content/components/ComponentsConfig.js
     component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
     crudConfig : {
       actionable : () => {},
@@ -294,6 +297,7 @@ export const componentsNavConfig = [
     type       : 'item',
     icon       : 'cloud_upload',
     // see src/my-app/config/Routes.js
+    // also update in: src/main/content/components/ComponentsConfig.js
     component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
     crudConfig : {
       actionable : () => {},
@@ -327,6 +331,7 @@ export const componentsNavConfig = [
     type       : 'item',
     icon       : 'account_box', // 'contacts',
     // see src/my-app/config/Routes.js
+    // also update in: src/main/content/components/ComponentsConfig.js
     component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
     crudConfig : {
       actionable : () => {},
@@ -369,6 +374,7 @@ export const componentsNavConfig = [
     bottomNav  : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
     overhead   : true,
     // see src/my-app/config/Routes.js
+    // also update in: src/main/content/components/ComponentsConfig.js
     component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/settings/Settings')}),
   },
   {
@@ -384,7 +390,8 @@ export const componentsNavConfig = [
     bottomNav  : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
     overhead   : true,
     // see src/my-app/config/Routes.js
-    component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/Feedback')}),
+    // also update in: src/main/content/components/ComponentsConfig.js
+    component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/feedback/Feedback')}),
   },
   {
     // eslint-disable-next-line
@@ -399,6 +406,7 @@ export const componentsNavConfig = [
     bottomNav  : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
     overhead   : true,
     // see src/my-app/config/Routes.js
+    // also update in: src/main/content/components/ComponentsConfig.js
     component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/Help')}),
   },
   {
@@ -418,6 +426,7 @@ export const componentsNavConfig = [
     bottomNav  : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
     overhead   : true,
     // see src/my-app/config/Routes.js
+    // also update in: src/main/content/components/ComponentsConfig.js
     component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/Logout')}),
   },
 ]

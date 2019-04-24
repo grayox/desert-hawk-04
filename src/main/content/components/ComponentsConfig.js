@@ -62,7 +62,7 @@ const items = [
   {
     path: '/feedback',
     component: FuseLoadable({
-      loader: () => import('my-app/views/overhead/Feedback')
+      loader: () => import('my-app/views/overhead/feedback/Feedback')
     }),
   },
   {
