@@ -20,6 +20,14 @@ import {
 //   </span>
 // );
 
+// To convert JS descriptions to JSX:
+// // https://github.com/lovell/farmhash/blob/master/README.md
+// import farmhash from 'farmhash';
+// const hash = farmhash.hash32('test');
+// console.log(typeof hash); // 'number'
+// // https://www.freecodecamp.org/forum/t/newline-in-react-string-solved/68484/10
+// let newText = text.split ('\n').map( (item, index,) => <p key={farmhash.hash32(item+index)}>{item}</p>);
+
 export const getDashboardInitialValues = () => {
   const { cells, } = DashboardGridConfig;
   const out = {};
