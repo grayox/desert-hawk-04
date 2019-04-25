@@ -25,7 +25,7 @@ const WidgetNugget = ({ type, data, label, message, }) => {
       element: (
         <div className="text-center pt-12 pb-28 cursor-pointer" onClick={() => handleOpenDialog()}>
           <div className="text-72 leading-none text-blue">{data}</div>
-          <div className="text-xs uppercase" color="textSecondary">{label}</div>
+          <div className="text-xs uppercase mt-4" color="textSecondary">{label}</div>
         </div>
       ),
     },
