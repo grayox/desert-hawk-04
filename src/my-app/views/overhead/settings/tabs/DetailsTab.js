@@ -11,7 +11,7 @@ import {
   // ListItemAvatar, Button, IconButton, ListItemSecondaryAction,
   Avatar, AppBar, Card, CardContent, Icon, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography,
 } from '@material-ui/core';
-import { FuseAnimateGroup } from '@fuse';
+import { FuseAnimate } from '@fuse';
 
 // import SettingsStepper from 'my-app/components/steppers/SettingsStepper';
 import GeoStepper from 'my-app/components/steppers/GeoStepper'; // see 'class UserMultiForm' for more examples
@@ -60,11 +60,7 @@ const DetailsTab = props => {
       <div className={classNames(classes.root, "md:flex max-w-2xl")}>
 
         <div className="flex flex-col flex-1 md:pr-32">
-          <FuseAnimateGroup
-            enter={{
-              animation: "transition.slideLeftBigIn"
-            }}
-          >
+          <FuseAnimate animation="transition.slideLeftIn" duration={400} delay={400}>
             <Card className="w-full m-0 md:mb-16">
               <AppBar position="static" elevation={0}>
                 <Toolbar className="pl-16 pr-8">
@@ -171,15 +167,11 @@ const DetailsTab = props => {
                 </List>
               </CardContent>
             </Card>
-          </FuseAnimateGroup>
+          </FuseAnimate>
         </div>
 
         <div className="flex flex-col flex-1 md:pr-32">
-          <FuseAnimateGroup
-            enter={{
-              animation: "transition.slideLeftBigIn"
-            }}
-          >
+          <FuseAnimate animation="transition.slideRightIn" duration={600} delay={600}>
             <Card className="w-full m-0 md:mb-16">
               <AppBar position="static" elevation={0}>
                 <Toolbar className="pl-16 pr-8">
@@ -244,7 +236,7 @@ const DetailsTab = props => {
                 </List>
               </CardContent>
             </Card>
-          </FuseAnimateGroup>
+          </FuseAnimate>
         </div>
       </div>
     </React.Fragment >

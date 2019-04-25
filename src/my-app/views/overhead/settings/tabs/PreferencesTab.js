@@ -4,21 +4,13 @@ import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 
 import {
-  // Avatar, Button, Icon, IconButton,
-  AppBar, Card, CardContent, Menu, MenuItem,Toolbar, Typography,
-  List, ListItem, ListItemSecondaryAction, ListItemText,
+  // Button, Icon, IconButton,
+  Avatar, AppBar, Card, CardContent, Icon, Menu, MenuItem, Switch, Toolbar, Typography,
+  List, ListItem, ListItemIcon, ListItemSecondaryAction, ListItemText, ListSubheader,
 } from '@material-ui/core';
 
-import { FuseAnimateGroup } from '@fuse';
+import { FuseAnimate } from '@fuse';
 import AvatarSelect from 'my-app/components/selects/AvatarSelect';
-
-// import List from '@material-ui/core/List';
-// import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-// import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-// import ListItemText from '@material-ui/core/ListItemText';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import Switch from '@material-ui/core/Switch';
 
 import EmailIcon from '@material-ui/icons/Email';
 import TextsmsIcon from '@material-ui/icons/Textsms';
@@ -59,11 +51,7 @@ const PreferencesTab = props => {
       <div className={classNames(classes.root, "md:flex max-w-2xl")}>
 
         <div className="flex flex-col flex-1 md:pr-32">
-          <FuseAnimateGroup
-            enter={{
-              animation: "transition.slideLeftBigIn"
-            }}
-          >
+          <FuseAnimate animation="transition.slideLeftIn" duration={400} delay={400}>
             <Card className="w-full m-0 md:mb-16">
               <AppBar position="static" elevation={0}>
                 <Toolbar className="pl-16 pr-8">
@@ -80,12 +68,15 @@ const PreferencesTab = props => {
                 >
                   <ListItem alignItems="flex-start">
                     <ListItemIcon>
+                      <Avatar>
+                        <Icon>add_location</Icon>
+                      </Avatar>
                       {
-                        // this.state.checked.indexOf('autoClaimLeads') !== -1 ?
-                        // checked.indexOf('autoClaimLeads') !== -1 ?
-                        settings.autoClaimLeads ?
-                          <AddLocationIcon /> :
-                          <NotInterestedIcon />
+                        // // this.state.checked.indexOf('autoClaimLeads') !== -1 ?
+                        // // checked.indexOf('autoClaimLeads') !== -1 ?
+                        // settings.autoClaimLeads ?
+                        //   <AddLocationIcon /> :
+                        //   <NotInterestedIcon />
                       }
                     </ListItemIcon>
                     <ListItemText
@@ -121,12 +112,15 @@ const PreferencesTab = props => {
                 <List subheader={<ListSubheader>Notify me</ListSubheader>} className={classes.root}>
                   <ListItem>
                     <ListItemIcon>
+                      <Avatar>
+                        <Icon>textsms</Icon>
+                      </Avatar>
                       {
-                        // this.state.checked.indexOf('autoTextMe') !== -1 ?
-                        // checked.indexOf('autoTextMe') !== -1 ?
-                        settings.autoTextMe ?
-                          <TextsmsIcon /> :
-                          <NotInterestedIcon />
+                        // // this.state.checked.indexOf('autoTextMe') !== -1 ?
+                        // // checked.indexOf('autoTextMe') !== -1 ?
+                        // settings.autoTextMe ?
+                        //   <TextsmsIcon /> :
+                        //   <NotInterestedIcon />
                       }
                     </ListItemIcon>
                     <ListItemText
@@ -151,12 +145,15 @@ const PreferencesTab = props => {
                   </ListItem>
                   <ListItem>
                     <ListItemIcon>
+                      <Avatar>
+                        <Icon>email</Icon>
+                      </Avatar>
                       {
-                        // this.state.checked.indexOf('autoEmailMe') !== -1 ?
-                        // checked.indexOf('autoEmailMe') !== -1 ?
-                        settings.autoEmailMe ?
-                          <EmailIcon /> :
-                          <NotInterestedIcon />
+                        // // this.state.checked.indexOf('autoEmailMe') !== -1 ?
+                        // // checked.indexOf('autoEmailMe') !== -1 ?
+                        // settings.autoEmailMe ?
+                        //   <EmailIcon /> :
+                        //   <NotInterestedIcon />
                       }
                     </ListItemIcon>
                     <ListItemText
@@ -183,11 +180,14 @@ const PreferencesTab = props => {
                 <List subheader={<ListSubheader>Notify prospects</ListSubheader>} className={classes.root}>
                   <ListItem>
                     <ListItemIcon>
+                      <Avatar>
+                        <Icon>textsms</Icon>
+                      </Avatar>
                       {
-                        // this.state.checked.indexOf('autoTextProspect') !== -1 ?
-                        settings.autoTextProspect ?
-                          <TextsmsIcon /> :
-                          <NotInterestedIcon />
+                        // // this.state.checked.indexOf('autoTextProspect') !== -1 ?
+                        // settings.autoTextProspect ?
+                        //   <TextsmsIcon /> :
+                        //   <NotInterestedIcon />
                       }
                     </ListItemIcon>
                     <ListItemText
@@ -211,11 +211,14 @@ const PreferencesTab = props => {
                   </ListItem>
                   <ListItem>
                     <ListItemIcon>
+                      <Avatar>
+                        <Icon>email</Icon>
+                      </Avatar>
                       {
-                        // this.state.checked.indexOf('autoEmailProspect') !== -1 ?
-                        settings.autoEmailProspect ?
-                          <EmailIcon /> :
-                          <NotInterestedIcon />
+                        // // this.state.checked.indexOf('autoEmailProspect') !== -1 ?
+                        // settings.autoEmailProspect ?
+                        //   <EmailIcon /> :
+                        //   <NotInterestedIcon />
                       }
                     </ListItemIcon>
                     <ListItemText
@@ -240,15 +243,11 @@ const PreferencesTab = props => {
                 </List>
               </CardContent>
             </Card>
-          </FuseAnimateGroup>
+          </FuseAnimate>
         </div>
 
         <div className="flex flex-col flex-1 md:pr-32">
-          <FuseAnimateGroup
-            enter={{
-              animation: "transition.slideLeftBigIn"
-            }}
-          >
+          <FuseAnimate animation="transition.slideRightIn" duration={600} delay={600}>
             <Card className="w-full m-0 md:mb-16">
               <AppBar position="static" elevation={0}>
                 <Toolbar className="pl-16 pr-8">
@@ -355,7 +354,9 @@ const PreferencesTab = props => {
                     onClick={onClickListItemMenu1}
                   >
                     <ListItemIcon>
-                      <Brightness4Icon />
+                      <Avatar>
+                        <Icon>brightness_4</Icon>
+                      </Avatar>
                     </ListItemIcon>
                     <ListItemText
                       primary="Avatar"
@@ -363,7 +364,10 @@ const PreferencesTab = props => {
                       secondary={optionsMenu1[settings.darkBackground]}
                     />
                   </ListItem>
-                  <AvatarSelect />
+
+                  <ListItem>
+                    <AvatarSelect />
+                  </ListItem>
                   
                   <ListItem
                     button
@@ -373,7 +377,9 @@ const PreferencesTab = props => {
                     onClick={onClickListItemMenu1}
                   >
                     <ListItemIcon>
-                      <Brightness4Icon />
+                      <Avatar>
+                        <Icon>brightness_4</Icon>
+                      </Avatar>
                     </ListItemIcon>
                     <ListItemText
                       primary="Background"
@@ -405,7 +411,7 @@ const PreferencesTab = props => {
 
               </CardContent>
             </Card>
-          </FuseAnimateGroup>
+          </FuseAnimate>
         </div>
       </div>
       :
