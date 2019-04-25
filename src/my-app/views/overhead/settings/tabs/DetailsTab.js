@@ -8,20 +8,10 @@ import classNames from 'classnames';
 
 // import axios from 'axios/index';
 import {
-  // Avatar, ListItemAvatar, Button, Icon, IconButton, ListItemSecondaryAction,
-  AppBar, Card, CardContent, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography,
+  // ListItemAvatar, Button, IconButton, ListItemSecondaryAction,
+  Avatar, AppBar, Card, CardContent, Icon, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography,
 } from '@material-ui/core';
 import { FuseAnimateGroup } from '@fuse';
-
-// import ImageIcon from '@material-ui/icons/Image';
-// import WorkIcon from '@material-ui/icons/Work';
-// import BeachAccessIcon from '@material-ui/icons/BeachAccess';
-import EmailIcon from '@material-ui/icons/Email';
-// import PersonIcon from '@material-ui/icons/Person';
-import ExtensionIcon from '@material-ui/icons/Extension';
-import SmartphoneIcon from '@material-ui/icons/Smartphone';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
-import PermContactCalendarIcon from '@material-ui/icons/PermContactCalendar';
 
 // import SettingsStepper from 'my-app/components/steppers/SettingsStepper';
 import GeoStepper from 'my-app/components/steppers/GeoStepper'; // see 'class UserMultiForm' for more examples
@@ -99,8 +89,10 @@ const DetailsTab = props => {
                     })}
                   >
                     <ListItemIcon>
-                      {/* <PersonIcon /> */}
-                      <PermContactCalendarIcon />
+                      <Avatar>
+                        {/* <PersonIcon /> */}
+                        <Icon>perm_contact_calendar</Icon>
+                      </Avatar>
                     </ListItemIcon>
                     <ListItemText
                       primary="Name"
@@ -128,7 +120,9 @@ const DetailsTab = props => {
                     })}
                   >
                     <ListItemIcon>
-                      <EmailIcon />
+                      <Avatar>
+                        <Icon>email</Icon>
+                      </Avatar>
                     </ListItemIcon>
                     <ListItemText
                       primary="Email"
@@ -156,7 +150,9 @@ const DetailsTab = props => {
                     })}
                   >
                     <ListItemIcon>
-                      <SmartphoneIcon />
+                      <Avatar>
+                        <Icon>smartphone</Icon>
+                      </Avatar>
                     </ListItemIcon>
                     <ListItemText
                       primary="Mobile"
@@ -203,7 +199,9 @@ const DetailsTab = props => {
                     onClick={onClickListItemMenu}
                   >
                     <ListItemIcon>
-                      <ExtensionIcon />
+                      <Avatar>
+                        <Icon>extension</Icon>
+                      </Avatar>
                     </ListItemIcon>
                     <ListItemText
                       primary="Type"
@@ -231,7 +229,9 @@ const DetailsTab = props => {
                     })}
                   >
                     <ListItemIcon>
-                      <LocationOnIcon />
+                      <Avatar>
+                        <Icon>location_on</Icon>
+                      </Avatar>
                     </ListItemIcon>
                     <ListItemText
                       primary="Location"
