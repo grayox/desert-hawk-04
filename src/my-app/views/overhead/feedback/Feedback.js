@@ -14,7 +14,7 @@ import RatingSelect from './RatingSelect';
 
 const styles = theme => ({
   root: {
-    width: '100%'
+    width: '100%',
   },
   wrapper: {
     verticalAlign: 'top', // overcomes default
@@ -23,12 +23,12 @@ const styles = theme => ({
   card: {},
   cardHeader: {
     backgroundColor: theme.palette.grey[800],
-    color: theme.palette.getContrastText(theme.palette.grey[800])
+    color: theme.palette.getContrastText(theme.palette.grey[800]),
   },
   header: {
     background: "url('/assets/images/backgrounds/dark-material-bg.jpg') no-repeat",
     backgroundSize: 'cover',
-    color: '#fff'
+    color: '#fff',
   },
   content: {},
   panel: {
@@ -37,13 +37,13 @@ const styles = theme => ({
     borderStyle: 'solid',
     borderColor: theme.palette.divider,
     '&:first-child': {
-      borderRadius: '16px 16px 0 0'
+      borderRadius: '16px 16px 0 0',
     },
     '&:last-child': {
       borderRadius: '0 0 16px 16px',
-      borderWidth: '0 1px 1px 1px'
-    }
-  }
+      borderWidth: '0 1px 1px 1px',
+    },
+  },
 });
 
 const Feedback = props => {

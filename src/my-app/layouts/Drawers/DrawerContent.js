@@ -38,7 +38,7 @@ const styles = theme => ({
 
 // function MainNavbar({ classes, navigation, layoutStyle, user }) {
 // function DrawerContent({ classes, navigation, layoutStyle, user, userHeader }) {
-const DrawerContent = ({ classes, navigation, layoutStyle, profile, userHeader, }) => { // user,
+const DrawerContent = ({ classes, navigation, layoutStyle, profile, settings, userHeader, }) => { // user,
 
   // username, email, photo
   // function UserHeader() {
@@ -56,7 +56,9 @@ const DrawerContent = ({ classes, navigation, layoutStyle, profile, userHeader, 
         // originally: text-16
         // <Typography className="username text-18 whitespace-no-wrap" color="inherit">{user.data.displayName}</Typography>
       }
-        <Typography title="Logged in" className="username text-18 whitespace-no-wrap" color="inherit">{profile.displayName}</Typography>
+        <Typography title="Logged in" className="username text-18 whitespace-no-wrap" color="inherit">
+          {settings.name || profile.displayName}
+        </Typography>
       
       {
         // email
@@ -69,7 +71,7 @@ const DrawerContent = ({ classes, navigation, layoutStyle, profile, userHeader, 
         // photo
       }
         <Avatar
-          title={profile.displayName}
+          title={settings.name || profile.displayName}
           className={classNames(classes.avatar, "avatar")}
           alt="user photo"
           src={
@@ -117,16 +119,22 @@ const DrawerContent = ({ classes, navigation, layoutStyle, profile, userHeader, 
   );
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({}, dispatch);
-}
+const mapDispatchToProps = dispatch => bindActionCreators({}, dispatch)
 
-function mapStateToProps({ fuse, firebase, }) { // auth,
+const mapStateToProps = state => { // auth,
+
+  const settings = state
+                && state.myApp
+                && state.myApp.reducers
+                && state.myApp.reducers.userDataReducer
+                && state.myApp.reducers.userDataReducer.settings;
+
   return {
-    navigation: fuse.navigation,
-    layoutStyle: fuse.settings.current.layout.style,
-    // user: auth.user, // replace user with profile; user contains defaults
-    profile: firebase.profile,
+    navigation: state.fuse.navigation,
+    layoutStyle: state.fuse.settings.current.layout.style,
+    // user: state.auth.user, // replace user with profile; user contains defaults
+    profile: state.firebase.profile,
+    settings,
   }
 }
 

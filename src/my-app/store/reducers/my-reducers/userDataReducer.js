@@ -67,6 +67,22 @@ const userDataReducer = ( state = initialState, action, ) => {
         ...state,
         dashboard: _.merge( {}, action.value, ),
       };
+      
+    case Actions.UPDATE_FEEDBACK_RATING:
+      // console.log('stateDashboardReducer\n', state, );
+      // console.log('action.value\n', action.value, ); //debugger;
+      return {
+        ...state,
+        dashboard: _.merge( {}, action.value, ),
+      };
+      
+    case Actions.UPDATE_FEEDBACK_NOTE:
+      // console.log('stateDashboardReducer\n', state, );
+      // console.log('action.value\n', action.value, ); //debugger;
+      return {
+        ...state,
+        dashboard: _.merge( {}, action.value, ),
+      };
     // end my add
 
     default:

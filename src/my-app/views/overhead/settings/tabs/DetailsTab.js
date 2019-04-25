@@ -95,7 +95,7 @@ const DetailsTab = props => {
                       // secondary={name}
                       // secondary={user.data.displayName}
                       secondary={
-                        (settings && settings.displayName)
+                        (settings && settings.name)
                         ||
                         (profile && profile.displayName)
                         ||

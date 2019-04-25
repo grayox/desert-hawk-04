@@ -1,8 +1,10 @@
 // inspired by src/store/actions/fuse/settings.actions.js
 
 // begin my add
-export const UPDATE_SETTINGS = '[SETTINGS] UPDATE SETTINGS';
-export const UPDATE_DASHBOARD = '[DASHBOARD] UPDATE DASHBOARD';
+export const UPDATE_SETTINGS        = '[SETTINGS] UPDATE SETTINGS';
+export const UPDATE_DASHBOARD       = '[DASHBOARD] UPDATE DASHBOARD';
+export const UPDATE_FEEDBACK_RATING = '[FEEDBACK] UPDATE RATING';
+export const UPDATE_FEEDBACK_NOTE   = '[FEEDBACK] UPDATE NOTE';
 // end my add
 
 // export const SET_SETTINGS = '[SETTINGS] SET SETTINGS';
@@ -38,6 +40,8 @@ export const updateUserData = (path, value,) => {
   const typeConfig = {
     settings: UPDATE_SETTINGS,
     dashboard: UPDATE_DASHBOARD,
+    feedbackRating: UPDATE_FEEDBACK_RATING,
+    feedbacKNote: UPDATE_FEEDBACK_NOTE,
   }
   const out = {
     type: typeConfig[path],

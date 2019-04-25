@@ -28,8 +28,7 @@ import { compose } from 'redux';
 // import {bindActionCreators} from 'redux';
 import { updateSettings } from 'my-app/store/actions/my-actions';
 
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
+import { Menu, MenuItem, } from '@material-ui/core';
 import SettingsDialog from './SettingsDialog';
 
 // utilities
@@ -226,7 +225,10 @@ class ProfilePage extends Component {
     // console.log('option\n', option);
     // console.log('props-settings\n', this.props.settings);
     // const settings = _.merge(this./*state*/props.settings, {bizCategory: option,}); // fails
-    const settings = { ...this.props.settings, bizCategory: option, };
+    const settings = {
+      ...this.props.settings,
+      bizCategory: option,
+    };
     // console.log('settings\n', settings);
 
     // // no need for a promise
@@ -362,7 +364,7 @@ class ProfilePage extends Component {
     // const { isValidGeo, geoNation, geoRegion, geoLocal, bizCategory } = this.state.settings;
     // const { isValidGeo, geoNation, geoRegion, geoLocal, bizCategory } = this.props.settings;
     const { isValidGeo, geoNation, geoRegion, geoLocal, bizCategory }
-      = this.props.settings ? this.props.settings : this.state.settings;
+      = this.props.settings || this.state.settings;
     const {
       dialogIsOpen, dialogContent, dialogContentText, dialogTitle,
       isDialogTextField, dialogTextFieldLabel, dialogFieldName,
@@ -454,7 +456,9 @@ class ProfilePage extends Component {
                     // <Typography className="md:ml-24" variant="h4" color="inherit">{user.data.displayName}</Typography>
                     // begin my add
                     }
-                    <Typography className="md:ml-24" variant="h4" color="inherit">{profile.displayName}</Typography>
+                    <Typography className="md:ml-24" variant="h4" color="inherit">
+                      {settings.name || profile.displayName}
+                    </Typography>
                     {
                     // end my add
                     }
