@@ -60,24 +60,26 @@ const Feedback = props => {
         </FuseAnimate>
       </div>
 
-      <div className={classNames(classes.content, "flex m-24")}>
+      <div className={classNames(classes.content, "md:flex md:mx-24")}>
+      
+        <FuseAnimate animation="transition.slideRightIn" duration={800} delay={900}>
+          <ErrorBoundary>
+            {/* <div className="border border-red border flex-1 max-w-xl mx-auto px-16 sm:px-24 py-24 sm:py-32"> */}
+            <div className="flex-1 my-24 md:mr-12">
+              <RatingSelect initialRating={undefined} />
+            </div>
+          </ErrorBoundary>
+        </FuseAnimate>
+
         <FuseAnimate animation="transition.slideLeftIn" duration={600} delay={600}>
           <ErrorBoundary>
             {/* <div className="border border-red flex-1 max-w-xl mx-auto px-16 sm:px-24 py-24 sm:py-32"> */}
-            <div className="flex-1 mr-12">
+            <div className="flex-1 my-24 md:ml-12">
               <FeedbackForm />
             </div>
           </ErrorBoundary>
         </FuseAnimate>
 
-        <FuseAnimate animation="transition.slideRightIn" duration={800} delay={900}>
-          <ErrorBoundary>
-            {/* <div className="border border-red border flex-1 max-w-xl mx-auto px-16 sm:px-24 py-24 sm:py-32"> */}
-            <div className="flex-1 ml-12">
-              <RatingSelect initialRating={undefined} />
-            </div>
-          </ErrorBoundary>
-        </FuseAnimate>
       </div>
     </div>
   );
