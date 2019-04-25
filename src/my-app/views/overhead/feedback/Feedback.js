@@ -9,8 +9,8 @@ import ErrorBoundary from 'my-app/containers/ErrorBoundary';
 import { Typography, } from '@material-ui/core';
 import { FuseAnimate, } from '@fuse';
 
-import FeedbackForm from 'my-app/components/forms/FeedbackForm';
-import RatingSelect from 'my-app/components/selects/RatingSelect';
+import FeedbackForm from './FeedbackForm';
+import RatingSelect from './RatingSelect';
 
 const styles = theme => ({
   root: {
