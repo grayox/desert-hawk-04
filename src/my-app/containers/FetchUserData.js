@@ -15,7 +15,7 @@ import { loadUserData, } from 'my-app/containers/LoadAsync';
 
 // begin my add
 
-import { updateUserData, saveUserDataToFirebase, } from 'my-app/store/actions/my-actions'; // updateSettings, updateDashboard,
+import { updateUserData, saveUserDataToFirestore, } from 'my-app/store/actions/my-actions'; // updateSettings, updateDashboard,
 import { getDashboardInitialValues, } from 'my-app/config/DashboardGridConfig';
 import { settingsConfig, } from 'my-app/config/AppConfig';
 
@@ -79,7 +79,7 @@ class FetchUserData extends Component {
 
   handleLoad = async () => {
     // console.log('props\n', this.props);
-    const { path, updateUserData, saveUserDataToFirebase, } = this.props;
+    const { path, updateUserData, saveUserDataToFirestore, } = this.props;
     const dataPath = await this.getPath();
     // console.log('dataPath\n', dataPath);
 
@@ -94,8 +94,8 @@ class FetchUserData extends Component {
       const initialValues = getInitialValues(path);
       // console.log('path\n', path,);
       // console.log('initialValues\n', initialValues,);  
-      updateUserData( path, initialValues, );
-      saveUserDataToFirebase( dataPath, initialValues, );
+      updateUserData( path, initialValues, ); // updates global state
+      saveUserDataToFirestore( dataPath, initialValues, ); // updates firebase
     }
 
     const newState = { isLoading: false, };
@@ -147,7 +147,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   updateUserData         : (path, newData,)  => dispatch(updateUserData        (path, newData,)),
-  saveUserDataToFirebase : (path, newData,)  => dispatch(saveUserDataToFirebase(path, newData,)), // common mistakes: 1. forget to use this.props... when calling function in class 2. copy/paste forget to change function name in mapStateToProps => dispatch
+  saveUserDataToFirestore : (path, newData,)  => dispatch(saveUserDataToFirestore(path, newData,)), // common mistakes: 1. forget to use this.props... when calling function in class 2. copy/paste forget to change function name in mapStateToProps => dispatch
   // updateSettings  : settings  => dispatch(updateSettings (settings )),
   // updateDashboard : dashboard => dispatch(updateDashboard(dashboard)),
 

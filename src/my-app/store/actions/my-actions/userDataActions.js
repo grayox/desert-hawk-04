@@ -76,7 +76,7 @@ export const updateUserData = (path, value,) => {
 
 // source: https://github.com/iamshaunjp/React-Redux-Firebase-App/blob/lesson-18/marioplan/src/store/actions/projectActions.js
 // export const createItem = ( path, item, ) =>
-export const saveUserDataToFirebase = ( path, item, ) => 
+export const saveUserDataToFirestore = ( path, item, ) => 
   // {
   //   console.log('path\n', path,);
   //   console.log('item\n', item,);

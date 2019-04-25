@@ -51,7 +51,7 @@ const PreferencesTab = props => {
       <div className={classNames(classes.root, "md:flex max-w-2xl")}>
 
         <div className="flex flex-col flex-1 md:pr-32">
-          <FuseAnimate animation="transition.slideLeftIn" duration={400} delay={400}>
+          <FuseAnimate animation="transition.slideLeftIn" duration={600} delay={600}>
             <Card className="w-full m-0 md:mb-16">
               <AppBar position="static" elevation={0}>
                 <Toolbar className="pl-16 pr-8">
@@ -247,7 +247,7 @@ const PreferencesTab = props => {
         </div>
 
         <div className="flex flex-col flex-1 md:pr-32">
-          <FuseAnimate animation="transition.slideRightIn" duration={600} delay={600}>
+          <FuseAnimate animation="transition.slideRightIn" duration={800} delay={800}>
             <Card className="w-full m-0 md:mb-16">
               <AppBar position="static" elevation={0}>
                 <Toolbar className="pl-16 pr-8">

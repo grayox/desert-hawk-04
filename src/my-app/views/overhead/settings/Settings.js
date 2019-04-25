@@ -439,7 +439,7 @@ class ProfilePage extends Component {
             header={
               <div className="p-24 flex flex-1 flex-col items-center justify-center md:flex-row md:items-end">
                 <div className="flex flex-1 flex-col items-center justify-center md:flex-row md:items-center md:justify-start">
-                  <FuseAnimate animation="transition.expandIn" delay={300}>
+                  <FuseAnimate animation="transition.expandIn" duration={300} delay={300}>
                     {
                     // <Avatar className="w-96 h-96" src="assets/images/avatars/Velazquez.jpg" />
                     // <Avatar className="w-96 h-96" src={user.data.photoURL} />
@@ -450,7 +450,7 @@ class ProfilePage extends Component {
                     // end my add
                     }
                   </FuseAnimate>
-                  <FuseAnimate animation="transition.slideLeftIn" delay={300}>
+                  <FuseAnimate animation="transition.slideRightIn" duration={450} delay={450}>
                     {
                     // <Typography className="md:ml-24" variant="h4" color="inherit">John Doe</Typography>
                     // <Typography className="md:ml-24" variant="h4" color="inherit">{user.data.displayName}</Typography>
