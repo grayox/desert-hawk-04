@@ -4,7 +4,10 @@ import React, { useState, } from 'react';
 import PropTypes from 'prop-types';
 
 // import { withStyles, } from '@material-ui/core/styles';
-import { Typography, Paper, Button, } from '@material-ui/core'; // withStyles,
+import {
+  Typography, Button,
+  AppBar, Card, CardContent, Toolbar, // Paper,
+} from '@material-ui/core'; // withStyles,
 
 import { FaStar, FaRegStar, } from 'react-icons/fa'; // https://react-icons.netlify.com/#/
 
@@ -52,25 +55,41 @@ const RatingSelect = props => {
   }
   
   return (
-    <Paper className="max-w-sm m-32 p-32">
-      <Typography className="h1 mb-36">{heading}</Typography>
-      {
+
+    <Card className="w-full m-0 md:mb-16">
+      
+      <AppBar position="static" elevation={0}>
+        <Toolbar className="pl-16 pr-8">
+          <Typography variant="subtitle1" color="inherit" className="flex-1">
+            {heading}
+          </Typography>
+        </Toolbar>
+      </AppBar>
+
+    {
+    // <Paper className="max-w-sm m-32 p-32">
+    //   <Typography className="h1 mb-36">{heading}</Typography>
+      
       // <Typography className="body1 mb-24">{value}</Typography>
       // <Rating fractions={2} />
-      }
-      <Rating
-        stop={stop} initialRating={value} onClick={handleClick} // onChange={handleChange}
-        emptySymbol={<FaRegStar className="mx-8 text-3xl text-orange" />}
-        fullSymbol={<FaStar className="mx-8 text-3xl text-orange" />}
-      />
-      <Typography className="ml-12 opacity-50" hidden={!value} >
-        {value && `${value}/5 stars`}
-      </Typography>
-      <div className="mt-24 text-right">
-        <Button disabled={disabledButtons} onClick={handleReset}>Reset</Button>
-        <Button variant="contained" color="secondary" disabled={disabledButtons} onClick={handleSave}>Submit</Button>
-      </div>
-    </Paper>
+    }
+
+      <CardContent className="p-32">
+        <Rating
+          stop={stop} initialRating={value} onClick={handleClick} // onChange={handleChange}
+          emptySymbol={<FaRegStar className="mx-8 text-3xl text-orange" />}
+          fullSymbol={<FaStar className="mx-8 text-3xl text-orange" />}
+        />
+        <Typography className="ml-12 opacity-50" hidden={!value} >
+          {value && `${value}/5 stars`}
+        </Typography>
+        <div className="mt-24 text-right">
+          <Button disabled={disabledButtons} onClick={handleReset}>Reset</Button>
+          <Button variant="contained" color="secondary" disabled={disabledButtons} onClick={handleSave}>Submit</Button>
+        </div>
+    {/* </Paper> */}
+      </CardContent>
+    </Card>
   );
 }
 

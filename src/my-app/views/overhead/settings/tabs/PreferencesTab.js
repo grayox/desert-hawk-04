@@ -37,7 +37,7 @@ const styles = theme => ({
   },
 });
 
-function PreferencesTab(props) {
+const PreferencesTab = props => {
 
   const { 
     classes, settings, //profile, user, 

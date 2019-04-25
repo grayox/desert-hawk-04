@@ -53,7 +53,7 @@ const styles = theme => ({
 // }
 
 
-function DetailsTab(props) {
+const DetailsTab = props => {
 
   const {
     classes, profile, settings, // user, leads,
@@ -64,7 +64,9 @@ function DetailsTab(props) {
   return (
     <React.Fragment>
 
-      {/* "Block-level" group of two cards on this row */}
+      {
+      // "Block-level" group of two cards on this row
+      }
       <div className={classNames(classes.root, "md:flex max-w-2xl")}>
 
         <div className="flex flex-col flex-1 md:pr-32">

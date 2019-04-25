@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 // import { withStyles } from '@material-ui/core/styles';
 // import classNames from 'classnames';
 
-import { Typography, Button, TextField, Paper, } from '@material-ui/core';
+import {
+  Typography, Button, TextField,
+  AppBar, Card, CardContent, Toolbar, // Paper,
+} from '@material-ui/core';
 
 // const styles = theme => ({});
 
@@ -49,35 +52,49 @@ const FeedbackForm = props => {
   }
 
   return (
-    <Paper className="max-w-sm m-32 p-32">
-      <Typography className="h1 mb-24">{heading}</Typography>
-      <TextField
-        // className={classNames(margin, textField,)} // className={textField}
-        variant="outlined"
-        id="feedback-form"
-        label={label}
-        fullWidth
-        multiline
-        rows={rowsCount}
-        value={content}
-        onChange={handleChange}
-        margin="normal"
-      />
-      <div className="text-right">
-        <Button
-          type="submit"
-          variant="contained"
-          // color="primary"
-          color="secondary"
-          className="mx-auto mt-16"
-          aria-label="Submit"
-          disabled={!canSubmit}
-          onClick={handleSubmit}
-        >
-          Submit
-        </Button>
-      </div>
-    </Paper>
+
+    <Card className="w-full m-0 md:mb-16">
+      
+      <AppBar position="static" elevation={0}>
+        <Toolbar className="pl-16 pr-8">
+          <Typography variant="subtitle1" color="inherit" className="flex-1">
+            {heading}
+          </Typography>
+        </Toolbar>
+      </AppBar>
+
+      <CardContent className="px-32 pb-32 pt-12">
+      {/* <Paper className="max-w-sm m-32 p-32"> */}
+        {/* <Typography className="h1 mb-24">{heading}</Typography> */}
+        <TextField
+          // className={classNames(margin, textField,)} // className={textField}
+          variant="outlined"
+          id="feedback-form"
+          label={label}
+          fullWidth
+          multiline
+          rows={rowsCount}
+          value={content}
+          onChange={handleChange}
+          margin="normal"
+        />
+        <div className="text-right">
+          <Button
+            type="submit"
+            variant="contained"
+            // color="primary"
+            color="secondary"
+            className="mx-auto mt-16"
+            aria-label="Submit"
+            disabled={!canSubmit}
+            onClick={handleSubmit}
+          >
+            Submit
+          </Button>
+        </div>
+      {/* </Paper> */}
+      </CardContent>
+    </Card>
   );
 }
 
