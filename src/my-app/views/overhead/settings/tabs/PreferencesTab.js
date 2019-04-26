@@ -12,13 +12,6 @@ import {
 import { FuseAnimate } from '@fuse';
 import AvatarSelect from 'my-app/components/selects/AvatarSelect';
 
-import EmailIcon from '@material-ui/icons/Email';
-import TextsmsIcon from '@material-ui/icons/Textsms';
-// import DashboardIcon from '@material-ui/icons/Dashboard';
-import Brightness4Icon from '@material-ui/icons/Brightness4';
-import AddLocationIcon from '@material-ui/icons/AddLocation';
-import NotInterestedIcon from '@material-ui/icons/NotInterested';
-
 import Error500Page from 'my-app/components/Error500Page';
 
 const styles = theme => ({

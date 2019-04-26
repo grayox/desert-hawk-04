@@ -22,7 +22,7 @@ export const updateSettings = settings => {
                                .collection('users')
                                .doc(uid)
                                .collection('settings');
-    const targetDoc = targetCollection.doc('current');
+    // const targetDoc = targetCollection.doc('current');
     const targetContent = {
       ...settings,
       createdAt: Date.now(),
@@ -31,7 +31,8 @@ export const updateSettings = settings => {
 
     // targetCollection.add(targetContent) // archive with unique id
     // targetDoc.update(targetContent)
-    targetDoc.set(targetContent)
+    // targetDoc.set(targetContent)
+    targetCollection.add(targetContent)
     // targetDoc
     //   .update(targetContent) // update current
     //   .then(() => {

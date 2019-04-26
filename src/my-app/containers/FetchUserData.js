@@ -63,7 +63,7 @@ class FetchUserData extends Component {
     const path = this && this.props && this.props.path;
     if(!path) throw new Error('path variable not available');
 
-    return uid ? [ 'users' , uid , path , ].join('/') : null;
+    return (uid && path) ? [ 'users' , uid , path , ].join('/') : null;
   }
 
   // refs: https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#fetching-external-data
@@ -80,7 +80,8 @@ class FetchUserData extends Component {
   handleLoad = async () => {
     // console.log('props\n', this.props);
     const { path, updateUserData, saveUserDataToFirestore, } = this.props;
-    const dataPath = await this.getPath();
+    // path: string: 'settings' || 'dashboard'
+    const dataPath = await this.getPath(); // 'users/<uid>/settings'
     // console.log('dataPath\n', dataPath);
 
     this.setState({ isLoading: true, });
@@ -146,8 +147,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  updateUserData         : (path, newData,)  => dispatch(updateUserData        (path, newData,)),
-  saveUserDataToFirestore : (path, newData,)  => dispatch(saveUserDataToFirestore(path, newData,)), // common mistakes: 1. forget to use this.props... when calling function in class 2. copy/paste forget to change function name in mapStateToProps => dispatch
+  updateUserData          : (path, newData,) => dispatch(updateUserData         (path, newData,)),
+  saveUserDataToFirestore : (path, newData,) => dispatch(saveUserDataToFirestore(path, newData,)), // common mistakes: 1. forget to use this.props... when calling function in class 2. copy/paste forget to change function name in mapStateToProps => dispatch
   // updateSettings  : settings  => dispatch(updateSettings (settings )),
   // updateDashboard : dashboard => dispatch(updateDashboard(dashboard)),
 
