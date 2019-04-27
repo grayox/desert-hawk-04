@@ -1,9 +1,9 @@
 // next generation version of FetchSettings.js:
 // enables fetching of 'settings' and 'dashboard' via prop.path
 
-// import React, { Component } from 'react';
-import { Component } from 'react';
-// import PropTypes from "prop-types";
+import React, { Component } from 'react';
+// import { Component } from 'react';
+import PropTypes from 'prop-types';
 
 // redux
 import { connect } from 'react-redux';
@@ -122,6 +122,7 @@ class FetchUserData extends Component {
 
 FetchUserData.propTypes = {
   // classes: PropTypes.object.isRequired,
+  path: PropTypes.string.isRequired, // 'settings' | 'dashboard'
 };
 
 const mapStateToProps = state => {

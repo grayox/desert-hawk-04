@@ -62,7 +62,7 @@ const PreferencesTab = props => {
                   <ListItem alignItems="flex-start">
                     <ListItemIcon>
                       <Avatar>
-                        <Icon>add_location</Icon>
+                        <Icon>flash_on</Icon>
                       </Avatar>
                       {
                         // // this.state.checked.indexOf('autoClaimLeads') !== -1 ?
