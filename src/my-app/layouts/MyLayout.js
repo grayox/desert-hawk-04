@@ -27,14 +27,18 @@ const styles = theme => ({
   },
 })
 
-const handleChangeUserData = (path, newData,) => {
-  console.log('handleChangeUserData-path\n', path,)
-  console.log('handleChangeUserData-data\n', newData,)
-}
-
 const MyLayout = props => {
   const { classes, profile, } = props;
   const { uid, } = profile;
+
+  const handleChangeUserData = (path, newData, saveDataToFirebase, ) => {
+    console.log('handleChangeUserData-path\n', path,)
+    console.log('handleChangeUserData-data\n', newData,)
+    const { updateUserData, saveUserDataToFirestore, } = props;
+    updateUserData( path, newData, ); // updates global state
+    if(saveDataToFirebase) saveUserDataToFirestore( path, newData, ); // updates firebase
+  }  
+
   return (
     <div
       // className="w-full"

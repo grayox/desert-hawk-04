@@ -92,7 +92,7 @@ class FetchUserData extends Component {
 
     if(!!newData) {
       // updateUserData(path, newData,);
-      onChange(path, newData,);
+      onChange(path, newData, false,);
     } else {
       const initialValues = getInitialValues(path);
       // console.log('path\n', path,);
@@ -101,7 +101,7 @@ class FetchUserData extends Component {
       // updateUserData( path, initialValues, ); // updates global state
       // saveUserDataToFirestore( dataPath, initialValues, ); // updates firebase
 
-      onChange(path, initialValues,);
+      onChange(path, initialValues, true,);
     }
 
     const newState = { isLoading: false, };
