@@ -34,13 +34,14 @@ const handleChangeUserData = (path, newData,) => {
 
 const MyLayout = props => {
   const { classes, profile, } = props;
+  const { uid, } = profile;
   return (
     <div
       // className="w-full"
       className={classNames( "w-full overflow-auto", classes.wrapper, )}
     >
-      <FetchUserData path="settings"  uid={profile.uid} onChange={handleChangeUserData} />
-      <FetchUserData path="dashboard" uid={profile.uid} onChange={handleChangeUserData} />
+      <FetchUserData path="settings"  uid={uid} onChange={handleChangeUserData} />
+      <FetchUserData path="dashboard" uid={uid} onChange={handleChangeUserData} />
       {
       // <FetchSettings />
       // <div className="border-8 border-blue w-full overflow-auto">
