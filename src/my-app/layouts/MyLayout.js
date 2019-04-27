@@ -11,6 +11,9 @@ import LaptopDrawer from './drawers/LaptopDrawer';
 // import { CssBaseline, } from '@material-ui/core';
 
 import { compose } from 'redux';
+import { connect } from 'react-redux';
+
+import { updateUserData, saveUserDataToFirestore, } from 'my-app/store/actions/my-actions'; // updateSettings, updateDashboard,
 
 // import FetchSettings from 'my-app/containers/FetchSettings';
 import FetchUserData from 'my-app/containers/FetchUserData';
@@ -24,15 +27,20 @@ const styles = theme => ({
   },
 })
 
+const handleChangeUserData = (path, newData,) => {
+  console.log('handleChangeUserData-path\n', path,)
+  console.log('handleChangeUserData-data\n', newData,)
+}
+
 const MyLayout = props => {
-  const { classes, } = props;
+  const { classes, profile, } = props;
   return (
     <div
       // className="w-full"
       className={classNames( "w-full overflow-auto", classes.wrapper, )}
     >
-      <FetchUserData path="settings" />
-      <FetchUserData path="dashboard" />
+      <FetchUserData path="settings"  uid={profile.uid} onChange={handleChangeUserData} />
+      <FetchUserData path="dashboard" uid={profile.uid} onChange={handleChangeUserData} />
       {
       // <FetchSettings />
       // <div className="border-8 border-blue w-full overflow-auto">
@@ -48,10 +56,21 @@ const MyLayout = props => {
   );
 }
 
+const mapDispatchToProps = dispatch => ({
+  updateUserData          : (path, newData,) => dispatch(updateUserData         (path, newData,)),
+  saveUserDataToFirestore : (path, newData,) => dispatch(saveUserDataToFirestore(path, newData,)), // common mistakes: 1. forget to use this.props... when calling function in class 2. copy/paste forget to change function name in mapStateToProps => dispatch
+})
+
+const mapStateToProps = state => {
+  const profile = state.firebase.profile;
+  return { profile, } // user,
+}
+
 // export default MyLayout;
 // export default withStyles(styles, { withTheme: true, })(MyLayout);
 // export default withReducer( 'myLayout', reducer, )(withStyles(styles, { withTheme: true, })(MyLayout));
 export default compose(
+  connect( mapStateToProps, mapDispatchToProps, ),
   withReducer( 'myApp', reducer, ),
   withStyles( styles, { withTheme: true } ),
 )(MyLayout)
