@@ -95,9 +95,9 @@ class FetchUserData extends Component {
       onChange(path, newData, false,);
     } else {
       const initialValues = getInitialValues(path);
-      console.log('path\n', path,);
-      console.log('dataPath\n', dataPath,);
-      console.log('initialValues\n', initialValues,); // debugger;
+      // console.log('path\n', path,);
+      // console.log('dataPath\n', dataPath,);
+      // console.log('initialValues\n', initialValues,); // debugger;
 
       // updateUserData( path, initialValues, ); // updates global state
       // saveUserDataToFirestore( path, initialValues, ); // updates firebase
