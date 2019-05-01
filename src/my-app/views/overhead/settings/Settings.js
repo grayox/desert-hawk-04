@@ -222,8 +222,9 @@ class ProfilePage extends Component {
 
   handleMenuItemClickMenu = (event, index) => {
     const option = optionsMenu[index];
-    // console.log('option\n', option);
-    // console.log('props-settings\n', this.props.settings);
+    console.log('option\n', option);
+    console.log('props-settings\n', this.props.settings);
+    console.log('this-settings\n', this.settings);
     // const settings = _.merge(this./*state*/props.settings, {bizCategory: option,}); // fails
     const settings = {
       ...this.props.settings,
@@ -249,6 +250,7 @@ class ProfilePage extends Component {
     this.setState({
       anchorElMenu: null,  // closes menu, saves to local state
       firestoreKey: Date.now(), // resets <FetchFirestore />
+      settings,
     });
     this.props.updateSettings(settings);
   };
@@ -355,7 +357,7 @@ class ProfilePage extends Component {
     // console.log('user\n', this.props.user);
     // console.log('leads\n', this.props.leads);
     // console.log('profile\n', this.props.profile);
-    // console.log('settings\n', this.props.settings);
+    console.log('settings\n', this.props.settings,);
 
     const { classes, profile, settings, dataHasLoaded, } = this.props; // leads, user,
     // if (!user.data.uid) return <Redirect to='/login' /> 

@@ -84,6 +84,8 @@ export const saveUserDataToFirestore = ( path, item, ) =>
   //   console.log('path\n', path,);
   //   console.log('item\n', item,);
   
+  // this pattern is called currying
+  // this function is called later, by redux
   (dispatch, getState, { getFirebase, getFirestore, }) => {
     // console.log('path\n', path,);
     // console.log('item\n', item,);

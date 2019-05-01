@@ -1,8 +1,8 @@
 // next generation version of FetchSettings.js:
 // enables fetching of 'settings' and 'dashboard' via prop.path
 
-import React, { Component } from 'react';
-// import { Component } from 'react';
+// import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 
 // redux
@@ -96,12 +96,13 @@ class FetchUserData extends Component {
     } else {
       const initialValues = getInitialValues(path);
       // console.log('path\n', path,);
+      // console.log('dataPath\n', dataPath,);
       // console.log('initialValues\n', initialValues,);  
 
       // updateUserData( path, initialValues, ); // updates global state
       // saveUserDataToFirestore( dataPath, initialValues, ); // updates firebase
 
-      onChange(path, initialValues, true,);
+      onChange(dataPath, initialValues, true,);
     }
 
     const newState = { isLoading: false, };
@@ -128,7 +129,7 @@ class FetchUserData extends Component {
 FetchUserData.propTypes = {
   // classes: PropTypes.object.isRequired,
   uid: PropTypes.string.isRequired,
-  path: PropTypes.oneOf(['settings', 'dashboard']).isRequired,
+  path: PropTypes.oneOf([ 'settings', 'dashboard', ]).isRequired,
   onChange: PropTypes.func.isRequired,
 };
 

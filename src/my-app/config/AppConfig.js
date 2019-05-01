@@ -88,6 +88,94 @@ export const settingsConfig = {
   displayAvatar: 'Friendly',
 }
 
+// export const settingsConfig1 = {
+//   structure: [
+//     {
+//       details: [
+//         {
+//           contact: [ 'name', 'email', 'mobile', ],
+//         }, {
+//           business: [ 'type', 'location', ],
+//         },
+//       ],
+//     }, {
+//       preferences: [
+//         {
+//           automation: [
+//             'claimNewLeads',
+//             {
+//               'Notify me': [ 'notifyMeText', 'notifyMeEmail', ]
+//             }, {
+//               'Notify prospects' : [ 'notifyProspectsText', 'notifyProspectsEmail', ]
+//             },
+//           ],
+//         }, {
+//           display: [ 'avatar', 'background', ] ,
+//         },
+//       ],
+//     },
+//   ] ,
+//   items: {
+//     name: {
+//       label: 'Name',
+//       icon: 'perm_contact_calendar',
+//       initialValue: null,
+//       profileAlt: true,
+//       type: 'dialog-text-field',
+//       dialogTextFieldLabel: 'first and last',
+//     },
+//     email: {
+//       label: 'Email',
+//       icon: 'email',
+//       initialValue: null,
+//       profileAlt: true,
+//       type: 'dialog-text-field',
+//       dialogTextFieldLabel: 'address',
+//     },
+//     mobile: {
+//       label: 'Mobile',
+//       icon: 'smartphone',
+//       initialValue: null,
+//       profileAlt: true,
+//       type: 'dialog-text-field',
+//       dialogTextFieldLabel: 'number',
+//     },
+//     type: {
+//       label: 'Type',
+//       icon: 'extension',
+//       initialValue: null,
+//       profileAlt: false,
+//       type: 'menu',
+//     },
+//     location: {
+//       label: 'Location',
+//       icon: 'location_on',
+//       initialValue: null,
+//       profileAlt: false,
+//       type: 'custom-component',
+//     },
+//     claimNewLeads: {
+//       label: 'Claim new leads',
+//       icon: 'flash_on',
+//       initialValue: false,
+//       profileAlt: false,
+//       type: 'switch',
+//     },
+//     notifyMeText: {
+//       label: 'Claim new leads',
+//       icon: 'flash_on',
+//       initialValue: false,
+//       profileAlt: false,
+//       type: 'switch',
+//     },
+//     notifyMeEmail: {},
+//     notifyProspectsText: {},
+//     notifyProspectsEmail: {},
+//     avatar: {},
+//     background: {},
+//   },
+// }
+
 export const avatarOptions = [
   { label : 'Friendly'  , value : 'wavatar'   , } ,
   { label : 'Kitty'     , value : 'robohash4' , } ,
