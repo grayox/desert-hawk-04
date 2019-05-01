@@ -31,12 +31,16 @@ const MyLayout = props => {
   const { classes, profile, } = props;
   const { uid, } = profile;
 
-  const handleChangeUserData = (path, newData, saveDataToFirebase,) => {
-    // console.log('handleChangeUserData-path\n', path,)
-    // console.log('handleChangeUserData-data\n', newData,)
+  const handleChangeUserData = (path, newData, saveDataToFirestore,) => {
+    console.log('handleChangeUserData-path\n', path,)
+    console.log('handleChangeUserData-data\n', newData,)
+    console.log('saveDataToFirestore\n', saveDataToFirestore,)
     const { updateUserData, saveUserDataToFirestore, } = props;
     updateUserData( path, newData, ); // updates global state
-    if(saveDataToFirebase) saveUserDataToFirestore( path, newData, ); // updates firebase
+    if(saveDataToFirestore) {
+      const dataPath = [ 'users' , uid , path , ].join('/');
+      saveUserDataToFirestore( dataPath, newData, ); // updates firebase
+    }
   }  
 
   return (
@@ -63,7 +67,7 @@ const MyLayout = props => {
 
 const mapDispatchToProps = dispatch => ({
   updateUserData          : (path, newData,) => dispatch(updateUserData         (path, newData,)),
-  saveUserDataToFirestore : (path, newData,) => dispatch(saveUserDataToFirestore(path, newData,)), // common mistakes: 1. forget to use this.props... when calling function in class 2. copy/paste forget to change function name in mapStateToProps => dispatch
+  saveUserDataToFirestore : (path, newData,) => dispatch(saveUserDataToFirestore(path, newData,)), // common mistakes: 1. forget to use this.props... when calling function in class 2. copy/paste forget to change function name in mapStateToProps => dispa)
 })
 
 const mapStateToProps = state => {

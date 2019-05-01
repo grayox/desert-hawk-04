@@ -78,8 +78,8 @@ export const updateUserData = (path, value,) => {
 // export const createItem = ( path, item, ) =>
 export const saveUserDataToFirestore = ( path, item, ) => 
   // {
-  //   console.log('path\n', path,);
-  //   console.log('item\n', item,);
+  // console.log('path\n', path,); // don't use this (without curly braces)
+  // console.log('item\n', item,); // don't use this (without curly braces)
   // return (dispatch, getState, { getFirebase, getFirestore, }) => {
   //   console.log('path\n', path,);
   //   console.log('item\n', item,);
@@ -87,8 +87,8 @@ export const saveUserDataToFirestore = ( path, item, ) =>
   // this pattern is called currying
   // this function is called later, by redux
   (dispatch, getState, { getFirebase, getFirestore, }) => {
-    // console.log('path\n', path,);
-    // console.log('item\n', item,);
+    console.log('path\n', path,); // use this
+    console.log('item\n', item,); // use this
     const timestamp = Date.now();
     const newData = {
       ...item,
