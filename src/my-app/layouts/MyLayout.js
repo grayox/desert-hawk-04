@@ -30,6 +30,7 @@ const styles = theme => ({
 const MyLayout = props => {
   const { classes, profile, } = props;
   const { uid, } = profile;
+  const timestamp = Date.now();
 
   const handleChangeUserData = (path, newData, saveDataToFirestore,) => {
     // console.log('handleChangeUserData-path\n', path,)

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// import React, { PureComponent } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { FusePageSimple, FuseAnimate } from '@fuse';
 import { Avatar, Tab, Tabs, Typography, } from '@material-ui/core'; // Button,
