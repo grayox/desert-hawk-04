@@ -1,4 +1,5 @@
-import React from 'react';
+// import React from 'react';
+import React, { useState, } from 'react';
 
 import classNames from 'classnames';
 import { withStyles, } from '@material-ui/core';
@@ -28,13 +29,23 @@ const styles = theme => ({
 })
 
 const MyLayout = props => {
-  const { classes, profile, } = props;
+  const { classes, profile, } = props; // settings,
   const { uid, } = profile;
-  const timestamp = Date.now();
+  const t = Date.now();
 
-  const handleChangeUserData = (path, newData, saveDataToFirestore,) => {
+  const [ timestamp, setTimestamp, ] = useState(t);
+  const handleUpdateData = () => {
+    const t = Date.now();
+    setTimestamp(t);
+    // console.log('settings\n', settings);
+  }
+  
+  // const ready = profile && settings;
+  // if(!ready) return null;
+
+  const handleChangeUserData = ( path, newData, saveDataToFirestore, ) => {
     // console.log('handleChangeUserData-path\n', path,)
-    // console.log('handleChangeUserData-data\n', newData,)
+    console.log('handleChangeUserData-data\n', newData,)
     // console.log('saveDataToFirestore\n', saveDataToFirestore,)
     const { updateUserData, saveUserDataToFirestore, } = props;
     updateUserData( path, newData, ); // updates global state
@@ -49,12 +60,15 @@ const MyLayout = props => {
       // className="w-full"
       className={classNames( "w-full overflow-auto", classes.wrapper, )}
     >
-      <FetchUserData path="settings"  uid={uid} onChange={handleChangeUserData} />
-      <FetchUserData path="dashboard" uid={uid} onChange={handleChangeUserData} />
+      <FetchUserData key={timestamp} path="settings"  uid={uid} onChange={handleChangeUserData} />
+      <FetchUserData key={timestamp} path="dashboard" uid={uid} onChange={handleChangeUserData} />
       {
       // <FetchSettings />
       // <div className="border-8 border-blue w-full overflow-auto">
       // <CssBaseline />
+      // <div className="m-32">
+      //   <button className="m-32 text-white" onClick={handleUpdateData}>Update data</button>
+      // </div>
       }
       <MediaWidth
         mobile={<MobileDrawer/>}
@@ -72,8 +86,17 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = state => {
-  const profile = state.firebase.profile;
-  return { profile, } // user,
+  // const settings = state.myApp.reducers.userDataReducer.settings;
+  // const profile = state.firebase.profile;
+  // const settings = state
+  //   && state.myApp
+  //   && state.myApp.reducers
+  //   && state.myApp.reducers.userDataReducer
+  //   && state.myApp.reducers.userDataReducer.settings;
+  const profile = state
+    && state.firebase
+    && state.firebase.profile;
+  return { profile, } // user, settings,
 }
 
 // export default MyLayout;
