@@ -48,6 +48,7 @@ export const updateSettings = settings => {
     //     // createdAt: new Date(),
     /// }).then(() => {
       .then(() => {
+        // dispatch({ type: 'UPDATE_SETTINGS' });
       dispatch({ type: 'UPDATE_SETTINGS_SUCCESS' });
     }).catch(err => {
       dispatch({ type: 'UPDATE_SETTINGS_ERROR' }, err);

@@ -5,7 +5,7 @@
 // begin my add
 // import * as Actions from '../../actions/my-actions/index';
 // import * as Actions from 'my-app/store/actions/my-actions/settingsActions';
-import * as Actions from 'my-app/store/actions/my-actions/index';
+import * as Actions from 'my-app/store/actions/my-actions';
 
 import { defaultSettings } from 'my-app/config/AppConfig';
 // end my add
@@ -26,6 +26,7 @@ const initialState = {
 // function userDataReducer(state = initialState, action) {
 const userDataReducer = ( state = initialState, action, ) => {
   // console.log('Hello, world!');
+  console.log('action\n', action,);
   switch (action.type) {
     // case Actions.SET_SETTINGS:
     //   {
@@ -52,9 +53,17 @@ const userDataReducer = ( state = initialState, action, ) => {
     //   }
 
     // begin my add
-    case Actions.UPDATE_SETTINGS:
+    // case Actions.UPDATE_SETTINGS:
+    //   // console.log('stateSettingsReducer\n', state, );
+    //   // console.log('action.value\n', action.value, ); //debugger;
+    //   return {
+    //     ...state,
+    //     settings: _.merge( {}, action.value, ),
+    //   };
+      
+    case Actions.UPDATE_SETTINGS_SUCCESS:
       // console.log('stateSettingsReducer\n', state, );
-      // console.log('action.value\n', action.value, ); //debugger;
+      console.log('action.value\n', action.value, ); //debugger;
       return {
         ...state,
         settings: _.merge( {}, action.value, ),

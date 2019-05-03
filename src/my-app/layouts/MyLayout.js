@@ -34,7 +34,7 @@ const MyLayout = props => {
   const t = Date.now();
 
   const [ timestamp, setTimestamp, ] = useState(t);
-  const handleUpdateData = () => {
+  const handleUpdateUserData = () => {
     const t = Date.now();
     setTimestamp(t);
     // console.log('settings\n', settings);
@@ -67,7 +67,7 @@ const MyLayout = props => {
       // <div className="border-8 border-blue w-full overflow-auto">
       // <CssBaseline />
       // <div className="m-32">
-      //   <button className="m-32 text-white" onClick={handleUpdateData}>Update data</button>
+      //   <button className="m-32 text-white" onClick={handleUpdateUserData}>Update data</button>
       // </div>
       }
       <MediaWidth

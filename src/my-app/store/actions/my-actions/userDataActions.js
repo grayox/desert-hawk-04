@@ -1,10 +1,12 @@
 // inspired by src/store/actions/fuse/settings.actions.js
 
 // begin my add
-export const UPDATE_SETTINGS        = '[SETTINGS] UPDATE SETTINGS';
-export const UPDATE_DASHBOARD       = '[DASHBOARD] UPDATE DASHBOARD';
-export const UPDATE_FEEDBACK_RATING = '[FEEDBACK] UPDATE RATING';
-export const UPDATE_FEEDBACK_NOTE   = '[FEEDBACK] UPDATE NOTE';
+export const UPDATE_SETTINGS         = '[SETTINGS] UPDATE SETTINGS';
+export const UPDATE_SETTINGS_SUCCESS = '[SETTINGS] UPDATE SETTINGS SUCCESS';
+export const UPDATE_SETTINGS_ERROR   = '[SETTINGS] UPDATE SETTINGS ERROR';
+export const UPDATE_DASHBOARD        = '[DASHBOARD] UPDATE DASHBOARD';
+export const UPDATE_FEEDBACK_RATING  = '[FEEDBACK] UPDATE RATING';
+export const UPDATE_FEEDBACK_NOTE    = '[FEEDBACK] UPDATE NOTE';
 // end my add
 
 // export const SET_SETTINGS = '[SETTINGS] SET SETTINGS';
@@ -38,7 +40,8 @@ export const updateUserData = (path, value,) => {
   // console.log('path\n', path);
   // console.log('value\n', value);
   const typeConfig = {
-    settings: UPDATE_SETTINGS,
+    // settings: UPDATE_SETTINGS,
+    settings: UPDATE_SETTINGS_SUCCESS,
     dashboard: UPDATE_DASHBOARD,
     feedbackRating: UPDATE_FEEDBACK_RATING,
     feedbacKNote: UPDATE_FEEDBACK_NOTE,
