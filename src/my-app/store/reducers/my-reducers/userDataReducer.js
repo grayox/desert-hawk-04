@@ -27,6 +27,8 @@ const initialState = {
 const userDataReducer = ( state = initialState, action, ) => {
   // console.log('Hello, world!');
   console.log('action\n', action,);
+  console.log('Actions\n', Actions,);
+  console.log('Actions.UPDATE_SETTINGS_SUCCESS\n', Actions.UPDATE_SETTINGS_SUCCESS,);
   switch (action.type) {
     // case Actions.SET_SETTINGS:
     //   {

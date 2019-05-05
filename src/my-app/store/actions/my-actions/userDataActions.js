@@ -50,7 +50,7 @@ export const updateUserData = (path, value,) => {
     type: typeConfig[path],
     value,
   }
-  // console.log('out\n', out);
+  console.log('out\n', out);
   return out; 
 }
 

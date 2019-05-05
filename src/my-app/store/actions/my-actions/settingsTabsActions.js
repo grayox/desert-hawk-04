@@ -1,4 +1,6 @@
-// from marioplan...projectActions
+import * as Actions from 'my-app/store/actions/my-actions';
+
+// inspired by marioplan...projectActions
 export const updateSettings = settings => {
   console.log('settings\n', settings,);
   // prevent saving settings.id of previous settings object
@@ -48,10 +50,16 @@ export const updateSettings = settings => {
     //     // createdAt: new Date(),
     /// }).then(() => {
       .then(() => {
-        // dispatch({ type: 'UPDATE_SETTINGS' });
-      dispatch({ type: 'UPDATE_SETTINGS_SUCCESS' });
+        // dispatch({ type: Actions.UPDATE_SETTINGS });
+      dispatch({
+        type: Actions.UPDATE_SETTINGS_SUCCESS,
+        value: settings,
+      });
     }).catch(err => {
-      dispatch({ type: 'UPDATE_SETTINGS_ERROR' }, err);
+      dispatch({
+        type: Actions.UPDATE_SETTINGS_ERROR,
+        value: settings,
+      }, err);
     });
   }
 }
