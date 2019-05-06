@@ -60,8 +60,8 @@ const MyLayout = props => {
       // className="w-full"
       className={classNames( "w-full overflow-auto", classes.wrapper, )}
     >
-      <FetchUserData key={timestamp} path="settings"  uid={uid} onChange={handleChangeUserData} />
-      <FetchUserData key={timestamp} path="dashboard" uid={uid} onChange={handleChangeUserData} />
+      <FetchUserData key={timestamp+1} path="settings"  uid={uid} onChange={handleChangeUserData} />
+      <FetchUserData key={timestamp+2} path="dashboard" uid={uid} onChange={handleChangeUserData} />
       {
       // <FetchSettings />
       // <div className="border-8 border-blue w-full overflow-auto">

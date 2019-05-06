@@ -338,11 +338,24 @@ class ProfilePage extends Component {
 
   // --------------------------------
 
+  mapSwitchesToSettings = () => {
+
+  }
+
   handleToggle = value => () => {
+    // console.log('value\n', value,);
     const { checked, } = this.state;
+    const { settings, updateSettings, } = this.props;
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
 
+    // toggle
+    const toggledBool = !settings[value]; // false
+    const newData = { [value]: toggledBool, } // { autoClaimLeads: false }
+    // console.log('newData\n', newData,); // { autoClaimLeads: false }
+    const newSettings = _.merge(settings, newData,);
+
+    // toggle
     if (currentIndex === -1) {
       newChecked.push(value);
     } else {
@@ -351,8 +364,18 @@ class ProfilePage extends Component {
 
     this.setState({
       checked: newChecked,
+    },() => {
+      // console.log('state\n', this.state,);
+      // console.log('settings\n', settings,);
+      updateSettings(newSettings);
     });
   };
+
+  // handleSaveDialog = event => {
+  //   const settings = _.merge(this.state.settings, this.state.tempSetting);
+  //   this.setState({settings});
+  //   this.props.updateSettings(this.state.settings);
+  // }
 
   render() {
     // console.log('user\n', this.props.user);

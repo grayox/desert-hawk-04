@@ -93,10 +93,10 @@ const PreferencesTab = props => {
                     />
                     <ListItemSecondaryAction>
                       <Switch
-                        // onChange={this.onToggle('autoClaimLeads')}
+                        // // onChange={this.onToggle('autoClaimLeads')}
                         onChange={onToggle('autoClaimLeads')}
-                        // checked={this.state.checked.indexOf('autoClaimLeads') !== -1}
-                        // checked={checked.indexOf('autoClaimLeads') !== -1}
+                        // // checked={this.state.checked.indexOf('autoClaimLeads') !== -1}
+                        // // checked={checked.indexOf('autoClaimLeads') !== -1}
                         checked={settings.autoClaimLeads}
                       />
                     </ListItemSecondaryAction>

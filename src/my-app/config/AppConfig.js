@@ -76,7 +76,7 @@ export const settingsConfig = {
   // geoNation: undefined,
   // geoRegion: undefined,
   // geoLocation: undefined,
-  autoClaimNewLeads: false,
+  autoClaimLeads: false,
   autoTextMe: false,
   // autoTextMeToNumber: undefined,
   autoEmailMe: false,
