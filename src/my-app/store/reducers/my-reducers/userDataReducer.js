@@ -26,9 +26,9 @@ const initialState = {
 // function userDataReducer(state = initialState, action) {
 const userDataReducer = ( state = initialState, action, ) => {
   // console.log('Hello, world!');
-  console.log('action\n', action,);
-  console.log('Actions\n', Actions,);
-  console.log('Actions.UPDATE_SETTINGS_SUCCESS\n', Actions.UPDATE_SETTINGS_SUCCESS,);
+  // console.log('action\n', action,);
+  // console.log('Actions\n', Actions,);
+  // console.log('Actions.UPDATE_SETTINGS_SUCCESS\n', Actions.UPDATE_SETTINGS_SUCCESS,);
   switch (action.type) {
     // case Actions.SET_SETTINGS:
     //   {
@@ -65,7 +65,7 @@ const userDataReducer = ( state = initialState, action, ) => {
       
     case Actions.UPDATE_SETTINGS_SUCCESS:
       // console.log('stateSettingsReducer\n', state, );
-      console.log('action.value\n', action.value, ); //debugger;
+      // console.log('action.value\n', action.value, ); //debugger;
       return {
         ...state,
         settings: _.merge( {}, action.value, ),

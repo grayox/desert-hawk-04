@@ -1,5 +1,5 @@
-// import React from 'react';
-import React, { useState, } from 'react';
+import React from 'react';
+// import React, { useState, } from 'react';
 
 import classNames from 'classnames';
 import { withStyles, } from '@material-ui/core';
@@ -31,21 +31,21 @@ const styles = theme => ({
 const MyLayout = props => {
   const { classes, profile, } = props; // settings,
   const { uid, } = profile;
-  const t = Date.now();
+  // const t = Date.now();
 
-  const [ timestamp, setTimestamp, ] = useState(t);
-  const handleUpdateUserData = () => {
-    const t = Date.now();
-    setTimestamp(t);
-    // console.log('settings\n', settings);
-  }
+  // const [ timestamp, setTimestamp, ] = useState(t);
+  // const handleUpdateUserData = () => {
+  //   const t = Date.now();
+  //   setTimestamp(t);
+  //   // console.log('settings\n', settings);
+  // }
   
   // const ready = profile && settings;
   // if(!ready) return null;
 
   const handleChangeUserData = ( path, newData, saveDataToFirestore, ) => {
     // console.log('handleChangeUserData-path\n', path,)
-    console.log('handleChangeUserData-data\n', newData,)
+    // console.log('handleChangeUserData-data\n', newData,)
     // console.log('saveDataToFirestore\n', saveDataToFirestore,)
     const { updateUserData, saveUserDataToFirestore, } = props;
     updateUserData( path, newData, ); // updates global state
@@ -60,9 +60,11 @@ const MyLayout = props => {
       // className="w-full"
       className={classNames( "w-full overflow-auto", classes.wrapper, )}
     >
-      <FetchUserData key={timestamp+1} path="settings"  uid={uid} onChange={handleChangeUserData} />
-      <FetchUserData key={timestamp+2} path="dashboard" uid={uid} onChange={handleChangeUserData} />
+      <FetchUserData path="settings"  uid={uid} onChange={handleChangeUserData} />
+      <FetchUserData path="dashboard" uid={uid} onChange={handleChangeUserData} />
       {
+      // <FetchUserData key={timestamp+1} ... />
+      // <FetchUserData key={timestamp+2} ... />
       // <FetchSettings />
       // <div className="border-8 border-blue w-full overflow-auto">
       // <CssBaseline />

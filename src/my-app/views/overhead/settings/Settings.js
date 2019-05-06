@@ -349,13 +349,13 @@ class ProfilePage extends Component {
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
 
-    // toggle
+    // toggle (for settings saved remotely to server)
     const toggledBool = !settings[value]; // false
     const newData = { [value]: toggledBool, } // { autoClaimLeads: false }
     // console.log('newData\n', newData,); // { autoClaimLeads: false }
     const newSettings = _.merge(settings, newData,);
 
-    // toggle
+    // toggle (for state saved locally to client)
     if (currentIndex === -1) {
       newChecked.push(value);
     } else {
@@ -381,7 +381,7 @@ class ProfilePage extends Component {
     // console.log('user\n', this.props.user);
     // console.log('leads\n', this.props.leads);
     // console.log('profile\n', this.props.profile);
-    console.log('settings\n', this.props.settings,);
+    // console.log('settings\n', this.props.settings,);
 
     const { classes, profile, settings, dataHasLoaded, } = this.props; // leads, user,
     // if (!user.data.uid) return <Redirect to='/login' /> 
@@ -654,11 +654,11 @@ const mapStateToProps = state => {
   // const leads = state.firestore.ordered.leads;
   const dataHasLoaded = !!profile && !!settings; // && !!leads && !!user && 
   
-  // console.log('user\n', user);
-  // console.log('leads\n', leads);
-  console.log('profile\n', profile);
-  console.log('settings\n', settings);
-  console.log('dataHasLoaded\n', dataHasLoaded);
+  // // console.log('user\n', user);
+  // // console.log('leads\n', leads);
+  // console.log('profile\n', profile);
+  // console.log('settings\n', settings);
+  // console.log('dataHasLoaded\n', dataHasLoaded);
   
   // //       YES   YES      YES       NO     NO
   // return { user, profile, settings, leads, dataHasLoaded, }
