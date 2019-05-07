@@ -196,7 +196,7 @@ class CRUDView extends Component {
     // console.log('profile\n', profile,)
     // console.log('uid\n', uid,)
     // console.log('dashboard\n', dashboard,)
-    createItem(path, newItem, uid, dashboard,);
+    createItem( path, newItem, uid, dashboard, );
     // this.props.history.push('/');
 
     handleCloseDialog();
@@ -409,6 +409,7 @@ class CRUDView extends Component {
             <HashAvatar
               className="p-8"
               message={crudFormTimestamp}
+              // size="90" // 50
               // variant={item.value} //"uic" //"robohashx" //"robohash4" //"retro" //"monsterid" //"wavatar" //"adorable" //"identicon" //"mp" //"ui" //"random"(deprecated)
             />
             {
