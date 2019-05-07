@@ -3,7 +3,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-  withStyles, IconButton, Icon, Button, Slide, Zoom, // TextField,
+  withStyles, IconButton, Icon, Button, Zoom, // TextField, Slide,
+  AppBar, Toolbar, Avatar, Typography,
   Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
 } from '@material-ui/core';
 
@@ -39,7 +40,7 @@ class CRUDButtons extends Component {
 
   render() { 
     const { classes, updatable, deletable, } = this.props;
-    const { isOpen, isBeingUpdated, isBeingDeleted, } = this.state;
+    const { isOpen, } = this.state; // isBeingUpdated, isBeingDeleted,
     const { handleClickOpen, handleClose, } = this;
     
     return (
@@ -75,7 +76,25 @@ class CRUDButtons extends Component {
           // aria-labelledby="alert-dialog-slide-title"
           // aria-describedby="alert-dialog-slide-description"
         >
+
+          <AppBar position="static" elevation={1}>
+            <Toolbar className="flex w-full">
+              <Typography variant="subtitle1" color="inherit">
+                {contactDialog.type === 'new' ? 'New Contact' : 'Edit Contact'}
+              </Typography>
+            </Toolbar>
+            <div className="flex flex-col items-center justify-center pb-24">
+              <Avatar className="w-96 h-96" alt="contact avatar" src={this.state.avatar} />
+              {contactDialog.type === 'edit' && (
+                <Typography variant="h6" color="inherit" className="pt-8">
+                  {this.state.name}
+                </Typography>
+              )}
+            </div>
+          </AppBar>
+
           <DialogTitle id="form-dialog-title">Permanently delete item?</DialogTitle>
+
           <DialogContent>
             <DialogContentText>
               It&rsquo;s permanent and cannot be undone.

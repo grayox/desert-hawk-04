@@ -1,12 +1,11 @@
 // import React from 'react';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import compose from 'recompose/compose';
 import { connect } from 'react-redux'
 import { createItem, updateItem, deleteItem, } from './store/actions'
-
-import classNames from 'classnames';
 
 // @material-ui/core
 import {
@@ -14,8 +13,8 @@ import {
   Typography, Grid, Hidden, CssBaseline, Divider, Icon, IconButton,
   List, ListItem, ListItemText, ListItemSecondaryAction,
   Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
-  // ListSubheader, Avatar, Grow,
-  // AppBar, Toolbar, CssBaseline,
+  // ListSubheader, Grow, CssBaseline,
+  AppBar, Toolbar, Avatar,
 } from '@material-ui/core';
 
 // import {FuseAnimateGroup, FuseHighlight, FusePageSimple} from '@fuse';
@@ -89,6 +88,7 @@ const INITIAL_STATE_DIALOG = {
   updateDialogIsOpen : false     ,
   deleteDialogIsOpen : false     ,
   crudForm           : undefined ,
+  crudFormTimestamp          : undefined ,
 }
 
 const INITIAL_STATE_DETAIL = {
@@ -115,26 +115,27 @@ class CRUDView extends Component {
 
   handleOpenCreateDialog = () => {
     this.setState({
-      createDialogIsOpen: true,
-      updateDialogIsOpen: false,
-      deleteDialogIsOpen: false,
+      createDialogIsOpen : true       ,
+      updateDialogIsOpen : false      ,
+      deleteDialogIsOpen : false      ,
+      crudFormTimestamp  : Date.now() ,
     });
   };
 
   handleOpenUpdateDialog = () => {
     // console.log('detail\n', this.state.detail);
     this.setState({
-      createDialogIsOpen: false,
-      updateDialogIsOpen: true,
-      deleteDialogIsOpen: false,
+      createDialogIsOpen : false ,
+      updateDialogIsOpen : true  ,
+      deleteDialogIsOpen : false ,
     });
   };
 
   handleOpenDeleteDialog = () => {
     this.setState({
-      createDialogIsOpen: false,
-      updateDialogIsOpen: false,
-      deleteDialogIsOpen: true,
+      createDialogIsOpen : false ,
+      updateDialogIsOpen : false ,
+      deleteDialogIsOpen : true  ,
     });
   };
 
@@ -149,7 +150,7 @@ class CRUDView extends Component {
     // console.log('targetFieldIndex\n', targetFieldIndex); // 'john doe'
     crudForm[targetFieldIndex].value = value;
     this.setState({ crudForm, }
-      // ,() => console.log('state\n', this.state)
+      ,() => console.log('state\n', this.state)
     );
   }
 
@@ -173,7 +174,8 @@ class CRUDView extends Component {
     // console.log('state\n', this.state);
     const { handleCloseDialog, handleRefresh, } = this;
     const { crudForm, } = this.state;
-    const { createItem, creatable, } = this.props;
+    const { createItem, creatable, profile, dashboard, } = this.props;
+    const { uid, } = profile;
     const { path, } = creatable;
     
     // inspired by: src/my-app/components/forms/CreateLead.js
@@ -188,7 +190,12 @@ class CRUDView extends Component {
       newItem[item.id] = newVal;
     });
 
-    createItem(path, newItem,);
+    // console.log('path\n', path,)
+    // console.log('newItem\n', newItem,)
+    // console.log('profile\n', profile,)
+    // console.log('uid\n', uid,)
+    // console.log('dashboard\n', dashboard,)
+    createItem(path, newItem, uid, dashboard,);
     // this.props.history.push('/');
 
     handleCloseDialog();
@@ -200,7 +207,8 @@ class CRUDView extends Component {
     // console.log('props\n', this.props);
     const { handleCloseDialog, handleRefresh, } = this;
     const { detail, crudForm, } = this.state; // selectedIndex,
-    const { readable, updateItem, } = this.props; // items,
+    const { readable, updateItem, } = this.props; // items, profile,
+    // const { uid, } = profile;
     // console.log('selectedIndex', selectedIndex,);
     // console.log('selectedItem', items[selectedIndex],);
     // const item = items[selectedIndex];
@@ -215,7 +223,7 @@ class CRUDView extends Component {
       newItem[item.id] = newVal;
     });
 
-    updateItem( readable, docId, newItem, detail, );
+    updateItem( readable, docId, newItem, detail, ); // note: readable is the path // uid,
     handleCloseDialog();
     handleRefresh();
   }
@@ -225,13 +233,14 @@ class CRUDView extends Component {
     // console.log('props\n', this.props);
     const { handleCloseDialog, handleRefresh, } = this;
     const { selectedIndex, } = this.state;
-    const { items, readable, deleteItem, } = this.props;
+    const { items, readable, deleteItem, profile, dashboard, } = this.props;
+    const { uid, } = profile;
     // console.log('selectedIndex', selectedIndex,);
     // console.log('selectedItem', items[selectedIndex],);
     const item = items[selectedIndex];
     const docId = item.docId;
     // console.log('docId', docId,);
-    deleteItem( readable, docId, );
+    deleteItem( readable, docId, uid, dashboard, ); // readable is the path
     handleCloseDialog();
     handleRefresh();
   }
@@ -334,18 +343,22 @@ class CRUDView extends Component {
   getCreateDialog = () => {
     // console.log('props\n', this.props);
     // const { getFormFields, } = this;
-    const { createDialogIsOpen, crudForm, } = this.state;
+    const { createDialogIsOpen, crudForm, crudFormTimestamp, } = this.state;
     const { creatable, } = this.props;
     const { title, fields, } = creatable; // form,
     const {
       handleEnterDialog, handleChangeForm, handleCloseDialog, handleCreateItem,
     } = this;
+
     const ready1 = createDialogIsOpen && creatable;
     if(!ready1) return;
     const ready2 = title && fields;
     if(!ready2) return;
     const ready3 = handleChangeForm && handleCloseDialog && handleCreateItem;
     if(!ready3) return;
+
+    const name = crudForm && crudForm.find(x => x.id === 'name').value;
+    console.log('name\n', name,);
 
     return (
       creatable &&
@@ -381,8 +394,39 @@ class CRUDView extends Component {
         //   }
         // </AppBar>
         }
+
+        <AppBar position="static" elevation={1}>
+          <Toolbar className="flex w-full">
+            <Typography variant="subtitle1" color="inherit">
+              {title}
+            </Typography>
+          </Toolbar>
+          <div className="flex flex-col items-center justify-center pb-24">
+            {
+            // <Avatar className="w-96 h-96" alt="contact avatar" src={this.state.avatar} />
+            }
+            <HashAvatar
+              className="p-8"
+              message={crudFormTimestamp}
+              // variant={item.value} //"uic" //"robohashx" //"robohash4" //"retro" //"monsterid" //"wavatar" //"adorable" //"identicon" //"mp" //"ui" //"random"(deprecated)
+            />
+            {
+            // contactDialog.type === 'edit' && (
+            }
+            <Typography variant="h6" color="inherit" className="pt-8">
+              {
+                // this.state.name
+                // 'Name goes here'
+                name || 'Name'
+              }
+            </Typography>
+          </div>
+        </AppBar>
+
         <div className="ml-12 mr-16">
-          <DialogTitle id="form-dialog-title">{title}</DialogTitle>
+          {
+          // <DialogTitle id="form-dialog-title">{title}</DialogTitle>
+          }
           <DialogContent className="pt-4">
             {
               // // dynamically populate element props
@@ -989,10 +1033,22 @@ CRUDView.defaultProps = {
   deletable: false,
 };
 
+const mapStateToProps = state => {
+  const profile = state
+    && state.firebase
+    && state.firebase.profile;
+  const dashboard = state
+    && state.myApp
+    && state.myApp.reducers
+    && state.myApp.reducers.userDataReducer
+    && state.myApp.reducers.userDataReducer.dashboard;
+  return { profile, dashboard, };
+}
+
 const mapDispatchToProps = dispatch => ({
-  createItem: ( path , item  ,                    ) => dispatch(createItem( path , item  ,                    )), // inspired by: src/my-app/components/forms/CreateLead.js
-  updateItem: ( path , docId , newItem , oldItem, ) => dispatch(updateItem( path , docId , newItem , oldItem, )),
-  deleteItem: ( path , docId ,                    ) => dispatch(deleteItem( path , docId ,                    )),
+  createItem: ( path , item  , uid     , dashboard , ) => dispatch(createItem( path , item  , uid     , dashboard , )), // inspired by: src/my-app/components/forms/CreateLead.js
+  updateItem: ( path , docId , newItem , oldItem   , ) => dispatch(updateItem( path , docId , newItem , oldItem   , )),
+  deleteItem: ( path , docId , uid     , dashboard , ) => dispatch(deleteItem( path , docId , uid     , dashboard , )),
 })
 
 // export default CRUDView;
@@ -1000,5 +1056,5 @@ const mapDispatchToProps = dispatch => ({
 export default compose(
   withStyles(styles),
   withWidth(),
-  connect(null, mapDispatchToProps),
+  connect( mapStateToProps, mapDispatchToProps, ),
 )(CRUDView);

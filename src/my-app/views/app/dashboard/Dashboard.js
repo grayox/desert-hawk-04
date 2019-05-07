@@ -294,7 +294,7 @@ class Dashboard extends Component {
     // console.log('settings\n', this.props.settings);
     // console.log('dataHasLoaded\n', this.props.dataHasLoaded);
 
-    const { classes, dataHasLoaded, } = this.props; // leads, user, profile, settings,
+    const { classes, dataHasLoaded, dashboard, } = this.props; // leads, user, profile, settings,
     // const { geoNation, geoRegion, geoLocal, bizCategory, } = settings; // isValidGeo,
 
     // const { isValidGeo, geoNation, geoRegion, geoLocal, bizCategory }
@@ -404,7 +404,7 @@ class Dashboard extends Component {
         }
 
         <Hidden smUp>
-          <DashboardWidgets data={this.props.dashboard} />
+          <DashboardWidgets data={dashboard} />
           {
           // <DashboardGridItems 
           //   // condensedDashboard={condensedDashboard}
@@ -424,7 +424,7 @@ class Dashboard extends Component {
         </Hidden>
 
         <Hidden xsDown>
-          <DashboardWidgets data={this.props.dashboard} />
+          <DashboardWidgets data={dashboard} />
           {
           // <DashboardGridItems 
           //   // condensedDashboard={condensedDashboard}

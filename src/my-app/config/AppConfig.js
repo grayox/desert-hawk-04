@@ -299,10 +299,10 @@ export const componentsNavConfig = [
   // * Note: It is currently not possible to use expressions like `loader : () => import(item.path)`
   // The path must be hard coded in src/my-app/config/Routes.js. See https://github.com/jamiebuilds/react-loadable
   {
-    description:
-      <span>
-        This is your overview of metrics summarizing your use of this app.
-      </span>,
+    // eslint-disable-next-line
+    description: '\
+      This is your overview of metrics summarizing your use of this app.\
+    ',
     id         : 'dashboard',
     path       : '/dashboard',
     title      : 'Dashboard',
