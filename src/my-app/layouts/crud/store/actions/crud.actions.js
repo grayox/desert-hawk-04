@@ -45,16 +45,21 @@ export const createItem = ( path, item, uid, dashboard, ) =>
     // console.log('uid\n', uid,)
     // console.log('dashboard\n', dashboard,)
 
-    const timestamp = Date.now();
+    // const timestamp = Date.now();
     const newData = {
       ...item,
-      createdAt: timestamp,
+      // createdAt: timestamp,
       deletedAt: 0,
       // createdAt: new Date(),
       // authorFirstName: 'Net',
       // authorLastName: 'Ninja',
       // authorId: 12345,
     };
+
+    if(!item.createdAt) {
+      const timestamp = Date.now();
+      item.createdAt = timestamp;
+    }
 
     // make async call to database
     const firestore = getFirestore();

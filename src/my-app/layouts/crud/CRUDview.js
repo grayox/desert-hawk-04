@@ -11,10 +11,9 @@ import { createItem, updateItem, deleteItem, } from './store/actions'
 import {
   withStyles, withWidth, Slide, Zoom, Button, Fab, Paper, Tooltip,
   Typography, Grid, Hidden, CssBaseline, Divider, Icon, IconButton,
-  List, ListItem, ListItemText, ListItemSecondaryAction,
+  AppBar, Toolbar, List, ListItem, ListItemText, ListItemSecondaryAction,
   Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
-  // ListSubheader, Grow, CssBaseline,
-  AppBar, Toolbar, Avatar,
+  // ListSubheader, Grow, CssBaseline, Avatar,
 } from '@material-ui/core';
 
 // import {FuseAnimateGroup, FuseHighlight, FusePageSimple} from '@fuse';
@@ -88,7 +87,7 @@ const INITIAL_STATE_DIALOG = {
   updateDialogIsOpen : false     ,
   deleteDialogIsOpen : false     ,
   crudForm           : undefined ,
-  crudFormTimestamp          : undefined ,
+  crudFormTimestamp  : undefined ,
 }
 
 const INITIAL_STATE_DETAIL = {
@@ -173,7 +172,7 @@ class CRUDView extends Component {
   handleCreateItem = e => {
     // console.log('state\n', this.state);
     const { handleCloseDialog, handleRefresh, } = this;
-    const { crudForm, } = this.state;
+    const { crudForm, crudFormTimestamp, } = this.state;
     const { createItem, creatable, profile, dashboard, } = this.props;
     const { uid, } = profile;
     const { path, } = creatable;
@@ -183,7 +182,9 @@ class CRUDView extends Component {
     // console.log(this.state);
     // this.props.createItem('leads', crudForm,);
 
-    const newItem = {};
+    const newItem = {
+      createdAt: crudFormTimestamp,
+    };
     crudForm.forEach(item => {
       let newVal = item.value;
       if(newVal === undefined || newVal === null) return; // newVal = null; //
@@ -423,7 +424,7 @@ class CRUDView extends Component {
           </div>
         </AppBar>
 
-        <div className="ml-12 mr-16">
+        <div className="mx-12">
           {
           // <DialogTitle id="form-dialog-title">{title}</DialogTitle>
           }
