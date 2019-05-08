@@ -100,6 +100,39 @@ const INITIAL_STATE = {
   ...INITIAL_STATE_DIALOG,
 };
 
+const findFormField = ( formName, fieldName, ) => formName && formName.find(x => x.id === fieldName).value;
+
+const getAppBar = ( title, name, message, ) => (
+  <AppBar position="static" elevation={1}>
+    <Toolbar className="flex w-full">
+      <Typography variant="subtitle1" color="inherit">
+        {title}
+      </Typography>
+    </Toolbar>
+    <div className="flex flex-col items-center justify-center pb-24">
+      {
+        // <Avatar className="w-96 h-96" alt="contact avatar" src={this.state.avatar} />
+      }
+      <HashAvatar
+        className="p-8"
+        message={message}
+      // size="90" // 50
+      // variant={item.value} //"uic" //"robohashx" //"robohash4" //"retro" //"monsterid" //"wavatar" //"adorable" //"identicon" //"mp" //"ui" //"random"(deprecated)
+      />
+      {
+        // contactDialog.type === 'edit' && (
+      }
+      <Typography variant="h6" color="inherit" className="pt-8">
+        {
+          // this.state.name
+          // 'Name goes here'
+          name || 'Name'
+        }
+      </Typography>
+    </div>
+  </AppBar>
+)
+
 // function CRUDView(props) {
 class CRUDView extends Component {
 
@@ -149,7 +182,7 @@ class CRUDView extends Component {
     // console.log('targetFieldIndex\n', targetFieldIndex); // 'john doe'
     crudForm[targetFieldIndex].value = value;
     this.setState({ crudForm, }
-      ,() => console.log('state\n', this.state)
+      // ,() => console.log('state\n', this.state)
     );
   }
 
@@ -255,7 +288,7 @@ class CRUDView extends Component {
     const { selectedIndex, } = this.state;
     const newSelectedIndex = selectedIndex - 1;
     this.setState({
-      selectedIndex: Math.max(0, newSelectedIndex),
+      selectedIndex: Math.max(0, newSelectedIndex,),
       detail: items[newSelectedIndex],
     });
   };
@@ -340,7 +373,7 @@ class CRUDView extends Component {
     // console.log('state\n', this.state);
     return formFields;
   }
-
+  
   getCreateDialog = () => {
     // console.log('props\n', this.props);
     // const { getFormFields, } = this;
@@ -348,7 +381,7 @@ class CRUDView extends Component {
     const { creatable, } = this.props;
     const { title, fields, } = creatable; // form,
     const {
-      handleEnterDialog, handleChangeForm, handleCloseDialog, handleCreateItem,
+      handleEnterDialog, handleChangeForm, handleCloseDialog, handleCreateItem, // findFormField,
     } = this;
 
     const ready1 = createDialogIsOpen && creatable;
@@ -358,8 +391,8 @@ class CRUDView extends Component {
     const ready3 = handleChangeForm && handleCloseDialog && handleCreateItem;
     if(!ready3) return;
 
-    const name = crudForm && crudForm.find(x => x.id === 'name').value;
-    console.log('name\n', name,);
+    const name = findFormField( crudForm, 'name', );
+    // console.log('name\n', name,);
 
     return (
       creatable &&
@@ -396,36 +429,9 @@ class CRUDView extends Component {
         // </AppBar>
         }
 
-        <AppBar position="static" elevation={1}>
-          <Toolbar className="flex w-full">
-            <Typography variant="subtitle1" color="inherit">
-              {title}
-            </Typography>
-          </Toolbar>
-          <div className="flex flex-col items-center justify-center pb-24">
-            {
-            // <Avatar className="w-96 h-96" alt="contact avatar" src={this.state.avatar} />
-            }
-            <HashAvatar
-              className="p-8"
-              message={crudFormTimestamp}
-              // size="90" // 50
-              // variant={item.value} //"uic" //"robohashx" //"robohash4" //"retro" //"monsterid" //"wavatar" //"adorable" //"identicon" //"mp" //"ui" //"random"(deprecated)
-            />
-            {
-            // contactDialog.type === 'edit' && (
-            }
-            <Typography variant="h6" color="inherit" className="pt-8">
-              {
-                // this.state.name
-                // 'Name goes here'
-                name || 'Name'
-              }
-            </Typography>
-          </div>
-        </AppBar>
+        { getAppBar(title, name, crudFormTimestamp,) }
 
-        <div className="mx-12">
+        <div className="ml-8 mr-16">
           {
           // <DialogTitle id="form-dialog-title">{title}</DialogTitle>
           }
@@ -460,8 +466,9 @@ class CRUDView extends Component {
 
   getUpdateDialog = () => {
     // console.log('props\n', this.props);
+    // console.log('state\n', this.state);
     const { 
-      handleChangeForm, handleCloseDialog, handleUpdateItem, handleEnterDialog,
+      handleChangeForm, handleCloseDialog, handleUpdateItem, handleEnterDialog, // findFormField,
     } = this; // getFormFields, handleExitedUpdateDialog,
     const { updateDialogIsOpen, detail, crudForm, } = this.state;
     const { updatable, } = this.props;
@@ -474,9 +481,8 @@ class CRUDView extends Component {
     if(!ready3) return;
 
     // const updateFormFields = getFormFields( 'loadSavedData', fields, );
-    // console.log('crudForm\n', crudForm);
-    // debugger;
-
+    // console.log('crudForm\n', crudForm); // undefined // debugger;
+    
     return (
       updatable &&
       <Dialog
@@ -489,8 +495,13 @@ class CRUDView extends Component {
         // aria-labelledby="alert-dialog-slide-title"
         // aria-describedby="alert-dialog-slide-description"
       >
-        <div className="ml-12 mr-16">
-          <DialogTitle id="form-dialog-title">{title}</DialogTitle>
+
+        { getAppBar(title, detail.name, detail.createdAt,) }
+
+        <div className="ml-8 mr-16">
+          {
+          // <DialogTitle id="form-dialog-title">{title}</DialogTitle>
+          }
           <DialogContent className="pt-4">
             <FormTemplate
               fields={crudForm}
