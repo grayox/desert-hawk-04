@@ -112,10 +112,15 @@ export const saveUserDataToFirestore = ( path, item, ) =>
 
     // ref: https://firebase.google.com/docs/firestore/manage-data/add-data#add_a_document
     // firestore.collection('test').add({
-    firestore.collection(path).add(newData).then(() => {
+    firestore
+      .collection(path)
+      .add(newData)
+    .then( docRef => {
+      // console.log('Document was written with id: ', docRef.id,);
       // dispatch({ type: 'SAVE_INITIAL_VALUES_SUCCESS' }); // dispatch({ type: 'CREATE_ITEM_SUCCESS' });
       return item;
-    }).catch( error => {
+    })
+    .catch( error => {
       // dispatch({ type: 'CREATE_ITEM_ERROR' }, error);
       // dispatch({ type: 'SAVE_INITIAL_VALUES_ERROR' }, error);
     });

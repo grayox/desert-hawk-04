@@ -168,7 +168,7 @@ export const deleteItem = ( path, docId, uid, dashboard, ) =>
       .update(newData // use .update() method: https://firebase.google.com/docs/firestore/manage-data/add-data#update-data
       // ,{ merge: true, }
       )
-    .then(() => {
+    .then( () => {
       handleEditDashboard( uid, path, dashboard, -1, docId, dispatch, getFirestore, );
       dispatch({ type: 'DELETE_ITEM_SUCCESS', });
     }).catch( error => {
