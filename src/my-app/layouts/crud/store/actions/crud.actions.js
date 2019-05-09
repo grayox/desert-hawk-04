@@ -1,7 +1,7 @@
 // inspired by: src/my-app/store/actions/my-actions/leadsActions.js
 // ref: https://firebase.google.com/docs/firestore/quickstart#next_steps
 
-const handleEditDashboard = ( uid, path, oldData, incrementer, dispatch, getFirestore, ) => {
+const handleEditDashboard = ( uid, path, oldData, incrementer, sourceDocId, dispatch, getFirestore, ) => {
     // uid: string: 'abcxyz'
     // path: string: 'leads'
     // oldData: object: { net: 5, outbox: 4, ... }
@@ -9,6 +9,7 @@ const handleEditDashboard = ( uid, path, oldData, incrementer, dispatch, getFire
     // console.log('uid\n', uid,); // 'abcxyz'
     // console.log('path\n', path,); // 'leads'
     // console.log('incrementer\n', incrementer,); // 1
+    const timestamp = Date.now();
     const mapEntityPathNameToDashboard = {
       leads: 'outbox',
     };
@@ -18,6 +19,9 @@ const handleEditDashboard = ( uid, path, oldData, incrementer, dispatch, getFire
     const newData = {
       ...oldData,
       [dashItem]: newCount, // outbox: 5
+      createdAt: timestamp,
+      deletedAt: 0,
+      sourceDocId,
     };
     // console.log('newData\n', newData,); // {net: 5, outbox: 5, ...}
     
@@ -78,7 +82,7 @@ export const createItem = ( path, item, uid, dashboard, ) =>
       .collection(path)
       .add(newData)
     .then( docRef => {
-      handleEditDashboard( uid, path, dashboard, 1, dispatch, getFirestore, );
+      handleEditDashboard( uid, path, dashboard, 1, docRef.id, dispatch, getFirestore, );
       // console.log('uid\n', uid,); // 'abcxyz'
       // console.log('path\n', path,); // 'leads'
       // console.log('docRef\n', docRef,);
@@ -165,7 +169,7 @@ export const deleteItem = ( path, docId, uid, dashboard, ) =>
       // ,{ merge: true, }
       )
     .then(() => {
-      handleEditDashboard( uid, path, dashboard, -1, dispatch, getFirestore, );
+      handleEditDashboard( uid, path, dashboard, -1, docId, dispatch, getFirestore, );
       dispatch({ type: 'DELETE_ITEM_SUCCESS', });
     }).catch( error => {
       console.log('error\n', error,);
