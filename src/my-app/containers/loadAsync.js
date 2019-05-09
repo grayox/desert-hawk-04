@@ -123,7 +123,7 @@ const getAsyncItems = async path => {
   if(!ready) return;
 
   const out = await db.collection(path)
-    .where( 'deletedAt', '==', 0, ) // filters out deleted documents
+    .where( 'deletedAt', '==', 0, ) // filters out deleted documents // deletedAt also used by updateItem (not replacedAt)
     // .where( 'name', '==', 'alpha', )
     .orderBy( 'createdAt', 'desc', ) // throws error: "firebase error: the query requires an index"
     // .limit(10)

@@ -257,6 +257,8 @@ class CRUDView extends Component {
       newItem[item.id] = newVal;
     });
 
+    // old item: detail
+    // new item: crudForm => newItem
     updateItem( readable, docId, newItem, detail, ); // note: readable is the path // uid,
     handleCloseDialog();
     handleRefresh();
@@ -481,7 +483,10 @@ class CRUDView extends Component {
     if(!ready3) return;
 
     // const updateFormFields = getFormFields( 'loadSavedData', fields, );
-    // console.log('crudForm\n', crudForm); // undefined // debugger;
+    // console.log('crudForm\n', crudForm); // undefined on load, then array of objects // debugger;
+
+    const name = (crudForm && findFormField(crudForm, 'name',)) || (detail && detail.name) || null;
+    const createdAt = (detail && detail.createdAt) || null;
     
     return (
       updatable &&
@@ -496,7 +501,7 @@ class CRUDView extends Component {
         // aria-describedby="alert-dialog-slide-description"
       >
 
-        { getAppBar(title, detail.name, detail.createdAt,) }
+        { getAppBar(title, name, createdAt,) }
 
         <div className="ml-8 mr-16">
           {

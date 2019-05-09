@@ -88,39 +88,24 @@ export const updateItem = ( path, docId, newItem, oldItem, ) => // uid,
     // console.log('getState\n', getState);
 
     const timestamp = Date.now();
-    const newDoc = {
+    const newData = {
       ...newItem,
-      createdAt: oldItem.createdAt,
       updatedAt: timestamp,
-      updatedItem: docId,
-      deletedAt: 0, // bypass readable filter 
+      updates: {
+        replacedAt: timestamp,
+        item: oldItem,
+      },
     };
 
     // make async call to database
     const firestore = getFirestore();
     firestore
       .collection(path)
-      .add(newDoc) // https://firebase.google.com/docs/firestore/manage-data/add-data#add_a_document
-    .then( docRef => {
-      const newDocId = docRef.id;
-      console.log( 'Document written with ID: ', newDocId, );
-      const newData = {
-        deletedAt: timestamp, // use deletedAt instead of replacedAt because that's the filter used by LoadAsync.js
-        replacedBy: newDocId,
-      };
-      firestore
-        .collection(path)
-        .doc(docId)
-        // .set(newData // do NOT use .set() method because it overwrites the data
-        .update(newData // use .update() method: https://firebase.google.com/docs/firestore/manage-data/add-data#update-data
-        // ,{ merge: true, }
-        )
-        .then(() => {
-          dispatch({ type: 'UPDATE_ITEM_SUCCESS', });
-        }).catch( error => {
-          dispatch({ type: 'UPDATE_ITEM_ERROR', }, error);
-        });
-    })
+      .doc(docId)
+      // .set(newData // do NOT use .set() method because it overwrites the data
+      .update(newData // use .update() method: https://firebase.google.com/docs/firestore/manage-data/add-data#update-data
+      // ,{ merge: true, }
+      )
     .then(() => {
       dispatch({ type: 'UPDATE_ITEM_SUCCESS', });
     }).catch( error => {
