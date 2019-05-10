@@ -40,16 +40,20 @@ const getDashboardNewData = (path, oldData, incrementer, sourceDocId,) => {
   };
 
   const navElement = getNavElement(path,);
-  const dashItem = navElement.id; // outbox
-  console.log('dashItem\n', dashItem,); // outbox
+  // const navId = navElement.id; // outbox
+  // console.log('navId\n', navId,); // outbox
   const dashboardChangeOrders = navElement.dashboardConfig[incrementer]; // { archive: 1, withdrawals: 1, net: -1, }
   // ref: https://codeburst.io/javascript-the-difference-between-foreach-and-for-in-992db038e4c2
   // dashboardChangeOrders.forEach(r => {
-  for (let r in dashboardChangeOrders) {
-    const delta = r[dashItem]; // 1
-    const oldCount = oldData[dashItem]; // 4
+  for (let dashboardItemId in dashboardChangeOrders) {
+    // console.log('dashboardItemId\n', dashboardItemId,); // 'outbox' | 'net'
+    const delta = dashboardChangeOrders[dashboardItemId]; // 1
+    // console.log('delta\n', delta,);
+    const oldCount = oldData[dashboardItemId]; // 4
+    // console.log('oldCount\n', oldCount,);
     const newCount = oldCount + delta; // 5
-    out[dashItem] = newCount; // outbox: 5
+    // console.log('newCount\n', newCount,);
+    out[dashboardItemId] = newCount; // outbox: 5
   };
   // console.log('out\n', out,); // {net: 5, outbox: 5, ...}
   return out;
