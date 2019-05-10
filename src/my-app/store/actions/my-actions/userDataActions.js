@@ -96,7 +96,7 @@ export const saveUserDataToFirestore = ( path, item, ) =>
     const newData = {
       ...item,
       createdAt: timestamp,
-      // deletedAt: 0,
+      deletedAt: 0,
       // createdAt: new Date(),
       // authorFirstName: 'Net',
       // authorLastName: 'Ninja',

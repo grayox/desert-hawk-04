@@ -335,15 +335,14 @@ export const componentsNavConfig = [
     crudConfig : {
       actionable : () => {},
       condensed  : true    ,
-      creatable  : false   ,
-      readable   : 'leads' ,
+      creatable  : false   , // false only makes button not appear on CRUD view
+      readable   : 'xleads' ,
       updatable  : false   ,
       deletable  : true    ,
     },
     dashboardConfig: {
-      net: 'decrement',
-      withdrawals: 'increment',
-      archive: 'increment',
+      onCreate: {},
+      onDelete: {},
     },
   },
   {
@@ -365,11 +364,21 @@ export const componentsNavConfig = [
     component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
     crudConfig : {
       actionable : () => {},
-      condensed  : true    ,
-      creatable  : false   ,
-      readable   : 'leads' ,
-      updatable  : false   ,
-      deletable  : true    ,
+      condensed  : true      ,
+      creatable  : false     ,
+      readable   : 'archive' ,
+      updatable  : false     ,
+      deletable  : true      ,
+    },
+    dashboardConfig: {
+      onCreate: {
+        archive: 1,
+        withdrawals: 1,
+        net: -1,
+      },
+      onDelete: {
+        archive: -1,
+      },
     },
   },
   {
@@ -388,23 +397,30 @@ export const componentsNavConfig = [
     // also update in: src/main/content/components/ComponentsConfig.js
     component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
     crudConfig : {
-      actionable : () => {},
-      condensed  : true,
-      creatable  : {
-        title    : 'Send new referral', // form: <UserMultiForm />,
-        path     : 'leads',
-        fields   : [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ], // 'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
+      actionable: () => {},
+      condensed: true,
+      creatable: {
+        title: 'Send new referral', // form: <UserMultiForm />,
+        path: 'leads',
+        fields: [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ], // 'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
       },
-      readable   : 'leads' ,
-      updatable  : {
-        title    : 'Edit referral',
-        path     : 'leads',
-        fields   : [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ],
+      readable: 'leads',
+      updatable: {
+        title: 'Edit referral',
+        path: 'leads',
+        fields: [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ],
       },
-      deletable  : true,
+      deletable: true,
     },
     dashboardConfig: {
-      outbox: 'increment',
+      onCreate: {
+        net: 1,
+        outbox: 1,
+      },
+      onDelete: {
+        net: -1,
+        outbox: -1,
+      },
     },
   },
   {
@@ -422,23 +438,28 @@ export const componentsNavConfig = [
     // also update in: src/main/content/components/ComponentsConfig.js
     component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
     crudConfig : {
-      actionable : () => {},
-      condensed  : true,
-      creatable  : {
-        title    : 'Create new contact', // form: <UserMultiForm />,
-        path     : 'contacts',
-        fields   : [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ], // 'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
+      actionable: () => {},
+      condensed: true,
+      creatable: {
+        title: 'Create new contact', // form: <UserMultiForm />,
+        path: 'contacts',
+        fields: [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ], // 'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
       },
-      readable   : 'contacts' ,
-      updatable  : {
-        title    : 'Edit contact',
-        path     : 'contacts',
-        fields   : [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ],
+      readable: 'contacts',
+      updatable: {
+        title: 'Edit contact',
+        path: 'contacts',
+        fields: [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ],
       },
-      deletable  : true,
+      deletable: true,
     },
     dashboardConfig: {
-      contacts: 'increment',
+      onCreate: {
+        contacts: 1,
+      },
+      onDelete: {
+        contacts: -1,
+      },
     },
   },
 

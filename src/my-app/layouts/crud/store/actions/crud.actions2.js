@@ -1,37 +1,46 @@
 // inspired by: src/my-app/store/actions/my-actions/leadsActions.js
 // ref: https://firebase.google.com/docs/firestore/quickstart#next_steps
 
-const handleEditDashboard = ( uid, path, oldData, increment, ) =>
+const handleEditDashboard = ( uid, path, oldData, incrementer, sourceDocId, dispatch, getFirestore, ) => {
     // uid: string: 'abcxyz'
     // path: string: 'leads'
-    // oldData: object: {net: 5, outbox: 4, ...}
-    // increment: integer: 1 | -1
-  (dispatch, getState, { getFirebase, getFirestore, }) => {
-    console.log('uid\n', uid,); // 'abcxyz'
-    console.log('path\n', path,); // 'leads'
-    console.log('oldData\n', oldData,); // {net: 5, outbox: 4, ...}
-    console.log('increment\n', increment,); // 1
+    // oldData: object: { net: 5, outbox: 4, ... }
+    // incrementer: integer: 1 | -1
+    // console.log('uid\n', uid,); // 'abcxyz'
+    // console.log('path\n', path,); // 'leads'
+    // console.log('incrementer\n', incrementer,); // 1
+    const timestamp = Date.now();
     const mapEntityPathNameToDashboard = {
       leads: 'outbox',
     };
     const dashItem = mapEntityPathNameToDashboard[path]; // 'outbox'
     const oldCount = oldData[dashItem]; // 4
-    const newCount = oldCount + increment; // 5
+    const newCount = oldCount + incrementer; // 5
     const newData = {
       ...oldData,
-      [dashItem]: newCount,
+      [dashItem]: newCount, // outbox: 5
+      createdAt: timestamp,
+      deletedAt: 0,
+      sourceDocId,
     };
- 
-    console.log('newData\n', newData,); // {net: 5, outbox: 5, ...}
+    // console.log('newData\n', newData,); // {net: 5, outbox: 5, ...}
     
     const firestore = getFirestore();
     firestore
       .collection('users')
       .doc(uid)
       .collection('dashboard')
-      .add(newData).then(() => {
+      .add(newData)
+      // ref: https://firebase.google.com/docs/firestore/manage-data/add-data#increment_a_numeric_value
+      // .update({
+      //   [dashItem] : firestore.FieldValue.increment(incrementer),
+      // })
+    .then( docRef => {
+      // console.log('docRef\n', docRef,);
       dispatch({ type: 'EDIT_DASHBOARD_SUCCESS', });
-    }).catch( error => {
+    })
+    .catch( error => {
+      console.log('error\n', error,);
       dispatch({ type: 'EDIT_DASHBOARD_ERROR', }, error);
     });
   }
@@ -69,13 +78,18 @@ export const createItem = ( path, item, uid, dashboard, ) =>
 
     // ref: https://firebase.google.com/docs/firestore/manage-data/add-data#add_a_document
     // firestore.collection('test').add({
-    firestore.collection(path).add(newData).then(() => {
+    firestore
+      .collection(path)
+      .add(newData)
+    .then( docRef => {
+      handleEditDashboard( uid, path, dashboard, 1, docRef.id, dispatch, getFirestore, );
+      // console.log('uid\n', uid,); // 'abcxyz'
+      // console.log('path\n', path,); // 'leads'
+      // console.log('docRef\n', docRef,);
       dispatch({ type: 'CREATE_ITEM_SUCCESS', });
-      console.log('uid\n', uid,); // 'abcxyz'
-      console.log('path\n', path,); // 'leads'
-      console.log('dashboard\n', dashboard,); // {net: 5, outbox: 4, ...}
-      handleEditDashboard( uid, path, dashboard, 1, );
-    }).catch( error => {
+    })
+    .catch( error => {
+      console.log('error\n', error,);
       dispatch({ type: 'CREATE_ITEM_ERROR', }, error);
     });
   }
@@ -88,27 +102,45 @@ export const updateItem = ( path, docId, newItem, oldItem, ) => // uid,
     // console.log('getState\n', getState);
 
     const timestamp = Date.now();
-    const newData = {
+    const newDoc = {
       ...newItem,
+      createdAt: oldItem.createdAt,
       updatedAt: timestamp,
-      updates: {
-        replacedAt: timestamp,
-        item: oldItem,
-      },
+      updatedItem: docId,
+      deletedAt: 0, // bypass readable filter 
     };
 
     // make async call to database
     const firestore = getFirestore();
     firestore
       .collection(path)
-      .doc(docId)
-      // .set(newData // do NOT use .set() method because it overwrites the data
-      .update(newData // use .update() method: https://firebase.google.com/docs/firestore/manage-data/add-data#update-data
-      // ,{ merge: true, }
-      )
+      .add(newDoc) // https://firebase.google.com/docs/firestore/manage-data/add-data#add_a_document
+    .then( docRef => {
+      const newDocId = docRef.id;
+      // console.log( 'Document written with ID: ', newDocId, );
+      const newData = {
+        deletedAt: timestamp, // use deletedAt instead of replacedAt because that's the filter used by LoadAsync.js
+        replacedBy: newDocId,
+      };
+      firestore
+        .collection(path)
+        .doc(docId)
+        // .set(newData // do NOT use .set() method because it overwrites the data
+        .update(newData // use .update() method: https://firebase.google.com/docs/firestore/manage-data/add-data#update-data
+        // ,{ merge: true, }
+        )
+        .then(() => {
+          dispatch({ type: 'UPDATE_ITEM_SUCCESS', });
+        }).catch( error => {
+          console.log('error\n', error,);
+          dispatch({ type: 'UPDATE_ITEM_ERROR', }, error);
+        });
+    })
     .then(() => {
       dispatch({ type: 'UPDATE_ITEM_SUCCESS', });
-    }).catch( error => {
+    })
+    .catch( error => {
+      console.log('error\n', error,);
       dispatch({ type: 'UPDATE_ITEM_ERROR', }, error);
     });
   }
@@ -136,10 +168,11 @@ export const deleteItem = ( path, docId, uid, dashboard, ) =>
       .update(newData // use .update() method: https://firebase.google.com/docs/firestore/manage-data/add-data#update-data
       // ,{ merge: true, }
       )
-    .then(() => {
+    .then( () => {
+      handleEditDashboard( uid, path, dashboard, -1, docId, dispatch, getFirestore, );
       dispatch({ type: 'DELETE_ITEM_SUCCESS', });
-      handleEditDashboard( uid, path, dashboard, -1, );
     }).catch( error => {
+      console.log('error\n', error,);
       dispatch({ type: 'DELETE_ITEM_ERROR', }, error);
     });
   }

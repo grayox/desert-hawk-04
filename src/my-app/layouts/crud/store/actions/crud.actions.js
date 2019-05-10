@@ -1,49 +1,89 @@
 // inspired by: src/my-app/store/actions/my-actions/leadsActions.js
 // ref: https://firebase.google.com/docs/firestore/quickstart#next_steps
 
-const handleEditDashboard = ( uid, path, oldData, incrementer, sourceDocId, dispatch, getFirestore, ) => {
-    // uid: string: 'abcxyz'
-    // path: string: 'leads'
-    // oldData: object: { net: 5, outbox: 4, ... }
-    // incrementer: integer: 1 | -1
-    // console.log('uid\n', uid,); // 'abcxyz'
-    // console.log('path\n', path,); // 'leads'
-    // console.log('incrementer\n', incrementer,); // 1
-    const timestamp = Date.now();
-    const mapEntityPathNameToDashboard = {
-      leads: 'outbox',
-    };
-    const dashItem = mapEntityPathNameToDashboard[path]; // 'outbox'
+import { componentsNavConfig } from 'my-app/config/AppConfig';
+
+const getNavElement = path => {
+  // path: string: 'leads', 'archive', 'outbox'
+  console.log('path\n', path,);
+  const out = componentsNavConfig.find(x => (x.crudConfig && x.crudConfig.readable) === path);
+  console.log('out\n', out,);
+  return out;
+}
+
+const getDashboardNewData = (path, oldData, incrementer, sourceDocId,) => {
+  // uid: string: 'abcxyz'
+  // path: string: 'leads'
+  // oldData: object: { net: 5, outbox: 4, ... }
+  // incrementer: integer: 1 | -1 (deprecated)
+  // incrementer: string: 'onCreate' | 'onDelete'
+  // console.log('uid\n', uid,); // 'abcxyz'
+  // console.log('path\n', path,); // 'leads'
+  // console.log('incrementer\n', incrementer,); // 1
+  const timestamp = Date.now();
+  // const mapEntityPathNameToDashboard = {
+  //   leads: {
+  //     outbox: 1,
+  //     net: 1,
+  //   },
+  // };
+
+  // const dashItem = mapEntityPathNameToDashboard[path]; // 'outbox'
+  // const oldCount = oldData[dashItem]; // 4
+  // const newCount = oldCount + incrementer; // 5
+  const out = {
+    ...oldData,
+    // [dashItem]: newCount, // outbox: 5
+    createdAt: timestamp,
+    deletedAt: 0,
+    sourceDocId,
+  };
+
+  const navElement = getNavElement(path,);
+  const dashItem = navElement.id; // outbox
+  console.log('dashItem\n', dashItem,); // outbox
+  const dashboardChangeOrders = navElement.dashboardConfig[incrementer]; // { archive: 1, withdrawals: 1, net: -1, }
+  // ref: https://codeburst.io/javascript-the-difference-between-foreach-and-for-in-992db038e4c2
+  // dashboardChangeOrders.forEach(r => {
+  for (let r in dashboardChangeOrders) {
+    const delta = r[dashItem]; // 1
     const oldCount = oldData[dashItem]; // 4
-    const newCount = oldCount + incrementer; // 5
-    const newData = {
-      ...oldData,
-      [dashItem]: newCount, // outbox: 5
-      createdAt: timestamp,
-      deletedAt: 0,
-      sourceDocId,
-    };
-    // console.log('newData\n', newData,); // {net: 5, outbox: 5, ...}
-    
-    const firestore = getFirestore();
-    firestore
-      .collection('users')
-      .doc(uid)
-      .collection('dashboard')
-      .add(newData)
-      // ref: https://firebase.google.com/docs/firestore/manage-data/add-data#increment_a_numeric_value
-      // .update({
-      //   [dashItem] : firestore.FieldValue.increment(incrementer),
-      // })
-    .then( docRef => {
-      // console.log('docRef\n', docRef,);
-      dispatch({ type: 'EDIT_DASHBOARD_SUCCESS', });
-    })
-    .catch( error => {
-      console.log('error\n', error,);
-      dispatch({ type: 'EDIT_DASHBOARD_ERROR', }, error);
-    });
-  }
+    const newCount = oldCount + delta; // 5
+    out[dashItem] = newCount; // outbox: 5
+  };
+  // console.log('out\n', out,); // {net: 5, outbox: 5, ...}
+  return out;
+}
+
+const handleEditDashboard = ( uid, path, oldData, incrementer, sourceDocId, dispatch, getFirestore, ) => {
+  // uid: string: 'abcxyz'
+  // path: string: 'leads'
+  // oldData: object: { net: 5, outbox: 4, ... }
+  // incrementer: integer: 1 | -1 (deprecated)
+  // incrementer: string: 'onCreate' | 'onDelete'
+  // console.log('uid\n', uid,); // 'abcxyz'
+  // console.log('path\n', path,); // 'leads'
+  // console.log('incrementer\n', incrementer,); // 1
+  const newData = getDashboardNewData(path, oldData, incrementer, sourceDocId,);
+  const firestore = getFirestore();
+  firestore
+    .collection('users')
+    .doc(uid)
+    .collection('dashboard')
+    .add(newData)
+    // ref: https://firebase.google.com/docs/firestore/manage-data/add-data#increment_a_numeric_value
+    // .update({
+    //   [dashItem] : firestore.FieldValue.increment(incrementer),
+    // })
+  .then( docRef => {
+    // console.log('docRef\n', docRef,);
+    dispatch({ type: 'EDIT_DASHBOARD_SUCCESS', });
+  })
+  .catch( error => {
+    console.log('error\n', error,);
+    dispatch({ type: 'EDIT_DASHBOARD_ERROR', }, error);
+  });
+}
 
 // source: https://github.com/iamshaunjp/React-Redux-Firebase-App/blob/lesson-18/marioplan/src/store/actions/projectActions.js
 export const createItem = ( path, item, uid, dashboard, ) =>
@@ -82,7 +122,7 @@ export const createItem = ( path, item, uid, dashboard, ) =>
       .collection(path)
       .add(newData)
     .then( docRef => {
-      handleEditDashboard( uid, path, dashboard, 1, docRef.id, dispatch, getFirestore, );
+      handleEditDashboard( uid, path, dashboard, 'onCreate', docRef.id, dispatch, getFirestore, );
       // console.log('uid\n', uid,); // 'abcxyz'
       // console.log('path\n', path,); // 'leads'
       // console.log('docRef\n', docRef,);
@@ -169,7 +209,7 @@ export const deleteItem = ( path, docId, uid, dashboard, ) =>
       // ,{ merge: true, }
       )
     .then( () => {
-      handleEditDashboard( uid, path, dashboard, -1, docId, dispatch, getFirestore, );
+      handleEditDashboard( uid, path, dashboard, 'onDelete', docId, dispatch, getFirestore, );
       dispatch({ type: 'DELETE_ITEM_SUCCESS', });
     }).catch( error => {
       console.log('error\n', error,);
