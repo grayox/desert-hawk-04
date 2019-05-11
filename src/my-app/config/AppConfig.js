@@ -403,6 +403,13 @@ export const componentsNavConfig = [
         title: 'Send new referral', // form: <UserMultiForm />,
         path: 'leads',
         fields: [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ], // 'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
+        xfields: [
+          { id : 'name'  , label : 'Name'  , required : true  , },
+          { id : 'phone' , label : 'Phone' , required : true  , },
+          { id : 'email' , label : 'Email' , required : true  , },
+          { id : 'zip'   , label : 'Zip'   , required : true  , },
+          { id : 'notes' , label : 'Notes' , required : false , },
+        ],
       },
       readable: 'leads',
       updatable: {
@@ -415,10 +422,12 @@ export const componentsNavConfig = [
     dashboardConfig: {
       onCreate: {
         net: 1,
+        deposits: 1,
         outbox: 1,
       },
       onDelete: {
         net: -1,
+        deposits: -1,
         outbox: -1,
       },
     },

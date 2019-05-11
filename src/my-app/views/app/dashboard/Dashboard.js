@@ -314,6 +314,7 @@ class Dashboard extends Component {
     //   console.log( 'geoLocal\n'    , geoLocal    );
     //   console.log( 'bizCategory\n' , bizCategory );
     // };
+    console.log('dashboard\n', dashboard,);
 
     const {
       // handleChangeSwitch, 

@@ -51,7 +51,7 @@ export const updateUserData = (path, value,) => {
     value,
   }
   // console.log('out\n', out);
-  return out; 
+  return out;
 }
 
 // // export function updateSettings(value) {

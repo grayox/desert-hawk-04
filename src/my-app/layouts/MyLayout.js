@@ -3,6 +3,8 @@ import React from 'react';
 
 import classNames from 'classnames';
 import { withStyles, } from '@material-ui/core';
+// import 'farmhash';
+// import hash from 'object-hash';
 
 import MediaWidth from './MediaWidth';
 import MobileDrawer from './drawers/MobileDrawer';
@@ -29,19 +31,25 @@ const styles = theme => ({
 })
 
 const MyLayout = props => {
-  const { classes, profile, } = props; // settings,
+  const { classes, profile, dashboard, } = props; // settings,
   const { uid, } = profile;
-  // const t = Date.now();
+  // const timestamp = Date.now();
 
   // const [ timestamp, setTimestamp, ] = useState(t);
   // const handleUpdateUserData = () => {
-  //   const t = Date.now();
-  //   setTimestamp(t);
+  //   const timestamp = Date.now();
+  //   setTimestamp(timestamp);
   //   // console.log('settings\n', settings);
   // }
   
   // const ready = profile && settings;
   // if(!ready) return null;
+
+  // // https://github.com/lovell/farmhash/blob/master/README.md
+  // // const dashboardHash = farmhash.hash32(dashboard);
+  // // const dashboardHash = hash({foo: 'bar'});
+  // const dashboardHash = dashboard && hash(dashboard);
+  // console.log('dashboardHash\n', dashboardHash,);
 
   const handleChangeUserData = ( path, newData, saveDataToFirestore, ) => {
     // console.log('handleChangeUserData-path\n', path,)
@@ -63,8 +71,8 @@ const MyLayout = props => {
       <FetchUserData path="settings"  uid={uid} onChange={handleChangeUserData} />
       <FetchUserData path="dashboard" uid={uid} onChange={handleChangeUserData} />
       {
-      // <FetchUserData key={timestamp+1} ... />
-      // <FetchUserData key={timestamp+2} ... />
+      // <FetchUserData key={timestamp+1} key={`${dashboardHash}0`}  ... />
+      // <FetchUserData key={timestamp+2} key={`${dashboardHash}1`}  ... />
       // <FetchSettings />
       // <div className="border-8 border-blue w-full overflow-auto">
       // <CssBaseline />
@@ -95,10 +103,15 @@ const mapStateToProps = state => {
   //   && state.myApp.reducers
   //   && state.myApp.reducers.userDataReducer
   //   && state.myApp.reducers.userDataReducer.settings;
+  // const dashboard = state
+  //   && state.myApp
+  //   && state.myApp.reducers
+  //   && state.myApp.reducers.userDataReducer
+  //   && state.myApp.reducers.userDataReducer.dashboard;
   const profile = state
     && state.firebase
     && state.firebase.profile;
-  return { profile, } // user, settings,
+  return { profile, } // user, settings, dashboard,
 }
 
 // export default MyLayout;

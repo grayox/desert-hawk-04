@@ -15,6 +15,13 @@ const initState = {
 
 const itemsReducer = (state = initState, action) => {
   switch (action.type) {
+    case 'EDIT_DASHBOARD_SUCCESS':
+      console.log('edit dashboard success');
+      return state;
+      // return {
+      //   ...state,
+      //   dashboard: _.merge( {}, action.value, ),
+      // };
     case 'CREATE_ITEM_SUCCESS':
       console.log('create item success');
       return state;

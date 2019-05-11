@@ -5,9 +5,9 @@ import { componentsNavConfig } from 'my-app/config/AppConfig';
 
 const getNavElement = path => {
   // path: string: 'leads', 'archive', 'outbox'
-  console.log('path\n', path,);
+  // console.log('path\n', path,);
   const out = componentsNavConfig.find(x => (x.crudConfig && x.crudConfig.readable) === path);
-  console.log('out\n', out,);
+  // console.log('out\n', out,);
   return out;
 }
 
@@ -17,9 +17,10 @@ const getDashboardNewData = (path, oldData, incrementer, sourceDocId,) => {
   // oldData: object: { net: 5, outbox: 4, ... }
   // incrementer: integer: 1 | -1 (deprecated)
   // incrementer: string: 'onCreate' | 'onDelete'
-  // console.log('uid\n', uid,); // 'abcxyz'
   // console.log('path\n', path,); // 'leads'
+  // console.log('oldData\n', oldData,); // 'abcxyz'
   // console.log('incrementer\n', incrementer,); // 1
+  // console.log('sourceDocId\n', sourceDocId,); // 'abcxyz'
   const timestamp = Date.now();
   // const mapEntityPathNameToDashboard = {
   //   leads: {
@@ -36,13 +37,17 @@ const getDashboardNewData = (path, oldData, incrementer, sourceDocId,) => {
     // [dashItem]: newCount, // outbox: 5
     createdAt: timestamp,
     deletedAt: 0,
+    sourceDocPath: path,
     sourceDocId,
   };
+  // console.log('out\n', out,);
 
   const navElement = getNavElement(path,);
   // const navId = navElement.id; // outbox
   // console.log('navId\n', navId,); // outbox
+  // console.log('navElement\n', navElement,); // outbox
   const dashboardChangeOrders = navElement.dashboardConfig[incrementer]; // { archive: 1, withdrawals: 1, net: -1, }
+  // console.log('dashboardChangeOrders\n', dashboardChangeOrders,); // outbox
   // ref: https://codeburst.io/javascript-the-difference-between-foreach-and-for-in-992db038e4c2
   // dashboardChangeOrders.forEach(r => {
   for (let dashboardItemId in dashboardChangeOrders) {
@@ -69,6 +74,7 @@ const handleEditDashboard = ( uid, path, oldData, incrementer, sourceDocId, disp
   // console.log('path\n', path,); // 'leads'
   // console.log('incrementer\n', incrementer,); // 1
   const newData = getDashboardNewData(path, oldData, incrementer, sourceDocId,);
+  // console.log('newData\n', newData,); // 1
   const firestore = getFirestore();
   firestore
     .collection('users')
@@ -81,7 +87,10 @@ const handleEditDashboard = ( uid, path, oldData, incrementer, sourceDocId, disp
     // })
   .then( docRef => {
     // console.log('docRef\n', docRef,);
-    dispatch({ type: 'EDIT_DASHBOARD_SUCCESS', });
+    dispatch({
+      type: 'EDIT_DASHBOARD_SUCCESS',
+      value: newData,
+    });
   })
   .catch( error => {
     console.log('error\n', error,);
@@ -126,11 +135,11 @@ export const createItem = ( path, item, uid, dashboard, ) =>
       .collection(path)
       .add(newData)
     .then( docRef => {
-      handleEditDashboard( uid, path, dashboard, 'onCreate', docRef.id, dispatch, getFirestore, );
       // console.log('uid\n', uid,); // 'abcxyz'
       // console.log('path\n', path,); // 'leads'
       // console.log('docRef\n', docRef,);
-      dispatch({ type: 'CREATE_ITEM_SUCCESS', });
+      handleEditDashboard( uid, path, dashboard, 'onCreate', docRef.id, dispatch, getFirestore, );
+      // dispatch({ type: 'CREATE_ITEM_SUCCESS', });
     })
     .catch( error => {
       console.log('error\n', error,);
