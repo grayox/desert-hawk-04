@@ -1,5 +1,5 @@
 // import React from 'react';
-import React, { Component, } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -24,7 +24,6 @@ import { FuseAnimateGroup } from '@fuse'; // FuseScrollbars, FuseAnimate,
 import moment from 'moment';
 
 // import CreateButton from './CreateButton';
-import CRUDList from './CRUDList';
 import { CreateButton, ButtonsRow, } from './CRUDButtons'; // UDButtons,
 import { getForm, uiSpecs, } from 'my-app/config/AppConfig'; // getCleanFieldNames,
 import FormTemplate from 'my-app/components/forms/FormTemplate';
@@ -1011,8 +1010,6 @@ class CRUDView extends Component {
     return (
       // <FuseScrollbars className="overflow-auto">
       <div className={classes.root}>
-
-        <CRUDList />
         
         {/* to update the dashboard after a CRUD task */}
         <FetchUserData path="dashboard" uid={uid} onChange={handleChangeUserData} />
