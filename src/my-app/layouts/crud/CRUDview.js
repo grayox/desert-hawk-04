@@ -1012,8 +1012,6 @@ class CRUDView extends Component {
       // <FuseScrollbars className="overflow-auto">
       <div className={classes.root}>
 
-        <CRUDList />
-        
         {/* to update the dashboard after a CRUD task */}
         <FetchUserData path="dashboard" uid={uid} onChange={handleChangeUserData} />
 
@@ -1027,12 +1025,14 @@ class CRUDView extends Component {
             { getDeleteDialog() }
             <div className={classes.wrapper}>
               {/* mobile */}
-              <Hidden smUp>{detail ? getDetailPane() : getListPane()}</Hidden>
+              {/* <Hidden smUp>{detail ? getDetailPane() : getListPane()}</Hidden> */}
+              <Hidden smUp>{detail ? getDetailPane() : <CRUDList /> }</Hidden>
               {/* laptop */}
               <Hidden xsDown>
                 <div className={classNames(classes.root,)}>
                   <Grid container spacing={16}>
-                    <Grid item xs={12} sm={6}>{getListPane()}</Grid>
+                    {/* <Grid item xs={12} sm={6}>{getListPane()}</Grid> */}
+                    <Grid item xs={12} sm={6}><CRUDList /></Grid>
                     <Grid item xs={6}>{getDetailPane()}</Grid>
                   </Grid>
                 </div>

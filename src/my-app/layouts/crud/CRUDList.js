@@ -5,7 +5,7 @@ import React, { Component, } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 const style = {
-  height: 30,
+  height: 60, // 30
   border: "1px solid green",
   margin: 6,
   padding: 8
@@ -34,14 +34,16 @@ class CRUDList extends Component {
   render() {
     return (
       <div>
-        <h1>demo: react-infinite-scroll-component</h1>
-        <hr />
+        {
+        // <h1>demo: react-infinite-scroll-component</h1>
+        // <hr />
+        }
         <InfiniteScroll
           dataLength={this.state.items.length}
           next={this.fetchMoreData}
           hasMore={this.state.hasMore}
           loader={<h4>Loading...</h4>}
-          height={400}
+          height={window.innerHeight} // {800} {400} 
           endMessage={
             <p style={{ textAlign: "center" }}>
               <b>Yay! You have seen it all</b>
