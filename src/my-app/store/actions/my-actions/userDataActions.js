@@ -37,6 +37,7 @@ export const UPDATE_FEEDBACK_NOTE    = '[FEEDBACK] UPDATE NOTE';
 // begin my add
 
 export const updateUserData = (path, value,) => {
+  // path: string: 'settings' | 'dashboard' | 'feedbackRating' | 'feedbackRating'
   // console.log('path\n', path);
   // console.log('value\n', value);
   const typeConfig = {

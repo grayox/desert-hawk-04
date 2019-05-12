@@ -64,8 +64,8 @@ const getUserData = async path => {
         // console.log('id: ', doc.id); // works
         // console.log('data\n', doc.data()); // works
         a.push({
-          docId: doc.id,
-          ...doc.data(),
+          ...doc.data(), // !important, this line is FIRST, otherwise docId will be overwritten
+          docId: doc.id, // !important, this line is LAST
         });
         // console.log('a\n', a);
         // this.setState(a);

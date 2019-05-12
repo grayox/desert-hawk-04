@@ -7,6 +7,9 @@ import compose from 'recompose/compose';
 import { connect } from 'react-redux'
 import { createItem, updateItem, deleteItem, } from './store/actions'
 
+import { updateUserData, } from 'my-app/store/actions/my-actions'; // updateSettings, updateDashboard, saveUserDataToFirestore,
+import FetchUserData from 'my-app/containers/FetchUserData';
+
 // @material-ui/core
 import {
   withStyles, withWidth, Slide, Zoom, Button, Fab, Paper, Tooltip,
@@ -141,9 +144,28 @@ class CRUDView extends Component {
     this.state = INITIAL_STATE;
   }
 
-  // componentWillMount() {
+  // componentWillMount = () => {
   //   // this.setCreateFormInitialState(this.props.creatable.fields);
   // }
+
+  // componentDidUpdate(prevProps) {
+  //   if (this.props.dashboard !== prevProps.dashboard) {
+  //     const newDashboard = this.fetchData(this.props.userID);
+  //     this.props.updateUserData('dashboard', newDashboard,);
+  //   }
+  // }
+
+  handleChangeUserData = ( path, newData, ) => { // saveDataToFirestore, 
+    // console.log('handleChangeUserData-path\n', path,)
+    // console.log('handleChangeUserData-data\n', newData,)
+    // console.log('saveDataToFirestore\n', saveDataToFirestore,)
+    const { updateUserData, } = this.props; // saveUserDataToFirestore, 
+    updateUserData( path, newData, ); // updates global state
+    // if(saveDataToFirestore) {
+    //   const dataPath = [ 'users' , uid , path , ].join('/');
+    //   saveUserDataToFirestore( dataPath, newData, ); // updates firebase
+    // }
+  }
 
   handleOpenCreateDialog = () => {
     this.setState({
@@ -977,15 +999,18 @@ class CRUDView extends Component {
   }
 
   render() {
-    const { classes, items, } = this.props;
+    const { classes, items, profile, } = this.props;
+    const { uid, } = profile;
     const { detail, } = this.state;
     const {
       getListPane, getDetailPane, getEmpty,
       getCreateDialog, getUpdateDialog, getDeleteDialog,
+      handleChangeUserData,
     } = this;
     return (
       // <FuseScrollbars className="overflow-auto">
       <div className={classes.root}>
+        <FetchUserData path="dashboard" uid={uid} onChange={handleChangeUserData} />
         { getCreateDialog() }
         { 
           (items && items.length)
@@ -1067,6 +1092,8 @@ const mapDispatchToProps = dispatch => ({
   createItem: ( path , item  , uid     , dashboard , ) => dispatch(createItem( path , item  , uid     , dashboard , )), // inspired by: src/my-app/components/forms/CreateLead.js
   updateItem: ( path , docId , newItem , oldItem   , ) => dispatch(updateItem( path , docId , newItem , oldItem   , )),
   deleteItem: ( path , docId , uid     , dashboard , ) => dispatch(deleteItem( path , docId , uid     , dashboard , )),
+  // update dashboard
+  updateUserData: (path, newData,) => dispatch(updateUserData(path, newData,)),
 })
 
 // export default CRUDView;

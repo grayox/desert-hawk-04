@@ -35,8 +35,8 @@ const getDashboardNewData = (path, oldData, incrementer, sourceDocId,) => {
   const out = {
     ...oldData,
     // [dashItem]: newCount, // outbox: 5
+    // deletedAt: 0,
     createdAt: timestamp,
-    deletedAt: 0,
     sourceDocPath: path,
     sourceDocId,
   };

@@ -31,7 +31,7 @@ const styles = theme => ({
 })
 
 const MyLayout = props => {
-  const { classes, profile, dashboard, } = props; // settings,
+  const { classes, profile, } = props; // settings, dashboard,
   const { uid, } = profile;
   // const timestamp = Date.now();
 
@@ -61,7 +61,7 @@ const MyLayout = props => {
       const dataPath = [ 'users' , uid , path , ].join('/');
       saveUserDataToFirestore( dataPath, newData, ); // updates firebase
     }
-  }  
+  }
 
   return (
     <div
