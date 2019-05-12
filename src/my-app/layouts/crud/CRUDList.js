@@ -1,4 +1,5 @@
 // inspired by https://codesandbox.io/s/w3w89k7x8 | https://www.npmjs.com/package/react-infinite-scroll-component
+// implements infinite scroll behavior
 
 import React, { Component, } from "react";
 // import { render } from "react-dom";
