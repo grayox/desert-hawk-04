@@ -1010,7 +1010,10 @@ class CRUDView extends Component {
     return (
       // <FuseScrollbars className="overflow-auto">
       <div className={classes.root}>
+        
+        {/* to update the dashboard after a CRUD task */}
         <FetchUserData path="dashboard" uid={uid} onChange={handleChangeUserData} />
+
         { getCreateDialog() }
         { 
           (items && items.length)
