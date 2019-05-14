@@ -55,8 +55,8 @@ const getUserData = async path => {
     .orderBy( 'createdAt', 'desc', ) // throws error: "firebase error: the query requires an index"
     .limit(1)
     .get()
-    .then(querySnapshot => {
-      querySnapshot.forEach(doc => {
+    .then(documentSnapshots => {
+      documentSnapshots.forEach(doc => {
         // doc.data() is always defined for query doc snapshots
         // console.log(doc.id, '\n', doc.data());
         // console.log('createdAt: ', doc.createdAt()); // throws error // must define createdAt, then save it
@@ -98,9 +98,11 @@ const getUserData = async path => {
   // }
 };
 
-export const loadAsyncData = async path => {
+export const loadAsyncData = async ( path, limiter, ) => { // startAfter, 
   // console.log('path\n', path);
-  const out = await getAsyncItems(path);
+  const DEFAULT_LIMIT = 20;
+  const limit = limiter || DEFAULT_LIMIT;
+  const out = await getAsyncItems( path, limit, ); // startAfter,
   // console.log('out\n', out);
 
   const promise = new Promise((resolve, reject) => {
@@ -110,11 +112,14 @@ export const loadAsyncData = async path => {
   return promise;
 };
 
-const getAsyncItems = async path => {
+const getAsyncItems = async ( path, limiter, ) => { // startAfter,
   // used for reading CRUD objects
   // console.log('path\n', path);
   // console.log('state\n', this.state);
   // this.setState({isLoading: true});
+
+  const DEFAULT_LIMIT = 20;
+  const limit = limiter || DEFAULT_LIMIT;
   
   // debugger;
   const a = [];
@@ -127,9 +132,10 @@ const getAsyncItems = async path => {
     // .where( 'name', '==', 'alpha', )
     .orderBy( 'createdAt', 'desc', ) // throws error: "firebase error: the query requires an index"
     // .limit(10)
+    .limit(limit)
     .get()
-    .then(querySnapshot => {
-      querySnapshot.forEach(doc => {
+    .then(documentSnapshots => {
+      documentSnapshots.forEach(doc => {
         // doc.data() is always defined for query doc snapshots
         // console.log(doc.id, '\n', doc.data());
         // console.log('createdAt: ', doc.createdAt()); // throws error // must define createdAt, then save it

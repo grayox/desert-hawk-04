@@ -2,6 +2,8 @@
 // implements infinite scroll behavior
 
 import React, { Component, } from 'react';
+// import React from 'react';
+// import PropTypes from 'prop-types';
 // import { render } from 'react-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
@@ -26,10 +28,11 @@ const styles = theme => ({
   }
 });
 
+// const CRUDList = props => {
 class CRUDList extends Component {
   state = {
     items: Array.from({ length: 20 }),
-    hasMore: true
+    hasMore: true,
   };
 
   fetchMoreData = () => {
@@ -67,7 +70,7 @@ class CRUDList extends Component {
           // }
           endMessage="End of list"
         >
-          {this.state.items.map((i, index) => (
+          {this.state.items.map((item, index,) => (
             // <div style={style} key={index}>
             <div className={classes.item} key={index}>
               div - #{index}
@@ -78,6 +81,20 @@ class CRUDList extends Component {
     );
   }
 }
+
+// CRUDList.defaultProps = {
+//   classes: PropTypes.object.isRequired,
+//   items: PropTypes.array.isRequired,
+//   fetchMoreData: PropTypes.func.isRequired,
+//   hasMore: true,
+// };
+
+// CRUDList.propTypes = {
+//   classes: PropTypes.object.isRequired,
+//   items: PropTypes.array.isRequired,
+//   fetchMoreData: PropTypes.func.isRequired,
+//   hasMore: PropTypes.bool.isRequired,
+// };
 
 // export default CRUDList;
 export default withStyles(styles)(CRUDList);

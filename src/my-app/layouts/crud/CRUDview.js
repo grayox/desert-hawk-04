@@ -4,11 +4,12 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import compose from 'recompose/compose';
-import { connect } from 'react-redux'
-import { createItem, updateItem, deleteItem, } from './store/actions'
+import { connect } from 'react-redux';
+import { createItem, updateItem, deleteItem, } from './store/actions';
 
 import { updateUserData, } from 'my-app/store/actions/my-actions'; // updateSettings, updateDashboard, saveUserDataToFirestore,
 import FetchUserData from 'my-app/containers/FetchUserData';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 // @material-ui/core
 import {
@@ -16,7 +17,7 @@ import {
   Typography, Grid, Hidden, CssBaseline, Divider, Icon, IconButton,
   AppBar, Toolbar, List, ListItem, ListItemText, ListItemSecondaryAction,
   Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
-  // ListSubheader, Grow, CssBaseline, Avatar,
+  CircularProgress, // ListSubheader, Grow, CssBaseline, Avatar,
 } from '@material-ui/core';
 
 // import {FuseAnimateGroup, FuseHighlight, FusePageSimple} from '@fuse';
@@ -80,7 +81,10 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'center',
     flexDirection: 'column',
-  }
+  },
+  progress: {
+    margin: theme.spacing.unit * 2,
+  },
 });
 
 // https://material-ui.com/demos/dialogs/#alerts
@@ -670,6 +674,7 @@ class CRUDView extends Component {
   // )
 
   getSummary = ( item, isList, index, ) => {
+    const ready = item; if(!ready) return;
     const { handleToggle, } = this; // handleOpenUpdateDialog, handleOpenDeleteDialog,
     const { selectedIndex, } = this.state; // detail
     const { classes, actionable, } = this.props; // updatable, deletable,
@@ -866,7 +871,7 @@ class CRUDView extends Component {
       //   enter={{ animation: 'transition.slideLeftIn' }}
       //   leave={{ animation: 'transition.slideLeftOut' }}
       // >
-        <Paper className={classNames(classes.paper, "z-0")}>
+        <Paper className={classNames(classes.paper, "z-0",)}>
           <List className="m-0 p-0" component="nav"> {/* subheader={<ListSubheader className="text-left">Detail</ListSubheader>} */}
             <FuseAnimateGroup
               delay={500}
@@ -936,7 +941,7 @@ class CRUDView extends Component {
           detail
           ?
           <React.Fragment>
-            <Paper className={classNames(classes.paper, "z-0")}>
+            <Paper className={classNames(classes.paper, "z-0",)}>
               {
               // getHeader()
               getNavButtons()
@@ -956,7 +961,7 @@ class CRUDView extends Component {
   }
 
   getListPane = () => {
-    const { classes, items, creatable, } = this.props;
+    const { classes, items, creatable, onNext, hasMore, } = this.props;
     const { getSummary, handleOpenCreateDialog, } = this; // getHeader,
     // console.log('items\n', items);
     return (
@@ -980,18 +985,27 @@ class CRUDView extends Component {
               enter={{ animation: "transition.slideUpBigIn" }}
               leave={{ animation: "transition.slideLeftOut" }}
             >
-              {
-                items && items.map( ( item, index, ) =>
-                  <Tooltip key={item.createdAt} TransitionComponent={Zoom} placement="top" title="Click for detail">
-                    <div
-                      // className="border-b" // use divider instead
-                    >
-                      { getSummary( item, true, index, ) }
-                      <Divider />
-                    </div>
-                  </Tooltip>
-                )
-              }
+              <InfiniteScroll
+                dataLength={items.length}
+                next={onNext} // event
+                hasMore={hasMore} // boolean
+                loader={<CircularProgress className={classes.progress} color="secondary" />} //{<h4>Loading...</h4>}
+                height={window.innerHeight - 128} // {800} {400} 
+                endMessage="End of list"
+              >
+                {
+                  items && items.map( ( item, index, ) =>
+                    <Tooltip key={item && item.createdAt} TransitionComponent={Zoom} placement="top" title="Click for detail">
+                      <div
+                        // className="border-b" // use divider instead
+                      >
+                        { getSummary( item, true, index, ) }
+                        <Divider />
+                      </div>
+                    </Tooltip>
+                  )
+                }
+              </InfiniteScroll>
             </FuseAnimateGroup>
           </List>
         </Paper>
@@ -1025,14 +1039,24 @@ class CRUDView extends Component {
             { getDeleteDialog() }
             <div className={classes.wrapper}>
               {/* mobile */}
-              {/* <Hidden smUp>{detail ? getDetailPane() : getListPane()}</Hidden> */}
-              <Hidden smUp>{detail ? getDetailPane() : <CRUDList /> }</Hidden>
+              <Hidden smUp>{detail ? getDetailPane() : getListPane()}</Hidden>
+              {
+                // <Hidden smUp>
+                //   {
+                //     detail
+                //     ?
+                //     getDetailPane()
+                //     :
+                //     <CRUDList />
+                //   }
+                // </Hidden>
+              }
               {/* laptop */}
               <Hidden xsDown>
                 <div className={classNames(classes.root,)}>
                   <Grid container spacing={16}>
-                    {/* <Grid item xs={12} sm={6}>{getListPane()}</Grid> */}
-                    <Grid item xs={12} sm={6}><CRUDList /></Grid>
+                    <Grid item xs={12} sm={6}>{getListPane()}</Grid>
+                    {/* <Grid item xs={12} sm={6}><CRUDList /></Grid> */}
                     <Grid item xs={6}>{getDetailPane()}</Grid>
                   </Grid>
                 </div>

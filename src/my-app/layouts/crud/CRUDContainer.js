@@ -43,17 +43,22 @@ const styles = theme => ({
 //   return promise;
 // };
 
+const BATCH_SIZE = 20;
+
 const INITIAL_STATE = {
-  items: null,
+  items: [],
   isError: false,
   isLoading: true,
+
+  hasMore: true,
+  lastVisible: null,
 };
 
 class CRUDContainer extends Component {
   state = INITIAL_STATE;
 
   componentDidMount() {
-    this.handleLoad();
+    this.handleFetchMoreData();
   }
 
   componentWillUnmount() {
@@ -62,7 +67,7 @@ class CRUDContainer extends Component {
 
   // refs: https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#fetching-external-data
   // https://stackoverflow.com/a/55093394/1640892 | https://codesandbox.io/s/lrvwm88pv7
-  // handleLoad() {
+  // handleFetchMoreData() {
   //   this._asyncRequest = loadAsyncData().then(
   //     externalData => {
   //       this._asyncRequest = null;
@@ -70,22 +75,40 @@ class CRUDContainer extends Component {
   //     }
   //   );
   // }
-  handleLoad = async () => {
+  handleFetchMoreData = async () => {
     // console.log('props\n', this.props);
     const { readable, } = this.props;
+    const { items, hasMore, } = this.state;
+    
+    const ready = hasMore;
+    if(!ready) return;
 
     this.setState({
       isLoading: true,
     });
     // this._asyncRequest = loadAsyncData();
-    this._asyncRequest = loadAsyncData(readable);
-    const items = await this._asyncRequest;
+    // ref: https://firebase.google.com/docs/firestore/query-data/query-cursors#paginate_a_query
+    this._asyncRequest = loadAsyncData( readable, BATCH_SIZE, );
+    // const items = await this._asyncRequest;
+    const newItems = await this._asyncRequest;
+    const keepGoing = newItems.length === BATCH_SIZE;
     this._asyncRequest = null;
     this.setState({
-      items,
       isLoading: false,
+      hasMore: keepGoing,
+      items: [ ...items, ...newItems, ],
     });
   }
+
+  // xhandleFetchMoreData = () => {
+  //   if (this.state.items.length >= 500) {
+  //     this.setState({ hasMore: false });
+  //     return;
+  //   }
+  //   this.setState({
+  //     items: this.state.items.concat(Array.from({ length: 20 }))
+  //   });
+  // }
 
   // handleCancel() {
   //   if (this._asyncRequest) {
@@ -104,7 +127,7 @@ class CRUDContainer extends Component {
   //   return (
   //     <div className="App">
   //       {(isLoading && <button onClick={this.handleCancel}>Cancel</button>) || (
-  //         <button onClick={this.handleLoad}>Load</button>
+  //         <button onClick={this.handleFetchMoreData}>Load</button>
   //       )}
   //       <div>
   //         <h3>{(isLoading && "Loading...") || "Not loading"}</h3>
@@ -117,15 +140,15 @@ class CRUDContainer extends Component {
   // }
 
   render() {
-    const { handleLoad, } = this;
-    const { isLoading, isError, items, } = this.state;
+    const { handleFetchMoreData, } = this;
+    const { isLoading, isError, items, hasMore, } = this.state;
     const { classes, condensed, actionable, creatable, readable, updatable, deletable, } = this.props;
     
     return (
       isLoading
       ?
       <div className="h-full">
-        <IconButton className={classes.refresh} onClick={handleLoad} color="inherit">
+        <IconButton className={classes.refresh} onClick={handleFetchMoreData} color="inherit">
           <Icon>refresh</Icon>
         </IconButton>
         <Loading />
@@ -142,7 +165,7 @@ class CRUDContainer extends Component {
           items &&
           <React.Fragment>
             <Tooltip TransitionComponent={Zoom} title="Refresh data">
-              <IconButton className={classes.refresh} onClick={handleLoad} color="inherit">
+              <IconButton className={classes.refresh} onClick={handleFetchMoreData} color="inherit">
                 <Icon>refresh</Icon>
               </IconButton>
             </Tooltip>
@@ -154,7 +177,9 @@ class CRUDContainer extends Component {
               readable={readable}
               updatable={updatable}
               deletable={deletable}
-              onRefresh={handleLoad}
+              onRefresh={handleFetchMoreData}
+              onNext={handleFetchMoreData}
+              hasMore={hasMore}
             />
           </React.Fragment>
       ))
