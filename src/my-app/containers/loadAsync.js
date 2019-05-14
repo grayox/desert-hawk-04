@@ -7,7 +7,7 @@ import '@firebase/firestore';
 // const db = firebase.firestore();
 // const path = 'leads';
 
-const DEFAULT_LIMIT = 20;
+const BATCH_SIZE = 20;
 
 // ref: https://medium.freecodecamp.org/how-to-master-async-await-with-this-real-world-example-19107e7558ad
 
@@ -100,10 +100,10 @@ const getUserData = async path => {
   // }
 };
 
-export const loadAsyncData = async ( path, limiter, startAfter, ) => {
+export const loadAsyncData = async ( path, batchSize, lastVisible, ) => {
   // console.log('path\n', path);
-  const limit = limiter || DEFAULT_LIMIT;
-  const out = await getAsyncItems( path, limit, startAfter, );
+  const batch = batchSize || BATCH_SIZE;
+  const out = await getAsyncItems( path, batch, lastVisible, );
   // console.log('out\n', out);
 
   const promise = new Promise((resolve, reject) => {
@@ -113,13 +113,13 @@ export const loadAsyncData = async ( path, limiter, startAfter, ) => {
   return promise;
 };
 
-const getAsyncItems = async ( path, limiter, startAfter, ) => {
+const getAsyncItems = async ( path, batchSize, lastVisible, ) => {
   // used for reading CRUD objects
   // console.log('path\n', path);
   // console.log('state\n', this.state);
   // this.setState({isLoading: true});
 
-  const limit = limiter || DEFAULT_LIMIT;
+  const batch = batchSize || BATCH_SIZE;
   
   // debugger;
   const data = [];
@@ -127,7 +127,7 @@ const getAsyncItems = async ( path, limiter, startAfter, ) => {
   const ready = db;
   if(!ready) return;
 
-  let lastVisible;
+  let lastShown;
 
   const queryInit = await db.collection(path)
     .where( 'deletedAt', '==', 0, ) // filters out deleted documents // deletedAt also used by updateItem (not replacedAt)
@@ -137,12 +137,12 @@ const getAsyncItems = async ( path, limiter, startAfter, ) => {
   // paginate query
   // ref: docs: https://firebase.google.com/docs/firestore/query-data/query-cursors
   // ref: youtube: https://www.youtube.com/watch?v=poqTHxtDXwU
-  // use trinary operator to makes query robust to cases where there is no startAfter value
-  const queryPage = startAfter ? queryInit.startAfter(startAfter) : queryInit;
+  // use trinary operator to makes query robust to cases where there is no lastVisible value
+  const queryPage = lastVisible ? queryInit.startAfter(lastVisible) : queryInit;
 
   const out = queryPage    
     // .limit(10)
-    .limit(limit)
+    .limit(batch)
     .get()
     .then(documentSnapshots => {
       documentSnapshots.forEach(doc => {
@@ -159,15 +159,15 @@ const getAsyncItems = async ( path, limiter, startAfter, ) => {
         });
         // console.log('a\n', a);
         // this.setState(a);
-        lastVisible = doc;
+        lastShown = doc;
       });
-      // console.log('a\n', a); // {data: arrayOfObjects, lastVisible: docSnapshot,}  (same as below two returns)
-      return { data, lastVisible, };
+      // console.log('a\n', a); // {data: arrayOfObjects, lastShown: docSnapshot,}  (same as below two returns)
+      return { data, lastShown, };
     })
     .then(result => {
       // always set state inside promise!
       // otherwise, function returns before data loads!
-      // console.log('result', result); // {data: arrayOfObjects, lastVisible: docSnapshot,} (same as returns above and below)
+      // console.log('result', result); // {data: arrayOfObjects, lastShown: docSnapshot,} (same as returns above and below)
       // debugger;
       return result;
     })
@@ -184,7 +184,7 @@ const getAsyncItems = async ( path, limiter, startAfter, ) => {
     // therefore, it returns an empty array
     // therefore, always set state inside promise!
     // otherwise, function returns before data loads!
-    // console.log('out\n', out); // {data: arrayOfObjects, lastVisible: docSnapshot,} (same as above two returns)
+    // console.log('out\n', out); // {data: arrayOfObjects, lastShown: docSnapshot,} (same as above two returns)
     return out;
     // const newState = { items: out };
     // this.setState(newState);

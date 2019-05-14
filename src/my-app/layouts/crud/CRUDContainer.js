@@ -43,14 +43,14 @@ const styles = theme => ({
 //   return promise;
 // };
 
-const BATCH_SIZE = 15; // 15
+const BATCH_SIZE = 15; // 20
 
 const INITIAL_STATE = {
   items: [],
   isError: false,
   isLoading: true,
   hasMore: true,
-  lastVisible: false,
+  lastShown: false,
 };
 
 class CRUDContainer extends Component {
@@ -84,14 +84,14 @@ class CRUDContainer extends Component {
     const { items, } = this.state;
     
     const ready = this.state.hasMore;
-    if(!ready) return;
+    if( !ready ) return;
 
     // this._asyncRequest = loadAsyncData();
     // ref: https://firebase.google.com/docs/firestore/query-data/query-cursors#paginate_a_query
-    this._asyncRequest = loadAsyncData( readable, BATCH_SIZE, this.state.lastVisible, );
+    this._asyncRequest = loadAsyncData( readable, BATCH_SIZE, this.state.lastShown, );
     // const items = await this._asyncRequest;
-    const newData = await this._asyncRequest; // { data:<arrayOfObjects>, lastVisible:<documentSnapshot>, }
-    const { lastVisible, } = newData;
+    const newData = await this._asyncRequest; // { data:<arrayOfObjects>, lastShown:<documentSnapshot>, }
+    const { lastShown, } = newData;
     const newItems = newData.data;
     const hasMore = newItems.length === BATCH_SIZE;
     this._asyncRequest = null;
@@ -99,7 +99,7 @@ class CRUDContainer extends Component {
       hasMore,
       isLoading: false,
       items: [ ...items, ...newItems, ],
-      lastVisible,
+      lastShown,
     }
     // , () => { console.log('state\n', this.state); }
     );
