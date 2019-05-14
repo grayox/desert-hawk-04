@@ -101,7 +101,7 @@ class CRUDContainer extends Component {
       items: [ ...items, ...newItems, ],
       lastVisible,
     }
-    , () => { console.log('state\n', this.state); }
+    // , () => { console.log('state\n', this.state); }
     );
   }
 
