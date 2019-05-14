@@ -129,10 +129,18 @@ const getAsyncItems = async ( path, limiter, startAfter, ) => {
 
   let lastVisible;
 
-  const out = await db.collection(path)
+  const queryInit = await db.collection(path)
     .where( 'deletedAt', '==', 0, ) // filters out deleted documents // deletedAt also used by updateItem (not replacedAt)
     // .where( 'name', '==', 'alpha', )
-    .orderBy( 'createdAt', 'desc', ) // throws error: "firebase error: the query requires an index"
+    .orderBy( 'createdAt', 'desc', ); // throws error: "firebase error: the query requires an index"
+
+  // paginate query
+  // ref: docs: https://firebase.google.com/docs/firestore/query-data/query-cursors
+  // ref: youtube: https://www.youtube.com/watch?v=poqTHxtDXwU
+  // use trinary operator to makes query robust to cases where there is no startAfter value
+  const queryPage = startAfter ? queryInit.startAfter(startAfter) : queryInit;
+
+  const out = queryPage    
     // .limit(10)
     .limit(limit)
     .get()

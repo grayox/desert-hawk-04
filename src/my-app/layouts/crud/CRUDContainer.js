@@ -50,7 +50,7 @@ const INITIAL_STATE = {
   isError: false,
   isLoading: true,
   hasMore: true,
-  lastVisible: null,
+  lastVisible: false,
 };
 
 class CRUDContainer extends Component {
