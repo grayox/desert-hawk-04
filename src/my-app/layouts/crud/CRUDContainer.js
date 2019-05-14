@@ -49,7 +49,6 @@ const INITIAL_STATE = {
   items: [],
   isError: false,
   isLoading: true,
-
   hasMore: true,
   lastVisible: null,
 };
@@ -89,16 +88,21 @@ class CRUDContainer extends Component {
 
     // this._asyncRequest = loadAsyncData();
     // ref: https://firebase.google.com/docs/firestore/query-data/query-cursors#paginate_a_query
-    this._asyncRequest = loadAsyncData( readable, BATCH_SIZE, );
+    this._asyncRequest = loadAsyncData( readable, BATCH_SIZE, this.state.lastVisible, );
     // const items = await this._asyncRequest;
-    const newItems = await this._asyncRequest;
+    const newData = await this._asyncRequest; // { data:<arrayOfObjects>, lastVisible:<documentSnapshot>, }
+    const { lastVisible, } = newData;
+    const newItems = newData.data;
     const hasMore = newItems.length === BATCH_SIZE;
     this._asyncRequest = null;
     this.setState({
       hasMore,
       isLoading: false,
       items: [ ...items, ...newItems, ],
-    });
+      lastVisible,
+    }
+    , () => { console.log('state\n', this.state); }
+    );
   }
 
   // xhandleFetchMoreData = () => {

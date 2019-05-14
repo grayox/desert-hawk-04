@@ -7,6 +7,8 @@ import '@firebase/firestore';
 // const db = firebase.firestore();
 // const path = 'leads';
 
+const DEFAULT_LIMIT = 20;
+
 // ref: https://medium.freecodecamp.org/how-to-master-async-await-with-this-real-world-example-19107e7558ad
 
 // export const loadAsyncData = () => {
@@ -98,11 +100,10 @@ const getUserData = async path => {
   // }
 };
 
-export const loadAsyncData = async ( path, limiter, ) => { // startAfter, 
+export const loadAsyncData = async ( path, limiter, startAfter, ) => {
   // console.log('path\n', path);
-  const DEFAULT_LIMIT = 20;
   const limit = limiter || DEFAULT_LIMIT;
-  const out = await getAsyncItems( path, limit, ); // startAfter,
+  const out = await getAsyncItems( path, limit, startAfter, );
   // console.log('out\n', out);
 
   const promise = new Promise((resolve, reject) => {
@@ -112,20 +113,21 @@ export const loadAsyncData = async ( path, limiter, ) => { // startAfter,
   return promise;
 };
 
-const getAsyncItems = async ( path, limiter, ) => { // startAfter,
+const getAsyncItems = async ( path, limiter, startAfter, ) => {
   // used for reading CRUD objects
   // console.log('path\n', path);
   // console.log('state\n', this.state);
   // this.setState({isLoading: true});
 
-  const DEFAULT_LIMIT = 20;
   const limit = limiter || DEFAULT_LIMIT;
   
   // debugger;
-  const a = [];
+  const data = [];
   const db = firebase.firestore();
   const ready = db;
   if(!ready) return;
+
+  let lastVisible;
 
   const out = await db.collection(path)
     .where( 'deletedAt', '==', 0, ) // filters out deleted documents // deletedAt also used by updateItem (not replacedAt)
@@ -137,25 +139,27 @@ const getAsyncItems = async ( path, limiter, ) => { // startAfter,
     .then(documentSnapshots => {
       documentSnapshots.forEach(doc => {
         // doc.data() is always defined for query doc snapshots
-        // console.log(doc.id, '\n', doc.data());
-        // console.log('createdAt: ', doc.createdAt()); // throws error // must define createdAt, then save it
-        // console.log('createdAt: ', doc.get('createdAt')); // undefined
-        // console.log('id: ', doc.id); // works
-        // console.log('data\n', doc.data()); // works
-        a.push({
+        // console.log(doc.id, '\n', doc.data(),);
+        // console.log('createdAt: ', doc.createdAt(),); // throws error // must define createdAt, then save it
+        // console.log('createdAt: ', doc.get('createdAt'),); // undefined
+        // console.log('id: ', doc.id,); // works
+        // console.log('data\n', doc.data(),); // works
+        // console.log('doc\n', doc,);
+        data.push({
           docId: doc.id,
           ...doc.data(),
         });
         // console.log('a\n', a);
         // this.setState(a);
+        lastVisible = doc;
       });
-      // console.log('a\n', a);
-      return a;
+      // console.log('a\n', a); // {data: arrayOfObjects, lastVisible: docSnapshot,}  (same as below two returns)
+      return { data, lastVisible, };
     })
     .then(result => {
       // always set state inside promise!
       // otherwise, function returns before data loads!
-      // console.log('result', result);
+      // console.log('result', result); // {data: arrayOfObjects, lastVisible: docSnapshot,} (same as returns above and below)
       // debugger;
       return result;
     })
@@ -167,11 +171,14 @@ const getAsyncItems = async ( path, limiter, ) => { // startAfter,
       console.error('Error getting documents: \n', error);
       throw new Error(`Unable to get items from: ${path}\nError:\n${error}`);
     });
-  // console.log('out\n', out); // returns before promise settles; therefore, returns empty array
-  // always set state inside promise!
-  // otherwise, function returns before data loads!
-  return out;
-  // const newState = { items: out };
-  // this.setState(newState);
-  // }
+    // if not contained within a promise,
+    // then this step returns before promise settles;
+    // therefore, it returns an empty array
+    // therefore, always set state inside promise!
+    // otherwise, function returns before data loads!
+    // console.log('out\n', out); // {data: arrayOfObjects, lastVisible: docSnapshot,} (same as above two returns)
+    return out;
+    // const newState = { items: out };
+    // this.setState(newState);
+    // }
 };
