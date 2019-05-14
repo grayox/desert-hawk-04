@@ -630,7 +630,8 @@ export const faqDB = [
     'id'       : '10',
     'question' : 'What happens if I get flagged as a “challenge abuser?”',
     // eslint-disable-next-line
-    'answer'   : 'If we verify the abuse in bad faith, you could have your account restricted or banned.\
+    'answer'   : 'If we verify you have abuses the process in bad faith, you could have your account\
+                  restricted or you could be banned.\
                   This is done to protect the integrity of the network to maintain a high standard of\
                   quality to make the network as valuable as possible to all our members.',
   },
@@ -646,6 +647,13 @@ export const faqDB = [
   },
   {
     'id'       : '12',
+    'question' : 'How exactly are challenges resolved?',
+    // eslint-disable-next-line
+    'answer'   : 'First we notify the referrer and they have an opportunity to concede the issue immediately.\
+                  Then we review the lead and determine to determine the outcome.',
+  },
+  {
+    'id'       : '13',
     'question' : 'Can I send referrals to a specific member?',
     // eslint-disable-next-line
     'answer'   : 'Yes. We let you invite that person to the network and then select that person to receive\
@@ -653,7 +661,7 @@ export const faqDB = [
                   your target member serves.',
   },
   {
-    'id'       : '13',
+    'id'       : '14',
     'question' : 'What do I need to do before I can get my first referral?',
     // eslint-disable-next-line
     'answer'   : 'After you sign in with your Google, Facebook or Twitter account, we will need two pieces\
@@ -663,13 +671,13 @@ export const faqDB = [
                   qualified referral. Then we can show you the lead referrals that you qualify to receive.',
   },
   {
-    'id'       : '14',
+    'id'       : '15',
     'question' : 'Why do you need me to sign in with my Google, Facebook or Twitter account?',
     // eslint-disable-next-line
     'answer'   : 'We need to verify you are a real person.',
   },
   {
-    'id'       : '15',
+    'id'       : '16',
     'question' : 'Why do you need my line of business and geographical location?',
     // eslint-disable-next-line
     'answer'   : 'Because that is the way we match you to the lead referrals in the network.\
