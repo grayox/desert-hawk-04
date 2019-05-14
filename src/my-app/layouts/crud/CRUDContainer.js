@@ -43,7 +43,7 @@ const styles = theme => ({
 //   return promise;
 // };
 
-const BATCH_SIZE = 20;
+const BATCH_SIZE = 15; // 15
 
 const INITIAL_STATE = {
   items: [],
@@ -58,7 +58,11 @@ class CRUDContainer extends Component {
   state = INITIAL_STATE;
 
   componentDidMount() {
-    this.handleFetchMoreData();
+    this.setState({
+      isLoading: true,
+    },() => {
+      this.handleFetchMoreData();
+    });
   }
 
   componentWillUnmount() {
@@ -78,24 +82,21 @@ class CRUDContainer extends Component {
   handleFetchMoreData = async () => {
     // console.log('props\n', this.props);
     const { readable, } = this.props;
-    const { items, hasMore, } = this.state;
+    const { items, } = this.state;
     
-    const ready = hasMore;
+    const ready = this.state.hasMore;
     if(!ready) return;
 
-    this.setState({
-      isLoading: true,
-    });
     // this._asyncRequest = loadAsyncData();
     // ref: https://firebase.google.com/docs/firestore/query-data/query-cursors#paginate_a_query
     this._asyncRequest = loadAsyncData( readable, BATCH_SIZE, );
     // const items = await this._asyncRequest;
     const newItems = await this._asyncRequest;
-    const keepGoing = newItems.length === BATCH_SIZE;
+    const hasMore = newItems.length === BATCH_SIZE;
     this._asyncRequest = null;
     this.setState({
+      hasMore,
       isLoading: false,
-      hasMore: keepGoing,
       items: [ ...items, ...newItems, ],
     });
   }
