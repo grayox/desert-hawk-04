@@ -57,15 +57,17 @@ class CRUDContainer extends Component {
   state = INITIAL_STATE;
 
   componentDidMount() {
-    this.setState({
-      isLoading: true,
-    },() => {
-      this.handleFetchMoreData();
-    });
+    this.handleLoad();
   }
 
   componentWillUnmount() {
     this.handleCancel();
+  }
+
+  handleLoad = () => {
+    this.setState(INITIAL_STATE, () => {
+      this.handleFetchMoreData();
+    });
   }
 
   // refs: https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#fetching-external-data
@@ -145,7 +147,7 @@ class CRUDContainer extends Component {
   // }
 
   render() {
-    const { handleFetchMoreData, } = this;
+    const { handleLoad, handleFetchMoreData, } = this;
     const { isLoading, isError, items, hasMore, } = this.state;
     const { classes, condensed, actionable, creatable, readable, updatable, deletable, } = this.props;
     
@@ -182,7 +184,7 @@ class CRUDContainer extends Component {
               readable={readable}
               updatable={updatable}
               deletable={deletable}
-              onRefresh={handleFetchMoreData}
+              onRefresh={handleLoad}
               onNext={handleFetchMoreData}
               hasMore={hasMore}
             />
