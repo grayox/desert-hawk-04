@@ -980,18 +980,18 @@ class CRUDView extends Component {
             {
               // subheader={<ListSubheader className="text-left">Items</ListSubheader>}
             }
-            <FuseAnimateGroup
-              delay={500}
-              enter={{ animation: "transition.slideUpBigIn" }}
-              leave={{ animation: "transition.slideLeftOut" }}
+            <InfiniteScroll
+              dataLength={items.length}
+              next={onNext} // event
+              hasMore={hasMore} // boolean
+              loader={<CircularProgress className={classes.progress} color="secondary" />} //{<h4>Loading...</h4>}
+              height={window.innerHeight - 128 - 28} // {800} {400}
+              endMessage={<div className="text-center p-16">End of list</div>}
             >
-              <InfiniteScroll
-                dataLength={items.length}
-                next={onNext} // event
-                hasMore={hasMore} // boolean
-                loader={<CircularProgress className={classes.progress} color="secondary" />} //{<h4>Loading...</h4>}
-                height={window.innerHeight - 128 - 32} // {800} {400} 
-                endMessage={<div className="text-center p-16">End of list</div>}
+              <FuseAnimateGroup
+                delay={500}
+                enter={{ animation: "transition.slideUpBigIn" }}
+                leave={{ animation: "transition.slideLeftOut" }}
               >
                 {
                   items && items.map( ( item, index, ) =>
@@ -1005,8 +1005,8 @@ class CRUDView extends Component {
                     </Tooltip>
                   )
                 }
-              </InfiniteScroll>
-            </FuseAnimateGroup>
+              </FuseAnimateGroup>
+            </InfiniteScroll>
           </List>
         </Paper>
       </React.Fragment>
