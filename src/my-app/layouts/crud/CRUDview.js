@@ -25,7 +25,7 @@ import { FuseAnimateGroup } from '@fuse'; // FuseScrollbars, FuseAnimate,
 import moment from 'moment';
 
 // import CreateButton from './CreateButton';
-import CRUDList from './CRUDList';
+// import CRUDList from './CRUDList'; // mockup version of InfiniteScroll implementation per docs at: https://codesandbox.io/s/w3w89k7x8 | https://www.npmjs.com/package/react-infinite-scroll-component
 import { CreateButton, ButtonsRow, } from './CRUDButtons'; // UDButtons,
 import { getForm, uiSpecs, } from 'my-app/config/AppConfig'; // getCleanFieldNames,
 import FormTemplate from 'my-app/components/forms/FormTemplate';

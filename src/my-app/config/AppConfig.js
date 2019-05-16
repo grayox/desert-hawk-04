@@ -340,10 +340,6 @@ export const componentsNavConfig = [
       updatable  : false   ,
       deletable  : true    ,
     },
-    dashboardConfig: {
-      onCreate: {},
-      onDelete: {},
-    },
   },
   {
     // eslint-disable-next-line
@@ -370,16 +366,6 @@ export const componentsNavConfig = [
       updatable  : false     ,
       deletable  : true      ,
     },
-    dashboardConfig: {
-      onCreate: {
-        archive: 1,
-        withdrawals: 1,
-        net: -1,
-      },
-      onDelete: {
-        archive: -1,
-      },
-    },
   },
   {
     // eslint-disable-next-line
@@ -403,6 +389,16 @@ export const componentsNavConfig = [
         title: 'Send new referral', // form: <UserMultiForm />,
         path: 'leads',
         fields: [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ], // 'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
+        dashboard: {
+          local: {
+            net: 1,
+            deposits: 1,
+            outbox: 1,
+          },
+          remote: {
+            inbox: 1,
+          },
+        },
       },
       readable: 'leads',
       updatable: {
@@ -412,18 +408,7 @@ export const componentsNavConfig = [
       },
       deletable: true,
     },
-    dashboardConfig: {
-      onCreate: {
-        net: 1,
-        deposits: 1,
-        outbox: 1,
-      },
-      onDelete: {
-        net: -1,
-        deposits: -1,
-        outbox: -1,
-      },
-    },
+    // dashboardConfig:{onCreate:{net:1,deposits:1,outbox:1,},onDelete:{net:-1,deposits:-1,outbox:-1,},},
   },
   {
     // eslint-disable-next-line
@@ -446,6 +431,11 @@ export const componentsNavConfig = [
         title: 'Create new contact', // form: <UserMultiForm />,
         path: 'contacts',
         fields: [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ], // 'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
+        dashboard: {
+          local: {
+            contacts: 1,
+          },
+        },
       },
       readable: 'contacts',
       updatable: {
@@ -454,14 +444,6 @@ export const componentsNavConfig = [
         fields: [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ],
       },
       deletable: true,
-    },
-    dashboardConfig: {
-      onCreate: {
-        contacts: 1,
-      },
-      onDelete: {
-        contacts: -1,
-      },
     },
   },
 

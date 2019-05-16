@@ -15,8 +15,8 @@ const getDashboardNewData = (path, oldData, incrementer, sourceDocId,) => {
   // uid: string: 'abcxyz'
   // path: string: 'leads'
   // oldData: object: { net: 5, outbox: 4, ... }
-  // incrementer: integer: 1 | -1 (deprecated)
-  // incrementer: string: 'onCreate' | 'onDelete'
+  // incrementer: string: 'onCreate' | 'onDelete' (deprecated)
+  // incrementer: integer: 1 | -1
   // console.log('path\n', path,); // 'leads'
   // console.log('oldData\n', oldData,); // 'abcxyz'
   // console.log('incrementer\n', incrementer,); // 1
@@ -46,13 +46,14 @@ const getDashboardNewData = (path, oldData, incrementer, sourceDocId,) => {
   // const navId = navElement.id; // outbox
   // console.log('navId\n', navId,); // outbox
   // console.log('navElement\n', navElement,); // outbox
-  const dashboardChangeOrders = navElement.dashboardConfig[incrementer]; // { archive: 1, withdrawals: 1, net: -1, }
+  // const dashboardChangeOrders = navElement.dashboardConfig[incrementer]; // deprecated // { archive: 1, withdrawals: 1, net: -1, }
+  const dashboardChangeOrders = navElement.crudConfig.creatable.dashboard.local;
   // console.log('dashboardChangeOrders\n', dashboardChangeOrders,); // outbox
   // ref: https://codeburst.io/javascript-the-difference-between-foreach-and-for-in-992db038e4c2
   // dashboardChangeOrders.forEach(r => {
   for (let dashboardItemId in dashboardChangeOrders) {
     // console.log('dashboardItemId\n', dashboardItemId,); // 'outbox' | 'net'
-    const delta = dashboardChangeOrders[dashboardItemId]; // 1
+    const delta = incrementer * dashboardChangeOrders[dashboardItemId]; // 1
     // console.log('delta\n', delta,);
     const oldCount = oldData[dashboardItemId]; // 4
     // console.log('oldCount\n', oldCount,);
@@ -138,7 +139,7 @@ export const createItem = ( path, item, uid, dashboard, ) =>
       // console.log('uid\n', uid,); // 'abcxyz'
       // console.log('path\n', path,); // 'leads'
       // console.log('docRef\n', docRef,);
-      handleEditDashboard( uid, path, dashboard, 'onCreate', docRef.id, dispatch, getFirestore, );
+      handleEditDashboard( uid, path, dashboard, 1, docRef.id, dispatch, getFirestore, );
       // dispatch({ type: 'CREATE_ITEM_SUCCESS', });
     })
     .catch( error => {
@@ -222,7 +223,7 @@ export const deleteItem = ( path, docId, uid, dashboard, ) =>
       // ,{ merge: true, }
       )
     .then( () => {
-      handleEditDashboard( uid, path, dashboard, 'onDelete', docId, dispatch, getFirestore, );
+      handleEditDashboard( uid, path, dashboard, -1, docId, dispatch, getFirestore, );
       dispatch({ type: 'DELETE_ITEM_SUCCESS', });
     }).catch( error => {
       console.log('error\n', error,);
