@@ -680,6 +680,10 @@ class CRUDView extends Component {
     const { classes, actionable, } = this.props; // updatable, deletable,
     const { createdAt, } = item;
     // console.log('createdAt\n', createdAt);
+
+    const DEFAULT_ACTIONABLE_ICON = 'send';
+    const actionableIcon = ( actionable && actionable.icon ) || DEFAULT_ACTIONABLE_ICON;
+    
     return (
         <ListItem
           button
@@ -724,7 +728,7 @@ class CRUDView extends Component {
             (
               actionable &&
               <Zoom in mountOnEnter unmountOnExit>
-                <Fab size="small" color="primary" className={classes.margin}><Icon>send</Icon></Fab>
+                <Fab size="small" color="primary" className={classes.margin}><Icon>{actionableIcon}</Icon></Fab>
               </Zoom>
             )
             }
@@ -1081,7 +1085,7 @@ CRUDView.propTypes = {
   items: PropTypes.array.isRequired,
 
   condensed: PropTypes.bool, // one-line per list item in detail pane
-  actionable: PropTypes.func,
+  actionable: PropTypes.object,
   creatable: PropTypes.oneOfType([ // create button in list pane
     PropTypes.object,
     PropTypes.bool,

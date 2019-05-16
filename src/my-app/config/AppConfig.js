@@ -333,7 +333,11 @@ export const componentsNavConfig = [
     // also update in: src/main/content/components/ComponentsConfig.js
     component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
     crudConfig : {
-      actionable : () => {},
+      actionable : {
+        icon: 'outlined_flag',
+        label: 'Challenge',
+        func: () => {},
+      },
       condensed  : true    ,
       creatable  : false   , // false only makes button not appear on CRUD view
       readable   : 'leads' ,
@@ -359,7 +363,10 @@ export const componentsNavConfig = [
     // also update in: src/main/content/components/ComponentsConfig.js
     component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
     crudConfig : {
-      actionable : () => {},
+      actionable : {
+        icon: 'send',
+        func: () => {},
+      },
       condensed  : true      ,
       creatable  : false     ,
       readable   : 'archive' ,
@@ -383,7 +390,10 @@ export const componentsNavConfig = [
     // also update in: src/main/content/components/ComponentsConfig.js
     component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
     crudConfig : {
-      actionable: () => {},
+      actionable : {
+        icon: 'send',
+        func: () => {},
+      },
       condensed: true,
       creatable: {
         title: 'Send new referral', // form: <UserMultiForm />,
@@ -425,7 +435,10 @@ export const componentsNavConfig = [
     // also update in: src/main/content/components/ComponentsConfig.js
     component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
     crudConfig : {
-      actionable: () => {},
+      actionable : {
+        icon: 'send',
+        func: () => {},
+      },
       condensed: true,
       creatable: {
         title: 'Create new contact', // form: <UserMultiForm />,
