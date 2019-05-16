@@ -728,7 +728,11 @@ class CRUDView extends Component {
             (
               actionable &&
               <Zoom in mountOnEnter unmountOnExit>
-                <Fab size="small" color="primary" className={classes.margin}><Icon>{actionableIcon}</Icon></Fab>
+                <Tooltip TransitionComponent={Zoom} placement="left" title={actionable && actionable.label}>
+                  <Fab size="small" color="primary" className={classes.margin}>
+                    <Icon>{actionableIcon}</Icon>
+                  </Fab>
+                </Tooltip>
               </Zoom>
             )
             }

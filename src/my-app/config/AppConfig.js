@@ -365,6 +365,7 @@ export const componentsNavConfig = [
     crudConfig : {
       actionable : {
         icon: 'send',
+        label: 'Challenge',
         func: () => {},
       },
       condensed  : true      ,
@@ -392,6 +393,7 @@ export const componentsNavConfig = [
     crudConfig : {
       actionable : {
         icon: 'send',
+        label: 'Challenge',
         func: () => {},
       },
       condensed: true,
@@ -437,6 +439,7 @@ export const componentsNavConfig = [
     crudConfig : {
       actionable : {
         icon: 'send',
+        label: 'Challenge',
         func: () => {},
       },
       condensed: true,
