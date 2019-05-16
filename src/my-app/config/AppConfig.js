@@ -336,7 +336,7 @@ export const componentsNavConfig = [
       actionable : () => {},
       condensed  : true    ,
       creatable  : false   , // false only makes button not appear on CRUD view
-      readable   : 'xleads' ,
+      readable   : 'leads' ,
       updatable  : false   ,
       deletable  : true    ,
     },
