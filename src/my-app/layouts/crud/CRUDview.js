@@ -999,7 +999,11 @@ class CRUDView extends Component {
                 </div>
               }
               height={window.innerHeight - 128 - 28} // {800} {400}
-              endMessage={<div className="text-center p-16">End of list</div>}
+              endMessage={
+                <div className="text-center p-16">
+                  End of list
+                </div>
+              }
             >
               <FuseAnimateGroup
                 delay={500}
