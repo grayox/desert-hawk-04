@@ -992,7 +992,12 @@ class CRUDView extends Component {
               dataLength={items.length}
               next={onNext} // event
               hasMore={hasMore} // boolean
-              loader={<CircularProgress className={classes.progress} color="secondary" />} //{<h4>Loading...</h4>}
+              loader={
+                // {<h4>Loading...</h4>}
+                <div className='ml-8'>
+                  <CircularProgress className={classes.progress} color="secondary" />
+                </div>
+              }
               height={window.innerHeight - 128 - 28} // {800} {400}
               endMessage={<div className="text-center p-16">End of list</div>}
             >

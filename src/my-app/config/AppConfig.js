@@ -364,7 +364,7 @@ export const componentsNavConfig = [
     component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
     crudConfig : {
       actionable : {
-        icon: 'send',
+        icon: 'report',
         label: 'Challenge',
         func: () => {},
       },
