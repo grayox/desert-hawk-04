@@ -338,11 +338,21 @@ export const componentsNavConfig = [
         label: 'Challenge',
         func: () => {},
       },
-      condensed  : true    ,
-      creatable  : false   , // false only makes button not appear on CRUD view
-      readable   : 'leads' ,
-      updatable  : false   ,
-      deletable  : true    ,
+      condensed: true,
+      creatable: false, // false only makes button not appear on CRUD view
+      readable: {
+        path: 'leads',
+        // src/my-app/containers/LoadAsync.js
+        where: [
+          [ 'deletedAt'   , '==' , 0                , ] ,  
+          // [ 'bizCategory' , '==' , user.bizCategory , ] ,
+          // [ 'geoNation'   , '==' , user.geoNation   , ] ,
+          // [ 'geoRegion'   , '==' , user.geoRegion   , ] ,
+          // [ 'geoLoaction' , '==' , user.geoLoaction , ] ,
+        ],
+      },
+      updatable: false,
+      deletable: true,
     },
   },
   {
@@ -370,7 +380,14 @@ export const componentsNavConfig = [
       },
       condensed  : true      ,
       creatable  : false     ,
-      readable   : 'archive' ,
+      readable: {
+        path: 'archive',
+        // src/my-app/containers/LoadAsync.js
+        where: [
+          [ 'deletedAt'   , '==' , 0   , ] ,  
+          // [ 'archivedBy'  , '==' , uid , ] ,
+        ],
+      },
       updatable  : false     ,
       deletable  : true      ,
     },
@@ -412,7 +429,14 @@ export const componentsNavConfig = [
           },
         },
       },
-      readable: 'leads',
+      readable: {
+        path: 'leads',
+        // src/my-app/containers/LoadAsync.js
+        where: [
+          [ 'deletedAt' , '==' , 0   , ] ,  
+          // [ 'createdBy' , '==' , uid , ] ,
+        ],
+      },
       updatable: {
         title: 'Edit referral',
         path: 'leads',
@@ -453,7 +477,14 @@ export const componentsNavConfig = [
           },
         },
       },
-      readable: 'contacts',
+      readable: {
+        path: 'contacts',
+        // src/my-app/containers/LoadAsync.js
+        where: [
+          [ 'deletedAt' , '==' ,   0 , ] ,
+          // [ 'createdBy' , '==' , uid , ] ,
+        ],
+      },
       updatable: {
         title: 'Edit contact',
         path: 'contacts',

@@ -113,6 +113,7 @@ export const createItem = ( path, item, uid, dashboard, ) =>
       ...item,
       // createdAt: timestamp,
       deletedAt: 0,
+      createdBy: uid,
       // createdAt: new Date(),
       // authorFirstName: 'Net',
       // authorLastName: 'Ninja',

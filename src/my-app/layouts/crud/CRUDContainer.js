@@ -85,12 +85,16 @@ class CRUDContainer extends Component {
     const { readable, } = this.props;
     const { items, } = this.state;
     
-    const ready = this.state.hasMore;
-    if( !ready ) return;
+    const ready1 = readable && readable.path;
+    if( !ready1 ) return;
+    const ready2 = this && this.state && this.state.hasMore;
+    if( !ready2 ) return;
+    
+    const { path, } = readable;
 
     // this._asyncRequest = loadAsyncData();
     // ref: https://firebase.google.com/docs/firestore/query-data/query-cursors#paginate_a_query
-    this._asyncRequest = loadAsyncData( readable, BATCH_SIZE, this.state.lastShown, );
+    this._asyncRequest = loadAsyncData( path, BATCH_SIZE, this.state.lastShown, );
     // const items = await this._asyncRequest;
     const newData = await this._asyncRequest; // { data:<arrayOfObjects>, lastShown:<documentSnapshot>, }
     const { lastShown, } = newData;
