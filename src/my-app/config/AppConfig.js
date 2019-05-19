@@ -214,19 +214,23 @@ export const userFieldsToPick = [
 //   timeout: 10000,
 // }
 
+// start app-specific parameters
+
 export const brand = {
   logoPath: 'assets/images/logos/fuse.svg', // public/assets/images/logos/fuse.svg
   appName: 'Swap',
   tagLine: 'Give leads. Get leads.',
   description: 'Real estate agents, mortgage brokers, insurance agents and financial planners need leads. Referrals are a good way to get them. Swap lets you turn your clients into referrals and get back referrals in exchange.',
 }
-
+export const CHALLENGES_LIMIT = 3
 export const bizCategoryItems = [
   { value : 'home'      , label : 'Home'      , icon : 'home'            } ,
   { value : 'mortgage'  , label : 'Mortgage'  , icon : 'account_balance' } ,
   { value : 'financial' , label : 'Financial' , icon : 'assessment'      } ,
   { value : 'insurance' , label : 'Insurance' , icon : 'assignment'      } ,
 ]
+
+// end app-specific parameters
 
 const formFieldProps = {
   // type must be an HTML5 input type | https://www.w3schools.com/html/html_form_input_types.asp | https://material-ui.com/api/text-field/
@@ -333,26 +337,34 @@ export const componentsNavConfig = [
     // also update in: src/main/content/components/ComponentsConfig.js
     component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
     crudConfig : {
-      actionable : {
-        icon: 'outlined_flag',
-        label: 'Challenge',
-        func: () => {},
-      },
       condensed: true,
+      searchable: true,
+      sortable: true,
+      filterable: true,
+      actionable : {
+        icon: 'send', // 'outlined_flag',
+        label: 'Claim this lead and send it to your archive',
+        func: () => ({
+          archivedBy: 'uid',
+        }),
+      },
       creatable: false, // false only makes button not appear on CRUD view
       readable: {
         path: 'leads',
         // src/my-app/containers/LoadAsync.js
         where: [
-          [ 'deletedAt'   , '==' , 0                , ] ,  
-          // [ 'bizCategory' , '==' , user.bizCategory , ] ,
-          // [ 'geoNation'   , '==' , user.geoNation   , ] ,
-          // [ 'geoRegion'   , '==' , user.geoRegion   , ] ,
-          // [ 'geoLoaction' , '==' , user.geoLoaction , ] ,
+          [ 'deletedAt'       , '==' , 0                  , ] ,
+          [ 'archivedBy'      , '==' , null               , ] ,
+          [ 'challengesCount' , '<=' , CHALLENGES_LIMIT   , ] ,
+          [ 'bizCategory'     , '==' , 'user.bizCategory' , ] ,
+          [ 'geoNation'       , '==' , 'user.geoNation'   , ] ,
+          [ 'geoRegion'       , '==' , 'user.geoRegion'   , ] ,
+          [ 'geoLoaction'     , '==' , 'user.geoLoaction' , ] ,
         ],
+        orderBy: [ 'createdAt', 'desc', ],
       },
       updatable: false,
-      deletable: true,
+      deletable: false,
     },
   },
   {
@@ -373,23 +385,40 @@ export const componentsNavConfig = [
     // also update in: src/main/content/components/ComponentsConfig.js
     component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
     crudConfig : {
+      condensed: true,
+      searchable: true,
+      sortable: true,
+      filterable: true,
       actionable : {
         icon: 'report',
-        label: 'Challenge',
-        func: () => {},
+        label: 'Challenge this lead for poor quality',
+        func: () => ({
+          challengedBy: 'uid', // add to array
+          challengesCount: 'incrementBy1',
+          dashboard: {
+            local: {
+              challenges: 1,
+            },
+            remote: {
+              'users/item.createdBy/dashboard': {
+                challenges: 1,
+              },
+            },
+          },
+        }),
       },
-      condensed  : true      ,
-      creatable  : false     ,
+      creatable  : false,
       readable: {
-        path: 'archive',
+        path: 'leads',
         // src/my-app/containers/LoadAsync.js
         where: [
-          [ 'deletedAt'   , '==' , 0   , ] ,  
-          // [ 'archivedBy'  , '==' , uid , ] ,
+          [ 'deletedAt'  , '==' , 0     , ] ,  
+          [ 'archivedBy' , '==' , 'uid' , ] ,
         ],
+        orderBy: [ 'createdAt', 'desc', ],
       },
-      updatable  : false     ,
-      deletable  : true      ,
+      updatable: false,
+      deletable: true,
     },
   },
   {
@@ -408,34 +437,48 @@ export const componentsNavConfig = [
     // also update in: src/main/content/components/ComponentsConfig.js
     component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
     crudConfig : {
+      condensed: true,
+      searchable: true,
+      sortable: true,
+      filterable: true,
       actionable : {
         icon: 'send',
         label: 'Challenge',
         func: () => {},
       },
-      condensed: true,
       creatable: {
         title: 'Send new referral', // form: <UserMultiForm />,
         path: 'leads',
         fields: [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ], // 'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
+        addons: {
+          createdAt: 'timestamp',
+          createdBy: 'uid',
+          deletedAt: 0,
+          archivedBy: null,
+        },
         dashboard: {
           local: {
             net: 1,
             deposits: 1,
             outbox: 1,
           },
-          remote: {
-            inbox: 1,
-          },
+          remote: [
+            {
+              path: `leads-meta/${"item.geoNation"}/${"item.geoRegion"}/${"item.geoLocal"}`,
+              incrementer: 1,
+            },
+          ],
         },
       },
       readable: {
         path: 'leads',
         // src/my-app/containers/LoadAsync.js
         where: [
-          [ 'deletedAt' , '==' , 0   , ] ,  
-          // [ 'createdBy' , '==' , uid , ] ,
+          [ 'deletedAt'       , '==' , 0                , ] ,  
+          [ 'createdBy'       , '==' , 'uid'            , ] ,
+          [ 'challengesCount' , '<=' , CHALLENGES_LIMIT , ] ,
         ],
+        orderBy: [ 'createdAt', 'desc', ],
       },
       updatable: {
         title: 'Edit referral',
@@ -461,12 +504,15 @@ export const componentsNavConfig = [
     // also update in: src/main/content/components/ComponentsConfig.js
     component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
     crudConfig : {
+      condensed: true,
+      searchable: true,
+      sortable: true,
+      filterable: true,
       actionable : {
         icon: 'send',
         label: 'Challenge',
         func: () => {},
       },
-      condensed: true,
       creatable: {
         title: 'Create new contact', // form: <UserMultiForm />,
         path: 'contacts',
@@ -481,9 +527,10 @@ export const componentsNavConfig = [
         path: 'contacts',
         // src/my-app/containers/LoadAsync.js
         where: [
-          [ 'deletedAt' , '==' ,   0 , ] ,
-          // [ 'createdBy' , '==' , uid , ] ,
+          [ 'deletedAt' , '==' , 0     , ] ,
+          [ 'createdBy' , '==' , 'uid' , ] ,
         ],
+        orderBy: [ 'createdAt', 'desc', ],
       },
       updatable: {
         title: 'Edit contact',

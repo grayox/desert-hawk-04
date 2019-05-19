@@ -974,38 +974,15 @@ class CRUDView extends Component {
     // console.log('items\n', items);
     return (
       <React.Fragment>
-        <div className="w-full">
-          {(
-          // getHeader()
-          creatable &&
-            (
-            <Zoom in mountOnEnter unmountOnExit>
-              <CreateButton onClick={handleOpenCreateDialog} />
-            </Zoom>
-            )
-          )}
-          <Tooltip TransitionComponent={Zoom} placement="bottom" title="Search">
-            <IconButton color="inherit" aria-label="Search"
-              onClick={() => {}}
-            >
-              <Icon>search</Icon>
-            </IconButton>
-          </Tooltip>
-          <Tooltip TransitionComponent={Zoom} placement="bottom" title="Filter">
-            <IconButton color="inherit" aria-label="Filter"
-              onClick={() => {}}
-            >
-              <Icon>filter_list</Icon>
-            </IconButton>
-          </Tooltip>
-          <Tooltip TransitionComponent={Zoom} placement="bottom" title="Sort">
-            <IconButton color="inherit" aria-label="Sort"
-              onClick={() => {}}
-            >
-              <Icon>sort</Icon>
-            </IconButton>
-          </Tooltip>
-        </div>
+        {(
+        // getHeader()
+        creatable &&
+          (
+          <Zoom in mountOnEnter unmountOnExit>
+            <CreateButton onClick={handleOpenCreateDialog} />
+          </Zoom>
+          )
+        )}
         <Paper className={classNames(classes.paper, "z-10",)}>
           <List className="m-0 p-0" component="nav">
             {

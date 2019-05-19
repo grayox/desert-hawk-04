@@ -153,7 +153,10 @@ class CRUDContainer extends Component {
   render() {
     const { handleLoad, handleFetchMoreData, } = this;
     const { isLoading, isError, items, hasMore, } = this.state;
-    const { classes, condensed, actionable, creatable, readable, updatable, deletable, } = this.props;
+    const {
+      classes, condensed, searchable, sortable, filterable,
+      actionable, creatable, readable, updatable, deletable,
+    } = this.props;
     
     return (
       isLoading
@@ -183,6 +186,9 @@ class CRUDContainer extends Component {
             <CRUDView
               items={items}
               condensed={condensed}
+              searchable={searchable}
+              sortable={sortable}
+              filterable={filterable}
               actionable={actionable}
               creatable={creatable}
               readable={readable}
