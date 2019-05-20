@@ -26,7 +26,7 @@ import moment from 'moment';
 
 // import CreateButton from './CreateButton';
 // import CRUDList from './CRUDList'; // mockup version of InfiniteScroll implementation per docs at: https://codesandbox.io/s/w3w89k7x8 | https://www.npmjs.com/package/react-infinite-scroll-component
-import { CreateButton, ButtonsRow, } from './CRUDButtons'; // UDButtons,
+import { ButtonsRowList, ButtonsRowDetail, } from './CRUDButtons'; // UDButtons,
 import { getForm, uiSpecs, } from 'my-app/config/AppConfig'; // getCleanFieldNames,
 import FormTemplate from 'my-app/components/forms/FormTemplate';
 import SimpleExpansionPanel from 'my-app/components/SimpleExpansionPanel';
@@ -197,6 +197,10 @@ class CRUDView extends Component {
       deleteDialogIsOpen : true  ,
     });
   };
+
+  handleOpenSearch = () => {}
+  handleOpenFilter = () => {}
+  handleOpenSort = () => {}
 
   handleChangeForm = event => {
     // console.log('target\n', event.target);
@@ -916,7 +920,7 @@ class CRUDView extends Component {
     const limit = items.length - 2;
     // console.log('limit\n', limit);
     return (
-      <ButtonsRow
+      <ButtonsRowDetail
         limit={limit}
         selectedIndex={selectedIndex}
         deletable={deletable}
@@ -969,42 +973,38 @@ class CRUDView extends Component {
   }
 
   getListPane = () => {
-    const { classes, items, creatable, onNext, hasMore, } = this.props;
-    const { getSummary, handleOpenCreateDialog, } = this; // getHeader,
+    const {
+      classes, items, onNext, hasMore,
+      creatable, searchable, filterable, sortable,
+    } = this.props;
+    const {
+      getSummary, handleOpenCreateDialog, handleOpenSearch, handleOpenFilter, handleOpenSort,
+    } = this; // getHeader,
     // console.log('items\n', items);
     return (
       <React.Fragment>
         <div className="w-full">
-          {(
-          // getHeader()
-          creatable &&
-            (
-            <Zoom in mountOnEnter unmountOnExit>
-              <CreateButton onClick={handleOpenCreateDialog} />
-            </Zoom>
-            )
-          )}
-          <Tooltip TransitionComponent={Zoom} placement="bottom" title="Search">
-            <IconButton color="inherit" aria-label="Search"
-              onClick={() => {}}
-            >
-              <Icon>search</Icon>
-            </IconButton>
-          </Tooltip>
-          <Tooltip TransitionComponent={Zoom} placement="bottom" title="Filter">
-            <IconButton color="inherit" aria-label="Filter"
-              onClick={() => {}}
-            >
-              <Icon>filter_list</Icon>
-            </IconButton>
-          </Tooltip>
-          <Tooltip TransitionComponent={Zoom} placement="bottom" title="Sort">
-            <IconButton color="inherit" aria-label="Sort"
-              onClick={() => {}}
-            >
-              <Icon>sort</Icon>
-            </IconButton>
-          </Tooltip>
+          {
+            // // getHeader()
+            // creatable &&
+            //   (
+            //   <Zoom in mountOnEnter unmountOnExit>
+            //     <CreateButton onClick={handleOpenCreateDialog} />
+            //   </Zoom>
+            //   )
+          }
+          <Zoom in mountOnEnter unmountOnExit>
+            <ButtonsRowList
+              creatable={creatable}
+              searchable={searchable}
+              filterable={filterable}
+              sortable={sortable}
+              onClickCreate={handleOpenCreateDialog}
+              onClickSearch={handleOpenSearch}
+              onClickFilter={handleOpenFilter}
+              onClickSort={handleOpenSort}
+            />
+          </Zoom>
         </div>
         <Paper className={classNames(classes.paper, "z-10",)}>
           <List className="m-0 p-0" component="nav">

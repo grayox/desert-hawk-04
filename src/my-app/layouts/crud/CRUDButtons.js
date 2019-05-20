@@ -20,7 +20,7 @@ const styles = theme => ({
   // },
 });
 
-// const ButtonsRow = ({ limit, selectedIndex, deletable, updatable, onToggle, onDelete, onUpdate, onNavBack, onNavNext, }) => (
+// const ButtonsRowDetail = ({ limit, selectedIndex, deletable, updatable, onToggle, onDelete, onUpdate, onNavBack, onNavNext, }) => (
 //   <div className="flex">
 //     <Button className="flex-1" variant="outlined" onClick={onNavBack} disabled={selectedIndex === 0}><Icon>chevron_left</Icon></Button> 
 //     {
@@ -36,7 +36,7 @@ const styles = theme => ({
 //   </div>
 //  );
 
-const ButtonsRow = ({ limit, selectedIndex, deletable, updatable, onToggle, onDelete, onUpdate, onNavBack, onNavNext, }) => (
+const ButtonsRowDetail = ({ limit, selectedIndex, deletable, updatable, onToggle, onDelete, onUpdate, onNavBack, onNavNext, }) => (
   <div className="flex mx-8">
     <Tooltip TransitionComponent={Zoom} title="Previous">
       <span className="flex-1 text-center mt-8">
@@ -80,16 +80,49 @@ const ButtonsRow = ({ limit, selectedIndex, deletable, updatable, onToggle, onDe
       </span>
     </Tooltip>
   </div>
- );
+);
  
- const CreateButton = ({ onClick, }) => (
+const ButtonsRowList = ({ creatable, searchable, filterable, sortable, onClickCreate, onClickSearch, onClickFilter, onClickSort, }) => (
+  <div className="w-full flex">
+    { creatable && CreateButton(onClickCreate) }
+    { // searchable &&
+    <Tooltip TransitionComponent={Zoom} placement="bottom" title="Search">
+      <IconButton color="inherit" aria-label="Search"
+        onClick={() => {}}
+      >
+        <Icon>search</Icon>
+      </IconButton>
+    </Tooltip>
+    }
+    { // filterable &&
+    <Tooltip TransitionComponent={Zoom} placement="bottom" title="Filter">
+      <IconButton color="inherit" aria-label="Filter"
+        onClick={() => {}}
+      >
+        <Icon>filter_list</Icon>
+      </IconButton>
+    </Tooltip>
+    }
+    { // sortable &&
+    <Tooltip TransitionComponent={Zoom} placement="bottom" title="Sort">
+      <IconButton color="inherit" aria-label="Sort"
+        onClick={() => {}}
+      >
+        <Icon>sort</Icon>
+      </IconButton>
+    </Tooltip>
+    }
+  </div>
+);
+
+const CreateButton = onClick => (
   <Tooltip TransitionComponent={Zoom} title="Add new item">
     <Button
       variant="contained"
       color="primary"
       onClick={onClick}
       // className={classNames(classes.margin, "w-full",)}
-      className="w-full"
+      // className="w-full"
     >
       {
         // <Icon className={classes.leftIcon}>add</Icon>
@@ -141,4 +174,4 @@ UDButtonsUnstyled.defaultProps = {
  
 const UDButtons = withStyles(styles, { withTheme: true })(UDButtonsUnstyled);                                                       
 
-export { CreateButton, UDButtons, ButtonsRow, }
+export { CreateButton, UDButtons, ButtonsRowList, ButtonsRowDetail, }
