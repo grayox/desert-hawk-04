@@ -17,7 +17,8 @@ import {
   Typography, Grid, Hidden, CssBaseline, Divider, Icon, IconButton,
   AppBar, Toolbar, List, ListItem, ListItemText, ListItemSecondaryAction,
   Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
-  CircularProgress, // ListSubheader, Grow, CssBaseline, Avatar,
+  ExpansionPanel, ExpansionPanelDetails, // ExpansionPanelSummary,
+  CircularProgress, InputAdornment, TextField, // ListSubheader, Grow, CssBaseline, Avatar,
 } from '@material-ui/core';
 
 // import {FuseAnimateGroup, FuseHighlight, FusePageSimple} from '@fuse';
@@ -26,7 +27,7 @@ import moment from 'moment';
 
 // import CreateButton from './CreateButton';
 // import CRUDList from './CRUDList'; // mockup version of InfiniteScroll implementation per docs at: https://codesandbox.io/s/w3w89k7x8 | https://www.npmjs.com/package/react-infinite-scroll-component
-import { ButtonsRowList, ButtonsRowDetail, } from './CRUDButtons'; // UDButtons,
+import { ButtonsRowList, ButtonsRowDetail, } from './CRUDButtons'; // CRUDButtons,
 import { getForm, uiSpecs, } from 'my-app/config/AppConfig'; // getCleanFieldNames,
 import FormTemplate from 'my-app/components/forms/FormTemplate';
 import SimpleExpansionPanel from 'my-app/components/SimpleExpansionPanel';
@@ -103,9 +104,17 @@ const INITIAL_STATE_DETAIL = {
   selectedIndex : undefined ,
 }
 
+const INITIAL_STATE_EXPANSION = {
+  panelIsExpanded : false ,
+  searchField     : ''    ,
+  filterField     : ''    ,
+  sortField       : ''    ,
+}
+
 const INITIAL_STATE = {
   ...INITIAL_STATE_DETAIL,
   ...INITIAL_STATE_DIALOG,
+  ...INITIAL_STATE_EXPANSION,
 };
 
 const findFormField = ( formName, fieldName, ) => formName && formName.find(x => x.id === fieldName).value;
@@ -144,10 +153,12 @@ const getAppBar = ( title, name, message, ) => (
 // function CRUDView(props) {
 class CRUDView extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = INITIAL_STATE;
-  }
+  state = INITIAL_STATE;
+
+  // constructor(props) {
+  //   super(props);
+  //   this.state = INITIAL_STATE;
+  // }
 
   // componentWillMount = () => {
   //   // this.setCreateFormInitialState(this.props.creatable.fields);
@@ -198,9 +209,44 @@ class CRUDView extends Component {
     });
   };
 
-  handleOpenSearch = () => {}
-  handleOpenFilter = () => {}
-  handleOpenSort = () => {}
+  handleResetExpansionPanel = () => {
+    // alert('You RESET the EXPANSION PANEL');
+    // console.log('You RESET the EXPANSION PANEL');
+    this.setState(INITIAL_STATE_EXPANSION);
+  }
+
+  handleResetSearchField = () => {
+    // alert('You RESET the EXPANSION PANEL');
+    // console.log('You RESET the EXPANSION PANEL');
+    this.setState({
+      searchField: '',
+      panelIsExpanded: false,
+    });
+  }
+
+  handleOpenSearch = () => {
+    // alert('You clicked the SEARCH button');
+    // console.log('You clicked the SEARCH button');
+    this.setState({ panelIsExpanded: true, })
+  }
+  
+  handleChangeSearchField = event => {
+    const searchField = event.target.value;
+    // console.log('search field\n', searchField,);
+    this.setState({ searchField, });
+  }
+
+  handleOpenFilter = () => {
+    // alert('You clicked the FILTER button');
+    // console.log('You clicked the FILTER button');
+
+  }
+
+  handleOpenSort = () => {
+    // alert('You clicked the SORT button');
+    // console.log('You clicked the SORT button');
+
+  }
 
   handleChangeForm = event => {
     // console.log('target\n', event.target);
@@ -715,7 +761,7 @@ class CRUDView extends Component {
               // Not using this for two reasons:
               // 1. Does not yet provide selectedIndex to state
               // 2. Horizontal space constraint on narrow screens
-              // <UDButtons
+              // <CRUDButtons
               //   updatable={updatable}
               //   deletable={deletable}
               //   onUpdate={handleOpenUpdateDialog}
@@ -977,8 +1023,11 @@ class CRUDView extends Component {
       classes, items, onNext, hasMore,
       creatable, searchable, filterable, sortable,
     } = this.props;
+    const { panelIsExpanded, searchField, } = this.state;
     const {
-      getSummary, handleOpenCreateDialog, handleOpenSearch, handleOpenFilter, handleOpenSort,
+      getSummary,
+      handleOpenSearch, handleOpenFilter, handleOpenSort,
+      handleOpenCreateDialog, handleResetSearchField, handleChangeSearchField,
     } = this; // getHeader,
     // console.log('items\n', items);
     return (
@@ -1003,9 +1052,48 @@ class CRUDView extends Component {
               onClickSearch={handleOpenSearch}
               onClickFilter={handleOpenFilter}
               onClickSort={handleOpenSort}
+              onResetExpansionPanel={handleResetSearchField}
             />
           </Zoom>
         </div>
+
+        <ExpansionPanel
+          expanded={panelIsExpanded}
+          // onChange={handleChange('panel1')}
+        >
+          {
+          // <ExpansionPanelSummary></ExpansionPanelSummary>
+          // <ExpansionPanelDetails></ExpansionPanelDetails>
+          }
+            <div className="flex align-middle" title="Enter a keyword...">
+              <TextField
+                className="flex-1"
+                fullWidth
+                variant="outlined"
+                label="Search"
+                placeholder="Enter a keyword..."
+                onChange={handleChangeSearchField}
+                value={searchField}
+                InputProps={{
+                  // startAdornment: (
+                  //   <InputAdornment position="start">
+                  //     <Icon>search</Icon>
+                  //   </InputAdornment>
+                  // ),
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <Icon className="mr-32">search</Icon>
+                      <IconButton title="Clear" onClick={handleResetSearchField}>
+                        <Icon>clear</Icon>
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}        
+              />
+            </div>
+          
+        </ExpansionPanel>
+        
         <Paper className={classNames(classes.paper, "z-10",)}>
           <List className="m-0 p-0" component="nav">
             {

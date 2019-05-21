@@ -3,7 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // import classNames from 'classnames';
-import { withStyles, Button, Icon, IconButton, Tooltip, Zoom, } from '@material-ui/core';
+import { withStyles, Paper, Button, Icon, IconButton, Tooltip, Zoom, } from '@material-ui/core';
 
 const styles = theme => ({
   margin: {
@@ -82,37 +82,54 @@ const ButtonsRowDetail = ({ limit, selectedIndex, deletable, updatable, onToggle
   </div>
 );
  
-const ButtonsRowList = ({ creatable, searchable, filterable, sortable, onClickCreate, onClickSearch, onClickFilter, onClickSort, }) => (
-  <div className="w-full flex">
-    { creatable && CreateButton(onClickCreate) }
+const ButtonsRowList = ({ creatable, searchable, filterable, sortable, onClickCreate, onClickSearch, onClickFilter, onClickSort, onResetExpansionPanel, }) => (
+  <Paper className="w-full flex">
     { // searchable &&
     <Tooltip TransitionComponent={Zoom} placement="bottom" title="Search">
-      <IconButton color="inherit" aria-label="Search"
-        onClick={() => {}}
-      >
-        <Icon>search</Icon>
-      </IconButton>
+      <span className="ml-6 mr-3">
+        <IconButton color="inherit" aria-label="Search"
+          onClick={onClickSearch}
+        >
+          <Icon>search</Icon>
+        </IconButton>
+      </span>
     </Tooltip>
     }
     { // filterable &&
     <Tooltip TransitionComponent={Zoom} placement="bottom" title="Filter">
-      <IconButton color="inherit" aria-label="Filter"
-        onClick={() => {}}
-      >
-        <Icon>filter_list</Icon>
-      </IconButton>
+      <span className="mx-3">
+        <IconButton color="inherit" aria-label="Filter"
+          onClick={onClickFilter}
+        >
+          <Icon>filter_list</Icon>
+        </IconButton>
+      </span>
     </Tooltip>
     }
     { // sortable &&
     <Tooltip TransitionComponent={Zoom} placement="bottom" title="Sort">
-      <IconButton color="inherit" aria-label="Sort"
-        onClick={() => {}}
-      >
-        <Icon>sort</Icon>
-      </IconButton>
+      <span className="mx-3">
+        <IconButton color="inherit" aria-label="Sort"
+          onClick={onClickSort}
+        >
+          <Icon>sort</Icon>
+        </IconButton>
+      </span>
     </Tooltip>
     }
-  </div>
+    {
+    <Tooltip TransitionComponent={Zoom} placement="bottom" title="Clear and reset">
+      <span className="ml-3 mr-6">
+        <IconButton color="inherit" aria-label="Clear and reset"
+          onClick={onResetExpansionPanel}
+        >
+          <Icon>clear</Icon>
+        </IconButton>
+      </span>
+    </Tooltip>
+    }
+    { creatable && <div className="flex-1">{CreateButton(onClickCreate)}</div> }
+  </Paper>
 );
 
 const CreateButton = onClick => (
@@ -122,7 +139,7 @@ const CreateButton = onClick => (
       color="primary"
       onClick={onClick}
       // className={classNames(classes.margin, "w-full",)}
-      // className="w-full"
+      className="w-full"
     >
       {
         // <Icon className={classes.leftIcon}>add</Icon>
@@ -132,7 +149,7 @@ const CreateButton = onClick => (
   </Tooltip>
 );
 
-const UDButtonsUnstyled = ({ classes, deletable, updatable, onUpdate, onDelete, }) => (
+const CRUDButtonsUnstyled = ({ classes, deletable, updatable, onUpdate, onDelete, }) => (
   <React.Fragment>
   {
     deletable && (
@@ -159,19 +176,21 @@ const UDButtonsUnstyled = ({ classes, deletable, updatable, onUpdate, onDelete, 
   </React.Fragment>
 );
 
-UDButtonsUnstyled.propTypes = {
+CRUDButtonsUnstyled.propTypes = {
   classes: PropTypes.object.isRequired,
-  deletable: PropTypes.bool,
   updatable: PropTypes.bool,
+  deletable: PropTypes.bool,
   onDelete: PropTypes.func,
   onUpdate: PropTypes.func,
+  // creatable, searchable, filterable, sortable, onClickCreate, onClickSearch, onClickFilter, onClickSort,
+  // limit, selectedIndex, deletable, updatable, onToggle, onNavBack, onNavNext,
 };
 
-UDButtonsUnstyled.defaultProps = {
+CRUDButtonsUnstyled.defaultProps = {
   deletable: false,
   updatable: false,
 };
  
-const UDButtons = withStyles(styles, { withTheme: true })(UDButtonsUnstyled);                                                       
+const CRUDButtons = withStyles(styles, { withTheme: true })(CRUDButtonsUnstyled);                                                       
 
-export { CreateButton, UDButtons, ButtonsRowList, ButtonsRowDetail, }
+export { CreateButton, CRUDButtons, ButtonsRowList, ButtonsRowDetail, }
