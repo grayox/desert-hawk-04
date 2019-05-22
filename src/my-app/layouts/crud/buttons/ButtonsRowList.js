@@ -5,6 +5,7 @@ import {
 } from '@material-ui/core'; // withStyles, Button,
 
 import SortFilterMenu from './SortFilterMenu';
+import ShieldsIo from 'my-app/components/ShieldsIo';
 
 const CreateButton = onClick => (
   <Tooltip TransitionComponent={Zoom} title="Add new item">
@@ -168,10 +169,9 @@ class ButtonsRowList extends Component {
           }
         </div>
         <div className="w-full">
-          {/* <img src={`https://img.shields.io/badge/sort-${}-informational.svg`} /> */}
-          <span className="ml-4"><img alt='label-message' src="https://img.shields.io/badge/sort-starred-informational.svg" /></span>
-          <span className="ml-4"><img alt='label-message' src="https://img.shields.io/badge/sort-field1-informational.svg"  /></span>
-          <span className="ml-4"><img alt='label-message' src="https://img.shields.io/badge/sort-field2-informational.svg"  /></span>
+          <span className="ml-4"><ShieldsIo label="sort" message="starred" color="informational" /></span>
+          <span className="ml-4"><ShieldsIo label="sort" message="starred" color="brightgreen"   /></span>
+          <span className="ml-4"><ShieldsIo label="sort" message="starred" color="blueviolet"    /></span>
         </div>
       </Paper>
     );
