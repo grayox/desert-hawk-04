@@ -1052,7 +1052,7 @@ class CRUDView extends Component {
               onClickSearch={handleOpenSearch}
               onClickFilter={handleOpenFilter}
               onClickSort={handleOpenSort}
-              onResetExpansionPanel={handleResetSearchField}
+              // onResetExpansionPanel={handleResetSearchField}
             />
           </Zoom>
         </div>
@@ -1083,7 +1083,10 @@ class CRUDView extends Component {
                 endAdornment: (
                   <InputAdornment position="end">
                     <Icon className="mr-32">search</Icon>
-                    <IconButton title="Clear" onClick={handleResetSearchField}>
+                    <IconButton
+                      title="Clear"
+                      onClick={handleResetSearchField}
+                    >
                       <Icon>clear</Icon>
                     </IconButton>
                   </InputAdornment>
