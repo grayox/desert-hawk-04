@@ -4,6 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 // import classNames from 'classnames';
 import { withStyles, Paper, Button, Icon, IconButton, Tooltip, Zoom, } from '@material-ui/core';
+import SortFilterMenu from './SortFilterMenu';
 
 const styles = theme => ({
   margin: {
@@ -96,26 +97,32 @@ const ButtonsRowList = ({ creatable, searchable, filterable, sortable, onClickCr
     </Tooltip>
     }
     { // filterable &&
-    <Tooltip TransitionComponent={Zoom} placement="bottom" title="Filter">
-      <span className="mx-3">
-        <IconButton color="inherit" aria-label="Filter"
-          onClick={onClickFilter}
-        >
-          <Icon>filter_list</Icon>
-        </IconButton>
-      </span>
-    </Tooltip>
+    // <Tooltip TransitionComponent={Zoom} placement="bottom" title="Filter">
+    //   <span className="mx-3">
+    //     <IconButton color="inherit" aria-label="Filter"
+    //       onClick={onClickFilter}
+    //     >
+    //       <Icon>filter_list</Icon>
+    //     </IconButton>
+    //   </span>
+    // </Tooltip>
     }
+    <span className="mx-3">
+      <SortFilterMenu variant="filter" />
+    </span>
+    <span className="mx-3">
+      <SortFilterMenu variant="sort"   />
+    </span>
     { // sortable &&
-    <Tooltip TransitionComponent={Zoom} placement="bottom" title="Sort">
-      <span className="mx-3">
-        <IconButton color="inherit" aria-label="Sort"
-          onClick={onClickSort}
-        >
-          <Icon>sort</Icon>
-        </IconButton>
-      </span>
-    </Tooltip>
+    // <Tooltip TransitionComponent={Zoom} placement="bottom" title="Sort">
+    //   <span className="mx-3">
+    //     <IconButton color="inherit" aria-label="Sort"
+    //       onClick={onClickSort}
+    //     >
+    //       <Icon>sort</Icon>
+    //     </IconButton>
+    //   </span>
+    // </Tooltip>
     }
     {
     <Tooltip TransitionComponent={Zoom} placement="bottom" title="Clear and reset">

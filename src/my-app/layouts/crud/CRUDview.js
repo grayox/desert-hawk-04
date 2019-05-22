@@ -17,7 +17,7 @@ import {
   Typography, Grid, Hidden, CssBaseline, Divider, Icon, IconButton,
   AppBar, Toolbar, List, ListItem, ListItemText, ListItemSecondaryAction,
   Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
-  ExpansionPanel, ExpansionPanelDetails, // ExpansionPanelSummary,
+  ExpansionPanel, // ExpansionPanelDetails, // ExpansionPanelSummary,
   CircularProgress, InputAdornment, TextField, // ListSubheader, Grow, CssBaseline, Avatar,
 } from '@material-ui/core';
 
@@ -27,7 +27,9 @@ import moment from 'moment';
 
 // import CreateButton from './CreateButton';
 // import CRUDList from './CRUDList'; // mockup version of InfiniteScroll implementation per docs at: https://codesandbox.io/s/w3w89k7x8 | https://www.npmjs.com/package/react-infinite-scroll-component
-import { ButtonsRowList, ButtonsRowDetail, } from './CRUDButtons'; // CRUDButtons,
+// import { ButtonsRowList, ButtonsRowDetail, } from './buttons/CRUDButtons'; // CRUDButtons,
+import ButtonsRowList from './buttons/ButtonsRowList'; // CRUDButtons,
+import ButtonsRowDetail from './buttons/ButtonsRowDetail'; // CRUDButtons,
 import { getForm, uiSpecs, } from 'my-app/config/AppConfig'; // getCleanFieldNames,
 import FormTemplate from 'my-app/components/forms/FormTemplate';
 import SimpleExpansionPanel from 'my-app/components/SimpleExpansionPanel';
@@ -115,7 +117,7 @@ const INITIAL_STATE = {
   ...INITIAL_STATE_DETAIL,
   ...INITIAL_STATE_DIALOG,
   ...INITIAL_STATE_EXPANSION,
-};
+}
 
 const findFormField = ( formName, fieldName, ) => formName && formName.find(x => x.id === fieldName).value;
 
@@ -239,13 +241,11 @@ class CRUDView extends Component {
   handleOpenFilter = () => {
     // alert('You clicked the FILTER button');
     // console.log('You clicked the FILTER button');
-
   }
 
   handleOpenSort = () => {
     // alert('You clicked the SORT button');
     // console.log('You clicked the SORT button');
-
   }
 
   handleChangeForm = event => {
