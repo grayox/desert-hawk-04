@@ -1065,33 +1065,32 @@ class CRUDView extends Component {
           // <ExpansionPanelSummary></ExpansionPanelSummary>
           // <ExpansionPanelDetails></ExpansionPanelDetails>
           }
-            <div className="flex align-middle" title="Enter a keyword...">
-              <TextField
-                className="flex-1"
-                fullWidth
-                variant="outlined"
-                label="Search"
-                placeholder="Enter a keyword..."
-                onChange={handleChangeSearchField}
-                value={searchField}
-                InputProps={{
-                  // startAdornment: (
-                  //   <InputAdornment position="start">
-                  //     <Icon>search</Icon>
-                  //   </InputAdornment>
-                  // ),
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <Icon className="mr-32">search</Icon>
-                      <IconButton title="Clear" onClick={handleResetSearchField}>
-                        <Icon>clear</Icon>
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}        
-              />
-            </div>
-          
+          <div className="flex align-middle" title="Enter a keyword...">
+            <TextField
+              className="flex-1"
+              fullWidth
+              variant="outlined"
+              label="Search"
+              placeholder="Enter a keyword..."
+              onChange={handleChangeSearchField}
+              value={searchField}
+              InputProps={{
+                // startAdornment: (
+                //   <InputAdornment position="start">
+                //     <Icon>search</Icon>
+                //   </InputAdornment>
+                // ),
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <Icon className="mr-32">search</Icon>
+                    <IconButton title="Clear" onClick={handleResetSearchField}>
+                      <Icon>clear</Icon>
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}        
+            />
+          </div>
         </ExpansionPanel>
         
         <Paper className={classNames(classes.paper, "z-10",)}>

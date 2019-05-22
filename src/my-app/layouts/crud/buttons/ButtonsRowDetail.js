@@ -8,41 +8,11 @@ import { Icon, IconButton, Tooltip, Zoom, } from '@material-ui/core';
 const ButtonsRowDetail = ({ limit, selectedIndex, deletable, updatable, onToggle, onDelete, onUpdate, onNavBack, onNavNext, }) => {
   
   const config = [
-    {
-      conditional : true                    ,
-      title       : 'Previous'              ,
-      handleClick : onNavBack               ,
-      disabled    : ( selectedIndex === 0 ) ,
-      icon        : 'arrow_back_ios'        ,
-    },
-    {
-      conditional : deletable   ,
-      title       : 'Delete...' ,
-      handleClick : onDelete    ,
-      disabled    : false       ,
-      icon        : 'delete'    ,
-    },
-    {
-      conditional : deletable ,
-      title       : 'Clear'   ,
-      handleClick : onToggle  ,
-      disabled    : false     ,
-      icon        : 'clear'   ,
-    },
-    {
-      conditional : updatable ,
-      title       : 'Edit'    ,
-      handleClick : onUpdate  ,
-      disabled    : false     ,
-      icon        : 'edit'    ,
-    },
-    {
-      conditional : true                      ,
-      title       : 'Next'                    ,
-      handleClick : onNavNext                 ,
-      disabled    : ( selectedIndex > limit ) ,
-      icon        : 'arrow_forward_ios'       ,
-    },
+    { conditional : true      , title : 'Previous'  , handleClick : onNavBack , disabled : (selectedIndex === 0)   , icon : 'arrow_back_ios'    , } ,
+    { conditional : deletable , title : 'Delete...' , handleClick : onDelete  , disabled : false                   , icon : 'delete'            , } ,
+    { conditional : true      , title : 'Clear'     , handleClick : onToggle  , disabled : false                   , icon : 'clear'             , } ,
+    { conditional : updatable , title : 'Edit'      , handleClick : onUpdate  , disabled : false                   , icon : 'edit'              , } ,
+    { conditional : true      , title : 'Next'      , handleClick : onNavNext , disabled : (selectedIndex > limit) , icon : 'arrow_forward_ios' , } ,
   ];
 
   return (
