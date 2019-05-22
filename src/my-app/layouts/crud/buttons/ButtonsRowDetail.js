@@ -5,51 +5,62 @@ import PropTypes from 'prop-types';
 // import classNames from 'classnames';
 import { Icon, IconButton, Tooltip, Zoom, } from '@material-ui/core';
 
-const ButtonsRowDetail = ({ limit, selectedIndex, deletable, updatable, onToggle, onDelete, onUpdate, onNavBack, onNavNext, }) => (
-  <div className="flex mx-8">
-    <Tooltip TransitionComponent={Zoom} title="Previous">
-      <span className="flex-1 text-center mt-8">
-        <IconButton onClick={onNavBack} disabled={selectedIndex === 0}>
-          <Icon>arrow_back_ios</Icon>
-        </IconButton>
-      </span>
-    </Tooltip>
+const ButtonsRowDetail = ({ limit, selectedIndex, deletable, updatable, onToggle, onDelete, onUpdate, onNavBack, onNavNext, }) => {
+  
+  const config = [
     {
-    deletable &&
-    <Tooltip TransitionComponent={Zoom} title="Delete...">
-      <span className="flex-1 text-center mt-8">
-        <IconButton onClick={onDelete}>
-          <Icon>delete</Icon>
-        </IconButton>
-      </span>
-    </Tooltip>
-    }
-    <Tooltip TransitionComponent={Zoom} title="Clear">
-      <span className="flex-1 text-center mt-8">
-        <IconButton onClick={onToggle}>
-          <Icon>clear</Icon>
-        </IconButton>
-      </span>
-    </Tooltip>
+      conditional : true                    ,
+      title       : 'Previous'              ,
+      handleClick : onNavBack               ,
+      disabled    : ( selectedIndex === 0 ) ,
+      icon        : 'arrow_back_ios'        ,
+    },
     {
-    updatable &&
-    <Tooltip TransitionComponent={Zoom} title="Edit">
-      <span className="flex-1 text-center mt-8">
-        <IconButton onClick={onUpdate}>
-          <Icon>edit</Icon>
-        </IconButton>
-      </span>
-    </Tooltip>
-    }
-    <Tooltip TransitionComponent={Zoom} title="Next">
-      <span className="flex-1 text-center mt-8">
-        <IconButton onClick={onNavNext} disabled={selectedIndex > limit}>
-          <Icon>arrow_forward_ios</Icon>
-        </IconButton>
-      </span>
-    </Tooltip>
-  </div>
-);
+      conditional : deletable   ,
+      title       : 'Delete...' ,
+      handleClick : onDelete    ,
+      disabled    : false       ,
+      icon        : 'delete'    ,
+    },
+    {
+      conditional : deletable ,
+      title       : 'Clear'   ,
+      handleClick : onToggle  ,
+      disabled    : false     ,
+      icon        : 'clear'   ,
+    },
+    {
+      conditional : updatable ,
+      title       : 'Edit'    ,
+      handleClick : onUpdate  ,
+      disabled    : false     ,
+      icon        : 'edit'    ,
+    },
+    {
+      conditional : true                      ,
+      title       : 'Next'                    ,
+      handleClick : onNavNext                 ,
+      disabled    : ( selectedIndex > limit ) ,
+      icon        : 'arrow_forward_ios'       ,
+    },
+  ];
+
+  return (
+    <div className="flex mx-8">
+      {
+        config.map( item => item.conditional && (
+          <Tooltip TransitionComponent={Zoom} title={item.title}>
+            <span className="flex-1 text-center mt-8">
+              <IconButton onClick={item.handleClick} disabled={item.disabled}>
+                <Icon>{item.icon}</Icon>
+              </IconButton>
+            </span>
+          </Tooltip>
+        ))
+      }
+    </div>
+  )
+}
 
 ButtonsRowDetail.propTypes = {
   updatable: PropTypes.bool,
