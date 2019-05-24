@@ -17,12 +17,12 @@ const styles = theme => ({
 });
 
 const ListPane = ({
-  classes, items, onNext, onToggle, hasMore, creatable, searchable, filterable, sortable,
-  handleOpenSearch, handleOpenFilter, handleOpenSort, handleOpenCreateDialog,
+  classes, items, hasMore, creatable, searchable, filterable, sortable,
+  onNext, onToggle, onOpenSearch, onOpenFilter, onOpenSort, onOpenCreateDialog,
 }) => {
   const ready1 = items && items.length;
   if(!ready1) return null;
-  
+
   return (
     <React.Fragment>
       <div className="w-full">
@@ -32,10 +32,10 @@ const ListPane = ({
             searchable={searchable}
             filterable={filterable}
             sortable={sortable}
-            onClickCreate={handleOpenCreateDialog}
-            onClickSearch={handleOpenSearch}
-            onClickFilter={handleOpenFilter}
-            onClickSort={handleOpenSort}
+            onClickCreate={onOpenCreateDialog}
+            onClickSearch={onOpenSearch}
+            onClickFilter={onOpenFilter}
+            onClickSort={onOpenSort}
           />
         </Zoom>
       </div>

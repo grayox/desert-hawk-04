@@ -272,8 +272,8 @@ class CRUDView extends Component {
     handleRefresh();
   }
 
-  handleListItemClick = ( event, index, ) => {
-    this.setState({ selectedIndex: index });
+  handleListItemClick = ( event, selectedIndex, ) => {
+    this.setState({ selectedIndex, });
   };
 
   handleNavBack = () => {
@@ -297,30 +297,34 @@ class CRUDView extends Component {
     });
   };
 
-  handleToggle = ( model, isList, index, ) => {
+  handleToggle = ( detail, isList, selectedIndex, ) => {
     // console.log('model\n', model);
     // const { detail } = this.state;
     this.setState({
       ...INITIAL_STATE_DETAIL,
     }
       // promise completes animation effect
-      ,() => {if(isList) this.setState({
-        detail: model,
-        selectedIndex: index,
-      })}
+      ,() => {if(isList) this.setState({ detail, selectedIndex, })}
     );
   }
 
   render() {
-    const { classes, items, profile, creatable, } = this.props;
-    const { uid, } = profile;
     const { detail, deleteDialogIsOpen, } = this.state;
+    const { classes, items, profile, creatable, } = this.props;
     const {
-      handleCloseDialog, handleDeleteItem, handleChangeUserData, handleOpenCreateDialog,
+      handleOpenCreateDialog,
+      handleCloseDialog, handleDeleteItem, handleChangeUserData,
+      handleOpenSearch, handleOpenFilter, handleOpenSort,
     } = this;
 
+    const ready1 = !!profile;
+    if(!ready1) return null;
+
+    const { uid, } = profile;
+    console.log('items\n', items,);
+    
     const getFetchUserData = () => <FetchUserData path="dashboard" uid={uid} onChange={handleChangeUserData} />
-    const getViewEmpty = () => <ViewEmpty side="list" onClick={handleOpenCreateDialog} creatable={creatable}/>
+    const getViewEmpty = () => <ViewEmpty side="list" onClick={handleOpenCreateDialog} creatable={creatable} />
     
     const getCreateDialog = () => <CreateDialog /> 
     const getUpdateDialog = () => <UpdateDialog />  
@@ -332,8 +336,25 @@ class CRUDView extends Component {
         onClose={handleCloseDialog}
       />
 
-    const getListPane = () => <ListPane />
-    const getDetailPane = () => <DetailPane />    
+    const getListPane = () =>
+      <ListPane
+        items={items}
+        onNext
+        onToggle
+        hasMore
+        creatable
+        searchable
+        filterable
+        sortable
+        starrable
+        onOpenSearch={handleOpenSearch}
+        onOpenFilter={handleOpenFilter}
+        onOpenSort={handleOpenSort}
+        onOpenCreateDialog={handleOpenCreateDialog}
+      />
+    const getDetailPane = () =>
+      <DetailPane
+      />    
 
     const getMobileContent = () => detail ? getDetailPane() : getListPane()
     const getLaptopContent = () =>
@@ -348,9 +369,9 @@ class CRUDView extends Component {
       <React.Fragment>
         {/* <CssBaseline/> */}
         { getFetchUserData() } {/* to update the dashboard after a CRUD task */}
-        { getCreateDialog() }        
-        { getUpdateDialog() }
-        { getDeleteDialog() }
+        { getCreateDialog()  }        
+        { getUpdateDialog()  }
+        { getDeleteDialog()  }
         <div className={classes.wrapper}>
           <Hidden smUp   >{ getMobileContent() }</Hidden> {/* mobile */}
           <Hidden xsDown >{ getLaptopContent() }</Hidden> {/* laptop */}
