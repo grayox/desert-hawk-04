@@ -10,21 +10,12 @@ import { updateUserData, } from 'my-app/store/actions/my-actions'; // updateSett
 import FetchUserData from 'my-app/containers/FetchUserData';
 
 // @material-ui/core
-import {
-  withStyles, withWidth, Slide, Zoom, Button, Fab, Paper, Tooltip,
-  Typography, Grid, Hidden, CssBaseline, Divider, Icon, IconButton,
-  AppBar, Toolbar, List, ListItem, ListItemText, ListItemSecondaryAction,
-  Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
-  ExpansionPanel, // ExpansionPanelDetails, // ExpansionPanelSummary,
-  CircularProgress, InputAdornment, TextField, // ListSubheader, Grow, CssBaseline, Avatar,
-} from '@material-ui/core';
+import { withStyles, withWidth, Grid, Hidden, CssBaseline, } from '@material-ui/core';
 
 import ListPane from './list/ListPane';
 import DetailPane from './detail/DetailPane';
 import ViewEmpty from './ViewEmpty';
 import { CreateDialog, UpdateDialog, DeleteDialog, } from './ItemDialogs';
-import { getForm, uiSpecs, } from 'my-app/config/AppConfig'; // getCleanFieldNames,
-import SimpleExpansionPanel from 'my-app/components/SimpleExpansionPanel';
 
 const styles = theme => ({
   root: {
@@ -324,11 +315,7 @@ class CRUDView extends Component {
     const { classes, items, profile, creatable, } = this.props;
     const { uid, } = profile;
     const { detail, deleteDialogIsOpen, } = this.state;
-    const {
-      getListPane, getDetailPane,
-      getCreateDialog, getUpdateDialog, getDeleteDialog,
-      handleCloseDialog, handleDeleteItem, handleChangeUserData, handleOpenCreateDialog,
-    } = this;
+    const { handleCloseDialog, handleDeleteItem, handleChangeUserData, handleOpenCreateDialog, } = this;
 
     const getMobileContent = () => (
       { detail }
