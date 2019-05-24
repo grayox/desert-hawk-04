@@ -315,39 +315,42 @@ class CRUDView extends Component {
     const { classes, items, profile, creatable, } = this.props;
     const { uid, } = profile;
     const { detail, deleteDialogIsOpen, } = this.state;
-    const { handleCloseDialog, handleDeleteItem, handleChangeUserData, handleOpenCreateDialog, } = this;
+    const {
+      handleCloseDialog, handleDeleteItem, handleChangeUserData, handleOpenCreateDialog,
+    } = this;
 
-    const getMobileContent = () => (
-      { detail }
-      ? 
-      <DetailPane /> // getDetailPane()
-      :
-      <ListPane /> // getListPane()
-    )
+    const getFetchUserData = () => <FetchUserData path="dashboard" uid={uid} onChange={handleChangeUserData} />
+    const getViewEmpty = () => <ViewEmpty side="list" onClick={handleOpenCreateDialog} creatable={creatable}/>
     
-    const getLaptopContent = () => (
+    const getCreateDialog = () => <CreateDialog /> 
+    const getUpdateDialog = () => <UpdateDialog />  
+    const getDeleteDialog = () =>
+      <DeleteDialog
+        isOpen={deleteDialogIsOpen}
+        onCancel={handleCloseDialog}
+        onDelete={handleDeleteItem}
+        onClose={handleCloseDialog}
+      />
+
+    const getListPane = () => <ListPane />
+    const getDetailPane = () => <DetailPane />    
+
+    const getMobileContent = () => detail ? getDetailPane() : getListPane()
+    const getLaptopContent = () =>
       <div className={classNames(classes.root,)}>
         <Grid container spacing={16}>
-          <Grid item xs={12} sm={6}><ListPane/></Grid> {/* {getListPane()} */}
-          <Grid item xs={6}><DetailPane/></Grid> {/* {getDetailPane()} */}
+          <Grid item xs={12} sm={6}>{getListPane()}</Grid>
+          <Grid item xs={6}>{getDetailPane()}</Grid>
         </Grid>
       </div>
-    )
     
     const getMainContent = () => (
       <React.Fragment>
-        <CssBaseline/>
-        {/* to update the dashboard after a CRUD task */}
-        <FetchUserData path="dashboard" uid={uid} onChange={handleChangeUserData} />
-        <CreateDialog /> {/* { getCreateDialog() } */}        
-        <UpdateDialog /> {/* { getUpdateDialog() } */}
-        {/* { getDeleteDialog() } */}
-        <DeleteDialog
-          isOpen={deleteDialogIsOpen}
-          onCancel={handleCloseDialog}
-          onDelete={handleDeleteItem}
-          onClose={handleCloseDialog}
-        />
+        {/* <CssBaseline/> */}
+        { getFetchUserData() } {/* to update the dashboard after a CRUD task */}
+        { getCreateDialog() }        
+        { getUpdateDialog() }
+        { getDeleteDialog() }
         <div className={classes.wrapper}>
           <Hidden smUp>{getMobileContent()}</Hidden>   {/* mobile */}
           <Hidden xsDown>{getLaptopContent()}</Hidden> {/* laptop */}
@@ -357,15 +360,7 @@ class CRUDView extends Component {
 
     return (
       // <FuseScrollbars className="overflow-auto">
-      <div className={classes.root}>
-        { 
-          ( items && items.length )
-          ?
-          getMainContent()
-          :
-          <ViewEmpty side="list" onClick={handleOpenCreateDialog} creatable={creatable}/>
-        }
-      </div>   
+      <div className={classes.root}>{( items && items.length ) ? getMainContent() : getViewEmpty() }</div>   
       // </FuseScrollbars>
     );
   }
@@ -381,6 +376,7 @@ CRUDView.propTypes = {
 
   condensed: PropTypes.bool, // one-line per list item in detail pane
   
+  starrable: PropTypes.bool,
   searchable: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.bool,
@@ -400,7 +396,7 @@ CRUDView.propTypes = {
     PropTypes.bool,
   ]),
   readable: PropTypes.oneOfType([
-    PropTypes.string,
+    PropTypes.object,
     PropTypes.bool,
   ]),
   updatable: PropTypes.oneOfType([
