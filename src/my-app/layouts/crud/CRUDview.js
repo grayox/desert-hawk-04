@@ -352,8 +352,8 @@ class CRUDView extends Component {
         { getUpdateDialog() }
         { getDeleteDialog() }
         <div className={classes.wrapper}>
-          <Hidden smUp>{getMobileContent()}</Hidden>   {/* mobile */}
-          <Hidden xsDown>{getLaptopContent()}</Hidden> {/* laptop */}
+          <Hidden smUp   >{ getMobileContent() }</Hidden> {/* mobile */}
+          <Hidden xsDown >{ getLaptopContent() }</Hidden> {/* laptop */}
         </div>
       </React.Fragment>
     )
