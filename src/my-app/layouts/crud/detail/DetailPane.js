@@ -9,7 +9,7 @@ import { FuseAnimateGroup } from '@fuse'; // FuseScrollbars, FuseAnimate,
 
 import { uiSpecs, } from 'my-app/config/AppConfig'; // getCleanFieldNames,
 import SimpleExpansionPanel from 'my-app/components/SimpleExpansionPanel';
-import DetailButtonsRow from './DetailButtonsRow'; // CRUDButtons,
+import ButtonsTier from './ButtonsTier'; // CRUDButtons,
 import ViewEmpty from '../ViewEmpty';
 import ItemSummary from '../ItemSummary';
 
@@ -159,10 +159,8 @@ const getDetailListItem = ( label, value, condensed, ) => (
     </ListItem>
   )
 
-const getDetail = item => {
+const getDetail = ({ classes, condensed, creatable, getDetailListItem, }) => {
   // const MAX_LENGTH = 40;
-  const { classes, condensed, creatable, } = this.props;
-  const { getDetailListItem, } = this;
   // console.log('condensed\n', condensed);
   
   // const keys = Object.keys(item);
@@ -224,7 +222,7 @@ const getNavButtons = () => {
   const limit = items.length - 2;
   // console.log('limit\n', limit);
   return (
-    <DetailButtonsRow
+    <ButtonsTier
       limit={limit}
       selectedIndex={selectedIndex}
       deletable={deletable}

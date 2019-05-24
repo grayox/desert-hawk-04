@@ -4,7 +4,7 @@ import { FuseAnimateGroup } from '@fuse'; // FuseScrollbars, FuseAnimate,
 
 import { withStyles, Zoom, Paper, Tooltip, Divider, List, CircularProgress, } from '@material-ui/core';
 
-import ListButtonsRow from './ListButtonsRow'; // CRUDButtons,
+import ButtonsTier from './ButtonsTier'; // CRUDButtons,
 import InfiniteScroll from 'react-infinite-scroll-component';
 import ItemSummary from '../ItemSummary';
 
@@ -23,7 +23,7 @@ const ListPane = ({
   <React.Fragment>
     <div className="w-full">
       <Zoom in mountOnEnter unmountOnExit>
-        <ListButtonsRow
+        <ButtonsTier
           creatable={creatable}
           searchable={searchable}
           filterable={filterable}

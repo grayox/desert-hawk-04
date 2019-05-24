@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 // import classNames from 'classnames';
 import { Icon, IconButton, Tooltip, Zoom, } from '@material-ui/core';
 
-const DetailButtonsRow = ({ limit, selectedIndex, deletable, updatable, onToggle, onDelete, onUpdate, onNavBack, onNavNext, }) => {
+const ButtonsTier = ({ limit, selectedIndex, deletable, updatable, onToggle, onDelete, onUpdate, onNavBack, onNavNext, }) => {
   
   const config = [
     { conditional : true      , title : 'Previous'  , handleClick : onNavBack , disabled : (selectedIndex === 0)   , icon : 'arrow_back_ios'    , } ,
@@ -32,7 +32,7 @@ const DetailButtonsRow = ({ limit, selectedIndex, deletable, updatable, onToggle
   )
 }
 
-DetailButtonsRow.propTypes = {
+ButtonsTier.propTypes = {
   updatable: PropTypes.bool,
   deletable: PropTypes.bool,
   onDelete: PropTypes.func,
@@ -40,9 +40,9 @@ DetailButtonsRow.propTypes = {
   // limit, selectedIndex, deletable, updatable, onToggle, onNavBack, onNavNext,
 };
 
-DetailButtonsRow.defaultProps = {
+ButtonsTier.defaultProps = {
   deletable: false,
   updatable: false,
 };
  
-export default DetailButtonsRow;
+export default ButtonsTier;

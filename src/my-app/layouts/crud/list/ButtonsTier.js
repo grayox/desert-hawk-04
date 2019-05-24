@@ -37,8 +37,8 @@ const INITIAL_STATE = {
   sortOrderIsDescending : true      ,
 }
 
-class ListButtonsRow extends Component {
-// const ListButtonsRow = ({ creatable, searchable, filterable, sortable, onClickCreate, onClickSearch, onClickFilter, onClickSort, onResetExpansionPanel, }) => (
+class ButtonsTier extends Component {
+// const ButtonsTier = ({ creatable, searchable, filterable, sortable, onClickCreate, onClickSearch, onClickFilter, onClickSort, onResetExpansionPanel, }) => (
   state = INITIAL_STATE;
 
   // handleToggleSearchField = () => {
@@ -188,4 +188,4 @@ class ListButtonsRow extends Component {
   }
 }
 
-export default ListButtonsRow;
+export default ButtonsTier;

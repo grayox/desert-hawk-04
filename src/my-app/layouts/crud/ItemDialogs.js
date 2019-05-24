@@ -13,21 +13,20 @@ const Transition = props => (<Zoom in {...props} />); // (<Slide direction="up" 
 const findFormField = ( formName, fieldName, ) => formName && formName.find(x => x.id === fieldName).value;
 
 // getCreateDialog = () => {
-const CreateDialog = () => {
+const CreateDialog = ({
+  creatable, createDialogIsOpen, crudForm, crudFormTimestamp,
+  onEnterDialog, onChangeForm, onCloseDialog, onCreateItem, // findFormField,
+}) => {
   // console.log('props\n', this.props);
   // const { getFormFields, } = this;
-  const { createDialogIsOpen, crudForm, crudFormTimestamp, } = this.state;
-  const { creatable, } = this.props;
-  const { title, fields, } = creatable; // form,
-  const {
-    handleEnterDialog, handleChangeForm, handleCloseDialog, handleCreateItem, // findFormField,
-  } = this;
-
   const ready1 = createDialogIsOpen && creatable;
   if(!ready1) return;
+  
+  const { title, fields, } = creatable; // form,
+
   const ready2 = title && fields;
   if(!ready2) return;
-  const ready3 = handleChangeForm && handleCloseDialog && handleCreateItem;
+  const ready3 = onChangeForm && onCloseDialog && onCreateItem;
   if(!ready3) return;
 
   const name = findFormField( crudForm, 'name', );
@@ -37,8 +36,8 @@ const CreateDialog = () => {
     creatable &&
     <Dialog
       open={createDialogIsOpen}
-      onEnter={() => handleEnterDialog('loadNewData')}
-      onClose={handleCloseDialog}
+      onEnter={() => onEnterDialog('loadNewData')}
+      onClose={onCloseDialog}
       aria-labelledby="form-dialog-title"
       TransitionComponent={Transition} // https://material-ui.com/demos/dialogs/#alerts
       // keepMounted
@@ -89,14 +88,14 @@ const CreateDialog = () => {
           }
           <FormTemplate
             fields={crudForm}
-            onChange={handleChangeForm}
+            onChange={onChangeForm}
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDialog} color="primary">
+          <Button onClick={onCloseDialog} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleCreateItem} color="primary">
+          <Button onClick={onCreateItem} color="primary">
             Save
           </Button>
         </DialogActions>
@@ -105,20 +104,18 @@ const CreateDialog = () => {
 )}
 
 // getUpdateDialog = () => {
-const UpdateDialog = () => {
+const UpdateDialog = ({
+  updatable, updateDialogIsOpen, detail, crudForm, 
+  onChangeForm, onCloseDialog, onUpdateItem, onEnterDialog,
+}) => {
   // console.log('props\n', this.props);
   // console.log('state\n', this.state);
-  const { 
-    handleChangeForm, handleCloseDialog, handleUpdateItem, handleEnterDialog, // findFormField,
-  } = this; // getFormFields, handleExitedUpdateDialog,
-  const { updateDialogIsOpen, detail, crudForm, } = this.state;
-  const { updatable, } = this.props;
   const { title, fields, } = updatable;
   const ready1 = updateDialogIsOpen && updatable && detail;
   if(!ready1) return;
   const ready2 = title && fields;
   if(!ready2) return;
-  const ready3 = handleChangeForm && handleCloseDialog && handleUpdateItem;
+  const ready3 = onChangeForm && onCloseDialog && onUpdateItem;
   if(!ready3) return;
 
   // const updateFormFields = getFormFields( 'loadSavedData', fields, );
@@ -131,8 +128,8 @@ const UpdateDialog = () => {
     updatable &&
     <Dialog
       open={updateDialogIsOpen}
-      onEnter={() => handleEnterDialog('loadSavedData')}
-      onClose={handleCloseDialog}
+      onEnter={() => onEnterDialog('loadSavedData')}
+      onClose={onCloseDialog}
       aria-labelledby="form-dialog-title"
       TransitionComponent={Transition} // https://material-ui.com/demos/dialogs/#alerts
       // keepMounted
@@ -150,14 +147,14 @@ const UpdateDialog = () => {
         <DialogContent className="pt-4">
           <FormTemplate
             fields={crudForm}
-            onChange={handleChangeForm}
+            onChange={onChangeForm}
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDialog} color="primary">
+          <Button onClick={onCloseDialog} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleUpdateItem} color="primary">
+          <Button onClick={onUpdateItem} color="primary">
             Save
           </Button>
         </DialogActions>
