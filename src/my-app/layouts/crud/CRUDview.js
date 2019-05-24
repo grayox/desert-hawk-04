@@ -312,16 +312,17 @@ class CRUDView extends Component {
     const { detail, deleteDialogIsOpen, } = this.state;
     const { classes, items, profile, creatable, } = this.props;
     const {
-      handleOpenCreateDialog,
-      handleCloseDialog, handleDeleteItem, handleChangeUserData,
-      handleOpenSearch, handleOpenFilter, handleOpenSort,
+      handleOpenCreateDialog, handleCloseDialog, handleDeleteItem, handleChangeUserData,
+      handleToggle, handleOpenSearch, handleOpenFilter, handleOpenSort,
     } = this;
 
     const ready1 = !!profile;
     if(!ready1) return null;
 
     const { uid, } = profile;
-    console.log('items\n', items,);
+
+    // console.log('items\n', items,);
+    console.log('detail\n', detail,);
     
     const getFetchUserData = () => <FetchUserData path="dashboard" uid={uid} onChange={handleChangeUserData} />
     const getViewEmpty = () => <ViewEmpty side="list" onClick={handleOpenCreateDialog} creatable={creatable} />
@@ -340,13 +341,13 @@ class CRUDView extends Component {
       <ListPane
         items={items}
         onNext
-        onToggle
         hasMore
         creatable
         searchable
         filterable
         sortable
         starrable
+        onToggle={handleToggle}
         onOpenSearch={handleOpenSearch}
         onOpenFilter={handleOpenFilter}
         onOpenSort={handleOpenSort}
@@ -354,6 +355,7 @@ class CRUDView extends Component {
       />
     const getDetailPane = () =>
       <DetailPane
+        detail={detail}
       />    
 
     const getMobileContent = () => detail ? getDetailPane() : getListPane()

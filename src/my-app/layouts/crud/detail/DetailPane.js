@@ -215,10 +215,11 @@ const getDetail = ({ classes, condensed, creatable, getDetailListItem, }) => {
   )
 }
 
-const getNavButtons = () => {
-  const { handleNavBack, handleNavNext, handleToggle, handleOpenUpdateDialog, handleOpenDeleteDialog, } = this; //  handleCloseDialog,
-  const { selectedIndex, } = this.state;
-  const { items, updatable, deletable, } = this.props; // actionable,
+const getNavButtons = (
+  handleNavBack, handleNavNext, handleToggle,
+  handleOpenUpdateDialog, handleOpenDeleteDialog,
+  selectedIndex, items, updatable, deletable, 
+) => {
   const limit = items.length - 2;
   // console.log('limit\n', limit);
   return (
