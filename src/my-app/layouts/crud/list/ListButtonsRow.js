@@ -7,6 +7,12 @@ import {
 import SortFilterMenu from './SortFilterMenu';
 import ShieldsIo from 'my-app/components/ShieldsIo';
 
+const configShields = [
+  { label : 'filter' , message : 'starred' , color : 'informational' , } ,
+  { label : 'sort'   , message : 'age'     , color : 'blueviolet'    , } ,
+  { label : 'rating' , message : '3/5'     , color : 'brightgreen'   , } ,
+]
+
 const CreateButton = onClick => (
   <Tooltip TransitionComponent={Zoom} title="Add new item">
     <Fab
@@ -31,8 +37,8 @@ const INITIAL_STATE = {
   sortOrderIsDescending : true      ,
 }
 
-class ButtonsRowList extends Component {
-// const ButtonsRowList = ({ creatable, searchable, filterable, sortable, onClickCreate, onClickSearch, onClickFilter, onClickSort, onResetExpansionPanel, }) => (
+class ListButtonsRow extends Component {
+// const ListButtonsRow = ({ creatable, searchable, filterable, sortable, onClickCreate, onClickSearch, onClickFilter, onClickSort, onResetExpansionPanel, }) => (
   state = INITIAL_STATE;
 
   // handleToggleSearchField = () => {
@@ -169,13 +175,17 @@ class ButtonsRowList extends Component {
           }
         </div>
         <div className="w-full">
-          <span className="ml-4"><ShieldsIo label="sort" message="starred" color="informational" /></span>
-          <span className="ml-4"><ShieldsIo label="sort" message="starred" color="brightgreen"   /></span>
-          <span className="ml-4"><ShieldsIo label="sort" message="starred" color="blueviolet"    /></span>
+          {
+            configShields.map( item => (
+              <span className="ml-4">
+                <ShieldsIo label={item.label} message={item.message} color={item.color}/>
+              </span>
+            ))
+          }
         </div>
       </Paper>
     );
   }
 }
 
-export default ButtonsRowList;
+export default ListButtonsRow;

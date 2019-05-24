@@ -1,14 +1,15 @@
 // import React from 'react';
-import React, { Component } from 'react';
+import React, { Component, } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import compose from 'recompose/compose';
-import { connect } from 'react-redux'
-import { createItem, updateItem, deleteItem, } from './store/actions'
+import { connect } from 'react-redux';
+import { createItem, updateItem, deleteItem, } from './store/actions';
 
 import { updateUserData, } from 'my-app/store/actions/my-actions'; // updateSettings, updateDashboard, saveUserDataToFirestore,
 import FetchUserData from 'my-app/containers/FetchUserData';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 // @material-ui/core
 import {
@@ -16,7 +17,8 @@ import {
   Typography, Grid, Hidden, CssBaseline, Divider, Icon, IconButton,
   AppBar, Toolbar, List, ListItem, ListItemText, ListItemSecondaryAction,
   Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
-  // ListSubheader, Grow, CssBaseline, Avatar,
+  ExpansionPanel, // ExpansionPanelDetails, // ExpansionPanelSummary,
+  CircularProgress, InputAdornment, TextField, // ListSubheader, Grow, CssBaseline, Avatar,
 } from '@material-ui/core';
 
 // import {FuseAnimateGroup, FuseHighlight, FusePageSimple} from '@fuse';
@@ -24,7 +26,10 @@ import { FuseAnimateGroup } from '@fuse'; // FuseScrollbars, FuseAnimate,
 import moment from 'moment';
 
 // import CreateButton from './CreateButton';
-import { CreateButton, ButtonsRow, } from './CRUDButtons'; // UDButtons,
+// import CRUDList from './CRUDList'; // mockup version of InfiniteScroll implementation per docs at: https://codesandbox.io/s/w3w89k7x8 | https://www.npmjs.com/package/react-infinite-scroll-component
+// import { ListButtonsRow, DetailButtonsRow, } from './buttons/CRUDButtons'; // CRUDButtons,
+import ListButtonsRow from './buttons/ListButtonsRow'; // CRUDButtons,
+import DetailButtonsRow from './detail/DetailButtonsRow'; // CRUDButtons,
 import { getForm, uiSpecs, } from 'my-app/config/AppConfig'; // getCleanFieldNames,
 import FormTemplate from 'my-app/components/forms/FormTemplate';
 import SimpleExpansionPanel from 'my-app/components/SimpleExpansionPanel';
@@ -79,7 +84,10 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'center',
     flexDirection: 'column',
-  }
+  },
+  progress: {
+    margin: theme.spacing.unit * 2,
+  },
 });
 
 // https://material-ui.com/demos/dialogs/#alerts
@@ -98,10 +106,18 @@ const INITIAL_STATE_DETAIL = {
   selectedIndex : undefined ,
 }
 
+const INITIAL_STATE_EXPANSION = {
+  panelIsExpanded : false ,
+  searchField     : ''    ,
+  filterField     : ''    ,
+  sortField       : ''    ,
+}
+
 const INITIAL_STATE = {
   ...INITIAL_STATE_DETAIL,
   ...INITIAL_STATE_DIALOG,
-};
+  ...INITIAL_STATE_EXPANSION,
+}
 
 const findFormField = ( formName, fieldName, ) => formName && formName.find(x => x.id === fieldName).value;
 
@@ -139,10 +155,12 @@ const getAppBar = ( title, name, message, ) => (
 // function CRUDView(props) {
 class CRUDView extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = INITIAL_STATE;
-  }
+  state = INITIAL_STATE;
+
+  // constructor(props) {
+  //   super(props);
+  //   this.state = INITIAL_STATE;
+  // }
 
   // componentWillMount = () => {
   //   // this.setCreateFormInitialState(this.props.creatable.fields);
@@ -192,6 +210,43 @@ class CRUDView extends Component {
       deleteDialogIsOpen : true  ,
     });
   };
+
+  handleResetExpansionPanel = () => {
+    // alert('You RESET the EXPANSION PANEL');
+    // console.log('You RESET the EXPANSION PANEL');
+    this.setState(INITIAL_STATE_EXPANSION);
+  }
+
+  handleResetSearchField = () => {
+    // alert('You RESET the EXPANSION PANEL');
+    // console.log('You RESET the EXPANSION PANEL');
+    this.setState({
+      searchField: '',
+      panelIsExpanded: false,
+    });
+  }
+
+  handleOpenSearch = () => {
+    // alert('You clicked the SEARCH button');
+    // console.log('You clicked the SEARCH button');
+    this.setState({ panelIsExpanded: true, })
+  }
+  
+  handleChangeSearchField = event => {
+    const searchField = event.target.value;
+    // console.log('search field\n', searchField,);
+    this.setState({ searchField, });
+  }
+
+  handleOpenFilter = () => {
+    // alert('You clicked the FILTER button');
+    // console.log('You clicked the FILTER button');
+  }
+
+  handleOpenSort = () => {
+    // alert('You clicked the SORT button');
+    // console.log('You clicked the SORT button');
+  }
 
   handleChangeForm = event => {
     // console.log('target\n', event.target);
@@ -669,11 +724,16 @@ class CRUDView extends Component {
   // )
 
   getSummary = ( item, isList, index, ) => {
+    const ready = item; if(!ready) return;
     const { handleToggle, } = this; // handleOpenUpdateDialog, handleOpenDeleteDialog,
     const { selectedIndex, } = this.state; // detail
     const { classes, actionable, } = this.props; // updatable, deletable,
     const { createdAt, } = item;
     // console.log('createdAt\n', createdAt);
+
+    const DEFAULT_ACTIONABLE_ICON = 'send';
+    const actionableIcon = ( actionable && actionable.icon ) || DEFAULT_ACTIONABLE_ICON;
+    
     return (
         <ListItem
           button
@@ -701,7 +761,7 @@ class CRUDView extends Component {
               // Not using this for two reasons:
               // 1. Does not yet provide selectedIndex to state
               // 2. Horizontal space constraint on narrow screens
-              // <UDButtons
+              // <CRUDButtons
               //   updatable={updatable}
               //   deletable={deletable}
               //   onUpdate={handleOpenUpdateDialog}
@@ -718,7 +778,11 @@ class CRUDView extends Component {
             (
               actionable &&
               <Zoom in mountOnEnter unmountOnExit>
-                <Fab size="small" color="primary" className={classes.margin}><Icon>send</Icon></Fab>
+                <Tooltip TransitionComponent={Zoom} placement="left" title={actionable && actionable.label}>
+                  <Fab size="small" color="primary" className={classes.margin}>
+                    <Icon>{actionableIcon}</Icon>
+                  </Fab>
+                </Tooltip>
               </Zoom>
             )
             }
@@ -865,7 +929,7 @@ class CRUDView extends Component {
       //   enter={{ animation: 'transition.slideLeftIn' }}
       //   leave={{ animation: 'transition.slideLeftOut' }}
       // >
-        <Paper className={classNames(classes.paper, "z-0")}>
+        <Paper className={classNames(classes.paper, "z-0",)}>
           <List className="m-0 p-0" component="nav"> {/* subheader={<ListSubheader className="text-left">Detail</ListSubheader>} */}
             <FuseAnimateGroup
               delay={500}
@@ -902,7 +966,7 @@ class CRUDView extends Component {
     const limit = items.length - 2;
     // console.log('limit\n', limit);
     return (
-      <ButtonsRow
+      <DetailButtonsRow
         limit={limit}
         selectedIndex={selectedIndex}
         deletable={deletable}
@@ -935,7 +999,7 @@ class CRUDView extends Component {
           detail
           ?
           <React.Fragment>
-            <Paper className={classNames(classes.paper, "z-0")}>
+            <Paper className={classNames(classes.paper, "z-0",)}>
               {
               // getHeader()
               getNavButtons()
@@ -955,43 +1019,124 @@ class CRUDView extends Component {
   }
 
   getListPane = () => {
-    const { classes, items, creatable, } = this.props;
-    const { getSummary, handleOpenCreateDialog, } = this; // getHeader,
+    const {
+      classes, items, onNext, hasMore,
+      creatable, searchable, filterable, sortable,
+    } = this.props;
+    const { panelIsExpanded, searchField, } = this.state;
+    const {
+      getSummary,
+      handleOpenSearch, handleOpenFilter, handleOpenSort,
+      handleOpenCreateDialog, handleResetSearchField, handleChangeSearchField,
+    } = this; // getHeader,
     // console.log('items\n', items);
     return (
       <React.Fragment>
-        {(
-        // getHeader()
-        creatable &&
-          (
+        <div className="w-full">
+          {
+            // // getHeader()
+            // creatable &&
+            //   (
+            //   <Zoom in mountOnEnter unmountOnExit>
+            //     <CreateButton onClick={handleOpenCreateDialog} />
+            //   </Zoom>
+            //   )
+          }
           <Zoom in mountOnEnter unmountOnExit>
-            <CreateButton onClick={handleOpenCreateDialog} />
+            <ListButtonsRow
+              creatable={creatable}
+              searchable={searchable}
+              filterable={filterable}
+              sortable={sortable}
+              onClickCreate={handleOpenCreateDialog}
+              onClickSearch={handleOpenSearch}
+              onClickFilter={handleOpenFilter}
+              onClickSort={handleOpenSort}
+              // onResetExpansionPanel={handleResetSearchField}
+            />
           </Zoom>
-          )
-        )}
+        </div>
+
+        <ExpansionPanel
+          expanded={panelIsExpanded}
+          // onChange={handleChange('panel1')}
+        >
+          {
+          // <ExpansionPanelSummary></ExpansionPanelSummary>
+          // <ExpansionPanelDetails></ExpansionPanelDetails>
+          }
+          <div className="flex align-middle" title="Enter a keyword...">
+            <TextField
+              className="flex-1"
+              fullWidth
+              variant="outlined"
+              label="Search"
+              placeholder="Enter a keyword..."
+              onChange={handleChangeSearchField}
+              value={searchField}
+              InputProps={{
+                // startAdornment: (
+                //   <InputAdornment position="start">
+                //     <Icon>search</Icon>
+                //   </InputAdornment>
+                // ),
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <Icon className="mr-32">search</Icon>
+                    <IconButton
+                      title="Clear"
+                      onClick={handleResetSearchField}
+                    >
+                      <Icon>clear</Icon>
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}        
+            />
+          </div>
+        </ExpansionPanel>
+        
         <Paper className={classNames(classes.paper, "z-10",)}>
           <List className="m-0 p-0" component="nav">
             {
               // subheader={<ListSubheader className="text-left">Items</ListSubheader>}
             }
-            <FuseAnimateGroup
-              delay={500}
-              enter={{ animation: "transition.slideUpBigIn" }}
-              leave={{ animation: "transition.slideLeftOut" }}
-            >
-              {
-                items && items.map( ( item, index, ) =>
-                  <Tooltip key={item.createdAt} TransitionComponent={Zoom} placement="top" title="Click for detail">
-                    <div
-                      // className="border-b" // use divider instead
-                    >
-                      { getSummary( item, true, index, ) }
-                      <Divider />
-                    </div>
-                  </Tooltip>
-                )
+            <InfiniteScroll
+              dataLength={items.length}
+              next={onNext} // event
+              hasMore={hasMore} // boolean
+              loader={
+                // {<h4>Loading...</h4>}
+                <div className='ml-8'>
+                  <CircularProgress className={classes.progress} color="secondary" />
+                </div>
               }
-            </FuseAnimateGroup>
+              height={window.innerHeight - 128 - 28} // {800} {400}
+              endMessage={
+                <div className="text-center p-16">
+                  End of list
+                </div>
+              }
+            >
+              <FuseAnimateGroup
+                delay={500}
+                enter={{ animation: "transition.slideUpBigIn" }}
+                leave={{ animation: "transition.slideLeftOut" }}
+              >
+                {
+                  items && items.map( ( item, index, ) =>
+                    <Tooltip key={item && item.createdAt} TransitionComponent={Zoom} placement="top" title="Click for detail">
+                      <div
+                        // className="border-b" // use divider instead
+                      >
+                        { getSummary( item, true, index, ) }
+                        <Divider />
+                      </div>
+                    </Tooltip>
+                  )
+                }
+              </FuseAnimateGroup>
+            </InfiniteScroll>
           </List>
         </Paper>
       </React.Fragment>
@@ -1010,7 +1155,7 @@ class CRUDView extends Component {
     return (
       // <FuseScrollbars className="overflow-auto">
       <div className={classes.root}>
-        
+
         {/* to update the dashboard after a CRUD task */}
         <FetchUserData path="dashboard" uid={uid} onChange={handleChangeUserData} />
 
@@ -1025,11 +1170,23 @@ class CRUDView extends Component {
             <div className={classes.wrapper}>
               {/* mobile */}
               <Hidden smUp>{detail ? getDetailPane() : getListPane()}</Hidden>
+              {
+                // <Hidden smUp>
+                //   {
+                //     detail
+                //     ?
+                //     getDetailPane()
+                //     :
+                //     <CRUDList />
+                //   }
+                // </Hidden>
+              }
               {/* laptop */}
               <Hidden xsDown>
                 <div className={classNames(classes.root,)}>
                   <Grid container spacing={16}>
                     <Grid item xs={12} sm={6}>{getListPane()}</Grid>
+                    {/* <Grid item xs={12} sm={6}><CRUDList /></Grid> */}
                     <Grid item xs={6}>{getDetailPane()}</Grid>
                   </Grid>
                 </div>
@@ -1054,7 +1211,21 @@ CRUDView.propTypes = {
   items: PropTypes.array.isRequired,
 
   condensed: PropTypes.bool, // one-line per list item in detail pane
-  actionable: PropTypes.func,
+  
+  searchable: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
+  ]),
+  sortable: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
+  ]),
+  filterable: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
+  ]),
+
+  actionable: PropTypes.object,
   creatable: PropTypes.oneOfType([ // create button in list pane
     PropTypes.object,
     PropTypes.bool,
@@ -1072,6 +1243,9 @@ CRUDView.propTypes = {
 
 CRUDView.defaultProps = {
   condensed: false,
+  searchable: false,
+  sortable: false,
+  filterable: false,
   // actionable: false,
   creatable: false,
   // readable: false,
