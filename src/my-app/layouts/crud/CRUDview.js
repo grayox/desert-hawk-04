@@ -323,11 +323,11 @@ class CRUDView extends Component {
   render() {
     const { classes, items, profile, creatable, } = this.props;
     const { uid, } = profile;
-    const { detail, } = this.state;
+    const { detail, deleteDialogIsOpen, } = this.state;
     const {
       getListPane, getDetailPane,
       getCreateDialog, getUpdateDialog, getDeleteDialog,
-      handleChangeUserData, handleOpenCreateDialog,
+      handleCloseDialog, handleDeleteItem, handleChangeUserData, handleOpenCreateDialog,
     } = this;
 
     const getMobileContent = () => (
@@ -354,7 +354,13 @@ class CRUDView extends Component {
         <FetchUserData path="dashboard" uid={uid} onChange={handleChangeUserData} />
         <CreateDialog /> {/* { getCreateDialog() } */}        
         <UpdateDialog /> {/* { getUpdateDialog() } */}
-        <DeleteDialog /> {/* { getDeleteDialog() } */}
+        {/* { getDeleteDialog() } */}
+        <DeleteDialog
+          isOpen={deleteDialogIsOpen}
+          onCancel={handleCloseDialog}
+          onDelete={handleDeleteItem}
+          onClose={handleCloseDialog}
+        />
         <div className={classes.wrapper}>
           <Hidden smUp>{getMobileContent()}</Hidden>   {/* mobile */}
           <Hidden xsDown>{getLaptopContent()}</Hidden> {/* laptop */}

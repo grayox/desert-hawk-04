@@ -1,7 +1,6 @@
 import React, { Component, } from 'react';
 import {
-  Paper, Tooltip, Zoom, InputAdornment,
-  Fab, Icon, IconButton, TextField,
+  Paper, Tooltip, Zoom, Fab, Icon, IconButton, TextField,
 } from '@material-ui/core'; // withStyles, Button,
 
 import SortFilterMenu from './SortFilterMenu';

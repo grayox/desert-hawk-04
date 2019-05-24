@@ -20,14 +20,14 @@ const CreateDialog = ({
   // console.log('props\n', this.props);
   // const { getFormFields, } = this;
   const ready1 = createDialogIsOpen && creatable;
-  if(!ready1) return;
+  if(!ready1) return null;
   
   const { title, fields, } = creatable; // form,
 
   const ready2 = title && fields;
-  if(!ready2) return;
+  if(!ready2) return null;
   const ready3 = onChangeForm && onCloseDialog && onCreateItem;
-  if(!ready3) return;
+  if(!ready3) return null;
 
   const name = findFormField( crudForm, 'name', );
   // console.log('name\n', name,);
@@ -110,13 +110,15 @@ const UpdateDialog = ({
 }) => {
   // console.log('props\n', this.props);
   // console.log('state\n', this.state);
-  const { title, fields, } = updatable;
   const ready1 = updateDialogIsOpen && updatable && detail;
-  if(!ready1) return;
+  if(!ready1) return null;
+
+  const { title, fields, } = updatable;
+
   const ready2 = title && fields;
-  if(!ready2) return;
+  if(!ready2) return null;
   const ready3 = onChangeForm && onCloseDialog && onUpdateItem;
-  if(!ready3) return;
+  if(!ready3) return null;
 
   // const updateFormFields = getFormFields( 'loadSavedData', fields, );
   // console.log('crudForm\n', crudForm); // undefined on load, then array of objects // debugger;
@@ -164,11 +166,10 @@ const UpdateDialog = ({
 }
 
 // getDeleteDialog = () => (
-const DeleteDialog = () => (
-  this.props.deletable &&
+const DeleteDialog = ({ isOpen, onCancel, onDelete, onClose, }) => (
   <Dialog
-    open={this.state.deleteDialogIsOpen}
-    onClose={this.handleCloseDialog}
+    open={isOpen}
+    onClose={onClose}
     aria-labelledby="form-dialog-title"
     TransitionComponent={Transition} // https://material-ui.com/demos/dialogs/#alerts
     // keepMounted
@@ -189,10 +190,10 @@ const DeleteDialog = () => (
       }
     </DialogContent>
     <DialogActions>
-      <Button onClick={this.handleCloseDialog} color="primary">
+      <Button onClick={onCancel} color="primary">
         Cancel
       </Button>
-      <Button onClick={this.handleDeleteItem} color="primary">
+      <Button onClick={onDelete} color="primary">
         Delete
       </Button>
     </DialogActions>
