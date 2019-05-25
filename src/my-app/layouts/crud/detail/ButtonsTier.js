@@ -19,7 +19,7 @@ const ButtonsTier = ({ limit, selectedIndex, deletable, updatable, onToggle, onD
     <div className="flex mx-8">
       {
         config.map( item => item.conditional && (
-          <Tooltip TransitionComponent={Zoom} title={item.title}>
+          <Tooltip key={item.title} TransitionComponent={Zoom} title={item.title}>
             <span className="flex-1 text-center mt-8">
               <IconButton onClick={item.handleClick} disabled={item.disabled}>
                 <Icon>{item.icon}</Icon>
@@ -33,14 +33,24 @@ const ButtonsTier = ({ limit, selectedIndex, deletable, updatable, onToggle, onD
 }
 
 ButtonsTier.propTypes = {
-  updatable: PropTypes.bool,
-  deletable: PropTypes.bool,
+  limit: PropTypes.number.isRequired,
+  selectedIndex: PropTypes.number.isRequired,
+  onToggle: PropTypes.func.isRequired,
+  onNavBack: PropTypes.func.isRequired,
+  onNavNext: PropTypes.func.isRequired,
   onDelete: PropTypes.func,
   onUpdate: PropTypes.func,
-  // limit, selectedIndex, deletable, updatable, onToggle, onNavBack, onNavNext,
+  
+  updatable: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
+  ]),
+  deletable: PropTypes.bool,
 };
 
+
 ButtonsTier.defaultProps = {
+  actionable: false,
   deletable: false,
   updatable: false,
 };

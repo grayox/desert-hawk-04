@@ -340,6 +340,7 @@ export const componentsNavConfig = [
       condensed: true,
       searchable: true,
       sortable: true,
+      starrable: true,
       filterable: true,
       actionable : {
         icon: 'send', // 'outlined_flag',
@@ -388,6 +389,7 @@ export const componentsNavConfig = [
       condensed: true,
       searchable: true,
       sortable: true,
+      starrable: true,
       filterable: true,
       actionable : {
         icon: 'report',
@@ -440,6 +442,7 @@ export const componentsNavConfig = [
       condensed: true,
       searchable: true,
       sortable: true,
+      starrable: true,
       filterable: true,
       actionable : {
         icon: 'send',
@@ -507,6 +510,7 @@ export const componentsNavConfig = [
       condensed: true,
       searchable: true,
       sortable: true,
+      starrable: true,
       filterable: true,
       actionable : {
         icon: 'send',

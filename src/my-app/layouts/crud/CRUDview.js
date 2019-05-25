@@ -309,11 +309,15 @@ class CRUDView extends Component {
   }
 
   render() {
-    const { detail, deleteDialogIsOpen, } = this.state;
-    const { classes, items, profile, creatable, } = this.props;
+    const { detail, deleteDialogIsOpen, selectedIndex, } = this.state;
+    const {
+      classes, items, profile, creatable, updatable, deletable,
+      actionable, searchable, sortable, filterable, starrable,
+    } = this.props;
     const {
       handleOpenCreateDialog, handleCloseDialog, handleDeleteItem, handleChangeUserData,
       handleToggle, handleOpenSearch, handleOpenFilter, handleOpenSort,
+      handleOpenUpdateDialog, handleOpenDeleteDialog, handleNavBack, handleNavNext,
     } = this;
 
     const ready1 = !!profile;
@@ -342,11 +346,11 @@ class CRUDView extends Component {
         items={items}
         onNext
         hasMore
-        creatable
-        searchable
-        filterable
-        sortable
-        starrable
+        creatable={creatable}
+        searchable={searchable}
+        filterable={filterable}
+        sortable={sortable}
+        starrable={starrable}
         onToggle={handleToggle}
         onOpenSearch={handleOpenSearch}
         onOpenFilter={handleOpenFilter}
@@ -356,6 +360,17 @@ class CRUDView extends Component {
     const getDetailPane = () =>
       <DetailPane
         detail={detail}
+        itemsLength={items.length}
+        selectedIndex={selectedIndex}
+        updatable={updatable}
+        deletable={deletable}
+        actionable={actionable}
+        starrable={starrable}
+        onToggle={handleToggle}
+        onUpdate={handleOpenUpdateDialog}
+        onDelete={handleOpenDeleteDialog}
+        onNavBack={handleNavBack}
+        onNavNext={handleNavNext}
       />    
 
     const getMobileContent = () => detail ? getDetailPane() : getListPane()
@@ -413,7 +428,10 @@ CRUDView.propTypes = {
     PropTypes.bool,
   ]),
 
-  actionable: PropTypes.object,
+  actionable: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
+  ]),
   creatable: PropTypes.oneOfType([ // create button in list pane
     PropTypes.object,
     PropTypes.bool,
@@ -434,6 +452,7 @@ CRUDView.defaultProps = {
   searchable: false,
   sortable: false,
   filterable: false,
+  starrable: false,
   // actionable: false,
   creatable: false,
   // readable: false,

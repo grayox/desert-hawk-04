@@ -87,9 +87,12 @@ const getSecondaryAction = (classes, side, starrable, starred, onClickStar, acti
 
 // getSummary = ( item, isList, index, ) => {
 const ItemSummary = ({
-    classes, actionable, starrable, starred, item, side, index, selectedIndex, onClickStar, onToggle,
-  }) => {
-  const ready = item; if(!ready) return;
+  classes, actionable, starrable, starred, item, side, index, selectedIndex, onClickStar, onToggle,
+}) => {
+
+  const ready1 = item;
+  if(!ready1) return null;
+
   const { createdAt, } = item;
   // console.log('createdAt\n', createdAt);
 

@@ -3,6 +3,7 @@ import {
   Paper, Tooltip, Zoom, Fab, Icon, IconButton, TextField,
 } from '@material-ui/core'; // withStyles, Button,
 
+import hash from 'object-hash'; // https://www.npmjs.com/package/object-hash
 import SortFilterMenu from './SortFilterMenu';
 import ShieldsIo from 'my-app/components/ShieldsIo';
 
@@ -175,8 +176,8 @@ class ButtonsTier extends Component {
         </div>
         <div className="w-full">
           {
-            configShields.map( item => (
-              <span className="ml-4">
+            configShields.map( (item, index,) => (
+              <span key={hash([item, index,])} className="ml-4">
                 <ShieldsIo label={item.label} message={item.message} color={item.color}/>
               </span>
             ))

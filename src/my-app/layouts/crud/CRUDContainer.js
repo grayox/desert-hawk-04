@@ -154,7 +154,7 @@ class CRUDContainer extends Component {
     const { handleLoad, handleFetchMoreData, } = this;
     const { isLoading, isError, items, hasMore, } = this.state;
     const {
-      classes, condensed, searchable, sortable, filterable,
+      classes, condensed, searchable, sortable, filterable, starrable,
       actionable, creatable, readable, updatable, deletable,
     } = this.props;
     
@@ -189,6 +189,7 @@ class CRUDContainer extends Component {
               searchable={searchable}
               sortable={sortable}
               filterable={filterable}
+              starrable={starrable}
               actionable={actionable}
               creatable={creatable}
               readable={readable}

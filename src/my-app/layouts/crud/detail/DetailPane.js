@@ -215,19 +215,20 @@ const getDetail = ({ classes, condensed, creatable, getDetailListItem, }) => {
   )
 }
 
-const getNavButtons = (
-  handleNavBack, handleNavNext, handleToggle,
-  handleOpenUpdateDialog, handleOpenDeleteDialog,
-  selectedIndex, items, updatable, deletable, 
+const getButtonsTier = (
+  itemsLength, selectedIndex, updatable, deletable, actionable, starrable,
+  handleToggle, handleOpenUpdateDialog, handleOpenDeleteDialog, handleNavBack, handleNavNext,
 ) => {
-  const limit = items.length - 2;
+  const limit = itemsLength - 2;
   // console.log('limit\n', limit);
   return (
     <ButtonsTier
       limit={limit}
       selectedIndex={selectedIndex}
-      deletable={deletable}
       updatable={updatable}
+      deletable={deletable}
+      actionable={actionable}
+      starrable={starrable}
       onToggle={handleToggle}
       onUpdate={handleOpenUpdateDialog}
       onDelete={handleOpenDeleteDialog}
@@ -237,7 +238,11 @@ const getNavButtons = (
   );
 }
 
-const DetailPane = ({ classes, detail, }) =>
+const DetailPane = ({
+  classes, detail, itemsLength, selectedIndex,
+  updatable, deletable, actionable, starrable,
+  onToggle, onUpdate, onDelete, onNavBack, onNavNext,
+}) =>
 // getDetailPane = () => {
   // console.log('detail\n', detail);
   // console.log('state\n', this.state);
@@ -255,10 +260,10 @@ const DetailPane = ({ classes, detail, }) =>
         ?
         <React.Fragment>
           <Paper className={classNames(classes.paper, "z-0",)}>
-            {
-            // getHeader()
-            getNavButtons()
-            }
+            {getButtonsTier(
+              itemsLength, selectedIndex, updatable, deletable, actionable, starrable,
+              onToggle, onUpdate, onDelete, onNavBack, onNavNext,
+            )}
             <List component="nav">
               {/* {getSummary(detail, false,)} */}
               <ItemSummary side="detail" detail={detail} />
