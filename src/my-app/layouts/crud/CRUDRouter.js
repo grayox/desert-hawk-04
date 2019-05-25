@@ -8,7 +8,9 @@ const Child = ({ match: { params: { id }}}) => {
   const matches = componentsNavConfig.filter(r => (r.id === id));
   const item = matches[0];
   const config = item.crudConfig;
-  const { condensed, actionable, creatable, readable, updatable, deletable, } = config;
+  const {
+    condensed, actionable, creatable, readable, updatable, deletable, searchable, filterable, sortable, starrable,
+  } = config;
   return (
     // <div>{id}</div>
     <CRUDContainer
@@ -19,6 +21,10 @@ const Child = ({ match: { params: { id }}}) => {
       readable={readable}
       updatable={updatable}
       deletable={deletable}
+      searchable={searchable}
+      filterable={filterable}
+      sortable={sortable}
+      starrable={starrable}
     />
   )
 };
