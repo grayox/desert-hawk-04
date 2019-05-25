@@ -79,13 +79,12 @@ const ListPane = ({
                     >
                       {/* { getSummary( item, true, index, ) } */}
                       <ItemSummary
-                        item={item}
                         side="list"
+                        item={item}
                         index={index}
                         onToggle={onToggle}
                         selectedIndex={selectedIndex}
                         starrable={starrable}
-                        starred={item.starred}
                         onClickStar={onClickStar}
                         // actionable={actionable} // not needed on list side
                       />

@@ -332,7 +332,7 @@ class CRUDView extends Component {
     const { uid, } = profile;
 
     // console.log('items\n', items,);
-    console.log('detail\n', detail,);
+    // console.log('detail\n', detail,);
     
     const getFetchUserData = () => <FetchUserData path="dashboard" uid={uid} onChange={handleChangeUserData} />
     const getViewEmpty = () => <ViewEmpty side="list" onClick={handleOpenCreateDialog} creatable={creatable} />

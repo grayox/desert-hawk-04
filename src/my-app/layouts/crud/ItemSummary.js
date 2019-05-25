@@ -13,6 +13,8 @@ const styles = theme => ({
   },
 });
 
+const DEFAULT_ACTIONABLE_ICON = 'send';
+
 // getSummary = ( item, isList, index, ) => {
 const ItemSummary = ({
   classes, actionable, starrable, item, side, index, selectedIndex, onClickStar, onToggle,
@@ -23,25 +25,25 @@ const ItemSummary = ({
 
   const { createdAt, } = item;
   // console.log('createdAt\n', createdAt);
+  // console.log('starrable\n', starrable);
 
-  const DEFAULT_ACTIONABLE_ICON = 'send';
   const actionableIcon = ( actionable && actionable.icon ) || DEFAULT_ACTIONABLE_ICON;
 
-  const getStarSwitch = () =>
-    <Tooltip TransitionComponent={Zoom} placement="left" title="See detail">
-      <Switch
-        checked={item.starred}
-        onChange={onClickStar}
-        // value="checkedA"
-        icon={<Icon>star</Icon>}
-        checkedIcon={<Icon color="secondary">star_border</Icon>
-        // supported colors: 'inherit', 'primary', 'secondary', 'action', 'error', 'disabled'
-        }
-      />
-    </Tooltip>
+  const getStarSwitch = () => {
+    const { starred, } = item;
+    const icon = starred ? 'star' : 'star_border';
+    // supported colors: 'inherit', 'primary', 'secondary', 'action', 'error', 'disabled'
+    return (
+      <Tooltip TransitionComponent={Zoom} placement="left" title="See detail">
+        <IconButton onClick={onClickStar}>
+          <Icon color="secondary">{icon}</Icon>
+        </IconButton>
+      </Tooltip>
+    )
+  }
 
   const getListSide = () => (
-    <div>
+    <span>
       { starrable && getStarSwitch() }
       <Tooltip TransitionComponent={Zoom} placement="left" title="See detail">
         {
@@ -63,7 +65,7 @@ const ItemSummary = ({
           <Icon>more_horiz</Icon>
         </IconButton>
       </Tooltip>
-    </div>
+    </span>
   )
   
   const getDetailSide = () => (
@@ -88,13 +90,12 @@ const ItemSummary = ({
     // isList ? getListSide() : getDetailSide()
     switch(side) {
       case 'list':
-        getListSide();
-        break;
+        return getListSide();
       case 'detail':
-        getDetailSide();
-        break;
+        return getDetailSide();
       default:
         throw new Error('Missing required property: "side"');
+        return null;
     }
   }
   

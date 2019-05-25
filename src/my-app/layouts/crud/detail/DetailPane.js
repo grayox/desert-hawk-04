@@ -216,12 +216,11 @@ const getDetail = ({ classes, condensed, creatable, getDetailListItem, }) => {
 }
 
 const DetailPane = ({
-  classes, detail, itemsLength, selectedIndex,
-  updatable, deletable, actionable, starrable, onClickStar,
-  onToggle, onUpdate, onDelete, onNavBack, onNavNext,
+  classes, detail, itemsLength, selectedIndex, updatable, deletable, actionable, starrable,
+  onClickStar, onToggle, onUpdate, onDelete, onNavBack, onNavNext,
 }) => {
 
-  console.log('detail\n', detail,);
+  // console.log('detail\n', detail,);
 
   const getButtonsTier = () => {
     const limit = itemsLength - 2;
