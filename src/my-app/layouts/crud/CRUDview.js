@@ -330,6 +330,8 @@ class CRUDView extends Component {
       selectedIndex: Math.min(limit, newSelectedIndex),
       detail: items[newSelectedIndex],
     });
+    // fetch more data if we hit the last item
+    if(newSelectedIndex === limit) this.props.onNext();
   };
 
   handleToggle = ( detail, isList, selectedIndex, ) => {
@@ -386,14 +388,14 @@ class CRUDView extends Component {
     const getListPane = () =>
       <ListPane
         items={items}
-        onNext={onNext}
-        hasMore={hasMore}
         creatable={creatable}
         searchable={searchable}
         filterable={filterable}
         sortable={sortable}
         starrable={starrable}
         selectedIndex={selectedIndex}
+        hasMore={hasMore}
+        onNext={onNext}
         onClickStar={handleClickStar}
         onToggle={handleToggle}
         onOpenSearch={handleOpenSearch}
