@@ -308,10 +308,9 @@ class CRUDView extends Component {
     );
   }
 
-  handleClickStar = event => {
-    console.log('event\n', event,);
-    const value = event && event.target && event.target.value;
-    console.log('value\n', value,);
+  handleClickStar = ( index, starred, ) => {
+    console.log('index\n', index,);
+    console.log('starred\n', starred,);
   }
 
   render() {

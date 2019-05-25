@@ -3,7 +3,7 @@ import moment from 'moment';
 
 import HashAvatar from 'my-app/components/HashAvatar';
 import {
-  withStyles, Zoom, Fab, Switch, Tooltip, Icon, IconButton,
+  withStyles, Zoom, Fab, Tooltip, Icon, IconButton,
   ListItem, ListItemText, ListItemSecondaryAction,
 } from '@material-ui/core';
 
@@ -14,6 +14,7 @@ const styles = theme => ({
 });
 
 const DEFAULT_ACTIONABLE_ICON = 'send';
+const DEFAULT_STAR_COLOR = 'secondary'; // supported colors: 'inherit', 'primary', 'secondary', 'action', 'error', 'disabled'
 
 // getSummary = ( item, isList, index, ) => {
 const ItemSummary = ({
@@ -32,11 +33,10 @@ const ItemSummary = ({
   const getStarSwitch = () => {
     const { starred, } = item;
     const icon = starred ? 'star' : 'star_border';
-    // supported colors: 'inherit', 'primary', 'secondary', 'action', 'error', 'disabled'
     return (
       <Tooltip TransitionComponent={Zoom} placement="left" title="See detail">
-        <IconButton onClick={onClickStar}>
-          <Icon color="secondary">{icon}</Icon>
+        <IconButton onClick={() => onClickStar(index, starred,)}>
+          <Icon color={DEFAULT_STAR_COLOR}>{icon}</Icon>
         </IconButton>
       </Tooltip>
     )
