@@ -311,7 +311,7 @@ class CRUDView extends Component {
   render() {
     const { detail, deleteDialogIsOpen, selectedIndex, } = this.state;
     const {
-      classes, items, profile, creatable, updatable, deletable,
+      classes, items, profile, onNext, hasMore, creatable, updatable, deletable,
       actionable, searchable, sortable, filterable, starrable,
     } = this.props;
     const {
@@ -344,8 +344,8 @@ class CRUDView extends Component {
     const getListPane = () =>
       <ListPane
         items={items}
-        onNext
-        hasMore
+        onNext={onNext}
+        hasMore={hasMore}
         creatable={creatable}
         searchable={searchable}
         filterable={filterable}
