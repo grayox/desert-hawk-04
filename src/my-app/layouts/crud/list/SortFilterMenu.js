@@ -20,7 +20,7 @@ const options = [
   // 'Show all notification content',
   // 'Hide sensitive notification content',
   // 'Hide all notification content',
-  'Filter by', 'Starred', 'Unstarred', 'Challenged', 'Pending', 'Resolved', 'Won', 'Lost',
+  'Filter by', 'All', 'Starred', 'Unstarred', 'Challenged', 'Pending', 'Resolved', 'Won', 'Lost',
 ];
 
 const params = {

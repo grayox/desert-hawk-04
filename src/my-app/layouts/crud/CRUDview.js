@@ -322,6 +322,7 @@ class CRUDView extends Component {
   };
   
   handleNavNext = () => {
+    const BUFFER = 1;
     const { items, } = this.props;
     const { selectedIndex, } = this.state;
     const limit = items.length - 1;
@@ -331,7 +332,7 @@ class CRUDView extends Component {
       detail: items[newSelectedIndex],
     });
     // fetch more data if we hit the last item
-    if(newSelectedIndex === limit) this.props.onNext();
+    if(newSelectedIndex === (limit - BUFFER)) this.props.onNext();
   };
 
   handleToggle = ( detail, isList, selectedIndex, ) => {

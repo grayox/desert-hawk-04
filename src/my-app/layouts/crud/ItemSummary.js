@@ -31,6 +31,9 @@ const ItemSummary = ({
   const actionableIcon = ( actionable && actionable.icon ) || DEFAULT_ACTIONABLE_ICON;
 
   const getStarSwitch = () => {
+    const ready1 = item && starrable;
+    if(!ready1) return null;
+
     const { starred, } = item;
     const icon = starred ? 'star' : 'star_border';
     return (
