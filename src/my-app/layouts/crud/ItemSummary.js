@@ -34,7 +34,7 @@ const ItemSummary = ({
     const { starred, } = item;
     const icon = starred ? 'star' : 'star_border';
     return (
-      <Tooltip TransitionComponent={Zoom} placement="left" title="See detail">
+      <Tooltip TransitionComponent={Zoom} placement="left" title="Star item">
         <IconButton onClick={() => onClickStar(index, starred,)}>
           <Icon color={DEFAULT_STAR_COLOR}>{icon}</Icon>
         </IconButton>

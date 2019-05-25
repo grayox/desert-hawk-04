@@ -103,7 +103,15 @@ const styles = theme => ({
 //     }
 //   </ListItem>
 
-const getDetailListItem = ( label, value, condensed, ) => (
+const DetailPane = ({
+  classes, detail, condensed, itemsLength, selectedIndex,
+  creatable, updatable, deletable, actionable, starrable,
+  onClickStar, onToggle, onUpdate, onDelete, onNavBack, onNavNext, getFormFields,
+}) => {
+
+  // console.log('detail\n', detail,);
+
+  const getDetailListItem = ({ label, value, }) => (
 
     // Prevent React from throwing an error if the 'update' field is an object
     (
@@ -159,32 +167,32 @@ const getDetailListItem = ( label, value, condensed, ) => (
     </ListItem>
   )
 
-const getDetail = ({ classes, condensed, creatable, getDetailListItem, }) => {
-  // const MAX_LENGTH = 40;
-  // console.log('condensed\n', condensed);
-  
-  // const keys = Object.keys(item);
+  const getDetail = () => {
+    // const MAX_LENGTH = 40;
+    // console.log('condensed\n', condensed);
+    
+    // const keys = Object.keys(item);
 
-  // const dataFields = getForm(keys);
-  // console.log('dataFields\n', dataFields);
+    // const dataFields = getForm(keys);
+    // console.log('dataFields\n', dataFields);
 
-  const ready1 = creatable && creatable.fields;
-  if(!ready1) return null;
+    const ready1 = creatable && creatable.fields;
+    if(!ready1) return null;
 
-  const formFields = this.getFormFields('loadSavedData', creatable.fields,);
-  // console.log('formFields\n', formFields);
-  
-  return (
-    // <FuseAnimate
-    //   // className="px-0"
-    //   // key={row.name}
-    //   delay={200}
-    //   // animation="transition.slideLeftIn"
-    //   // enter={{ animation: 'transition.perspectiveLeft' }}
-    //   // leave={{ animation: 'transition.perspectiveRight' }}
-    //   enter={{ animation: 'transition.slideLeftIn' }}
-    //   leave={{ animation: 'transition.slideLeftOut' }}
-    // >
+    const formFields = getFormFields('loadSavedData', creatable.fields,);
+    // console.log('formFields\n', formFields);
+    
+    return (
+      // <FuseAnimate
+      //   // className="px-0"
+      //   // key={row.name}
+      //   delay={200}
+      //   // animation="transition.slideLeftIn"
+      //   // enter={{ animation: 'transition.perspectiveLeft' }}
+      //   // leave={{ animation: 'transition.perspectiveRight' }}
+      //   enter={{ animation: 'transition.slideLeftIn' }}
+      //   leave={{ animation: 'transition.slideLeftOut' }}
+      // >
       <Paper className={classNames(classes.paper, "z-0",)}>
         <List className="m-0 p-0" component="nav"> {/* subheader={<ListSubheader className="text-left">Detail</ListSubheader>} */}
           <FuseAnimateGroup
@@ -205,22 +213,15 @@ const getDetail = ({ classes, condensed, creatable, getDetailListItem, }) => {
               ?
               <SimpleExpansionPanel key={field.label} heading={field.label} content={field.value} />
               :
-              getDetailListItem( field.label, field.value, condensed, )
+              getDetailListItem(field)
             )
           }
           </FuseAnimateGroup>
         </List>
       </Paper>
-    // </FuseAnimate>
-  )
-}
-
-const DetailPane = ({
-  classes, detail, itemsLength, selectedIndex, updatable, deletable, actionable, starrable,
-  onClickStar, onToggle, onUpdate, onDelete, onNavBack, onNavNext,
-}) => {
-
-  // console.log('detail\n', detail,);
+      // </FuseAnimate>
+    )
+  }
 
   const getButtonsTier = () => {
     const limit = itemsLength - 2;
@@ -255,7 +256,7 @@ const DetailPane = ({
   const getContent = () =>
     <React.Fragment>
       {getHeader()}
-      {getDetail(detail)}
+      {getDetail()}
     </React.Fragment>
 
   // console.log('detail\n', detail);

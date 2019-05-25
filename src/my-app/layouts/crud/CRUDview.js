@@ -12,6 +12,7 @@ import FetchUserData from 'my-app/containers/FetchUserData';
 // @material-ui/core
 import { withStyles, withWidth, Grid, Hidden, CssBaseline, } from '@material-ui/core';
 
+import { getForm, } from 'my-app/config/AppConfig';
 import ListPane from './list/ListPane';
 import DetailPane from './detail/DetailPane';
 import ViewEmpty from './ViewEmpty';
@@ -86,6 +87,40 @@ class CRUDView extends Component {
   //     this.props.updateUserData('dashboard', newDashboard,);
   //   }
   // }
+
+  getFormFields = ( type, fields, ) => {
+    // type: string: enum: 'loadSavedData' | 'loadNewData'
+    // fields: arrayOFStrings: example: ['name*', 'phone*', 'email*', 'zip*', 'notes', ]
+    // console.log('type\n', type);
+    // console.log('fields\n', fields);
+    // console.log('state\n', this.state);
+
+    const ready = fields && typeof fields === 'object';
+    if(!ready) return;
+
+    const { detail, } = this.state;
+    // console.log('updateDialogIsOpen\n', updateDialogIsOpen);
+    // console.log('detail\n', detail);
+    const formFields = getForm(fields);
+    // console.log('formFields\n', formFields); // debugger;
+    formFields.forEach(field => {
+      switch(type) {
+        case 'loadNewData':
+          field.value = '';
+          break;
+        case 'loadSavedData':
+          field.value = detail && detail[field.id];
+          break;
+        default:
+          // throw new Error('Type must be one of: "loadSavedData" or "loadNewData"');
+          console.error('Type must be one of: "loadSavedData" or "loadNewData"');
+      }
+      // console.log(`field: ${field.id}\n`, field);
+    });
+    // console.log('formFields\n', formFields);
+    // console.log('state\n', this.state);
+    return formFields;
+  }
 
   handleChangeUserData = ( path, newData, ) => { // saveDataToFirestore, 
     // console.log('handleChangeUserData-path\n', path,)
@@ -169,7 +204,7 @@ class CRUDView extends Component {
     // console.log('value\n', value); // 'john doe'
     const { crudForm, } = { ...this.state, }; // use spread syntax to create and modify a copy only
     // console.log('crudForm\n', crudForm); // 'john doe'
-    const targetFieldIndex = crudForm.findIndex(field => field.id === id);
+    const targetFieldIndex = crudForm.findIndex( field => field.id === id);
     // console.log('targetFieldIndex\n', targetFieldIndex); // 'john doe'
     crudForm[targetFieldIndex].value = value;
     this.setState({ crudForm, }
@@ -209,7 +244,7 @@ class CRUDView extends Component {
     const newItem = {
       createdAt: crudFormTimestamp,
     };
-    crudForm.forEach(item => {
+    crudForm.forEach( item => {
       let newVal = item.value;
       if(newVal === undefined || newVal === null) return; // newVal = null; //
       newItem[item.id] = newVal;
@@ -311,18 +346,20 @@ class CRUDView extends Component {
   handleClickStar = ( index, starred, ) => {
     console.log('index\n', index,);
     console.log('starred\n', starred,);
+    // consider array membership
+    // ref: https://firebase.google.com/docs/firestore/query-data/queries#array_membership
   }
 
   render() {
     const { detail, deleteDialogIsOpen, selectedIndex, } = this.state;
     const {
-      classes, items, profile, onNext, hasMore, creatable, updatable, deletable,
-      actionable, searchable, sortable, filterable, starrable,
+      classes, items, profile, condensed, onNext, hasMore,
+      creatable, updatable, deletable, actionable, searchable, sortable, filterable, starrable,
     } = this.props;
     const {
       handleOpenCreateDialog, handleCloseDialog, handleDeleteItem, handleChangeUserData,
       handleClickStar, handleToggle, handleOpenSearch, handleOpenFilter, handleOpenSort,
-      handleOpenUpdateDialog, handleOpenDeleteDialog, handleNavBack, handleNavNext,
+      handleOpenUpdateDialog, handleOpenDeleteDialog, handleNavBack, handleNavNext, getFormFields,
     } = this;
 
     const ready1 = !!profile;
@@ -367,8 +404,10 @@ class CRUDView extends Component {
     const getDetailPane = () =>
       <DetailPane
         detail={detail}
+        condensed={condensed}
         itemsLength={items.length}
         selectedIndex={selectedIndex}
+        creatable={creatable}
         updatable={updatable}
         deletable={deletable}
         actionable={actionable}
@@ -379,6 +418,7 @@ class CRUDView extends Component {
         onDelete={handleOpenDeleteDialog}
         onNavBack={handleNavBack}
         onNavNext={handleNavNext}
+        getFormFields={getFormFields}
         // index={index} // never select summary on detail side
       />    
 
