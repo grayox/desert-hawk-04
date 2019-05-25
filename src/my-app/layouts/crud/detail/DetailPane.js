@@ -9,7 +9,7 @@ import { FuseAnimateGroup } from '@fuse'; // FuseScrollbars, FuseAnimate,
 
 import { uiSpecs, } from 'my-app/config/AppConfig'; // getCleanFieldNames,
 import SimpleExpansionPanel from 'my-app/components/SimpleExpansionPanel';
-import ButtonsTier from './ButtonsTier'; // CRUDButtons,
+import ButtonsTierDetail from './ButtonsTierDetail'; // CRUDButtons,
 import ViewEmpty from '../ViewEmpty';
 import ItemSummary from '../ItemSummary';
 
@@ -168,8 +168,8 @@ const getDetail = ({ classes, condensed, creatable, getDetailListItem, }) => {
   // const dataFields = getForm(keys);
   // console.log('dataFields\n', dataFields);
 
-  const ready = creatable && creatable.fields;
-  if(!ready) return;
+  const ready1 = creatable && creatable.fields;
+  if(!ready1) return null;
 
   const formFields = this.getFormFields('loadSavedData', creatable.fields,);
   // console.log('formFields\n', formFields);
@@ -215,38 +215,43 @@ const getDetail = ({ classes, condensed, creatable, getDetailListItem, }) => {
   )
 }
 
-const getButtonsTier = (
-  itemsLength, selectedIndex, updatable, deletable, actionable, starrable,
-  handleToggle, handleOpenUpdateDialog, handleOpenDeleteDialog, handleNavBack, handleNavNext,
-) => {
-  const limit = itemsLength - 2;
-  // console.log('limit\n', limit);
-  return (
-    <ButtonsTier
-      limit={limit}
-      selectedIndex={selectedIndex}
-      updatable={updatable}
-      deletable={deletable}
-      actionable={actionable}
-      starrable={starrable}
-      onToggle={handleToggle}
-      onUpdate={handleOpenUpdateDialog}
-      onDelete={handleOpenDeleteDialog}
-      onNavBack={handleNavBack}
-      onNavNext={handleNavNext}
-    />
-  );
-}
-
 const DetailPane = ({
   classes, detail, itemsLength, selectedIndex,
   updatable, deletable, actionable, starrable,
   onToggle, onUpdate, onDelete, onNavBack, onNavNext,
-}) =>
-// getDetailPane = () => {
+}) => {
+
+  console.log('detail\n', detail,);
+
+  const getButtonsTier = () => {
+    const limit = itemsLength - 2;
+    // console.log('limit\n', limit,);
+    return (
+      <ButtonsTierDetail
+        limit={limit} selectedIndex={selectedIndex}
+        actionable={actionable} starrable={starrable} updatable={updatable} deletable={deletable}
+        onToggle={onToggle} onUpdate={onUpdate} onDelete={onDelete} onNavBack={onNavBack} onNavNext={onNavNext}
+      />
+    );
+  }
+
+  const getHeader = () =>
+    <Paper className={classNames(classes.paper, "z-0",)}>
+      {getButtonsTier()}
+      <List component="nav">
+        {/* {getSummary(detail, false,)} */}
+        <ItemSummary side="detail" detail={detail} />
+      </List>
+    </Paper>
+
+  const getContent = () =>
+    <React.Fragment>
+      {getHeader()}
+      {getDetail(detail)}
+    </React.Fragment>
+
   // console.log('detail\n', detail);
-  // console.log('state\n', this.state);
-  (
+  return (
     <Slide // <Zoom // <Grow 
       in //={detail}
       direction="right"
@@ -254,29 +259,11 @@ const DetailPane = ({
       unmountOnExit
       // timeout={3000}
     >
-      <React.Fragment>
-        {
-        detail
-        ?
-        <React.Fragment>
-          <Paper className={classNames(classes.paper, "z-0",)}>
-            {getButtonsTier(
-              itemsLength, selectedIndex, updatable, deletable, actionable, starrable,
-              onToggle, onUpdate, onDelete, onNavBack, onNavNext,
-            )}
-            <List component="nav">
-              {/* {getSummary(detail, false,)} */}
-              <ItemSummary side="detail" detail={detail} />
-            </List>
-          </Paper>
-          {getDetail(detail)}
-        </React.Fragment>
-        :
-        <ViewEmpty side="detail" />
-        }
-      </React.Fragment>
+      { detail ? getContent() : <ViewEmpty side="detail" /> }
     </Slide> //</Grow> // </Zoom> // 
   )
+
+}
  
 // export default DetailPane;
 export default withStyles(styles)(DetailPane);
