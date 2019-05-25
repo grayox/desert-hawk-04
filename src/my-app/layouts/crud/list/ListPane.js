@@ -48,7 +48,7 @@ const ListPane = ({
       hasMore={hasMore} // boolean
       loader={
         // {<h4>Loading...</h4>}
-        <div className='ml-8'>
+        <div className='ml-24 mt-12'>
           <CircularProgress className={classes.progress} color="secondary" />
         </div>
       }
