@@ -308,6 +308,12 @@ class CRUDView extends Component {
     );
   }
 
+  handleClickStar = event => {
+    console.log('event\n', event,);
+    const value = event && event.target && event.target.value;
+    console.log('value\n', value,);
+  }
+
   render() {
     const { detail, deleteDialogIsOpen, selectedIndex, } = this.state;
     const {
@@ -316,7 +322,7 @@ class CRUDView extends Component {
     } = this.props;
     const {
       handleOpenCreateDialog, handleCloseDialog, handleDeleteItem, handleChangeUserData,
-      handleToggle, handleOpenSearch, handleOpenFilter, handleOpenSort,
+      handleClickStar, handleToggle, handleOpenSearch, handleOpenFilter, handleOpenSort,
       handleOpenUpdateDialog, handleOpenDeleteDialog, handleNavBack, handleNavNext,
     } = this;
 
@@ -351,6 +357,8 @@ class CRUDView extends Component {
         filterable={filterable}
         sortable={sortable}
         starrable={starrable}
+        selectedIndex={selectedIndex}
+        onClickStar={handleClickStar}
         onToggle={handleToggle}
         onOpenSearch={handleOpenSearch}
         onOpenFilter={handleOpenFilter}
@@ -366,11 +374,13 @@ class CRUDView extends Component {
         deletable={deletable}
         actionable={actionable}
         starrable={starrable}
+        onClickStar={handleClickStar}
         onToggle={handleToggle}
         onUpdate={handleOpenUpdateDialog}
         onDelete={handleOpenDeleteDialog}
         onNavBack={handleNavBack}
         onNavNext={handleNavNext}
+        // index={index} // never select summary on detail side
       />    
 
     const getMobileContent = () => detail ? getDetailPane() : getListPane()

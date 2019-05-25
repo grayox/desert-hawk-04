@@ -4,6 +4,7 @@ import { FuseAnimateGroup } from '@fuse'; // FuseScrollbars, FuseAnimate,
 
 import { withStyles, Zoom, Paper, Tooltip, Divider, List, CircularProgress, } from '@material-ui/core';
 
+import hash from 'object-hash'; // https://www.npmjs.com/package/object-hash
 import ButtonsTierList from './ButtonsTierList'; // CRUDButtons,
 import InfiniteScroll from 'react-infinite-scroll-component';
 import ItemSummary from '../ItemSummary';
@@ -17,8 +18,8 @@ const styles = theme => ({
 });
 
 const ListPane = ({
-  classes, items, hasMore, creatable, searchable, filterable, sortable,
-  onNext, onToggle, onOpenSearch, onOpenFilter, onOpenSort, onOpenCreateDialog,
+  classes, items, hasMore, creatable, searchable, filterable, sortable, starrable, selectedIndex,
+  onClickStar, onNext, onToggle, onOpenSearch, onOpenFilter, onOpenSort, onOpenCreateDialog,
 }) => {
   const ready1 = items && items.length;
   if(!ready1) return null;
@@ -69,12 +70,25 @@ const ListPane = ({
             >
               {
                 items && items.map( ( item, index, ) =>
-                  <Tooltip key={item && item.createdAt} TransitionComponent={Zoom} placement="top" title="Click for detail">
+                  <Tooltip
+                    key={hash([item, (item && item.createdAt),])}
+                    TransitionComponent={Zoom} placement="top" title="Click for detail"
+                  >
                     <div
                       // className="border-b" // use divider instead
                     >
                       {/* { getSummary( item, true, index, ) } */}
-                      <ItemSummary item={item} side="list" index={index} onToggle={onToggle} />
+                      <ItemSummary
+                        item={item}
+                        side="list"
+                        index={index}
+                        onToggle={onToggle}
+                        selectedIndex={selectedIndex}
+                        starrable={starrable}
+                        starred={item.starred}
+                        onClickStar={onClickStar}
+                        // actionable={actionable} // not needed on list side
+                      />
                       <Divider />
                     </div>
                   </Tooltip>

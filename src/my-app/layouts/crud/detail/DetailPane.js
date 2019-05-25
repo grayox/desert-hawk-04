@@ -217,7 +217,7 @@ const getDetail = ({ classes, condensed, creatable, getDetailListItem, }) => {
 
 const DetailPane = ({
   classes, detail, itemsLength, selectedIndex,
-  updatable, deletable, actionable, starrable,
+  updatable, deletable, actionable, starrable, onClickStar,
   onToggle, onUpdate, onDelete, onNavBack, onNavNext,
 }) => {
 
@@ -240,7 +240,16 @@ const DetailPane = ({
       {getButtonsTier()}
       <List component="nav">
         {/* {getSummary(detail, false,)} */}
-        <ItemSummary side="detail" detail={detail} />
+        <ItemSummary
+          side="detail"
+          item={detail}
+          actionable={actionable}
+          starrable={starrable}
+          selectedIndex={selectedIndex}
+          onToggle={onToggle}
+          onClickStar={onClickStar}
+          // index={index} // never select summary on detail side
+        />
       </List>
     </Paper>
 
