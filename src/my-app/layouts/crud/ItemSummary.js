@@ -107,10 +107,12 @@ const ItemSummary = ({
       onClick={() => onToggle( item, side, index, )}
       selected={index && (selectedIndex === index)}
     >
-      <HashAvatar
-        message={createdAt}
-        // variant="uic" //"robohashx" //"robohash4" //"retro" //"monsterid" //"wavatar" //"adorable" //"identicon" //"mp" //"ui" //"random"(deprecated)
-      />
+      <Zoom key={index} in mountOnEnter unmountOnExit>
+        <HashAvatar
+          message={createdAt}
+          // variant="uic" //"robohashx" //"robohash4" //"retro" //"monsterid" //"wavatar" //"adorable" //"identicon" //"mp" //"ui" //"random"(deprecated)
+        />
+      </Zoom>
       <ListItemText primary={item.geoLocal} secondary={moment(createdAt).fromNow()} />
       <ListItemSecondaryAction>{getSecondaryAction()}</ListItemSecondaryAction>
     </ListItem>
