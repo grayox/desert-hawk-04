@@ -183,8 +183,10 @@ class CRUDView extends Component {
     this.setState({sortOrderIsDescending: !this.state.sortOrderIsDescending});
   }
   
-  handleDeleteShield = () => {
+  handleDeleteShield = ( item, index, ) => {
     // get id of clicked shield
+    console.log('item\n', item,);
+    console.log('index\n', index,);
     // get current array of shields
     // remove clicked shield
     // update state

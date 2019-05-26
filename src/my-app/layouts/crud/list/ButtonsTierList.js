@@ -3,25 +3,33 @@ import {
   Paper, Tooltip, Zoom, Chip, Button, Fab, Icon, IconButton, TextField,
 } from '@material-ui/core'; // withStyles,
 
-import hash from 'object-hash'; // https://www.npmjs.com/package/object-hash
+// import hash from 'object-hash'; // https://www.npmjs.com/package/object-hash
 import SortFilterMenu from './SortFilterMenu';
 // import ShieldsIo from 'my-app/components/ShieldsIo';
 
 const configShields = [
-  { icon: 'filter_list' , label : 'filter' , message : 'starred' , color : 'informational' , } ,
-  { icon: 'sort'        , label : 'sort'   , message : 'age'     , color : 'blueviolet'    , } ,
-  { icon: 'star'        , label : 'rating' , message : '3/5'     , color : 'brightgreen'   , } ,
+  { key: 0 , icon: 'filter_list' , label : 'filter' , message : 'starred' , color : 'informational' , } ,
+  { key: 1 , icon: 'sort'        , label : 'sort'   , message : 'age'     , color : 'blueviolet'    , } ,
+  { key: 2 , icon: 'star'        , label : 'rating' , message : '3/5'     , color : 'brightgreen'   , } ,
 ]
 
 const ButtonsTierList = ({
-  creatable, searchable, filterable, sortable, // props
-  searchString, filterBy, sortBy, sortOrderIsDescending, // state
+  // props
+  creatable, searchable, filterable, sortable,
+  // state
+  searchString, filterBy, sortBy, sortOrderIsDescending,
   // events
   onClickCreateButton, onChangeSearchString, onClickSearchButton, onClickFilterButton,
   onClickSortButton, onToggleSortOrder, onDeleteShield, onResetButtonsTierList,
 }) => {
 
   const type = ( searchable || filterable || sortable ) ? 'fab' : 'full';
+
+  const handleDeleteShield = (item, index,) => {
+    // console.log('item\n', item,);
+    // console.log('index\n', index,);
+    onDeleteShield(item, index,);
+  }
 
   const getCreateButton = () => {
     switch(type) {
@@ -150,13 +158,13 @@ const ButtonsTierList = ({
       <div className="w-full">
         {
           configShields.map( (item, index,) => (
-            <span key={hash([item, index,])} className="ml-4">
+            <span key={item.key} className="ml-4">
               {/* <ShieldsIo label={item.label} message={item.message} color={item.color}/> */}
               <Chip
                 className="ml-4 my-4"
                 icon={<Icon>{item.icon}</Icon>}
                 label={item.message}
-                onDelete={onDeleteShield}
+                onDelete={() => handleDeleteShield(item, index,)}
                 // onClick={handleClick}
                 // color="secondary"
                 // deleteIcon={<Icon>done</Icon>}
