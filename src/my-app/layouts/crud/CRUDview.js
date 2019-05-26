@@ -40,6 +40,25 @@ const styles = theme => ({
   },
 });
 
+const STATE_OPEN_CREATE_DIALOG = {
+  createDialogIsOpen : true       ,
+  updateDialogIsOpen : false      ,
+  deleteDialogIsOpen : false      ,
+  crudFormTimestamp  : Date.now() ,
+}
+
+const STATE_OPEN_UPDATE_DIALOG = {
+  createDialogIsOpen : false ,
+  updateDialogIsOpen : true  ,
+  deleteDialogIsOpen : false ,
+}
+
+const STATE_OPEN_DELETE_DIALOG = {
+  createDialogIsOpen : false ,
+  updateDialogIsOpen : false ,
+  deleteDialogIsOpen : true  ,
+}
+
 const INITIAL_STATE_DIALOG = {
   createDialogIsOpen : false     ,
   updateDialogIsOpen : false     ,
@@ -53,17 +72,18 @@ const INITIAL_STATE_DETAIL = {
   selectedIndex : undefined ,
 }
 
-const INITIAL_STATE_EXPANSION = {
-  panelIsExpanded : false ,
-  searchField     : ''    ,
-  filterField     : ''    ,
-  sortField       : ''    ,
+const INITIAL_STATE_BUTTONS_TIER_LIST = {
+  // searchFieldIsOpen     : false     ,
+  searchString          : ''        ,
+  filterBy              : undefined ,
+  sortBy                : undefined ,
+  sortOrderIsDescending : true      ,
 }
 
 const INITIAL_STATE = {
   ...INITIAL_STATE_DETAIL,
   ...INITIAL_STATE_DIALOG,
-  ...INITIAL_STATE_EXPANSION,
+  ...INITIAL_STATE_BUTTONS_TIER_LIST,
 }
 
 
@@ -134,68 +154,39 @@ class CRUDView extends Component {
     // }
   }
 
-  handleOpenCreateDialog = () => {
-    this.setState({
-      createDialogIsOpen : true       ,
-      updateDialogIsOpen : false      ,
-      deleteDialogIsOpen : false      ,
-      crudFormTimestamp  : Date.now() ,
-    });
-  };
+  handleOpenUpdateDialog  = () => this.setState(STATE_OPEN_UPDATE_DIALOG);
+  handleOpenDeleteDialog  = () => this.setState(STATE_OPEN_DELETE_DIALOG);
+  handleClickCreateButton = () => this.setState(STATE_OPEN_CREATE_DIALOG);
 
-  handleOpenUpdateDialog = () => {
-    // console.log('detail\n', this.state.detail);
-    this.setState({
-      createDialogIsOpen : false ,
-      updateDialogIsOpen : true  ,
-      deleteDialogIsOpen : false ,
-    });
-  };
+  // begin buttons tier list
 
-  handleOpenDeleteDialog = () => {
-    this.setState({
-      createDialogIsOpen : false ,
-      updateDialogIsOpen : false ,
-      deleteDialogIsOpen : true  ,
-    });
-  };
+  handleChangeSearchString = event => {
+    const searchString = event && event.target && event.target.value;
+    this.setState({ searchString, });
+  }
 
-  // handleResetExpansionPanel = () => {
-  //   // alert('You RESET the EXPANSION PANEL');
-  //   // console.log('You RESET the EXPANSION PANEL');
-  //   this.setState(INITIAL_STATE_EXPANSION);
-  // }
+  handleClickSearchButton = () => {
+    const { searchField, } = this.state;
+    console.log('searchField\n', searchField,);
+  }
 
-  // handleResetSearchField = () => {
-  //   // alert('You RESET the EXPANSION PANEL');
-  //   // console.log('You RESET the EXPANSION PANEL');
-  //   this.setState({
-  //     searchField: '',
-  //     panelIsExpanded: false,
-  //   });
-  // }
+  handleClickFilterButton = () => {
+    alert('You clicked the FILTER button');
+    console.log('You clicked the FILTER button');
+  }
 
-  // handleOpenSearch = () => {
-  //   // alert('You clicked the SEARCH button');
-  //   // console.log('You clicked the SEARCH button');
-  //   this.setState({ panelIsExpanded: true, })
-  // }
+  handleClickSortButton = () => {
+    alert('You clicked the SORT button');
+    console.log('You clicked the SORT button');
+  }
   
-  // handleChangeSearchField = event => {
-  //   const searchField = event.target.value;
-  //   // console.log('search field\n', searchField,);
-  //   this.setState({ searchField, });
-  // }
+  handleToggleSortOrder = () => {
+    this.setState({sortOrderIsDescending: !this.state.sortOrderIsDescending});
+  }
 
-  // handleOpenFilter = () => {
-  //   // alert('You clicked the FILTER button');
-  //   // console.log('You clicked the FILTER button');
-  // }
-
-  // handleOpenSort = () => {
-  //   // alert('You clicked the SORT button');
-  //   // console.log('You clicked the SORT button');
-  // }
+  handleResetButtonsTierList = () => this.setState(INITIAL_STATE_BUTTONS_TIER_LIST);
+  
+  // end buttons tier list
 
   handleChangeForm = event => {
     // console.log('target\n', event.target);
@@ -354,15 +345,22 @@ class CRUDView extends Component {
   }
 
   render() {
-    const { detail, deleteDialogIsOpen, selectedIndex, } = this.state;
+    const {
+      detail, deleteDialogIsOpen, selectedIndex,
+      searchString, filterBy, sortBy, sortOrderIsDescending,
+    } = this.state;
     const {
       classes, items, profile, condensed, onNext, hasMore,
       creatable, updatable, deletable, actionable, searchable, sortable, filterable, starrable,
     } = this.props;
     const {
-      handleOpenCreateDialog, handleCloseDialog, handleDeleteItem, handleChangeUserData,
-      handleClickStar, handleToggle, handleOpenSearch, handleOpenFilter, handleOpenSort,
+      handleCloseDialog, handleDeleteItem, handleChangeUserData,
+      handleClickStar, handleToggle,
       handleOpenUpdateDialog, handleOpenDeleteDialog, handleNavBack, handleNavNext, getFormFields,
+
+      // list pane
+      handleClickCreateButton, handleChangeSearchString, handleClickSearchButton,
+      handleClickFilterButton, handleClickSortButton, handleToggleSortOrder, handleResetButtonsTierList,
     } = this;
 
     const ready1 = !!profile;
@@ -374,7 +372,7 @@ class CRUDView extends Component {
     // console.log('detail\n', detail,);
     
     const getFetchUserData = () => <FetchUserData path="dashboard" uid={uid} onChange={handleChangeUserData} />
-    const getViewEmpty = () => <ViewEmpty side="list" onClick={handleOpenCreateDialog} creatable={creatable} />
+    const getViewEmpty = () => <ViewEmpty side="list" onClick={handleClickCreateButton} creatable={creatable} />
     
     const getCreateDialog = () => <CreateDialog /> 
     const getUpdateDialog = () => <UpdateDialog />  
@@ -389,20 +387,31 @@ class CRUDView extends Component {
     const getListPane = () =>
       <ListPane
         items={items}
+        selectedIndex={selectedIndex}
+        hasMore={hasMore}
+        
         creatable={creatable}
         searchable={searchable}
         filterable={filterable}
         sortable={sortable}
         starrable={starrable}
-        selectedIndex={selectedIndex}
-        hasMore={hasMore}
+        
+        searchString={searchString}
+        filterBy={filterBy}
+        sortBy={sortBy}
+        sortOrderIsDescending={sortOrderIsDescending}
+
         onNext={onNext}
         onClickStar={handleClickStar}
         onToggle={handleToggle}
-        onOpenSearch={handleOpenSearch}
-        onOpenFilter={handleOpenFilter}
-        onOpenSort={handleOpenSort}
-        onOpenCreateDialog={handleOpenCreateDialog}
+
+        onClickCreateButton={handleClickCreateButton} 
+        onChangeSearchString={handleChangeSearchString}
+        onClickSearchButton={handleClickSearchButton}
+        onClickFilterButton={handleClickFilterButton}
+        onClickSortButton={handleClickSortButton}
+        onToggleSortOrder={handleToggleSortOrder}
+        onResetButtonsTierList={handleResetButtonsTierList}
       />
     const getDetailPane = () =>
       <DetailPane
