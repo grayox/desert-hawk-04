@@ -22,7 +22,7 @@ const ListPane = ({
   filterOptions, sortOptions, searchString, filterBy, sortBy, sortOrderIsDescending,
   onClickStar, onNext, onToggle,
   onClickCreateButton, onChangeSearchString, onClickSearchButton, onClickFilterButton,
-  onClickSortButton, onToggleSortOrder, onDeleteShield, onResetButtonsTierList,
+  onClickSortButton, onMenuItemClick, onToggleSortOrder, onDeleteShield, onResetButtonsTierList,
 }) => {
 
   const ready1 = items && items.length;
@@ -47,8 +47,9 @@ const ListPane = ({
           onClickCreateButton={onClickCreateButton}
           onChangeSearchString={onChangeSearchString}
           onClickSearchButton={onClickSearchButton}
-          onClickFilterButton={onClickFilterButton}
-          onClickSortButton={onClickSortButton}
+          // onClickFilterButton={onClickFilterButton}
+          // onClickSortButton={onClickSortButton}
+          onMenuItemClick={onMenuItemClick}
           onToggleSortOrder={onToggleSortOrder}
           onDeleteShield={onDeleteShield}
           onResetButtonsTierList={onResetButtonsTierList}

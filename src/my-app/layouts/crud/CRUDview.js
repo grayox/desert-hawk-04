@@ -73,11 +73,11 @@ const INITIAL_STATE_DETAIL = {
 }
 
 const INITIAL_STATE_BUTTONS_TIER_LIST = {
-  filterOptions         : [ 'foo' , 'bar'   , 'baz'  , ] ,
-  sortOptions           : [ 'qux' , 'waldo' , 'fred' , ] ,
+  filterOptions         : [ 'Filter by', 'All', 'Starred', 'Unstarred', 'Challenged', 'Pending', 'Resolved', 'Won', 'Lost', ], // [ 'foo' , 'bar'   , 'baz'  , ] ,
+  sortOptions           : [ 'Sort by', 'Date', 'Price', 'Margin', ],
   searchString          : ''   ,
   filterBy              : []   ,
-  sortBy                : []   ,
+  sortBy                : ''   ,
   sortOrderIsDescending : true ,
 }
 
@@ -171,14 +171,34 @@ class CRUDView extends Component {
     console.log('searchField\n', searchField,);
   }
 
-  handleClickFilterButton = () => {
-    alert('You clicked the FILTER button');
-    console.log('You clicked the FILTER button');
-  }
+  // handleClickFilterButton = () => {
+  //   alert('You clicked the FILTER button');
+  //   console.log('You clicked the FILTER button');
+  // }
 
-  handleClickSortButton = () => {
-    alert('You clicked the SORT button');
-    console.log('You clicked the SORT button');
+  // handleClickSortButton = () => {
+  //   alert('You clicked the SORT button');
+  //   console.log('You clicked the SORT button');
+  // }
+
+  handleMenuItemClick = ({ variant, selectedIndex, selectedString, }) => {
+    switch(variant) {
+      case 'filter':
+        // fetch existing array
+        let filterArray = [ ...this.state.filterBy, ];
+        // first check for duplicates, then push
+        if(filterArray.indexOf(selectedString) < 0) filterArray.push(selectedString);
+        this.setState({ filterBy: filterArray, }
+          // , () => // apply where filters, then re-fetch data
+        );
+        break;
+      case 'sort':
+        this.setState({ sortBy: selectedString, });
+        break;
+      default:
+        // code block
+    }
+    
   }
   
   handleToggleSortOrder = () => {
@@ -368,8 +388,8 @@ class CRUDView extends Component {
       handleOpenUpdateDialog, handleOpenDeleteDialog, handleNavBack, handleNavNext, getFormFields,
 
       // list pane
-      handleClickCreateButton, handleChangeSearchString, handleClickSearchButton, handleClickFilterButton,
-      handleClickSortButton, handleToggleSortOrder, handleDeleteShield, handleResetButtonsTierList,
+      handleClickCreateButton, handleChangeSearchString, handleClickSearchButton, // handleClickFilterButton, handleClickSortButton, 
+      handleMenuItemClick, handleToggleSortOrder, handleDeleteShield, handleResetButtonsTierList,
     } = this;
 
     const ready1 = !!profile;
@@ -419,8 +439,9 @@ class CRUDView extends Component {
         onClickCreateButton={handleClickCreateButton} 
         onChangeSearchString={handleChangeSearchString}
         onClickSearchButton={handleClickSearchButton}
-        onClickFilterButton={handleClickFilterButton}
-        onClickSortButton={handleClickSortButton}
+        // onClickFilterButton={handleClickFilterButton}
+        // onClickSortButton={handleClickSortButton}
+        onMenuItemClick={handleMenuItemClick}
         onToggleSortOrder={handleToggleSortOrder}
         onDeleteShield={handleDeleteShield}
         onResetButtonsTierList={handleResetButtonsTierList}

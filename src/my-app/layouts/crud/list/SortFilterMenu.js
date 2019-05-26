@@ -20,17 +20,13 @@ const useStyles = makeStyles( theme => ({
 //   'Filter by', 'All', 'Starred', 'Unstarred', 'Challenged', 'Pending', 'Resolved', 'Won', 'Lost',
 // ];
 
-const config = {
-  filter: {
-    icon: 'filter_list',
-  },
-  sort: {
-    icon: 'sort',
-  },
+const icons = {
+  filter: 'filter_list',
+  sort: 'sort',
 }
 
 // function SimpleListMenu() {
-const SortFilterMenu = ({ variant, filterOptions, sortOptions, }) => {
+const SortFilterMenu = ({ variant, filterOptions, sortOptions, onMenuItemClick, }) => {
   const classes = useStyles();
   const [ anchorEl      , setAnchorEl      , ] = useState(null);
   const [ selectedIndex , setSelectedIndex , ] = useState(1);
@@ -44,9 +40,14 @@ const SortFilterMenu = ({ variant, filterOptions, sortOptions, }) => {
 
   const handleClickListItem = event => setAnchorEl(event.currentTarget);
 
-  const handleMenuItemClick = (event, index) => {
-    setSelectedIndex(index);
+  const handleMenuItemClick = (event, selectedIndex) => {
+    // console.log('variant\n', variant,);
+    // console.log('selectedIndex\n', selectedIndex,);
+    const selectedString = options[selectedIndex];
+    // console.log('selectedItem\n', selectedString,);
+    setSelectedIndex(selectedIndex);
     setAnchorEl(null);
+    onMenuItemClick({ variant, selectedIndex, selectedString, });
   }
 
   const handleClose = () => setAnchorEl(null);
@@ -67,7 +68,7 @@ const SortFilterMenu = ({ variant, filterOptions, sortOptions, }) => {
       // </List>
       }
       <IconButton onClick={handleClickListItem}>
-        <Icon>{config[variant].icon}</Icon>
+        <Icon>{icons[variant]}</Icon>
       </IconButton>
       <Menu id="lock-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
         {options.map((option, index,) => (

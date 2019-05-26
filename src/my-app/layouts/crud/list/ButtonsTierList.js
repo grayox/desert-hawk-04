@@ -3,15 +3,15 @@ import {
   Paper, Tooltip, Zoom, Chip, Button, Fab, Icon, IconButton, TextField,
 } from '@material-ui/core'; // withStyles,
 
-// import hash from 'object-hash'; // https://www.npmjs.com/package/object-hash
+import hash from 'object-hash'; // https://www.npmjs.com/package/object-hash
 import SortFilterMenu from './SortFilterMenu';
 // import ShieldsIo from 'my-app/components/ShieldsIo';
 
-const configShields = [
-  { key: 0 , icon: 'filter_list' , label : 'filter' , message : 'starred' , color : 'informational' , } ,
-  { key: 1 , icon: 'sort'        , label : 'sort'   , message : 'age'     , color : 'blueviolet'    , } ,
-  { key: 2 , icon: 'star'        , label : 'rating' , message : '3/5'     , color : 'brightgreen'   , } ,
-]
+// const configShields = [
+//   { key: 0 , icon: 'filter_list' , label : 'filter' , message : 'starred' , color : 'informational' , } ,
+//   { key: 1 , icon: 'sort'        , label : 'sort'   , message : 'age'     , color : 'blueviolet'    , } ,
+//   { key: 2 , icon: 'star'        , label : 'rating' , message : '3/5'     , color : 'brightgreen'   , } ,
+// ]
 
 const ButtonsTierList = ({
   // props
@@ -19,11 +19,31 @@ const ButtonsTierList = ({
   // state
   filterOptions, sortOptions, searchString, filterBy, sortBy, sortOrderIsDescending,
   // events
-  onClickCreateButton, onChangeSearchString, onClickSearchButton, onClickFilterButton,
-  onClickSortButton, onToggleSortOrder, onDeleteShield, onResetButtonsTierList,
+  onClickCreateButton, onChangeSearchString, onClickSearchButton, // onClickFilterButton, onClickSortButton, 
+  onMenuItemClick, onToggleSortOrder, onDeleteShield, onResetButtonsTierList,
 }) => {
 
   const type = ( searchable || filterable || sortable ) ? 'fab' : 'full';
+
+  // const getShields = () => configShields;
+  const getShields = () => {
+    let out = [];
+    if(filterBy && filterBy.length) {
+      for (const shield of filterBy) {
+        out.push({
+          type: 'filter',
+          icon: 'filter_list',
+          value: shield,
+        });
+      }
+    }
+    if(sortBy) out.push({
+      type: 'sort',
+      icon: 'sort',
+      value: sortBy,
+    })
+    return out;
+  } 
 
   const handleDeleteShield = (item, index,) => {
     // console.log('item\n', item,);
@@ -61,7 +81,7 @@ const ButtonsTierList = ({
   const CreateButton = () => <Tooltip TransitionComponent={Zoom} title="Add new item">{getCreateButton()}</Tooltip>
 
   return (
-    <Paper className="w-full">
+    <Paper className="w-full p-4">
       <div className="w-full flex">
         { creatable && <span className="ml-4 mt-4"><CreateButton/></span> }
         { // searchable &&
@@ -115,10 +135,10 @@ const ButtonsTierList = ({
         // </Tooltip>
         }
         <span className="ml-4" title="Filter">
-          <SortFilterMenu variant="filter" filterOptions={filterOptions} />
+          <SortFilterMenu variant="filter" filterOptions={filterOptions} onMenuItemClick={onMenuItemClick} />
         </span>
         <span className="ml-4" title="Sort">
-          <SortFilterMenu variant="sort" sortOptions={sortOptions} />
+          <SortFilterMenu variant="sort" sortOptions={sortOptions} onMenuItemClick={onMenuItemClick} />
         </span>
         <span className="ml-4" title={`Sort ${sortOrderIsDescending ? 'descending' : 'ascending'}`}>
           <IconButton
@@ -153,13 +173,17 @@ const ButtonsTierList = ({
       </div>
       <div className="w-full">
         {
-          configShields.map( (item, index,) => (
-            <span key={item.key} className="ml-4">
+          getShields().map( (item, index,) => (
+            <span
+              className="ml-4"
+              key={hash(item)} // item.key
+            >
               {/* <ShieldsIo label={item.label} message={item.message} color={item.color}/> */}
               <Chip
                 className="ml-4 my-4"
+                title={`${item.type} by`}
                 icon={<Icon>{item.icon}</Icon>}
-                label={item.message}
+                label={item.value} // item.message
                 onDelete={() => handleDeleteShield(item, index,)}
                 // onClick={handleClick}
                 // color="secondary"

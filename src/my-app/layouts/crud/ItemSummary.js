@@ -31,11 +31,19 @@ const ItemSummary = ({
   const actionableIcon = ( actionable && actionable.icon ) || DEFAULT_ACTIONABLE_ICON;
   
   const handleClick = () => {
-    const handleClickConfig = {
-      list: onToggle(item, side, index,),
-      detail: () => {},
-    };
-    return handleClickConfig[side];
+    // const handleClickConfig = {
+    //   list: onToggle(item, side, index,),
+    //   detail: () => {}, // undesirable behavior
+    // };
+    // return handleClickConfig[side];
+    switch(side) {
+      case 'list':
+        return onToggle(item, side, index,);
+      case 'detail':
+        return null;
+      default:
+        throw new Error('Side must be one of: "list" or "detail"');
+    }
   }
 
   const getStarSwitch = () => {
