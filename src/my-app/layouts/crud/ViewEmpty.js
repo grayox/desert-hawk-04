@@ -21,42 +21,39 @@ const styles = theme => ({
 
 // getEmpty = () => (<img src="https://via.placeholder.com/800x900.png/e91e63/fff?text=Detail+goes+here"/>)
 const getEmpty = ( side, creatable, onClick, ) => {
-  switch(side) {
-    case 'list':
-      return (
-        <div className="h-full w-full flex flex-col justify-center content-center">
-          <Icon className="opacity-25 self-center" fontSize="large">add_circle_outline</Icon>
-          <Typography variant="h6" color="textSecondary">
-            There are no items in this list yet
+  const getEmptyConfig = {
+    list: (
+      <div className="h-full w-full flex flex-col justify-center content-center">
+        <Icon className="opacity-25 self-center" fontSize="large">add_circle_outline</Icon>
+        <Typography variant="h6" color="textSecondary">
+          There are no items in this list yet
+        </Typography>
+        {
+          !!creatable &&
+          <Button
+            className="mt-32 max-w-lg self-center"
+            color="secondary"
+            variant="contained"
+            size="large"
+            onClick={onClick}
+          >
+            Add item
+          </Button>
+        }
+      </div>
+    ),
+    detail: (
+      <Tooltip TransitionComponent={Zoom} placement="top" title="Detail shows here after clicking a list item">
+        <div>
+          <Icon className="mt-32 opacity-25" fontSize="large">library_books</Icon>
+          <Typography variant="body1" color="textSecondary">
+            Select an item to view
           </Typography>
-          {
-            !!creatable &&
-            <Button
-              className="mt-32 max-w-lg self-center"
-              color="secondary"
-              variant="contained"
-              size="large"
-              onClick={onClick}
-            >
-              Add item
-            </Button>
-          }
         </div>
-      );
-    case 'detail':
-      return (
-        <Tooltip TransitionComponent={Zoom} placement="top" title="Detail shows here after clicking a list item">
-          <div>
-            <Icon className="mt-32 opacity-25" fontSize="large">library_books</Icon>
-            <Typography variant="body1" color="textSecondary">
-              Select an item to view
-            </Typography>
-          </div>
-        </Tooltip>
-      );
-    default:
-      throw new Error('"side" must be one of either "list" or "detail"');
-  }
+      </Tooltip>
+    ),
+  };
+  return getEmptyConfig[side];
 }
 
 const ViewEmpty = ({ classes, side, creatable, onClick, }) => (

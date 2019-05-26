@@ -2,12 +2,9 @@
 
 import React, { useState, } from 'react';
 import { makeStyles } from '@material-ui/styles';
-import {
-  MenuItem, Menu, Icon, IconButton,
-  // List, ListItem, ListItemText,
-} from '@material-ui/core';
+import { MenuItem, Menu, Icon, IconButton, } from '@material-ui/core';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles( theme => ({
   root: {
     // width: '100%',
     // maxWidth: 360,
@@ -15,13 +12,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const options = [
-  // 'Show some love to Material-UI',
-  // 'Show all notification content',
-  // 'Hide sensitive notification content',
-  // 'Hide all notification content',
-  'Filter by', 'All', 'Starred', 'Unstarred', 'Challenged', 'Pending', 'Resolved', 'Won', 'Lost',
-];
+// const options = [
+//   // 'Show some love to Material-UI',
+//   // 'Show all notification content',
+//   // 'Hide sensitive notification content',
+//   // 'Hide all notification content',
+//   'Filter by', 'All', 'Starred', 'Unstarred', 'Challenged', 'Pending', 'Resolved', 'Won', 'Lost',
+// ];
 
 const config = {
   filter: {
@@ -33,10 +30,17 @@ const config = {
 }
 
 // function SimpleListMenu() {
-const SortFilterMenu = ({ variant, }) => {
+const SortFilterMenu = ({ variant, filterOptions, sortOptions, }) => {
   const classes = useStyles();
   const [ anchorEl      , setAnchorEl      , ] = useState(null);
   const [ selectedIndex , setSelectedIndex , ] = useState(1);
+
+  const optionsConfig = {
+    filter: filterOptions,
+    sort: sortOptions,
+  }
+
+  const options = optionsConfig[variant];
 
   const handleClickListItem = event => setAnchorEl(event.currentTarget);
 
@@ -66,7 +70,7 @@ const SortFilterMenu = ({ variant, }) => {
         <Icon>{config[variant].icon}</Icon>
       </IconButton>
       <Menu id="lock-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-        {options.map((option, index) => (
+        {options.map((option, index,) => (
           <MenuItem
             key={option}
             disabled={index === 0}

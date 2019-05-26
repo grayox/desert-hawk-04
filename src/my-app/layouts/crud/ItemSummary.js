@@ -31,15 +31,11 @@ const ItemSummary = ({
   const actionableIcon = ( actionable && actionable.icon ) || DEFAULT_ACTIONABLE_ICON;
   
   const handleClick = () => {
-    switch(side) {
-      case 'list':
-        return onToggle(item, side, index,);
-      case 'detail':
-        return null; // fixes bug: click detail summary, then click next or prev, then detail pane resets
-      default:
-        throw new Error('"side" must be one of either "list" or "detail"');
-        return null;
-    }
+    const handleClickConfig = {
+      list: onToggle(item, side, index,),
+      detail: () => {},
+    };
+    return handleClickConfig[side];
   }
 
   const getStarSwitch = () => {
@@ -102,16 +98,11 @@ const ItemSummary = ({
   )
 
   const getSecondaryAction = () => {
-    // isList ? getListSide() : getDetailSide()
-    switch(side) {
-      case 'list':
-        return getListSide();
-      case 'detail':
-        return getDetailSide();
-      default:
-        throw new Error('"side" must be one of either "list" or "detail"');
-        return null;
-    }
+    const getSecondaryActionConfig = {
+      list: getListSide(),
+      detail: getDetailSide(),
+    };
+    return getSecondaryActionConfig[side];
   }
   
   return (

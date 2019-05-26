@@ -17,7 +17,7 @@ const ButtonsTierList = ({
   // props
   creatable, searchable, filterable, sortable,
   // state
-  searchString, filterBy, sortBy, sortOrderIsDescending,
+  filterOptions, sortOptions, searchString, filterBy, sortBy, sortOrderIsDescending,
   // events
   onClickCreateButton, onChangeSearchString, onClickSearchButton, onClickFilterButton,
   onClickSortButton, onToggleSortOrder, onDeleteShield, onResetButtonsTierList,
@@ -32,34 +32,30 @@ const ButtonsTierList = ({
   }
 
   const getCreateButton = () => {
-    switch(type) {
-      case 'fab':
-        return (
-          <Fab
-            color="primary"
-            onClick={onClickCreateButton}
-            size="small"
-          >
-            <Icon>add</Icon>
-          </Fab>
-        );
-      case 'full':
-        return (
-          <Button
-            // className={classNames(classes.margin, "w-full",)}
-            className="w-full"
-            variant="contained"
-            color="primary"
-            onClick={onClickCreateButton}
-            // size="small"
-          >
-            <Icon>add</Icon>
-          </Button>
-        );
-      default:
-        throw new Error('Create button must have type of either "fab" or "full"');
-        return null;
-    }
+    const getCreateButtonConfig = {
+      fab: (
+        <Fab
+          color="primary"
+          onClick={onClickCreateButton}
+          size="small"
+        >
+          <Icon>add</Icon>
+        </Fab>
+      ),
+      full: (
+        <Button
+          // className={classNames(classes.margin, "w-full",)}
+          className="w-full"
+          variant="contained"
+          color="primary"
+          onClick={onClickCreateButton}
+          // size="small"
+        >
+          <Icon>add</Icon>
+        </Button>
+      ),
+    };
+    return getCreateButtonConfig[type];
   }
   
   const CreateButton = () => <Tooltip TransitionComponent={Zoom} title="Add new item">{getCreateButton()}</Tooltip>
@@ -119,10 +115,10 @@ const ButtonsTierList = ({
         // </Tooltip>
         }
         <span className="ml-4" title="Filter">
-          <SortFilterMenu variant="filter" />
+          <SortFilterMenu variant="filter" filterOptions={filterOptions} />
         </span>
         <span className="ml-4" title="Sort">
-          <SortFilterMenu variant="sort"   />
+          <SortFilterMenu variant="sort" sortOptions={sortOptions} />
         </span>
         <span className="ml-4" title={`Sort ${sortOrderIsDescending ? 'descending' : 'ascending'}`}>
           <IconButton

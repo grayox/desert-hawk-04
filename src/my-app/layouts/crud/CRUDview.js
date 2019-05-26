@@ -10,7 +10,7 @@ import { updateUserData, } from 'my-app/store/actions/my-actions'; // updateSett
 import FetchUserData from 'my-app/containers/FetchUserData';
 
 // @material-ui/core
-import { withStyles, withWidth, Grid, Hidden, CssBaseline, } from '@material-ui/core';
+import { withStyles, withWidth, Grid, Hidden, } from '@material-ui/core'; // CssBaseline, 
 
 import { getForm, } from 'my-app/config/AppConfig';
 import ListPane from './list/ListPane';
@@ -73,6 +73,8 @@ const INITIAL_STATE_DETAIL = {
 }
 
 const INITIAL_STATE_BUTTONS_TIER_LIST = {
+  filterOptions         : [ 'foo' , 'bar'   , 'baz'  , ] ,
+  sortOptions           : [ 'qux' , 'waldo' , 'fred' , ] ,
   searchString          : ''   ,
   filterBy              : []   ,
   sortBy                : []   ,
@@ -122,7 +124,7 @@ class CRUDView extends Component {
     // console.log('detail\n', detail);
     const formFields = getForm(fields);
     // console.log('formFields\n', formFields); // debugger;
-    formFields.forEach(field => {
+    formFields.forEach( field => {
       switch(type) {
         case 'loadNewData':
           field.value = '';
@@ -188,7 +190,7 @@ class CRUDView extends Component {
     console.log('item\n', item,);
     console.log('index\n', index,);
     // get current array of shields
-    // remove clicked shield
+    // remove clicked shield from array
     // update state
   }
 
@@ -353,7 +355,7 @@ class CRUDView extends Component {
 
   render() {
     const {
-      detail, deleteDialogIsOpen, selectedIndex,
+      detail, deleteDialogIsOpen, selectedIndex, filterOptions, sortOptions,
       searchString, filterBy, sortBy, sortOrderIsDescending,
     } = this.state;
     const {
@@ -402,7 +404,9 @@ class CRUDView extends Component {
         filterable={filterable}
         sortable={sortable}
         starrable={starrable}
-        
+
+        filterOptions={filterOptions}
+        sortOptions={sortOptions}
         searchString={searchString}
         filterBy={filterBy}
         sortBy={sortBy}
