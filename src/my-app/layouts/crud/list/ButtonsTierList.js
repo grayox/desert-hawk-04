@@ -1,16 +1,16 @@
 import React from 'react';
 import {
-  Paper, Tooltip, Zoom, Button, Fab, Icon, IconButton, TextField,
+  Paper, Tooltip, Zoom, Chip, Button, Fab, Icon, IconButton, TextField,
 } from '@material-ui/core'; // withStyles,
 
 import hash from 'object-hash'; // https://www.npmjs.com/package/object-hash
 import SortFilterMenu from './SortFilterMenu';
-import ShieldsIo from 'my-app/components/ShieldsIo';
+// import ShieldsIo from 'my-app/components/ShieldsIo';
 
 const configShields = [
-  { label : 'filter' , message : 'starred' , color : 'informational' , } ,
-  { label : 'sort'   , message : 'age'     , color : 'blueviolet'    , } ,
-  { label : 'rating' , message : '3/5'     , color : 'brightgreen'   , } ,
+  { icon: 'filter_list' , label : 'filter' , message : 'starred' , color : 'informational' , } ,
+  { icon: 'sort'        , label : 'sort'   , message : 'age'     , color : 'blueviolet'    , } ,
+  { icon: 'star'        , label : 'rating' , message : '3/5'     , color : 'brightgreen'   , } ,
 ]
 
 const ButtonsTierList = ({
@@ -55,6 +55,8 @@ const ButtonsTierList = ({
   }
   
   const CreateButton = () => <Tooltip TransitionComponent={Zoom} title="Add new item">{getCreateButton()}</Tooltip>
+
+  const handleDelete = () => console.log('hallo');
 
   return (
     <Paper className="w-full">
@@ -151,7 +153,16 @@ const ButtonsTierList = ({
         {
           configShields.map( (item, index,) => (
             <span key={hash([item, index,])} className="ml-4">
-              <ShieldsIo label={item.label} message={item.message} color={item.color}/>
+              {/* <ShieldsIo label={item.label} message={item.message} color={item.color}/> */}
+              <Chip
+                icon={<Icon>{item.icon}</Icon>}
+                label={item.message}
+                // onClick={handleClick}
+                onDelete={handleDelete}
+                className="ml-4 my-4"
+                // color="secondary"
+                // deleteIcon={<Icon>done</Icon>}
+              />
             </span>
           ))
         }

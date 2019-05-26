@@ -23,7 +23,7 @@ const options = [
   'Filter by', 'All', 'Starred', 'Unstarred', 'Challenged', 'Pending', 'Resolved', 'Won', 'Lost',
 ];
 
-const params = {
+const config = {
   filter: {
     icon: 'filter_list',
   },
@@ -63,7 +63,7 @@ const SortFilterMenu = ({ variant, }) => {
       // </List>
       }
       <IconButton onClick={handleClickListItem}>
-        <Icon>{params[variant].icon}</Icon>
+        <Icon>{config[variant].icon}</Icon>
       </IconButton>
       <Menu id="lock-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
         {options.map((option, index) => (
