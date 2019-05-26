@@ -11,6 +11,7 @@ import FetchUserData from 'my-app/containers/FetchUserData';
 
 // @material-ui/core
 import { withStyles, withWidth, Grid, Hidden, } from '@material-ui/core'; // CssBaseline, 
+import _ from '@lodash';
 
 import { getForm, } from 'my-app/config/AppConfig';
 import ListPane from './list/ListPane';
@@ -198,20 +199,32 @@ class CRUDView extends Component {
       default:
         // code block
     }
-    
   }
   
   handleToggleSortOrder = () => {
     this.setState({sortOrderIsDescending: !this.state.sortOrderIsDescending});
   }
   
-  handleDeleteShield = ( item, index, ) => {
+  handleDeleteShield = ( item, selectedIndex, ) => {
     // get id of clicked shield
     console.log('item\n', item,);
-    console.log('index\n', index,);
-    // get current array of shields
-    // remove clicked shield from array
-    // update state
+    console.log('selectedIndex\n', selectedIndex,);
+    const { type, value, } = item;
+    switch(type) {
+      case 'filter':
+        // fetch existing array
+        let filterArray = [ ...this.state.filterBy, ];
+        _.pull( filterArray, value, );
+        this.setState({ filterBy: filterArray, }
+          // , () => // apply where filters, then re-fetch data
+        );
+        break;
+      case 'sort':
+        this.setState({ sortBy: '', });
+        break;
+      default:
+        // code block
+    }
   }
 
   handleResetButtonsTierList = () => this.setState({ ...INITIAL_STATE_BUTTONS_TIER_LIST, });
