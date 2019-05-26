@@ -29,6 +29,18 @@ const ItemSummary = ({
   // console.log('starrable\n', starrable);
 
   const actionableIcon = ( actionable && actionable.icon ) || DEFAULT_ACTIONABLE_ICON;
+  
+  const handleClick = () => {
+    switch(side) {
+      case 'list':
+        return onToggle(item, side, index,);
+      case 'detail':
+        return null; // fixes bug: click detail summary, then click next or prev, then detail pane resets
+      default:
+        throw new Error('"side" must be one of either "list" or "detail"');
+        return null;
+    }
+  }
 
   const getStarSwitch = () => {
     const ready1 = item && starrable;
@@ -97,7 +109,7 @@ const ItemSummary = ({
       case 'detail':
         return getDetailSide();
       default:
-        throw new Error('Missing required property: "side"');
+        throw new Error('"side" must be one of either "list" or "detail"');
         return null;
     }
   }
@@ -107,7 +119,7 @@ const ItemSummary = ({
       button
       // divider light // use <Divider /> instead
       key={createdAt}
-      onClick={() => onToggle( item, side, index, )}
+      onClick={handleClick}
       selected={index && (selectedIndex === index)}
     >
       <Zoom key={index} in mountOnEnter unmountOnExit>

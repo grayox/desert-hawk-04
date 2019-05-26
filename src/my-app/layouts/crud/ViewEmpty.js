@@ -55,7 +55,7 @@ const getEmpty = ( side, creatable, onClick, ) => {
         </Tooltip>
       );
     default:
-      throw new Error('Missing required property: "side"');
+      throw new Error('"side" must be one of either "list" or "detail"');
   }
 }
 

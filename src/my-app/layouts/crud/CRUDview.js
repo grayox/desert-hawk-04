@@ -154,9 +154,9 @@ class CRUDView extends Component {
     // }
   }
 
-  handleOpenUpdateDialog  = () => this.setState(STATE_OPEN_UPDATE_DIALOG);
-  handleOpenDeleteDialog  = () => this.setState(STATE_OPEN_DELETE_DIALOG);
-  handleClickCreateButton = () => this.setState(STATE_OPEN_CREATE_DIALOG);
+  handleOpenUpdateDialog  = () => this.setState({ ...STATE_OPEN_UPDATE_DIALOG, });
+  handleOpenDeleteDialog  = () => this.setState({ ...STATE_OPEN_DELETE_DIALOG, });
+  handleClickCreateButton = () => this.setState({ ...STATE_OPEN_CREATE_DIALOG, });
 
   // begin buttons tier list
 
@@ -184,7 +184,7 @@ class CRUDView extends Component {
     this.setState({sortOrderIsDescending: !this.state.sortOrderIsDescending});
   }
 
-  handleResetButtonsTierList = () => this.setState(INITIAL_STATE_BUTTONS_TIER_LIST);
+  handleResetButtonsTierList = () => this.setState({ ...INITIAL_STATE_BUTTONS_TIER_LIST, });
   
   // end buttons tier list
 
@@ -326,14 +326,13 @@ class CRUDView extends Component {
     if(newSelectedIndex === (limit - BUFFER)) this.props.onNext();
   };
 
-  handleToggle = ( detail, isList, selectedIndex, ) => {
+  handleToggle = ( detail, side, selectedIndex, ) => {
     // console.log('model\n', model);
     // const { detail } = this.state;
-    this.setState({
-      ...INITIAL_STATE_DETAIL,
-    }
+    const isList = (side === 'list');
+    this.setState({ ...INITIAL_STATE_DETAIL, }
       // promise completes animation effect
-      ,() => {if(isList) this.setState({ detail, selectedIndex, })}
+      ,() => { if(isList) this.setState({ detail, selectedIndex, }) }
     );
   }
 
