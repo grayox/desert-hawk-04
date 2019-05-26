@@ -18,7 +18,7 @@ const ButtonsTierList = ({
   searchString, filterBy, sortBy, sortOrderIsDescending, // state
   // events
   onClickCreateButton, onChangeSearchString, onClickSearchButton, onClickFilterButton,
-  onClickSortButton, onToggleSortOrder, onResetButtonsTierList,
+  onClickSortButton, onToggleSortOrder, onDeleteShield, onResetButtonsTierList,
 }) => {
 
   const type = ( searchable || filterable || sortable ) ? 'fab' : 'full';
@@ -55,8 +55,6 @@ const ButtonsTierList = ({
   }
   
   const CreateButton = () => <Tooltip TransitionComponent={Zoom} title="Add new item">{getCreateButton()}</Tooltip>
-
-  const handleDelete = () => console.log('hallo');
 
   return (
     <Paper className="w-full">
@@ -155,11 +153,11 @@ const ButtonsTierList = ({
             <span key={hash([item, index,])} className="ml-4">
               {/* <ShieldsIo label={item.label} message={item.message} color={item.color}/> */}
               <Chip
+                className="ml-4 my-4"
                 icon={<Icon>{item.icon}</Icon>}
                 label={item.message}
+                onDelete={onDeleteShield}
                 // onClick={handleClick}
-                onDelete={handleDelete}
-                className="ml-4 my-4"
                 // color="secondary"
                 // deleteIcon={<Icon>done</Icon>}
               />

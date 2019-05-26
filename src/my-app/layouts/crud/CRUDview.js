@@ -73,11 +73,10 @@ const INITIAL_STATE_DETAIL = {
 }
 
 const INITIAL_STATE_BUTTONS_TIER_LIST = {
-  // searchFieldIsOpen     : false     ,
-  searchString          : ''        ,
-  filterBy              : undefined ,
-  sortBy                : undefined ,
-  sortOrderIsDescending : true      ,
+  searchString          : ''   ,
+  filterBy              : []   ,
+  sortBy                : []   ,
+  sortOrderIsDescending : true ,
 }
 
 const INITIAL_STATE = {
@@ -182,6 +181,13 @@ class CRUDView extends Component {
   
   handleToggleSortOrder = () => {
     this.setState({sortOrderIsDescending: !this.state.sortOrderIsDescending});
+  }
+  
+  handleDeleteShield = () => {
+    // get id of clicked shield
+    // get current array of shields
+    // remove clicked shield
+    // update state
   }
 
   handleResetButtonsTierList = () => this.setState({ ...INITIAL_STATE_BUTTONS_TIER_LIST, });
@@ -358,8 +364,8 @@ class CRUDView extends Component {
       handleOpenUpdateDialog, handleOpenDeleteDialog, handleNavBack, handleNavNext, getFormFields,
 
       // list pane
-      handleClickCreateButton, handleChangeSearchString, handleClickSearchButton,
-      handleClickFilterButton, handleClickSortButton, handleToggleSortOrder, handleResetButtonsTierList,
+      handleClickCreateButton, handleChangeSearchString, handleClickSearchButton, handleClickFilterButton,
+      handleClickSortButton, handleToggleSortOrder, handleDeleteShield, handleResetButtonsTierList,
     } = this;
 
     const ready1 = !!profile;
@@ -410,6 +416,7 @@ class CRUDView extends Component {
         onClickFilterButton={handleClickFilterButton}
         onClickSortButton={handleClickSortButton}
         onToggleSortOrder={handleToggleSortOrder}
+        onDeleteShield={handleDeleteShield}
         onResetButtonsTierList={handleResetButtonsTierList}
       />
     const getDetailPane = () =>

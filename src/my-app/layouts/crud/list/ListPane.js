@@ -21,7 +21,7 @@ const ListPane = ({
   classes, items, hasMore, creatable, searchable, filterable, sortable, starrable, selectedIndex,
   searchString, filterBy, sortBy, sortOrderIsDescending, onClickStar, onNext, onToggle,
   onClickCreateButton, onChangeSearchString, onClickSearchButton, onClickFilterButton,
-  onClickSortButton, onToggleSortOrder, onResetButtonsTierList,
+  onClickSortButton, onToggleSortOrder, onDeleteShield, onResetButtonsTierList,
 }) => {
 
   const ready1 = items && items.length;
@@ -47,6 +47,7 @@ const ListPane = ({
           onClickFilterButton={onClickFilterButton}
           onClickSortButton={onClickSortButton}
           onToggleSortOrder={onToggleSortOrder}
+          onDeleteShield={onDeleteShield}
           onResetButtonsTierList={onResetButtonsTierList}
         />
       </Zoom>
