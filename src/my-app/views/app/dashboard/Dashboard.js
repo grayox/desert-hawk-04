@@ -1,69 +1,28 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
-// import { withStyles } from '@material-ui/core/styles';
-// import withStyles from "@material-ui/core/styles/withStyles";
-
-// import { withRouter } from 'react-router-dom';
-
-// react plugin for creating charts
-// import ChartistGraph from "react-chartist";
-
-// firebase
-// import { firestoreConnect } from 'react-redux-firebase';
 
 // redux
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-// import { updateSettings } from 'my-app/store/actions/my-actions';
-// import store from '../../store';
-// import { firestoreConnect } from 'react-redux-firebase';
 
 // @material-ui/core
-// import Icon from "@material-ui/core/Icon";
-import {
-  withStyles, Hidden,
-  // AppBar, Toolbar, Typography, // CssBaseline, Slide,
-  // Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
-} from '@material-ui/core';
-
-// import ViewListIcon from '@material-ui/icons/ViewList';
-// import ViewModuleIcon from '@material-ui/icons/ViewModule';
-
-// import FormGroup from '@material-ui/core/FormGroup';
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import Switch from '@material-ui/core/Switch';
-
-// @material-ui/icons
-// import Button from "@material-ui/core/Button";
+import { withStyles, Hidden, } from '@material-ui/core';
 
 import dashboardStyle from "my-app/vendors/creative-tim/assets/jss/material-dashboard-react/views/dashboardStyle";
-// import classNames from 'classnames';
 
 // Custom Components
 import DashboardWidgets from './DashboardWidgets';
-// import DashboardGridItems from './DashboardGridItems';
 import Error500Page from 'my-app/components/Error500Page';
-
-// import GeoSelect from 'my-app/components/GeoSelect/GeoSelect';
-// import GeoStepper from 'my-app/components/steppers/GeoStepper';
-// import FetchUserData from 'my-app/containers/FetchUserData';
 import Loading from 'my-app/components/Loading.js';
-
 import SettingsMessage from 'my-app/components/SettingsMessage';
 import SettingsStepper from 'my-app/components/steppers/SettingsStepper';
 
 // config
 import { uiSpecs } from 'my-app/config/AppConfig';
-// import { bizCategoryItems } from 'my-app/config/AppConfig';
 
 // firebase
 import firebase from '@firebase/app';
 import '@firebase/firestore';
-
-// misc
-// import Album from 'my-app/views/app/album/Album'
-
-// import MyAppBar from 'my-app/views/app/appBars/MyAppBar';
 
 const db = firebase.firestore();
 
@@ -89,93 +48,25 @@ const INITIAL_STATE_DIALOG = {
   dialogTitle: null,
   dialogContentText: null,
   dialogButtonLabel: null,
-}
+};
 
-const INITIAL_STATE = {
-  ...INITIAL_STATE_DIALOG,
-
+const INITIAL_STATE_BASELINE = {
   isError: false,
   // isLoading: true,
   bizCategory: null,
   categoryOpen: false,
 
   show: 'main', // 'main', 'step', 'greet',
-  // condensedDashboard: false,
 };
 
-// const username = 'userme';
-// const path = [ 'users' , username , 'settings', ].join('/');
-// // const path = 'users/userme/settings';
+const INITIAL_STATE = {
+  ...INITIAL_STATE_DIALOG,
+  ...INITIAL_STATE_BASELINE,
+};
 
 class Dashboard extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = INITIAL_STATE;
-  }
-
-  // componentDidMount() {
-  //   this.getSettings();
-  // }
-
-  // getPath() {
-  //   if(!this.props.user) return;
-  //   const uid = this && this.props && this.props.user &&
-  //               this.props.user.data && this.props.user.data.uid;
-  //   return uid ? [ 'users' , uid , 'settings' , ].join('/') : null;
-  // }
-
-  // getSettings() {
-  //   // console.log('props\n', this.props);
-  //   // debugger;
-  //   const path = this.getPath();
-  //   try {
-  //     db.collection(path)
-  //     // .collection('users/userme/settings')
-  //     // .orderBy('added_at', 'desc')
-  //     // .orderBy('createdAt', 'desc')
-  //     .orderBy('createdAt', 'desc')
-  //     .limit(1)
-  //     .get()
-  //     .then(querySnapshot => {
-  //       let out;
-  //       querySnapshot.forEach(doc =>
-  //         // doc.data() is always defined for query doc snapshots
-  //         // console.log(doc.id, '\n', doc.data());
-  //         // console.log('createdAt: ', doc.createdAt()); // throws error
-  //         // console.log('createdAt: ', doc.get('createdAt')); // undefined
-  //         // console.log('id: ', doc.id); // works
-  //         // console.log('data\n', doc.data()); // works
-  //         out = doc.data()
-  //       );
-  //       console.log('out\n', out);
-  //       return out;
-  //     })
-  //       // }
-  //     .then(result => {
-  //       // this.setState(out);
-  //       // always set state inside promise!
-  //       // otherwise, function returns before data loads!
-  //       const newState = {
-  //         ...result,
-  //         isLoading: false,
-  //       };
-  //       this.setState(newState);
-  //     })
-  //     .catch(error => {
-  //       console.error('Error getting documents: \n', error);
-  //       throw new Error(error);
-  //     });
-  //     // console.log('out\n', out); // returns before promise settles
-  //     // return out;                // returns before promise settles
-  //   } catch(error) {
-  //     console.error(error.message);
-  //     this.setState({
-  //       isError: true,
-  //       isLoading: false,
-  //     });
-  //   }
-  // }
+  state = INITIAL_STATE;
 
   handleSaveSettingsStepper = data => {
     const { bizCategory, geoNation, geoRegion, geoLocal, } = data;
@@ -189,47 +80,6 @@ class Dashboard extends Component {
     db.collection(path)
       .add(newData);
   }
-
-  // handleClickButton = name => {
-  //   // console.log('name', name);
-  //   switch(name) {
-  //     case 'Net':
-  //       this.handleCloseCategory();
-  //       break;
-  //     case 'Deposits':
-  //       this.handleCloseCategory();
-  //       break;
-  //     case 'Withdrawals':
-  //       this.handleCloseCategory();
-  //       break;
-  //     case 'Challenges':
-  //       this.handleCloseCategory();
-  //       break;
-  //     case 'Inbox':
-  //       this.handleCloseCategory();
-  //       break;
-  //     case 'Archive':
-  //       this.handleCloseCategory();
-  //       break;
-  //     case 'Contacts':
-  //       this.handleCloseCategory();
-  //       break;
-  //     case 'Category':
-  //       this.handleOpenCategory();
-  //       break;
-  //     case 'Locaction':
-  //       this.handleClickGeo();
-  //       break;
-  //     case 'State':
-  //       this.handleClickGeo();
-  //       break;
-  //     case 'Country':
-  //       this.handleClickGeo();
-  //       break;
-  //     default:
-  //       // code block
-  //   }
-  // }
 
   handleClickGeo = () => {
     this.setState({ show: 'step', });
@@ -264,7 +114,6 @@ class Dashboard extends Component {
       .add(newData);
   }
 
-  // handleClickInfo = () => {
   handleClickInfo = item => {
     // console.log('handling click info...');
     // console.log('item\n', item);
@@ -279,13 +128,6 @@ class Dashboard extends Component {
   handleCloseDialog = () => {
     this.setState(INITIAL_STATE_DIALOG);
   }
-
-  // handleChangeSwitch = name => event => {
-  //   this.setState({ [name]: event.target.checked }, () => {
-  //     console.log('state\n', this.state);
-  //     // this.props.updateSettings(this.state.settings);
-  //   });
-  // };
   
   render() {
     // console.log('user\n', this.props.user);
@@ -294,191 +136,33 @@ class Dashboard extends Component {
     // console.log('settings\n', this.props.settings);
     // console.log('dataHasLoaded\n', this.props.dataHasLoaded);
 
-    const { classes, dataHasLoaded, dashboard, } = this.props; // leads, user, profile, settings,
-    // const { geoNation, geoRegion, geoLocal, bizCategory, } = settings; // isValidGeo,
+    const { classes, dataHasLoaded, dashboard, } = this.props; 
+    // console.log('dashboard\n', dashboard,);
 
-    // const { isValidGeo, geoNation, geoRegion, geoLocal, bizCategory }
-    //   = this && this.props && this.props.settings;// ? this.props.settings : this.state.settings;
-    // let isValidGeo, geoNation, geoRegion, geoLocal, bizCategory;
-    // if(dataHasLoaded) {
-    // // if(dataHasLoaded && settings && this && this.props && this.props.settings) {
-    //   // { isValidGeo, geoNation, geoRegion, geoLocal, bizCategory } = this.props.settings;
-    //   isValidGeo  = this.props.settings.isValidGeo ;
-    //   geoNation   = this.props.settings.geoNation  ;
-    //   geoRegion   = this.props.settings.geoRegion  ;
-    //   geoLocal    = this.props.settings.geoLocal   ;
-    //   bizCategory = this.props.settings.bizCategory;
-    //   console.log( 'isValidGeo\n'  , isValidGeo  );
-    //   console.log( 'geoNation\n'   , geoNation   );
-    //   console.log( 'geoRegion\n'   , geoRegion   );
-    //   console.log( 'geoLocal\n'    , geoLocal    );
-    //   console.log( 'bizCategory\n' , bizCategory );
-    // };
-    console.log('dashboard\n', dashboard,);
+    const { handleSaveSettingsStepper, handleClickGeo, } = this;
+    const { show, isError, } = this.state;
 
-    const {
-      // handleChangeSwitch, 
-      handleSaveSettingsStepper, handleClickGeo,
-      // handleOpenCategory, handleChangeCategory, handleCloseCategory,
-      // handleCloseDialog, handleClickButton, handleClickInfo,
-    } = this;
-    const {
-      // isLoading, condensedDashboard, 
-      // bizCategory, geoLocal, geoRegion, geoNation,
-      show, isError,
-      // categoryOpen,
-      // dialogOpen, dialogContentText, dialogTitle, dialogButtonLabel,
-    } = this.state;
-    // const {
-    //   classes,
-    // } = this.props;
-    // console.log('this', this);
-    // console.log('this-props\n', this.props);
-    // const { categoryOpen, bizCategory, } = this.props;
-
-    // const dialog = (
-    //   <Dialog
-    //     open={dialogOpen}
-    //     onClose={handleCloseDialog}
-    //     aria-labelledby="alert-dialog-title"
-    //     aria-describedby="alert-dialog-description"
-    //   >
-    //     <DialogTitle id="alert-dialog-title">{dialogTitle}</DialogTitle>
-    //     <DialogContent>
-    //       <DialogContentText id="alert-dialog-description">
-    //         {dialogContentText}
-    //       </DialogContentText>
-    //     </DialogContent>
-    //     <DialogActions>
-    //       <Button
-    //         autoFocus
-    //         // color="secondary"
-    //         onClick={handleCloseDialog}
-    //       >
-    //         Cancel
-    //       </Button>
-    //       <Button
-    //         onClick={() => handleClickButton(dialogTitle)}
-    //       >
-    //         {dialogButtonLabel}
-    //       </Button>
-    //     </DialogActions>
-    //   </Dialog>
-    // );
-
-    const main = (
+    const getMain = () =>
       <React.Fragment>
-        {/* {dialog} */}
-        {
-        // <AppBar
-        //   className="m-0"
-        //   position="static"
-        //   elevation={0}
-        // >
-        //   <Toolbar className="px-16">
-        //     <Typography variant="subtitle1" color="inherit" className="flex-1">
-        //       Dashboard
-        //     </Typography>
-        //     <FormGroup row>
-        //       <span className="self-center mr-12">
-        //         { condensedDashboard ? <ViewListIcon /> : <ViewModuleIcon /> }
-        //       </span>
-        //       <FormControlLabel
-        //         // labelPlacement="start"
-        //         // label="Condensed"
-        //         // label={ condensedDashboard ? "Condensed" : "Expanded" }
-        //         // label={ condensedDashboard ? <ViewListIcon /> : <ViewModuleIcon /> }
-        //         control={
-        //           <Switch
-        //             checked={condensedDashboard}
-        //             onChange={handleChangeSwitch('condensedDashboard')}
-        //             value="condensedDashboard"
-        //             // color="white"
-        //             // icon={<ViewModuleIcon />}
-        //             // checkedIcon={<ViewListIcon />}
-        //           />
-        //         }
-        //       />
-        //     </FormGroup>
-        //   </Toolbar>
-        // </AppBar>
-        }
-
-        <Hidden smUp>
-          <DashboardWidgets data={dashboard} />
-          {
-          // <DashboardGridItems 
-          //   // condensedDashboard={condensedDashboard}
-          //   condensedDashboard
-          //   geoLocal={geoLocal}
-          //   geoRegion={geoRegion}
-          //   geoNation={geoNation}
-          //   categoryOpen={categoryOpen}
-          //   categoryItems={bizCategoryItems}
-          //   bizCategory={bizCategory}
-          //   onCategoryOpen={handleOpenCategory}
-          //   onCategoryChange={handleChangeCategory}
-          //   onCategoryClose={handleCloseCategory}
-          //   onClickInfo={handleClickInfo}
-          // />
-          }
-        </Hidden>
-
-        <Hidden xsDown>
-          <DashboardWidgets data={dashboard} />
-          {
-          // <DashboardGridItems 
-          //   // condensedDashboard={condensedDashboard}
-          //   // condensedDashboard
-          //   geoLocal={geoLocal}
-          //   geoRegion={geoRegion}
-          //   geoNation={geoNation}
-          //   categoryOpen={categoryOpen}
-          //   categoryItems={bizCategoryItems}
-          //   bizCategory={bizCategory}
-          //   onCategoryOpen={handleOpenCategory}
-          //   onCategoryChange={handleChangeCategory}
-          //   onCategoryClose={handleCloseCategory}
-          //   onClickInfo={handleClickInfo}
-          // />
-          }
-        </Hidden>
-        
+        <Hidden smUp><DashboardWidgets data={dashboard} /></Hidden>
+        <Hidden xsDown><DashboardWidgets data={dashboard} /></Hidden>
       </React.Fragment>
-    );
 
-    return (
-      // <React.Fragment>
-        // <CssBaseline />
-        // <MyAppBar
-        //    id="fuse-toolbar"
-        //    color="default"
-        //   //  className={classNames(classes.toolbarWrapper, classes.toolbar,)}
-        //   //  onClick={navbarOpenMobile}
-        // />
-      // isLoading
+    const showConfig = {
+      greet: <SettingsMessage onClick={handleClickGeo} />,
+      step: <SettingsStepper onSave={handleSaveSettingsStepper} />,
+      main: getMain(),
+    }
+
+    const getDashboard = () => (
       !dataHasLoaded
       ?
-      <React.Fragment>
-        <Loading />
-      </React.Fragment>
+      <Loading />
       :
-      isError
-        ?
-        <Error500Page />
-        :
-        // <Slide in direction="right">
-        <div className={classes.wrapper}>
-          { ( show === 'greet' ) ? <SettingsMessage onClick={handleClickGeo} />           : null }
-          { ( show === 'step'  ) ? <SettingsStepper onSave={handleSaveSettingsStepper} /> : null }
-          { ( show === 'main'  ) ? main                                                   : null }
-          {
-          // <Album />
-          }
-        </div>
-        // </Slide>
-        // </React.Fragment>
-    );
+      isError ? <Error500Page /> : <div className={classes.wrapper}>{showConfig[show]}</div>
+    )
+
+    return getDashboard();
   }
 
 }
