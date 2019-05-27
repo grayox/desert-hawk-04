@@ -31,6 +31,7 @@ const ButtonsTierList = ({
 
   const sfs = ( searchable || filterable || sortable );
   const csfs = creatable || sfs;
+  const creatableOnly = creatable && (!sfs);
   const createButtonType = sfs ? 'fab' : 'full';
 
   // const getChips = () => configShields;
@@ -203,7 +204,11 @@ const ButtonsTierList = ({
       }
     </div>
 
-  return ( csfs ? <Paper className="w-full p-4">{getTopTier()}{getBottomTier()}</Paper> : null );
+  const getCreatableOnlyTier = () => <CreateButton />
+  const getStandardTier = () => (csfs ? <Paper className="w-full p-4">{getTopTier()}{getBottomTier()}</Paper> : null)
+  const getButtonsTierList = () => ( creatableOnly ? getCreatableOnlyTier() : getStandardTier() )
+
+  return getButtonsTierList();
 }
 
 export default ButtonsTierList;

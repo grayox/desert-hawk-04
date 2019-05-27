@@ -338,10 +338,10 @@ export const componentsNavConfig = [
     component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
     crudConfig : {
       condensed: true,
-      searchable: true,
-      filterable: true,
-      sortable: true,
-      starrable: true,
+      searchable: false,
+      filterable: false,
+      sortable: false,
+      starrable: false,
       actionable: {
         icon: 'send', // 'outlined_flag',
         label: 'Claim this lead and send it to your archive',
@@ -361,7 +361,7 @@ export const componentsNavConfig = [
           },
         ],
       },
-      creatable: true, // false only makes button not appear on CRUD view
+      creatable: true, // false // breaks it // false only makes button not appear on CRUD view
       readable: {
         path: 'leads',
         // src/my-app/containers/LoadAsync.js

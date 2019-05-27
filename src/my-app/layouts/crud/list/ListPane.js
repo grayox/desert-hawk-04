@@ -21,8 +21,9 @@ const ListPane = ({
   classes, items, hasMore, creatable, searchable, filterable, sortable, starrable, selectedIndex,
   filterOptions, sortOptions, searchString, filterBy, sortBy, sortOrderIsDescending,
   onClickStar, onNext, onToggle,
-  onClickCreateButton, onChangeSearchString, onClickSearchButton, onClickFilterButton,
-  onClickSortButton, onMenuItemClick, onToggleSortOrder, onDeleteShield, onResetButtonsTierList,
+  onClickCreateButton, onChangeSearchString, onClickSearchButton,
+  // onClickFilterButton, onClickSortButton, // handled by separate components
+  onMenuItemClick, onToggleSortOrder, onDeleteShield, onResetButtonsTierList,
 }) => {
 
   const ready1 = items && items.length;

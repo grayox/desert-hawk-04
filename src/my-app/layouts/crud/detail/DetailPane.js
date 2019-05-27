@@ -3,11 +3,13 @@ import classNames from 'classnames';
 
 import {
   withStyles, Slide, Paper, Typography, List, ListItem, ListItemText, ListItemSecondaryAction,
+  // Chip, Badge, Avatar,
 } from '@material-ui/core';
 
 import { FuseAnimateGroup } from '@fuse'; // FuseScrollbars, FuseAnimate,
 
 import { uiSpecs, } from 'my-app/config/AppConfig'; // getCleanFieldNames,
+import MiniDashboard from 'my-app/views/app/dashboard/MiniDashboard';
 import SimpleExpansionPanel from 'my-app/components/SimpleExpansionPanel';
 import ButtonsTierDetail from './ButtonsTierDetail'; // CRUDButtons,
 import ViewEmpty from '../ViewEmpty';
@@ -222,6 +224,21 @@ const DetailPane = ({
       // </FuseAnimate>
     )
   }
+    
+  const getSummaryTier = () => 
+    <List component="nav">
+      {/* {getSummary(detail, false,)} */}
+      <ItemSummary
+          side="detail"
+          item={detail}
+          actionable={actionable}
+          starrable={starrable}
+          selectedIndex={selectedIndex}
+          onToggle={onToggle}
+          onClickStar={onClickStar}
+          // index={index} // never select summary on detail side
+        />
+    </List>
 
   const getButtonsTier = () => {
     const limit = itemsLength - 2;
@@ -236,28 +253,17 @@ const DetailPane = ({
   }
 
   const getHeader = () =>
-    <Paper className={classNames(classes.paper, "z-0",)}>
-      {getButtonsTier()}
-      <List component="nav">
-        {/* {getSummary(detail, false,)} */}
-        <ItemSummary
-          side="detail"
-          item={detail}
-          actionable={actionable}
-          starrable={starrable}
-          selectedIndex={selectedIndex}
-          onToggle={onToggle}
-          onClickStar={onClickStar}
-          // index={index} // never select summary on detail side
-        />
-      </List>
-    </Paper>
-
-  const getContent = () =>
     <React.Fragment>
-      {getHeader()}
-      {getDetail()}
+      <Paper className={classNames(classes.paper, "z-0 mb-4",)}>
+        <MiniDashboard />
+      </Paper>  
+      <Paper className={classNames(classes.paper, "z-0",)}>
+        {getButtonsTier()}
+        {getSummaryTier()}
+      </Paper>
     </React.Fragment>
+
+  const getContent = () => <React.Fragment>{getHeader()}{getDetail()}</React.Fragment>
 
   // console.log('detail\n', detail);
   return (
