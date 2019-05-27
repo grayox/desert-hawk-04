@@ -187,7 +187,7 @@ class CRUDView extends Component {
       case 'filter':
         // fetch existing array
         let filterArray = [ ...this.state.filterBy, ];
-        // first check for duplicates, then push
+        // push, but only if not duplicated
         if(filterArray.indexOf(selectedString) < 0) filterArray.push(selectedString);
         this.setState({ filterBy: filterArray, }
           // , () => // apply where filters, then re-fetch data
@@ -207,8 +207,8 @@ class CRUDView extends Component {
   
   handleDeleteShield = ( item, selectedIndex, ) => {
     // get id of clicked shield
-    console.log('item\n', item,);
-    console.log('selectedIndex\n', selectedIndex,);
+    // console.log('item\n', item,);
+    // console.log('selectedIndex\n', selectedIndex,);
     const { type, value, } = item;
     switch(type) {
       case 'filter':

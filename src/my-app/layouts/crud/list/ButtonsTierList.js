@@ -23,17 +23,17 @@ const ButtonsTierList = ({
   onMenuItemClick, onToggleSortOrder, onDeleteShield, onResetButtonsTierList,
 }) => {
 
-  const type = ( searchable || filterable || sortable ) ? 'fab' : 'full';
+  const createButtonType = ( searchable || filterable || sortable ) ? 'fab' : 'full';
 
   // const getShields = () => configShields;
   const getShields = () => {
     let out = [];
     if(filterBy && filterBy.length) {
-      for (const shield of filterBy) {
+      for (const filterString of filterBy) {
         out.push({
           type: 'filter',
           icon: 'filter_list',
-          value: shield,
+          value: filterString,
         });
       }
     }
@@ -75,28 +75,18 @@ const ButtonsTierList = ({
         </Button>
       ),
     };
-    return getCreateButtonConfig[type];
+    return getCreateButtonConfig[createButtonType];
   }
   
   const CreateButton = () => <Tooltip TransitionComponent={Zoom} title="Add new item">{getCreateButton()}</Tooltip>
 
   return (
     <Paper className="w-full p-4">
-      <div className="w-full flex">
-        { creatable && <span className="ml-4 mt-4"><CreateButton/></span> }
-        { // searchable &&
-        <Tooltip TransitionComponent={Zoom} placement="bottom" title="Search">
-          <span className="ml-6">
-            <IconButton color="inherit" aria-label="Search"
-              onClick={onClickSearchButton}
-            >
-              <Icon>search</Icon>
-            </IconButton>
-          </span>
-        </Tooltip>
-        }
+      <div className="w-full flex mt-4">
+        { creatable && <span className="ml-4"><CreateButton/></span> }
+
         { // searchFieldIsOpen &&
-          <span className="w-full flex-1">
+          <span className="w-full flex-1 ml-12" title="Search">
             <TextField
               // // id="standard-name"
               // // label="Search"
@@ -123,7 +113,19 @@ const ButtonsTierList = ({
             />
           </span>
         }
-        { // filterable &&
+        { searchable &&
+          <Tooltip TransitionComponent={Zoom} placement="bottom" title="Search">
+            <span>
+              <IconButton color="inherit" aria-label="Search"
+                onClick={onClickSearchButton}
+              >
+                <Icon>search</Icon>
+              </IconButton>
+            </span>
+          </Tooltip>
+        }
+        {
+        // filterable &&
         // <Tooltip TransitionComponent={Zoom} placement="bottom" title="Filter">
         //   <span className="mx-3">
         //     <IconButton color="inherit" aria-label="Filter"
@@ -134,19 +136,25 @@ const ButtonsTierList = ({
         //   </span>
         // </Tooltip>
         }
-        <span className="ml-4" title="Filter">
-          <SortFilterMenu variant="filter" filterOptions={filterOptions} onMenuItemClick={onMenuItemClick} />
-        </span>
-        <span className="ml-4" title="Sort">
-          <SortFilterMenu variant="sort" sortOptions={sortOptions} onMenuItemClick={onMenuItemClick} />
-        </span>
-        <span className="ml-4" title={`Sort ${sortOrderIsDescending ? 'descending' : 'ascending'}`}>
-          <IconButton
-            onClick={onToggleSortOrder}
-          >
-            <Icon>{sortOrderIsDescending ? 'arrow_upward' : 'arrow_downward'}</Icon>
-          </IconButton>
-        </span>
+        { filterable &&
+          <span className="ml-0" title="Filter">
+            <SortFilterMenu variant="filter" filterOptions={filterOptions} onMenuItemClick={onMenuItemClick} />
+          </span>
+        }
+        { sortable &&
+          <span className="ml-0" title="Sort">
+            <SortFilterMenu variant="sort" sortOptions={sortOptions} onMenuItemClick={onMenuItemClick} />
+          </span>
+        }
+        { sortable &&
+          <span className="ml-0" title={`Sort ${sortOrderIsDescending ? 'descending' : 'ascending'}`}>
+            <IconButton
+              onClick={onToggleSortOrder}
+            >
+              <Icon>{sortOrderIsDescending ? 'arrow_upward' : 'arrow_downward'}</Icon>
+            </IconButton>
+          </span>
+        }
         { // sortable &&
         // <Tooltip TransitionComponent={Zoom} placement="bottom" title="Sort">
         //   <span className="mx-3">
@@ -161,14 +169,14 @@ const ButtonsTierList = ({
         {
           // !searchFieldIsOpen && <span className="flex-1"/>
         }
-        {
-        <Tooltip TransitionComponent={Zoom} placement="bottom" title="Clear and reset">
-          <span className="mx-4">
-            <IconButton color="inherit" aria-label="Clear and reset" onClick={onResetButtonsTierList}>
-              <Icon>clear</Icon>
-            </IconButton>
-          </span>
-        </Tooltip>
+        { ( createButtonType === 'fab' ) &&
+          <Tooltip TransitionComponent={Zoom} placement="bottom" title="Clear and reset">
+            <span className="mx-4">
+              <IconButton color="inherit" aria-label="Clear and reset" onClick={onResetButtonsTierList}>
+                <Icon>clear</Icon>
+              </IconButton>
+            </span>
+          </Tooltip>
         }
       </div>
       <div className="w-full">
