@@ -339,17 +339,29 @@ export const componentsNavConfig = [
     crudConfig : {
       condensed: true,
       searchable: true,
+      filterable: true,
       sortable: true,
       starrable: true,
-      filterable: true,
-      actionable : {
+      actionable: {
         icon: 'send', // 'outlined_flag',
         label: 'Claim this lead and send it to your archive',
-        func: () => ({
-          archivedBy: 'uid',
-        }),
+        entries: [
+          {
+            path: 'leads/{docid}',
+            fields: {
+              archivedBy: '{uid}',
+            },
+          },
+          {
+            path: 'users/{uid}/dashboard',
+            fields: {
+              net: -1,
+              archived: 1,
+            },
+          },
+        ],
       },
-      creatable: false, // false only makes button not appear on CRUD view
+      creatable: true, // false only makes button not appear on CRUD view
       readable: {
         path: 'leads',
         // src/my-app/containers/LoadAsync.js
@@ -388,9 +400,9 @@ export const componentsNavConfig = [
     crudConfig : {
       condensed: true,
       searchable: true,
+      filterable: true,
       sortable: true,
       starrable: true,
-      filterable: true,
       actionable : {
         icon: 'report',
         label: 'Challenge this lead for poor quality',
@@ -411,8 +423,7 @@ export const componentsNavConfig = [
       },
       creatable  : false,
       readable: {
-        path: 'leads',
-        // src/my-app/containers/LoadAsync.js
+        path: 'leads', // src/my-app/containers/LoadAsync.js
         where: [
           [ 'deletedAt'  , '==' , 0     , ] ,  
           [ 'archivedBy' , '==' , 'uid' , ] ,
@@ -441,9 +452,9 @@ export const componentsNavConfig = [
     crudConfig : {
       condensed: true,
       searchable: true,
+      filterable: true,
       sortable: true,
       starrable: true,
-      filterable: true,
       actionable : {
         icon: 'send',
         label: 'Challenge',
@@ -509,9 +520,9 @@ export const componentsNavConfig = [
     crudConfig : {
       condensed: true,
       searchable: true,
+      filterable: true,
       sortable: true,
       starrable: true,
-      filterable: true,
       actionable : {
         icon: 'send',
         label: 'Challenge',

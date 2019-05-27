@@ -22,8 +22,16 @@ const ButtonsTierList = ({
   onClickCreateButton, onChangeSearchString, onClickSearchButton, // onClickFilterButton, onClickSortButton, 
   onMenuItemClick, onToggleSortOrder, onDeleteShield, onResetButtonsTierList,
 }) => {
+  
+  const handleDeleteShield = (item, index,) => {
+    // console.log('item\n', item,);
+    // console.log('index\n', index,);
+    onDeleteShield(item, index,);
+  }
 
-  const createButtonType = ( searchable || filterable || sortable ) ? 'fab' : 'full';
+  const sfs = ( searchable || filterable || sortable );
+  const csfs = creatable || sfs;
+  const createButtonType = sfs ? 'fab' : 'full';
 
   // const getChips = () => configShields;
   const getChips = () => {
@@ -44,12 +52,6 @@ const ButtonsTierList = ({
     })
     return out;
   } 
-
-  const handleDeleteShield = (item, index,) => {
-    // console.log('item\n', item,);
-    // console.log('index\n', index,);
-    onDeleteShield(item, index,);
-  }
 
   const getCreateButton = () => {
     const getCreateButtonConfig = {
@@ -80,135 +82,139 @@ const ButtonsTierList = ({
   
   const CreateButton = () => <Tooltip TransitionComponent={Zoom} title="Add new item">{getCreateButton()}</Tooltip>
 
-  return (
-    <Paper className="w-full p-4">
-      <div className="w-full flex mt-4">
-        { creatable && <span className="ml-4"><CreateButton/></span> }
+  const getClearButton = () => (
+    ( createButtonType === 'fab' ) &&
+    <Tooltip TransitionComponent={Zoom} placement="bottom" title="Clear and reset">
+      <span className="mx-4">
+        <IconButton color="inherit" aria-label="Clear and reset" onClick={onResetButtonsTierList}>
+          <Icon>clear</Icon>
+        </IconButton>
+      </span>
+    </Tooltip>
+  )
 
-        { // searchFieldIsOpen &&
-          <span className="w-full flex-1 ml-12" title="Search">
-            <TextField
-              // // id="standard-name"
-              // // label="Search"
-              // // className={classes.textField}
-              // // margin="normal"
-              // placeholder="Search"
-              value={searchString}
-              onChange={onChangeSearchString}
-              // InputProps={{
-                // startAdornment: (
-                //   <InputAdornment position="start">
-                //     <Icon>search</Icon>
-                //   </InputAdornment>
-                // ),
-                // endAdornment: (
-                //   <InputAdornment position="end">
-                // //    <Icon className="mr-32">search</Icon>
-                //     <IconButton title="Clear" onClick={handleResetSearchField}>
-                //       <Icon>clear</Icon>
-                //     </IconButton>
-                //   </InputAdornment>
-                // ),
-              // }} 
-            />
-          </span>
-        }
-        { searchable &&
-          <Tooltip TransitionComponent={Zoom} placement="bottom" title="Search">
-            <span>
-              <IconButton color="inherit" aria-label="Search"
-                onClick={onClickSearchButton}
-              >
-                <Icon>search</Icon>
-              </IconButton>
-            </span>
-          </Tooltip>
-        }
-        {
-        // filterable &&
-        // <Tooltip TransitionComponent={Zoom} placement="bottom" title="Filter">
-        //   <span className="mx-3">
-        //     <IconButton color="inherit" aria-label="Filter"
-        //       onClick={onClickFilter}
-        //     >
-        //       <Icon>filter_list</Icon>
-        //     </IconButton>
-        //   </span>
-        // </Tooltip>
-        }
-        { filterable &&
-          <span className="ml-0" title="Filter">
-            <SortFilterMenu variant="filter" filterOptions={filterOptions} onMenuItemClick={onMenuItemClick} />
-          </span>
-        }
-        { sortable &&
-          <span className="ml-0" title="Sort">
-            <SortFilterMenu variant="sort" sortOptions={sortOptions} onMenuItemClick={onMenuItemClick} />
-          </span>
-        }
-        { sortable &&
-          <span className="ml-0" title={`Sort ${sortOrderIsDescending ? 'descending' : 'ascending'}`}>
-            <IconButton
-              onClick={onToggleSortOrder}
+  const getTopTier = () =>
+    <div className="w-full flex mt-4">
+      { creatable && <span className="ml-4"><CreateButton/></span> }
+
+      { searchable &&
+        <span className="w-full flex-1 ml-12" title="Search">
+          <TextField
+            // // id="standard-name"
+            // // label="Search"
+            // // className={classes.textField}
+            // // margin="normal"
+            // placeholder="Search"
+            value={searchString}
+            onChange={onChangeSearchString}
+            // InputProps={{
+              // startAdornment: (
+              //   <InputAdornment position="start">
+              //     <Icon>search</Icon>
+              //   </InputAdornment>
+              // ),
+              // endAdornment: (
+              //   <InputAdornment position="end">
+              // //    <Icon className="mr-32">search</Icon>
+              //     <IconButton title="Clear" onClick={handleResetSearchField}>
+              //       <Icon>clear</Icon>
+              //     </IconButton>
+              //   </InputAdornment>
+              // ),
+            // }} 
+          />
+        </span>
+      }
+      { searchable &&
+        <Tooltip TransitionComponent={Zoom} placement="bottom" title="Search">
+          <span>
+            <IconButton color="inherit" aria-label="Search"
+              onClick={onClickSearchButton}
             >
-              <Icon>{sortOrderIsDescending ? 'arrow_upward' : 'arrow_downward'}</Icon>
+              <Icon>search</Icon>
             </IconButton>
           </span>
-        }
-        { // sortable &&
-        // <Tooltip TransitionComponent={Zoom} placement="bottom" title="Sort">
-        //   <span className="mx-3">
-        //     <IconButton color="inherit" aria-label="Sort"
-        //       onClick={onClickSort}
-        //     >
-        //       <Icon>sort</Icon>
-        //     </IconButton>
-        //   </span>
-        // </Tooltip>
-        }
-        {
-          // !searchFieldIsOpen && <span className="flex-1"/>
-        }
-        { ( createButtonType === 'fab' ) &&
-          <Tooltip TransitionComponent={Zoom} placement="bottom" title="Clear and reset">
-            <span className="mx-4">
-              <IconButton color="inherit" aria-label="Clear and reset" onClick={onResetButtonsTierList}>
-                <Icon>clear</Icon>
-              </IconButton>
-            </span>
-          </Tooltip>
-        }
-      </div>
-      <div className="w-full">
-        {
-          getChips().map( (item, index,) => (
-            <span
-              className="ml-4"
-              key={hash(item)} // item.key
-            >
-              {/* <ShieldsIo label={item.label} message={item.message} color={item.color}/> */}
-              <Chip
-                className="ml-4 my-4"
-                title={`${item.type} by`}
-                icon={<Icon>{item.icon}</Icon>}
-                label={item.value} // item.message
-                onDelete={() => handleDeleteShield(item, index,)}
-                // onClick={handleClick}
-                // color="secondary"
-                deleteIcon={
-                  ( item.type === 'sort' )
-                  ?
-                  <Icon>{sortOrderIsDescending ? 'arrow_upward' : 'arrow_downward'}</Icon>
-                  :
-                  undefined
-                }
-              />
-            </span>
-          ))
-        }
-      </div>
-    </Paper>
-  );
+        </Tooltip>
+      }
+      {
+      // filterable &&
+      // <Tooltip TransitionComponent={Zoom} placement="bottom" title="Filter">
+      //   <span className="mx-3">
+      //     <IconButton color="inherit" aria-label="Filter"
+      //       onClick={onClickFilter}
+      //     >
+      //       <Icon>filter_list</Icon>
+      //     </IconButton>
+      //   </span>
+      // </Tooltip>
+      }
+      { filterable &&
+        <span className="ml-0" title="Filter">
+          <SortFilterMenu variant="filter" filterOptions={filterOptions} onMenuItemClick={onMenuItemClick} />
+        </span>
+      }
+      { sortable &&
+        <span className="ml-0" title="Sort">
+          <SortFilterMenu variant="sort" sortOptions={sortOptions} onMenuItemClick={onMenuItemClick} />
+        </span>
+      }
+      { sortable &&
+        <span className="ml-0" title={`Sort ${sortOrderIsDescending ? 'descending' : 'ascending'}`}>
+          <IconButton
+            onClick={onToggleSortOrder}
+          >
+            <Icon>{sortOrderIsDescending ? 'arrow_upward' : 'arrow_downward'}</Icon>
+          </IconButton>
+        </span>
+      }
+      { // sortable &&
+      // <Tooltip TransitionComponent={Zoom} placement="bottom" title="Sort">
+      //   <span className="mx-3">
+      //     <IconButton color="inherit" aria-label="Sort"
+      //       onClick={onClickSort}
+      //     >
+      //       <Icon>sort</Icon>
+      //     </IconButton>
+      //   </span>
+      // </Tooltip>
+      }
+      {
+        // !searchFieldIsOpen && <span className="flex-1"/>
+      }
+      {getClearButton()}
+    </div>
+
+  const getBottomTier = () =>
+    <div className="w-full">
+      {
+        getChips().map( (item, index,) => (
+          <span
+            className="ml-4"
+            key={hash(item)} // item.key
+          >
+            {/* <ShieldsIo label={item.label} message={item.message} color={item.color}/> */}
+            <Chip
+              className="ml-4 my-4"
+              title={`${item.type} by`}
+              icon={<Icon>{item.icon}</Icon>}
+              label={item.value} // item.message
+              onDelete={() => handleDeleteShield(item, index,)}
+              // onClick={handleClick}
+              // color="secondary"
+              deleteIcon={
+                ( item.type === 'sort' )
+                ?
+                <Icon>{sortOrderIsDescending ? 'arrow_upward' : 'arrow_downward'}</Icon>
+                :
+                undefined
+              }
+            />
+          </span>
+        ))
+      }
+    </div>
+
+  return ( csfs ? <Paper className="w-full p-4">{getTopTier()}{getBottomTier()}</Paper> : null );
 
 }
 
