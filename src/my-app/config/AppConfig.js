@@ -361,7 +361,7 @@ export const componentsNavConfig = [
           },
         ],
       },
-      creatable: true, // false // breaks it // false only makes button not appear on CRUD view
+      creatable: false, // true // breaks it // false only makes button not appear on CRUD view
       readable: {
         path: 'leads',
         // src/my-app/containers/LoadAsync.js

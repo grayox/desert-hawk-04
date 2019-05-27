@@ -54,35 +54,32 @@ const ButtonsTierList = ({
     return out;
   } 
 
-  const getCreateButton = () => {
-    const getCreateButtonConfig = {
-      fab: (
-        <Fab
-          color="primary"
-          onClick={onClickCreateButton}
-          size="small"
-        >
-          <Icon>add</Icon>
-        </Fab>
-      ),
-      full: (
-        <Button
-          // className={classNames(classes.margin, "w-full",)}
-          className="w-full"
-          variant="contained"
-          color="primary"
-          onClick={onClickCreateButton}
-          // size="small"
-        >
-          <Icon>add</Icon>
-        </Button>
-      ),
-    };
-    return getCreateButtonConfig[createButtonType];
-  }
-  
-  const CreateButton = () => <Tooltip TransitionComponent={Zoom} title="Add new item">{getCreateButton()}</Tooltip>
+  const getCreateButtonConfig = {
+    fab: (
+      <Fab
+        color="primary"
+        onClick={onClickCreateButton}
+        size="small"
+      >
+        <Icon>add</Icon>
+      </Fab>
+    ),
+    full: (
+      <Button
+        // className={classNames(classes.margin, "w-full",)}
+        className="w-full"
+        variant="contained"
+        color="primary"
+        onClick={onClickCreateButton}
+        // size="small"
+      >
+        <Icon>add</Icon>
+      </Button>
+    ),
+  };
 
+  const getCreateButton = () => getCreateButtonConfig[createButtonType];
+  const CreateButton = () => <Tooltip TransitionComponent={Zoom} title="Add new item">{getCreateButton()}</Tooltip>
   const getCreateButtonMeta = () => (creatable && <span className="ml-4"><CreateButton/></span>)
 
   const getClearButton = () => (

@@ -29,7 +29,9 @@ const ListPane = ({
   const ready1 = items && items.length;
   if(!ready1) return null;
 
-  const getHeader = () =>
+  const getHeader = () => (
+    ( creatable || searchable || filterable || sortable )
+    &&
     <div className="w-full">
       <Zoom in mountOnEnter unmountOnExit>
         <ButtonsTierList
@@ -57,6 +59,7 @@ const ListPane = ({
         />
       </Zoom>
     </div>
+  )
 
   const getList = () =>
     <InfiniteScroll
@@ -111,7 +114,7 @@ const ListPane = ({
 
   return (
     <React.Fragment>
-      {getHeader()}    
+      {getHeader()}
       <Paper className={classNames(classes.paper, "z-10",)}>
         <List className="m-0 p-0" component="nav">
           {/* <ListSubheader className="text-left">Items</ListSubheader> */}
