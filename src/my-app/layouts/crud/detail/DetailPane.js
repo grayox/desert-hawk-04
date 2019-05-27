@@ -254,7 +254,7 @@ const DetailPane = ({
 
   const getHeader = () =>
     <React.Fragment>
-      <Paper className={classNames(classes.paper, "z-0 mb-4",)}>
+      <Paper className={classNames(classes.paper, "z-0 mb-12",)}>
         <MiniDashboard />
       </Paper>  
       <Paper className={classNames(classes.paper, "z-0",)}>
