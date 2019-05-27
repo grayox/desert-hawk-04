@@ -2,7 +2,7 @@
 
 import React, { useState, } from 'react';
 import { makeStyles } from '@material-ui/styles';
-import { MenuItem, Menu, Icon, IconButton, } from '@material-ui/core';
+import { MenuItem, Menu, Icon, IconButton, Tooltip, Zoom, } from '@material-ui/core';
 
 const useStyles = makeStyles( theme => ({
   root: {
@@ -66,10 +66,34 @@ const SortFilterMenu = ({ variant, filterOptions, sortOptions, onMenuItemClick, 
       //     <ListItemText primary="When device is locked" secondary={options[selectedIndex]} />
       //   </ListItem>
       // </List>
+
+      // filterable &&
+      // <Tooltip TransitionComponent={Zoom} placement="bottom" title="Filter">
+      //   <span className="mx-3">
+      //     <IconButton color="inherit" aria-label="Filter"
+      //       onClick={onClickFilter}
+      //     >
+      //       <Icon>filter_list</Icon>
+      //     </IconButton>
+      //   </span>
+      // </Tooltip>
+      
+      // sortable &&
+      // <Tooltip TransitionComponent={Zoom} placement="bottom" title="Sort">
+      //   <span className="mx-3">
+      //     <IconButton color="inherit" aria-label="Sort"
+      //       onClick={onClickSort}
+      //     >
+      //       <Icon>sort</Icon>
+      //     </IconButton>
+      //   </span>
+      // </Tooltip>
       }
-      <IconButton onClick={handleClickListItem}>
-        <Icon>{icons[variant]}</Icon>
-      </IconButton>
+      <Tooltip TransitionComponent={Zoom} placement="bottom" title={variant}>
+        <IconButton onClick={handleClickListItem}>
+          <Icon>{icons[variant]}</Icon>
+        </IconButton>
+      </Tooltip>
       <Menu id="lock-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
         {options.map((option, index,) => (
           <MenuItem

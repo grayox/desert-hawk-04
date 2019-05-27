@@ -82,106 +82,93 @@ const ButtonsTierList = ({
   
   const CreateButton = () => <Tooltip TransitionComponent={Zoom} title="Add new item">{getCreateButton()}</Tooltip>
 
+  const getCreateButtonMeta = () => (creatable && <span className="ml-4"><CreateButton/></span>)
+
   const getClearButton = () => (
     ( createButtonType === 'fab' ) &&
     <Tooltip TransitionComponent={Zoom} placement="bottom" title="Clear and reset">
       <span className="mx-4">
-        <IconButton color="inherit" aria-label="Clear and reset" onClick={onResetButtonsTierList}>
+        <IconButton aria-label="Clear and reset" onClick={onResetButtonsTierList}
+          // color="inherit" // makes it darker shade of black
+        >
           <Icon>clear</Icon>
         </IconButton>
       </span>
     </Tooltip>
   )
 
+  const getSortOrderButton = () => (
+    sortable &&
+    <span className="ml-0" title={`Sort ${sortOrderIsDescending ? 'descending' : 'ascending'}`}>
+      <IconButton
+        onClick={onToggleSortOrder}
+      >
+        <Icon>{sortOrderIsDescending ? 'arrow_upward' : 'arrow_downward'}</Icon>
+      </IconButton>
+    </span>
+  )
+
+  const getSortMenu = () => (
+    sortable &&
+    <span className="ml-0" title="Sort">
+      <SortFilterMenu variant="sort" sortOptions={sortOptions} onMenuItemClick={onMenuItemClick} />
+    </span>
+  )
+
+  const getFilterMenu = () => (
+    filterable &&
+    <span className="ml-0" title="Filter">
+      <SortFilterMenu variant="filter" filterOptions={filterOptions} onMenuItemClick={onMenuItemClick} />
+    </span>
+  )
+
+  const getSearchButton = () => (
+    searchable &&
+    <Tooltip TransitionComponent={Zoom} placement="bottom" title="Search">
+      <span>
+        <IconButton aria-label="Search" // color="inherit" // makes it darker shade of black
+          onClick={onClickSearchButton}
+        >
+          <Icon>search</Icon>
+        </IconButton>
+      </span>
+    </Tooltip>
+  )
+
+  const getSearchField = () => (
+    searchable &&
+    <span className="w-full flex-1 ml-12" title="Search">
+      <TextField
+        // // id="standard-name"
+        // // label="Search"
+        // // className={classes.textField}
+        // // margin="normal"
+        // placeholder="Search"
+        value={searchString}
+        onChange={onChangeSearchString}
+        // InputProps={{
+          // startAdornment: (
+          //   <InputAdornment position="start">
+          //     <Icon>search</Icon>
+          //   </InputAdornment>
+          // ),
+          // endAdornment: (
+          //   <InputAdornment position="end">
+          // //    <Icon className="mr-32">search</Icon>
+          //     <IconButton title="Clear" onClick={handleResetSearchField}>
+          //       <Icon>clear</Icon>
+          //     </IconButton>
+          //   </InputAdornment>
+          // ),
+        // }} 
+      />
+    </span>
+  )
+
   const getTopTier = () =>
     <div className="w-full flex mt-4">
-      { creatable && <span className="ml-4"><CreateButton/></span> }
-
-      { searchable &&
-        <span className="w-full flex-1 ml-12" title="Search">
-          <TextField
-            // // id="standard-name"
-            // // label="Search"
-            // // className={classes.textField}
-            // // margin="normal"
-            // placeholder="Search"
-            value={searchString}
-            onChange={onChangeSearchString}
-            // InputProps={{
-              // startAdornment: (
-              //   <InputAdornment position="start">
-              //     <Icon>search</Icon>
-              //   </InputAdornment>
-              // ),
-              // endAdornment: (
-              //   <InputAdornment position="end">
-              // //    <Icon className="mr-32">search</Icon>
-              //     <IconButton title="Clear" onClick={handleResetSearchField}>
-              //       <Icon>clear</Icon>
-              //     </IconButton>
-              //   </InputAdornment>
-              // ),
-            // }} 
-          />
-        </span>
-      }
-      { searchable &&
-        <Tooltip TransitionComponent={Zoom} placement="bottom" title="Search">
-          <span>
-            <IconButton color="inherit" aria-label="Search"
-              onClick={onClickSearchButton}
-            >
-              <Icon>search</Icon>
-            </IconButton>
-          </span>
-        </Tooltip>
-      }
-      {
-      // filterable &&
-      // <Tooltip TransitionComponent={Zoom} placement="bottom" title="Filter">
-      //   <span className="mx-3">
-      //     <IconButton color="inherit" aria-label="Filter"
-      //       onClick={onClickFilter}
-      //     >
-      //       <Icon>filter_list</Icon>
-      //     </IconButton>
-      //   </span>
-      // </Tooltip>
-      }
-      { filterable &&
-        <span className="ml-0" title="Filter">
-          <SortFilterMenu variant="filter" filterOptions={filterOptions} onMenuItemClick={onMenuItemClick} />
-        </span>
-      }
-      { sortable &&
-        <span className="ml-0" title="Sort">
-          <SortFilterMenu variant="sort" sortOptions={sortOptions} onMenuItemClick={onMenuItemClick} />
-        </span>
-      }
-      { sortable &&
-        <span className="ml-0" title={`Sort ${sortOrderIsDescending ? 'descending' : 'ascending'}`}>
-          <IconButton
-            onClick={onToggleSortOrder}
-          >
-            <Icon>{sortOrderIsDescending ? 'arrow_upward' : 'arrow_downward'}</Icon>
-          </IconButton>
-        </span>
-      }
-      { // sortable &&
-      // <Tooltip TransitionComponent={Zoom} placement="bottom" title="Sort">
-      //   <span className="mx-3">
-      //     <IconButton color="inherit" aria-label="Sort"
-      //       onClick={onClickSort}
-      //     >
-      //       <Icon>sort</Icon>
-      //     </IconButton>
-      //   </span>
-      // </Tooltip>
-      }
-      {
-        // !searchFieldIsOpen && <span className="flex-1"/>
-      }
-      {getClearButton()}
+      {getCreateButtonMeta()} {getSearchField()} {getSearchButton()}
+      {getFilterMenu()} {getSortMenu()} {getSortOrderButton()} {getClearButton()}
     </div>
 
   const getBottomTier = () =>
@@ -215,7 +202,6 @@ const ButtonsTierList = ({
     </div>
 
   return ( csfs ? <Paper className="w-full p-4">{getTopTier()}{getBottomTier()}</Paper> : null );
-
 }
 
 export default ButtonsTierList;
