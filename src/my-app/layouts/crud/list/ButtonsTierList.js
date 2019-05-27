@@ -99,13 +99,15 @@ const ButtonsTierList = ({
 
   const getSortOrderButton = () => (
     sortable &&
-    <span className="ml-0" title={`Sort ${sortOrderIsDescending ? 'descending' : 'ascending'}`}>
-      <IconButton
-        onClick={onToggleSortOrder}
-      >
-        <Icon>{sortOrderIsDescending ? 'arrow_upward' : 'arrow_downward'}</Icon>
-      </IconButton>
-    </span>
+    <Tooltip TransitionComponent={Zoom} placement="bottom" title={`Sort ${sortOrderIsDescending ? 'descending' : 'ascending'}`}>
+      <span className="ml-0">
+        <IconButton
+          onClick={onToggleSortOrder}
+        >
+          <Icon>{sortOrderIsDescending ? 'arrow_upward' : 'arrow_downward'}</Icon>
+        </IconButton>
+      </span>
+    </Tooltip>
   )
 
   const getSortMenu = () => (
