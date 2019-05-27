@@ -25,8 +25,8 @@ const ButtonsTierList = ({
 
   const createButtonType = ( searchable || filterable || sortable ) ? 'fab' : 'full';
 
-  // const getShields = () => configShields;
-  const getShields = () => {
+  // const getChips = () => configShields;
+  const getChips = () => {
     let out = [];
     if(filterBy && filterBy.length) {
       for (const filterString of filterBy) {
@@ -181,7 +181,7 @@ const ButtonsTierList = ({
       </div>
       <div className="w-full">
         {
-          getShields().map( (item, index,) => (
+          getChips().map( (item, index,) => (
             <span
               className="ml-4"
               key={hash(item)} // item.key
@@ -195,7 +195,13 @@ const ButtonsTierList = ({
                 onDelete={() => handleDeleteShield(item, index,)}
                 // onClick={handleClick}
                 // color="secondary"
-                // deleteIcon={<Icon>done</Icon>}
+                deleteIcon={
+                  ( item.type === 'sort' )
+                  ?
+                  <Icon>{sortOrderIsDescending ? 'arrow_upward' : 'arrow_downward'}</Icon>
+                  :
+                  undefined
+                }
               />
             </span>
           ))
