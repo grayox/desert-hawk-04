@@ -5,17 +5,22 @@ import { Hidden, } from '@material-ui/core';
 
 // import MediaWidth from 'my-app/layouts/MediaWidth';
 // <MediaWidth
+//   mobile={getMobileContent()}
+//   tablet={getTabletContent()}
+//   laptop={getLaptopContent()}
+// />
+// or
+// <MediaWidth
 //   mobile={<MobileDrawer/>}
 //   tablet={<TabletDrawer/>}
 //   laptop={<LaptopDrawer/>}
 // />
 
-const MediaWidth = ({ mobile, tablet, laptop, }) => (
+const MediaWidth = ({ mobile, tablet, laptop, }) =>
   <React.Fragment>
     <Hidden mdDown>{laptop}</Hidden>
     <Hidden xsDown lgUp>{tablet}</Hidden>
     <Hidden smUp>{mobile}</Hidden>
   </React.Fragment>
-)
 
 export default MediaWidth;

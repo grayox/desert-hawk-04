@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 
 // @material-ui/core
-import { withStyles, } from '@material-ui/core';
+import { withStyles, Paper, } from '@material-ui/core';
 
 import dashboardStyle from "my-app/vendors/creative-tim/assets/jss/material-dashboard-react/views/dashboardStyle";
 
@@ -127,8 +127,8 @@ class Dashboard extends Component {
 
     const dashConfig = {
       standard : <div className={classes.wrapper}><DashboardWidgets data={dashboard}/></div>,
-      mini     : <MiniDashboard data={dashboard}       /> ,
-      micro    : <MiniDashboard data={dashboard} micro /> ,
+      mini     : <Paper><MiniDashboard data={dashboard}/></Paper>,
+      micro    : <Paper><MiniDashboard data={dashboard} micro /></Paper>,
     }
 
     const showConfig = {

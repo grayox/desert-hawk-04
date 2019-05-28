@@ -10,10 +10,11 @@ import { updateUserData, } from 'my-app/store/actions/my-actions'; // updateSett
 import FetchUserData from 'my-app/containers/FetchUserData';
 
 // @material-ui/core
-import { withStyles, withWidth, Grid, Hidden, } from '@material-ui/core'; // CssBaseline, 
+import { withStyles, withWidth, Grid, Hidden, } from '@material-ui/core';
 import _ from '@lodash';
 
 import { getForm, } from 'my-app/config/AppConfig';
+import MediaWidth from 'my-app/layouts/MediaWidth';
 import ListPane from './list/ListPane';
 import DetailPane from './detail/DetailPane';
 import ViewEmpty from './ViewEmpty';
@@ -32,7 +33,7 @@ const styles = theme => ({
     // temp-border
     // border: 'solid red 4px',
     height: '100%',
-    flexGrow: 1,
+    flexGrow: 1, // extends content to right edge of viewport
     boxSizing: 'border-box',
     // overflow: 'auto',
   },
@@ -481,24 +482,25 @@ class CRUDView extends Component {
       />    
 
     const getMobileContent = () => detail ? getDetailPane() : getListPane()
+    const getTabletContent = () => getMobileContent()
     const getLaptopContent = () =>
-      <div className={classNames(classes.root,)}>
-        <Grid container spacing={16}>
-          <Grid item xs={12} sm={6}>{getListPane()}</Grid>
-          <Grid item xs={6}>{getDetailPane()}</Grid>
-        </Grid>
-      </div>
+      <Grid container spacing={16}>
+        <Grid item xs={6}>{getListPane()}</Grid>
+        <Grid item xs={6}>{getDetailPane()}</Grid>
+      </Grid>
     
     const getMainContent = () => (
       <React.Fragment>
-        {/* <CssBaseline/> */}
-        { getFetchUserData() } {/* to update the dashboard after a CRUD task */}
+        { getFetchUserData() } {/* updates dashboard after CRUD task */}
         { getCreateDialog()  }        
         { getUpdateDialog()  }
         { getDeleteDialog()  }
         <div className={classes.wrapper}>
-          <Hidden smUp   >{ getMobileContent() }</Hidden> {/* mobile */}
-          <Hidden xsDown >{ getLaptopContent() }</Hidden> {/* laptop */}
+          <MediaWidth
+            mobile={getMobileContent()}
+            tablet={getTabletContent()}
+            laptop={getLaptopContent()}
+          />
         </div>
       </React.Fragment>
     )

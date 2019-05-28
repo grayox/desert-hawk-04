@@ -2,8 +2,8 @@ import React from 'react';
 import _ from '@lodash';
 
 import {
-  Chip, Badge, Avatar,
-  List, ListItem, ListItemText, ListItemSecondaryAction // ListSubheader, ListItemIcon, Divider,
+  Chip, Badge, Avatar, Divider,
+  List, ListItem, ListItemText, ListItemSecondaryAction, ListSubheader, // ListItemIcon,
 } from '@material-ui/core';
 
 // import IndyBadge from "react-shields-badge";
@@ -60,7 +60,7 @@ const getMicro = ( key, value, ) =>
 
 const getMini = ( key, value, ) =>
   <React.Fragment>
-    <ListItem key={key} divider /* light */ >
+    <ListItem key={key} divider /*light*/>
       <ListItemText primary={key} />
       <ListItemSecondaryAction className="pr-32">{value}</ListItemSecondaryAction>
     </ListItem>
@@ -69,6 +69,8 @@ const getMini = ( key, value, ) =>
 const MiniDashboard = ({ data, micro, }) => {  
   const ready1 = data;
   if(!ready1) return;
+
+  const getSubheader = () => micro ? undefined : <ListSubheader component="div">Dashboard</ListSubheader>
   
   // data => { net: 1, deposits: 3, withdrawals: 2, }
   // dataAsArray => [ {key: 'net', value: 1,} , ... ]
@@ -80,7 +82,8 @@ const MiniDashboard = ({ data, micro, }) => {
 
   const getMiniDashboard = () => (
     pickedData && pickedData.length &&
-    <List>
+    <List dense subheader={getSubheader()}>
+      <Divider/>
       {pickedData.map(item => ( micro ? getMicro(item.key, item.value,) : getMini(item.key, item.value,)))}
     </List>
   )
