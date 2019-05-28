@@ -58,8 +58,7 @@ const styles = theme => ({
 //   </div>
 // )
 
-const DashboardWidgets = props => {
-  const { data, } = props; // classes,
+const DashboardWidgets = ({ data, }) => { // classes,
   const items = DashboardGridConfig.cells; // getItems();
   const count = items && items.length;
   return (

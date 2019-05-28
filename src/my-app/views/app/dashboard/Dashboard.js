@@ -51,12 +51,11 @@ const INITIAL_STATE_DIALOG = {
 };
 
 const INITIAL_STATE_BASELINE = {
-  isError: false,
   // isLoading: true,
+  isError: false,
   bizCategory: null,
   categoryOpen: false,
-
-  show: 'main', // 'main', 'step', 'greet',
+  show: 'main', // 'main' | 'step' | 'greet'
 };
 
 const INITIAL_STATE = {
@@ -128,7 +127,7 @@ class Dashboard extends Component {
   handleCloseDialog = () => {
     this.setState(INITIAL_STATE_DIALOG);
   }
-  
+
   render() {
     // console.log('user\n', this.props.user);
     // console.log('leads\n', this.props.leads);
@@ -142,29 +141,16 @@ class Dashboard extends Component {
     const { handleSaveSettingsStepper, handleClickGeo, } = this;
     const { show, isError, } = this.state;
 
-    const getMain = () =>
-      <React.Fragment>
-        <Hidden smUp><DashboardWidgets data={dashboard} /></Hidden>
-        <Hidden xsDown><DashboardWidgets data={dashboard} /></Hidden>
-      </React.Fragment>
-
     const showConfig = {
-      greet: <SettingsMessage onClick={handleClickGeo} />,
-      step: <SettingsStepper onSave={handleSaveSettingsStepper} />,
-      main: getMain(),
+      greet : <SettingsMessage onClick={handleClickGeo}           /> ,
+      step  : <SettingsStepper onSave={handleSaveSettingsStepper} /> ,
+      main  : <DashboardWidgets data={dashboard}                  /> ,
     }
 
-    const getDashboard = () => (
-      !dataHasLoaded
-      ?
-      <Loading />
-      :
-      isError ? <Error500Page /> : <div className={classes.wrapper}>{showConfig[show]}</div>
-    )
-
-    return getDashboard();
+    const getMain = () => <div className={classes.wrapper}>{showConfig[show]}</div>
+    
+    return ( !dataHasLoaded ? <Loading /> : ( isError ? <Error500Page /> : getMain() ) )
   }
-
 }
 
 Dashboard.propTypes = {
