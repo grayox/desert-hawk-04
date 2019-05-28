@@ -88,6 +88,7 @@ export const getDashboardInitialValues = () => {
 }
 
 export const DashboardGridConfig = {
+  // import { DashboardGridConfig, } from 'my-app/config/DashboardGridConfig';
   groups: {
     balance: {
       label: 'Balance',
