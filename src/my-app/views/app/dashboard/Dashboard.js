@@ -126,9 +126,9 @@ class Dashboard extends Component {
     const { show, isError, } = this.state;
 
     const dashConfig = {
-      standard : <DashboardWidgets data={dashboard}       /> ,
-      mini     : <MiniDashboard    data={dashboard}       /> ,
-      micro    : <MiniDashboard    data={dashboard} micro /> ,
+      standard : <div className={classes.wrapper}><DashboardWidgets data={dashboard}/></div>,
+      mini     : <MiniDashboard data={dashboard}       /> ,
+      micro    : <MiniDashboard data={dashboard} micro /> ,
     }
 
     const showConfig = {
@@ -137,7 +137,7 @@ class Dashboard extends Component {
       main  : dashConfig[type],
     }
 
-    const getMain = () => <div className={classes.wrapper}>{showConfig[show]}</div>
+    const getMain = () => showConfig[show]
     
     return ( !dataHasLoaded ? <Loading /> : ( isError ? <Error500Page /> : getMain() ) )
   }
