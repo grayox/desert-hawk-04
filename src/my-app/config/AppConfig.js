@@ -361,6 +361,7 @@ export const componentsNavConfig = [
           },
         ],
       },
+      miniDashboard: [ 'net', 'deposits', 'withdrawals', ],
       creatable: false, // false only makes button not appear on CRUD view
       readable: {
         path: 'leads',
@@ -460,6 +461,7 @@ export const componentsNavConfig = [
         label: 'Challenge',
         func: () => {},
       },
+      miniDashboard: [ 'net', 'deposits', 'withdrawals', ],
       creatable: {
         title: 'Send new referral', // form: <UserMultiForm />,
         path: 'leads',
@@ -528,6 +530,7 @@ export const componentsNavConfig = [
         label: 'Challenge',
         func: () => {},
       },
+      miniDashboard: [ 'contacts', ],
       creatable: {
         title: 'Create new contact', // form: <UserMultiForm />,
         path: 'contacts',

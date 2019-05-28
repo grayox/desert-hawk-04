@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 // redux
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
 // @material-ui/core
-import { withStyles, Hidden, } from '@material-ui/core';
+import { withStyles, } from '@material-ui/core';
 
 import dashboardStyle from "my-app/vendors/creative-tim/assets/jss/material-dashboard-react/views/dashboardStyle";
 
 // Custom Components
 import DashboardWidgets from './DashboardWidgets';
+import MiniDashboard from './MiniDashboard';
 import Error500Page from 'my-app/components/Error500Page';
 import Loading from 'my-app/components/Loading.js';
 import SettingsMessage from 'my-app/components/SettingsMessage';
@@ -27,20 +28,17 @@ import '@firebase/firestore';
 const db = firebase.firestore();
 
 const styles = theme => ({
-
   root: {
     // display: 'flex',
     ...dashboardStyle,
     height: '100vh',
-  },
-  
+  }, 
   wrapper: {
     padding: 0, // flush with top on mobile //'56px', // clears <AppBar />
     // verticalAlign: 'top', // overcomes default
     width: `calc(100vw - ${uiSpecs.drawerWidth})`, // flush with right edge on mobile
     height: 'calc(100vh - 128px)',
   },
-
 });
 
 const INITIAL_STATE_DIALOG = {
@@ -85,20 +83,8 @@ class Dashboard extends Component {
     window.scrollTo(0, 0);
   }
 
-  handleOpenCategory = () => {
-    // console.log('opening category...');
-    // console.log('state\n', this.state);
-    this.setState({ categoryOpen: true, });
-    // console.log('state\n', this.state);
-  }
-  
-  handleCloseCategory = () => {
-    // console.log('closing category...');
-    // console.log('state\n', this.state);
-    this.setState({ categoryOpen: false, });
-    // console.log('state\n', this.state);
-  }
-
+  handleOpenCategory  = () => this.setState({ categoryOpen : true  , });
+  handleCloseCategory = () => this.setState({ categoryOpen : false , });
   handleChangeCategory = model => {
     const { geoNation, geoRegion, geoLocal, } = this.state;
     // console.log('model\n', model);
@@ -113,20 +99,18 @@ class Dashboard extends Component {
       .add(newData);
   }
 
-  handleClickInfo = item => {
-    // console.log('handling click info...');
-    // console.log('item\n', item);
-    this.setState({
-      dialogOpen: true,
-      dialogTitle: item.label,
-      dialogContentText: item.desc,
-      dialogButtonLabel: item.buttonLabel,
-    });
-  }
+  // handleClickInfo = item => {
+  //   // console.log('handling click info...');
+  //   // console.log('item\n', item);
+  //   this.setState({
+  //     dialogOpen: true,
+  //     dialogTitle: item.label,
+  //     dialogContentText: item.desc,
+  //     dialogButtonLabel: item.buttonLabel,
+  //   });
+  // }
 
-  handleCloseDialog = () => {
-    this.setState(INITIAL_STATE_DIALOG);
-  }
+  // handleCloseDialog = () => this.setState(INITIAL_STATE_DIALOG);
 
   render() {
     // console.log('user\n', this.props.user);
@@ -135,16 +119,22 @@ class Dashboard extends Component {
     // console.log('settings\n', this.props.settings);
     // console.log('dataHasLoaded\n', this.props.dataHasLoaded);
 
-    const { classes, dataHasLoaded, dashboard, } = this.props; 
-    // console.log('dashboard\n', dashboard,);
+    const { classes, dataHasLoaded, dashboard, type, } = this.props; 
+    console.log('dashboard\n', dashboard,);
 
     const { handleSaveSettingsStepper, handleClickGeo, } = this;
     const { show, isError, } = this.state;
 
+    const dashConfig = {
+      standard : <DashboardWidgets data={dashboard}       /> ,
+      mini     : <MiniDashboard    data={dashboard}       /> ,
+      micro    : <MiniDashboard    data={dashboard} micro /> ,
+    }
+
     const showConfig = {
-      greet : <SettingsMessage onClick={handleClickGeo}           /> ,
+      greet : <SettingsMessage onClick={handleClickGeo} /> ,
       step  : <SettingsStepper onSave={handleSaveSettingsStepper} /> ,
-      main  : <DashboardWidgets data={dashboard}                  /> ,
+      main  : dashConfig[type],
     }
 
     const getMain = () => <div className={classes.wrapper}>{showConfig[show]}</div>
@@ -155,6 +145,13 @@ class Dashboard extends Component {
 
 Dashboard.propTypes = {
   classes: PropTypes.object.isRequired,
+  dashboard: PropTypes.object,
+  dataHasLoaded: PropTypes.bool,
+  type: PropTypes.oneOf(['standard', 'mini', 'micro',]),
+};
+
+Dashboard.defaultProps = {
+  type: 'standard',
 };
 
 const mapStateToProps = state => {

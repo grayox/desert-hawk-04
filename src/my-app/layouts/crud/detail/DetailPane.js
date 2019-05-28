@@ -9,7 +9,7 @@ import {
 import { FuseAnimateGroup } from '@fuse'; // FuseScrollbars, FuseAnimate,
 
 import { uiSpecs, } from 'my-app/config/AppConfig'; // getCleanFieldNames,
-import MiniDashboard from 'my-app/views/app/dashboard/MiniDashboard';
+import Dashboard from 'my-app/views/app/dashboard/Dashboard';
 import SimpleExpansionPanel from 'my-app/components/SimpleExpansionPanel';
 import ButtonsTierDetail from './ButtonsTierDetail'; // CRUDButtons,
 import ViewEmpty from '../ViewEmpty';
@@ -252,30 +252,35 @@ const DetailPane = ({
     );
   }
 
+  const getDashboard = () =>
+    <Paper className={classNames(classes.paper, "z-0 mb-12",)}>
+      <Dashboard type="micro" />
+      <Dashboard type="mini" />
+    </Paper> 
+
   const getHeader = () =>
-    <React.Fragment>
-      <Paper className={classNames(classes.paper, "z-0 mb-12",)}>
-        <MiniDashboard />
-      </Paper>  
-      <Paper className={classNames(classes.paper, "z-0",)}>
-        {getButtonsTier()}
-        {getSummaryTier()}
-      </Paper>
-    </React.Fragment>
+    <Paper className={classNames(classes.paper, "z-0",)}>
+      {getButtonsTier()}
+      {getSummaryTier()}
+    </Paper>
 
   const getContent = () => <React.Fragment>{getHeader()}{getDetail()}</React.Fragment>
 
   // console.log('detail\n', detail);
   return (
-    <Slide // <Zoom // <Grow 
-      in //={detail}
-      direction="right"
-      mountOnEnter
-      unmountOnExit
-      // timeout={3000}
-    >
-      { detail ? getContent() : <ViewEmpty side="detail" /> }
-    </Slide> //</Grow> // </Zoom> // 
+    <React.Fragment>
+      { getDashboard() }      
+      <Slide // <Zoom // <Grow 
+        in //={detail}
+        direction="right"
+        mountOnEnter
+        unmountOnExit
+        // timeout={3000}
+      >
+        { detail ? getContent() : <ViewEmpty side="detail" /> }
+      </Slide>
+      {/* // </Grow> // </Zoom> // */}
+    </React.Fragment>
   )
 
 }
