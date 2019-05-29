@@ -102,8 +102,11 @@ const MiniDashboard = ({ data, micro, }) => {
   const getPicker = () => {
     // console.log('browserPath\n', browserPath,); // 'inbox'
     // componentsNavConfig[1].crudConfig.miniDashboard;
-    const navItem = _.filter(componentsNavConfig, { id: path, },);
+    const navItems = _.filter(componentsNavConfig, { id: browserPath, },);
+    const navItem = navItems[0];
+    // console.log('navItem\n', navItem,);
     const out = navItem && navItem.crudConfig && navItem.crudConfig.miniDashboard;
+    // console.log('out\n', out,);
     // return [ 'net', 'deposits', 'withdrawals', ];
     return out;
   };
@@ -129,7 +132,7 @@ const MiniDashboard = ({ data, micro, }) => {
         pickedData && pickedData.length &&
         <List dense subheader={getSubheader()}>
           <Divider/>
-          {pickedData.map(item => ( micro ? getMicro(item.key, item.value,) : getMini(item.key, item.value,)))}
+          {pickedData.map( item => ( micro ? getMicro(item.key, item.value,) : getMini(item.key, item.value,)))}
         </List>
       }
     </React.Fragment>

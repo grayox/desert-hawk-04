@@ -120,7 +120,7 @@ class Dashboard extends Component {
     // console.log('dataHasLoaded\n', this.props.dataHasLoaded);
 
     const { classes, dataHasLoaded, dashboard, type, } = this.props; 
-    console.log('dashboard\n', dashboard,);
+    // console.log('dashboard\n', dashboard,);
 
     const { handleSaveSettingsStepper, handleClickGeo, } = this;
     const { show, isError, } = this.state;
