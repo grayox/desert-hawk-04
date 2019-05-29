@@ -126,8 +126,8 @@ class Dashboard extends Component {
     const { show, isError, } = this.state;
 
     const dashConfig = {
-      standard : <div className={classes.wrapper}><DashboardWidgets data={dashboard}/></div>,
-      mini     : <Paper><MiniDashboard data={dashboard}/></Paper>,
+      standard : <div className={classes.wrapper}><DashboardWidgets data={dashboard} /></div>,
+      mini     : <Paper><MiniDashboard data={dashboard} /></Paper>,
       micro    : <Paper><MiniDashboard data={dashboard} micro /></Paper>,
     }
 
