@@ -393,7 +393,7 @@ class CRUDView extends Component {
       searchString, filterBy, sortBy, sortOrderIsDescending,
     } = this.state;
     const {
-      classes, items, profile, condensed, onNext, hasMore,
+      classes, items, profile, condensed, onNext, hasMore, miniDashboard,
       creatable, updatable, deletable, actionable, searchable, sortable, filterable, starrable,
     } = this.props;
     const {
@@ -471,6 +471,7 @@ class CRUDView extends Component {
         deletable={deletable}
         actionable={actionable}
         starrable={starrable}
+        miniDashboard={miniDashboard}
         onClickStar={handleClickStar}
         onToggle={handleToggle}
         onUpdate={handleOpenUpdateDialog}
@@ -523,6 +524,7 @@ CRUDView.propTypes = {
 
   condensed: PropTypes.bool, // one-line per list item in detail pane
   
+  miniDashboard: PropTypes.bool,
   starrable: PropTypes.bool,
   searchable: PropTypes.oneOfType([
     PropTypes.object,
@@ -562,6 +564,7 @@ CRUDView.defaultProps = {
   sortable: false,
   filterable: false,
   starrable: false,
+  miniDashboard: false,
   // actionable: false,
   creatable: false,
   // readable: false,

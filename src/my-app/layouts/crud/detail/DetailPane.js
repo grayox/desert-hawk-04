@@ -107,7 +107,7 @@ const styles = theme => ({
 
 const DetailPane = ({
   classes, detail, condensed, itemsLength, selectedIndex,
-  creatable, updatable, deletable, actionable, starrable,
+  creatable, updatable, deletable, actionable, starrable, miniDashboard,
   onClickStar, onToggle, onUpdate, onDelete, onNavBack, onNavNext, getFormFields,
 }) => {
 
@@ -269,7 +269,7 @@ const DetailPane = ({
   // console.log('detail\n', detail);
   return (
     <React.Fragment>
-      { getDashboard() }      
+      { miniDashboard && getDashboard() }      
       <Slide // <Zoom // <Grow 
         in //={detail}
         direction="right"

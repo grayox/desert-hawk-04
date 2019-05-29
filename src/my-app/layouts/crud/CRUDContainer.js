@@ -155,7 +155,7 @@ class CRUDContainer extends Component {
     const { isLoading, isError, items, hasMore, } = this.state;
     const {
       classes, condensed, searchable, sortable, filterable, starrable,
-      actionable, creatable, readable, updatable, deletable,
+      miniDashboard, actionable, creatable, readable, updatable, deletable,
     } = this.props;
     
     return (
@@ -190,6 +190,7 @@ class CRUDContainer extends Component {
               sortable={sortable}
               filterable={filterable}
               starrable={starrable}
+              miniDashboard={miniDashboard}
               actionable={actionable}
               creatable={creatable}
               readable={readable}
