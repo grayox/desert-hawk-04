@@ -130,7 +130,7 @@ const MiniDashboard = ({ data, micro, }) => {
       <Route path="/:path" component={handleRouter} />
       {
         pickedData && pickedData.length &&
-        <List dense subheader={getSubheader()}>
+        <List className="p-0 mb-12" dense subheader={getSubheader()}>
           <Divider/>
           {pickedData.map( item => ( micro ? getMicro(item.key, item.value,) : getMini(item.key, item.value,)))}
         </List>

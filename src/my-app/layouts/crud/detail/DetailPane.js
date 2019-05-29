@@ -8,6 +8,7 @@ import {
 
 import { FuseAnimateGroup } from '@fuse'; // FuseScrollbars, FuseAnimate,
 
+import MediaWidth from 'my-app/layouts/MediaWidth';
 import { uiSpecs, } from 'my-app/config/AppConfig'; // getCleanFieldNames,
 import Dashboard from 'my-app/views/app/dashboard/Dashboard';
 import SimpleExpansionPanel from 'my-app/components/SimpleExpansionPanel';
@@ -253,9 +254,12 @@ const DetailPane = ({
   }
 
   const getDashboard = () =>
-    <Paper className={classNames(classes.paper, "z-0 mb-12",)}>
-      <Dashboard type="micro" />
-      <Dashboard type="mini" />
+    <Paper className={classNames(classes.paper, "z-0",)}>
+      <MediaWidth
+        mobile={<Dashboard type="micro" />}
+        tablet={<Dashboard type="mini" />}
+        laptop={<Dashboard type="mini" />}
+      />
     </Paper> 
 
   const getHeader = () =>
