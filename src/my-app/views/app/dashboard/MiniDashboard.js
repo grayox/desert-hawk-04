@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, } from 'react';
+import { Route, } from 'react-router-dom'; // BrowserRouter as Router, Link 
 import _ from '@lodash';
 
 import {
@@ -53,7 +54,26 @@ export const Demo = (
 // const b = [ 'b', 'g', ];
 //  _.filter(a, v => _.includes(b, v.j));
 // => [Object {c: "d", j: "b"}, Object {c: "h", j: "g"}]
-const picker = [ 'net', 'deposits', 'withdrawals', ];
+
+const getPickedData = ( values, selectors, definitions, ) => {
+  const ready1 = (selectors && selectors.length);
+  if(!ready1) return null;
+
+  let out = [];
+  selectors.forEach( selector => {
+    // selector => 'net'
+    // get label from definitions
+    const filteredCells = _.filter(definitions, { id: selector, },); // => cell[n] => object
+    const cell = filteredCells[0]; // gets first in array
+    // console.log('cell\n', cell,);
+    const { label, } = cell; // => 'Net'
+    const value = values[selector]; // get value from values
+    const item = { key: label, value, }; // attach item key-value pair
+    out.push(item); // add item to out
+  })
+  // console.log('out\n', out,);
+  return out;
+}
 
 const getMicro = ( key, value, ) =>
   <span className="ml-8"><ShieldsIo label={key} message={value} color="informational" /></span>
@@ -66,9 +86,29 @@ const getMini = ( key, value, ) =>
     </ListItem>
   </React.Fragment>
 
-const MiniDashboard = ({ data, micro, }) => {  
+const MiniDashboard = ({ data, micro, }) => {
   const ready1 = data;
   if(!ready1) return;
+
+  const [ browserPath, setBrowserPath, ] = useState(null);
+  
+  const handleRouter = ({ match, }) => {
+    // ref: https://reacttraining.com/react-router/web/example/url-params
+    // console.log('match\n', match,);
+    setBrowserPath(match.params.path);
+    return null;
+  }
+
+  const getPicker = () => {
+    // console.log('browserPath\n', browserPath,); // 'inbox'
+    // componentsNavConfig[1].crudConfig.miniDashboard;
+    const navItem = _.filter(componentsNavConfig, { id: path, },);
+    const out = navItem && navItem.crudConfig && navItem.crudConfig.miniDashboard;
+    // return [ 'net', 'deposits', 'withdrawals', ];
+    return out;
+  };
+
+  const picker = getPicker();
 
   const getSubheader = () => micro ? undefined : <ListSubheader component="div">Dashboard</ListSubheader>
   
@@ -76,16 +116,23 @@ const MiniDashboard = ({ data, micro, }) => {
   // dataAsArray => [ {key: 'net', value: 1,} , ... ]
   // ref: https://stackoverflow.com/a/37595559/1640892
   // test: https://lodash.com/docs/4.17.11#map
-  const dataAsArray = _.map( data, (value, key) => ({ key, value, }));
-  const pickedData = _.filter(dataAsArray, item => _.includes(picker, item.key));
+  // const dataAsArray = _.map( data, (value, key,) => ({ key, value, }));
+  const { cells, } = DashboardGridConfig;
+  // const pickedData = _.filter(dataAsArray, item => _.includes(picker, item.key)); // does nor sort or return labels // 
+  const pickedData = getPickedData(data, picker, cells,);
   // console.log('pickedData\n', pickedData,);
 
   const getMiniDashboard = () => (
-    pickedData && pickedData.length &&
-    <List dense subheader={getSubheader()}>
-      <Divider/>
-      {pickedData.map(item => ( micro ? getMicro(item.key, item.value,) : getMini(item.key, item.value,)))}
-    </List>
+    <React.Fragment>
+      <Route path="/:path" component={handleRouter} />
+      {
+        pickedData && pickedData.length &&
+        <List dense subheader={getSubheader()}>
+          <Divider/>
+          {pickedData.map(item => ( micro ? getMicro(item.key, item.value,) : getMini(item.key, item.value,)))}
+        </List>
+      }
+    </React.Fragment>
   )
   
   return getMiniDashboard();

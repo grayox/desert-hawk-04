@@ -9,7 +9,9 @@ const Child = ({ match: { params: { id }}}) => {
   const item = matches[0];
   const config = item.crudConfig;
   const {
-    condensed, actionable, creatable, readable, updatable, deletable, searchable, filterable, sortable, starrable,
+    condensed, actionable,
+    creatable, readable, updatable, deletable,
+    searchable, filterable, sortable, starrable,
   } = config;
   return (
     // <div>{id}</div>
@@ -29,11 +31,7 @@ const Child = ({ match: { params: { id }}}) => {
   )
 };
 
-const CRUDRouter = () => {
-  return (
-    // ref: https://reacttraining.com/react-router/web/example/url-params
-    <Route path="/:id" component={Child} />
-  );
-}
+// ref: https://reacttraining.com/react-router/web/example/url-params
+const CRUDRouter = () => <Route path="/:id" component={Child} />
 
 export default CRUDRouter;
