@@ -405,7 +405,7 @@ export const componentsNavConfig = [
       sortable: true,
       starrable: true,
       actionable : {
-        icon: 'report',
+        icon: 'warning', // 'report',
         label: 'Challenge this lead for poor quality',
         func: () => ({
           challengedBy: 'uid', // add to array
