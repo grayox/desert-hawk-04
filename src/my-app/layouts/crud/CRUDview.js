@@ -1,6 +1,5 @@
 import React, { Component, } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
 import compose from 'recompose/compose';
 import { connect } from 'react-redux';
@@ -10,7 +9,7 @@ import { updateUserData, } from 'my-app/store/actions/my-actions'; // updateSett
 import FetchUserData from 'my-app/containers/FetchUserData';
 
 // @material-ui/core
-import { withStyles, withWidth, Grid, Hidden, } from '@material-ui/core';
+import { withStyles, withWidth, Grid, } from '@material-ui/core';
 import _ from '@lodash';
 
 import { getForm, } from 'my-app/config/AppConfig';
