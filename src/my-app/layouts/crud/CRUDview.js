@@ -12,7 +12,7 @@ import FetchUserData from 'my-app/containers/FetchUserData';
 import { withStyles, withWidth, Grid, } from '@material-ui/core';
 import _ from '@lodash';
 
-import { getForm, } from 'my-app/config/AppConfig';
+import { getForm, getFieldsToSearch, } from 'my-app/config/AppConfig';
 import MediaWidth from 'my-app/layouts/MediaWidth';
 import ListPane from './list/ListPane';
 import DetailPane from './detail/DetailPane';
@@ -170,6 +170,7 @@ class CRUDView extends Component {
 
   // https://jsbin.com/puzenekomi/edit?js,console
   searchItems = (items, searchString, fieldsToSearch,) => {
+    // returns subset array of items containing searchString in fieldsToSearch
     // fieldsToSearch: array of strings: [ 'name', 'email', 'phone', 'zip', 'notes', ]
     const isSubstring = s => _.includes(s, searchString,); // returns true if search string is substring of arg string
     const isInObjectValues = r => Object.values(r).filter(isSubstring); // returns all values of arg object containing search string
@@ -188,11 +189,12 @@ class CRUDView extends Component {
     // server-side search is limited to no logical OR filters, must join multiple searches on client-side
     // so we are opting in to doing the search string filter on the client-side instead of the server
     console.log('state\n', this.state,);
-    const { items, } = this.props;
+    const { items, searchable, readable, } = this.props;
     const { searchString, } = this.state;
     console.log('searchString\n', searchString,);
     console.log('items\n', items,);
-    const fieldsToSearch = [ 'name', 'email', 'phone', 'zip', 'notes', ];
+    // const fieldsToSearch = [ 'name', 'email', 'phone', 'zip', 'notes', ];
+    const fieldsToSearch = getFieldsToSearch(searchable, readable,);
     const foundItems = this.searchItems(items, searchString, fieldsToSearch,);
     console.log('foundItems\n', foundItems,);
     this.setState({ items: foundItems, }
@@ -554,7 +556,7 @@ CRUDView.propTypes = {
   miniDashboard: PropTypes.bool,
   starrable: PropTypes.bool,
   searchable: PropTypes.oneOfType([
-    PropTypes.object,
+    PropTypes.array,
     PropTypes.bool,
   ]),
   sortable: PropTypes.oneOfType([

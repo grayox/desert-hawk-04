@@ -287,6 +287,35 @@ export const getForm = arrayOfIds =>
 
 export const getCleanFieldNames = a => a.map(s => getOnlyAlpha(s)); // a: arrayOfStrings: ['name*', 'phone', 'email*']
 
+export const getFieldsToSearch = (searchable, readable,) => {
+  // return: array: either one of 
+  // 1. manually liste array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ]
+  // 2. otherwise, if true, uses all fields in 1. readable.path => creatable.fields
+  // console.log('searchable\n', searchable,);
+  // console.log('readable\n', readable,);
+  const getBoolean = () => {
+    const ready1 = searchable;
+    if(!ready1) return;
+    // searchable === true
+    // find property in crudConfig where readable is created, then return those field names with alpha characters only
+    // console.log('componentsNavConfig\n', componentsNavConfig,);
+    // console.log('readablePath\n', readable.path,);
+    const target = _.filter(componentsNavConfig, {crudConfig: {creatable: {path: readable.path,}}});
+    // console.log('target\n', target,); // id: outbox
+    if(typeof target != 'object') throw new Error ('Target value is not an object');
+    const { fields, } = target && target[0] && target[0].crudConfig && target[0].crudConfig.creatable;
+    const result = getCleanFieldNames(fields);
+    return result;
+  }
+  const config = {
+    boolean: getBoolean(),
+    object: searchable,
+  };
+  const type = typeof searchable; // 'boolean' | 'object'
+  const out = config[type];
+  return out;
+}
+
 // To convert JS descriptions to JSX:
 // // https://github.com/lovell/farmhash/blob/master/README.md
 // import farmhash from 'farmhash';
@@ -400,7 +429,7 @@ export const componentsNavConfig = [
     component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
     crudConfig : {
       condensed: true,
-      searchable: true,
+      searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, uses all fields in 1. readable.path => creatable.fields
       filterable: true,
       sortable: true,
       starrable: true,
@@ -452,7 +481,7 @@ export const componentsNavConfig = [
     component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
     crudConfig : {
       condensed: true,
-      searchable: true,
+      searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, uses all fields in 1. readable.path => creatable.fields
       filterable: true,
       sortable: true,
       starrable: true,
@@ -521,7 +550,7 @@ export const componentsNavConfig = [
     component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
     crudConfig : {
       condensed: true,
-      searchable: true,
+      searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, uses all fields in 1. readable.path => creatable.fields
       filterable: true,
       sortable: true,
       starrable: true,

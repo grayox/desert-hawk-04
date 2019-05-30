@@ -6,13 +6,14 @@ import CRUDContainer from './CRUDContainer';
 
 const Child = ({ match: { params: { id }}}) => {
   // const matches = componentsNavConfig.filter(r => (r.id === id));
-  const matches = _.filter(componentsNavConfig, {id: id,},);
+  const matches = _.filter(componentsNavConfig, {id,},);
   const item = matches[0];
-  const config = item.crudConfig;
+  const { crudConfig, } = item;
+  // console.log('crudConfig\n', crudConfig);
   const {
     condensed, actionable, creatable, readable, updatable, deletable,
     searchable, filterable, sortable, starrable, miniDashboard,
-  } = config;
+  } = crudConfig;
   return (
     // <div>{id}</div>
     <CRUDContainer
