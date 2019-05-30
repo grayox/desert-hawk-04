@@ -137,7 +137,7 @@ const ButtonsTierList = ({
 
   const getSearchField = () => (
     searchable &&
-    <span className="w-full flex-1 ml-12" title="Search">
+    <span className="w-full flex-1 ml-12 flex justify-end" title="Search">
       <TextField
         // // id="standard-name"
         // // label="Search"
@@ -145,6 +145,7 @@ const ButtonsTierList = ({
         // // margin="normal"
         // placeholder="Search"
         value={searchString}
+        // onChange={() => onChangeSearchString(this.state.x)}
         onChange={onChangeSearchString}
         // InputProps={{
           // startAdornment: (
@@ -166,7 +167,7 @@ const ButtonsTierList = ({
   )
 
   const getTopTier = () =>
-    <div className="w-full flex mt-4">
+    <div className="w-full flex mt-4 justify-end">
       {getCreateButtonMeta()} {getSearchField()} {getSearchButton()}
       {getFilterMenu()} {getSortMenu()} {getSortOrderButton()} {getClearButton()}
     </div>

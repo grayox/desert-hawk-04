@@ -162,14 +162,35 @@ class CRUDView extends Component {
 
   // begin buttons tier list
 
-  handleChangeSearchString = event => {
-    const searchString = event && event.target && event.target.value;
+  handleChangeSearchString = ({ target, }) => {
+    const searchString = target && target.value;
+    // console.log('searchString\n', searchString,);
     this.setState({ searchString, });
   }
 
+  // TODO: complete below helper method, when necessary
+  // searchItems = (items, searchString,) => {
+  //   // const newItems = _.filter(items, item => _.includes(item.name, searchString,));
+  //   // const newItems = _.filter(items, item => Object.values(item).some(str => str.indexOf(searchString) > -1));
+  //   // const newItems = _.filter(items, item => Object.values(item).some(str => str.includes(searchString)));
+  //   const includesValue = val => _.some(_.includes(val));
+  //   const out = _.filter(items, item => includesValue(searchString)(item) );
+  //   return out;
+  // }
+
   handleClickSearchButton = () => {
-    const { searchField, } = this.state;
-    console.log('searchField\n', searchField,);
+    console.log('state\n', this.state,);
+    const { items, } = this.props;
+    const { searchString, } = this.state;
+    console.log('searchString\n', searchString,);
+    console.log('items\n', items,);
+    // const foundItems = this.searchItems(items, searchString,);
+    // console.log('foundItems\n', foundItems,);
+    // this.setState({ items: foundItems, }
+    //   , () => console.log('state\n', this.state,)
+    // );
+    // opting out of the above client-side search (unfinished)
+    // in favor of the below server-side search
   }
 
   // handleClickFilterButton = () => {
