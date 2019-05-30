@@ -168,29 +168,36 @@ class CRUDView extends Component {
     this.setState({ searchString, });
   }
 
-  // TODO: complete below helper method, when necessary
-  // searchItems = (items, searchString,) => {
-  //   // const newItems = _.filter(items, item => _.includes(item.name, searchString,));
-  //   // const newItems = _.filter(items, item => Object.values(item).some(str => str.indexOf(searchString) > -1));
-  //   // const newItems = _.filter(items, item => Object.values(item).some(str => str.includes(searchString)));
-  //   const includesValue = val => _.some(_.includes(val));
-  //   const out = _.filter(items, item => includesValue(searchString)(item) );
-  //   return out;
-  // }
-
+  // https://jsbin.com/puzenekomi/edit?js,console
+  searchItems = (items, searchString, fieldsToSearch,) => {
+    // fieldsToSearch: array of strings: [ 'name', 'email', 'phone', 'zip', 'notes', ]
+    const isSubstring = s => _.includes(s, searchString,); // returns true if search string is substring of arg string
+    const isInObjectValues = r => Object.values(r).filter(isSubstring); // returns all values of arg object containing search string
+    const isInObject = r => { // passed any object, r, returns true if search string is in any value of r
+      // reduce search fields by opting-in list of specific fields // eliminate extra fields like docId, etc. for example
+      const reducedObjectToSearch = _.pick(r, fieldsToSearch,);
+      const result = !(_.isEmpty(isInObjectValues(reducedObjectToSearch)));
+      return result;
+    }
+    const out = items.filter(isInObject); // returns all array elements containing search string in any values of the object element
+    console.log(out);
+    return out;
+  }
+  
   handleClickSearchButton = () => {
+    // server-side search is limited to no logical OR filters, must join multiple searches on client-side
+    // so we are opting in to doing the search string filter on the client-side instead of the server
     console.log('state\n', this.state,);
     const { items, } = this.props;
     const { searchString, } = this.state;
     console.log('searchString\n', searchString,);
     console.log('items\n', items,);
-    // const foundItems = this.searchItems(items, searchString,);
-    // console.log('foundItems\n', foundItems,);
-    // this.setState({ items: foundItems, }
-    //   , () => console.log('state\n', this.state,)
-    // );
-    // opting out of the above client-side search (unfinished)
-    // in favor of the below server-side search
+    const fieldsToSearch = [ 'name', 'email', 'phone', 'zip', 'notes', ];
+    const foundItems = this.searchItems(items, searchString, fieldsToSearch,);
+    console.log('foundItems\n', foundItems,);
+    this.setState({ items: foundItems, }
+      , () => console.log('state\n', this.state,)
+    );
   }
 
   // handleClickFilterButton = () => {
