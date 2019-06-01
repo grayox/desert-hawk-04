@@ -113,7 +113,9 @@ const MiniDashboard = ({ data, micro, }) => {
 
   const picker = getPicker();
 
-  const getSubheader = () => micro ? undefined : <ListSubheader component="div">Dashboard</ListSubheader>
+  const getSubheader = () =>
+    micro ? undefined :
+    <ListSubheader component="div">{'Dashboard'.toUpperCase()}</ListSubheader>
   
   // data => { net: 1, deposits: 3, withdrawals: 2, }
   // dataAsArray => [ {key: 'net', value: 1,} , ... ]
@@ -131,8 +133,7 @@ const MiniDashboard = ({ data, micro, }) => {
       {
         pickedData && pickedData.length &&
         <List className="p-0 mb-12" dense subheader={getSubheader()}>
-          <Divider/>
-          {pickedData.map( item => ( micro ? getMicro(item.key, item.value,) : getMini(item.key, item.value,)))}
+          <Divider/>{pickedData.map( item => ( micro ? getMicro(item.key, item.value,) : getMini(item.key, item.value,)))}
         </List>
       }
     </React.Fragment>

@@ -287,7 +287,9 @@ export const getForm = arrayOfIds =>
 
 export const getCleanFieldNames = a => a.map(s => getOnlyAlpha(s)); // a: arrayOfStrings: ['name*', 'phone', 'email*']
 
-export const getFieldsToSearch = (searchable, readable,) => {
+// begin SEARCH section
+
+export const getSearchableFields = (searchable, readable,) => {
   // return: array: either one of 
   // 1. manually liste array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ]
   // 2. otherwise, if true, uses all fields in 1. readable.path => creatable.fields
@@ -300,10 +302,12 @@ export const getFieldsToSearch = (searchable, readable,) => {
     // find property in crudConfig where readable is created, then return those field names with alpha characters only
     // console.log('componentsNavConfig\n', componentsNavConfig,);
     // console.log('readablePath\n', readable.path,);
-    const target = _.filter(componentsNavConfig, {crudConfig: {creatable: {path: readable.path,}}});
-    // console.log('target\n', target,); // id: outbox
+    const filteredArray = _.filter(componentsNavConfig, {crudConfig: {creatable: {path: readable.path,}}});
+    // console.log('filteredArray\n', filteredArray,); // array // crudConfig element where id === 'outbox'
+    const target = filteredArray[0];
+    // console.log('target\n', target,); // single item // crudConfig element where id === 'outbox'
     if(typeof target != 'object') throw new Error ('Target value is not an object');
-    const { fields, } = target && target[0] && target[0].crudConfig && target[0].crudConfig.creatable;
+    const { fields, } = target && target.crudConfig && target.crudConfig.creatable;
     const result = getCleanFieldNames(fields);
     return result;
   }
@@ -315,6 +319,43 @@ export const getFieldsToSearch = (searchable, readable,) => {
   const out = config[type];
   return out;
 }
+
+// // use example
+// handleFilterSearchItems = () => {
+//   // server-side search is limited to no logical OR filters, must join multiple searches on client-side
+//   // so we are opting in to doing the search string filter on the client-side instead of the server
+//   // console.log('state\n', this.state,);
+//   const { searchable, readable, } = this.props; // items,
+//   const { items, searchString, } = this.state;
+//   // console.log('searchString\n', searchString,);
+//   // console.log('items\n', items,);
+//   // const searchableFields = [ 'name', 'email', 'phone', 'zip', 'notes', ];
+//   const searchableFields = getSearchableFields(searchable, readable,);
+//   const filteredItems = this.getItemsFilteredBySearch(items, searchString, searchableFields,);
+//   // console.log('filteredItems\n', filteredItems,);
+//   this.setState({ items: filteredItems, }
+//     // , () => console.log('state\n', this.state,)
+//   );
+// }
+
+// https://jsbin.com/puzenekomi/edit?js,console
+export const getItemsFilteredBySearch = (items, searchString, searchableFields,) => {
+  // returns subset array of items containing searchString in searchableFields
+  // searchableFields: array of strings: [ 'name', 'email', 'phone', 'zip', 'notes', ]
+  const isSubstring = s => _.includes(s, searchString,); // returns true if search string is substring of arg string
+  const isInObjectValues = r => Object.values(r).filter(isSubstring); // returns all values of arg object containing search string
+  const isInObject = r => { // passed any object, r, returns true if search string is in any value of r
+    // reduce search fields by opting-in list of specific fields // eliminate extra fields like docId, etc. for example
+    const reducedObjectToSearch = _.pick(r, searchableFields,);
+    const result = !(_.isEmpty(isInObjectValues(reducedObjectToSearch)));
+    return result;
+  }
+  const out = items.filter(isInObject); // returns all array elements containing search string in any values of the object element
+  // console.log(out);
+  return out;
+}
+
+// end SEARCH section
 
 // To convert JS descriptions to JSX:
 // // https://github.com/lovell/farmhash/blob/master/README.md

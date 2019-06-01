@@ -12,7 +12,7 @@ import FetchUserData from 'my-app/containers/FetchUserData';
 import { withStyles, withWidth, Grid, } from '@material-ui/core';
 import _ from '@lodash';
 
-import { getForm, getFieldsToSearch, } from 'my-app/config/AppConfig';
+import { getForm, } from 'my-app/config/AppConfig'; // getSearchableFields, getItemsFilteredBySearch,
 import MediaWidth from 'my-app/layouts/MediaWidth';
 import ListPane from './list/ListPane';
 import DetailPane from './detail/DetailPane';
@@ -83,6 +83,7 @@ const INITIAL_STATE_BUTTONS_TIER_LIST = {
 }
 
 const INITIAL_STATE = {
+  // items: null,
   ...INITIAL_STATE_DETAIL,
   ...INITIAL_STATE_DIALOG,
   ...INITIAL_STATE_BUTTONS_TIER_LIST,
@@ -103,12 +104,18 @@ class CRUDView extends Component {
   //   // this.setCreateFormInitialState(this.props.creatable.fields);
   // }
 
+  // componentDidMount = () => {
+  //   this.getInitialItemsFromProps();
+  // }
+
   // componentDidUpdate(prevProps) {
   //   if (this.props.dashboard !== prevProps.dashboard) {
   //     const newDashboard = this.fetchData(this.props.userID);
   //     this.props.updateUserData('dashboard', newDashboard,);
   //   }
   // }
+
+  // getInitialItemsFromProps = () => this.setState({items: this.props.items,})
 
   getFormFields = ( type, fields, ) => {
     // type: string: enum: 'loadSavedData' | 'loadNewData'
@@ -165,42 +172,12 @@ class CRUDView extends Component {
   handleChangeSearchString = ({ target, }) => {
     const searchString = target && target.value;
     // console.log('searchString\n', searchString,);
-    this.setState({ searchString, });
-  }
-
-  // https://jsbin.com/puzenekomi/edit?js,console
-  searchItems = (items, searchString, fieldsToSearch,) => {
-    // returns subset array of items containing searchString in fieldsToSearch
-    // fieldsToSearch: array of strings: [ 'name', 'email', 'phone', 'zip', 'notes', ]
-    const isSubstring = s => _.includes(s, searchString,); // returns true if search string is substring of arg string
-    const isInObjectValues = r => Object.values(r).filter(isSubstring); // returns all values of arg object containing search string
-    const isInObject = r => { // passed any object, r, returns true if search string is in any value of r
-      // reduce search fields by opting-in list of specific fields // eliminate extra fields like docId, etc. for example
-      const reducedObjectToSearch = _.pick(r, fieldsToSearch,);
-      const result = !(_.isEmpty(isInObjectValues(reducedObjectToSearch)));
-      return result;
-    }
-    const out = items.filter(isInObject); // returns all array elements containing search string in any values of the object element
-    console.log(out);
-    return out;
-  }
-  
-  handleClickSearchButton = () => {
-    // server-side search is limited to no logical OR filters, must join multiple searches on client-side
-    // so we are opting in to doing the search string filter on the client-side instead of the server
-    console.log('state\n', this.state,);
-    const { items, searchable, readable, } = this.props;
-    const { searchString, } = this.state;
-    console.log('searchString\n', searchString,);
-    console.log('items\n', items,);
-    // const fieldsToSearch = [ 'name', 'email', 'phone', 'zip', 'notes', ];
-    const fieldsToSearch = getFieldsToSearch(searchable, readable,);
-    const foundItems = this.searchItems(items, searchString, fieldsToSearch,);
-    console.log('foundItems\n', foundItems,);
-    this.setState({ items: foundItems, }
-      , () => console.log('state\n', this.state,)
+    this.setState({ searchString, }
+      // , () => this.handleFilterSearchItems()
     );
   }
+  
+  handleClickSearchButton = () => alert(`Your search term is:\n ${this.state.searchString}\nNow I need to fetch the data!`)
 
   // handleClickFilterButton = () => {
   //   alert('You clicked the FILTER button');
@@ -419,10 +396,10 @@ class CRUDView extends Component {
   render() {
     const {
       detail, deleteDialogIsOpen, selectedIndex, filterOptions, sortOptions,
-      searchString, filterBy, sortBy, sortOrderIsDescending,
+      searchString, filterBy, sortBy, sortOrderIsDescending, // items,
     } = this.state;
     const {
-      classes, items, profile, condensed, onNext, hasMore, miniDashboard,
+      classes, profile, items, condensed, onNext, hasMore, miniDashboard,
       creatable, updatable, deletable, actionable, searchable, sortable, filterable, starrable,
     } = this.props;
     const {
@@ -440,6 +417,7 @@ class CRUDView extends Component {
 
     const { uid, } = profile;
 
+    // console.log('state\n', this.state,);
     // console.log('items\n', items,);
     // console.log('detail\n', detail,);
     

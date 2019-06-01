@@ -14,7 +14,9 @@ import Error500Page from 'my-app/components/Error500Page';
 import { loadAsyncData } from 'my-app/containers/LoadAsync';
 
 const styles = theme => ({
-
+  root: {
+    height: '100%',
+  },
   refresh: {
     margin   : theme.spacing.unit,
     color    : 'white',
@@ -23,7 +25,6 @@ const styles = theme => ({
     top      : 0,
     right    : theme.spacing.unit * 9, // 72,
   },
-
 });
 
 // // https://codesandbox.io/s/lrvwm88pv7
@@ -158,53 +159,29 @@ class CRUDContainer extends Component {
       miniDashboard, actionable, creatable, readable, updatable, deletable,
     } = this.props;
     
-    return (
-      isLoading
-      ?
-      <div className="h-full">
+    const getCRUDView = () =>
+      <CRUDView
+        items={items} condensed={condensed} searchable={searchable} sortable={sortable} filterable={filterable}
+        starrable={starrable} miniDashboard={miniDashboard} actionable={actionable} creatable={creatable}
+        readable={readable} updatable={updatable} deletable={deletable} hasMore={hasMore}
+        onRefresh={handleLoad} onNext={handleFetchMoreData}
+      />
+
+    const getRefreshButton = () =>
+      <Tooltip TransitionComponent={Zoom} title="Refresh data">
         <IconButton className={classes.refresh} onClick={handleFetchMoreData} color="inherit">
           <Icon>refresh</Icon>
         </IconButton>
-        <Loading />
-      </div>
-      :
-      (
-        isError
-        ?
-        <div className="h-full">
-          <Error500Page />
-        </div>
-        :
-        (
-          items &&
-          <React.Fragment>
-            <Tooltip TransitionComponent={Zoom} title="Refresh data">
-              <IconButton className={classes.refresh} onClick={handleFetchMoreData} color="inherit">
-                <Icon>refresh</Icon>
-              </IconButton>
-            </Tooltip>
-            <CRUDView
-              items={items}
-              condensed={condensed}
-              searchable={searchable}
-              sortable={sortable}
-              filterable={filterable}
-              starrable={starrable}
-              miniDashboard={miniDashboard}
-              actionable={actionable}
-              creatable={creatable}
-              readable={readable}
-              updatable={updatable}
-              deletable={deletable}
-              hasMore={hasMore}
-              onRefresh={handleLoad}
-              onNext={handleFetchMoreData}
-            />
-          </React.Fragment>
-      ))
-    )
-  }
+      </Tooltip>
+      
+    const getMainContent = () => ( items && <React.Fragment> {getRefreshButton()} {getCRUDView()} </React.Fragment> )
+    const getIsError = () => <div className="h-full"><Error500Page /></div>
+    const getHasLoaded = () => ( isError ? getIsError() : getMainContent() )
+    const getIsLoading = () => <div className="h-full"><Loading /></div>
+    const getCRUDContainer = () => ( isLoading ? getIsLoading() : getHasLoaded() )
 
+    return getCRUDContainer();
+  }
 }
 
 // export default CRUDContainer;
