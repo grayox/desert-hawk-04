@@ -3,6 +3,8 @@ import {
   Paper, Tooltip, Zoom, Chip, Button, Fab, Icon, IconButton, TextField,
 } from '@material-ui/core'; // withStyles,
 
+import { handleKeyPress, } from 'my-app/config/AppConfig';
+
 import hash from 'object-hash'; // https://www.npmjs.com/package/object-hash
 import SortFilterMenu from './SortFilterMenu';
 // import ShieldsIo from 'my-app/components/ShieldsIo';
@@ -147,6 +149,7 @@ const ButtonsTierList = ({
         value={searchString}
         // onChange={() => onChangeSearchString(this.state.x)}
         onChange={onChangeSearchString}
+        onKeyPress={(e) => handleKeyPress(e, 'Enter', onClickSearchButton,)}
         // InputProps={{
           // startAdornment: (
           //   <InputAdornment position="start">

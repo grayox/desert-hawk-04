@@ -249,6 +249,11 @@ const formFieldProps = {
   notes     : { type : 'text' , label : 'Notes'      , icon : 'note'           , multiline: true, rows: 5,},
 }
 
+export const handleKeyPress = (event, targetKey, handlerFunction,) => {
+  // use: // <TextField onKeyPress={(e) => handleKeyPress(e, 'Enter', onClickSearchButton,)}
+  if (event.key === targetKey) handlerFunction();
+}
+
 const getOnlyAlpha = s => {
   // s: string: 'name*'
   const re = /[a-zA-Z]+/gm;
