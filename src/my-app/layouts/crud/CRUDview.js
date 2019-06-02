@@ -10,7 +10,6 @@ import FetchUserData from 'my-app/containers/FetchUserData';
 
 // @material-ui/core
 import { withStyles, withWidth, Grid, } from '@material-ui/core';
-import _ from '@lodash';
 
 import { getForm, } from 'my-app/config/AppConfig'; // getSearchableFields, getItemsFilteredBySearch,
 import MediaWidth from 'my-app/layouts/MediaWidth';
@@ -74,16 +73,11 @@ const INITIAL_STATE_DETAIL = {
 }
 
 const INITIAL_STATE_BUTTONS_TIER_LIST = {
-  filterOptions         : [ 'Filter by', 'All', 'Starred', 'Unstarred', 'Challenged', 'Pending', 'Resolved', 'Won', 'Lost', ], // [ 'foo' , 'bar'   , 'baz'  , ] ,
-  sortOptions           : [ 'Sort by', 'Date', 'Price', 'Margin', ],
-  searchString          : ''   ,
-  filterBy              : []   ,
-  sortBy                : ''   ,
-  sortDirectionIsDescending : true ,
+  filterOptions : [ 'Filter by', 'All', 'Starred', 'Unstarred', 'Challenged', 'Pending', 'Resolved', 'Won', 'Lost', ], // [ 'foo' , 'bar'   , 'baz'  , ] ,
+  sortOptions   : [ 'Sort by', 'Date', 'Price', 'Margin', ],
 }
 
 const INITIAL_STATE = {
-  // items: null,
   ...INITIAL_STATE_DETAIL,
   ...INITIAL_STATE_DIALOG,
   ...INITIAL_STATE_BUTTONS_TIER_LIST,
@@ -166,77 +160,6 @@ class CRUDView extends Component {
   handleOpenUpdateDialog  = () => this.setState({ ...STATE_OPEN_UPDATE_DIALOG, });
   handleOpenDeleteDialog  = () => this.setState({ ...STATE_OPEN_DELETE_DIALOG, });
   handleClickCreateButton = () => this.setState({ ...STATE_OPEN_CREATE_DIALOG, });
-
-  // begin buttons tier list
-
-  handleChangeSearchString = ({ target, }) => {
-    const searchString = target && target.value;
-    // console.log('searchString\n', searchString,);
-    this.setState({ searchString, }
-      // , () => this.handleFilterSearchItems()
-    );
-  }
-  
-  handleClickSearchButton = () => alert(`Your search term is:\n ${this.state.searchString}\nNow I need to fetch the data!`)
-
-  // handleClickFilterButton = () => {
-  //   alert('You clicked the FILTER button');
-  //   console.log('You clicked the FILTER button');
-  // }
-
-  // handleClickSortButton = () => {
-  //   alert('You clicked the SORT button');
-  //   console.log('You clicked the SORT button');
-  // }
-
-  handleMenuItemClick = ({ variant, selectedIndex, selectedString, }) => {
-    switch(variant) {
-      case 'filter':
-        // fetch existing array
-        let filterArray = [ ...this.state.filterBy, ];
-        // push, but only if not duplicated
-        if(filterArray.indexOf(selectedString) < 0) filterArray.push(selectedString);
-        this.setState({ filterBy: filterArray, }
-          // , () => // apply where filters, then re-fetch data
-        );
-        break;
-      case 'sort':
-        this.setState({ sortBy: selectedString, });
-        break;
-      default:
-        // code block
-    }
-  }
-  
-  handleToggleSortDirection = () => {
-    this.setState({sortDirectionIsDescending: !this.state.sortDirectionIsDescending});
-  }
-  
-  handleDeleteShield = ( item, selectedIndex, ) => {
-    // get id of clicked shield
-    // console.log('item\n', item,);
-    // console.log('selectedIndex\n', selectedIndex,);
-    const { type, value, } = item;
-    switch(type) {
-      case 'filter':
-        // fetch existing array
-        let filterArray = [ ...this.state.filterBy, ];
-        _.pull( filterArray, value, );
-        this.setState({ filterBy: filterArray, }
-          // , () => // apply where filters, then re-fetch data
-        );
-        break;
-      case 'sort':
-        this.setState({ sortBy: '', });
-        break;
-      default:
-        // code block
-    }
-  }
-
-  handleResetButtonsTierList = () => this.setState({ ...INITIAL_STATE_BUTTONS_TIER_LIST, });
-  
-  // end buttons tier list
 
   handleChangeForm = event => {
     // console.log('target\n', event.target);
@@ -396,20 +319,20 @@ class CRUDView extends Component {
   render() {
     const {
       detail, deleteDialogIsOpen, selectedIndex, filterOptions, sortOptions,
-      searchString, filterBy, sortBy, sortDirectionIsDescending, // items,
     } = this.state;
     const {
       classes, profile, items, condensed, onNext, hasMore, miniDashboard,
       creatable, updatable, deletable, actionable, searchable, sortable, filterable, starrable,
+      searchString, filterBy, sortBy, sortDirectionIsDescending, // items,
+
+      // list pane
+      onChangeSearchString, onClickSearchButton, // onClickFilterButton, onClickSortButton, 
+      onMenuItemClick, onToggleSortDirection, onDeleteShield, onResetButtonsTierList,
     } = this.props;
     const {
       handleCloseDialog, handleDeleteItem, handleChangeUserData,
-      handleClickStar, handleToggle,
+      handleClickCreateButton, handleClickStar, handleToggle,
       handleOpenUpdateDialog, handleOpenDeleteDialog, handleNavBack, handleNavNext, getFormFields,
-
-      // list pane
-      handleClickCreateButton, handleChangeSearchString, handleClickSearchButton, // handleClickFilterButton, handleClickSortButton, 
-      handleMenuItemClick, handleToggleSortDirection, handleDeleteShield, handleResetButtonsTierList,
     } = this;
 
     const ready1 = !!profile;
@@ -457,15 +380,14 @@ class CRUDView extends Component {
         onClickStar={handleClickStar}
         onToggle={handleToggle}
 
-        onClickCreateButton={handleClickCreateButton} 
-        onChangeSearchString={handleChangeSearchString}
-        onClickSearchButton={handleClickSearchButton}
-        // onClickFilterButton={handleClickFilterButton}
-        // onClickSortButton={handleClickSortButton}
-        onMenuItemClick={handleMenuItemClick}
-        onToggleSortDirection={handleToggleSortDirection}
-        onDeleteShield={handleDeleteShield}
-        onResetButtonsTierList={handleResetButtonsTierList}
+        onClickCreateButton={handleClickCreateButton}
+
+        onChangeSearchString={onChangeSearchString}
+        onClickSearchButton={onClickSearchButton}
+        onMenuItemClick={onMenuItemClick}
+        onToggleSortDirection={onToggleSortDirection}
+        onDeleteShield={onDeleteShield}
+        onResetButtonsTierList={onResetButtonsTierList}
       />
     const getDetailPane = () =>
       <DetailPane

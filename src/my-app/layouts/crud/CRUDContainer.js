@@ -6,6 +6,7 @@
 import React, { Component } from 'react';
 
 import { withStyles, Icon, IconButton, Tooltip, Zoom, } from '@material-ui/core';
+import _ from '@lodash';
 
 import CRUDView from './CRUDView';
 import Loading from 'my-app/components/Loading';
@@ -50,24 +51,24 @@ const INITIAL_STATE_ITEMS = {
   items: [],
 }
 
-const INITIAL_STATE_OPS = {
+const INITIAL_STATE_LOADING_OPS = {
   isError: false,
   isLoading: true,
   hasMore: true,
   lastShown: false,
 }
 
-const INITIAL_STATE_META = {
-  searchString: '',
-  filterBy: '',
-  sortBy: '',
-  sortDirection: 'desc',
+const INITIAL_STATE_BUTTONS_TIER_LIST = {
+  searchString              : ''   ,
+  filterBy                  : []   ,
+  sortBy                    : ''   ,
+  sortDirectionIsDescending : true ,
 }
 
 const INITIAL_STATE = {
   ...INITIAL_STATE_ITEMS,
-  ...INITIAL_STATE_OPS,
-  ...INITIAL_STATE_META,
+  ...INITIAL_STATE_LOADING_OPS,
+  ...INITIAL_STATE_BUTTONS_TIER_LIST,
 };
 
 class CRUDContainer extends Component {
@@ -86,6 +87,77 @@ class CRUDContainer extends Component {
       this.handleFetchMoreData();
     });
   }
+
+  // begin buttons tier list
+
+  handleChangeSearchString = ({ target, }) => {
+    const searchString = target && target.value;
+    // console.log('searchString\n', searchString,);
+    this.setState({ searchString, }
+      // , () => this.handleFilterSearchItems()
+    );
+  }
+
+  handleClickSearchButton = () => alert(`Your search term is:\n ${this.state.searchString}\nNow I need to fetch the data!`)
+
+  // handleClickFilterButton = () => {
+  //   alert('You clicked the FILTER button');
+  //   console.log('You clicked the FILTER button');
+  // }
+
+  // handleClickSortButton = () => {
+  //   alert('You clicked the SORT button');
+  //   console.log('You clicked the SORT button');
+  // }
+
+  handleMenuItemClick = ({ variant, selectedIndex, selectedString, }) => {
+    switch(variant) {
+      case 'filter':
+        // fetch existing array
+        let filterArray = [ ...this.state.filterBy, ];
+        // push, but only if not duplicated
+        if(filterArray.indexOf(selectedString) < 0) filterArray.push(selectedString);
+        this.setState({ filterBy: filterArray, }
+          // , () => // apply where filters, then re-fetch data
+        );
+        break;
+      case 'sort':
+        this.setState({ sortBy: selectedString, });
+        break;
+      default:
+        // code block
+    }
+  }
+  
+  handleToggleSortDirection = () => {
+    this.setState({sortDirectionIsDescending: !this.state.sortDirectionIsDescending});
+  }
+  
+  handleDeleteShield = ( item, selectedIndex, ) => {
+    // get id of clicked shield
+    // console.log('item\n', item,);
+    // console.log('selectedIndex\n', selectedIndex,);
+    const { type, value, } = item;
+    switch(type) {
+      case 'filter':
+        // fetch existing array
+        let filterArray = [ ...this.state.filterBy, ];
+        _.pull( filterArray, value, );
+        this.setState({ filterBy: filterArray, }
+          // , () => // apply where filters, then re-fetch data
+        );
+        break;
+      case 'sort':
+        this.setState({ sortBy: '', });
+        break;
+      default:
+        // code block
+    }
+  }
+
+  handleResetButtonsTierList = () => this.setState({ ...INITIAL_STATE_BUTTONS_TIER_LIST, });
+  
+  // end buttons tier list
 
   // refs: https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#fetching-external-data
   // https://stackoverflow.com/a/55093394/1640892 | https://codesandbox.io/s/lrvwm88pv7
@@ -171,8 +243,16 @@ class CRUDContainer extends Component {
   // }
 
   render() {
-    const { handleLoad, handleFetchMoreData, } = this;
-    const { isLoading, isError, items, hasMore, } = this.state;
+    const {
+      handleLoad, handleFetchMoreData,
+      // list pane
+      handleChangeSearchString, handleClickSearchButton, // handleClickFilterButton, handleClickSortButton, 
+      handleMenuItemClick, handleToggleSortDirection, handleDeleteShield, handleResetButtonsTierList,
+    } = this;
+    const {
+      isLoading, isError, items, hasMore,
+      searchString, filterBy, sortBy, sortDirectionIsDescending,
+    } = this.state;
     const {
       classes, condensed, searchable, sortable, filterable, starrable,
       miniDashboard, actionable, creatable, readable, updatable, deletable,
@@ -184,6 +264,18 @@ class CRUDContainer extends Component {
         starrable={starrable} miniDashboard={miniDashboard} actionable={actionable} creatable={creatable}
         readable={readable} updatable={updatable} deletable={deletable} hasMore={hasMore}
         onRefresh={handleLoad} onNext={handleFetchMoreData}
+
+        searchString={searchString} filterBy={filterBy}
+        sortBy={sortBy} sortDirectionIsDescending={sortDirectionIsDescending}
+        
+        onChangeSearchString={handleChangeSearchString}
+        onClickSearchButton={handleClickSearchButton}
+        // onClickFilterButton={handleClickFilterButton}
+        // onClickSortButton={handleClickSortButton}
+        onMenuItemClick={handleMenuItemClick}
+        onToggleSortDirection={handleToggleSortDirection}
+        onDeleteShield={handleDeleteShield}
+        onResetButtonsTierList={handleResetButtonsTierList}
       />
 
     const getRefreshButton = () =>
