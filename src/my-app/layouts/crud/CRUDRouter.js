@@ -17,7 +17,7 @@ const Child = ({ match: { params: { id }}}) => {
   return (
     // <div>{id}</div>
     <CRUDContainer
-      // items={items}
+      // items={items} // these will be acquired as state, not props
       condensed={condensed}
       actionable={actionable}
       creatable={creatable}

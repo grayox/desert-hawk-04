@@ -79,7 +79,7 @@ const INITIAL_STATE_BUTTONS_TIER_LIST = {
   searchString          : ''   ,
   filterBy              : []   ,
   sortBy                : ''   ,
-  sortOrderIsDescending : true ,
+  sortDirectionIsDescending : true ,
 }
 
 const INITIAL_STATE = {
@@ -208,8 +208,8 @@ class CRUDView extends Component {
     }
   }
   
-  handleToggleSortOrder = () => {
-    this.setState({sortOrderIsDescending: !this.state.sortOrderIsDescending});
+  handleToggleSortDirection = () => {
+    this.setState({sortDirectionIsDescending: !this.state.sortDirectionIsDescending});
   }
   
   handleDeleteShield = ( item, selectedIndex, ) => {
@@ -396,7 +396,7 @@ class CRUDView extends Component {
   render() {
     const {
       detail, deleteDialogIsOpen, selectedIndex, filterOptions, sortOptions,
-      searchString, filterBy, sortBy, sortOrderIsDescending, // items,
+      searchString, filterBy, sortBy, sortDirectionIsDescending, // items,
     } = this.state;
     const {
       classes, profile, items, condensed, onNext, hasMore, miniDashboard,
@@ -409,7 +409,7 @@ class CRUDView extends Component {
 
       // list pane
       handleClickCreateButton, handleChangeSearchString, handleClickSearchButton, // handleClickFilterButton, handleClickSortButton, 
-      handleMenuItemClick, handleToggleSortOrder, handleDeleteShield, handleResetButtonsTierList,
+      handleMenuItemClick, handleToggleSortDirection, handleDeleteShield, handleResetButtonsTierList,
     } = this;
 
     const ready1 = !!profile;
@@ -451,7 +451,7 @@ class CRUDView extends Component {
         searchString={searchString}
         filterBy={filterBy}
         sortBy={sortBy}
-        sortOrderIsDescending={sortOrderIsDescending}
+        sortDirectionIsDescending={sortDirectionIsDescending}
 
         onNext={onNext}
         onClickStar={handleClickStar}
@@ -463,7 +463,7 @@ class CRUDView extends Component {
         // onClickFilterButton={handleClickFilterButton}
         // onClickSortButton={handleClickSortButton}
         onMenuItemClick={handleMenuItemClick}
-        onToggleSortOrder={handleToggleSortOrder}
+        onToggleSortDirection={handleToggleSortDirection}
         onDeleteShield={handleDeleteShield}
         onResetButtonsTierList={handleResetButtonsTierList}
       />

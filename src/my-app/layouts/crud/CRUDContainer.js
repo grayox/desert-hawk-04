@@ -46,12 +46,28 @@ const styles = theme => ({
 
 const BATCH_SIZE = 15; // 20
 
-const INITIAL_STATE = {
+const INITIAL_STATE_ITEMS = {
   items: [],
+}
+
+const INITIAL_STATE_OPS = {
   isError: false,
   isLoading: true,
   hasMore: true,
   lastShown: false,
+}
+
+const INITIAL_STATE_META = {
+  searchString: '',
+  filterBy: '',
+  sortBy: '',
+  sortDirection: 'desc',
+}
+
+const INITIAL_STATE = {
+  ...INITIAL_STATE_ITEMS,
+  ...INITIAL_STATE_OPS,
+  ...INITIAL_STATE_META,
 };
 
 class CRUDContainer extends Component {
@@ -84,7 +100,7 @@ class CRUDContainer extends Component {
   handleFetchMoreData = async () => {
     // console.log('props\n', this.props);
     const { readable, } = this.props;
-    const { items, } = this.state;
+    const { items, searchString, filterBy, sortBy, sortDirection, } = this.state;
     
     const ready1 = readable && readable.path;
     if( !ready1 ) return;
@@ -95,7 +111,10 @@ class CRUDContainer extends Component {
 
     // this._asyncRequest = loadAsyncData();
     // ref: https://firebase.google.com/docs/firestore/query-data/query-cursors#paginate_a_query
-    this._asyncRequest = loadAsyncData( path, BATCH_SIZE, this.state.lastShown, );
+    this._asyncRequest = loadAsyncData(
+      path, BATCH_SIZE, this.state.lastShown,
+      searchString, filterBy, sortBy, sortDirection,
+    );
     // const items = await this._asyncRequest;
     const newData = await this._asyncRequest; // { data:<arrayOfObjects>, lastShown:<documentSnapshot>, }
     const { lastShown, } = newData;

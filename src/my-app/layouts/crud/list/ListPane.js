@@ -19,11 +19,11 @@ const styles = theme => ({
 
 const ListPane = ({
   classes, items, hasMore, creatable, searchable, filterable, sortable, starrable, selectedIndex,
-  filterOptions, sortOptions, searchString, filterBy, sortBy, sortOrderIsDescending,
+  filterOptions, sortOptions, searchString, filterBy, sortBy, sortDirectionIsDescending,
   onClickStar, onNext, onToggle,
   onClickCreateButton, onChangeSearchString, onClickSearchButton,
   // onClickFilterButton, onClickSortButton, // handled by separate components
-  onMenuItemClick, onToggleSortOrder, onDeleteShield, onResetButtonsTierList,
+  onMenuItemClick, onToggleSortDirection, onDeleteShield, onResetButtonsTierList,
 }) => {
 
   const ready1 = items && items.length;
@@ -45,7 +45,7 @@ const ListPane = ({
           searchString={searchString}
           filterBy={filterBy}
           sortBy={sortBy}
-          sortOrderIsDescending={sortOrderIsDescending}
+          sortDirectionIsDescending={sortDirectionIsDescending}
 
           onClickCreateButton={onClickCreateButton}
           onChangeSearchString={onChangeSearchString}
@@ -53,7 +53,7 @@ const ListPane = ({
           // onClickFilterButton={onClickFilterButton}
           // onClickSortButton={onClickSortButton}
           onMenuItemClick={onMenuItemClick}
-          onToggleSortOrder={onToggleSortOrder}
+          onToggleSortDirection={onToggleSortDirection}
           onDeleteShield={onDeleteShield}
           onResetButtonsTierList={onResetButtonsTierList}
         />

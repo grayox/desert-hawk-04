@@ -19,10 +19,10 @@ const ButtonsTierList = ({
   // props
   creatable, searchable, filterable, sortable,
   // state
-  filterOptions, sortOptions, searchString, filterBy, sortBy, sortOrderIsDescending,
+  filterOptions, sortOptions, searchString, filterBy, sortBy, sortDirectionIsDescending,
   // events
   onClickCreateButton, onChangeSearchString, onClickSearchButton, // onClickFilterButton, onClickSortButton, 
-  onMenuItemClick, onToggleSortOrder, onDeleteShield, onResetButtonsTierList,
+  onMenuItemClick, onToggleSortDirection, onDeleteShield, onResetButtonsTierList,
 }) => {
   
   const handleDeleteShield = (item, index,) => {
@@ -97,14 +97,14 @@ const ButtonsTierList = ({
     </Tooltip>
   )
 
-  const getSortOrderButton = () => (
+  const getSortDirectionButton = () => (
     sortable &&
-    <Tooltip TransitionComponent={Zoom} placement="bottom" title={`Sort ${sortOrderIsDescending ? 'descending' : 'ascending'}`}>
+    <Tooltip TransitionComponent={Zoom} placement="bottom" title={`Sort ${sortDirectionIsDescending ? 'descending' : 'ascending'}`}>
       <span className="ml-0">
         <IconButton
-          onClick={onToggleSortOrder}
+          onClick={onToggleSortDirection}
         >
-          <Icon>{sortOrderIsDescending ? 'arrow_upward' : 'arrow_downward'}</Icon>
+          <Icon>{sortDirectionIsDescending ? 'arrow_upward' : 'arrow_downward'}</Icon>
         </IconButton>
       </span>
     </Tooltip>
@@ -172,7 +172,7 @@ const ButtonsTierList = ({
   const getTopTier = () =>
     <div className="w-full flex mt-4 justify-end">
       {getCreateButtonMeta()} {getSearchField()} {getSearchButton()}
-      {getFilterMenu()} {getSortMenu()} {getSortOrderButton()} {getClearButton()}
+      {getFilterMenu()} {getSortMenu()} {getSortDirectionButton()} {getClearButton()}
     </div>
 
   const getBottomTier = () =>
@@ -195,7 +195,7 @@ const ButtonsTierList = ({
               deleteIcon={
                 ( item.type === 'sort' )
                 ?
-                <Icon>{sortOrderIsDescending ? 'arrow_upward' : 'arrow_downward'}</Icon>
+                <Icon>{sortDirectionIsDescending ? 'arrow_upward' : 'arrow_downward'}</Icon>
                 :
                 undefined
               }

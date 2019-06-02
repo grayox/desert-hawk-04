@@ -34,7 +34,7 @@ const INITIAL_STATE = {
   searchString          : ''        ,
   filterBy              : undefined ,
   sortBy                : undefined ,
-  sortOrderIsDescending : true      ,
+  sortDirectionIsDescending : true      ,
 }
 
 class ButtonsTier extends Component {
@@ -50,8 +50,8 @@ class ButtonsTier extends Component {
     console.log('searchField\n', searchField,);
   }
   
-  handleToggleSortOrder = () => {
-    this.setState({sortOrderIsDescending: !this.state.sortOrderIsDescending});
+  handleToggleSortDirection = () => {
+    this.setState({sortDirectionIsDescending: !this.state.sortDirectionIsDescending});
   }
 
   handleChangeSearchString = event => {
@@ -72,9 +72,9 @@ class ButtonsTier extends Component {
       creatable, searchable, filterable, sortable,
       onClickCreate, onClickFilter, onClickSort, onResetExpansionPanel, // onClickSearch,
     } = this.props;
-    const { searchString, filterBy, sortBy, sortOrderIsDescending, } = this.state; // searchFieldIsOpen, 
+    const { searchString, filterBy, sortBy, sortDirectionIsDescending, } = this.state; // searchFieldIsOpen, 
     const {
-      handleChangeSearchString, handleToggleSortOrder,
+      handleChangeSearchString, handleToggleSortDirection,
       handleResetRow, handleResetSearchField, handleClickSearch,
     } = this; // handleToggleSearchField, 
 
@@ -140,11 +140,11 @@ class ButtonsTier extends Component {
           <span className="ml-4" title="Sort">
             <SortFilterMenu variant="sort"   />
           </span>
-          <span className="ml-4" title={`Sort ${sortOrderIsDescending ? 'descending' : 'ascending'}`}>
+          <span className="ml-4" title={`Sort ${sortDirectionIsDescending ? 'descending' : 'ascending'}`}>
             <IconButton
-              onClick={handleToggleSortOrder}
+              onClick={handleToggleSortDirection}
             >
-              <Icon>{sortOrderIsDescending ? 'arrow_upward' : 'arrow_downward'}</Icon>
+              <Icon>{sortDirectionIsDescending ? 'arrow_upward' : 'arrow_downward'}</Icon>
             </IconButton>
           </span>
           { // sortable &&

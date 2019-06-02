@@ -7,7 +7,7 @@ import '@firebase/firestore';
 // const db = firebase.firestore();
 // const path = 'leads';
 
-const BATCH_SIZE = 15; // 20
+const BATCH_SIZE = 20;
 
 // ref: https://medium.freecodecamp.org/how-to-master-async-await-with-this-real-world-example-19107e7558ad
 
@@ -100,10 +100,7 @@ const getUserData = async path => {
   // }
 };
 
-export const loadAsyncData = async (
-  path, batchSize, lastVisible,
-  searchString, filterBy, sortBy, sortDirection,
-) => {
+export const loadAsyncData = async ( path, batchSize, lastVisible, ) => {
   // console.log('path\n', path);
   const batch = batchSize || BATCH_SIZE;
   const out = await getAsyncItems( path, batch, lastVisible, );
