@@ -21,19 +21,21 @@ const useStyles = makeStyles( theme => ({
 // ];
 
 const icons = {
+  search: 'search',
   filter: 'filter_list',
   sort: 'sort',
 }
 
 // function SimpleListMenu() {
-const SortFilterMenu = ({ variant, filterOptions, sortOptions, onMenuItemClick, }) => {
+const SortFilterMenu = ({ variant, searchMenuOptions, filterMenuOptions, sortMenuOptions, onMenuItemClick, }) => {
   const classes = useStyles();
   const [ anchorEl      , setAnchorEl      , ] = useState(null);
   const [ selectedIndex , setSelectedIndex , ] = useState(1);
 
   const optionsConfig = {
-    filter: filterOptions,
-    sort: sortOptions,
+    search: searchMenuOptions,
+    filter: filterMenuOptions,
+    sort: sortMenuOptions,
   }
 
   const options = optionsConfig[variant];

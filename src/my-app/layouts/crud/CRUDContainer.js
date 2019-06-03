@@ -8,6 +8,8 @@ import React, { Component } from 'react';
 import { withStyles, Icon, IconButton, Tooltip, Zoom, } from '@material-ui/core';
 import _ from '@lodash';
 
+import { getSearchableFields, getForm, } from 'my-app/config/AppConfig';
+
 import CRUDView from './CRUDView';
 import Loading from 'my-app/components/Loading';
 import Error500Page from 'my-app/components/Error500Page';
@@ -65,10 +67,17 @@ const INITIAL_STATE_BUTTONS_TIER_LIST = {
   sortDirectionIsDescending : true ,
 }
 
+const INITIAL_STATE_BUTTONS_TIER_MENU = {
+  searchMenuOptions : [] ,
+  filterMenuOptions : [] ,
+  sortMenuOptions   : [] ,
+}
+
 const INITIAL_STATE = {
   ...INITIAL_STATE_ITEMS,
   ...INITIAL_STATE_LOADING_OPS,
   ...INITIAL_STATE_BUTTONS_TIER_LIST,
+  ...INITIAL_STATE_BUTTONS_TIER_MENU,
 };
 
 class CRUDContainer extends Component {
@@ -76,6 +85,7 @@ class CRUDContainer extends Component {
 
   componentDidMount() {
     this.handleLoad();
+    this.getButtonsTierMenuOptions(); // For fastest page load speed, defer this task until buttons are clicked
   }
 
   componentWillUnmount() {
@@ -90,6 +100,40 @@ class CRUDContainer extends Component {
 
   // begin buttons tier list
 
+  getSearchMenuOptions = () => {
+    const HEADER = 'Search in';
+    const { readable, searchable,  } = this.props;
+    console.log('readable\n', readable,);
+    console.log('searchable\n', searchable,);
+    const ready1 = readable && searchable;
+    if(!ready1) return;
+    const searchableFieldIds = getSearchableFields(searchable, readable,);
+    console.log('searchableFieldIds\n', searchableFieldIds,);
+    const form = getForm(searchableFieldIds);
+    const searchableFieldLabels = form.map(({ label, }) => label);
+    const searchMenuOptions = [ HEADER, ...searchableFieldLabels, ];
+    this.setState({ searchMenuOptions, });
+  }
+  
+  getFilterMenuOptions = () => {
+    const filterMenuOptions = [
+      'Filter by', 'All', 'Starred', 'Unstarred', 'Challenged', 'Pending', 'Resolved', 'Won', 'Lost', // [ 'foo' , 'bar'   , 'baz'  , ] ,
+    ];
+    this.setState({ filterMenuOptions, });
+  }
+  
+  getSortMenuOptions = () => {
+    const sortMenuOptions = [ 'Sort by', 'Date', 'Price', 'Margin', ];
+    this.setState({ sortMenuOptions, });
+  }
+
+  // For fastest page load speed, defer these tasks until buttons are clicked
+  getButtonsTierMenuOptions = () => {
+    this.getSearchMenuOptions();
+    this.getFilterMenuOptions();
+    this.getSortMenuOptions();
+  }
+
   handleChangeSearchString = ({ target, }) => {
     const searchString = target && target.value;
     // console.log('searchString\n', searchString,);
@@ -98,7 +142,17 @@ class CRUDContainer extends Component {
     );
   }
 
-  handleClickSearchButton = () => alert(`Your search term is:\n ${this.state.searchString}\nNow I need to fetch the data!`)
+  handleClickSearchButton = () => {
+    // console.log('state\n', this.state,);
+    const { searchString, searchMenuOptions, } = this.state;
+    // const ready = searchMenuOptions.length;
+    // if(!ready) return;
+    const set = searchString.length;
+    const messageNormal = `Your search string is:\n${searchString}\nNow I must fetch the data from:\n${searchMenuOptions}`
+    const messageEmpty = 'Please enter a search string' // ❕
+    const message = set ? messageNormal : messageEmpty;
+    alert(message);
+  }
 
   // handleClickFilterButton = () => {
   //   alert('You clicked the FILTER button');
@@ -252,6 +306,7 @@ class CRUDContainer extends Component {
     const {
       isLoading, isError, items, hasMore,
       searchString, filterBy, sortBy, sortDirectionIsDescending,
+      searchMenuOptions, filterMenuOptions, sortMenuOptions,
     } = this.state;
     const {
       classes, condensed, searchable, sortable, filterable, starrable,
@@ -267,6 +322,7 @@ class CRUDContainer extends Component {
 
         searchString={searchString} filterBy={filterBy}
         sortBy={sortBy} sortDirectionIsDescending={sortDirectionIsDescending}
+        searchMenuOptions={searchMenuOptions} filterMenuOptions={filterMenuOptions} sortMenuOptions={sortMenuOptions}
         
         onChangeSearchString={handleChangeSearchString}
         onClickSearchButton={handleClickSearchButton}

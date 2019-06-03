@@ -72,17 +72,10 @@ const INITIAL_STATE_DETAIL = {
   selectedIndex : undefined ,
 }
 
-const INITIAL_STATE_BUTTONS_TIER_LIST = {
-  filterOptions : [ 'Filter by', 'All', 'Starred', 'Unstarred', 'Challenged', 'Pending', 'Resolved', 'Won', 'Lost', ], // [ 'foo' , 'bar'   , 'baz'  , ] ,
-  sortOptions   : [ 'Sort by', 'Date', 'Price', 'Margin', ],
-}
-
 const INITIAL_STATE = {
   ...INITIAL_STATE_DETAIL,
   ...INITIAL_STATE_DIALOG,
-  ...INITIAL_STATE_BUTTONS_TIER_LIST,
 }
-
 
 // function CRUDView(props) {
 class CRUDView extends Component {
@@ -318,12 +311,13 @@ class CRUDView extends Component {
 
   render() {
     const {
-      detail, deleteDialogIsOpen, selectedIndex, filterOptions, sortOptions,
+      detail, deleteDialogIsOpen, selectedIndex,
     } = this.state;
     const {
       classes, profile, items, condensed, onNext, hasMore, miniDashboard,
       creatable, updatable, deletable, actionable, searchable, sortable, filterable, starrable,
       searchString, filterBy, sortBy, sortDirectionIsDescending, // items,
+      searchMenuOptions, filterMenuOptions, sortMenuOptions,
 
       // list pane
       onChangeSearchString, onClickSearchButton, // onClickFilterButton, onClickSortButton, 
@@ -369,8 +363,9 @@ class CRUDView extends Component {
         sortable={sortable}
         starrable={starrable}
 
-        filterOptions={filterOptions}
-        sortOptions={sortOptions}
+        searchMenuOptions={searchMenuOptions}
+        filterMenuOptions={filterMenuOptions}
+        sortMenuOptions={sortMenuOptions}
         searchString={searchString}
         filterBy={filterBy}
         sortBy={sortBy}

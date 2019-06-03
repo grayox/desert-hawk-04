@@ -19,7 +19,7 @@ const styles = theme => ({
 
 const ListPane = ({
   classes, items, hasMore, creatable, searchable, filterable, sortable, starrable, selectedIndex,
-  filterOptions, sortOptions, searchString, filterBy, sortBy, sortDirectionIsDescending,
+  searchMenuOptions, filterMenuOptions, sortMenuOptions, searchString, filterBy, sortBy, sortDirectionIsDescending,
   onClickStar, onNext, onToggle,
   onClickCreateButton, onChangeSearchString, onClickSearchButton,
   // onClickFilterButton, onClickSortButton, // handled by separate components
@@ -40,8 +40,9 @@ const ListPane = ({
           filterable={filterable}
           sortable={sortable}
 
-          filterOptions={filterOptions}
-          sortOptions={sortOptions}
+          searchMenuOptions={searchMenuOptions}
+          filterMenuOptions={filterMenuOptions}
+          sortMenuOptions={sortMenuOptions}
           searchString={searchString}
           filterBy={filterBy}
           sortBy={sortBy}

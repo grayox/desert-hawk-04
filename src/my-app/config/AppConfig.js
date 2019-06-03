@@ -250,6 +250,7 @@ const formFieldProps = {
 }
 
 export const handleKeyPress = (event, targetKey, handlerFunction,) => {
+  // This is a utility, helper function stored here as a centralized location
   // use: // <TextField onKeyPress={(e) => handleKeyPress(e, 'Enter', onClickSearchButton,)}
   if (event.key === targetKey) handlerFunction();
 }
@@ -290,7 +291,7 @@ export const getForm = arrayOfIds =>
   // arrayOfIds: array of strings: ['name', 'phone', 'email',]
   arrayOfIds.map((id, index,) => getFormFieldProps(id, index,));
 
-export const getCleanFieldNames = a => a.map(s => getOnlyAlpha(s)); // a: arrayOfStrings: ['name*', 'phone', 'email*']
+export const getCleanFieldNames = arrayOfIds => arrayOfIds.map(s => getOnlyAlpha(s)); // a: arrayOfStrings: ['name*', 'phone', 'email*']
 
 // begin SEARCH section
 
@@ -308,6 +309,8 @@ export const getSearchableFields = (searchable, readable,) => {
     // console.log('componentsNavConfig\n', componentsNavConfig,);
     // console.log('readablePath\n', readable.path,);
     const filteredArray = _.filter(componentsNavConfig, {crudConfig: {creatable: {path: readable.path,}}});
+    // console.log('componentsNavConfig\n', componentsNavConfig,);
+    // console.log('readable\n', readable,);
     // console.log('filteredArray\n', filteredArray,); // array // crudConfig element where id === 'outbox'
     const target = filteredArray[0];
     // console.log('target\n', target,); // single item // crudConfig element where id === 'outbox'
@@ -413,7 +416,7 @@ export const componentsNavConfig = [
     component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
     crudConfig : {
       condensed: true,
-      searchable: false,
+      searchable: false, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, uses all fields in 1. readable.path => creatable.fields
       filterable: false,
       sortable: false,
       starrable: false,

@@ -106,7 +106,10 @@ export const loadAsyncData = async (
 ) => {
   // console.log('path\n', path);
   const batch = batchSize || BATCH_SIZE;
-  const out = await getAsyncItems( path, batch, lastVisible, );
+  const out = await getAsyncItems(
+    path, batch, lastVisible,
+    searchString, filterBy, sortBy, sortDirection,
+  );
   // console.log('out\n', out);
 
   const promise = new Promise((resolve, reject) => {
@@ -116,7 +119,10 @@ export const loadAsyncData = async (
   return promise;
 };
 
-const getAsyncItems = async ( path, batchSize, lastVisible, ) => {
+const getAsyncItems = async (
+  path, batchSize, lastVisible,
+  searchString, filterBy, sortBy, sortDirection,
+) => {
   // used for reading CRUD objects
   // console.log('path\n', path);
   // console.log('state\n', this.state);
@@ -136,6 +142,11 @@ const getAsyncItems = async ( path, batchSize, lastVisible, ) => {
     .where( 'deletedAt', '==', 0, ) // filters out deleted documents // deletedAt also used by updateItem (not replacedAt)
     // .where( 'name', '==', 'alpha', )
     .orderBy( 'createdAt', 'desc', ); // throws error: "firebase error: the query requires an index"
+
+  // augment queryInit with searchString, filterBy, sortBy, sortDirection,
+  const getSearchQuery = (query, searchString, searchField,) => {
+
+  }
 
   // paginate query
   // ref: docs: https://firebase.google.com/docs/firestore/query-data/query-cursors

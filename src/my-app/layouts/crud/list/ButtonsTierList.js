@@ -19,7 +19,8 @@ const ButtonsTierList = ({
   // props
   creatable, searchable, filterable, sortable,
   // state
-  filterOptions, sortOptions, searchString, filterBy, sortBy, sortDirectionIsDescending,
+  searchMenuOptions, filterMenuOptions, sortMenuOptions,
+  searchString, filterBy, sortBy, sortDirectionIsDescending,
   // events
   onClickCreateButton, onChangeSearchString, onClickSearchButton, // onClickFilterButton, onClickSortButton, 
   onMenuItemClick, onToggleSortDirection, onDeleteShield, onResetButtonsTierList,
@@ -113,14 +114,21 @@ const ButtonsTierList = ({
   const getSortMenu = () => (
     sortable &&
     <span className="ml-0" title="Sort">
-      <SortFilterMenu variant="sort" sortOptions={sortOptions} onMenuItemClick={onMenuItemClick} />
+      <SortFilterMenu variant="sort" sortMenuOptions={sortMenuOptions} onMenuItemClick={onMenuItemClick} />
     </span>
   )
 
   const getFilterMenu = () => (
     filterable &&
     <span className="ml-0" title="Filter">
-      <SortFilterMenu variant="filter" filterOptions={filterOptions} onMenuItemClick={onMenuItemClick} />
+      <SortFilterMenu variant="filter" filterMenuOptions={filterMenuOptions} onMenuItemClick={onMenuItemClick} />
+    </span>
+  )
+
+  const getSearchMenu = () => (
+    filterable &&
+    <span className="ml-0" title="Filter">
+      <SortFilterMenu variant="search" searchMenuOptions={searchMenuOptions} onMenuItemClick={onMenuItemClick} />
     </span>
   )
 
@@ -137,7 +145,7 @@ const ButtonsTierList = ({
     </Tooltip>
   )
 
-  const getSearchField = () => (
+  const getSearchInput = () => (
     searchable &&
     <span className="w-full flex-1 ml-12 flex justify-end" title="Search">
       <TextField
@@ -171,7 +179,7 @@ const ButtonsTierList = ({
 
   const getTopTier = () =>
     <div className="w-full flex mt-4 justify-end">
-      {getCreateButtonMeta()} {getSearchField()} {getSearchButton()}
+      {getCreateButtonMeta()} {getSearchInput()} {getSearchMenu()} {/*getSearchButton()*/}
       {getFilterMenu()} {getSortMenu()} {getSortDirectionButton()} {getClearButton()}
     </div>
 
