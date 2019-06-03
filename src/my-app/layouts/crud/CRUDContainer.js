@@ -103,12 +103,12 @@ class CRUDContainer extends Component {
   getSearchMenuOptions = () => {
     const HEADER = 'Search in';
     const { readable, searchable,  } = this.props;
-    console.log('readable\n', readable,);
-    console.log('searchable\n', searchable,);
+    // console.log('readable\n', readable,);
+    // console.log('searchable\n', searchable,);
     const ready1 = readable && searchable;
     if(!ready1) return;
     const searchableFieldIds = getSearchableFields(searchable, readable,);
-    console.log('searchableFieldIds\n', searchableFieldIds,);
+    // console.log('searchableFieldIds\n', searchableFieldIds,);
     const form = getForm(searchableFieldIds);
     const searchableFieldLabels = form.map(({ label, }) => label);
     const searchMenuOptions = [ HEADER, ...searchableFieldLabels, ];
