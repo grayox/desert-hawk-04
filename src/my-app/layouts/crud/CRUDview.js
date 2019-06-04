@@ -312,6 +312,7 @@ class CRUDView extends Component {
   render() {
     const {
       detail, deleteDialogIsOpen, selectedIndex,
+      createDialogIsOpen, updateDialogIsOpen, crudForm, crudFormTimestamp,
     } = this.state;
     const {
       classes, profile, items, condensed, onNext, hasMore, miniDashboard,
@@ -327,6 +328,7 @@ class CRUDView extends Component {
       handleCloseDialog, handleDeleteItem, handleChangeUserData,
       handleClickCreateButton, handleClickStar, handleToggle,
       handleOpenUpdateDialog, handleOpenDeleteDialog, handleNavBack, handleNavNext, getFormFields,
+      handleEnterDialog, handleChangeForm, handleCreateItem, handleUpdateItem,
     } = this;
 
     const ready1 = !!profile;
@@ -341,14 +343,19 @@ class CRUDView extends Component {
     const getFetchUserData = () => <FetchUserData path="dashboard" uid={uid} onChange={handleChangeUserData} />
     const getViewEmpty = () => <ViewEmpty side="list" onClick={handleClickCreateButton} creatable={creatable} />
     
-    const getCreateDialog = () => <CreateDialog /> 
-    const getUpdateDialog = () => <UpdateDialog />  
+    const getCreateDialog = () =>
+      <CreateDialog
+        creatable={creatable} createDialogIsOpen={createDialogIsOpen} crudForm={crudForm} crudFormTimestamp={crudFormTimestamp}
+        onEnterDialog={handleEnterDialog} onChangeForm={handleChangeForm} onCloseDialog={handleCloseDialog} onCreateItem={handleCreateItem}
+      /> 
+    const getUpdateDialog = () =>
+      <UpdateDialog
+        updatable={updatable} updateDialogIsOpen={updateDialogIsOpen} detail={detail} crudForm={crudForm} 
+        onChangeForm={handleChangeForm} onCloseDialog={handleCloseDialog} onUpdateItem={handleUpdateItem} onEnterDialog={handleEnterDialog}
+      />  
     const getDeleteDialog = () =>
       <DeleteDialog
-        isOpen={deleteDialogIsOpen}
-        onCancel={handleCloseDialog}
-        onDelete={handleDeleteItem}
-        onClose={handleCloseDialog}
+        isOpen={deleteDialogIsOpen} onCancel={handleCloseDialog} onDelete={handleDeleteItem} onClose={handleCloseDialog}
       />
 
     const getListPane = () =>

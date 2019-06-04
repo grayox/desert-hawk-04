@@ -18,15 +18,19 @@ const CreateDialog = ({
   onEnterDialog, onChangeForm, onCloseDialog, onCreateItem, // findFormField,
 }) => {
   // console.log('props\n', this.props);
+  // console.log('createDialogIsOpen\n', createDialogIsOpen);
   // const { getFormFields, } = this;
   const ready1 = createDialogIsOpen && creatable;
+  // console.log('ready1\n', ready1);
   if(!ready1) return null;
   
   const { title, fields, } = creatable; // form,
 
   const ready2 = title && fields;
+  // console.log('ready2\n', ready2);
   if(!ready2) return null;
   const ready3 = onChangeForm && onCloseDialog && onCreateItem;
+  console.log('ready3\n', ready3);
   if(!ready3) return null;
 
   const name = findFormField( crudForm, 'name', );
