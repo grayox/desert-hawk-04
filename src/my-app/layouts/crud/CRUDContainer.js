@@ -62,6 +62,7 @@ const INITIAL_STATE_LOADING_OPS = {
 
 const INITIAL_STATE_BUTTONS_TIER_LIST = {
   searchString              : ''   ,
+  searchBy                  : ''   ,
   filterBy                  : []   ,
   sortBy                    : ''   ,
   sortDirectionIsDescending : true ,
@@ -178,6 +179,12 @@ class CRUDContainer extends Component {
       case 'sort':
         this.setState({ sortBy: selectedString, });
         break;
+      case 'search':
+        this.setState({
+          searchBy: selectedString,
+          // showSearchStringInput: true,
+        });
+        break;
       default:
         // code block
     }
@@ -193,6 +200,12 @@ class CRUDContainer extends Component {
     // console.log('selectedIndex\n', selectedIndex,);
     const { type, value, } = item;
     switch(type) {
+      case 'search':
+        this.setState({
+          searchBy: '',
+          searchString: '',
+        });
+        break;
       case 'filter':
         // fetch existing array
         let filterArray = [ ...this.state.filterBy, ];
@@ -226,7 +239,7 @@ class CRUDContainer extends Component {
   handleFetchMoreData = async () => {
     // console.log('props\n', this.props);
     const { readable, } = this.props;
-    const { items, searchString, filterBy, sortBy, sortDirection, } = this.state;
+    const { items, searchString, searchBy, filterBy, sortBy, sortDirection, } = this.state;
     
     const ready1 = readable && readable.path;
     if( !ready1 ) return;
@@ -239,7 +252,7 @@ class CRUDContainer extends Component {
     // ref: https://firebase.google.com/docs/firestore/query-data/query-cursors#paginate_a_query
     this._asyncRequest = loadAsyncData(
       path, BATCH_SIZE, this.state.lastShown,
-      searchString, filterBy, sortBy, sortDirection,
+      searchString, searchBy, filterBy, sortBy, sortDirection,
     );
     // const items = await this._asyncRequest;
     const newData = await this._asyncRequest; // { data:<arrayOfObjects>, lastShown:<documentSnapshot>, }
@@ -305,7 +318,7 @@ class CRUDContainer extends Component {
     } = this;
     const {
       isLoading, isError, items, hasMore,
-      searchString, filterBy, sortBy, sortDirectionIsDescending,
+      searchString, searchBy, filterBy, sortBy, sortDirectionIsDescending,
       searchMenuOptions, filterMenuOptions, sortMenuOptions,
     } = this.state;
     const {
@@ -320,7 +333,7 @@ class CRUDContainer extends Component {
         readable={readable} updatable={updatable} deletable={deletable} hasMore={hasMore}
         onRefresh={handleLoad} onNext={handleFetchMoreData}
 
-        searchString={searchString} filterBy={filterBy}
+        searchString={searchString} searchBy={searchBy} filterBy={filterBy}
         sortBy={sortBy} sortDirectionIsDescending={sortDirectionIsDescending}
         searchMenuOptions={searchMenuOptions} filterMenuOptions={filterMenuOptions} sortMenuOptions={sortMenuOptions}
         

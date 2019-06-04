@@ -1,7 +1,7 @@
 import React from 'react';
 import {
-  Paper, Tooltip, Zoom, Chip, Button, Fab, Icon, IconButton, TextField,
-} from '@material-ui/core'; // withStyles,
+  Paper, Tooltip, Zoom, Chip, Button, Fab, Icon, IconButton, TextField, // withStyles,
+} from '@material-ui/core';
 
 import { handleKeyPress, } from 'my-app/config/AppConfig';
 
@@ -20,7 +20,7 @@ const ButtonsTierList = ({
   creatable, searchable, filterable, sortable,
   // state
   searchMenuOptions, filterMenuOptions, sortMenuOptions,
-  searchString, filterBy, sortBy, sortDirectionIsDescending,
+  searchString, searchBy, filterBy, sortBy, sortDirectionIsDescending,
   // events
   onClickCreateButton, onChangeSearchString, onClickSearchButton, // onClickFilterButton, onClickSortButton, 
   onMenuItemClick, onToggleSortDirection, onDeleteShield, onResetButtonsTierList,
@@ -40,6 +40,16 @@ const ButtonsTierList = ({
   // const getChips = () => configShields;
   const getChips = () => {
     let out = [];
+    if(searchString) out.push({
+      type: 'search',
+      icon: 'search',
+      value: searchString,
+    })
+    if(searchBy) out.push({
+      type: 'search',
+      icon: 'search',
+      value: searchBy,
+    })
     if(filterBy && filterBy.length) {
       for (const filterString of filterBy) {
         out.push({
@@ -60,6 +70,7 @@ const ButtonsTierList = ({
   const getCreateButtonConfig = {
     fab: (
       <Fab
+        className="align-middle"
         color="primary"
         onClick={onClickCreateButton}
         size="small"
@@ -83,12 +94,12 @@ const ButtonsTierList = ({
 
   const getCreateButton = () => getCreateButtonConfig[createButtonType];
   const CreateButton = () => <Tooltip TransitionComponent={Zoom} title="Add new item">{getCreateButton()}</Tooltip>
-  const getCreateButtonMeta = () => (creatable && <span className="ml-4"><CreateButton/></span>)
+  const getCreateButtonMeta = () => (creatable && <span className="ml-8"><CreateButton/></span>)
 
   const getClearButton = () => (
     ( createButtonType === 'fab' ) &&
     <Tooltip TransitionComponent={Zoom} placement="bottom" title="Clear and reset">
-      <span className="mx-4">
+      <span className="ml-8 mr-4">
         <IconButton aria-label="Clear and reset" onClick={onResetButtonsTierList}
           // color="inherit" // makes it darker shade of black
         >
@@ -101,7 +112,7 @@ const ButtonsTierList = ({
   const getSortDirectionButton = () => (
     sortable &&
     <Tooltip TransitionComponent={Zoom} placement="bottom" title={`Sort ${sortDirectionIsDescending ? 'descending' : 'ascending'}`}>
-      <span className="ml-0">
+      <span className="ml-4">
         <IconButton
           onClick={onToggleSortDirection}
         >
@@ -113,37 +124,39 @@ const ButtonsTierList = ({
 
   const getSortMenu = () => (
     sortable &&
-    <span className="ml-0" title="Sort">
+    <span className="ml-4" title="Sort">
       <SortFilterMenu variant="sort" sortMenuOptions={sortMenuOptions} onMenuItemClick={onMenuItemClick} />
     </span>
   )
 
   const getFilterMenu = () => (
     filterable &&
-    <span className="ml-0" title="Filter">
+    <span className="ml-4" title="Filter">
       <SortFilterMenu variant="filter" filterMenuOptions={filterMenuOptions} onMenuItemClick={onMenuItemClick} />
     </span>
   )
 
   const getSearchMenu = () => (
     filterable &&
-    <span className="ml-0" title="Filter">
+    <span className="ml-4" title="Filter">
       <SortFilterMenu variant="search" searchMenuOptions={searchMenuOptions} onMenuItemClick={onMenuItemClick} />
     </span>
   )
 
-  const getSearchButton = () => (
-    searchable &&
-    <Tooltip TransitionComponent={Zoom} placement="bottom" title="Search">
-      <span>
-        <IconButton aria-label="Search" // color="inherit" // makes it darker shade of black
-          onClick={onClickSearchButton}
-        >
-          <Icon>search</Icon>
-        </IconButton>
-      </span>
-    </Tooltip>
-  )
+  // const getSearchButton = () => (
+  //   searchable &&
+  //   <Tooltip TransitionComponent={Zoom} placement="bottom" title="Search">
+  //     <span>
+  //       <IconButton aria-label="Search" // color="inherit" // makes it darker shade of black
+  //         onClick={onClickSearchButton}
+  //       >
+  //         <Icon>search</Icon>
+  //       </IconButton>
+  //     </span>
+  //   </Tooltip>
+  // )
+
+  const getSpacer = () => <span className="w-full flex-1" />
 
   const getSearchInput = () => (
     searchable &&
@@ -167,7 +180,7 @@ const ButtonsTierList = ({
           // endAdornment: (
           //   <InputAdornment position="end">
           // //    <Icon className="mr-32">search</Icon>
-          //     <IconButton title="Clear" onClick={handleResetSearchField}>
+          //     <IconButton title="Clear" onClick={handleResetSearchString}>
           //       <Icon>clear</Icon>
           //     </IconButton>
           //   </InputAdornment>
@@ -178,8 +191,8 @@ const ButtonsTierList = ({
   )
 
   const getTopTier = () =>
-    <div className="w-full flex mt-4 justify-end">
-      {getCreateButtonMeta()} {getSearchInput()} {getSearchMenu()} {/*getSearchButton()*/}
+    <div className="w-full flex my-4 px-12 items-center justify-end">
+      {getCreateButtonMeta()} {/*getSearchInput()*/} {getSpacer()} {getSearchMenu()} {/*getSearchButton()*/}
       {getFilterMenu()} {getSortMenu()} {getSortDirectionButton()} {getClearButton()}
     </div>
 
@@ -213,8 +226,13 @@ const ButtonsTierList = ({
       }
     </div>
 
+  const getTiers = () =>
+    <Paper className="w-full p-4 mb-8">
+      {getTopTier()}{getBottomTier()}
+    </Paper>
+
   const getCreatableOnlyTier = () => <CreateButton />
-  const getStandardTier = () => (csfs ? <Paper className="w-full p-4">{getTopTier()}{getBottomTier()}</Paper> : null)
+  const getStandardTier = () => (csfs ? getTiers() : null)
   const getButtonsTierList = () => ( creatableOnly ? getCreatableOnlyTier() : getStandardTier() )
 
   return getButtonsTierList();

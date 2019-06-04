@@ -102,13 +102,13 @@ const getUserData = async path => {
 
 export const loadAsyncData = async (
   path, batchSize, lastVisible,
-  searchString, filterBy, sortBy, sortDirection,
+  searchString, searchBy, filterBy, sortBy, sortDirection,
 ) => {
   // console.log('path\n', path);
   const batch = batchSize || BATCH_SIZE;
   const out = await getAsyncItems(
     path, batch, lastVisible,
-    searchString, filterBy, sortBy, sortDirection,
+    searchString, searchBy, filterBy, sortBy, sortDirection,
   );
   // console.log('out\n', out);
 
@@ -121,7 +121,7 @@ export const loadAsyncData = async (
 
 const getAsyncItems = async (
   path, batchSize, lastVisible,
-  searchString, filterBy, sortBy, sortDirection,
+  searchString, searchBy, filterBy, sortBy, sortDirection,
 ) => {
   // used for reading CRUD objects
   // console.log('path\n', path);
@@ -143,8 +143,8 @@ const getAsyncItems = async (
     // .where( 'name', '==', 'alpha', )
     .orderBy( 'createdAt', 'desc', ); // throws error: "firebase error: the query requires an index"
 
-  // augment queryInit with searchString, filterBy, sortBy, sortDirection,
-  const getSearchQuery = (query, searchString, searchField,) => {
+  // augment queryInit with searchString, searchBy, filterBy, sortBy, sortDirection,
+  const getSearchQuery = (query, searchString, searchBy,) => {
 
   }
 

@@ -40,7 +40,7 @@ const SortFilterMenu = ({ variant, searchMenuOptions, filterMenuOptions, sortMen
 
   const options = optionsConfig[variant];
 
-  const handleClickListItem = event => setAnchorEl(event.currentTarget);
+  const handleClickIconButton = event => setAnchorEl(event.currentTarget);
 
   const handleMenuItemClick = (event, selectedIndex) => {
     // console.log('variant\n', variant,);
@@ -63,7 +63,7 @@ const SortFilterMenu = ({ variant, searchMenuOptions, filterMenuOptions, sortMen
       //     aria-haspopup="true"
       //     aria-controls="lock-menu"
       //     aria-label="When device is locked"
-      //     onClick={handleClickListItem}
+      //     onClick={handleClickIconButton}
       //   >
       //     <ListItemText primary="When device is locked" secondary={options[selectedIndex]} />
       //   </ListItem>
@@ -92,7 +92,7 @@ const SortFilterMenu = ({ variant, searchMenuOptions, filterMenuOptions, sortMen
       // </Tooltip>
       }
       <Tooltip TransitionComponent={Zoom} placement="bottom" title={variant}>
-        <IconButton onClick={handleClickListItem}>
+        <IconButton onClick={handleClickIconButton}>
           <Icon>{icons[variant]}</Icon>
         </IconButton>
       </Tooltip>

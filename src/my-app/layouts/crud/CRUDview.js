@@ -316,7 +316,7 @@ class CRUDView extends Component {
     const {
       classes, profile, items, condensed, onNext, hasMore, miniDashboard,
       creatable, updatable, deletable, actionable, searchable, sortable, filterable, starrable,
-      searchString, filterBy, sortBy, sortDirectionIsDescending, // items,
+      searchString, searchBy, filterBy, sortBy, sortDirectionIsDescending, // items,
       searchMenuOptions, filterMenuOptions, sortMenuOptions,
 
       // list pane
@@ -367,6 +367,7 @@ class CRUDView extends Component {
         filterMenuOptions={filterMenuOptions}
         sortMenuOptions={sortMenuOptions}
         searchString={searchString}
+        searchBy={searchBy}
         filterBy={filterBy}
         sortBy={sortBy}
         sortDirectionIsDescending={sortDirectionIsDescending}
