@@ -210,7 +210,8 @@ class ButtonsTierList extends Component {
       if(searchBy) out.push({
         type: 'search',
         icon: 'search',
-        value: `in ${searchBy}`,
+        value: searchBy,
+        // value: `in ${searchBy}`,
       })
       if(filterBy && filterBy.length) {
         for (const filterString of filterBy) {
