@@ -149,10 +149,7 @@ class CRUDContainer extends Component {
   handleFetchMoreData = async () => {
     // console.log('props\n', this.props);
     const { readable, } = this.props;
-    const {
-      items,
-      // searchString, searchBy, filterBy, sortBy, sortDirection,
-    } = this.state;
+    const { items, } = this.state;
     
     const ready1 = readable && readable.path;
     if( !ready1 ) return;
@@ -226,13 +223,9 @@ class CRUDContainer extends Component {
   // }
 
   render() {
+    const { handleLoad, handleFetchMoreData, } = this;
     const {
-      handleLoad, handleFetchMoreData,
-    } = this;
-    const {
-      isLoading, isError, items, hasMore,
-      // searchString, searchBy, filterBy, sortBy, sortDirectionIsDescending,
-      searchMenuOptions, filterMenuOptions, sortMenuOptions,
+      isLoading, isError, items, hasMore, searchMenuOptions, filterMenuOptions, sortMenuOptions,
     } = this.state;
     const {
       classes, condensed, searchable, sortable, filterable, starrable,
@@ -241,23 +234,11 @@ class CRUDContainer extends Component {
     
     const getCRUDView = () =>
       <CRUDView
-        items={items} condensed={condensed} searchable={searchable} sortable={sortable} filterable={filterable}
-        starrable={starrable} miniDashboard={miniDashboard} actionable={actionable} creatable={creatable}
-        readable={readable} updatable={updatable} deletable={deletable} hasMore={hasMore}
-        onRefresh={handleLoad} onNext={handleFetchMoreData}
-
-        // searchString={searchString} searchBy={searchBy} filterBy={filterBy}
-        // sortBy={sortBy} sortDirectionIsDescending={sortDirectionIsDescending}
+        items={items} condensed={condensed} miniDashboard={miniDashboard} hasMore={hasMore}
+        searchable={searchable} sortable={sortable} filterable={filterable} starrable={starrable} actionable={actionable}
+        creatable={creatable} readable={readable} updatable={updatable} deletable={deletable}
         searchMenuOptions={searchMenuOptions} filterMenuOptions={filterMenuOptions} sortMenuOptions={sortMenuOptions}
-        
-        // onChangeSearchString={handleChangeSearchString}
-        // onClickSearchButton={handleClickSearchButton}
-        // // onClickFilterButton={handleClickFilterButton}
-        // // onClickSortButton={handleClickSortButton}
-        // onMenuItemClick={handleMenuItemClick}
-        // onToggleSortDirection={handleToggleSortDirection}
-        // onDeleteShield={handleDeleteShield}
-        // onResetButtonsTierList={handleResetButtonsTierList}
+        onRefresh={handleLoad} onNext={handleFetchMoreData}
       />
 
     const getRefreshButton = () =>
