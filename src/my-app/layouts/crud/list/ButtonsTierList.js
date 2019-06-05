@@ -58,7 +58,7 @@ class ButtonsTierList extends Component {
     this.handleMenuItemClick(event);
   }
 
-  handleResetButtons = () => this.setState({ ...INITIAL_STATE, });
+  handleResetButtonsTierList = () => this.setState({ ...INITIAL_STATE, });
 
   // begin refactor from CRUDContainer
 

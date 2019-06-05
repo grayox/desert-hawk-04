@@ -76,15 +76,13 @@ const getPickedData = ( values, selectors, definitions, ) => {
 }
 
 const getMicro = ( key, value, ) =>
-  <span className="ml-8"><ShieldsIo label={key} message={value} color="informational" /></span>
+  <span key={key} className="ml-8"><ShieldsIo label={key} message={value} color="informational" /></span>
 
 const getMini = ( key, value, ) =>
-  <React.Fragment>
-    <ListItem key={key} divider /*light*/>
-      <ListItemText primary={key} />
-      <ListItemSecondaryAction className="pr-32">{value}</ListItemSecondaryAction>
-    </ListItem>
-  </React.Fragment>
+  <ListItem key={key} divider /*light*/>
+    <ListItemText primary={key} />
+    <ListItemSecondaryAction className="pr-32">{value}</ListItemSecondaryAction>
+  </ListItem>
 
 const MiniDashboard = ({ data, micro, }) => {
   const ready1 = data;

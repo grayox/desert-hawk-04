@@ -199,11 +199,14 @@ class CRUDContainer extends Component {
   //   }
   // }
   handleCancel = () => {
-    this.setState(INITIAL_STATE);
-    if (this._asyncRequest) {
-      // this._asyncRequest.cancel();
-      this._asyncRequest = null;
-    }
+    this.setState(INITIAL_STATE
+      , () => {
+        if (this._asyncRequest) {
+          // this._asyncRequest.cancel();
+          this._asyncRequest = null;
+        }
+      }
+    );
   };
 
   // render() {

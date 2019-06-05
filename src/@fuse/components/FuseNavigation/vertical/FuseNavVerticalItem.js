@@ -112,9 +112,9 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps({ auth, fuse }) {
-  // return {
+  return {
   //   userRole: auth.user.role
-  // }
+  }
 }
 
 FuseNavVerticalItem.propTypes = propTypes;

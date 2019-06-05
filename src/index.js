@@ -3,6 +3,7 @@ import 'typeface-muli';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import history from './history';
+// import { createBrowserHistory } from "history";
 import './react-table-defaults';
 import './styles/index.css';
 import './fake-db/fake-db'
@@ -11,7 +12,8 @@ import { create } from 'jss';
 import { createGenerateClassName, jssPreset } from '@material-ui/core/styles';
 import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
+// import { BrowserRouter as Router } from 'react-router-dom';
+import { Router, } from 'react-router-dom';
 import { routes } from './fuse-configs/fuseRoutesConfig';
 import { // FuseLayout,
   FuseTheme, FuseAuthorization } from '@fuse';
@@ -40,6 +42,8 @@ const jss = create({
 
 jss.options.insertionPoint = document.getElementById('jss-insertion-point');
 const generateClassName = createGenerateClassName();
+
+// const history = createBrowserHistory();
 
 store.firebaseAuthIsReady.then(() => { // my add
   ReactDOM.render(

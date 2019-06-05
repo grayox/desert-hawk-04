@@ -119,7 +119,7 @@ const ItemSummary = ({
       // divider light // use <Divider /> instead
       key={createdAt}
       onClick={handleClick}
-      selected={index && (selectedIndex === index)}
+      selected={!!index && (selectedIndex === index)}
     >
       <Zoom key={index} in mountOnEnter unmountOnExit>
         <HashAvatar

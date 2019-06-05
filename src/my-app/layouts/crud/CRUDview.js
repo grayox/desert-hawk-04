@@ -320,8 +320,8 @@ class CRUDView extends Component {
       searchMenuOptions, filterMenuOptions, sortMenuOptions,
 
       // list pane
-      onChangeSearchString, onClickSearchButton, // onClickFilterButton, onClickSortButton, 
-      onMenuItemClick, onToggleSortDirection, onDeleteShield, onResetButtonsTierList,
+      // onChangeSearchString, onClickSearchButton, // onClickFilterButton, onClickSortButton, 
+      // onMenuItemClick, onToggleSortDirection, onDeleteShield, onResetButtonsTierList,
     } = this.props;
     const {
       handleCloseDialog, handleDeleteItem, handleChangeUserData,
@@ -461,7 +461,7 @@ CRUDView.propTypes = {
 
   condensed: PropTypes.bool, // one-line per list item in detail pane
   
-  miniDashboard: PropTypes.bool,
+  miniDashboard: PropTypes.array,
   starrable: PropTypes.bool,
   searchable: PropTypes.oneOfType([
     PropTypes.array,
@@ -501,7 +501,7 @@ CRUDView.defaultProps = {
   sortable: false,
   filterable: false,
   starrable: false,
-  miniDashboard: false,
+  miniDashboard: [],
   // actionable: false,
   creatable: false,
   // readable: false,
