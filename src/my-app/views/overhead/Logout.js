@@ -3,7 +3,7 @@ import { Redirect, } from "react-router-dom";
 
 const Logout = () => {
   console.log('Logging out...');
-  // TODO: add logout task here
+  // TODO: add logout functionality
   return (
     <Redirect to='/login' />
   );

@@ -31,36 +31,33 @@ class ButtonsTierList extends Component {
 
   state = INITIAL_STATE;
 
-  handleOpenSearchStringDialog  = () => {
-    this.setState({
-      searchStringDialogIsOpen: true,
-    });
-  }
-  
-  handleCloseSearchStringDialog = () => {
-    this.setState({
-      searchStringDialogIsOpen: false,
-      searchString: '',
-    });
-  }
-  
-  handleCancelSearchStringDialog = () => {
-    this.handleCloseSearchStringDialog();
-  }
+  sendSearchFilterSortDataToContainer = () => console.log('state\n', this.state)
 
-  handleSubmitSearchStringDialog = () => {
-    // send data to CRUDContainer
-    this.handleCloseSearchStringDialog();
-  }
+  // handleClickSearchButton = () => {
+  //   // console.log('state\n', this.state,);
+  //   const { searchString, } = this.state;
+  //   const { searchMenuOptions, } = this.props;
+  //   // const ready = searchMenuOptions.length;
+  //   // if(!ready) return;
+  //   const set = searchString.length;
+  //   const messageNormal = `Your search string is:\n${searchString}\nNow I must fetch the data from:\n${searchMenuOptions}`
+  //   const messageEmpty = 'Please enter a search string' // ❕
+  //   const message = set ? messageNormal : messageEmpty;
+  //   alert(message);
+  // }
 
   handleSearchMenuItemClick = event => {
     this.handleOpenSearchStringDialog();
     this.handleMenuItemClick(event);
   }
 
-  handleResetButtonsTierList = () => this.setState({ ...INITIAL_STATE, });
+  // begin search string
 
-  // begin refactor from CRUDContainer
+  handleOpenSearchStringDialog  = () => {
+    this.setState({
+      searchStringDialogIsOpen: true,
+    });
+  }
 
   handleChangeSearchString = ({ target, }) => {
     const searchString = target && target.value;
@@ -70,18 +67,31 @@ class ButtonsTierList extends Component {
     );
   }
 
-  handleClickSearchButton = () => {
-    // console.log('state\n', this.state,);
-    const { searchString, } = this.state;
-    const { searchMenuOptions, } = this.props;
-    // const ready = searchMenuOptions.length;
-    // if(!ready) return;
-    const set = searchString.length;
-    const messageNormal = `Your search string is:\n${searchString}\nNow I must fetch the data from:\n${searchMenuOptions}`
-    const messageEmpty = 'Please enter a search string' // ❕
-    const message = set ? messageNormal : messageEmpty;
-    alert(message);
+  handleResetSearchString  = () => {
+    this.setState({
+      searchString: '',
+    });
   }
+  
+  handleCancelSearchStringDialog = () => {
+    this.handleResetSearchString();
+    this.handleCloseSearchStringDialog();
+  }
+
+  handleSubmitSearchStringDialog = () => {
+    this.sendSearchFilterSortDataToContainer();
+    this.handleCloseSearchStringDialog();
+  }
+
+  handleCloseSearchStringDialog = () => {
+    this.setState({
+      searchStringDialogIsOpen: false,
+    });
+  }
+
+  // end search string
+
+  // begin refactor from CRUDContainer
 
   // handleClickFilterButton = () => {
   //   alert('You clicked the FILTER button');
@@ -95,23 +105,25 @@ class ButtonsTierList extends Component {
 
   handleMenuItemClick = ({ variant, selectedIndex, selectedString, }) => {
     switch(variant) {
+      case 'search':
+        this.setState({
+          searchBy: selectedString,
+          // showSearchStringInput: true,
+        });
+        break;
       case 'filter':
         // fetch existing array
         let filterArray = [ ...this.state.filterBy, ];
         // push, but only if not duplicated
         if(filterArray.indexOf(selectedString) < 0) filterArray.push(selectedString);
         this.setState({ filterBy: filterArray, }
-          // , () => // apply where filters, then re-fetch data
+          , () => this.sendSearchFilterSortDataToContainer()
         );
         break;
       case 'sort':
-        this.setState({ sortBy: selectedString, });
-        break;
-      case 'search':
-        this.setState({
-          searchBy: selectedString,
-          // showSearchStringInput: true,
-        });
+        this.setState({ sortBy: selectedString, }
+          , () => this.sendSearchFilterSortDataToContainer()
+        );
         break;
       default:
         // code block
@@ -121,6 +133,11 @@ class ButtonsTierList extends Component {
   handleToggleSortDirection = () => {
     this.setState({sortDirectionIsDescending: !this.state.sortDirectionIsDescending});
   }
+
+  handleResetButtonsTierList = () =>
+    this.setState({ ...INITIAL_STATE, }
+      , () => this.sendSearchFilterSortDataToContainer()
+    );
   
   handleDeleteShield = ( item, selectedIndex, ) => {
     // get id of clicked shield
@@ -132,18 +149,22 @@ class ButtonsTierList extends Component {
         this.setState({
           searchBy: '',
           searchString: '',
-        });
+        }
+          , () => this.sendSearchFilterSortDataToContainer()
+        );
         break;
       case 'filter':
         // fetch existing array
         let filterArray = [ ...this.state.filterBy, ];
         _.pull( filterArray, value, );
         this.setState({ filterBy: filterArray, }
-          // , () => // apply where filters, then re-fetch data
+          , () => this.sendSearchFilterSortDataToContainer()
         );
         break;
       case 'sort':
-        this.setState({ sortBy: '', });
+        this.setState({ sortBy: '', }
+          , () => this.sendSearchFilterSortDataToContainer()
+        );
         break;
       default:
         // code block
@@ -165,8 +186,8 @@ class ButtonsTierList extends Component {
       // onMenuItemClick, onToggleSortDirection, onDeleteShield, onResetButtonsTierList,
     } = this.props;
     const {
-      // refactored from CRUDContainer // list pane
-      handleChangeSearchString, handleClickSearchButton, // handleClickFilterButton, handleClickSortButton, 
+      handleChangeSearchString, handleResetSearchString,
+      // handleClickSearchButton, handleClickFilterButton, handleClickSortButton, 
       handleMenuItemClick, handleToggleSortDirection, handleDeleteShield, handleResetButtonsTierList,
       handleSearchMenuItemClick, handleCloseSearchStringDialog,
       handleCancelSearchStringDialog, handleSubmitSearchStringDialog,
@@ -189,7 +210,7 @@ class ButtonsTierList extends Component {
       if(searchBy) out.push({
         type: 'search',
         icon: 'search',
-        value: searchBy,
+        value: `in ${searchBy}`,
       })
       if(filterBy && filterBy.length) {
         for (const filterString of filterBy) {
@@ -267,10 +288,10 @@ class ButtonsTierList extends Component {
       </Tooltip>
     )
 
-    const getSortMenu = () => (
-      sortable &&
-      <span className="ml-4" title="Sort">
-        <SortFilterMenu variant="sort" sortMenuOptions={sortMenuOptions} onMenuItemClick={handleMenuItemClick} />
+    const getSearchMenu = () => (
+      filterable &&
+      <span className="ml-4" title="Filter">
+        <SortFilterMenu variant="search" searchMenuOptions={searchMenuOptions} onMenuItemClick={handleSearchMenuItemClick} />
       </span>
     )
 
@@ -281,10 +302,10 @@ class ButtonsTierList extends Component {
       </span>
     )
 
-    const getSearchMenu = () => (
-      filterable &&
-      <span className="ml-4" title="Filter">
-        <SortFilterMenu variant="search" searchMenuOptions={searchMenuOptions} onMenuItemClick={handleSearchMenuItemClick} />
+    const getSortMenu = () => (
+      sortable &&
+      <span className="ml-4" title="Sort">
+        <SortFilterMenu variant="sort" sortMenuOptions={sortMenuOptions} onMenuItemClick={handleMenuItemClick} />
       </span>
     )
 
@@ -308,31 +329,31 @@ class ButtonsTierList extends Component {
       <TextField
         // id="outlined-search"
         // placeholder="Search"
+        autoFocus fullWidth
         label="Search"
         type="search"
         // className={classes.textField}
         margin="normal"
         variant="outlined"
-        fullWidth
         value={searchString}
         // onChange={() => onChangeSearchString(this.state.x)}
         onChange={handleChangeSearchString}
-        onKeyPress={(e) => handleKeyPress(e, 'Enter', handleClickSearchButton,)}
+        onKeyPress={(e) => handleKeyPress(e, 'Enter', handleSubmitSearchStringDialog,)} // handleClickSearchButton
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
               <Icon>search</Icon>
             </InputAdornment>
           ),
-          // endAdornment: (
-          //   <InputAdornment position="end">
-          // //    <Icon className="mr-32">search</Icon>
-          //     <IconButton title="Clear" onClick={handleResetSearchString}>
-          //       <Icon>clear</Icon>
-          //     </IconButton>
-          //   </InputAdornment>
-          // ),
-        }} 
+          endAdornment: (
+            <InputAdornment position="end">
+              {/* <Icon className="mr-32">search</Icon> */}
+              <IconButton title="Clear" onClick={handleResetSearchString}>
+                <Icon>clear</Icon>
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
       />
     )
     

@@ -98,6 +98,8 @@ class firebaseService {
             console.log('Error getting document:\n', error);
             console.log('user\n', user);
             // debugger;
+            // TODO: fix following error which occurs when offline
+            // Uncaught (in promise) TypeError: userRef.set is not a function
             userRef
               .set(user)
               .then(user => this.updateUserData(user))
@@ -137,9 +139,9 @@ class firebaseService {
     const createdAt = Date.now();
     const picked = pickUserFromAuth(currentUser);
     return userRef(picked) ? userRef(picked)
-      .set({ ...picked, createdAt })
+      .set({ ...picked, createdAt, })
       :
-      saveDocToFirestore(picked, `users/user/${uid}`)
+      saveDocToFirestore( picked, `users/user/${uid}`, )
 
     // // maybe we have no reason to pick fields and should just save the entire authuser object
     // // ref: https://stackoverflow.com/a/51551781/1640892

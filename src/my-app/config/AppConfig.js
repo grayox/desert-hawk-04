@@ -251,7 +251,9 @@ const formFieldProps = {
 
 export const handleKeyPress = (event, targetKey, handlerFunction,) => {
   // This is a utility, helper function stored here as a centralized location
-  // use: // <TextField onKeyPress={(e) => handleKeyPress(e, 'Enter', onClickSearchButton,)}
+  // use:
+  // import { handleKeyPress, } from 'my-app/config/AppConfig';
+  // <TextField onKeyPress={(e) => handleKeyPress(e, 'Enter', onClickSearchButton,)}
   if (event.key === targetKey) handlerFunction();
 }
 
