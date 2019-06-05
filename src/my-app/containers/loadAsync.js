@@ -112,7 +112,7 @@ export const loadAsyncData = async (
   );
   // console.log('out\n', out);
 
-  const promise = new Promise((resolve, reject) => {
+  const promise = new Promise((resolve, reject,) => {
     resolve(out);
   });
   promise.cancel = () => {};

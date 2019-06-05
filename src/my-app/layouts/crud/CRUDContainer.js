@@ -6,7 +6,6 @@
 import React, { Component } from 'react';
 
 import { withStyles, Icon, IconButton, Tooltip, Zoom, } from '@material-ui/core';
-import _ from '@lodash';
 
 import { getSearchableFields, getForm, } from 'my-app/config/AppConfig';
 
@@ -60,13 +59,13 @@ const INITIAL_STATE_LOADING_OPS = {
   lastShown: false,
 }
 
-const INITIAL_STATE_BUTTONS_TIER_LIST = {
-  searchString              : ''   ,
-  searchBy                  : ''   ,
-  filterBy                  : []   ,
-  sortBy                    : ''   ,
-  sortDirectionIsDescending : true ,
-}
+// const INITIAL_STATE_BUTTONS_TIER_LIST = {
+//   searchString              : ''   ,
+//   searchBy                  : ''   ,
+//   filterBy                  : []   ,
+//   sortBy                    : ''   ,
+//   sortDirectionIsDescending : true ,
+// }
 
 const INITIAL_STATE_BUTTONS_TIER_MENU = {
   searchMenuOptions : [] ,
@@ -77,7 +76,7 @@ const INITIAL_STATE_BUTTONS_TIER_MENU = {
 const INITIAL_STATE = {
   ...INITIAL_STATE_ITEMS,
   ...INITIAL_STATE_LOADING_OPS,
-  ...INITIAL_STATE_BUTTONS_TIER_LIST,
+  // ...INITIAL_STATE_BUTTONS_TIER_LIST,
   ...INITIAL_STATE_BUTTONS_TIER_MENU,
 };
 
@@ -134,95 +133,6 @@ class CRUDContainer extends Component {
     this.getFilterMenuOptions();
     this.getSortMenuOptions();
   }
-
-  handleChangeSearchString = ({ target, }) => {
-    const searchString = target && target.value;
-    // console.log('searchString\n', searchString,);
-    this.setState({ searchString, }
-      // , () => this.handleFilterSearchItems()
-    );
-  }
-
-  handleClickSearchButton = () => {
-    // console.log('state\n', this.state,);
-    const { searchString, searchMenuOptions, } = this.state;
-    // const ready = searchMenuOptions.length;
-    // if(!ready) return;
-    const set = searchString.length;
-    const messageNormal = `Your search string is:\n${searchString}\nNow I must fetch the data from:\n${searchMenuOptions}`
-    const messageEmpty = 'Please enter a search string' // ❕
-    const message = set ? messageNormal : messageEmpty;
-    alert(message);
-  }
-
-  // handleClickFilterButton = () => {
-  //   alert('You clicked the FILTER button');
-  //   console.log('You clicked the FILTER button');
-  // }
-
-  // handleClickSortButton = () => {
-  //   alert('You clicked the SORT button');
-  //   console.log('You clicked the SORT button');
-  // }
-
-  handleMenuItemClick = ({ variant, selectedIndex, selectedString, }) => {
-    switch(variant) {
-      case 'filter':
-        // fetch existing array
-        let filterArray = [ ...this.state.filterBy, ];
-        // push, but only if not duplicated
-        if(filterArray.indexOf(selectedString) < 0) filterArray.push(selectedString);
-        this.setState({ filterBy: filterArray, }
-          // , () => // apply where filters, then re-fetch data
-        );
-        break;
-      case 'sort':
-        this.setState({ sortBy: selectedString, });
-        break;
-      case 'search':
-        this.setState({
-          searchBy: selectedString,
-          // showSearchStringInput: true,
-        });
-        break;
-      default:
-        // code block
-    }
-  }
-  
-  handleToggleSortDirection = () => {
-    this.setState({sortDirectionIsDescending: !this.state.sortDirectionIsDescending});
-  }
-  
-  handleDeleteShield = ( item, selectedIndex, ) => {
-    // get id of clicked shield
-    // console.log('item\n', item,);
-    // console.log('selectedIndex\n', selectedIndex,);
-    const { type, value, } = item;
-    switch(type) {
-      case 'search':
-        this.setState({
-          searchBy: '',
-          searchString: '',
-        });
-        break;
-      case 'filter':
-        // fetch existing array
-        let filterArray = [ ...this.state.filterBy, ];
-        _.pull( filterArray, value, );
-        this.setState({ filterBy: filterArray, }
-          // , () => // apply where filters, then re-fetch data
-        );
-        break;
-      case 'sort':
-        this.setState({ sortBy: '', });
-        break;
-      default:
-        // code block
-    }
-  }
-
-  handleResetButtonsTierList = () => this.setState({ ...INITIAL_STATE_BUTTONS_TIER_LIST, });
   
   // end buttons tier list
 
@@ -239,7 +149,10 @@ class CRUDContainer extends Component {
   handleFetchMoreData = async () => {
     // console.log('props\n', this.props);
     const { readable, } = this.props;
-    const { items, searchString, searchBy, filterBy, sortBy, sortDirection, } = this.state;
+    const {
+      items,
+      // searchString, searchBy, filterBy, sortBy, sortDirection,
+    } = this.state;
     
     const ready1 = readable && readable.path;
     if( !ready1 ) return;
@@ -252,7 +165,7 @@ class CRUDContainer extends Component {
     // ref: https://firebase.google.com/docs/firestore/query-data/query-cursors#paginate_a_query
     this._asyncRequest = loadAsyncData(
       path, BATCH_SIZE, this.state.lastShown,
-      searchString, searchBy, filterBy, sortBy, sortDirection,
+      // searchString, searchBy, filterBy, sortBy, sortDirection,
     );
     // const items = await this._asyncRequest;
     const newData = await this._asyncRequest; // { data:<arrayOfObjects>, lastShown:<documentSnapshot>, }
@@ -312,13 +225,10 @@ class CRUDContainer extends Component {
   render() {
     const {
       handleLoad, handleFetchMoreData,
-      // list pane
-      handleChangeSearchString, handleClickSearchButton, // handleClickFilterButton, handleClickSortButton, 
-      handleMenuItemClick, handleToggleSortDirection, handleDeleteShield, handleResetButtonsTierList,
     } = this;
     const {
       isLoading, isError, items, hasMore,
-      searchString, searchBy, filterBy, sortBy, sortDirectionIsDescending,
+      // searchString, searchBy, filterBy, sortBy, sortDirectionIsDescending,
       searchMenuOptions, filterMenuOptions, sortMenuOptions,
     } = this.state;
     const {
@@ -333,18 +243,18 @@ class CRUDContainer extends Component {
         readable={readable} updatable={updatable} deletable={deletable} hasMore={hasMore}
         onRefresh={handleLoad} onNext={handleFetchMoreData}
 
-        searchString={searchString} searchBy={searchBy} filterBy={filterBy}
-        sortBy={sortBy} sortDirectionIsDescending={sortDirectionIsDescending}
+        // searchString={searchString} searchBy={searchBy} filterBy={filterBy}
+        // sortBy={sortBy} sortDirectionIsDescending={sortDirectionIsDescending}
         searchMenuOptions={searchMenuOptions} filterMenuOptions={filterMenuOptions} sortMenuOptions={sortMenuOptions}
         
-        onChangeSearchString={handleChangeSearchString}
-        onClickSearchButton={handleClickSearchButton}
-        // onClickFilterButton={handleClickFilterButton}
-        // onClickSortButton={handleClickSortButton}
-        onMenuItemClick={handleMenuItemClick}
-        onToggleSortDirection={handleToggleSortDirection}
-        onDeleteShield={handleDeleteShield}
-        onResetButtonsTierList={handleResetButtonsTierList}
+        // onChangeSearchString={handleChangeSearchString}
+        // onClickSearchButton={handleClickSearchButton}
+        // // onClickFilterButton={handleClickFilterButton}
+        // // onClickSortButton={handleClickSortButton}
+        // onMenuItemClick={handleMenuItemClick}
+        // onToggleSortDirection={handleToggleSortDirection}
+        // onDeleteShield={handleDeleteShield}
+        // onResetButtonsTierList={handleResetButtonsTierList}
       />
 
     const getRefreshButton = () =>

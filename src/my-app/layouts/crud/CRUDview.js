@@ -77,7 +77,6 @@ const INITIAL_STATE = {
   ...INITIAL_STATE_DIALOG,
 }
 
-// function CRUDView(props) {
 class CRUDView extends Component {
 
   state = INITIAL_STATE;
@@ -317,7 +316,7 @@ class CRUDView extends Component {
     const {
       classes, profile, items, condensed, onNext, hasMore, miniDashboard,
       creatable, updatable, deletable, actionable, searchable, sortable, filterable, starrable,
-      searchString, searchBy, filterBy, sortBy, sortDirectionIsDescending, // items,
+      // searchString, searchBy, filterBy, sortBy, sortDirectionIsDescending, // items,
       searchMenuOptions, filterMenuOptions, sortMenuOptions,
 
       // list pane
@@ -345,17 +344,22 @@ class CRUDView extends Component {
     
     const getCreateDialog = () =>
       <CreateDialog
-        creatable={creatable} createDialogIsOpen={createDialogIsOpen} crudForm={crudForm} crudFormTimestamp={crudFormTimestamp}
-        onEnterDialog={handleEnterDialog} onChangeForm={handleChangeForm} onCloseDialog={handleCloseDialog} onCreateItem={handleCreateItem}
+        crudForm={crudForm} crudFormTimestamp={crudFormTimestamp}
+        creatable={creatable} createDialogIsOpen={createDialogIsOpen}
+        onEnterDialog={handleEnterDialog} onChangeForm={handleChangeForm}
+        onCloseDialog={handleCloseDialog} onCreateItem={handleCreateItem}
       /> 
     const getUpdateDialog = () =>
       <UpdateDialog
-        updatable={updatable} updateDialogIsOpen={updateDialogIsOpen} detail={detail} crudForm={crudForm} 
-        onChangeForm={handleChangeForm} onCloseDialog={handleCloseDialog} onUpdateItem={handleUpdateItem} onEnterDialog={handleEnterDialog}
+        detail={detail} crudForm={crudForm} 
+        updatable={updatable} updateDialogIsOpen={updateDialogIsOpen}
+        onChangeForm={handleChangeForm} onCloseDialog={handleCloseDialog}
+        onUpdateItem={handleUpdateItem} onEnterDialog={handleEnterDialog}
       />  
     const getDeleteDialog = () =>
       <DeleteDialog
-        isOpen={deleteDialogIsOpen} onCancel={handleCloseDialog} onDelete={handleDeleteItem} onClose={handleCloseDialog}
+        isOpen={deleteDialogIsOpen} onCancel={handleCloseDialog}
+        onDelete={handleDeleteItem} onClose={handleCloseDialog}
       />
 
     const getListPane = () =>
@@ -373,11 +377,12 @@ class CRUDView extends Component {
         searchMenuOptions={searchMenuOptions}
         filterMenuOptions={filterMenuOptions}
         sortMenuOptions={sortMenuOptions}
-        searchString={searchString}
-        searchBy={searchBy}
-        filterBy={filterBy}
-        sortBy={sortBy}
-        sortDirectionIsDescending={sortDirectionIsDescending}
+
+        // searchString={searchString}
+        // searchBy={searchBy}
+        // filterBy={filterBy}
+        // sortBy={sortBy}
+        // sortDirectionIsDescending={sortDirectionIsDescending}
 
         onNext={onNext}
         onClickStar={handleClickStar}
@@ -385,12 +390,12 @@ class CRUDView extends Component {
 
         onClickCreateButton={handleClickCreateButton}
 
-        onChangeSearchString={onChangeSearchString}
-        onClickSearchButton={onClickSearchButton}
-        onMenuItemClick={onMenuItemClick}
-        onToggleSortDirection={onToggleSortDirection}
-        onDeleteShield={onDeleteShield}
-        onResetButtonsTierList={onResetButtonsTierList}
+        // onChangeSearchString={onChangeSearchString}
+        // onClickSearchButton={onClickSearchButton}
+        // onMenuItemClick={onMenuItemClick}
+        // onToggleSortDirection={onToggleSortDirection}
+        // onDeleteShield={onDeleteShield}
+        // onResetButtonsTierList={onResetButtonsTierList}
       />
     const getDetailPane = () =>
       <DetailPane
