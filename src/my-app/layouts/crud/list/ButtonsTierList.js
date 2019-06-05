@@ -175,13 +175,11 @@ class ButtonsTierList extends Component {
 
   render() {
     const {
-      searchStringDialogIsOpen,
-      searchString, searchBy, filterBy, sortBy, sortDirectionIsDescending,
+      searchStringDialogIsOpen, searchString, searchBy, filterBy, sortBy, sortDirectionIsDescending,
     } = this.state;
     const {
-      onClickCreateButton,
+      onClickCreateButton, creatable, searchable, filterable, sortable,
       searchMenuOptions, filterMenuOptions, sortMenuOptions,
-      creatable, searchable, filterable, sortable,
       // onChangeSearchString, onClickSearchButton, // onClickFilterButton, onClickSortButton, 
       // onMenuItemClick, onToggleSortDirection, onDeleteShield, onResetButtonsTierList,
     } = this.props;
