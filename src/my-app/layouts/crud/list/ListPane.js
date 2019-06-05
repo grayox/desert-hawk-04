@@ -20,11 +20,7 @@ const styles = theme => ({
 const ListPane = ({
   classes, items, hasMore, creatable, searchable, filterable, sortable, starrable, selectedIndex,
   searchMenuOptions, filterMenuOptions, sortMenuOptions,
-  // searchString, searchBy, filterBy, sortBy, sortDirectionIsDescending,
-  onClickStar, onNext, onToggle,
-  onClickCreateButton, onChangeSearchString, onClickSearchButton,
-  // onClickFilterButton, onClickSortButton, // handled by separate components
-  onMenuItemClick, onToggleSortDirection, onDeleteShield, onResetButtonsTierList,
+  onClickStar, onNext, onToggle, onClickCreateButton, onSearchFilterSort,
 }) => {
 
   const ready1 = items && items.length;
@@ -45,22 +41,8 @@ const ListPane = ({
           filterMenuOptions={filterMenuOptions}
           sortMenuOptions={sortMenuOptions}
 
-          // searchString={searchString}
-          // searchBy={searchBy}
-          // filterBy={filterBy}
-          // sortBy={sortBy}
-          // sortDirectionIsDescending={sortDirectionIsDescending}
-
           onClickCreateButton={onClickCreateButton}
-
-          // onChangeSearchString={onChangeSearchString}
-          // onClickSearchButton={onClickSearchButton}
-          // // onClickFilterButton={onClickFilterButton}
-          // // onClickSortButton={onClickSortButton}
-          // onMenuItemClick={onMenuItemClick}
-          // onToggleSortDirection={onToggleSortDirection}
-          // onDeleteShield={onDeleteShield}
-          // onResetButtonsTierList={onResetButtonsTierList}
+          onSearchFilterSort={onSearchFilterSort}
         />
       </Zoom>
     </div>

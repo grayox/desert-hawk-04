@@ -100,6 +100,11 @@ class CRUDContainer extends Component {
 
   // begin buttons tier list
 
+  handleSearchFilterSort = model => {
+    // const { searchString, searchBy, filterBy, sortBy, sortDirectionIsDescending, } = model; // searchStringDialogIsOpen,
+    console.log('model\n', model,);
+  }
+
   getSearchMenuOptions = () => {
     const HEADER = 'Search in';
     const { readable, searchable,  } = this.props;
@@ -223,7 +228,7 @@ class CRUDContainer extends Component {
   // }
 
   render() {
-    const { handleLoad, handleFetchMoreData, } = this;
+    const { handleLoad, handleFetchMoreData, handleSearchFilterSort, } = this;
     const {
       isLoading, isError, items, hasMore, searchMenuOptions, filterMenuOptions, sortMenuOptions,
     } = this.state;
@@ -238,7 +243,7 @@ class CRUDContainer extends Component {
         searchable={searchable} sortable={sortable} filterable={filterable} starrable={starrable} actionable={actionable}
         creatable={creatable} readable={readable} updatable={updatable} deletable={deletable}
         searchMenuOptions={searchMenuOptions} filterMenuOptions={filterMenuOptions} sortMenuOptions={sortMenuOptions}
-        onRefresh={handleLoad} onNext={handleFetchMoreData}
+        onRefresh={handleLoad} onNext={handleFetchMoreData} onSearchFilterSort={handleSearchFilterSort}
       />
 
     const getRefreshButton = () =>

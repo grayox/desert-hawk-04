@@ -31,7 +31,7 @@ class ButtonsTierList extends Component {
 
   state = INITIAL_STATE;
 
-  sendSearchFilterSortDataToContainer = () => console.log('state\n', this.state)
+  sendSearchFilterSortDataToContainer = () => this.props.onSearchFilterSort(this.state) // console.log('state\n', this.state)
 
   // handleClickSearchButton = () => {
   //   // console.log('state\n', this.state,);
@@ -131,7 +131,11 @@ class ButtonsTierList extends Component {
   }
   
   handleToggleSortDirection = () => {
-    this.setState({sortDirectionIsDescending: !this.state.sortDirectionIsDescending});
+    this.setState({sortDirectionIsDescending: !this.state.sortDirectionIsDescending}
+      , () => {
+        if(this.state.sortBy) this.sendSearchFilterSortDataToContainer();
+      }
+    );
   }
 
   handleResetButtonsTierList = () =>
@@ -178,14 +182,12 @@ class ButtonsTierList extends Component {
       searchStringDialogIsOpen, searchString, searchBy, filterBy, sortBy, sortDirectionIsDescending,
     } = this.state;
     const {
-      onClickCreateButton, creatable, searchable, filterable, sortable,
+      onClickCreateButton, // onSearchFilterSort,
+      creatable, searchable, filterable, sortable,
       searchMenuOptions, filterMenuOptions, sortMenuOptions,
-      // onChangeSearchString, onClickSearchButton, // onClickFilterButton, onClickSortButton, 
-      // onMenuItemClick, onToggleSortDirection, onDeleteShield, onResetButtonsTierList,
     } = this.props;
     const {
       handleChangeSearchString, handleResetSearchString,
-      // handleClickSearchButton, handleClickFilterButton, handleClickSortButton, 
       handleMenuItemClick, handleToggleSortDirection, handleDeleteShield, handleResetButtonsTierList,
       handleSearchMenuItemClick, handleCloseSearchStringDialog,
       handleCancelSearchStringDialog, handleSubmitSearchStringDialog,

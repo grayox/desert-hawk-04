@@ -316,12 +316,7 @@ class CRUDView extends Component {
     const {
       classes, profile, items, condensed, onNext, hasMore, miniDashboard,
       creatable, updatable, deletable, actionable, searchable, sortable, filterable, starrable,
-      // searchString, searchBy, filterBy, sortBy, sortDirectionIsDescending, // items,
-      searchMenuOptions, filterMenuOptions, sortMenuOptions,
-
-      // list pane
-      // onChangeSearchString, onClickSearchButton, // onClickFilterButton, onClickSortButton, 
-      // onMenuItemClick, onToggleSortDirection, onDeleteShield, onResetButtonsTierList,
+      searchMenuOptions, filterMenuOptions, sortMenuOptions, onSearchFilterSort,
     } = this.props;
     const {
       handleCloseDialog, handleDeleteItem, handleChangeUserData,
@@ -378,24 +373,12 @@ class CRUDView extends Component {
         filterMenuOptions={filterMenuOptions}
         sortMenuOptions={sortMenuOptions}
 
-        // searchString={searchString}
-        // searchBy={searchBy}
-        // filterBy={filterBy}
-        // sortBy={sortBy}
-        // sortDirectionIsDescending={sortDirectionIsDescending}
-
         onNext={onNext}
         onClickStar={handleClickStar}
         onToggle={handleToggle}
 
         onClickCreateButton={handleClickCreateButton}
-
-        // onChangeSearchString={onChangeSearchString}
-        // onClickSearchButton={onClickSearchButton}
-        // onMenuItemClick={onMenuItemClick}
-        // onToggleSortDirection={onToggleSortDirection}
-        // onDeleteShield={onDeleteShield}
-        // onResetButtonsTierList={onResetButtonsTierList}
+        onSearchFilterSort={onSearchFilterSort}
       />
     const getDetailPane = () =>
       <DetailPane
