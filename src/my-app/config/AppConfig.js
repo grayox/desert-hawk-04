@@ -254,7 +254,7 @@ const formFieldProps = {
 // UTILITY FUNCTIONS
 // These are utility, helper functions stored here as a centralized location
 
-export const getIdHash = (uid, timestamp,) => hash([uid, timestamp,]) // uid => createdBy, timestamp => createdAt,
+export const getIdHash = (uid, timestamp,) => hash([uid, timestamp,]) // uid == createdBy, timestamp == createdAt,
 
 export const handleKeyPress = (event, targetKey, handlerFunction,) => {
 // example usage:

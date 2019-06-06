@@ -2,7 +2,7 @@ import React, { Component, } from 'react';
 import {
   Paper, Tooltip, Zoom, Chip, Button, Fab, Icon, IconButton, TextField,
   Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
-  InputAdornment, // CssBaseline, Typography, // withStyles,
+  InputAdornment, // Badge, // CssBaseline, Typography, // withStyles,
 } from '@material-ui/core';
 
 import { handleKeyPress, } from 'my-app/config/AppConfig';
@@ -260,6 +260,49 @@ class ButtonsTierList extends Component {
     const CreateButton = () => <Tooltip TransitionComponent={Zoom} title="Add new item">{getCreateButton()}</Tooltip>
     const getCreateButtonMeta = () => (creatable && <span className="ml-8"><CreateButton/></span>)
 
+    const getSpacer = () => <span className="w-full flex-1" />
+
+    const getSearchMenu = () => (
+      searchable &&
+      <span className="ml-4" title="Search">
+        {/* <Badge color="secondary" variant="dot" invisible={!(searchBy && searchString)}> */}
+        <SortFilterMenu variant="search" searchMenuOptions={searchMenuOptions} onMenuItemClick={handleSearchMenuItemClick} />
+        {/* </Badge> */}
+      </span>
+    )
+
+    const getFilterMenu = () => (
+      filterable &&
+      <span className="ml-4" title="Filter">
+        {/* <Badge color="secondary" variant="dot" invisible={!filterBy.length}> */}
+        <SortFilterMenu variant="filter" filterMenuOptions={filterMenuOptions} onMenuItemClick={handleMenuItemClick} />
+        {/* </Badge> */}
+      </span>
+    )
+
+    const getSortMenu = () => (
+      sortable &&
+      <span className="ml-4" title="Sort">
+        {/* <Badge color="secondary" variant="dot" invisible={!sortBy}> */}
+        <SortFilterMenu variant="sort" sortMenuOptions={sortMenuOptions} onMenuItemClick={handleMenuItemClick} />
+        {/* </Badge> */}
+      </span>
+    )
+
+    const getSortDirectionButton = () => (
+      sortable &&
+      <Tooltip
+        TransitionComponent={Zoom} placement="bottom"
+        title={`Sort ${sortDirectionIsDescending ? 'descending' : 'ascending'}`}
+      >
+        <span className="ml-4">
+          <IconButton onClick={handleToggleSortDirection}>
+            <Icon>{sortDirectionIsDescending ? 'arrow_upward' : 'arrow_downward'}</Icon>
+          </IconButton>
+        </span>
+      </Tooltip>
+    )
+
     const getClearButton = () => (
       ( createButtonType === 'fab' ) &&
       <Tooltip TransitionComponent={Zoom} placement="bottom" title="Clear and reset">
@@ -271,43 +314,6 @@ class ButtonsTierList extends Component {
           </IconButton>
         </span>
       </Tooltip>
-    )
-
-    const getSortDirectionButton = () => (
-      sortable &&
-      <Tooltip
-        TransitionComponent={Zoom} placement="bottom"
-        title={`Sort ${sortDirectionIsDescending ? 'descending' : 'ascending'}`}
-      >
-        <span className="ml-4">
-          <IconButton
-            onClick={handleToggleSortDirection}
-          >
-            <Icon>{sortDirectionIsDescending ? 'arrow_upward' : 'arrow_downward'}</Icon>
-          </IconButton>
-        </span>
-      </Tooltip>
-    )
-
-    const getSearchMenu = () => (
-      filterable &&
-      <span className="ml-4" title="Filter">
-        <SortFilterMenu variant="search" searchMenuOptions={searchMenuOptions} onMenuItemClick={handleSearchMenuItemClick} />
-      </span>
-    )
-
-    const getFilterMenu = () => (
-      filterable &&
-      <span className="ml-4" title="Filter">
-        <SortFilterMenu variant="filter" filterMenuOptions={filterMenuOptions} onMenuItemClick={handleMenuItemClick} />
-      </span>
-    )
-
-    const getSortMenu = () => (
-      sortable &&
-      <span className="ml-4" title="Sort">
-        <SortFilterMenu variant="sort" sortMenuOptions={sortMenuOptions} onMenuItemClick={handleMenuItemClick} />
-      </span>
     )
 
     // const getSearchButton = () => (
@@ -322,8 +328,6 @@ class ButtonsTierList extends Component {
     //     </span>
     //   </Tooltip>
     // )
-
-    const getSpacer = () => <span className="w-full flex-1" />
 
     const getSearchInput = () => (
       searchable &&

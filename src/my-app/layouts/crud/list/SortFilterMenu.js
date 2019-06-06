@@ -27,7 +27,7 @@ const icons = {
 }
 
 // function SimpleListMenu() {
-const SortFilterMenu = ({ variant, searchMenuOptions, filterMenuOptions, sortMenuOptions, onMenuItemClick, }) => {
+const SortFilterMenu = ({variant, searchMenuOptions, filterMenuOptions, sortMenuOptions, onMenuItemClick,}) => {
   const classes = useStyles();
   const [ anchorEl      , setAnchorEl      , ] = useState(null);
   const [ selectedIndex , setSelectedIndex , ] = useState(1);
