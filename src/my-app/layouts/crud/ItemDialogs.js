@@ -14,7 +14,7 @@ const findFormField = ( formName, fieldName, ) => formName && formName.find(x =>
 
 // getCreateDialog = () => {
 const CreateDialog = ({
-  creatable, createDialogIsOpen, crudForm, crudFormTimestamp,
+  creatable, createDialogIsOpen, crudForm, crudFormTimestamp, crudFormIdHash,
   onEnterDialog, onChangeForm, onCloseDialog, onCreateItem, // findFormField,
 }) => {
   // console.log('props\n', this.props);
@@ -72,7 +72,7 @@ const CreateDialog = ({
       }
 
       {/* { getAppBar(title, name, crudFormTimestamp,) } */}
-      <DialogAppBar title={title} name={name} message={crudFormTimestamp} />
+      <DialogAppBar title={title} name={name} message={crudFormIdHash || crudFormTimestamp} />
 
       <div className="ml-8 mr-16">
         {
@@ -128,6 +128,7 @@ const UpdateDialog = ({
   // console.log('crudForm\n', crudForm); // undefined on load, then array of objects // debugger;
 
   const name = (crudForm && findFormField(crudForm, 'name',)) || (detail && detail.name) || null;
+  const idHash = (detail && detail.idHash) || null;
   const createdAt = (detail && detail.createdAt) || null;
   
   return (
@@ -144,7 +145,7 @@ const UpdateDialog = ({
     >
 
       {/* { getAppBar(title, name, createdAt,) } */}
-      <DialogAppBar title={title} name={name} message={createdAt} />
+      <DialogAppBar title={title} name={name} message={idHash || createdAt} />
 
       <div className="ml-8 mr-16">
         {

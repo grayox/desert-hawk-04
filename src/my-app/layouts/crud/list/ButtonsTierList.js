@@ -350,7 +350,7 @@ class ButtonsTierList extends Component {
             <InputAdornment position="end">
               {/* <Icon className="mr-32">search</Icon> */}
               <IconButton title="Clear" onClick={handleResetSearchString}>
-                <Icon>clear</Icon>
+                <Icon>cancel</Icon>
               </IconButton>
             </InputAdornment>
           ),

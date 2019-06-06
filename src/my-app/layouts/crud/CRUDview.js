@@ -11,7 +11,7 @@ import FetchUserData from 'my-app/containers/FetchUserData';
 // @material-ui/core
 import { withStyles, withWidth, Grid, } from '@material-ui/core';
 
-import { getForm, } from 'my-app/config/AppConfig'; // getSearchableFields, getItemsFilteredBySearch,
+import { getForm, getIdHash, } from 'my-app/config/AppConfig'; // getSearchableFields, getItemsFilteredBySearch,
 import MediaWidth from 'my-app/layouts/MediaWidth';
 import ListPane from './list/ListPane';
 import DetailPane from './detail/DetailPane';
@@ -40,13 +40,6 @@ const styles = theme => ({
   },
 });
 
-const STATE_OPEN_CREATE_DIALOG = {
-  createDialogIsOpen : true       ,
-  updateDialogIsOpen : false      ,
-  deleteDialogIsOpen : false      ,
-  crudFormTimestamp  : Date.now() ,
-}
-
 const STATE_OPEN_UPDATE_DIALOG = {
   createDialogIsOpen : false ,
   updateDialogIsOpen : true  ,
@@ -64,6 +57,7 @@ const INITIAL_STATE_DIALOG = {
   updateDialogIsOpen : false     ,
   deleteDialogIsOpen : false     ,
   crudForm           : undefined ,
+  crudFormIdHash     : undefined ,
   crudFormTimestamp  : undefined ,
 }
 
@@ -102,6 +96,19 @@ class CRUDView extends Component {
   // }
 
   // getInitialItemsFromProps = () => this.setState({items: this.props.items,})
+
+  getStateOpenCreateDialog = () => {
+    const crudFormTimestamp = Date.now();
+    const crudFormIdHash = getIdHash(this.props.profile.uid, crudFormTimestamp,);
+    const out = {
+      crudFormIdHash              ,
+      crudFormTimestamp           ,
+      createDialogIsOpen : true   ,
+      updateDialogIsOpen : false  ,
+      deleteDialogIsOpen : false  ,
+    }
+    return out;
+  }
 
   getFormFields = ( type, fields, ) => {
     // type: string: enum: 'loadSavedData' | 'loadNewData'
@@ -151,8 +158,8 @@ class CRUDView extends Component {
 
   handleOpenUpdateDialog  = () => this.setState({ ...STATE_OPEN_UPDATE_DIALOG, });
   handleOpenDeleteDialog  = () => this.setState({ ...STATE_OPEN_DELETE_DIALOG, });
-  handleClickCreateButton = () => this.setState({ ...STATE_OPEN_CREATE_DIALOG, });
-
+  handleClickCreateButton = () => this.setState(this.getStateOpenCreateDialog());
+ 
   handleChangeForm = event => {
     // console.log('target\n', event.target);
     const { id, value, } = event.target;
@@ -178,7 +185,7 @@ class CRUDView extends Component {
   handleCloseDialog = () => {
     this.setState({
       ...INITIAL_STATE_DIALOG,
-      crudForm: this.state.createFormInitialState,
+      crudForm: null, // this.state.createFormInitialState,
     });
   };
 
@@ -187,7 +194,7 @@ class CRUDView extends Component {
   handleCreateItem = e => {
     // console.log('state\n', this.state);
     const { handleCloseDialog, handleRefresh, } = this;
-    const { crudForm, crudFormTimestamp, } = this.state;
+    const { crudForm, crudFormTimestamp, crudFormIdHash, } = this.state;
     const { createItem, creatable, profile, dashboard, } = this.props;
     const { uid, } = profile;
     const { path, } = creatable;
@@ -198,6 +205,7 @@ class CRUDView extends Component {
     // this.props.createItem('leads', crudForm,);
 
     const newItem = {
+      idHash: crudFormIdHash,
       createdAt: crudFormTimestamp,
     };
     crudForm.forEach( item => {
@@ -311,7 +319,8 @@ class CRUDView extends Component {
   render() {
     const {
       detail, deleteDialogIsOpen, selectedIndex,
-      createDialogIsOpen, updateDialogIsOpen, crudForm, crudFormTimestamp,
+      createDialogIsOpen, updateDialogIsOpen,
+      crudForm, crudFormTimestamp, crudFormIdHash,
     } = this.state;
     const {
       classes, profile, items, condensed, onNext, hasMore, miniDashboard,
@@ -339,7 +348,7 @@ class CRUDView extends Component {
     
     const getCreateDialog = () =>
       <CreateDialog
-        crudForm={crudForm} crudFormTimestamp={crudFormTimestamp}
+        crudForm={crudForm} crudFormTimestamp={crudFormTimestamp} crudFormIdHash={crudFormIdHash}
         creatable={creatable} createDialogIsOpen={createDialogIsOpen}
         onEnterDialog={handleEnterDialog} onChangeForm={handleChangeForm}
         onCloseDialog={handleCloseDialog} onCreateItem={handleCreateItem}

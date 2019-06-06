@@ -15,6 +15,7 @@ import { FuseLoadable } from '@fuse';
 
 // utilities
 import _ from '@lodash';
+import hash from 'object-hash'; // https://www.npmjs.com/package/object-hash
 
 // creatable
 // import UserMultiForm from 'my-app/components/forms/UserMultiForm';
@@ -249,13 +250,20 @@ const formFieldProps = {
   notes     : { type : 'text' , label : 'Notes'      , icon : 'note'           , multiline: true, rows: 5,},
 }
 
+
+// UTILITY FUNCTIONS
+// These are utility, helper functions stored here as a centralized location
+
+export const getIdHash = (uid, timestamp,) => hash([uid, timestamp,]) // uid => createdBy, timestamp => createdAt,
+
 export const handleKeyPress = (event, targetKey, handlerFunction,) => {
-  // This is a utility, helper function stored here as a centralized location
-  // example usage:
-  // import { handleKeyPress, } from 'my-app/config/AppConfig';
-  // <TextField onKeyPress={(e) => handleKeyPress(e, 'Enter', onClickSearchButton,)}
-  if (event.key === targetKey) handlerFunction();
+// example usage:
+// import { handleKeyPress, } from 'my-app/config/AppConfig';
+// <TextField onKeyPress={(e) => handleKeyPress(e, 'Enter', onClickSearchButton,)}
+if (event.key === targetKey) handlerFunction();
 }
+
+// end utility functions
 
 const getOnlyAlpha = s => {
   // s: string: 'name*'

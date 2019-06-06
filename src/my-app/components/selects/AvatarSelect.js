@@ -64,7 +64,7 @@ class AvatarSelect extends Component {
             >
               <HashAvatar
                 className="p-8"
-                message={timestamp}
+                message={timestamp} // this is demo only; in practice, message would be: getIdHash(uid, timestamp,)
                 variant={item.value} //"uic" //"robohashx" //"robohash4" //"retro" //"monsterid" //"wavatar" //"adorable" //"identicon" //"mp" //"ui" //"random"(deprecated)
               />
               <Typography className="ml-12">

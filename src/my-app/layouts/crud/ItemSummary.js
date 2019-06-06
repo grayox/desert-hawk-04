@@ -24,7 +24,8 @@ const ItemSummary = ({
   const ready1 = item;
   if(!ready1) return null;
 
-  const { createdAt, } = item;
+  const { createdAt, idHash, } = item;
+  // console.log('idHash\n', idHash);
   // console.log('createdAt\n', createdAt);
   // console.log('starrable\n', starrable);
 
@@ -117,13 +118,13 @@ const ItemSummary = ({
     <ListItem
       button
       // divider light // use <Divider /> instead
-      key={createdAt}
+      key={idHash || createdAt}
       onClick={handleClick}
       selected={!!index && (selectedIndex === index)}
     >
       <Zoom key={index} in mountOnEnter unmountOnExit>
         <HashAvatar
-          message={createdAt}
+          message={idHash || createdAt}
           // variant="uic" //"robohashx" //"robohash4" //"retro" //"monsterid" //"wavatar" //"adorable" //"identicon" //"mp" //"ui" //"random"(deprecated)
         />
       </Zoom>
