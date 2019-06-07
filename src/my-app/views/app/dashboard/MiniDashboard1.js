@@ -3,9 +3,8 @@ import { Route, } from 'react-router-dom'; // BrowserRouter as Router, Link
 import _ from '@lodash';
 
 import {
-  Chip, Badge, Avatar, Divider, IconButton, Icon,
+  Chip, Badge, Avatar, Divider,
   List, ListItem, ListItemText, ListItemSecondaryAction, ListSubheader, // ListItemIcon,
-  // ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails,
 } from '@material-ui/core';
 
 // import IndyBadge from "react-shields-badge";
@@ -116,24 +115,9 @@ const MiniDashboard = ({ data, micro, }) => {
 
   const getSubheader = () =>
     micro ? undefined :
-    <div className="cursor-pointer" onClick={toggleShowMini}>
-      <ListSubheader component="div">
-        {'Dashboard'.toUpperCase()}
-        <ListItemSecondaryAction className="pr-16">
-          <IconButton>
-            <Icon>{showMini ? 'expand_less' : 'expand_more'}</Icon>
-          </IconButton>
-        </ListItemSecondaryAction>
-      </ListSubheader>
+    <div onClick={toggleShowMini}>
+      <ListSubheader component="div">{'Dashboard'.toUpperCase()}</ListSubheader>
     </div>
-    // <ListItem divider light>
-    //   <ListItemText primary={'Dashboard'.toUpperCase()} />
-    //   <ListItemSecondaryAction className="pr-16">
-    //     <IconButton onClick={toggleShowMini}>
-    //       <Icon>{showMini ? 'expand_less' : 'expand_more'}</Icon>
-    //     </IconButton>
-    //   </ListItemSecondaryAction>
-    // </ListItem>
   
   // data => { net: 1, deposits: 3, withdrawals: 2, }
   // dataAsArray => [ {key: 'net', value: 1,} , ... ]
