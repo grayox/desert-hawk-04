@@ -100,16 +100,10 @@ const getUserData = async path => {
   // }
 };
 
-export const loadAsyncData = async (
-  path, batchSize, lastVisible,
-  searchString, searchBy, filterBy, sortBy, sortDirection,
-) => {
+export const loadAsyncData = async ( path, batchSize, lastVisible, searchFilterSortModel, ) => {
   // console.log('path\n', path);
   const batch = batchSize || BATCH_SIZE;
-  const out = await getAsyncItems(
-    path, batch, lastVisible,
-    searchString, searchBy, filterBy, sortBy, sortDirection,
-  );
+  const out = await getAsyncItems( path, batch, lastVisible, searchFilterSortModel, );
   // console.log('out\n', out);
 
   const promise = new Promise((resolve, reject,) => {
@@ -119,22 +113,26 @@ export const loadAsyncData = async (
   return promise;
 };
 
-const getAsyncItems = async (
-  path, batchSize, lastVisible,
-  searchString, searchBy, filterBy, sortBy, sortDirection,
-) => {
+const getAsyncItems = async ( path, batchSize = BATCH_SIZE, lastVisible, searchFilterSortModel = {}, ) => {
   // used for reading CRUD objects
-  // console.log('path\n', path);
+
+  const ready1 = path;
+  if(!ready1) return;
+
+  console.log('path\n', path);
+  console.log('searchFilterSortModel\n', searchFilterSortModel);
   // console.log('state\n', this.state);
   // this.setState({isLoading: true});
+  
+  const { searchString, searchBy, filterBy, sortBy, sortDirectionIsDescending, } = searchFilterSortModel;
 
   const batch = batchSize || BATCH_SIZE;
   
   // debugger;
   const data = [];
   const db = firebase.firestore();
-  const ready = db;
-  if(!ready) return;
+  const ready2 = db;
+  if(!ready2) return;
 
   let lastShown;
 
@@ -143,16 +141,43 @@ const getAsyncItems = async (
     // .where( 'name', '==', 'alpha', )
     .orderBy( 'createdAt', 'desc', ); // throws error: "firebase error: the query requires an index"
 
-  // augment queryInit with searchString, searchBy, filterBy, sortBy, sortDirection,
-  const getSearchQuery = (query, searchString, searchBy,) => {
-
+  // augment queryInit with searchString, searchBy, filterBy, sortBy, sortDirectionIsDescending,
+  const getSearchedQuery = ( query, searchString, searchBy, ) => {
+    const ready1 = searchString && searchString.length;
+    if(!ready1) return query;
+    const ready2 = searchBy && searchBy.length;
+    if(!ready2) return query;
+    const out = query.where( searchBy, '==', searchString, );
+    return out;
   }
+  
+  const getFilteredQuery = ( query, filterBy, ) => {
+    // example: filterBy = [ 'All', 'Starred', 'Unstarred', 'Won', ... ]
+    // example: filterBy = [ {field: 'deletedAt', operator: '==', value: 0,}, ... ]
+    const ready1 = filterBy && filterBy.length;
+    if(!ready1) return query;
+    const out = filterBy.map( filter => query.where(filter.field, filter.operator, filter.value,));
+    return out;
+  }
+  
+  const getSortedQuery = ( query, sortBy, sortDirectionIsDescending, ) => {
+    const ready1 = sortBy && sortBy.length;
+    if(!ready1) return query;
+    const out = query.orderBy( sortBy, (sortDirectionIsDescending ? 'desc' : null), );
+    return out;
+  }
+
+  const searchedQuery = await getSearchedQuery( queryInit, searchString, searchBy, );
+  const filteredQuery = await getFilteredQuery( searchedQuery, filterBy, );
+  const sortedQuery = await getSortedQuery( filteredQuery, sortBy, sortDirectionIsDescending, );
+
+  const qualifiedQuery = await sortedQuery;
 
   // paginate query
   // ref: docs: https://firebase.google.com/docs/firestore/query-data/query-cursors
   // ref: youtube: https://www.youtube.com/watch?v=poqTHxtDXwU
   // use trinary operator to makes query robust to cases where there is no lastVisible value
-  const queryPage = lastVisible ? queryInit.startAfter(lastVisible) : queryInit;
+  const queryPage = lastVisible ? qualifiedQuery.startAfter(lastVisible) : qualifiedQuery;
 
   const out = queryPage    
     // .limit(10)

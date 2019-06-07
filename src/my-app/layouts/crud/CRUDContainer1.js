@@ -100,15 +100,9 @@ class CRUDContainer extends Component {
 
   // begin buttons tier list
 
-  handleSearchFilterSort = searchFilterSortModel => {
+  handleSearchFilterSort = model => {
     // const { searchString, searchBy, filterBy, sortBy, sortDirectionIsDescending, } = model; // searchStringDialogIsOpen,
-    // console.log('searchFilterSortModel\n', searchFilterSortModel,);
-    this.setState({
-      hasMore: true,
-      searchFilterSortModel,
-    }
-      , () => this.handleFetchMoreData()
-    )
+    console.log('model\n', model,);
   }
 
   getSearchMenuOptions = () => {
@@ -160,7 +154,7 @@ class CRUDContainer extends Component {
   handleFetchMoreData = async () => {
     // console.log('props\n', this.props);
     const { readable, } = this.props;
-    const { items, searchFilterSortModel, } = this.state;
+    const { items, } = this.state;
     
     const ready1 = readable && readable.path;
     if( !ready1 ) return;
@@ -169,31 +163,26 @@ class CRUDContainer extends Component {
     
     const { path, } = readable;
 
-    // ref: https://stackoverflow.com/a/49906662/1640892
-    let isMounted = true;
-
     // this._asyncRequest = loadAsyncData();
     // ref: https://firebase.google.com/docs/firestore/query-data/query-cursors#paginate_a_query
-    this._asyncRequest = loadAsyncData( path, BATCH_SIZE, this.state.lastShown, searchFilterSortModel, );
+    this._asyncRequest = loadAsyncData(
+      path, BATCH_SIZE, this.state.lastShown,
+      // searchString, searchBy, filterBy, sortBy, sortDirection,
+    );
     // const items = await this._asyncRequest;
     const newData = await this._asyncRequest; // { data:<arrayOfObjects>, lastShown:<documentSnapshot>, }
     const { lastShown, } = newData;
     const newItems = newData.data;
     const hasMore = newItems.length === BATCH_SIZE;
     this._asyncRequest = null;
-    if(isMounted) {
-      this.setState({
-        hasMore,
-        isLoading: false,
-        items: [ ...items, ...newItems, ],
-        lastShown,
-      }
-        , () => {
-          // console.log('state\n', this.state);
-          isMounted = false;
-        }
-      );
+    this.setState({
+      hasMore,
+      isLoading: false,
+      items: [ ...items, ...newItems, ],
+      lastShown,
     }
+    // , () => { console.log('state\n', this.state); }
+    );
   }
 
   // xhandleFetchMoreData = () => {
