@@ -124,7 +124,7 @@ const getAsyncItems = async ( path, batchSize = BATCH_SIZE, lastVisible, searchF
   // console.log('state\n', this.state);
   // this.setState({isLoading: true});
   
-  const { searchString, searchBy, filterBy, sortBy, sortDirectionIsDescending, } = searchFilterSortModel;
+  const { searchString, searchBy, filterBy = {}, sortBy, sortDirectionIsDescending, } = searchFilterSortModel;
 
   const batch = batchSize || BATCH_SIZE;
   
@@ -142,36 +142,81 @@ const getAsyncItems = async ( path, batchSize = BATCH_SIZE, lastVisible, searchF
     .orderBy( 'createdAt', 'desc', ); // throws error: "firebase error: the query requires an index"
 
   // augment queryInit with searchString, searchBy, filterBy, sortBy, sortDirectionIsDescending,
-  const getSearchedQuery = ( query, searchString, searchBy, ) => {
+
+  // // start compound query in series
+  // // note: limited support for compound queries in firestore and need for indexing
+  // // requires us to suspend development of this feature and only support simple queries
+  // // with limited need for individual indices until this feature is more fully supported
+  // // by firesotre
+
+  // const getSearchedQuery = ( query, searchString, searchBy, ) => {
+  //   const ready1 = searchString && searchString.length;
+  //   if(!ready1) return query;
+  //   const ready2 = searchBy && searchBy.length;
+  //   if(!ready2) return query;
+  //   const out = query.where( searchBy, '==', searchString, );
+  //   return out;
+  // }
+  
+  // const getFilteredQuery = ( query, filterBy, ) => {
+  //   // example: filterBy = [ 'All', 'Starred', 'Unstarred', 'Won', ... ]
+  //   // example: filterBy = [ {field: 'deletedAt', operator: '==', value: 0,}, ... ]
+  //   const ready1 = filterBy && filterBy.length;
+  //   if(!ready1) return query;
+  //   const out = filterBy.map( filter => query.where(filter.field, filter.operator, filter.value,));
+  //   return out;
+  // }
+  
+  // const getSortedQuery = ( query, sortBy, sortDirectionIsDescending, ) => {
+  //   const ready1 = sortBy && sortBy.length;
+  //   if(!ready1) return query;
+  //   const out = query.orderBy( sortBy, (sortDirectionIsDescending ? 'desc' : null), );
+  //   return out;
+  // }
+
+  // const searchedQuery = await getSearchedQuery( queryInit, searchString, searchBy, );
+  // const filteredQuery = await getFilteredQuery( searchedQuery, filterBy, );
+  // const sortedQuery = await getSortedQuery( filteredQuery, sortBy, sortDirectionIsDescending, );
+  // const qualifiedQuery = await sortedQuery;
+  // // end compound query in series
+
+  // begin simple query
+
+  const getSearchedQuery = ( searchString, searchBy, ) => {
     const ready1 = searchString && searchString.length;
-    if(!ready1) return query;
+    if(!ready1) return null;
     const ready2 = searchBy && searchBy.length;
-    if(!ready2) return query;
-    const out = query.where( searchBy, '==', searchString, );
+    if(!ready2) return null;
+    const out = queryInit.where( searchBy, '==', searchString, );
     return out;
   }
   
-  const getFilteredQuery = ( query, filterBy, ) => {
+  const getFilteredQuery = ({ field, operator, value, }) => {
     // example: filterBy = [ 'All', 'Starred', 'Unstarred', 'Won', ... ]
     // example: filterBy = [ {field: 'deletedAt', operator: '==', value: 0,}, ... ]
-    const ready1 = filterBy && filterBy.length;
-    if(!ready1) return query;
-    const out = filterBy.map( filter => query.where(filter.field, filter.operator, filter.value,));
+    const ready1 = field && operator && value && field.length && operator.length && value.length;
+    if(!ready1) return null;
+    const out = queryInit.where(field, operator, value,);
     return out;
   }
   
-  const getSortedQuery = ( query, sortBy, sortDirectionIsDescending, ) => {
+  const getSortedQuery = ( sortBy, sortDirectionIsDescending, ) => {
     const ready1 = sortBy && sortBy.length;
-    if(!ready1) return query;
-    const out = query.orderBy( sortBy, (sortDirectionIsDescending ? 'desc' : null), );
+    if(!ready1) return null;
+    const out = queryInit.orderBy( sortBy, (sortDirectionIsDescending ? 'desc' : null), );
     return out;
   }
 
-  const searchedQuery = await getSearchedQuery( queryInit, searchString, searchBy, );
-  const filteredQuery = await getFilteredQuery( searchedQuery, filterBy, );
-  const sortedQuery = await getSortedQuery( filteredQuery, sortBy, sortDirectionIsDescending, );
+  const qualifiedQuery =
+    getSearchedQuery( searchString, searchBy, )
+    ||
+    getFilteredQuery( filterBy, )
+    ||
+    getSortedQuery( sortBy, sortDirectionIsDescending, )
+    ||
+    queryInit;
 
-  const qualifiedQuery = await sortedQuery;
+  // end simple query
 
   // paginate query
   // ref: docs: https://firebase.google.com/docs/firestore/query-data/query-cursors

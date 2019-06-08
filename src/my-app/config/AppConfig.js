@@ -7,7 +7,7 @@ import React from 'react';
 // import { firestoreConnect } from 'react-redux-firebase';
 
 // fuse
-import { FuseLoadable } from '@fuse';
+import { FuseLoadable, } from '@fuse';
 
 // redux
 // import { connect } from 'react-redux';
@@ -30,13 +30,13 @@ import hash from 'object-hash'; // https://www.npmjs.com/package/object-hash
 // alt icons
 // install https://www.npmjs.com/package/react-icons
 // icons   https://react-icons.netlify.com/#/
-import { IconContext } from 'react-icons'; // my add
+import { IconContext, } from 'react-icons'; // my add
 // MenuItem><FiLogOut /><span className='ml-12'>FiLogOut</span></MenuItem>
 // MenuItem><IoMdLogOut /><span className='ml-12'>IoMdLogOut</span></MenuItem>
 // MenuItem><FaSignOutAlt /><span className='ml-12'>FaSignOutAlt</span></MenuItem>
 // MenuItem><IoIosLogOut /><span className='ml-12'>IoIosLogOut</span></MenuItem>
 // MenuItem><GoSignOut /><span className='ml-12'>GoSignOut</span></MenuItem>
-import { FaSignOutAlt } from 'react-icons/fa'; // https://react-icons.netlify.com/#/
+import { FaSignOutAlt, } from 'react-icons/fa'; // https://react-icons.netlify.com/#/
 // import { FiLogOut } from 'react-icons/fi'; // https://react-icons.netlify.com/#/
 // import { GoSignOut, } from 'react-icons/go'; // https://react-icons.netlify.com/#/
 // import { IoIosLogOut, IoMdLogOut, } from 'react-icons/io'; // https://react-icons.netlify.com/#/
@@ -251,7 +251,7 @@ const formFieldProps = {
 }
 
 
-// UTILITY FUNCTIONS
+// GLOBAL UTILITY FUNCTIONS
 // These are utility, helper functions stored here as a centralized location
 
 export const getIdHash = (uid, timestamp,) => hash([uid, timestamp,]) // uid == createdBy, timestamp == createdAt,
@@ -263,7 +263,7 @@ export const handleKeyPress = (event, targetKey, handlerFunction,) => {
 if (event.key === targetKey) handlerFunction();
 }
 
-// end utility functions
+// end global utility functions
 
 const getOnlyAlpha = s => {
   // s: string: 'name*'
@@ -281,7 +281,8 @@ const getRequiredField = s => {
 }
 
 const getFormFieldProps = (s, n,) => {
-  // s: string: 'name*' // n: number: >=0, index of array element when iterating
+  // s: string: 'name*', field ID before removing non-alpha
+  // n: number: >= 0, index of array element when iterating
   // console.log('s\n', s);
   // console.log('n\n', n);
   const str = getOnlyAlpha(s); // 'name*' => 'name'
@@ -305,10 +306,11 @@ export const getCleanFieldNames = arrayOfIds => arrayOfIds.map(s => getOnlyAlpha
 
 // begin SEARCH section
 
-export const getSearchableFields = (searchable, readable,) => {
+export const getSearchableFields = ( searchable, readable, ) => {
   // return: array: either one of 
-  // 1. manually liste array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ]
+  // 1. manually listed array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ]
   // 2. otherwise, if true, uses all fields in 1. readable.path => creatable.fields
+  // TODO: Save 'notes' (and other similar) fields as array of words and search by .where('notes', 'array_contains', 'foo') // ref: https://firebase.google.com/docs/firestore/query-data/queries#array_membership
   // console.log('searchable\n', searchable,);
   // console.log('readable\n', readable,);
   const getBoolean = () => {
@@ -359,6 +361,7 @@ export const getSearchableFields = (searchable, readable,) => {
 // https://jsbin.com/puzenekomi/edit?js,console
 export const getItemsFilteredBySearch = (items, searchString, searchableFields,) => {
   // returns subset array of items containing searchString in searchableFields
+  // might be obsolete because searches will be done server side using query.where() method // ref: https://firebase.google.com/docs/firestore/query-data/queries
   // searchableFields: array of strings: [ 'name', 'email', 'phone', 'zip', 'notes', ]
   const isSubstring = s => _.includes(s, searchString,); // returns true if search string is substring of arg string
   const isInObjectValues = r => Object.values(r).filter(isSubstring); // returns all values of arg object containing search string
@@ -426,7 +429,7 @@ export const componentsNavConfig = [
     component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
     crudConfig : {
       condensed: true,
-      searchable: false, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, uses all fields in 1. readable.path => creatable.fields
+      searchable: false, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
       filterable: false,
       sortable: false,
       starrable: false,
@@ -488,7 +491,7 @@ export const componentsNavConfig = [
     component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
     crudConfig : {
       condensed: true,
-      searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, uses all fields in 1. readable.path => creatable.fields
+      searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
       filterable: true,
       sortable: true,
       starrable: true,
@@ -540,7 +543,7 @@ export const componentsNavConfig = [
     component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
     crudConfig : {
       condensed: true,
-      searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, uses all fields in 1. readable.path => creatable.fields
+      searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
       filterable: true,
       sortable: true,
       starrable: true,
@@ -609,7 +612,7 @@ export const componentsNavConfig = [
     component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
     crudConfig : {
       condensed: true,
-      searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, uses all fields in 1. readable.path => creatable.fields
+      searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
       filterable: true,
       sortable: true,
       starrable: true,

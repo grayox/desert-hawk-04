@@ -21,7 +21,8 @@ import SortFilterMenu from './SortFilterMenu';
 const INITIAL_STATE = {
   searchString              : ''    ,
   searchBy                  : ''    ,
-  filterBy                  : []    ,
+//filterBy                  : []    , // not supporting combo qualifiers because firestore requires individual index for every compound query
+  filterBy                  : ''    ,
   sortBy                    : ''    ,
   sortDirectionIsDescending : true  ,
   searchStringDialogIsOpen  : false ,
@@ -106,24 +107,42 @@ class ButtonsTierList extends Component {
   handleMenuItemClick = ({ variant, selectedIndex, selectedString, }) => {
     switch(variant) {
       case 'search':
-        this.setState({
-          searchBy: selectedString,
-          // showSearchStringInput: true,
-        });
+        this.setState( ...INITIAL_STATE
+          , () => 
+          this.setState({
+            searchBy: selectedString,
+            // showSearchStringInput: true,
+          }
+            , () => this.sendSearchFilterSortDataToContainer()
+          )
+        )
         break;
+      // enable the following only when supporting compound filters (array of multiple field names)
+      // case 'filter':
+      //   // fetch existing array
+      //   let filterArray = [ ...this.state.filterBy, ];
+      //   // push, but only if not duplicated
+      //   if(filterArray.indexOf(selectedString) < 0) filterArray.push(selectedString);
+      //   this.setState({ filterBy: filterArray, }
+      //     , () => this.sendSearchFilterSortDataToContainer()
+      //   );
+      //   break;
+      // enable the following only when allowing simple filters (string of one field name)
       case 'filter':
-        // fetch existing array
-        let filterArray = [ ...this.state.filterBy, ];
-        // push, but only if not duplicated
-        if(filterArray.indexOf(selectedString) < 0) filterArray.push(selectedString);
-        this.setState({ filterBy: filterArray, }
-          , () => this.sendSearchFilterSortDataToContainer()
-        );
+        this.setState( ...INITIAL_STATE
+          , () =>
+          this.setState({ filterBy: selectedString, }
+            , () => this.sendSearchFilterSortDataToContainer()
+          )
+        )
         break;
       case 'sort':
-        this.setState({ sortBy: selectedString, }
-          , () => this.sendSearchFilterSortDataToContainer()
-        );
+        this.setState( ...INITIAL_STATE
+          , () =>
+          this.setState({ sortBy: selectedString, }
+            , () => this.sendSearchFilterSortDataToContainer()
+          )
+        )
         break;
       default:
         // code block

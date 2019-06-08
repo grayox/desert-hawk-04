@@ -46,6 +46,11 @@ const styles = theme => ({
 //   return promise;
 // };
 
+const SORT_MENU_ITEMS = [ 'Sort by', 'Date', 'Price', 'Margin', ];
+const FILTER_MENU_ITEMS = [
+  'Filter by', 'All', 'Starred', 'Unstarred', 'Challenged', 'Pending', 'Resolved', 'Won', 'Lost', // [ 'foo' , 'bar'   , 'baz'  , ] ,
+];
+
 const BATCH_SIZE = 15; // 20
 
 const INITIAL_STATE_ITEMS = {
@@ -127,14 +132,12 @@ class CRUDContainer extends Component {
   }
   
   getFilterMenuOptions = () => {
-    const filterMenuOptions = [
-      'Filter by', 'All', 'Starred', 'Unstarred', 'Challenged', 'Pending', 'Resolved', 'Won', 'Lost', // [ 'foo' , 'bar'   , 'baz'  , ] ,
-    ];
+    const filterMenuOptions = FILTER_MENU_ITEMS;
     this.setState({ filterMenuOptions, });
   }
   
   getSortMenuOptions = () => {
-    const sortMenuOptions = [ 'Sort by', 'Date', 'Price', 'Margin', ];
+    const sortMenuOptions = SORT_MENU_ITEMS;
     this.setState({ sortMenuOptions, });
   }
 
