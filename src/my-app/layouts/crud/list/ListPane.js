@@ -59,7 +59,8 @@ const ListPane = ({
           <CircularProgress className={classes.progress} color="secondary" />
         </div>
       }
-      height={ window.innerHeight - 128 - 56 } // -28 // {800} {400}
+      // omit height, otherwise too much whitespace appears after end message for short lists
+      // height={ window.innerHeight - 128 - 56 } // -28 // {800} {400}
       endMessage={
         <div className="text-center p-16">
           End of list

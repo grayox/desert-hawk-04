@@ -30,7 +30,8 @@ const styles = theme => ({
   wrapper: {
     // temp-border
     // border: 'solid red 4px',
-    height: '100%',
+    // height: '100%',
+    maxHeight: '100%',
     flexGrow: 1, // extends content to right edge of viewport
     boxSizing: 'border-box',
     // overflow: 'auto',
