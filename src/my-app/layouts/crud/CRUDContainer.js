@@ -6,8 +6,11 @@
 import React, { Component } from 'react';
 
 import { withStyles, Icon, IconButton, Tooltip, Zoom, } from '@material-ui/core';
+import _ from '@lodash';
 
-import { getSearchableFields, getForm, } from 'my-app/config/AppConfig';
+import {
+  getSearchableFields, getForm, replaceFormFieldsArrayWithLabels, replaceFormFieldsLabelArrayWithKeyIds,
+} from 'my-app/config/AppConfig';
 
 import CRUDView from './CRUDView';
 import Loading from 'my-app/components/Loading';
@@ -105,11 +108,27 @@ class CRUDContainer extends Component {
 
   // begin buttons tier list
 
-  handleSearchFilterSort = searchFilterSortModel => {
+  handleSearchFilterSort = searchFilterSortModelWithLabels => {
     // const { searchString, searchBy, filterBy, sortBy, sortDirectionIsDescending, } = model; // searchStringDialogIsOpen,
-    // console.log('searchFilterSortModel\n', searchFilterSortModel,);
+    // console.log('searchFilterSortModelWithLabels\n', searchFilterSortModelWithLabels,);
+
+    const ready1 = searchFilterSortModelWithLabels;
+    if(!ready1) return;
+    const ready2 = !_.isEmpty(searchFilterSortModelWithLabels);
+    if(!ready2) return;
+    
+    const { searchBy, filterBy, sortBy, } = searchFilterSortModelWithLabels;
+
+    // replace (title case) labels with (lower case) key ids
+    const modelArrayWithKeys = replaceFormFieldsLabelArrayWithKeyIds([searchBy, filterBy, sortBy,]); // ['name', 'email', 'phone',]
+    let searchFilterSortModel = {...searchFilterSortModelWithLabels};
+    const a = [ 'searchBy', 'filterBy', 'sortBy', ];
+    a.map( (item, index,) => searchFilterSortModel[item] = modelArrayWithKeys[index] );
+
+    // mutate state
     this.setState({
-      hasMore: true,
+      ...INITIAL_STATE_ITEMS,
+      ...INITIAL_STATE_LOADING_OPS,
       searchFilterSortModel,
     }
       , () => this.handleFetchMoreData()
@@ -126,7 +145,7 @@ class CRUDContainer extends Component {
     const searchableFieldIds = getSearchableFields(searchable, readable,);
     // console.log('searchableFieldIds\n', searchableFieldIds,);
     const form = getForm(searchableFieldIds);
-    const searchableFieldLabels = form.map(({ label, }) => label);
+    const searchableFieldLabels = replaceFormFieldsArrayWithLabels(form);
     const searchMenuOptions = [ HEADER, ...searchableFieldLabels, ];
     this.setState({ searchMenuOptions, });
   }

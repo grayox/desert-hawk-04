@@ -47,11 +47,6 @@ class ButtonsTierList extends Component {
   //   alert(message);
   // }
 
-  handleSearchMenuItemClick = event => {
-    this.handleOpenSearchStringDialog();
-    this.handleMenuItemClick(event);
-  }
-
   // begin search string
 
   handleOpenSearchStringDialog  = () => {
@@ -107,13 +102,13 @@ class ButtonsTierList extends Component {
   handleMenuItemClick = ({ variant, selectedIndex, selectedString, }) => {
     switch(variant) {
       case 'search':
-        this.setState( ...INITIAL_STATE
+        this.setState( INITIAL_STATE
           , () => 
           this.setState({
             searchBy: selectedString,
             // showSearchStringInput: true,
           }
-            , () => this.sendSearchFilterSortDataToContainer()
+            , () => this.handleOpenSearchStringDialog()
           )
         )
         break;
@@ -129,7 +124,7 @@ class ButtonsTierList extends Component {
       //   break;
       // enable the following only when allowing simple filters (string of one field name)
       case 'filter':
-        this.setState( ...INITIAL_STATE
+        this.setState( INITIAL_STATE
           , () =>
           this.setState({ filterBy: selectedString, }
             , () => this.sendSearchFilterSortDataToContainer()
@@ -137,7 +132,7 @@ class ButtonsTierList extends Component {
         )
         break;
       case 'sort':
-        this.setState( ...INITIAL_STATE
+        this.setState( INITIAL_STATE
           , () =>
           this.setState({ sortBy: selectedString, }
             , () => this.sendSearchFilterSortDataToContainer()
@@ -173,20 +168,27 @@ class ButtonsTierList extends Component {
           searchBy: '',
           searchString: '',
         }
-          , () => this.sendSearchFilterSortDataToContainer()
+          // , () => this.sendSearchFilterSortDataToContainer()
         );
         break;
+      // // compound query
+      // case 'filter':
+      //   // fetch existing array
+      //   let filterArray = [ ...this.state.filterBy, ];
+      //   _.pull( filterArray, value, );
+      //   this.setState({ filterBy: filterArray, }
+      //     , () => this.sendSearchFilterSortDataToContainer()
+      //   );
+      //   break;
+      // simple query
       case 'filter':
-        // fetch existing array
-        let filterArray = [ ...this.state.filterBy, ];
-        _.pull( filterArray, value, );
-        this.setState({ filterBy: filterArray, }
-          , () => this.sendSearchFilterSortDataToContainer()
+        this.setState({ filterBy: '', }
+          // , () => this.sendSearchFilterSortDataToContainer()
         );
         break;
       case 'sort':
         this.setState({ sortBy: '', }
-          , () => this.sendSearchFilterSortDataToContainer()
+          // , () => this.sendSearchFilterSortDataToContainer()
         );
         break;
       default:
@@ -208,8 +210,7 @@ class ButtonsTierList extends Component {
     const {
       handleChangeSearchString, handleResetSearchString,
       handleMenuItemClick, handleToggleSortDirection, handleDeleteShield, handleResetButtonsTierList,
-      handleSearchMenuItemClick, handleCloseSearchStringDialog,
-      handleCancelSearchStringDialog, handleSubmitSearchStringDialog,
+      handleCloseSearchStringDialog, handleCancelSearchStringDialog, handleSubmitSearchStringDialog,
     } = this;
 
   
@@ -221,27 +222,34 @@ class ButtonsTierList extends Component {
     // const getChips = () => configShields;
     const getChips = () => {
       let out = [];
-      if(searchString) out.push({
+      if(searchString && searchString.length) out.push({
         type: 'search',
         icon: 'search',
         value: searchString,
       })
-      if(searchBy) out.push({
+      if(searchBy && searchBy.length) out.push({
         type: 'search',
         icon: 'search',
         value: searchBy,
         // value: `in ${searchBy}`,
       })
-      if(filterBy && filterBy.length) {
-        for (const filterString of filterBy) {
-          out.push({
-            type: 'filter',
-            icon: 'filter_list',
-            value: filterString,
-          });
-        }
-      }
-      if(sortBy) out.push({
+      // compound query
+      // if(filterBy && filterBy.length) {
+      //   for (const filterString of filterBy) {
+      //     out.push({
+      //       type: 'filter',
+      //       icon: 'filter_list',
+      //       value: filterString,
+      //     });
+      //   }
+      // }
+      // simple query
+      if(filterBy && filterBy.length) out.push({
+        type: 'filter',
+        icon: 'filter_list',
+        value: filterBy,
+      })
+      if(sortBy && sortBy.length) out.push({
         type: 'sort',
         icon: 'sort',
         value: sortBy,
@@ -285,7 +293,7 @@ class ButtonsTierList extends Component {
       searchable &&
       <span className="ml-4" title="Search">
         {/* <Badge color="secondary" variant="dot" invisible={!(searchBy && searchString)}> */}
-        <SortFilterMenu variant="search" searchMenuOptions={searchMenuOptions} onMenuItemClick={handleSearchMenuItemClick} />
+        <SortFilterMenu variant="search" searchMenuOptions={searchMenuOptions} onMenuItemClick={handleMenuItemClick} />
         {/* </Badge> */}
       </span>
     )

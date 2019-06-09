@@ -183,6 +183,8 @@ const getAsyncItems = async ( path, batchSize = BATCH_SIZE, lastVisible, searchF
   // begin simple query
 
   const getSearchedQuery = ( searchString, searchBy, ) => {
+    // console.log('searchString\n', searchString,);
+    // console.log('searchBy\n', searchBy,);
     const ready1 = searchString && searchString.length;
     if(!ready1) return null;
     const ready2 = searchBy && searchBy.length;
@@ -194,8 +196,12 @@ const getAsyncItems = async ( path, batchSize = BATCH_SIZE, lastVisible, searchF
   const getFilteredQuery = ({ field, operator, value, }) => {
     // example: filterBy = [ 'All', 'Starred', 'Unstarred', 'Won', ... ]
     // example: filterBy = [ {field: 'deletedAt', operator: '==', value: 0,}, ... ]
-    const ready1 = field && operator && value && field.length && operator.length && value.length;
+    const ready1 = field && field.length;
     if(!ready1) return null;
+    const ready2 = operator && operator.length;
+    if(!ready2) return null;
+    const ready3 = value && value.length;
+    if(!ready3) return null;
     const out = queryInit.where(field, operator, value,);
     return out;
   }

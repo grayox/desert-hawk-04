@@ -265,6 +265,15 @@ if (event.key === targetKey) handlerFunction();
 
 // end global utility functions
 
+export const replaceFormFieldsArrayWithLabels = form =>
+  form.map(({ label, }) => label); // form: array, output of: getForm(searchableFieldIds);
+
+export const replaceFormFieldLabelWithKeyId = formFieldLabel =>
+  _.findKey(formFieldProps, {label: formFieldLabel}) // formFieldLabel: string, 'Name'
+
+export const replaceFormFieldsLabelArrayWithKeyIds = formFieldLabels =>
+  formFieldLabels.map( label => replaceFormFieldLabelWithKeyId(label) )
+
 const getOnlyAlpha = s => {
   // s: string: 'name*'
   const re = /[a-zA-Z]+/gm;
