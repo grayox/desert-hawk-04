@@ -31,7 +31,8 @@ const styles = theme => ({
     // temp-border
     // border: 'solid red 4px',
     // height: '100%',
-    maxHeight: '100%',
+    // maxHeight: '100%',
+    height: 'calc(100vh - 116px - 48px)',
     flexGrow: 1, // extends content to right edge of viewport
     boxSizing: 'border-box',
     // overflow: 'auto',
