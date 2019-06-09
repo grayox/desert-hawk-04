@@ -11,11 +11,12 @@ const styles = theme => ({
     height: '100%',
     width: '100%',
     textAlign: 'center',
-    paddingTop: 16,
+    paddingTop: 32,
+    marginTop: 32,
+    justifyContent: 'center',
     // align middle // https://stackoverflow.com/a/25311805
     display: 'flex',
-    justifyContent: 'center',
-    flexDirection: 'column',
+    // flexDirection: 'column',
   },
 })
 
