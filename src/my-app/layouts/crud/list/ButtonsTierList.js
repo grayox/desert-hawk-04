@@ -7,7 +7,7 @@ import {
 
 import { handleKeyPress, } from 'my-app/config/AppConfig';
 
-import _ from '@lodash';
+// import _ from '@lodash';
 import hash from 'object-hash'; // https://www.npmjs.com/package/object-hash
 import SortFilterMenu from './SortFilterMenu';
 // import ShieldsIo from 'my-app/components/ShieldsIo';
@@ -175,7 +175,7 @@ class ButtonsTierList extends Component {
     // get id of clicked shield
     // console.log('item\n', item,);
     // console.log('selectedIndex\n', selectedIndex,);
-    const { type, value, } = item;
+    const { type, } = item;
     switch(type) {
       case 'search':
         this.setState({

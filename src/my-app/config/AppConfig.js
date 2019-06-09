@@ -440,8 +440,9 @@ export const componentsNavConfig = [
       condensed: true,
       searchable: false, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
       filterable: false,
-      sortable: false,
+      sortable: false, // see searchable
       starrable: false,
+      taggable: false,
       actionable: {
         icon: 'send', // 'outlined_flag',
         label: 'Claim this lead and send it to your archive',
@@ -502,8 +503,9 @@ export const componentsNavConfig = [
       condensed: true,
       searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
       filterable: true,
-      sortable: true,
+      sortable: true, // see searchable
       starrable: true,
+      taggable: false,
       actionable : {
         icon: 'priority_high', // 'warning', // 'report',
         label: 'Challenge this lead for poor quality',
@@ -554,8 +556,9 @@ export const componentsNavConfig = [
       condensed: true,
       searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
       filterable: true,
-      sortable: true,
+      sortable: true, // see searchable
       starrable: true,
+      taggable: false,
       actionable : {
         icon: 'send',
         label: 'Challenge',
@@ -623,8 +626,9 @@ export const componentsNavConfig = [
       condensed: true,
       searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
       filterable: true,
-      sortable: true,
+      sortable: true, // see searchable
       starrable: true,
+      taggable: false,
       actionable : {
         icon: 'send',
         label: 'Challenge',

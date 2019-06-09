@@ -98,11 +98,17 @@ class firebaseService {
             console.log('Error getting document:\n', error);
             console.log('user\n', user);
             // debugger;
-            // TODO: fix following error which occurs when offline
+            // TODO: fix following errors which occurs when offline or bad internet connection
             // Uncaught (in promise) TypeError: userRef.set is not a function
-            userRef
-              .set(user)
-              .then(user => this.updateUserData(user))
+            // and/or
+            // Unhandled Rejection (TypeError): userRef.set is not a function
+            // Maybe show a grphic that says: "Check your internet connection.\nIt appears slow."
+
+            // userRef
+            //   .set(user)
+            //   .then(user => this.updateUserData(user))
+            alert('Check your internet connection.\nIt appears slower than usual.')
+            
             reject();
           });
       } else {

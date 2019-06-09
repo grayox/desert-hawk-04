@@ -49,7 +49,7 @@ const styles = theme => ({
 //   return promise;
 // };
 
-const SORT_MENU_ITEMS = [ 'Sort by', 'Date', 'Price', 'Margin', ];
+// const SORT_MENU_ITEMS = [ 'Sort by', 'Date', 'Price', 'Margin', ];
 const FILTER_MENU_ITEMS = [
   'Filter by', 'All', 'Starred', 'Unstarred', 'Challenged', 'Pending', 'Resolved', 'Won', 'Lost', // [ 'foo' , 'bar'   , 'baz'  , ] ,
 ];
@@ -150,6 +150,7 @@ class CRUDContainer extends Component {
     const form = getForm(searchableFieldIds);
     const searchableFieldLabels = replaceFormFieldsArrayWithLabels(form);
     const searchMenuOptions = [ HEADER, ...searchableFieldLabels, ];
+
     this.setState({ searchMenuOptions, });
   }
   
@@ -159,7 +160,21 @@ class CRUDContainer extends Component {
   }
   
   getSortMenuOptions = () => {
-    const sortMenuOptions = SORT_MENU_ITEMS;
+    // const sortMenuOptions = SORT_MENU_ITEMS;
+    
+    // close copy of getSearchMenuOptions()
+    const HEADER = 'Sort by';
+    const { readable, sortable,  } = this.props;
+    // console.log('readable\n', readable,);
+    // console.log('sortable\n', sortable,);
+    const ready1 = readable && sortable;
+    if(!ready1) return;
+    const sortableFieldIds = getSearchableFields(sortable, readable,);
+    // console.log('sortableFieldIds\n', sortableFieldIds,);
+    const form = getForm(sortableFieldIds);
+    const sortableFieldLabels = replaceFormFieldsArrayWithLabels(form);
+    const sortMenuOptions = [ HEADER, ...sortableFieldLabels, ];
+
     this.setState({ sortMenuOptions, });
   }
 
