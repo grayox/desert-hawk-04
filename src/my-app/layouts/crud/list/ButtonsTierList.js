@@ -32,7 +32,21 @@ class ButtonsTierList extends Component {
 
   state = INITIAL_STATE;
 
+  componentDidMount() {
+    this.receiveSearchFilterSortDataFromContainer();
+  }
+
+  // sendSearchFilterSortDataToContainer() and receiveSearchFilterSortDataFromContainer()
+  // establish a feedback loop that sets (persists via CRUDContainer) and resets the search, filter and sort model
+  // used to populate the chips array (via the getChips() method) upon initial render if that render
+  // was returned from an immediately prior search, filter or sort reuqest
+
   sendSearchFilterSortDataToContainer = () => this.props.onSearchFilterSort(this.state) // console.log('state\n', this.state)
+
+  receiveSearchFilterSortDataFromContainer = () => {
+    const { searchString, searchBy, filterBy, sortBy, sortDirectionIsDescending, } = this.props.searchFilterSortModelWithLabels;
+    this.setState({ searchString, searchBy, filterBy, sortBy, sortDirectionIsDescending, });
+  }
 
   // handleClickSearchButton = () => {
   //   // console.log('state\n', this.state,);
@@ -168,7 +182,7 @@ class ButtonsTierList extends Component {
           searchBy: '',
           searchString: '',
         }
-          // , () => this.sendSearchFilterSortDataToContainer()
+          , () => this.sendSearchFilterSortDataToContainer()
         );
         break;
       // // compound query
@@ -183,12 +197,12 @@ class ButtonsTierList extends Component {
       // simple query
       case 'filter':
         this.setState({ filterBy: '', }
-          // , () => this.sendSearchFilterSortDataToContainer()
+          , () => this.sendSearchFilterSortDataToContainer()
         );
         break;
       case 'sort':
         this.setState({ sortBy: '', }
-          // , () => this.sendSearchFilterSortDataToContainer()
+          , () => this.sendSearchFilterSortDataToContainer()
         );
         break;
       default:
@@ -206,6 +220,7 @@ class ButtonsTierList extends Component {
       onClickCreateButton, // onSearchFilterSort,
       creatable, searchable, filterable, sortable,
       searchMenuOptions, filterMenuOptions, sortMenuOptions,
+      // searchFilterSortModelWithLabels // (see componentDidMount() => receiveSearchFilterSortDataFromContainer())
     } = this.props;
     const {
       handleChangeSearchString, handleResetSearchString,

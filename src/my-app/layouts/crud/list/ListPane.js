@@ -19,7 +19,7 @@ const styles = theme => ({
 
 const ListPane = ({
   classes, items, hasMore, creatable, searchable, filterable, sortable, starrable, selectedIndex,
-  searchMenuOptions, filterMenuOptions, sortMenuOptions,
+  searchMenuOptions, filterMenuOptions, sortMenuOptions, searchFilterSortModelWithLabels,
   onClickStar, onNext, onToggle, onClickCreateButton, onSearchFilterSort,
 }) => {
 
@@ -40,6 +40,8 @@ const ListPane = ({
           searchMenuOptions={searchMenuOptions}
           filterMenuOptions={filterMenuOptions}
           sortMenuOptions={sortMenuOptions}
+          // for initial state after re-render following data fetch...
+          searchFilterSortModelWithLabels={searchFilterSortModelWithLabels}
 
           onClickCreateButton={onClickCreateButton}
           onSearchFilterSort={onSearchFilterSort}

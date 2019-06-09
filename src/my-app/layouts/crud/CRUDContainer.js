@@ -76,9 +76,11 @@ const INITIAL_STATE_LOADING_OPS = {
 // }
 
 const INITIAL_STATE_BUTTONS_TIER_MENU = {
-  searchMenuOptions : [] ,
-  filterMenuOptions : [] ,
-  sortMenuOptions   : [] ,
+  searchMenuOptions               : [] ,
+  filterMenuOptions               : [] ,
+  sortMenuOptions                 : [] ,
+  searchFilterSortModel           : {} ,
+  searchFilterSortModelWithLabels : {} ,
 }
 
 const INITIAL_STATE = {
@@ -130,6 +132,7 @@ class CRUDContainer extends Component {
       ...INITIAL_STATE_ITEMS,
       ...INITIAL_STATE_LOADING_OPS,
       searchFilterSortModel,
+      searchFilterSortModelWithLabels, // to pass back to ButtonsTierList to set initial state after re-render
     }
       , () => this.handleFetchMoreData()
     )
@@ -263,7 +266,8 @@ class CRUDContainer extends Component {
   render() {
     const { handleLoad, handleFetchMoreData, handleSearchFilterSort, } = this;
     const {
-      isLoading, isError, items, hasMore, searchMenuOptions, filterMenuOptions, sortMenuOptions,
+      isLoading, isError, items, hasMore,
+      searchMenuOptions, filterMenuOptions, sortMenuOptions, searchFilterSortModelWithLabels,
     } = this.state;
     const {
       classes, condensed, searchable, sortable, filterable, starrable,
@@ -276,6 +280,7 @@ class CRUDContainer extends Component {
         searchable={searchable} sortable={sortable} filterable={filterable} starrable={starrable} actionable={actionable}
         creatable={creatable} readable={readable} updatable={updatable} deletable={deletable}
         searchMenuOptions={searchMenuOptions} filterMenuOptions={filterMenuOptions} sortMenuOptions={sortMenuOptions}
+        searchFilterSortModelWithLabels={searchFilterSortModelWithLabels} // for initial state after re-render following data fetch
         onRefresh={handleLoad} onNext={handleFetchMoreData} onSearchFilterSort={handleSearchFilterSort}
       />
 

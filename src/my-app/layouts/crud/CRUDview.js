@@ -326,7 +326,7 @@ class CRUDView extends Component {
     const {
       classes, profile, items, condensed, onNext, hasMore, miniDashboard,
       creatable, updatable, deletable, actionable, searchable, sortable, filterable, starrable,
-      searchMenuOptions, filterMenuOptions, sortMenuOptions, onSearchFilterSort,
+      searchMenuOptions, filterMenuOptions, sortMenuOptions, searchFilterSortModelWithLabels, onSearchFilterSort,
     } = this.props;
     const {
       handleCloseDialog, handleDeleteItem, handleChangeUserData,
@@ -382,6 +382,8 @@ class CRUDView extends Component {
         searchMenuOptions={searchMenuOptions}
         filterMenuOptions={filterMenuOptions}
         sortMenuOptions={sortMenuOptions}
+        // for initial state after re-render following data fetch...
+        searchFilterSortModelWithLabels={searchFilterSortModelWithLabels}
 
         onNext={onNext}
         onClickStar={handleClickStar}
