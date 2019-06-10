@@ -4,12 +4,12 @@ import React, { useState, } from 'react';
 // import Button from '@material-ui/core/Button';
 // import Menu from '@material-ui/core/Menu';
 // import MenuItem from '@material-ui/core/MenuItem';
-import { Link } from 'react-router-dom';
+import { Link, } from 'react-router-dom';
 import {
   Menu, MenuItem, Icon, IconButton,
 } from '@material-ui/core';
 
-import { componentsNavConfig } from 'my-app/config/AppConfig';
+import { getComponentsNavConfig, } from 'my-app/config/AppConfig';
 
 // function SimpleMenu() {
 const WidgetMenu = ({ links, }) => {
@@ -52,6 +52,7 @@ const WidgetMenu = ({ links, }) => {
         // <MenuItem onClick={handleClose} component={Link} to="/archive">My action</MenuItem>
         links.map( link => {
           // console.log('link\n', link,);
+          const componentsNavConfig = getComponentsNavConfig();
           const targetComponentArray = componentsNavConfig.filter(r => (r.id === link.id));
           // console.log('targetComponentArray\n', targetComponentArray,);
           const targetComponent = targetComponentArray[0];

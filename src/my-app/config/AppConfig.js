@@ -322,6 +322,7 @@ export const getSearchableFields = ( searchable, readable, ) => {
   // TODO: Save 'notes' (and other similar) fields as array of words and search by .where('notes', 'array_contains', 'foo') // ref: https://firebase.google.com/docs/firestore/query-data/queries#array_membership
   // console.log('searchable\n', searchable,);
   // console.log('readable\n', readable,);
+  const componentsNavConfig = getComponentsNavConfig();
   const getBoolean = () => {
     const ready1 = searchable;
     if(!ready1) return;
@@ -398,347 +399,349 @@ export const getItemsFilteredBySearch = (items, searchString, searchableFields,)
 // syncronize: changes in either of the following files must be hard coded in the other
 // src/fuse-configs/fuseNavigationConfig.js
 // src/main/content/components/ComponentsConfig.js
-export const componentsNavConfig = [
-  // import { componentsNavConfig, } from 'my-app/config/AppConfig';
-  // * Note: It is currently not possible to use expressions like `loader : () => import(item.path)`
-  // The path must be hard coded in src/my-app/config/Routes.js. See https://github.com/jamiebuilds/react-loadable
-  {
-    // eslint-disable-next-line
-    description: '\
-      This is your overview of metrics summarizing your use of this app.\
-    ',
-    id         : 'dashboard',
-    path       : '/dashboard',
-    title      : 'Dashboard',
-    type       : 'item',
-    icon       : 'dashboard',
-    bottomNav  : true,
-    // see src/my-app/config/Routes.js
-    // also update in: src/main/content/components/ComponentsConfig.js
-    component  : () => FuseLoadable({loader: () => import('my-app/views/app/dashboard/Dashboard')}),
-  },
-  {
-    // eslint-disable-next-line
-    description: '\
-      This is the list of leads that are available for you to move to your archive.\
-      These leads match your service type and location as you indicated in your settings.\
-      You must have a positive net lead balance in order for any leads to show in this list.\
-      Your net lead balance is calculated by subtracting the number of leads you have claimed\
-      into your archive from the number of lead referrals you have made in your outbox.\
-      And after all approprite adjustments for disputed leads have be settled.\
-    ',
-    id         : 'inbox',
-    path       : '/inbox',
-    title      : 'Inbox',
-    type       : 'item',
-    icon       : 'cloud_download',
-    bottomNav  : true,
-    // see src/my-app/config/Routes.js
-    // also update in: src/main/content/components/ComponentsConfig.js
-    component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
-    crudConfig : {
-      condensed: true,
-      searchable: false, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
-      filterable: false,
-      sortable: false, // see searchable
-      starrable: false,
-      taggable: false,
-      actionable: {
-        icon: 'send', // 'outlined_flag',
-        label: 'Claim this lead and send it to your archive',
-        entries: [
-          {
-            path: 'leads/{docid}',
-            fields: {
-              archivedBy: '{uid}',
-            },
-          },
-          {
-            path: 'users/{uid}/dashboard',
-            fields: {
-              net: -1,
-              archived: 1,
-            },
-          },
-        ],
-      },
-      miniDashboard: [ 'net', 'deposits', 'withdrawals', ],
-      creatable: false, // false only makes button not appear on CRUD view
-      readable: {
-        path: 'leads',
-        // src/my-app/containers/LoadAsync.js
-        where: [
-          [ 'deletedAt'       , '==' , 0                  , ] ,
-          [ 'archivedBy'      , '==' , null               , ] ,
-          [ 'challengesCount' , '<=' , CHALLENGES_LIMIT   , ] ,
-          [ 'bizCategory'     , '==' , 'user.bizCategory' , ] ,
-          [ 'geoNation'       , '==' , 'user.geoNation'   , ] ,
-          [ 'geoRegion'       , '==' , 'user.geoRegion'   , ] ,
-          [ 'geoLoaction'     , '==' , 'user.geoLoaction' , ] ,
-        ],
-        orderBy: [ 'createdAt', 'desc', ],
-      },
-      updatable: false,
-      deletable: false,
+export const getComponentsNavConfig = ( props = {}, ) => {
+  const { uid, docId, item, } = props;
+  const out = [
+    // import { componentsNavConfig, } from 'my-app/config/AppConfig';
+    // * Note: It is currently not possible to use expressions like `loader : () => import(item.path)`
+    // The path must be hard coded in src/my-app/config/Routes.js. See https://github.com/jamiebuilds/react-loadable
+    {
+      // eslint-disable-next-line
+      description: '\
+        This is your overview of metrics summarizing your use of this app.\
+      ',
+      id        : 'dashboard',
+      path      : '/dashboard',
+      title     : 'Dashboard',
+      type      : 'item',
+      icon      : 'dashboard',
+      bottomNav : true,
+      // see src/my-app/config/Routes.js
+      // also update in: src/main/content/components/ComponentsConfig.js
+      component  : () => FuseLoadable({loader: () => import('my-app/views/app/dashboard/Dashboard')}),
     },
-  },
-  {
-    // eslint-disable-next-line
-    description: '\
-      This is the list of leads you have claimed which you now own in the sense they are now\
-      exclusive to you only. The total leads in this list are subtracted from the amount of\
-      lead referrals you have made, after all dispute adjustments are settled, in order to\
-      determine your net lead balance.\
-    ',
-    id         : 'archive',
-    path       : '/archive',
-    title      : 'Archive',
-    type       : 'item',
-    icon       : 'folder',
-    bottomNav  : true,
-    // see src/my-app/config/Routes.js
-    // also update in: src/main/content/components/ComponentsConfig.js
-    component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
-    crudConfig : {
-      condensed: true,
-      searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
-      filterable: true,
-      sortable: true, // see searchable
-      starrable: true,
-      taggable: false,
-      actionable : {
-        icon: 'priority_high', // 'warning', // 'report',
-        label: 'Challenge this lead for poor quality',
-        func: () => ({
-          challengedBy: 'uid', // add to array
-          challengesCount: 'incrementBy1',
-          dashboard: {
-            local: {
-              challenges: 1,
-            },
-            remote: {
-              'users/item.createdBy/dashboard': {
-                challenges: 1,
+    {
+      // eslint-disable-next-line
+      description: '\
+        This is the list of leads that are available for you to move to your archive.\
+        These leads match your service type and location as you indicated in your settings.\
+        You must have a positive net lead balance in order for any leads to show in this list.\
+        Your net lead balance is calculated by subtracting the number of leads you have claimed\
+        into your archive from the number of lead referrals you have made in your outbox.\
+        And after all approprite adjustments for disputed leads have be settled.\
+      ',
+      id        : 'inbox',
+      path      : '/inbox',
+      title     : 'Inbox',
+      type      : 'item',
+      icon      : 'cloud_download',
+      bottomNav : true,
+      // see src/my-app/config/Routes.js
+      // also update in: src/main/content/components/ComponentsConfig.js
+      component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
+      crudConfig : {
+        condensed: true,
+        searchable: false, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
+        filterable: false,
+        sortable: false, // see searchable
+        starrable: false,
+        taggable: false,
+        actionable: {
+          icon: 'send', // 'outlined_flag',
+          label: 'Claim this lead and send it to your archive',
+          entries: [
+            {
+              path: `leads/${docId}`,
+              fields: {
+                archivedBy: uid,
+                archivedAt: Date.now,
               },
             },
-          },
-        }),
-      },
-      creatable  : false,
-      readable: {
-        path: 'leads', // src/my-app/containers/LoadAsync.js
-        where: [
-          [ 'deletedAt'  , '==' , 0     , ] ,  
-          [ 'archivedBy' , '==' , 'uid' , ] ,
-        ],
-        orderBy: [ 'createdAt', 'desc', ],
-      },
-      updatable: false,
-      deletable: true,
-    },
-  },
-  {
-    // eslint-disable-next-line
-    description: '\
-      These are all the leads you have submitted as a referral. The more leads you refer to others,\
-      the more leads are available to you in your inbox. You must have a positive net lead balance\
-      in order to have leads available for you to claim.\
-    ',
-    id         : 'outbox',
-    path       : '/outbox',
-    title      : 'Outbox',
-    type       : 'item',
-    icon       : 'cloud_upload',
-    // see src/my-app/config/Routes.js
-    // also update in: src/main/content/components/ComponentsConfig.js
-    component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
-    crudConfig : {
-      condensed: true,
-      searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
-      filterable: true,
-      sortable: true, // see searchable
-      starrable: true,
-      taggable: false,
-      actionable : {
-        icon: 'send',
-        label: 'Challenge',
-        func: () => {},
-      },
-      miniDashboard: [ 'net', 'deposits', 'withdrawals', ],
-      creatable: {
-        title: 'Send new referral', // form: <UserMultiForm />,
-        path: 'leads',
-        fields: [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ], // 'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
-        addons: {
-          createdAt: 'timestamp',
-          createdBy: 'uid',
-          deletedAt: 0,
-          archivedBy: null,
-        },
-        dashboard: {
-          local: {
-            net: 1,
-            deposits: 1,
-            outbox: 1,
-          },
-          remote: [
             {
-              path: `leads-meta/${"item.geoNation"}/${"item.geoRegion"}/${"item.geoLocal"}`,
-              incrementer: 1,
+              path: `users/${uid}/dashboard`,
+              fields: {
+                net: -1,
+                archived: 1,
+              },
             },
           ],
         },
+        miniDashboard: [ 'net', 'deposits', 'withdrawals', ],
+        creatable: false, // false only makes button not appear on CRUD view
+        readable: {
+          path: 'leads',
+          // src/my-app/containers/LoadAsync.js
+          where: [
+            [ 'deletedAt'       , '==' , 0                  , ] ,
+            [ 'archivedBy'      , '==' , null               , ] ,
+            [ 'challengesCount' , '<=' , CHALLENGES_LIMIT   , ] ,
+            [ 'bizCategory'     , '==' , 'user.bizCategory' , ] ,
+            [ 'geoNation'       , '==' , 'user.geoNation'   , ] ,
+            [ 'geoRegion'       , '==' , 'user.geoRegion'   , ] ,
+            [ 'geoLoaction'     , '==' , 'user.geoLoaction' , ] ,
+          ],
+          orderBy: [ 'createdAt', 'desc', ],
+        },
+        updatable: false,
+        deletable: false,
       },
-      readable: {
-        path: 'leads',
-        // src/my-app/containers/LoadAsync.js
-        where: [
-          [ 'deletedAt'       , '==' , 0                , ] ,  
-          [ 'createdBy'       , '==' , 'uid'            , ] ,
-          [ 'challengesCount' , '<=' , CHALLENGES_LIMIT , ] ,
-        ],
-        orderBy: [ 'createdAt', 'desc', ],
-      },
-      updatable: {
-        title: 'Edit referral',
-        path: 'leads',
-        fields: [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ],
-      },
-      deletable: true,
     },
-    // dashboardConfig:{onCreate:{net:1,deposits:1,outbox:1,},onDelete:{net:-1,deposits:-1,outbox:-1,},},
-  },
-  {
-    // eslint-disable-next-line
-    description: '\
-      This is the list of your contacts. The people whom you can feel comfortable sending your referrals to.\
-      They will ultimately be matched to your referrals, just as you are, based on location and service field.\
-    ',
-    id         : 'contacts',
-    path       : '/contacts',
-    title      : 'Contacts',
-    type       : 'item',
-    icon       : 'account_box', // 'contacts',
-    // see src/my-app/config/Routes.js
-    // also update in: src/main/content/components/ComponentsConfig.js
-    component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
-    crudConfig : {
-      condensed: true,
-      searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
-      filterable: true,
-      sortable: true, // see searchable
-      starrable: true,
-      taggable: false,
-      actionable : {
-        icon: 'send',
-        label: 'Challenge',
-        func: () => {},
-      },
-      miniDashboard: [ 'contacts', ],
-      creatable: {
-        title: 'Create new contact', // form: <UserMultiForm />,
-        path: 'contacts',
-        fields: [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ], // 'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
-        dashboard: {
-          local: {
-            contacts: 1,
+    {
+      // eslint-disable-next-line
+      description: '\
+        This is the list of leads you have claimed which you now own in the sense they are now\
+        exclusive to you only. The total leads in this list are subtracted from the amount of\
+        lead referrals you have made, after all dispute adjustments are settled, in order to\
+        determine your net lead balance.\
+      ',
+      id        : 'archive',
+      path      : '/archive',
+      title     : 'Archive',
+      type      : 'item',
+      icon      : 'folder',
+      bottomNav : true,
+      // see src/my-app/config/Routes.js
+      // also update in: src/main/content/components/ComponentsConfig.js
+      component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
+      crudConfig : {
+        condensed: true,
+        searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
+        filterable: true,
+        sortable: true, // see searchable
+        starrable: true,
+        taggable: false,
+        actionable : {
+          icon: 'priority_high', // 'warning', // 'report',
+          label: 'Challenge this lead for poor quality',
+          entries: {
+            challengedBy: uid,
+            challengesCount: 'incrementBy1',
+            dashboard: {
+              local: {
+                challenges: 1,
+              },
+              remote: {
+                [`users/${item && item.createdBy}/dashboard`]: {
+                  challenges: 1,
+                },
+              },
+            },
           },
         },
+        creatable  : false,
+        readable: {
+          path: 'leads', // src/my-app/containers/LoadAsync.js
+          where: [
+            [ 'deletedAt'  , '==' , 0   , ] ,  
+            [ 'archivedBy' , '==' , uid , ] ,
+          ],
+          orderBy: [ 'createdAt', 'desc', ] ,
+        },
+        updatable: false,
+        deletable: true,
       },
-      readable: {
-        path: 'contacts',
-        // src/my-app/containers/LoadAsync.js
-        where: [
-          [ 'deletedAt' , '==' , 0     , ] ,
-          [ 'createdBy' , '==' , 'uid' , ] ,
-        ],
-        orderBy: [ 'createdAt', 'desc', ],
-      },
-      updatable: {
-        title: 'Edit contact',
-        path: 'contacts',
-        fields: [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ],
-      },
-      deletable: true,
     },
-  },
+    {
+      // eslint-disable-next-line
+      description: '\
+        These are all the leads you have submitted as a referral. The more leads you refer to others,\
+        the more leads are available to you in your inbox. You must have a positive net lead balance\
+        in order to have leads available for you to claim.\
+      ',
+      id    : 'outbox',
+      path  : '/outbox',
+      title : 'Outbox',
+      type  : 'item',
+      icon  : 'cloud_upload',
+      // see src/my-app/config/Routes.js
+      // also update in: src/main/content/components/ComponentsConfig.js
+      component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
+      crudConfig : {
+        condensed: true,
+        searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
+        filterable: true,
+        sortable: true, // see searchable
+        starrable: false,
+        taggable: false,
+        actionable: false,
+        miniDashboard: [ 'net', 'deposits', 'withdrawals', ],
+        creatable: {
+          title: 'Send new referral', // form: <UserMultiForm />,
+          path: 'leads',
+          fields: [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ], // 'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
+          addons: {
+            createdAt: 'timestamp',
+            createdBy: uid,
+            deletedAt: 0,
+            archivedBy: null,
+          },
+          dashboard: {
+            local: {
+              net: 1,
+              deposits: 1,
+              outbox: 1,
+            },
+            remote: [
+              {
+                path: `leads-meta/${item && item.geoNation}/${item && item.geoRegion}/${item && item.geoLocal}`,
+                incrementer: 1,
+              },
+            ],
+          },
+        },
+        readable: {
+          path: 'leads',
+          // src/my-app/containers/LoadAsync.js
+          where: [
+            [ 'deletedAt'       , '==' , 0                , ] ,  
+            [ 'createdBy'       , '==' , uid              , ] ,
+            [ 'challengesCount' , '<=' , CHALLENGES_LIMIT , ] ,
+          ],
+          orderBy: [ 'createdAt', 'desc', ],
+        },
+        updatable: {
+          title: 'Edit referral',
+          path: 'leads',
+          fields: [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ],
+        },
+        deletable: true,
+      },
+      // dashboardConfig:{onCreate:{net:1,deposits:1,outbox:1,},onDelete:{net:-1,deposits:-1,outbox:-1,},},
+    },
+    {
+      // eslint-disable-next-line
+      description: '\
+        This is the list of your contacts. The people whom you can feel comfortable sending your referrals to.\
+        They will ultimately be matched to your referrals, just as you are, based on location and service field.\
+      ',
+      id    : 'contacts',
+      path  : '/contacts',
+      title : 'Contacts',
+      type  : 'item',
+      icon  : 'account_box', // 'contacts',
+      // see src/my-app/config/Routes.js
+      // also update in: src/main/content/components/ComponentsConfig.js
+      component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
+      crudConfig : {
+        condensed: true,
+        searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
+        filterable: true,
+        sortable: true, // see searchable
+        starrable: true,
+        taggable: false,
+        actionable : {
+          icon: 'send',
+          label: 'Challenge',
+          entries: {},
+        },
+        miniDashboard: [ 'contacts', ],
+        creatable: {
+          title: 'Create new contact', // form: <UserMultiForm />,
+          path: 'contacts',
+          fields: [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ], // 'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
+          dashboard: {
+            local: {
+              contacts: 1,
+            },
+          },
+        },
+        readable: {
+          path: 'contacts',
+          // src/my-app/containers/LoadAsync.js
+          where: [
+            [ 'deletedAt' , '==' , 0   , ] ,
+            [ 'createdBy' , '==' , uid , ] ,
+          ],
+          orderBy: [ 'createdAt', 'desc', ] ,
+        },
+        updatable: {
+          title: 'Edit contact',
+          path: 'contacts',
+          fields: [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ],
+        },
+        deletable: true,
+      },
+    },
 
-  // divider
-  {id:'div1',title:'',type:'divider',icon:'',url:'',path:'',},
+    // divider
+    {id:'div1',title:'',type:'divider',icon:'',url:'',path:'',},
 
-  // overhead views
-  // see specs here: https://material.io/design/communication/help-feedback.html#use-placement
-  {
-    // eslint-disable-next-line
-    description: '\
-      These are the settings we use to control how the app looks and functions for you.\
-      For example, this is where you tell us your service field and your location so we\
-      can properly match you to the leads that are referred by other members.\
-    ',
-    id         : 'settings',
-    path       : '/settings',
-    title      : 'Settings',
-    type       : 'item',
-    icon       : 'settings',
-    bottomNav  : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
-    overhead   : true,
-    // see src/my-app/config/Routes.js
-    // also update in: src/main/content/components/ComponentsConfig.js
-    component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/settings/Settings')}),
-  },
-  {
-    // eslint-disable-next-line
-    description: '\
-      Here you can tell us how the app is working for you and suggest ways we can improve it.\
-    ',
-    id         : 'feedback',
-    path       : '/feedback',
-    title      : 'Send feedback',
-    type       : 'item',
-    icon       : 'feedback',
-    bottomNav  : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
-    overhead   : true,
-    // see src/my-app/config/Routes.js
-    // also update in: src/main/content/components/ComponentsConfig.js
-    component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/feedback/Feedback')}),
-  },
-  {
-    // eslint-disable-next-line
-    description: '\
-      Here are some questions users commonly ask us. You can read the questions and there answers here.\
-    ',
-    id         : 'help',
-    path       : '/help',
-    title      : 'Help',
-    type       : 'item',
-    icon       : 'help',
-    bottomNav  : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
-    overhead   : true,
-    // see src/my-app/config/Routes.js
-    // also update in: src/main/content/components/ComponentsConfig.js
-    component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/Help')}),
-  },
-  {
-    // eslint-disable-next-line
-    description: '\
-      Click here to log out of the app.\
-    ',
-    id         : 'logout',
-    path       : '/logout',
-    title      : 'Logout',
-    type       : 'item',
-    altIcon    : (
-      <IconContext.Provider value={{ color: 'white', className: 'text-20 flex-no-shrink' }}>
-        <span><FaSignOutAlt /></span>
-      </IconContext.Provider>
-    ),
-    bottomNav  : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
-    overhead   : true,
-    // see src/my-app/config/Routes.js
-    // also update in: src/main/content/components/ComponentsConfig.js
-    component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/Logout')}),
-  },
-]
+    // overhead views
+    // see specs here: https://material.io/design/communication/help-feedback.html#use-placement
+    {
+      // eslint-disable-next-line
+      description: '\
+        These are the settings we use to control how the app looks and functions for you.\
+        For example, this is where you tell us your service field and your location so we\
+        can properly match you to the leads that are referred by other members.\
+      ',
+      id        : 'settings',
+      path      : '/settings',
+      title     : 'Settings',
+      type      : 'item',
+      icon      : 'settings',
+      bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
+      overhead  : true,
+      // see src/my-app/config/Routes.js
+      // also update in: src/main/content/components/ComponentsConfig.js
+      component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/settings/Settings')}),
+    },
+    {
+      // eslint-disable-next-line
+      description: '\
+        Here you can tell us how the app is working for you and suggest ways we can improve it.\
+      ',
+      id        : 'feedback',
+      path      : '/feedback',
+      title     : 'Send feedback',
+      type      : 'item',
+      icon      : 'feedback',
+      bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
+      overhead  : true,
+      // see src/my-app/config/Routes.js
+      // also update in: src/main/content/components/ComponentsConfig.js
+      component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/feedback/Feedback')}),
+    },
+    {
+      // eslint-disable-next-line
+      description: '\
+        Here are some questions users commonly ask us. You can read the questions and there answers here.\
+      ',
+      id        : 'help',
+      path      : '/help',
+      title     : 'Help',
+      type      : 'item',
+      icon      : 'help',
+      bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
+      overhead  : true,
+      // see src/my-app/config/Routes.js
+      // also update in: src/main/content/components/ComponentsConfig.js
+      component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/Help')}),
+    },
+    {
+      // eslint-disable-next-line
+      description: '\
+        Click here to log out of the app.\
+      ',
+      id      : 'logout',
+      path    : '/logout',
+      title   : 'Logout',
+      type    : 'item',
+      altIcon : (
+        <IconContext.Provider value={{ color: 'white', className: 'text-20 flex-no-shrink' }}>
+          <span><FaSignOutAlt /></span>
+        </IconContext.Provider>
+      ),
+      bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
+      overhead  : true,
+      // see src/my-app/config/Routes.js
+      // also update in: src/main/content/components/ComponentsConfig.js
+      component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/Logout')}),
+    },
+  ];
+
+  return out;
+}
 
 export const faqDB = [
   {

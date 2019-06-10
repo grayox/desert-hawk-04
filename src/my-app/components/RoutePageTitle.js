@@ -1,6 +1,6 @@
 import React, { useState, } from 'react';
 import { Route, Redirect, } from "react-router-dom";
-import { componentsNavConfig, } from 'my-app/config/AppConfig.js';
+import { getComponentsNavConfig, } from 'my-app/config/AppConfig.js';
 
 import {
   Button, Slide, Tooltip, Zoom, // Chip, Typography, // withStyles
@@ -10,7 +10,7 @@ import {
 // const pageTitle = ({ location, }) => { // model // 
 //   // console.log('model\n', model); // {"history":{"length":50,"action":"POP","location":{"pathname":"/archive","search":"","hash":"","key":"1pelhl"}},"location":{"pathname":"/archive","search":"","hash":"","key":"1pelhl"},"match":{"path":"/","url":"/","isExact":false,"params":{}}}
 //   const { pathname } = location;
-//   const items = componentsNavConfig.filter(r => (r.path === pathname));
+//   const items = getComponentsNavConfig().filter(r => (r.path === pathname));
 //   // console.log('items\n', items);
 //   const out = items && items[0] && items[0].title;
 //   return out || <Redirect to='/error404' />;
@@ -19,9 +19,11 @@ import {
 const RoutePageTitle = () => <Route path="/" component={pageTitle} />
 
 const getItem = pathname => {
+  const componentsNavConfig = getComponentsNavConfig();
   const items = componentsNavConfig.filter(r => (r.path === pathname));
   // console.log('items\n', items);
-  return ((items && items[0]) || undefined );
+  const out = ((items && items[0]) || undefined );
+  return out;
 }
 
 const Transition = props => <Slide direction="up" {...props} />

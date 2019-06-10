@@ -1,11 +1,12 @@
 // inspired by: src/my-app/store/actions/my-actions/leadsActions.js
 // ref: https://firebase.google.com/docs/firestore/quickstart#next_steps
 
-import { componentsNavConfig } from 'my-app/config/AppConfig';
+import { getComponentsNavConfig, } from 'my-app/config/AppConfig';
 
 const getNavElement = path => {
   // path: string: 'leads', 'archive', 'outbox'
   // console.log('path\n', path,);
+  const componentsNavConfig = getComponentsNavConfig();
   const out = componentsNavConfig.find(x => (x.crudConfig && x.crudConfig.readable) === path);
   // console.log('out\n', out,);
   return out;

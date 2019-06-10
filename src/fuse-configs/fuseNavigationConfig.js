@@ -1,5 +1,5 @@
 // import { MaterialUINavigation } from 'main/content/components/material-ui/MaterialUINavigation';
 // import { authRoles } from 'auth/auth';
-import { componentsNavConfig } from 'my-app/config/AppConfig'; // my add
+import { getComponentsNavConfig, } from 'my-app/config/AppConfig'; // my add
 
-export const fuseNavigationConfig = componentsNavConfig;
+export const fuseNavigationConfig = getComponentsNavConfig();

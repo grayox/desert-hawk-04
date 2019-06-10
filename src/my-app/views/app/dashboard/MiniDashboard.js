@@ -11,7 +11,7 @@ import {
 // import IndyBadge from "react-shields-badge";
 import ShieldsIo from 'my-app/components/ShieldsIo';
 
-import { componentsNavConfig, } from 'my-app/config/AppConfig';
+import { getComponentsNavConfig, } from 'my-app/config/AppConfig';
 import { DashboardGridConfig, } from 'my-app/config/DashboardGridConfig';
 
 export const Demo =
@@ -103,6 +103,7 @@ const MiniDashboard = ({ data, micro, }) => {
   const getPicker = () => {
     // console.log('browserPath\n', browserPath,); // 'inbox'
     // componentsNavConfig[1].crudConfig.miniDashboard;
+    const componentsNavConfig = getComponentsNavConfig();
     const navItems = _.filter(componentsNavConfig, { id: browserPath, },);
     const navItem = navItems[0];
     // console.log('navItem\n', navItem,);

@@ -18,7 +18,7 @@ import {
   // withRouter,
   Link,
 } from 'react-router-dom'; //
-import { componentsNavConfig, } from 'my-app/config/AppConfig.js';
+import { getComponentsNavConfig, } from 'my-app/config/AppConfig.js';
 // import { FuseScrollbars, FuseMessage, FuseThemes, FuseDialog } from '@fuse';
 
 const styles = theme => ({
@@ -60,7 +60,7 @@ const styles = theme => ({
   // },
 });
 
-const items = componentsNavConfig.filter(r => r.bottomNav) // filters in only objects with bottomNav property
+const items = getComponentsNavConfig().filter(r => r.bottomNav) // filters in only objects with bottomNav property
 // [
 //   { title: 'Dashboard' , url: '/dashboard' , icon: <Icon>star</Icon> , } ,
 //   { title: 'Inbox'     , url: '/inbox'     , icon: <Icon>star</Icon> , } ,

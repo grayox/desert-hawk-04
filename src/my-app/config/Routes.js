@@ -4,9 +4,9 @@ import {
   Switch, Route,
   // Redirect,
 } from 'react-router-dom';
-import { FuseLoadable } from '@fuse';
+import { FuseLoadable, } from '@fuse';
 
-import { componentsNavConfig } from 'my-app/config/AppConfig';
+import { getComponentsNavConfig, } from 'my-app/config/AppConfig';
 
 // import Error404 from 'my-app/views/overhead/Error404';
 // import Dashboard from 'my-app/views/app/dashboard/Dashboard';
@@ -26,6 +26,8 @@ const styles = theme => ({
     height: '100vh',
   },
 })
+
+const componentsNavConfig = getComponentsNavConfig();
 
 const items = componentsNavConfig.filter(r => (r.type==='item' || r.type==='route'));
 

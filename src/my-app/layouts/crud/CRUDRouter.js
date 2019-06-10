@@ -1,11 +1,12 @@
 import React from 'react';
 import { Route, } from 'react-router-dom'; // BrowserRouter as Router, Link 
 import _ from '@lodash';
-import { componentsNavConfig } from 'my-app/config/AppConfig';
+import { getComponentsNavConfig, } from 'my-app/config/AppConfig';
 import CRUDContainer from './CRUDContainer';
 
 const Child = ({ match: { params: { id }}}) => {
   // const matches = componentsNavConfig.filter(r => (r.id === id));
+  const componentsNavConfig = getComponentsNavConfig();
   const matches = _.filter(componentsNavConfig, {id,},);
   const item = matches[0];
   const { crudConfig, } = item;
