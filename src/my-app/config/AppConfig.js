@@ -400,7 +400,7 @@ export const getItemsFilteredBySearch = (items, searchString, searchableFields,)
 // src/fuse-configs/fuseNavigationConfig.js
 // src/main/content/components/ComponentsConfig.js
 export const getComponentsNavConfig = ( props = {}, ) => {
-  const { profile, uid, docId, item, } = props;
+  const { uid, docId, item, } = props; // profile,
   const out = [
     // import { componentsNavConfig, } from 'my-app/config/AppConfig';
     // * Note: It is currently not possible to use expressions like `loader : () => import(item.path)`
@@ -472,13 +472,13 @@ export const getComponentsNavConfig = ( props = {}, ) => {
           path: 'leads',
           // src/my-app/containers/LoadAsync.js
           where: [
-            [ 'deletedAt'       , '==' , 0                   , ] ,
-            [ 'archivedBy'      , '==' , null                , ] ,
-            [ 'challengesCount' , '<=' , CHALLENGES_LIMIT    , ] ,
-            [ 'bizCategory'     , '==' , profile.bizCategory , ] ,
-            [ 'geoNation'       , '==' , profile.geoNation   , ] ,
-            [ 'geoRegion'       , '==' , profile.geoRegion   , ] ,
-            [ 'geoLoaction'     , '==' , profile.geoLoaction , ] ,
+            [ 'deletedAt'       , '==' , 0                     , ] ,
+            [ 'archivedBy'      , '==' , null                  , ] ,
+            [ 'challengesCount' , '<=' , CHALLENGES_LIMIT      , ] ,
+            [ 'bizCategory'     , '==' , 'profile.bizCategory' , ] ,
+            [ 'geoNation'       , '==' , 'profile.geoNation'   , ] ,
+            [ 'geoRegion'       , '==' , 'profile.geoRegion'   , ] ,
+            [ 'geoLoaction'     , '==' , 'profile.geoLoaction' , ] ,
           ],
           orderBy: [ 'createdAt', 'desc', ],
         },
