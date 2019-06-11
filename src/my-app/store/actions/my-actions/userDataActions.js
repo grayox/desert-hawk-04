@@ -81,7 +81,7 @@ export const updateUserData = (path, value,) => {
 // source: https://github.com/iamshaunjp/React-Redux-Firebase-App/blob/lesson-18/marioplan/src/store/actions/projectActions.js
 // export const createItem = ( path, item, ) =>
 export const saveUserDataToFirestore = ( path, item, ) => 
-  // {
+  //{
   // console.log('path\n', path,); // don't use this (without curly braces)
   // console.log('item\n', item,); // don't use this (without curly braces)
   // return (dispatch, getState, { getFirebase, getFirestore, }) => {
@@ -93,6 +93,24 @@ export const saveUserDataToFirestore = ( path, item, ) =>
   (dispatch, getState, { getFirebase, getFirestore, }) => {
     // console.log('path\n', path,); // use this
     // console.log('item\n', item,); // use this
+
+    // fix bug:
+    // Unhandled Rejection (FirebaseError): Invalid path (users//dashboard). Paths must not contain // in them.
+    // duplicated at: src/my-app/containers/LoadAsync.js
+
+    const ready1 = !path.includes('//');
+    console.log('ready1', ready1,);
+    if(!ready1) return;
+    
+    const pathArray = path.split('/');
+    const pathArrayLength = pathArray.length;
+    const ready2 = (pathArrayLength === 3);
+    if(!ready2) return;
+    // console.log('pathArray\n', pathArray,);
+    // console.log('pathArray[1]\n', pathArray[1],);
+    // console.log('pathArrayLength\n', pathArrayLength,);
+
+
     const timestamp = Date.now();
     const newData = {
       ...item,

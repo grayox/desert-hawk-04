@@ -41,15 +41,29 @@ export const loadUserData = async path => {
 };
 
 const getUserData = async path => {
-  // console.log('path\n', path);
-  // console.log('state\n', this.state);
-  // this.setState({isLoading: true});
+  console.log('path\n', path);
+
+  // fix bug:
+  // Unhandled Rejection (FirebaseError): Invalid path (users//dashboard). Paths must not contain // in them.
+  // duplicated at: src/my-app/store/actions/my-actions/userDataActions.js
+
+  const ready1 = !path.includes('//');
+  console.log('ready1', ready1,);
+  if(!ready1) return;
+  
+  const pathArray = path.split('/');
+  const pathArrayLength = pathArray.length;
+  const ready2 = (pathArrayLength === 3);
+  if(!ready2) return; 
+  // console.log('pathArray\n', pathArray,);
+  // console.log('pathArray[1]\n', pathArray[1],);
+  // console.log('pathArrayLength\n', pathArrayLength,);
   
   // debugger;
   const a = [];
   const db = firebase.firestore();
-  const ready = db;
-  if(!ready) return;
+  const ready3 = db;
+  if(!ready3) return;
 
   const out = await db.collection(path)
     // .where( 'deletedAt', '==', 0, ) // filters out deleted documents
