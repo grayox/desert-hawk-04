@@ -42,11 +42,12 @@ const INITIAL_STATE = {
 
 class FetchUserData extends Component {
 
-  // state = INITIAL_STATE;
-  constructor(props) {
-    super(props);
-    this.state = INITIAL_STATE;
-  }
+  state = INITIAL_STATE;
+
+  // constructor(props) {
+  //   super(props);
+  //   this.state = INITIAL_STATE;
+  // }
 
   componentDidMount() {
     this.handleLoad();

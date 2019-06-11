@@ -53,7 +53,7 @@ const INITIAL_STATE_BASELINE = {
   isError: false,
   bizCategory: null,
   categoryOpen: false,
-  show: 'main', // 'main' | 'step' | 'greet'
+  show: 'greet', // 'main' | 'greet' | 'step'
 };
 
 const INITIAL_STATE = {
@@ -65,6 +65,12 @@ class Dashboard extends Component {
 
   state = INITIAL_STATE;
 
+  getPath = path => {
+    const uid = this.props.profile.uid;
+    const out = [ 'users' , uid , path , ].join('/');
+    return out;
+  }
+
   handleSaveSettingsStepper = data => {
     const { bizCategory, geoNation, geoRegion, geoLocal, } = data;
     const createdAt = Date.now();
@@ -73,7 +79,8 @@ class Dashboard extends Component {
       ...newData,
       show: 'main',
     });
-    const path = this.getPath();
+    const path = this.getPath('settings');
+    // console.log('path\n', path,);
     db.collection(path)
       .add(newData);
   }
@@ -94,7 +101,7 @@ class Dashboard extends Component {
     // console.log('state\n', this.state);
     const createdAt = Date.now();
     const newData = { createdAt, bizCategory, geoNation, geoRegion, geoLocal, };
-    const path = this.getPath();
+    const path = this.getPath('settings');
     db.collection(path)
       .add(newData);
   }
@@ -115,8 +122,8 @@ class Dashboard extends Component {
   render() {
     // console.log('user\n', this.props.user);
     // console.log('leads\n', this.props.leads);
-    // console.log('profile\n', this.props.profile);
-    // console.log('settings\n', this.props.settings);
+    console.log('profile\n', this.props.profile);
+    console.log('settings\n', this.props.settings);
     // console.log('dataHasLoaded\n', this.props.dataHasLoaded);
 
     const { classes, dataHasLoaded, dashboard, type, } = this.props; 
