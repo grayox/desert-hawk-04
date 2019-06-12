@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component, } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 // import withStyles from "@material-ui/core/styles/withStyles";
@@ -34,6 +34,13 @@ const styles = theme => ({
   },
 });
 
+const HEADER_MESSAGE =
+  <Typography variant="h5" className="opacity-50 font-light" color="inherit" gutterBottom>
+    Set your location
+  </Typography>
+
+const FINISH_MESSAGE = <div>You finished all steps. You&rsquo;re done!</div>
+
 const steps = [
   'Select country'           ,
   'Select state or region'   ,
@@ -41,41 +48,60 @@ const steps = [
   'Select business cagegory' ,
 ];
 
-const INITIAL_STATE = {
+const INITIAL_STATE_ACTIVE_STEP = {
   activeStep: 0,
-
-  openCountry: false,
-  openRegion: false,
-  openLocal: false,
-  openCategory: false,
-  openSnackbar: false,
-
-  geoNation: '',
-  geoRegion: '',
-  geoLocal: '',
-  bizCategory: '',
 };
 
-class SettingsStepper extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = INITIAL_STATE;
-  }
+const INITIAL_STATE_OPEN = {
+  openCountry  : false ,
+  openRegion   : false ,
+  openLocal    : false ,
+  openCategory : false ,
+  openSnackbar : false ,
+};
+
+const INITIAL_STATE_VALUES_GEO = {
+  geoNation : '' ,
+  geoRegion : '' ,
+  geoLocal  : '' ,
+};
+
+const INITIAL_STATE_VALUES_BIZ_CATEGORY = {
+  bizCategory : '' ,
+};
+
+const INITIAL_STATE_VALUES = {
+  ...INITIAL_STATE_VALUES_GEO,
+  ...INITIAL_STATE_VALUES_BIZ_CATEGORY,
+};
+
+const INITIAL_STATE = {
+  ...INITIAL_STATE_ACTIVE_STEP,
+  ...INITIAL_STATE_OPEN,
+  ...INITIAL_STATE_VALUES,
+};
+
+class SettingsStepper extends Component {
+  
+  state = INITIAL_STATE;
+  
+  // constructor(props) {
+  //   super(props);
+  //   this.state = INITIAL_STATE;
+  // }
 
   getStepContent = step => {
     
     const {
-      openCountry   , geoNation   ,
-      openRegion    , geoRegion   ,
-      openLocal     , geoLocal    ,
-      openCategory  , bizCategory ,
+      openCountry, openRegion, openLocal, openCategory,
+      geoNation, geoRegion, geoLocal, bizCategory,
     } = this.state;
     
     const {
-      handleOpenCountry  , handleCloseCountry  , handleChangeCountry  ,
-      handleOpenRegion   , handleCloseRegion   , handleChangeRegion   ,
-      handleOpenLocal    , handleCloseLocal    , handleChangeLocal    ,
-      handleOpenCategory , handleCloseCategory , handleChangeCategory ,
+      handleOpenCountry, handleCloseCountry, handleChangeCountry,
+      handleOpenRegion, handleCloseRegion, handleChangeRegion,
+      handleOpenLocal, handleCloseLocal, handleChangeLocal,
+      handleOpenCategory, handleCloseCategory, handleChangeCategory,
     } = this;
     
     const steps = [
@@ -137,7 +163,7 @@ class SettingsStepper extends React.Component {
   ]
 
   getChipValue = () => [
-    this.state.geoNation  ,
+    this.state.geoNation   ,
     this.state.geoRegion   ,
     this.state.geoLocal    ,
     this.state.bizCategory ,
@@ -147,216 +173,153 @@ class SettingsStepper extends React.Component {
 
   handleOpenCountry = () => {
     this.setState({
+      ...INITIAL_STATE_OPEN,
       activeStep: 0,
       openCountry: true,
-      openRegion: false,
-      openLocal: false,
-      openCategory: false,
-      // geoNation: '',
-      // geoRegion: '',
-      // geoLocal: '',
-    });
-    // console.log('state\n', this.state);
+    }
+    // , () => console.log('state\n', this.state)
+    );
   };
 
   handleCloseCountry = () => {
     this.setState({
-      openCountry: false,
-    });
-    // console.log('state\n', this.state);
+      INITIAL_STATE_OPEN
+    }
+    // , () => console.log('state\n', this.state)
+    );
   };
   
   handleChangeCountry = e => {
     // console.log('e\n', e);
-    // this.setState({ [e.target.name]: e.target.value });
-    this.setState({     
+    this.setState({
+      ...INITIAL_STATE_OPEN,
+      ...INITIAL_STATE_VALUES_BIZ_CATEGORY,
       activeStep: 1,
-      openCountry: false,
-      openRegion: false,
-      openLocal: false,
-      openCategory: false,
       geoNation: e.target.value,
       geoRegion: '',
       geoLocal: '',
-    });
-    // this.handleNext();
+    }
+    // , () => {
     // console.log('state\n', this.state);
+    // }
+    );
   };
 
   // ---------- region ------------
 
   handleOpenRegion = () => {
-    this.setState({  
-      activeStep: 1,
-      openCountry: false,
+    this.setState({
+      ...INITIAL_STATE_OPEN,
       openRegion: true,
-      openLocal: false,
-      openCategory: false,
-      // geoNation: '',
-      // geoRegion: '',
-      // geoLocal: '',
-    });
-    // console.log('state\n', this.state);
+      activeStep: 1,
+    }
+    // , () => console.log('state\n', this.state)
+    );
   };
   
   handleCloseRegion = () => {
     this.setState({
-      openRegion: false,
-    });
-    // console.log('state\n', this.state);
+      INITIAL_STATE_OPEN
+    }
+    // , () => console.log('state\n', this.state)
+    );
   };
   
   handleChangeRegion = e => {
     // console.log('e\n', e);
     // this.setState({ [e.target.name]: e.target.value });
-    this.setState({      
+    this.setState({ 
+      ...INITIAL_STATE_OPEN,
+      ...INITIAL_STATE_VALUES_BIZ_CATEGORY,
       activeStep: 2,
-      openCountry: false,
-      openRegion: false,
-      openLocal: false,
-      openCategory: false,
       // geoNation: '',
       geoRegion: e.target.value,
       geoLocal: '',
-    });
-    // this.handleNext();
+    }
+    // , () => {
     // console.log('state\n', this.state);
+    // }
+    );
   };
   
   // ---------- local ------------
 
   handleOpenLocal = () => {
     this.setState({ 
+      ...INITIAL_STATE_OPEN,
       activeStep: 2,
-      openCountry: false,
-      openRegion: false,
       openLocal: true,
-      openCategory: false,
-      // geoNation: '',
-      // geoRegion: '',
-      // geoLocal: '',
     });
-    // console.log('state\n', this.state);
   };
 
   handleCloseLocal = () => {
     this.setState({
       openLocal: false,
-    });
-    // console.log('state\n', this.state);
+    }
+    // , () => console.log('state\n', this.state)
+    );
   };
 
   handleChangeLocal = e => {
     // console.log('e\n', e);
     // this.setState({ [e.target.name]: e.target.value });
-    this.setState({    
+    this.setState({ 
+      ...INITIAL_STATE_OPEN,
+      ...INITIAL_STATE_VALUES_BIZ_CATEGORY,
       activeStep: 3,
-      openCountry: false,
-      openRegion: false,
-      openLocal: false,
-      openCategory: false,
       // geoNation: '',
       // geoRegion: '',
       geoLocal: e.target.value,
-    });
-    // this.handleNext();
+    }
+    // , () => {
     // console.log('state\n', this.state);
+    // }
+    );
   };
 
   // ---------- category ------------
 
   handleOpenCategory = () => {
-    this.setState({ 
-      activeStep: 3,
-      openCountry: false,
-      openRegion: false,
-      openLocal: false,
+    this.setState({
+      ...INITIAL_STATE_OPEN,
       openCategory: true,
-      // geoNation: '',
-      // geoRegion: '',
-      // geoLocal: '',
-    });
-    // console.log('state\n', this.state);
+      activeStep: 3,
+    }
+    // , () => console.log('state\n', this.state)
+    );
   };
 
   handleCloseCategory = () => {
     this.setState({
       openCategory: false,
-    });
-    // console.log('state\n', this.state);
+    }
+    // , () => console.log('state\n', this.state)
+    );
   };
 
   handleChangeCategory = e => {
     // console.log('e\n', e);
     // this.setState({ [e.target.name]: e.target.value });
-    this.setState({    
+    this.setState({
+      ...INITIAL_STATE_OPEN, 
       activeStep: 4,
-      openCountry: false,
-      openRegion: false,
-      openLocal: false,
-      openCategory: false,
-      // geoRegion: '',
-      // geoLocal: '',
       bizCategory: e.target.value,
-    });
-    // this.handleNext();
+    }
+    // , () => {
     // console.log('state\n', this.state);
+    // }
+    );
   };
 
   // ---------- stepper ------------
 
-  // handleNext = () => {
-  //   this.setState(state => ({
-  //     activeStep: state.activeStep + 1,
-  //   }));
-  // };
-
-  handleReset = () => {
-    // this.setState({
-    //   activeStep: 0,
-    // });
-    this.setState(INITIAL_STATE);
-  };
-
-  handleBack = () => {
-    this.setState(state => ({
-      activeStep: state.activeStep - 1,
-    }));
-  };
-
-  handleSave = () => {
-    this.setState({openSnackbar: true,});
-  };
-
-  handleCloseSnackbar = () => {
-    this.setState({openSnackbar: false,});
-  };
-
-  // ------------------------------
-
-  // handleBack = () => {
-  //   const { activeStep } = this.state;
-  //   switch( activeStep ) {
-  //     case 1:
-  //       this.setState({
-  //         geoNation: null,
-  //       })
-  //       break;
-  //     case 2:
-  //       this.setState({
-  //         geoRegion: null,
-  //       })
-  //       break;
-  //     default:
-  //       console.log('activeState out of range');
-  //   }
-  //   this.setState({
-  //     activeStep: (activeStep + 1),
-  //   });
-  // }
+  handleReset         = () => this.setState(   INITIAL_STATE                                )
+  handleBack          = () => this.setState( { activeStep   : this.state.activeStep - 1 , } )
+  handleSave          = () => this.setState( { openSnackbar : true                      , } )
+  handleCloseSnackbar = () => this.setState( { openSnackbar : false                     , } )
 
   handleClickButton = () => {
-    const { activeStep } = this.state;
+    const { activeStep, } = this.state;
     // console.log('button clicked...');
     // console.log('activeStep', activeStep);
     const a = this.getOpenHandlers();
@@ -376,44 +339,44 @@ class SettingsStepper extends React.Component {
     const { onSave, } = this.props;
     const { activeStep, openSnackbar, } = this.state;
     const {
-      getChipValue,
-      getStepContent,
-      handleClickChip,
-      handleBack,
-      handleReset,
-      handleCloseSnackbar,
+      getChipValue, getStepContent, handleClickChip, handleBack, handleReset, handleCloseSnackbar,
     } = this;
     const { classes, } = this.props;
 
-    return (
-      <div className={classes.root}>
-        <Typography
-          variant="h5"
-          className="opacity-50 font-light"
-          color="inherit"
-          gutterBottom
-        >
-          Set your location
-        </Typography>
-        <Paper className={classes.root} elevation={1}>
-        <Stepper
-          activeStep={activeStep}
-          // orientation="horizontal"
-          orientation="vertical"
-        >
-          {steps.map((label, index) =>
+    const getActiveStep = () =>
+      <Paper square elevation={0} className={classes.resetContainer}>
+        {FINISH_MESSAGE}
+        <Button onClick={handleReset} className={[classes.button, "mr-32"].join(" ")}>Reset</Button>
+        <Button onClick={handleBack} className={classes.button}>Back</Button>
+        <Button
+          onClick={ () => onSave(this.state)}
+          className={classes.button}
+          variant="contained"
+          color="primary"
+        >Save</Button>
+      </Paper>
+
+    const getStepper = () =>
+      <Stepper
+        activeStep={activeStep}
+        // orientation="horizontal"
+        orientation="vertical"
+      >
+        {
+          steps.map( ( label, index, ) =>
             <Step key={label}>
               <StepLabel>
                 {/* <span className="opacity-50 ml-8 text-base">{this.getGeoValue()[index]}</span> */}
-                {'Step ' + (index + 1) + ': ' + label}
+                {`Step ${index + 1}: ${label}`}
                 {
                   getChipValue()[index]
-                    ?
-                      <Chip className={[classes.chip, 'ml-8', 'capitalize',].join(' ')}
-                      label={getChipValue()[index]}
-                      onClick={() => handleClickChip(index)} />
-                    :
-                      null
+                  ?
+                  <Chip
+                    className={[classes.chip, 'ml-8', 'capitalize',].join(' ')}
+                    label={getChipValue()[index]}
+                    onClick={() => handleClickChip(index)} />
+                  :
+                  null
                 }
               </StepLabel>
               <StepContent>
@@ -437,51 +400,48 @@ class SettingsStepper extends React.Component {
                 </div>
               </StepContent>
             </Step>
-          )}
-        </Stepper>
-        {activeStep === steps.length && (
-          <Paper square elevation={0} className={classes.resetContainer}>
-            <div>You finished all steps. You&rsquo;re done!</div>
-            <Button onClick={handleReset} className={[classes.button, "mr-32"].join(" ")}>Reset</Button>
-            <Button onClick={handleBack} className={classes.button}>Back</Button>
-            <Button onClick={ () => onSave(this.state)} className={classes.button}
-              variant="contained"
-              color="primary"
-            >Save</Button>
-          </Paper>
-        )}
-        </Paper>
+          )
+        }
+      </Stepper>
 
-        <Snackbar
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
-          }}
-          open={openSnackbar}
-          autoHideDuration={3000}
-          onClose={handleCloseSnackbar}
-          ContentProps={{
-            'aria-describedby': 'message-id',
-          }}
-          message={<span id="message-id">Saved</span>}
-          action={[
-            <Button className="uppercase" key="undo" color="secondary" size="small" onClick={handleCloseSnackbar}>
-              Undo
-            </Button>,
-            <IconButton
-              key="close"
-              aria-label="Close"
-              color="inherit"
-              className={classes.close}
-              onClick={handleCloseSnackbar}
-            >
-              <CloseIcon />
-            </IconButton>,
-          ]}
-        />
+    const getSnackbar = () =>
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        open={openSnackbar}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackbar}
+        ContentProps={{
+          'aria-describedby': 'message-id',
+        }}
+        message={<span id="message-id">Saved</span>}
+        action={[
+          <Button className="uppercase" key="undo" color="secondary" size="small" onClick={handleCloseSnackbar}>
+            Undo
+          </Button>,
+          <IconButton
+            key="close"
+            aria-label="Close"
+            color="inherit"
+            className={classes.close}
+            onClick={handleCloseSnackbar}
+          >
+            <CloseIcon />
+          </IconButton>,
+        ]}
+      />
 
-      </div>
-    );
+    const getMainContent = () =>
+      <Paper className={classes.root} elevation={1}>
+        {getStepper()} {(activeStep === steps.length) && getActiveStep()}
+      </Paper>
+
+    const getSettingsStepper = () =>
+      <div className={classes.root}> {HEADER_MESSAGE} {getMainContent()} {getSnackbar()} </div>
+
+    return getSettingsStepper();
   }
 }
 

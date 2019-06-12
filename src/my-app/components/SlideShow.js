@@ -52,6 +52,7 @@ const styles = theme => ({
 const transition = props => (<Slide direction="right" {...props} />) // left, right, up, down
 
 class SlideShow extends React.Component {
+  
   state = {
     open: false,
   };

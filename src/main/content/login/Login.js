@@ -16,6 +16,7 @@ import { FuseAnimate } from '@fuse';
 // import Auth0LoginTab from './tabs/Auth0LoginTab';
 
 import SlideShow from 'my-app/components/SlideShow';
+// TODO: import react-responsive-carousel https://codesandbox.io/s/lp602ljjj7
 
 import AuthProviders from 'my-app/components/AuthProviders';
 import { brand, } from 'my-app/config/AppConfig';
