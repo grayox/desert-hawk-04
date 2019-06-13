@@ -318,7 +318,7 @@ export const DashboardGridConfig = {
     },
     {
       id: 'geoLocal',
-      label: 'Location',
+      label: 'Local',
       // data: 'Scholes',
       // data: geoLocal,
       //data: <Icon>done</Icon>,
