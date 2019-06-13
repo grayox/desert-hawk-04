@@ -1,11 +1,44 @@
 // inspired by // https://material-ui.com/demos/chips/#chip | https://material-ui.com/demos/dialogs/
 
 import React, { useState, } from 'react';
-
+import _ from '@lodash';
 import {
   Button, Slide, Chip, // Typography, // withStyles
   Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
 } from '@material-ui/core';
+
+const computeFontSize = ( s = '' ) => {  
+
+  const fontSizeLookupTable = () => {
+    let a = [];
+    a.length = 32;
+    a.fill( 'text-72'        );
+    a.fill( 'text-68' ,  4 , );
+    a.fill( 'text-64' ,  5 , );
+    a.fill( 'text-48' ,  6 , );
+    a.fill( 'text-40' ,  7 , );
+    a.fill( 'text-36' ,  8 , );
+    a.fill( 'text-32' ,  9 , );
+    a.fill( 'text-30' , 10 , );
+    a.fill( 'text-28' , 12 , );
+    a.fill( 'text-24' , 16 , );
+    a.fill( 'text-18' , 24 , );
+    // console.log('a\n', a,);
+    return a;
+  }
+
+  const lookup = fontSizeLookupTable();
+  const tableLength = lookup.length;
+
+  const newString = _.toString(s);
+  const stringLength = newString.length;
+  
+  // console.log('stringLength\n', stringLength,);
+  // console.log('tableLength\n', tableLength,);
+  const out = (stringLength > tableLength) ? 'text-16' : lookup[stringLength];
+  // console.log('out\n', out,);
+  return out;
+}
 
 const Transition = props => <Slide direction="up" {...props} />
 
@@ -22,9 +55,11 @@ const WidgetNugget = ({ type, data, label, message, }) => {
     },
     kernel: {
       // direction: 'right',
+      // text-16
+      // text-72
       element: (
         <div className="text-center pt-12 pb-28 cursor-pointer" onClick={() => handleOpenDialog()}>
-          <div className="text-72 leading-none text-blue">{data}</div>
+          <div className={`${computeFontSize(data)} leading-none text-blue`}>{data}</div>
           <div className="text-xs uppercase mt-4" color="textSecondary">{label}</div>
         </div>
       ),

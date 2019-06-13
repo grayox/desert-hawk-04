@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, } from 'react';
 import PropTypes from 'prop-types';
 
 // redux
@@ -53,7 +53,7 @@ const INITIAL_STATE_BASELINE = {
   isError: false,
   bizCategory: null,
   categoryOpen: false,
-  show: 'greet', // 'main' | 'greet' | 'step'
+  show: 'main', // 'main' | 'step' | 'greet'
 };
 
 const INITIAL_STATE = {
@@ -79,10 +79,11 @@ class Dashboard extends Component {
       ...newData,
       show: 'main',
     });
-    const path = this.getPath('settings');
-    // console.log('path\n', path,);
-    db.collection(path)
-      .add(newData);
+
+    const settingsPath  = this.getPath('settings');
+    const dashboardPath = this.getPath('dashboard');
+    db.collection(settingsPath).add(newData);
+    db.collection(dashboardPath).add(newData);
   }
 
   handleClickGeo = () => {
