@@ -1,12 +1,14 @@
 // inspired by // https://material-ui.com/demos/chips/#chip | https://material-ui.com/demos/dialogs/
 
 import React, { useState, } from 'react';
-import _ from '@lodash';
-import numeral from 'numeral';
+
 import {
   Button, Slide, Chip, // Typography, // withStyles
   Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
 } from '@material-ui/core';
+
+import _ from '@lodash';
+import numeral from 'numeral';
 
 const computeFontSize = ( data = '' ) => {  
 
