@@ -59,13 +59,13 @@ const WidgetNugget = ({ type, data, label, message, }) => {
       // text-72
       element: (
         <div
-          className="flex flex-col h-128 text-center py-12 cursor-pointer border border-red"
+          className="flex flex-col h-128 text-center pb-12 cursor-pointer"
           onClick={() => handleOpenDialog()}
         >
-          <div className={`${computeFontSize(data)} h-84 flex items-end leading-none text-blue border border-black`}>
+          <div className={`${computeFontSize(data)} h-72 flex items-end leading-none text-blue`}>
             <span className="flex-1">{data}</span>
           </div>
-          <div className="text-xs uppercase mt-4 border border-black" color="textSecondary">{label}</div>
+          <div className="text-xs uppercase mt-16" color="textSecondary">{label}</div>
         </div>
       ),
     },
