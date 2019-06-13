@@ -48,7 +48,7 @@ const computeFontSize = ( data = '' ) => {
   // console.log('newString\n', newString,);
   // console.log('adjLength\n', adjLength,);
   // console.log('lookupTableLength\n', lookupTableLength,);
-  const out = (adjLength >= lookupTableLength) ? 'text-16' : lookupTable[adjLength];
+  const out = (adjLength < lookupTableLength) ? lookupTable[adjLength] : 'text-16' ;
   // console.log('out\n', out,);
   return out;
 }
