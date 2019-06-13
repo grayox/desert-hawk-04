@@ -317,7 +317,7 @@ export const DashboardGridConfig = {
       description: <CategoryDescription />,
     },
     {
-      id: 'geoLocation',
+      id: 'geoLocal',
       label: 'Location',
       // data: 'Scholes',
       // data: geoLocal,

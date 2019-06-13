@@ -76,7 +76,7 @@ export const settingsConfig = {
   // businessType: undefined,
   // geoNation: undefined,
   // geoRegion: undefined,
-  // geoLocation: undefined,
+  // geoLocal: undefined,
   autoClaimLeads: false,
   autoTextMe: false,
   // autoTextMeToNumber: undefined,
