@@ -7,7 +7,7 @@ import {
   Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
 } from '@material-ui/core';
 
-const computeFontSize = ( s = '' ) => {  
+const computeFontSize = ( data = '' ) => {  
 
   const fontSizeLookupTable = () => {
     let a = [];
@@ -27,15 +27,15 @@ const computeFontSize = ( s = '' ) => {
     return a;
   }
 
-  const lookup = fontSizeLookupTable();
-  const tableLength = lookup.length;
+  const lookupTable = fontSizeLookupTable();
+  const lookupTableLength = lookupTable.length;
 
-  const newString = _.toString(s);
+  const newString = _.toString(data);
   const stringLength = newString.length;
   
   // console.log('stringLength\n', stringLength,);
-  // console.log('tableLength\n', tableLength,);
-  const out = (stringLength > tableLength) ? 'text-16' : lookup[stringLength];
+  // console.log('lookupTableLength\n', lookupTableLength,);
+  const out = (stringLength >= lookupTableLength) ? 'text-16' : lookupTable[stringLength];
   // console.log('out\n', out,);
   return out;
 }
@@ -58,9 +58,14 @@ const WidgetNugget = ({ type, data, label, message, }) => {
       // text-16
       // text-72
       element: (
-        <div className="text-center pt-12 pb-28 cursor-pointer" onClick={() => handleOpenDialog()}>
-          <div className={`${computeFontSize(data)} leading-none text-blue`}>{data}</div>
-          <div className="text-xs uppercase mt-4" color="textSecondary">{label}</div>
+        <div
+          className="flex flex-col h-128 text-center py-12 cursor-pointer border border-red"
+          onClick={() => handleOpenDialog()}
+        >
+          <div className={`${computeFontSize(data)} h-84 flex items-end leading-none text-blue border border-black`}>
+            <span className="flex-1">{data}</span>
+          </div>
+          <div className="text-xs uppercase mt-4 border border-black" color="textSecondary">{label}</div>
         </div>
       ),
     },
