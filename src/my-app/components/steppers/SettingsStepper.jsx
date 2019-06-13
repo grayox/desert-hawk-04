@@ -44,7 +44,7 @@ const INITIAL_STATE_ACTIVE_STEP = {
 };
 
 const INITIAL_STATE_OPEN = {
-  isOpenCountry  : false ,
+  isOpenNation   : false ,
   isOpenRegion   : false ,
   isOpenLocal    : false ,
   isOpenCategory : false ,
@@ -84,13 +84,13 @@ class SettingsStepper extends Component {
   getStepContent = step => {
     
     const {
-      isOpenCountry, isOpenRegion, isOpenLocal, isOpenCategory,
+      isOpenNation, isOpenRegion, isOpenLocal, isOpenCategory,
       geoNation, geoRegion, geoLocal, bizCategory,
     } = this.state;
     
     const {
       handleClose,
-      handleOpenCountry, handleChangeCountry,
+      handleOpenNation, handleChangeNation,
       handleOpenRegion, handleChangeRegion,
       handleOpenLocal, handleChangeLocal, 
       handleOpenCategory, handleChangeCategory,
@@ -99,12 +99,12 @@ class SettingsStepper extends Component {
     const steps = [
       <GeoSelect
         control='none'
-        variant='country'
-        open={isOpenCountry}
+        variant='nation'
+        open={isOpenNation}
         value={geoNation}
-        onOpen={handleOpenCountry}
+        onOpen={handleOpenNation}
         onClose={handleClose}
-        onChange={handleChangeCountry}
+        onChange={handleChangeNation}
       />
       ,
       <GeoSelect
@@ -112,7 +112,7 @@ class SettingsStepper extends Component {
         variant='region'
         open={isOpenRegion}
         value={geoRegion}
-        country={geoNation}
+        nation={geoNation}
         onOpen={handleOpenRegion}
         onClose={handleClose}
         onChange={handleChangeRegion}
@@ -124,7 +124,7 @@ class SettingsStepper extends Component {
         open={isOpenLocal}
         value={geoLocal}
         region={geoRegion}
-        country={geoNation}
+        nation={geoNation}
         onOpen={handleOpenLocal}
         onClose={handleClose}
         onChange={handleChangeLocal}
@@ -148,7 +148,7 @@ class SettingsStepper extends Component {
   }
 
   openHandlers = [
-    () => this.handleOpenCountry()  ,
+    () => this.handleOpenNation()   ,
     () => this.handleOpenRegion()   ,
     () => this.handleOpenLocal()    ,
     () => this.handleOpenCategory() ,
@@ -161,19 +161,19 @@ class SettingsStepper extends Component {
     this.state.bizCategory ,
   ]
   
-  // ---------- country ------------
+  // ---------- nation ------------
 
-  handleOpenCountry = () => {
+  handleOpenNation = () => {
     this.setState({
       ...INITIAL_STATE_OPEN,
       activeStep: 0,
-      isOpenCountry: true,
+      isOpenNation: true,
     }
     // , () => console.log('state\n', this.state)
     );
   };
   
-  handleChangeCountry = e => {
+  handleChangeNation = e => {
     // console.log('e\n', e);
     this.setState({
       ...INITIAL_STATE_OPEN,

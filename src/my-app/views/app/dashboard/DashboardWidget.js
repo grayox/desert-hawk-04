@@ -43,7 +43,7 @@ const DashboardWidget = ({ widget, data, index, count, }) => { // data, classes,
     // >
     <Slide in direction="up" timeout={timeout}>
       <Paper className="w-full rounded-16 shadow-none border-1 border-grey">
-        <div className="flex items-center justify-between pr-4 pl-16 pt-4">
+        <div className="flex items-center justify-between pr-4 pl-16 pt-12">
           {
           // <div className="text-16">{rowName}</div>
           // <IconButton aria-label="more"><Icon>more_vert</Icon></IconButton>
@@ -61,7 +61,7 @@ const DashboardWidget = ({ widget, data, index, count, }) => { // data, classes,
           </Tooltip>
         </div>
         <Tooltip TransitionComponent={Zoom} title={description}>
-          <div className="mt-8 mb-16">
+          <div className="mb-24">
             <WidgetNugget type="kernel" label={label} message={description} data={data} />
           </div>
         </Tooltip>

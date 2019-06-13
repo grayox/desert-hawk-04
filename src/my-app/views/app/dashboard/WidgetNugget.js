@@ -75,13 +75,13 @@ const WidgetNugget = ({ type, data, label, message, }) => {
       // text-72
       element: (
         <div
-          className="flex flex-col h-128 text-center pb-12 cursor-pointer"
+          className="flex flex-col h-116 text-center cursor-pointer"
           onClick={() => handleOpenDialog()}
         >
           <div className={`${computeFontSize(formattedData)} h-72 flex items-end leading-none text-blue`}>
             <span className="flex-1">{formattedData}</span>
           </div>
-          <div className="text-xs uppercase mt-16" color="textSecondary">{label}</div>
+          <div className="text-xs uppercase mt-8" color="textSecondary">{label}</div>
         </div>
       ),
     },

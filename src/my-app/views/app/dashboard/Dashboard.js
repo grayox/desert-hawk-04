@@ -78,7 +78,12 @@ class Dashboard extends Component {
     this.setState({
       ...newData,
       show: 'main',
-    });
+    }
+      , () => {
+        console.log('props\n', this.props,);
+        console.log('state\n', this.state,);
+      }
+    );
 
     const settingsPath  = this.getPath('settings');
     const dashboardPath = this.getPath('dashboard');
