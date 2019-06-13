@@ -21,7 +21,8 @@ const computeFontSize = ( data = '' ) => {
     a.fill( 'text-32' ,  9 , );
     a.fill( 'text-30' , 10 , );
     a.fill( 'text-28' , 12 , );
-    a.fill( 'text-24' , 16 , );
+    a.fill( 'text-24' , 14 , );
+    a.fill( 'text-20' , 16 , );
     a.fill( 'text-18' , 24 , );
     // console.log('a\n', a,);
     return a;
