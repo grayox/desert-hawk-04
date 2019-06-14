@@ -43,9 +43,10 @@ const SettingsMessage = ({ classes, onClick }) =>
       <FuseAnimate delay={300} animation="transition.expandIn">
         <Typography variant="h1" color="inherit" className="font-medium mb-16">
           <span role="img" aria-label="smiling cowboy emoji">🤠</span>
-          
-          <img height="300" src="assets/images/logos/location.svg" alt="logo" />
         </Typography>
+        <div>
+          <img height="300" src="assets/images/logos/location.svg" alt="logo" />
+        </div>
       </FuseAnimate>
       <FuseAnimate delay={400} animation="transition.fadeIn">
         <Typography variant="body1" color="textSecondary" className="mb-16">

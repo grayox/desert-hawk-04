@@ -53,7 +53,7 @@ export function setUserDataFirebase(user, authUser) {
  * Create User Settings with Firebase data
  */
 export function createUserSettingsFirebase(authUser) {
-  return (dispatch, getState) => {
+  return ( dispatch, getState, ) => {
     const guestUser = getState().auth.user;
     const fuseDefaultSettings = getState().fuse.settings.defaults;
     const currentUser = firebase.auth().currentUser;
@@ -108,7 +108,7 @@ export function setUserData(user) {
  * Update User Settings
  */
 export function updateUserSettings(settings) {
-  return (dispatch, getState) => {
+  return ( dispatch, getState, ) => {
     const oldUser = getState().auth.user;
     const user = _.merge({}, oldUser, { data: { settings } });
 
@@ -122,7 +122,7 @@ export function updateUserSettings(settings) {
  * Update User Shortcuts
  */
 export function updateUserShortcuts(shortcuts) {
-  return (dispatch, getState) => {
+  return ( dispatch, getState, ) => {
     const user = getState().auth.user;
     const newUser = {
       ...user,
@@ -155,7 +155,7 @@ export function logoutUser() {
     pathname: '/'
   });
 
-  return (dispatch, getState) => {
+  return ( dispatch, getState, ) => {
 
     const user = getState().auth.user;
 

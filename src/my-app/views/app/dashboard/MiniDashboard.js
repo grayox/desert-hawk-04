@@ -1,6 +1,7 @@
 import React, { useState, } from 'react';
 import { Route, } from 'react-router-dom'; // BrowserRouter as Router, Link 
 import _ from '@lodash';
+import numeral from 'numeral';
 
 import {
   Chip, Badge, Avatar, Divider, IconButton, Icon,
@@ -75,8 +76,14 @@ const getPickedData = ( values, selectors, definitions, ) => {
   return out;
 }
 
-const getMicro = ( key, value, ) =>
-  <span key={key} className="ml-8"><ShieldsIo label={key} message={value} color="informational" /></span>
+const getMicro = ( key, value, ) => {
+  const formattedData = typeof value === 'number' ? numeral(value).format('0.0a') : value;
+  return (
+    <span key={key} className="ml-8">
+      <ShieldsIo label={key} message={formattedData} color="informational" />
+    </span>
+  );
+}
 
 const getMini = ( key, value, ) =>
   <ListItem key={key} divider /*light*/>

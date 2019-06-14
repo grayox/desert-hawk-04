@@ -99,7 +99,7 @@ export const saveUserDataToFirestore = ( path, item, ) =>
     // duplicated at: src/my-app/containers/LoadAsync.js
 
     const ready1 = !path.includes('//');
-    console.log('ready1', ready1,);
+    // console.log('ready1', ready1,);
     if(!ready1) return;
     
     const pathArray = path.split('/');

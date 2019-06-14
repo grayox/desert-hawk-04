@@ -21,9 +21,9 @@ export const updateSettings = settings => {
     // const authorId = getState().firebase.auth.uid;
     
     const targetCollection = firestore
-                               .collection('users')
-                               .doc(uid)
-                               .collection('settings');
+                             .collection('users')
+                             .doc(uid)
+                             .collection('settings');
     // const targetDoc = targetCollection.doc('current');
     const targetContent = {
       ...settings,

@@ -57,7 +57,7 @@ class FetchUserData extends Component {
     this.handleCancel();
   }
 
-  getPath = (uid, path,) => [ 'users' , uid , path , ].join('/')
+  getPath = ( uid, path, ) => [ 'users' , uid , path , ].join('/')
   // getPath() {
   //   // console.log('props\n', this.props);
   //   const uid = this && this.props && this.props.profile && this.props.profile.uid;
