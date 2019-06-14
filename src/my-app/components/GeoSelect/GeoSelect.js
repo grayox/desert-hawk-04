@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import geoData from './geolocations-backpage';
 import SelectControl from '../selects/SelectControl'
 
-function GeoSelect(props) {
+const GeoSelect = props => {
   const { size, control, variant, open, value, onOpen, onClose, onChange, } = props;
   const items = getListItems(props);
   return (
     <SelectControl
       size={size}
-      label={'Select ' + variant}
+      label={`Select ${variant}`}
       items={items}
       control={control}
       open={open}
@@ -21,29 +21,28 @@ function GeoSelect(props) {
   );
 }
 
-function getListItems(props) {
-  const { variant, country, region } = props;
+const getListItems = ({ variant, nation, region, }) => {
   let out, ready;
   // console.log('props\n', this.props);
   switch(variant) {
-    case 'country':
+    case 'nation':
       out = Object.keys(geoData);
       break;
     case 'region':
-      ready = !!country;
+      ready = !!nation;
       if(!ready) {
-        console.error('Missing country');
+        console.error('Missing nation');
         return;
       }
-      out = Object.keys(geoData[country]);
+      out = Object.keys(geoData[nation]);
       break;
     case 'local':
-      ready = !!(country && region);
+      ready = !!(nation && region);
       if(!ready) {
-        console.error('Missing country or region');
+        console.error('Missing nation or region');
         return;
       }
-      out = geoData[country][region];
+      out = geoData[nation][region];
       break;
     default:
       console.error('We do not recognize that variant: ', variant);
@@ -58,9 +57,9 @@ GeoSelect.defaultProps = {
 
 GeoSelect.propTypes = {
   // classes: PropTypes.object.isRequired,
-  variant: PropTypes.oneOf(['country', 'region', 'local']),
+  variant: PropTypes.oneOf(['nation', 'region', 'local']),
   control: PropTypes.oneOf(['none', 'select', 'button']).isRequired, // default: 'select'
-  country: PropTypes.string,
+  nation: PropTypes.string,
   region: PropTypes.string,
   size: PropTypes.string,
   open: PropTypes.bool,

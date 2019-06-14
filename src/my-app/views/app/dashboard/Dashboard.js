@@ -65,6 +65,21 @@ class Dashboard extends Component {
 
   state = INITIAL_STATE;
 
+  componentDidMount() {
+    const { dashboard, } = this.props; // profile,
+    // console.log('profile\n', profile,);
+    // console.log('dashboard\n', dashboard,);
+    const ready1 = dashboard;
+    if(!ready1) return null;
+    const ready2 = dashboard.nation   && dashboard.nation.length   ;
+    const ready3 = dashboard.region   && dashboard.region.length   ;
+    const ready4 = dashboard.local    && dashboard.local.length    ;
+    const ready5 = dashboard.category && dashboard.category.length ;
+    const ready6 = ready1 && ready2 && ready3 && ready4 && ready5;
+    const show = ready6 ? 'main' : 'step';
+    this.setState({ show, });
+  }
+
   getPath = path => {
     const uid = this.props.profile.uid;
     const out = [ 'users' , uid , path , ].join('/');
@@ -132,11 +147,11 @@ class Dashboard extends Component {
     // console.log('settings\n', this.props.settings);
     // console.log('dataHasLoaded\n', this.props.dataHasLoaded);
 
-    const { classes, dataHasLoaded, dashboard, type, } = this.props; 
+    const { classes, dataHasLoaded, profile, dashboard, type, } = this.props; 
     // console.log('dashboard\n', dashboard,);
 
     const { handleSaveSettingsStepper, handleClickGeo, } = this;
-    const { show, isError, } = this.state;
+    const { isError, show, } = this.state;
 
     const dashConfig = {
       standard : <div className={classes.wrapper}><DashboardWidgets data={dashboard} /></div>,
@@ -151,8 +166,8 @@ class Dashboard extends Component {
     }
 
     const getMain = () => showConfig[show]
-    
-    return ( !dataHasLoaded ? <Loading /> : ( isError ? <Error500Page /> : getMain() ) )
+    const getDashboard = () => ( !dataHasLoaded ? <Loading /> : ( isError ? <Error500Page /> : getMain()))
+    return getDashboard();
   }
 }
 
