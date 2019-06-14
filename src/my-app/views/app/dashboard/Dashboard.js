@@ -53,7 +53,7 @@ const INITIAL_STATE_BASELINE = {
   isError: false,
   bizCategory: null,
   categoryOpen: false,
-  show: 'main', // 'main' | 'step' | 'greet'
+  // show: 'main', // 'main' | 'step' | 'greet'
 };
 
 const INITIAL_STATE = {
@@ -65,25 +65,34 @@ class Dashboard extends Component {
 
   state = INITIAL_STATE;
 
-  componentDidMount() {
-    const { dashboard, } = this.props; // profile,
-    // console.log('profile\n', profile,);
-    // console.log('dashboard\n', dashboard,);
-    const ready1 = dashboard;
-    if(!ready1) return null;
-    const ready2 = dashboard.nation   && dashboard.nation.length   ;
-    const ready3 = dashboard.region   && dashboard.region.length   ;
-    const ready4 = dashboard.local    && dashboard.local.length    ;
-    const ready5 = dashboard.category && dashboard.category.length ;
-    const ready6 = ready1 && ready2 && ready3 && ready4 && ready5;
-    const show = ready6 ? 'main' : 'step';
-    this.setState({ show, });
-  }
+  // componentDidMount() {
+  //   this.handleChangeDashboard();
+  // }
+  
+  // componentDidUpdate() {
+  //   this.handleChangeDashboard();
+  // }
 
   getPath = path => {
     const uid = this.props.profile.uid;
     const out = [ 'users' , uid , path , ].join('/');
     return out;
+  }
+
+  handleChangeDashboard = () => {
+    const { dashboard, profile, } = this.props; //
+    console.log('profile\n', profile,);
+    console.log('dashboard\n', dashboard,);
+    const ready1 = dashboard;
+    if(!ready1) return null;
+    const ready2 = dashboard.geoNation   && dashboard.geoNation.length   ;
+    const ready3 = dashboard.geoRegion   && dashboard.geoRegion.length   ;
+    const ready4 = dashboard.geoLocal    && dashboard.geoLocal.length    ;
+    const ready5 = dashboard.bizCategory && dashboard.bizCategory.length ;
+    const ready6 = ready1 && ready2 && ready3 && ready4 && ready5;
+    const show = ready6 ? 'main' : 'step';
+    // this.setState({ show, });
+    return show;
   }
 
   handleSaveSettingsStepper = data => {
@@ -147,7 +156,7 @@ class Dashboard extends Component {
     // console.log('settings\n', this.props.settings);
     // console.log('dataHasLoaded\n', this.props.dataHasLoaded);
 
-    const { classes, dataHasLoaded, profile, dashboard, type, } = this.props; 
+    const { classes, dataHasLoaded, dashboard, type, } = this.props; // profile, 
     // console.log('dashboard\n', dashboard,);
 
     const { handleSaveSettingsStepper, handleClickGeo, } = this;
@@ -165,7 +174,12 @@ class Dashboard extends Component {
       main  : dashConfig[type],
     }
 
-    const getMain = () => showConfig[show]
+    const getMain = () => {
+      const show = this.handleChangeDashboard();
+      return showConfig[show];
+    }
+
+
     const getDashboard = () => ( !dataHasLoaded ? <Loading /> : ( isError ? <Error500Page /> : getMain()))
     return getDashboard();
   }

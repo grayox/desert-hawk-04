@@ -41,14 +41,14 @@ export const loadUserData = async path => {
 };
 
 const getUserData = async path => {
-  console.log('path\n', path);
+  // console.log('path\n', path);
 
   // fix bug:
   // Unhandled Rejection (FirebaseError): Invalid path (users//dashboard). Paths must not contain // in them.
   // duplicated at: src/my-app/store/actions/my-actions/userDataActions.js
 
   const ready1 = !path.includes('//');
-  console.log('ready1', ready1,);
+  // console.log('ready1', ready1,);
   if(!ready1) return;
   
   const pathArray = path.split('/');

@@ -285,7 +285,7 @@ export const DashboardGridConfig = {
       ',
     },
     {
-      id: 'category',
+      id: 'bizCategory',
       label: 'Category',
       // data: <span className="capitalize">{bizCategory}</span>,
       // data: 'Mortgage',
