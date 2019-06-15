@@ -21,7 +21,8 @@ import SettingsStepper from 'my-app/components/steppers/SettingsStepper';
 // config
 import { uiSpecs, } from 'my-app/config/AppConfig';
 
-// update
+// utilities
+import _ from '@lodash';
 import { saveUserDataToFirestore, updateUserData, } from 'my-app/store/actions/my-actions/userDataActions'; //
 
 // firebase
@@ -99,11 +100,22 @@ class Dashboard extends Component {
   }
 
   handleSaveSettingsStepper = data => {
-    const { saveUserDataToFirestore, } = this.props; // updateUserData,
+    const { saveUserDataToFirestore, settings, dashboard, } = this.props; // updateUserData,
     const { bizCategory, geoNation, geoRegion, geoLocal, } = data;
     const createdAt = Date.now();
     const newData = { createdAt, bizCategory, geoNation, geoRegion, geoLocal, };
     console.log('newData\n', newData,);
+    console.log('settings\n', settings,);
+    console.log('dashboard\n', dashboard,);
+
+    const newSettings = {
+      ...settings,
+      ...newData,
+    };
+    const newDashboard = {
+      ...dashboard,
+      ...newData,
+    };
 
     // this.setState({
     //   ...newData,
@@ -119,10 +131,10 @@ class Dashboard extends Component {
     const dashboardPath = this.getPath('dashboard');
     // db.collection(settingsPath).add(newData);
     // db.collection(dashboardPath).add(newData);
-    updateUserData('settings', newData,);
-    updateUserData('dashboard', newData,);
-    // saveUserDataToFirestore(settingsPath, newData,);
-    // saveUserDataToFirestore(dashboardPath, newData,);
+    // updateUserData('settings', newData,);
+    // updateUserData('dashboard', newData,);
+    saveUserDataToFirestore(settingsPath, newSettings,);
+    saveUserDataToFirestore(dashboardPath, newDashboard,);
   }
 
   handleClickGeo = () => {
