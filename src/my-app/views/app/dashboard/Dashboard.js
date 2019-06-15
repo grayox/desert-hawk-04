@@ -19,7 +19,10 @@ import SettingsMessage from 'my-app/components/SettingsMessage';
 import SettingsStepper from 'my-app/components/steppers/SettingsStepper';
 
 // config
-import { uiSpecs } from 'my-app/config/AppConfig';
+import { uiSpecs, } from 'my-app/config/AppConfig';
+
+// update
+import { saveUserDataToFirestore, updateUserData, } from 'my-app/store/actions/my-actions/userDataActions'; //
 
 // firebase
 import firebase from '@firebase/app';
@@ -96,23 +99,30 @@ class Dashboard extends Component {
   }
 
   handleSaveSettingsStepper = data => {
+    const { saveUserDataToFirestore, } = this.props; // updateUserData,
     const { bizCategory, geoNation, geoRegion, geoLocal, } = data;
     const createdAt = Date.now();
     const newData = { createdAt, bizCategory, geoNation, geoRegion, geoLocal, };
-    this.setState({
-      ...newData,
-      show: 'main',
-    }
-      // , () => {
-      //   console.log('props\n', this.props,);
-      //   console.log('state\n', this.state,);
-      // }
-    );
+    console.log('newData\n', newData,);
+
+    // this.setState({
+    //   ...newData,
+    //   show: 'main',
+    // }
+    //   // , () => {
+    //   //   console.log('props\n', this.props,);
+    //   //   console.log('state\n', this.state,);
+    //   // }
+    // );
 
     const settingsPath  = this.getPath('settings');
     const dashboardPath = this.getPath('dashboard');
-    db.collection(settingsPath).add(newData);
-    db.collection(dashboardPath).add(newData);
+    // db.collection(settingsPath).add(newData);
+    // db.collection(dashboardPath).add(newData);
+    updateUserData('settings', newData,);
+    updateUserData('dashboard', newData,);
+    // saveUserDataToFirestore(settingsPath, newData,);
+    // saveUserDataToFirestore(dashboardPath, newData,);
   }
 
   handleClickGeo = () => {
@@ -237,11 +247,11 @@ const mapStateToProps = state => {
   return { profile, dashboard, dataHasLoaded, }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    // updateSettings: settings => dispatch(updateSettings(settings)),
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  updateUserData          : (path, newData,) => dispatch(updateUserData         (path, newData,)), // common mistakes: 1. forget to use this.props... when calling function in class 2. copy/paste forget to change function name in mapStateToProps => dispa)
+  saveUserDataToFirestore : (path, newData,) => dispatch(saveUserDataToFirestore(path, newData,)), // common mistakes: 1. forget to use this.props... when calling function in class 2. copy/paste forget to change function name in mapStateToProps => dispa)
+  // updateSettings: settings => dispatch(updateSettings(settings)),
+})
 
 export default compose(
   withStyles(styles, { withTheme: true }),
