@@ -418,7 +418,8 @@ export const getComponentsNavConfig = ( props = {}, ) => {
       bottomNav : true,
       // see src/my-app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
-      component  : () => FuseLoadable({loader: () => import('my-app/views/app/dashboard/Dashboard')}),
+      // component  : () => FuseLoadable({loader: () => import('my-app/views/app/dashboard/Dashboard')}),
+      component  : () => FuseLoadable({loader: () => import('my-app/views/app/dashboard/DashboardContainer')}),
     },
     {
       // eslint-disable-next-line

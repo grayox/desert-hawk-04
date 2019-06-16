@@ -36,10 +36,11 @@ export const UPDATE_FEEDBACK_NOTE    = '[FEEDBACK] UPDATE NOTE';
 
 // begin my add
 
+// updates global state in redux store
 export const updateUserData = (path, value,) => {
   // path: string: 'settings' | 'dashboard' | 'feedbackRating' | 'feedbackRating'
-  // console.log('path\n', path);
-  // console.log('value\n', value);
+  console.log('path\n', path);
+  console.log('value\n', value);
   const typeConfig = {
     // settings: UPDATE_SETTINGS,
     settings: UPDATE_SETTINGS_SUCCESS,
@@ -80,6 +81,7 @@ export const updateUserData = (path, value,) => {
 
 // source: https://github.com/iamshaunjp/React-Redux-Firebase-App/blob/lesson-18/marioplan/src/store/actions/projectActions.js
 // export const createItem = ( path, item, ) =>
+// updates data in firestore
 export const saveUserDataToFirestore = ( path, item, ) => 
   //{
   // console.log('path\n', path,); // don't use this (without curly braces)

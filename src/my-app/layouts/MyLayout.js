@@ -52,11 +52,11 @@ const MyLayout = props => {
   // console.log('dashboardHash\n', dashboardHash,);
 
   const handleChangeUserData = ( path, newData, saveDataToFirestore, ) => {
-    // console.log('handleChangeUserData-path\n', path,)
-    // console.log('handleChangeUserData-data\n', newData,)
-    // console.log('saveDataToFirestore\n', saveDataToFirestore,)
+    console.log('handleChangeUserData-path\n', path,)
+    console.log('handleChangeUserData-data\n', newData,)
+    console.log('saveDataToFirestore\n', saveDataToFirestore,)
     const { updateUserData, saveUserDataToFirestore, } = props;
-    updateUserData( path, newData, ); // updates global state
+    updateUserData( path, newData, ); // updates global state in redux store
     if(saveDataToFirestore) {
       const dataPath = [ 'users' , uid , path , ].join('/');
       saveUserDataToFirestore( dataPath, newData, ); // updates firebase
@@ -91,8 +91,8 @@ const MyLayout = props => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  updateUserData          : (path, newData,) => dispatch(updateUserData         (path, newData,)), // common mistakes: 1. forget to use this.props... when calling function in class 2. copy/paste forget to change function name in mapStateToProps => dispa)
-  saveUserDataToFirestore : (path, newData,) => dispatch(saveUserDataToFirestore(path, newData,)), // common mistakes: 1. forget to use this.props... when calling function in class 2. copy/paste forget to change function name in mapStateToProps => dispa)
+  updateUserData          : (path, newData,) => dispatch(updateUserData         (path, newData,)), // common mistakes: 1. forget to use this.props... when calling function in class 2. copy/paste forget to change function name in mapStateToProps => dispatch
+  saveUserDataToFirestore : (path, newData,) => dispatch(saveUserDataToFirestore(path, newData,)), // common mistakes: 1. forget to use this.props... when calling function in class 2. copy/paste forget to change function name in mapStateToProps => dispatch
 })
 
 const mapStateToProps = state => {
