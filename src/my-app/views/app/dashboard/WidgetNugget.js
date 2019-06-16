@@ -35,7 +35,7 @@ const computeFontSize = ( data = '' ) => {
   //   return a;
   // }
 
-  // minimum word size variation
+  // minimum font-size differential in text fields
   const fontSizeLookupTable = () => {
     let a = [];
     a.length = 32;
@@ -44,12 +44,12 @@ const computeFontSize = ( data = '' ) => {
     a.fill( 'text-64' ,  5 , );
     a.fill( 'text-48' ,  6 , );
     a.fill( 'text-40' ,  7 , );
-    a.fill( 'text-20' ,  8 , );
-    a.fill( 'text-20' ,  9 , );
-    a.fill( 'text-20' , 12 , );
-    a.fill( 'text-20' , 14 , );
-    a.fill( 'text-20' , 16 , );
-    a.fill( 'text-18' , 24 , );
+    a.fill( 'text-18' ,  8 , );
+    // a.fill( 'text-18' ,  9 , );
+    // a.fill( 'text-18' , 12 , );
+    // a.fill( 'text-18' , 14 , );
+    // a.fill( 'text-18' , 16 , );
+    // a.fill( 'text-18' , 24 , );
     // console.log('a\n', a,);
     return a;
   }
