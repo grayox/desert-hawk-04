@@ -82,7 +82,7 @@ const Transition = props => <Slide direction="up" {...props} />
 // const WidgetNugget = ({ label, message, }) => <Chip label={label} onClick={() => handleClick(message)} />
 const WidgetNugget = ({ type, data, label, message, }) => {
 
-  const formattedData = typeof data === 'number' ? numeral(data).format('0,0') : data.toUpperCase();
+  const formattedData = typeof data === 'number' ? numeral(data).format('0,0') : (data && data.toUpperCase());
 
   const config = {
     chip: {
