@@ -13,6 +13,8 @@ import { saveUserDataToFirestore, updateUserData, } from 'my-app/store/actions/m
 import Dashboard from './Dashboard';
 import Loading from 'my-app/components/Loading';
 import Error500Page from 'my-app/components/Error500Page';
+import SettingsMessage from 'my-app/components/SettingsMessage';
+import SettingsStepper from 'my-app/components/steppers/SettingsStepper';
 
 const INITIAL_STATE_ITEMS = {
   items: [],
@@ -32,9 +34,73 @@ const INITIAL_STATE = {
 class DashboardContainer extends Component {
   state = INITIAL_STATE;
 
+  componentDidMount() {
+    this.computeShow();
+  }
+
+  computeShow = () => {
+    const { dashboard, } = this.props; // profile, settings,
+    // console.log('profile\n', profile,);
+    // console.log('dashboard\n', dashboard,);
+    const ready1 = dashboard;
+    if(!ready1) return null;
+    const ready2 = dashboard.geoNation   && dashboard.geoNation.length   ;
+    const ready3 = dashboard.geoRegion   && dashboard.geoRegion.length   ;
+    const ready4 = dashboard.geoLocal    && dashboard.geoLocal.length    ;
+    const ready5 = dashboard.bizCategory && dashboard.bizCategory.length ;
+    const ready6 = ready1 && ready2 && ready3 && ready4 && ready5;
+    const show = ready6 ? 'main' : 'step';
+    this.setState({ show, });
+    // return show;
+  }
+
+  handleSaveSettingsStepper = data => {
+    const { saveUserDataToFirestore, settings, dashboard, } = this.props; // updateUserData,
+    const { bizCategory, geoNation, geoRegion, geoLocal, } = data;
+    const createdAt = Date.now();
+    const newData = { createdAt, bizCategory, geoNation, geoRegion, geoLocal, };
+    console.log('newData\n', newData,);
+    console.log('settings\n', settings,);
+    console.log('dashboard\n', dashboard,);
+
+    const newSettings = {
+      ...settings,
+      ...newData,
+    };
+    const newDashboard = {
+      ...dashboard,
+      ...newData,
+    };
+
+    // this.setState({
+    //   ...newData,
+    //   show: 'main',
+    // }
+    //   // , () => {
+    //   //   console.log('props\n', this.props,);
+    //   //   console.log('state\n', this.state,);
+    //   // }
+    // );
+
+    const settingsPath  = this.getPath('settings');
+    const dashboardPath = this.getPath('dashboard');
+    // db.collection(settingsPath).add(newData);
+    // db.collection(dashboardPath).add(newData);
+    // updateUserData('settings', newData,);
+    // updateUserData('dashboard', newData,);
+    saveUserDataToFirestore(settingsPath, newSettings,);
+    saveUserDataToFirestore(dashboardPath, newDashboard,);
+    this.handleChangeDashboard();
+  }
+
+  handleClickGeo = () => {
+    this.setState({ show: 'step', });
+    window.scrollTo( 0, 0, );
+  }
+
   render() {
     const {
-      isLoading, isError,
+      isLoading, isError, show,
     } = this.state;
     const {
       classes, profile, dashboard, settings, dataHasLoaded, type,
@@ -49,15 +115,15 @@ class DashboardContainer extends Component {
         </IconButton>
       </Tooltip>
 
-    // const showConfig = {
-    //   greet : <SettingsMessage onClick={handleClickGeo} /> ,
-    //   step  : <SettingsStepper onSave={handleSaveSettingsStepper} /> ,
-    //   main  : dashConfig[type],
-    // }
+    const showConfig = {
+      greet : <SettingsMessage onClick={this.handleClickGeo} /> ,
+      step  : <SettingsStepper onSave={this.handleSaveSettingsStepper} /> ,
+      main  : getMainContent(),
+    }
       
-    const getMainContent = () => ( <React.Fragment> {getRefreshButton()} {getDashboard()} </React.Fragment> )
+    const getMainContent = () => <React.Fragment> {getRefreshButton()} {getDashboard()} </React.Fragment>
     const getIsError = () => <div className="h-full"><Error500Page /></div>
-    const getHasLoaded = () => ( isError ? getIsError() : getMainContent() )
+    const getHasLoaded = () => isError ? getIsError() : showConfig[show]
     const getIsLoading = () => <div className="h-full"><Loading /></div>
     const getDashboardContainer = () => ( isLoading ? getIsLoading() : getHasLoaded() )
     
