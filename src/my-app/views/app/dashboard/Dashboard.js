@@ -39,7 +39,7 @@ const Dashboard = ({ classes, dashboard, type, }) => {
     micro    : <Paper><MiniDashboard data={dashboard} micro /></Paper>,
   }
 
-  const getDashboard = () => dashboard && dashConfig[type] || null;
+  const getDashboard = () => dashConfig[type];
 
   return getDashboard();
   // return <div>Hello World!</div>;

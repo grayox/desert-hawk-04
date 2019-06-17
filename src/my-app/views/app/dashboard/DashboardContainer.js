@@ -42,12 +42,12 @@ class DashboardContainer extends Component {
     
     const getDashboard = () => <Dashboard dashboard={dashboard} type={type} /> //null;
 
-    const getRefreshButton = () => null;
-      // <Tooltip TransitionComponent={Zoom} title="Refresh data">
-      //   <IconButton className={classes.refresh} onClick={handleFetchMoreData} color="inherit">
-      //     <Icon>refresh</Icon>
-      //   </IconButton>
-      // </Tooltip>
+    const getRefreshButton = () => //null;
+      <Tooltip TransitionComponent={Zoom} title="Refresh data">
+        <IconButton className={classes.refresh} onClick={() => null} color="inherit">
+          <Icon>refresh</Icon>
+        </IconButton>
+      </Tooltip>
 
     // const showConfig = {
     //   greet : <SettingsMessage onClick={handleClickGeo} /> ,
@@ -55,14 +55,12 @@ class DashboardContainer extends Component {
     //   main  : dashConfig[type],
     // }
       
-    const getMainContent = () => ( dashboard && <React.Fragment> {getRefreshButton()} {getDashboard()} </React.Fragment> )
+    const getMainContent = () => ( <React.Fragment> {getRefreshButton()} {getDashboard()} </React.Fragment> )
     const getIsError = () => <div className="h-full"><Error500Page /></div>
     const getHasLoaded = () => ( isError ? getIsError() : getMainContent() )
     const getIsLoading = () => <div className="h-full"><Loading /></div>
-    const getDashboardContainer1 = () => ( isLoading ? getIsLoading() : getHasLoaded() )
+    const getDashboardContainer = () => ( isLoading ? getIsLoading() : getHasLoaded() )
     
-    const getDashboardContainer = () => dashboard && getDashboard()
-
     return getDashboardContainer();
   }
 }

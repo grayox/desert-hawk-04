@@ -10,49 +10,51 @@ import {
 import _ from '@lodash';
 import numeral from 'numeral';
 
-const computeFontSize = ( data = '' ) => {  
+const computeFontSize = ( data = '' ) => {
 
-  // // minimum white space
-  // const fontSizeLookupTable = () => {
-  //   // some values of 'text-x' work, some don't
-  //   // work: text-72 70 68 64 56 48 40 36 32 28 24 20 18 16
-  //   // don't work: text-30
-  //   let a = [];
-  //   a.length = 32;
-  //   a.fill( 'text-72'        ); // alt
-  //   a.fill( 'text-68' ,  4 , ); // 70
-  //   a.fill( 'text-64' ,  5 , ); // 68
-  //   a.fill( 'text-48' ,  6 , ); // 64 // too big for 'Canada'
-  //   a.fill( 'text-40' ,  7 , ); // 56
-  //   a.fill( 'text-36' ,  8 , ); // 48
-  //   a.fill( 'text-32' ,  9 , ); // 36
-  // //a.fill( 'text-32' , 10 , ); // used to be 'text-30', but 'text-30' didn't render as expected (it was too small -- same as undefined)
-  //   a.fill( 'text-28' , 12 , );
-  //   a.fill( 'text-24' , 14 , );
-  //   a.fill( 'text-20' , 16 , );
-  //   a.fill( 'text-18' , 24 , );
-  //   // console.log('a\n', a,);
-  //   return a;
-  // }
+  if(typeof data === 'string') return 'text-18';
 
-  // minimum font-size differential in text fields
+  // minimum white space
   const fontSizeLookupTable = () => {
+    // some values of 'text-x' work, some don't
+    // work: text-72 70 68 64 56 48 40 36 32 28 24 20 18 16
+    // don't work: text-30
     let a = [];
     a.length = 32;
-    a.fill( 'text-72'        );
-    a.fill( 'text-68' ,  4 , );
-    a.fill( 'text-64' ,  5 , );
-    a.fill( 'text-48' ,  6 , );
-    a.fill( 'text-40' ,  7 , );
-    a.fill( 'text-18' ,  8 , );
-    // a.fill( 'text-18' ,  9 , );
-    // a.fill( 'text-18' , 12 , );
-    // a.fill( 'text-18' , 14 , );
-    // a.fill( 'text-18' , 16 , );
-    // a.fill( 'text-18' , 24 , );
+    a.fill( 'text-72'        ); // alt
+    a.fill( 'text-68' ,  4 , ); // 70
+    a.fill( 'text-64' ,  5 , ); // 68
+    a.fill( 'text-48' ,  6 , ); // 64 // too big for 'Canada'
+    a.fill( 'text-40' ,  7 , ); // 56
+    a.fill( 'text-36' ,  8 , ); // 48
+    a.fill( 'text-32' ,  9 , ); // 36
+  //a.fill( 'text-32' , 10 , ); // used to be 'text-30', but 'text-30' didn't render as expected (it was too small -- same as undefined)
+    a.fill( 'text-28' , 12 , );
+    a.fill( 'text-24' , 14 , );
+    a.fill( 'text-20' , 16 , );
+    a.fill( 'text-18' , 24 , );
     // console.log('a\n', a,);
     return a;
   }
+
+  // // minimum font-size differential in text fields
+  // const fontSizeLookupTable = () => {
+  //   let a = [];
+  //   a.length = 32;
+  //   a.fill( 'text-72'        );
+  //   a.fill( 'text-68' ,  4 , );
+  //   a.fill( 'text-64' ,  5 , );
+  //   a.fill( 'text-48' ,  6 , );
+  //   a.fill( 'text-40' ,  7 , );
+  //   a.fill( 'text-18' ,  8 , );
+  //   // a.fill( 'text-18' ,  9 , );
+  //   // a.fill( 'text-18' , 12 , );
+  //   // a.fill( 'text-18' , 14 , );
+  //   // a.fill( 'text-18' , 16 , );
+  //   // a.fill( 'text-18' , 24 , );
+  //   // console.log('a\n', a,);
+  //   return a;
+  // }
 
   const lookupTable = fontSizeLookupTable();
   const lookupTableLength = lookupTable.length;
@@ -98,7 +100,7 @@ const WidgetNugget = ({ type, data, label, message, }) => {
           className="flex flex-col h-116 text-center cursor-pointer"
           onClick={() => handleOpenDialog()}
         >
-          <div className={`${computeFontSize(formattedData)} h-72 flex items-end leading-none text-blue`}>
+          <div className={`${computeFontSize(data)} h-72 flex items-end leading-none text-blue`}>
             <span className="flex-1">{formattedData}</span>
           </div>
           <div className="text-xs uppercase mt-8" color="textSecondary">{label}</div>
