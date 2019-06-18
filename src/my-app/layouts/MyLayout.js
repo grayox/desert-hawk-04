@@ -52,9 +52,9 @@ const MyLayout = props => {
   // console.log('dashboardHash\n', dashboardHash,);
 
   const handleChangeUserData = ( path, newData, saveDataToFirestore, ) => {
-    console.log('handleChangeUserData-path\n', path,)
-    console.log('handleChangeUserData-data\n', newData,)
-    console.log('saveDataToFirestore\n', saveDataToFirestore,)
+    // console.log('handleChangeUserData-path\n', path,);
+    // console.log('handleChangeUserData-data\n', newData,);
+    // console.log('saveDataToFirestore\n', saveDataToFirestore,);
     const { updateUserData, saveUserDataToFirestore, } = props;
     updateUserData( path, newData, ); // updates global state in redux store
     if(saveDataToFirestore) {

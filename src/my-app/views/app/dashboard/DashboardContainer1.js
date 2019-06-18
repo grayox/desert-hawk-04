@@ -13,6 +13,8 @@ import { saveUserDataToFirestore, updateUserData, } from 'my-app/store/actions/m
 import Dashboard from './Dashboard';
 import Loading from 'my-app/components/Loading';
 import Error500Page from 'my-app/components/Error500Page';
+import SettingsMessage from 'my-app/components/SettingsMessage';
+import SettingsStepper from 'my-app/components/steppers/SettingsStepper';
 
 const INITIAL_STATE_ITEMS = {
   items: [],
@@ -32,12 +34,17 @@ const INITIAL_STATE = {
 class DashboardContainer extends Component {
   state = INITIAL_STATE;
 
-  getShow = () => {
+  componentDidUpdate() {
+    console.log('Component updated!');
+    this.setShow();
+  }
+
+  setShow = () => {
     const { dashboard, profile, settings, } = this.props; // profile, settings,
-    // console.log('profile\n', profile,);
-    // console.log('settings\n', settings,);
-    // console.log('dashboard\n', dashboard,);
-    const ready1 = dashboard && settings;
+    console.log('profile\n', profile,);
+    console.log('settings\n', settings,);
+    console.log('dashboard\n', dashboard,);
+    const ready1 = dashboard;
     if(!ready1) return null;
     const ready2 = dashboard.geoNation   && dashboard.geoNation.length   ;
     const ready3 = dashboard.geoRegion   && dashboard.geoRegion.length   ;
@@ -58,15 +65,69 @@ class DashboardContainer extends Component {
     // the state changed which was caused by calling componentDidUpdate() whenever the state changed.
     // Read more: https://medium.com/@learnreact/container-components-c0e67432e005
 
-    return show;
+    // return show;
+  }
+
+  handleSaveSettingsStepper = data => {
+    const { saveUserDataToFirestore, settings, dashboard, } = this.props; // updateUserData,
+    const { bizCategory, geoNation, geoRegion, geoLocal, } = data;
+    const createdAt = Date.now();
+    const newData = { createdAt, bizCategory, geoNation, geoRegion, geoLocal, };
+    console.log('newData\n', newData,);
+    console.log('settings\n', settings,);
+    console.log('dashboard\n', dashboard,);
+
+    const newSettings = {
+      ...settings,
+      ...newData,
+    };
+    const newDashboard = {
+      ...dashboard,
+      ...newData,
+    };
+
+    // this.setState({
+    //   ...newData,
+    //   show: 'main',
+    // }
+    //   // , () => {
+    //   //   console.log('props\n', this.props,);
+    //   //   console.log('state\n', this.state,);
+    //   // }
+    // );
+
+    const settingsPath  = this.getPath('settings');
+    const dashboardPath = this.getPath('dashboard');
+    // db.collection(settingsPath).add(newData);
+    // db.collection(dashboardPath).add(newData);
+    // updateUserData('settings', newData,);
+    // updateUserData('dashboard', newData,);
+    saveUserDataToFirestore(settingsPath, newSettings,);
+    saveUserDataToFirestore(dashboardPath, newDashboard,);
+    this.handleChangeDashboard();
+  }
+
+  handleClickGeo = () => {
+    this.setState({ show: 'step', });
+    window.scrollTo( 0, 0, );
+  }
+
+  getPath = path => {
+    const uid = this.props.profile.uid;
+    const out = [ 'users' , uid , path , ].join('/');
+    return out;
   }
 
   render() {
-    const { isLoading, isError, } = this.state;
-    const { dashboard, settings, profile, type, } = this.props; // dataHasLoaded,
-
-    const show = this.getShow();
+    const {
+      isLoading, isError, show,
+    } = this.state;
+    const {
+      classes, dashboard, type, // settings, dataHasLoaded, profile,
+    } = this.props;
     
+    const getDashboard = () => <Dashboard dashboard={dashboard} type={type} /> //null;
+
     const getRefreshButton = () => null;
       // <Tooltip TransitionComponent={Zoom} title="Refresh data">
       //   <IconButton className={classes.refresh} onClick={() => null} color="inherit">
@@ -74,23 +135,30 @@ class DashboardContainer extends Component {
       //   </IconButton>
       // </Tooltip>
 
-    const getDashboard = () =>
-      <Dashboard dashboard={dashboard} settings={settings} profile={profile} type={type} show={show} />
+    const getShowConfig = () => showConfig[show]; 
     const getMainContent = () => <React.Fragment> {getRefreshButton()} {getDashboard()} </React.Fragment>
     const getIsError = () => <div className="h-full"><Error500Page /></div>
-    const getHasLoaded = () => isError ? getIsError() : getMainContent()
+    const getHasLoaded = () => isError ? getIsError() : getShowConfig()
     const getIsLoading = () => <div className="h-full"><Loading /></div>
     const getDashboardContainer = () => ( isLoading ? getIsLoading() : getHasLoaded() )
+
+    const showConfig = {
+      greet : <SettingsMessage onClick={this.handleClickGeo} /> ,
+      step  : <SettingsStepper onSave={this.handleSaveSettingsStepper} /> ,
+      main  : getMainContent(),
+    }
     
+    return getShowConfig();
     // return getDashboardContainer();
-    return getHasLoaded();
+    // return <div>Hello Container</div>;
   }
 }
 
 DashboardContainer.propTypes = {
+  classes: PropTypes.object.isRequired,
   dashboard: PropTypes.object,
   dataHasLoaded: PropTypes.bool,
-  type: PropTypes.oneOf([ 'standard', 'mini', 'micro', ]),
+  type: PropTypes.oneOf(['standard', 'mini', 'micro',]),
 };
 
 DashboardContainer.defaultProps = {
@@ -124,7 +192,7 @@ const mapStateToProps = state => {
   // replace user with profile; user contains default settings
   // const user = state.auth.user;
   // const leads = state.firestore.ordered.leads;
-  const dataHasLoaded = !!profile && !!dashboard && !!settings; // && !!leads && !!user && 
+  const dataHasLoaded = !!profile && !!dashboard; // !!settings; // && !!leads && !!user && 
   
   // // console.log('user\n', user,);
   // // console.log('leads\n', leads,);
@@ -151,7 +219,7 @@ const mapDispatchToProps = dispatch => ({
 // export default withStyles(styles, {withTheme: true})(DashboardContainer);
 export default compose(
   // withStyles(styles, { withTheme: true }),
-  connect(mapStateToProps, mapDispatchToProps,),
+  connect(mapStateToProps, mapDispatchToProps),
   // withRouter(connect(mapStateToProps, mapDispatchToProps),
   // firestoreConnect(props => {
   //   return [

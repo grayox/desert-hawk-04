@@ -39,8 +39,8 @@ export const UPDATE_FEEDBACK_NOTE    = '[FEEDBACK] UPDATE NOTE';
 // updates global state in redux store
 export const updateUserData = (path, value,) => {
   // path: string: 'settings' | 'dashboard' | 'feedbackRating' | 'feedbackRating'
-  console.log('path\n', path);
-  console.log('value\n', value);
+  // console.log('path\n', path);
+  // console.log('value\n', value);
   const typeConfig = {
     // settings: UPDATE_SETTINGS,
     settings: UPDATE_SETTINGS_SUCCESS,
@@ -94,13 +94,12 @@ export const saveUserDataToFirestore = ( path, item, ) =>
   // this function is called later, by redux
   (dispatch, getState, { getFirebase, getFirestore, }) => {
     // path: string: 'users/user/<uid>/dashboard'
-    console.log('path\n', path,); // use this
-    console.log('item\n', item,); // use this
+    // console.log('path\n', path,); // use this
+    // console.log('item\n', item,); // use this
 
-    // fix bug:
+    // fixes bug:
     // Unhandled Rejection (FirebaseError): Invalid path (users//dashboard). Paths must not contain // in them.
     // duplicated at: src/my-app/containers/LoadAsync.js
-
     const ready1 = !path.includes('//');
     // console.log('ready1', ready1,);
     if(!ready1) return;

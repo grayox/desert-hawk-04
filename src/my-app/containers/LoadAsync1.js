@@ -2,8 +2,10 @@
 // import React from 'react';
 
 // firebase
-import firebase from '@firebase/app';
-import '@firebase/firestore';
+// import firebase from '@firebase/app';
+// import '@firebase/firestore';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 // const db = firebase.firestore();
 // const path = 'leads';
 

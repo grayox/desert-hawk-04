@@ -2,8 +2,10 @@
 // import React from 'react';
 
 // firebase
-import firebase from '@firebase/app';
-import '@firebase/firestore';
+// import firebase from '@firebase/app';
+// import '@firebase/firestore';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 // const db = firebase.firestore();
 // const path = 'leads';
 
@@ -133,8 +135,8 @@ const getAsyncItems = async ( path, batchSize = BATCH_SIZE, lastVisible, searchF
   const ready1 = path;
   if(!ready1) return;
 
-  console.log('path\n', path);
-  console.log('searchFilterSortModel\n', searchFilterSortModel);
+  // console.log('path\n', path);
+  // console.log('searchFilterSortModel\n', searchFilterSortModel);
   // console.log('state\n', this.state);
   // this.setState({isLoading: true});
   

@@ -26,11 +26,11 @@ import {
 // const hash = farmhash.hash32('test');
 // console.log(typeof hash); // 'number'
 // // https://www.freecodecamp.org/forum/t/newline-in-react-string-solved/68484/10
-// let newText = text.split ('\n').map( (item, index,) => <p key={farmhash.hash32(item+index)}>{item}</p>);
+// let newText = text.split ('\n').map( (item, index,) => <div key={farmhash.hash32(item+index)}>{item}</div>);
 
 const CategoryDescription = () => (
   <div className="text-white">
-    <p>Select the type of leads you want.</p>
+    <div>Select the type of leads you want.</div>
     <List>
       <ListItem>
         <ListItemAvatar>

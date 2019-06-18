@@ -26,7 +26,7 @@ const items = [
   {
     path: '/dashboard',
     component: FuseLoadable({
-      loader: () => import('my-app/views/app/dashboard/Dashboard')
+      loader: () => import('my-app/views/app/dashboard/DashboardContainer')
     }),
   },
   {
