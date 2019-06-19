@@ -1,14 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-// import withStyles from "@material-ui/core/styles/withStyles";
-
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import Button from '@material-ui/core/Button';
+import {
+  withStyles, InputLabel, MenuItem, ListItemText, FormControl, Select, Button, Icon,
+} from '@material-ui/core';
 
 const styles = theme => ({
   formControl: {
@@ -25,8 +19,8 @@ const styles = theme => ({
 
 const SelectControl = props => <div autoComplete="off">{getFormContent(props)}</div>
 
-function getFormContent(props) {
-  const { classes, label, size, control, } = props;
+const getFormContent = props => {
+  const { classes, label, size, control, icon, } = props;
   let out;
   switch(control) {
     case 'none':
@@ -64,7 +58,7 @@ function getFormContent(props) {
   return out;
 }
 
-function getSelect(props) {
+const getSelect = props => {
   const { open, value, items, onOpen, onClose, onChange, } = props;
   return (
     <Select
@@ -78,27 +72,27 @@ function getSelect(props) {
         id: 'select',
       }}
     >
-      {getMenuItems(items)}
+      {getMenuItems(items, props,)}
     </Select>
   );
 }
 
-function getMenuItems(items) {
+const getMenuItems = ( items, props, ) => {
   const out = items.map(item =>
     item.icon
-      ?
-        (
-          <MenuItem key={item.value} value={item.value}>
-            {React.createElement(item.icon)}
-            <ListItemText primary={item.label} />
-          </MenuItem>
-        )
-      :
-        (
-          <MenuItem key={item} value={item}>
-            <ListItemText primary={item} />
-          </MenuItem>
-        )
+    ?
+    (
+      <MenuItem key={item.value} value={item.value}>
+        {props && props.icon && <Icon>{item.icon}</Icon>}
+        <ListItemText primary={item.label} />
+      </MenuItem>
+    )
+    :
+    (
+      <MenuItem key={item} value={item}>
+        <ListItemText primary={item} />
+      </MenuItem>
+    )
   );
   return out;
 }
@@ -106,18 +100,20 @@ function getMenuItems(items) {
 SelectControl.defaultProps = {
   size: 'medium',
   control: 'select',
+  icon: false,
 };
 
 SelectControl.propTypes = {
   // classes: PropTypes.object.isRequired,
   // button size
-  size: PropTypes.oneOf(['small', 'medium', 'large']).isRequired, // default: 'medium'
+  size: PropTypes.oneOf([ 'small', 'medium', 'large', ]).isRequired, // default: 'medium'
   // 'none' requires an external button to control open and closing
   // 'button' provides its own button
   // 'select' provides standard dropdown interface
-  control: PropTypes.oneOf(['none', 'select', 'button']).isRequired, // default: 'select'
+  control: PropTypes.oneOf([ 'none', 'select', 'button', ]).isRequired, // default: 'select'
   label: PropTypes.string,
   open: PropTypes.bool.isRequired,
+  icon: PropTypes.bool,
   items: PropTypes.arrayOf(PropTypes.string).isRequired,
   value: PropTypes.string.isRequired,
   onOpen: PropTypes.func.isRequired,

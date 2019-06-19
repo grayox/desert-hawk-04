@@ -68,18 +68,22 @@ const MyLayout = props => {
       // className="w-full"
       className={classNames( "w-full overflow-auto", classes.wrapper, )}
     >
-      <FetchUserData path="settings"  uid={uid} onChange={handleChangeUserData} />
-      <FetchUserData path="dashboard" uid={uid} onChange={handleChangeUserData} />
-      {
-      // <FetchUserData key={timestamp+1} key={`${dashboardHash}0`}  ... />
-      // <FetchUserData key={timestamp+2} key={`${dashboardHash}1`}  ... />
-      // <FetchSettings />
-      // <div className="border-8 border-blue w-full overflow-auto">
-      // <CssBaseline />
-      // <div className="m-32">
-      //   <button className="m-32 text-white" onClick={handleUpdateUserData}>Update data</button>
-      // </div>
-      }
+    {
+      uid &&
+      <React.Fragment>
+        <FetchUserData path="settings"  uid={uid} onChange={handleChangeUserData} />
+        <FetchUserData path="dashboard" uid={uid} onChange={handleChangeUserData} />
+      </React.Fragment> 
+     
+    // <FetchUserData key={timestamp+1} key={`${dashboardHash}0`}  ... />
+    // <FetchUserData key={timestamp+2} key={`${dashboardHash}1`}  ... />
+    // <FetchSettings />
+    // <div className="border-8 border-blue w-full overflow-auto">
+    // <CssBaseline />
+    // <div className="m-32">
+    //   <button className="m-32 text-white" onClick={handleUpdateUserData}>Update data</button>
+    // </div>
+    }
       <MediaWidth
         mobile={<MobileDrawer/>}
         tablet={<TabletDrawer/>}
@@ -91,8 +95,8 @@ const MyLayout = props => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  updateUserData          : (path, newData,) => dispatch(updateUserData         (path, newData,)), // common mistakes: 1. forget to use this.props... when calling function in class 2. copy/paste forget to change function name in mapStateToProps => dispatch
-  saveUserDataToFirestore : (path, newData,) => dispatch(saveUserDataToFirestore(path, newData,)), // common mistakes: 1. forget to use this.props... when calling function in class 2. copy/paste forget to change function name in mapStateToProps => dispatch
+  updateUserData          : ( path, newData, ) => dispatch(updateUserData         ( path, newData, )), // common mistakes: 1. forget to use this.props... when calling function in class 2. copy/paste forget to change function name in mapStateToProps => dispatch
+  saveUserDataToFirestore : ( path, newData, ) => dispatch(saveUserDataToFirestore( path, newData, )), // common mistakes: 1. forget to use this.props... when calling function in class 2. copy/paste forget to change function name in mapStateToProps => dispatch
 })
 
 const mapStateToProps = state => {

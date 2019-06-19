@@ -37,7 +37,7 @@ export const UPDATE_FEEDBACK_NOTE    = '[FEEDBACK] UPDATE NOTE';
 // begin my add
 
 // updates global state in redux store
-export const updateUserData = (path, value,) => {
+export const updateUserData = ( path, value, ) => {
   // path: string: 'settings' | 'dashboard' | 'feedbackRating' | 'feedbackRating'
   // console.log('path\n', path);
   // console.log('value\n', value);
@@ -93,7 +93,7 @@ export const saveUserDataToFirestore = ( path, item, ) =>
   // this pattern is called currying
   // this function is called later, by redux
   (dispatch, getState, { getFirebase, getFirestore, }) => {
-    // path: string: 'users/user/<uid>/dashboard'
+    // path: string: 'users/<uid>/dashboard'
     // console.log('path\n', path,); // use this
     // console.log('item\n', item,); // use this
 
@@ -112,6 +112,12 @@ export const saveUserDataToFirestore = ( path, item, ) =>
     // console.log('pathArray[1]\n', pathArray[1],);
     // console.log('pathArrayLength\n', pathArrayLength,);
 
+    // get dispatch type
+    const dispatchTypeConfig = {
+      dashboard : 'UPDATE_DASHBOARD' ,
+      settings  : 'UPDATE_SETTINGS'  ,
+    };
+    const dispatchType = dispatchTypeConfig[pathArray[2]];
 
     const timestamp = Date.now();
     const newData = {
@@ -137,8 +143,17 @@ export const saveUserDataToFirestore = ( path, item, ) =>
       .collection(path)
       .add(newData)
     .then( docRef => {
+
+      // console.log('item\n', item,);
+      // console.log('docRef\n', docRef,);
       // console.log('Document was written with id: ', docRef.id,);
-      // dispatch({ type: 'SAVE_INITIAL_VALUES_SUCCESS' }); // dispatch({ type: 'CREATE_ITEM_SUCCESS' });
+
+      // dispatch({ type: 'SAVE_INITIAL_VALUES_SUCCESS' });
+      // dispatch({ type: 'CREATE_ITEM_SUCCESS' });
+      dispatch({
+        type: dispatchType,
+        value: item,
+      });
       return item;
     })
     .catch( error => {

@@ -35,7 +35,7 @@ const styles = theme => ({
 });
 
 
-const Dashboard = ({ classes, dashboard, settings, profile, show, type, updateUserData, saveUserDataToFirestore, }) => {
+const Dashboard = ({ classes, dashboard, settings, profile, show, type, onChange, saveUserDataToFirestore, }) => {
 
   const getPath = path => {
     const uid = profile.uid;
@@ -43,14 +43,14 @@ const Dashboard = ({ classes, dashboard, settings, profile, show, type, updateUs
     return out;
   }
 
-  const handleSaveSettingsStepper = data => {
+  const handleSaveSettingsStepper = async ( data ) => {
     // const { saveUserDataToFirestore, settings, dashboard, } = this.props; // updateUserData,
     const { bizCategory, geoNation, geoRegion, geoLocal, } = data;
     const createdAt = Date.now();
     const newData = { createdAt, bizCategory, geoNation, geoRegion, geoLocal, };
-    console.log('newData\n', newData,);
-    console.log('settings\n', settings,);
-    console.log('dashboard\n', dashboard,);
+    // console.log('newData\n', newData,);
+    // console.log('settings\n', settings,);
+    // console.log('dashboard\n', dashboard,);
 
     const newSettings = {
       ...settings,
@@ -75,11 +75,15 @@ const Dashboard = ({ classes, dashboard, settings, profile, show, type, updateUs
     const dashboardPath = getPath('dashboard');
     // db.collection(settingsPath).add(newData);
     // db.collection(dashboardPath).add(newData);
-    // updateUserData('settings', newData,);
-    // updateUserData('dashboard', newData,);
-    saveUserDataToFirestore(settingsPath, newSettings,);
-    saveUserDataToFirestore(dashboardPath, newDashboard,);
+    updateUserData( 'settings'  , newData , );
+    updateUserData( 'dashboard' , newData , ); 
+    const saveUserDataToFirestoreSettings  = await saveUserDataToFirestore( settingsPath  , newSettings  , );
+    const saveUserDataToFirestoreDashboard = await saveUserDataToFirestore( dashboardPath , newDashboard , );
+    console.log('saveUserDataToFirestoreSettings\n', saveUserDataToFirestoreSettings,);
+    console.log('saveUserDataToFirestoreDashboard\n', saveUserDataToFirestoreDashboard,);
+
     // this.handleChangeDashboard();
+    onChange();
   }
 
   const handleClickGeo = () => {

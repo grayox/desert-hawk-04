@@ -57,20 +57,20 @@ const composeEnhancers =
 const enhancer = composeEnhancers(
   // applyMiddleware(thunk)
   // begin insert from marioplan
-  applyMiddleware(thunk.withExtraArgument({ getFirebase, getFirestore })),
+  applyMiddleware(thunk.withExtraArgument({ getFirebase, getFirestore, })),
   // reactReduxFirebase(firebaseConfig, {userProfile: 'users', useFirestoreForProfile: true, attachAuthIsReady: true}),
   // reduxFirestore(firebaseConfig) // redux bindings for firestore
   // end insert from marioplan
 
   // begin insert from react-redux-firebase
   // http://react-redux-firebase.com/docs/v2-migration-guide.html
-  reactReduxFirebase(firebase, rrfConfig), // pass in firebase instance instead of config
-  reduxFirestore(firebase) // <- needed if using firestore
+  reactReduxFirebase( firebase, rrfConfig, ), // pass in firebase instance instead of config
+  reduxFirestore( firebase, ) // <- needed if using firestore
   // applyMiddleware(...middleware) // to add other middleware
   // end insert from react-redux-firebase
 );
 
-const store = createStore(createReducer(), enhancer);
+const store = createStore( createReducer(), enhancer, );
 // begin insert from marioplan
 // const store = createStore(rootReducer,
 //   compose(
@@ -93,7 +93,7 @@ store.asyncReducers = {};
 //    This code implements the above links
 store.subscribe(() => {
   // global state
-  console.log('state\n', store.getState());
+  console.log( 'state\n', store.getState(), );
   // global debugger
   // debugger;
 });

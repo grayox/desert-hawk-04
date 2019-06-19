@@ -32,12 +32,24 @@ const INITIAL_STATE = {
 class DashboardContainer extends Component {
   state = INITIAL_STATE;
 
+  // forceRender = () => {
+  //   // force render: https://davidwalsh.name/react-force-render
+  //   // this.forceUpdate();
+  //   this.setState({state: this.state});
+  // }
+
+  handleChange = () => {} // this.forceRender();
+
+  componentWillReceiveProps(newProps) {
+    console.log('newProps\n', newProps,);
+  }
+
   getShow = () => {
     const { dashboard, profile, settings, } = this.props; // profile, settings,
     // console.log('profile\n', profile,);
     // console.log('settings\n', settings,);
     // console.log('dashboard\n', dashboard,);
-    const ready1 = dashboard && settings;
+    const ready1 = dashboard && settings && profile;
     if(!ready1) return null;
     const ready2 = dashboard.geoNation   && dashboard.geoNation.length   ;
     const ready3 = dashboard.geoRegion   && dashboard.geoRegion.length   ;
@@ -45,7 +57,7 @@ class DashboardContainer extends Component {
     const ready5 = dashboard.bizCategory && dashboard.bizCategory.length ;
     const ready6 = ready1 && ready2 && ready3 && ready4 && ready5;
     const show = ready6 ? 'main' : 'step';
-    console.log('show\n', show,);
+    // console.log('show\n', show,);
     // this.setState({ show, });
 
     // NOTE: When setState() is called inside componentDidUpdate(),
@@ -62,6 +74,7 @@ class DashboardContainer extends Component {
   }
 
   render() {
+    const { handleChange, } = this;
     const { isLoading, isError, } = this.state;
     const { dashboard, settings, profile, type, } = this.props; // dataHasLoaded,
 
@@ -75,7 +88,10 @@ class DashboardContainer extends Component {
       // </Tooltip>
 
     const getDashboard = () =>
-      <Dashboard dashboard={dashboard} settings={settings} profile={profile} type={type} show={show} />
+      <Dashboard
+        dashboard={dashboard} settings={settings} profile={profile}
+        type={type} show={show} onChange={handleChange}
+      />
     const getMainContent = () => <React.Fragment> {getRefreshButton()} {getDashboard()} </React.Fragment>
     const getIsError = () => <div className="h-full"><Error500Page /></div>
     const getHasLoaded = () => isError ? getIsError() : getMainContent()
@@ -98,7 +114,7 @@ DashboardContainer.defaultProps = {
 };
 
 const mapStateToProps = state => {
-  // console.log('state\n', state);
+  console.log('state\n', state);
   // const settings = state.firestore.ordered.users
   //               && state.firestore.ordered.users[0]
   //               && state.firestore.ordered.users[0].settings
