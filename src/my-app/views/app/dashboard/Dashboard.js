@@ -75,15 +75,13 @@ const Dashboard = ({ classes, dashboard, settings, profile, show, type, onChange
     const dashboardPath = getPath('dashboard');
     // db.collection(settingsPath).add(newData);
     // db.collection(dashboardPath).add(newData);
-    updateUserData( 'settings'  , newData , );
-    updateUserData( 'dashboard' , newData , ); 
-    const saveUserDataToFirestoreSettings  = await saveUserDataToFirestore( settingsPath  , newSettings  , );
-    const saveUserDataToFirestoreDashboard = await saveUserDataToFirestore( dashboardPath , newDashboard , );
-    console.log('saveUserDataToFirestoreSettings\n', saveUserDataToFirestoreSettings,);
-    console.log('saveUserDataToFirestoreDashboard\n', saveUserDataToFirestoreDashboard,);
+    // updateUserData( 'settings'  , newData , );
+    // updateUserData( 'dashboard' , newData , ); 
+    saveUserDataToFirestore( settingsPath  , newSettings  , );
+    saveUserDataToFirestore( dashboardPath , newDashboard , );
 
     // this.handleChangeDashboard();
-    onChange();
+    // onChange();
   }
 
   const handleClickGeo = () => {

@@ -20,7 +20,7 @@ const styles = theme => ({
 const SelectControl = props => <div autoComplete="off">{getFormContent(props)}</div>
 
 const getFormContent = props => {
-  const { classes, label, size, control, icon, } = props;
+  const { classes, label, size, control, } = props; // icon,
   let out;
   switch(control) {
     case 'none':

@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
-import { Tooltip, Zoom, IconButton, Icon, } from '@material-ui/core'; // withStyles, Paper,
+// import { Tooltip, Zoom, IconButton, Icon, } from '@material-ui/core'; // withStyles, Paper,
 import { saveUserDataToFirestore, updateUserData, } from 'my-app/store/actions/my-actions/userDataActions'; //
 // import _ from '@lodash';
 
@@ -20,7 +20,7 @@ const INITIAL_STATE_ITEMS = {
 
 const INITIAL_STATE_LOADING = {
   isError: false,
-  isLoading: true,
+  // isLoading: true,
   show: 'main', // 'main' | 'step' | 'greet'
 }
 
@@ -38,11 +38,11 @@ class DashboardContainer extends Component {
   //   this.setState({state: this.state});
   // }
 
-  handleChange = () => {} // this.forceRender();
+  // handleChange = () => {} // this.forceRender();
 
-  componentWillReceiveProps(newProps) {
-    console.log('newProps\n', newProps,);
-  }
+  // componentWillReceiveProps(newProps) {
+  //   console.log('newProps\n', newProps,);
+  // }
 
   getShow = () => {
     const { dashboard, profile, settings, } = this.props; // profile, settings,
@@ -69,14 +69,15 @@ class DashboardContainer extends Component {
     // setup where the componentDidUpdate() lifecycle got called inside the infinite loop everytime
     // the state changed which was caused by calling componentDidUpdate() whenever the state changed.
     // Read more: https://medium.com/@learnreact/container-components-c0e67432e005
+    // Edit: update: https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html
 
     return show;
   }
 
   render() {
-    const { handleChange, } = this;
-    const { isLoading, isError, } = this.state;
-    const { dashboard, settings, profile, type, } = this.props; // dataHasLoaded,
+    // const { handleChange, } = this;
+    const { isError, } = this.state; // isLoading,
+    const { dashboard, settings, profile, type, isLoading, } = this.props; // dataHasLoaded,
 
     const show = this.getShow();
     
@@ -90,7 +91,7 @@ class DashboardContainer extends Component {
     const getDashboard = () =>
       <Dashboard
         dashboard={dashboard} settings={settings} profile={profile}
-        type={type} show={show} onChange={handleChange}
+        type={type} show={show} // onChange={handleChange}
       />
     const getMainContent = () => <React.Fragment> {getRefreshButton()} {getDashboard()} </React.Fragment>
     const getIsError = () => <div className="h-full"><Error500Page /></div>
@@ -98,14 +99,15 @@ class DashboardContainer extends Component {
     const getIsLoading = () => <div className="h-full"><Loading /></div>
     const getDashboardContainer = () => ( isLoading ? getIsLoading() : getHasLoaded() )
     
-    // return getDashboardContainer();
-    return getHasLoaded();
+    // return getHasLoaded();
+    return getDashboardContainer();
   }
 }
 
 DashboardContainer.propTypes = {
   dashboard: PropTypes.object,
   dataHasLoaded: PropTypes.bool,
+  isLoading: PropTypes.bool,
   type: PropTypes.oneOf([ 'standard', 'mini', 'micro', ]),
 };
 
@@ -114,7 +116,7 @@ DashboardContainer.defaultProps = {
 };
 
 const mapStateToProps = state => {
-  console.log('state\n', state);
+  // console.log('state\n', state);
   // const settings = state.firestore.ordered.users
   //               && state.firestore.ordered.users[0]
   //               && state.firestore.ordered.users[0].settings
@@ -140,7 +142,8 @@ const mapStateToProps = state => {
   // replace user with profile; user contains default settings
   // const user = state.auth.user;
   // const leads = state.firestore.ordered.leads;
-  const dataHasLoaded = !!profile && !!dashboard && !!settings; // && !!leads && !!user && 
+  const dataHasLoaded = !!profile && !!dashboard && !!settings; // && !!leads && !!user &&
+  const isLoading = !dataHasLoaded;
   
   // // console.log('user\n', user,);
   // // console.log('leads\n', leads,);
@@ -154,7 +157,7 @@ const mapStateToProps = state => {
   // return { user, profile, settings, leads, dataHasLoaded, }
   // return { profile, settings, dataHasLoaded, }
   // return { profile, dashboard, dataHasLoaded, }
-  return { profile, dashboard, settings, dataHasLoaded, }
+  return { profile, dashboard, settings, isLoading, } // dataHasLoaded,
 }
 
 const mapDispatchToProps = dispatch => ({

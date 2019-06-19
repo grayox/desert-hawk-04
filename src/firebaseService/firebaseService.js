@@ -49,7 +49,7 @@ class firebaseService {
         .collection('users')
         .doc(uid);
     } catch (e) {
-      console.warn(e.message);
+      // console.warn(e.message);
       return false;
     }
   }
@@ -79,40 +79,40 @@ class firebaseService {
           .then(doc => {
             if (doc.exists) {
               const data = doc.data();
-              console.log('Document data:\n', data);
+              // console.log('Document data:\n', data);
               // debugger;
               resolve(data);
             } else {
-              // doc.data() will be undefined in this case
-              console.log('No such document!');
-              // begin my add
-              // console.log('Beginning to update user data...');
-              // console.log('user\n', user);
-              // debugger;
-              // this.updateUserData(user);
+              // // doc.data() will be undefined in this case
+              // console.log('No such document!');
+              // // begin my add
+              // // console.log('Beginning to update user data...');
+              // // console.log('user\n', user);
+              // // debugger;
+              // // this.updateUserData(user);
               resolve(user);
               // end my add
               // reject();
             }
           }).catch(error => {
-            console.log('Error getting document:\n', error);
-            console.log('user\n', user);
-            // debugger;
-            // TODO: fix following errors which occurs when offline or bad internet connection
-            // Uncaught (in promise) TypeError: userRef.set is not a function
-            // and/or
-            // Unhandled Rejection (TypeError): userRef.set is not a function
-            // Maybe show a grphic that says: "Check your internet connection.\nIt appears slow."
+            // console.log('Error getting document:\n', error);
+            // console.log('user\n', user);
+            // // debugger;
+            // // TODO: fix following errors which occurs when offline or bad internet connection
+            // // Uncaught (in promise) TypeError: userRef.set is not a function
+            // // and/or
+            // // Unhandled Rejection (TypeError): userRef.set is not a function
+            // // Maybe show a grphic that says: "Check your internet connection.\nIt appears slow."
 
-            // userRef
-            //   .set(user)
-            //   .then(user => this.updateUserData(user))
+            // // userRef
+            // //   .set(user)
+            // //   .then(user => this.updateUserData(user))
             alert('Check your internet connection.\nIt appears slower than usual.')
             
             reject();
           });
       } else {
-        console.log('Saving user to firebase: uid:\n', user.uid);
+        // console.log('Saving user to firebase: uid:\n', user.uid);
         this.saveDocToFirestore(user.uid, `users/user/${user.uid}`);
         resolve(user);
       }
@@ -201,10 +201,10 @@ class firebaseService {
     // console.info('submitting...', model);  
     collectionRef.add(data)
       .then(docRef => {
-        console.log('Document written with ID: ', docRef.id);
+        // console.log('Document written with ID: ', docRef.id);
       })
       .catch(error => {
-        console.error('Error adding document: ', error);
+        // console.error('Error adding document: ', error);
       });
     // console.info('submitted: ', model);
   }
