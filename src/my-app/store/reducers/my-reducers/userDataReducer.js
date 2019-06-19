@@ -71,7 +71,7 @@ const userDataReducer = ( state = initialState, action, ) => {
         settings: _.merge( {}, action.value, ),
       };
       
-    case Actions.UPDATE_DASHBOARD:
+    case Actions.UPDATE_DASHBOARD_SUCCESS:
       // console.log('stateDashboardReducer\n', state, );
       // console.log('action.value\n', action.value, ); //debugger;
       return {

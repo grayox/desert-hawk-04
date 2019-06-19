@@ -124,5 +124,5 @@ const mapStateToProps = state => {
 export default compose(
   connect( mapStateToProps, mapDispatchToProps, ),
   withReducer( 'myApp', reducer, ),
-  withStyles( styles, { withTheme: true } ),
+  withStyles( styles, { withTheme: true, }, ),
 )(MyLayout)

@@ -1,12 +1,12 @@
 // inspired by src/store/actions/fuse/settings.actions.js
 
 // begin my add
-export const UPDATE_SETTINGS         = '[SETTINGS] UPDATE SETTINGS';
-export const UPDATE_SETTINGS_SUCCESS = '[SETTINGS] UPDATE SETTINGS SUCCESS';
-export const UPDATE_SETTINGS_ERROR   = '[SETTINGS] UPDATE SETTINGS ERROR';
-export const UPDATE_DASHBOARD        = '[DASHBOARD] UPDATE DASHBOARD';
-export const UPDATE_FEEDBACK_RATING  = '[FEEDBACK] UPDATE RATING';
-export const UPDATE_FEEDBACK_NOTE    = '[FEEDBACK] UPDATE NOTE';
+export const UPDATE_SETTINGS          = '[SETTINGS] UPDATE SETTINGS';
+export const UPDATE_SETTINGS_SUCCESS  = '[SETTINGS] UPDATE SETTINGS SUCCESS';
+export const UPDATE_SETTINGS_ERROR    = '[SETTINGS] UPDATE SETTINGS ERROR';
+export const UPDATE_DASHBOARD_SUCCESS = '[DASHBOARD] UPDATE DASHBOARD SUCCESS';
+export const UPDATE_FEEDBACK_RATING   = '[FEEDBACK] UPDATE RATING';
+export const UPDATE_FEEDBACK_NOTE     = '[FEEDBACK] UPDATE NOTE';
 // end my add
 
 // export const SET_SETTINGS = '[SETTINGS] SET SETTINGS';
@@ -44,7 +44,7 @@ export const updateUserData = ( path, value, ) => {
   const typeConfig = {
     // settings: UPDATE_SETTINGS,
     settings: UPDATE_SETTINGS_SUCCESS,
-    dashboard: UPDATE_DASHBOARD,
+    dashboard: UPDATE_DASHBOARD_SUCCESS,
     feedbackRating: UPDATE_FEEDBACK_RATING,
     feedbacKNote: UPDATE_FEEDBACK_NOTE,
   }
@@ -114,8 +114,8 @@ export const saveUserDataToFirestore = ( path, item, ) =>
 
     // get dispatch type
     const dispatchTypeConfig = {
-      dashboard : 'UPDATE_DASHBOARD' ,
-      settings  : 'UPDATE_SETTINGS'  ,
+      dashboard : UPDATE_DASHBOARD_SUCCESS ,
+      settings  : UPDATE_SETTINGS_SUCCESS  ,
     };
     const dispatchType = dispatchTypeConfig[pathArray[2]];
 
