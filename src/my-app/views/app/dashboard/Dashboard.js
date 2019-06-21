@@ -35,7 +35,7 @@ const styles = theme => ({
 });
 
 
-const Dashboard = ({ classes, dashboard, settings, profile, show, type, onChange, saveUserDataToFirestore, }) => {
+const Dashboard = ({ classes, dashboard, settings, profile, show, type, saveUserDataToFirestore, }) => { // onChange,
 
   const getPath = path => {
     const uid = profile.uid;

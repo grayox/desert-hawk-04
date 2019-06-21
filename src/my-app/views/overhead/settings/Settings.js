@@ -27,7 +27,8 @@ import { compose } from 'redux';
 
 // for actions
 // import {bindActionCreators} from 'redux';
-import { updateSettings } from 'my-app/store/actions/my-actions';
+// import { updateSettings } from 'my-app/store/actions/my-actions'; // deprecate
+import { saveUserDataToFirestore, } from 'my-app/store/actions/my-actions/userDataActions'; // updateUserData,
 
 import { Menu, MenuItem, } from '@material-ui/core';
 import SettingsDialog from './SettingsDialog';
@@ -92,7 +93,7 @@ const INITIAL_STATE_SETTINGS_DIALOG = {
   tempSetting: null,
 }
 
-const INITIAL_STATE = {
+const INITIAL_STATE_OTHER = {
 
   value: 0,
   dataHasLoaded: false,
@@ -132,6 +133,11 @@ const INITIAL_STATE = {
   selectedIndexMenu2: 1,
 };
 
+const INITIAL_STATE = {
+  ...INITIAL_STATE_OTHER,
+  ...INITIAL_STATE_SETTINGS_DIALOG,
+}
+
 const optionsMenu = [
   // 'Select one',
   'Home',
@@ -152,13 +158,15 @@ const optionsMenu2 = [
 
 class ProfilePage extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...INITIAL_STATE,
-      ...INITIAL_STATE_SETTINGS_DIALOG,
-    };
-  }
+  state = INITIAL_STATE;
+
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     ...INITIAL_STATE,
+  //     ...INITIAL_STATE_SETTINGS_DIALOG,
+  //   };
+  // }
 
   // state = {
   //   general: null,
@@ -194,8 +202,8 @@ class ProfilePage extends Component {
   //   });
   // }
 
-  handleChange = (event, value) => {
-    this.setState({ value });
+  handleChange = ( event, value, ) => {
+    this.setState({ value, });
   };
 
   // --------------------------------
@@ -203,7 +211,7 @@ class ProfilePage extends Component {
   handleValidGeoStepper = model => {
     // handleSaveGeoStepper = model => {
     // console.log('model\n', model);
-    const picked = _.pick(model, ['geoNation', 'geoRegion', 'geoLocal',]);
+    const picked = _.pick(model, [ 'geoNation', 'geoRegion', 'geoLocal', ]);
     const tempSetting = {
       ...picked,
       isValidGeo: true,
@@ -652,7 +660,7 @@ const mapStateToProps = state => {
   // // console.log('user\n', user);
   // // console.log('leads\n', leads);
   // console.log('profile\n', profile);
-  // console.log('settings\n', settings);
+  console.log('settings\n', settings);
   // console.log('dataHasLoaded\n', dataHasLoaded);
   
   // //       YES   YES      YES       NO     NO

@@ -1,5 +1,24 @@
 - - - - - BEGIN EDITS - - - - -
 
+Key directories:
+src/store.js:96 | main store state subscription log
+// import { updateSettings } from 'my-app/store/actions/my-actions'; // deprecate
+// import { saveUserDataToFirestore, updateUserData, } from 'my-app/store/actions/my-actions/userDataActions'
+...edited saveUserDataToFirestore() to automatically call updateUserData()
+import { saveUserDataToFirestore, } from 'my-app/store/actions/my-actions/userDataActions' updateUserData,
+src/my-app/layouts/MyLayout.js
+src/my-app/layouts/crud/store
+how to deploy a react app to firebase hosting
+  - https://www.youtube.com/watch?v=ji6urVl6oP4
+  - https://stackoverflow.com/questions/54693223/what-does-yarn-build-command-do-are-npm-build-and-yarn-build-simila
+  yarn run build # deprecated, use `yarn build` instead
+  yarn build
+  npm install -g firebase-tools
+  firebase login
+  firebase init
+  firebase deploy
+  - if empty, edit firebase.json with: {"hosting":{"public":"dist"}} | https://stackoverflow.com/a/47695000/1640892
+
 ----------------------------------------------
 ./v04/src/my-app/config/upgrade/index.sh 04 05
 ----------------------------------------------

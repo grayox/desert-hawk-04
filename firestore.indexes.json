@@ -1,19 +1,72 @@
 {
   "indexes": [
     {
-      "collectionId": "leads",
+      "collectionGroup": "leads",
+      "queryScope": "COLLECTION",
       "fields": [
-        { "fieldPath": "deletedAt", "mode": "ASCENDING" },
-        { "fieldPath": "createdAt", "mode": "DESCENDING" }
+        {
+          "fieldPath": "deletedAt",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "DESCENDING"
+        }
       ]
     },
     {
-      "collectionId": "contacts",
+      "collectionGroup": "contacts",
+      "queryScope": "COLLECTION",
       "fields": [
-        { "fieldPath": "deletedAt", "mode": "ASCENDING" },
-        { "fieldPath": "createdAt", "mode": "DESCENDING" }
+        {
+          "fieldPath": "deletedAt",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "leads",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "name",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "archive",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "deletedAt",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "DESCENDING"
+        }
       ]
     }
   ],
-  "fieldOverrides": []
+  "fieldOverrides": [
+    {
+      "collectionGroup": "leads",
+      "fieldPath": "notes",
+      "indexes": []
+    },
+    {
+      "collectionGroup": "contacts",
+      "fieldPath": "notes",
+      "indexes": []
+    }
+  ]
 }
