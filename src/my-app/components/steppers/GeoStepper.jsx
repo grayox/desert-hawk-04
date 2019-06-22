@@ -1,20 +1,15 @@
-import React from 'react';
+// inspired by ./SettingsStepper
+
+import React, { Component, } from 'react';
 import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import StepContent from '@material-ui/core/StepContent';
-import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
 
-import GeoSelect from '../GeoSelect/GeoSelect'
-import Chip from '@material-ui/core/Chip';
+import {
+  withStyles, Typography, Button, Paper, Chip, Snackbar, IconButton, Icon, Stepper, Step, StepLabel, StepContent,
+} from '@material-ui/core';
 
-import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
+import GeoSelect from '../GeoSelect/GeoSelect';
+// import SelectControl from '../selects/SelectControl';
+// import { bizCategoryItems, } from 'my-app/config/AppConfig';
 
 const styles = theme => ({
   root: {
@@ -32,471 +27,361 @@ const styles = theme => ({
   },
 });
 
-const steps = [
-  'Select country'         ,
-  'Select state or region' ,
-  'Select location'        ,
+const HEADER_MESSAGE =
+  <Typography variant="h5" className="opacity-50 font-light" color="inherit" gutterBottom>
+    Set your location
+  </Typography>
+
+const FINISH_MESSAGE = <div>You finished all steps. You&rsquo;re done!</div>
+
+const STEP_LABELS = [
+  'Select country'           ,
+  'Select state or region'   ,
+  'Select location'          ,
+  // 'Select business cagegory' ,
 ];
 
-const INITIAL_STATE = {
-  geoNation: '',
-  geoRegion: '',
-  geoLocal: '',
+const INITIAL_STATE_ACTIVE_STEP = {
   activeStep: 0,
-  openNation: false,
-  openRegion: false,
-  openLocal: false,
-  openSnackbar: false,
-}
+};
 
-class GeoStepper extends React.Component {
+const INITIAL_STATE_OPEN = {
+  isOpenNation   : false ,
+  isOpenRegion   : false ,
+  isOpenLocal    : false ,
+  isOpenCategory : false ,
+  isOpenSnackbar : false ,
+};
 
-  constructor(props) {
-    super(props);
-    this.state = INITIAL_STATE;
-  }
+const INITIAL_STATE_VALUES_GEO = {
+  geoNation : '' ,
+  geoRegion : '' ,
+  geoLocal  : '' ,
+};
 
-  // componentDidMount() {
-  //   this.setState(this.initialState);
-  // }
+// const INITIAL_STATE_VALUES_BIZ_CATEGORY = {
+//   bizCategory : '' ,
+// };
 
-  // handleNext = () => {
-  //   const { geoNation, geoRegion, geoLocal } = this.state;
-  //   // each term adds one to the total if truthy
-  //   // sets the dep var to the total number of truthy terms
-  //   const out = (!!geoNation | 0) + (!!geoRegion | 0) + (!!geoLocal | 0);
-  //   this.setState({
-  //     activeStep: out,
-  //   });
-  // }
+const INITIAL_STATE_VALUES = {
+  ...INITIAL_STATE_VALUES_GEO,
+  // ...INITIAL_STATE_VALUES_BIZ_CATEGORY,
+};
 
-  // getStepContent = step => {
-  //   switch (step) {
-  //     case 0:
-  //       return <GeoSelect
-  //                control='select' //  button
-  //                variant='country'
-  //                value={this.state.geoNation}
-  //                onClick={this.handleopenNation}
-  //                onOpen={this.handleopenNation}
-  //                onClose={this.handleCloseNation}
-  //                onChange={this.handleChangeNation}
-  //              />;
-  //     case 1:
-  //       return <GeoSelect
-  //                control='select'
-  //                variant='region'
-  //                value={this.state.geoRegion}
-  //                country={this.state.geoNation}
-  //                onOpen={this.handleOpenRegion}
-  //                onClose={this.handleCloseRegion}
-  //                onChange={this.handleChangeRegion}
-  //              />;
-  //     case 2:
-  //       return <GeoSelect
-  //                control='select'
-  //                variant='local'
-  //                value={this.state.geoLocal}
-  //                region={this.state.geoRegion}
-  //                country={this.state.geoNation}
-  //                onOpen={this.handleOpenLocal}
-  //                onClose={this.handleCloseLocal}
-  //                onChange={this.handleChangeLocal}
-  //              />;
-  //     default:
-  //       return 'Unknown step';
-  //   }
+const INITIAL_STATE = {
+  ...INITIAL_STATE_ACTIVE_STEP,
+  ...INITIAL_STATE_OPEN,
+  ...INITIAL_STATE_VALUES,
+};
+
+class GeoStepper extends Component {
+  
+  state = INITIAL_STATE;
+  
+  // constructor(props) {
+  //   super(props);
+  //   this.state = INITIAL_STATE;
   // }
 
   getStepContent = step => {
+    
     const {
-      geoNation  , geoRegion  , geoLocal  , 
-      openNation , openRegion , openLocal ,
+      isOpenNation, isOpenRegion, isOpenLocal, // isOpenCategory,
+      geoNation, geoRegion, geoLocal, // bizCategory,
     } = this.state;
+    
     const {
-      handleopenNation , handleCloseNation , handleChangeNation ,
-      handleOpenRegion , handleCloseRegion , handleChangeRegion ,
-      handleOpenLocal  , handleCloseLocal  , handleChangeLocal  ,
+      handleClose,
+      handleOpenNation, handleChangeNation,
+      handleOpenRegion, handleChangeRegion,
+      handleOpenLocal, handleChangeLocal, 
+      // handleOpenCategory, handleChangeCategory,
     } = this;
-    // const control = 'none'; //  'none' | 'button' | 'select'
+    
     const steps = [
       <GeoSelect
         control='none'
-        variant='country'
-        open={openNation}
+        variant='nation'
+        open={isOpenNation}
         value={geoNation}
-        onOpen={handleopenNation}
-        onClose={handleCloseNation}
+        onOpen={handleOpenNation}
+        onClose={handleClose}
         onChange={handleChangeNation}
       />
       ,
       <GeoSelect
         control='none'
         variant='region'
-        open={openRegion}
+        open={isOpenRegion}
         value={geoRegion}
-        country={geoNation}
+        nation={geoNation}
         onOpen={handleOpenRegion}
-        onClose={handleCloseRegion}
+        onClose={handleClose}
         onChange={handleChangeRegion}
       />
       ,
       <GeoSelect
         control='none'
         variant='local'
-        open={openLocal}
+        open={isOpenLocal}
         value={geoLocal}
         region={geoRegion}
-        country={geoNation}
+        nation={geoNation}
         onOpen={handleOpenLocal}
-        onClose={handleCloseLocal}
+        onClose={handleClose}
         onChange={handleChangeLocal}
-      />    
+      />
       ,
+      // <SelectControl
+      //   size='small'
+      //   control='none'
+      //   label='Select category'
+      //   open={isOpenCategory}
+      //   items={bizCategoryItems}
+      //   value={bizCategory}
+      //   onOpen={handleOpenCategory}
+      //   onClick={handleOpenCategory}
+      //   onClose={handleClose}
+      //   onChange={handleChangeCategory}
+      // />
+      // ,
     ];
     return steps[step];
   }
 
-  getOpenHandlers = () => [
-    this.handleopenNation ,
-    this.handleOpenRegion ,
-    this.handleOpenLocal  ,
+  openHandlers = [
+    () => this.handleOpenNation()   ,
+    () => this.handleOpenRegion()   ,
+    () => this.handleOpenLocal()    ,
+    // () => this.handleOpenCategory() ,
   ]
 
-  getGeoValue = () => [
-    this.state.geoNation ,
-    this.state.geoRegion ,
-    this.state.geoLocal  ,
+  getChipValues = () => [
+    this.state.geoNation   ,
+    this.state.geoRegion   ,
+    this.state.geoLocal    ,
+    // this.state.bizCategory ,
   ]
   
-  // ---------- country ------------
+  // ---------- nation ------------
 
-  handleopenNation = () => {
+  handleOpenNation = () => {
     this.setState({
+      ...INITIAL_STATE_OPEN,
       activeStep: 0,
-      openNation: true,
-      openRegion: false,
-      openLocal: false,
-      // geoNation: '',
-      // geoRegion: '',
-      // geoLocal: '',
-    });
-    // console.log('state\n', this.state);
-  };
-
-  handleCloseNation = () => {
-    this.setState({
-      openNation: false,
-    });
-    // console.log('state\n', this.state);
+      isOpenNation: true,
+    }
+    // , () => console.log('state\n', this.state)
+    );
   };
   
   handleChangeNation = e => {
-    const geoNation = e.target.value;
-    const data = {
-      geoNation: geoNation,
-      // geoRegion: geoRegion,
-      // geoLocal: geoLocal,
-    };
     // console.log('e\n', e);
-    // this.setState({ [e.target.name]: e.target.value });
-    this.setState({     
+    this.setState({
+      ...INITIAL_STATE_OPEN,
+      // ...INITIAL_STATE_VALUES_BIZ_CATEGORY,
       activeStep: 1,
-      openNation: false,
-      openRegion: false,
-      openLocal: false,
-      geoNation: geoNation,
+      geoNation: e.target.value,
       geoRegion: '',
       geoLocal: '',
-    });
-    // this.handleNext();
+    }
+    // , () => {
     // console.log('state\n', this.state);
-    this.props.onChange(data);
+    // }
+    );
   };
 
   // ---------- region ------------
 
   handleOpenRegion = () => {
-    this.setState({  
-      activeStep: 1,
-      openNation: false,
-      openRegion: true,
-      openLocal: false,
-      // geoNation: '',
-      // geoRegion: '',
-      // geoLocal: '',
-    });
-    // console.log('state\n', this.state);
-  };
-  
-  handleCloseRegion = () => {
     this.setState({
-      openRegion: false,
-    });
-    // console.log('state\n', this.state);
+      ...INITIAL_STATE_OPEN,
+      activeStep: 1,
+      isOpenRegion: true,
+    }
+    // , () => console.log('state\n', this.state)
+    );
   };
   
   handleChangeRegion = e => {
-    const { geoNation, } = this.state;
     // console.log('e\n', e);
     // this.setState({ [e.target.name]: e.target.value });
-    const geoRegion = e.target.value;
-    const data = {
-      geoNation: geoNation,
-      geoRegion: geoRegion,
-      // geoLocal: geoLocal,
-    };
-    this.setState({      
+    this.setState({ 
+      ...INITIAL_STATE_OPEN,
+      // ...INITIAL_STATE_VALUES_BIZ_CATEGORY,
       activeStep: 2,
-      openNation: false,
-      openRegion: false,
-      openLocal: false,
-      // geoNation: '',
-      geoRegion: geoRegion,
+      // geoNation,
+      geoRegion: e.target.value,
       geoLocal: '',
-    });
-    // this.handleNext();
+    }
+    // , () => {
     // console.log('state\n', this.state);
-    this.props.onChange(data);
+    // }
+    );
   };
   
   // ---------- local ------------
 
   handleOpenLocal = () => {
     this.setState({ 
+      ...INITIAL_STATE_OPEN,
       activeStep: 2,
-      openNation: false,
-      openRegion: false,
-      openLocal: true,
-      // geoNation: '',
-      // geoRegion: '',
-      // geoLocal: '',
+      isOpenLocal: true,
     });
-    // console.log('state\n', this.state);
-  };
-
-  handleCloseLocal = () => {
-    this.setState({
-      openLocal: false,
-    });
-    // console.log('state\n', this.state);
   };
 
   handleChangeLocal = e => {
-    const { geoNation, geoRegion, } = this.state;
     // console.log('e\n', e);
     // this.setState({ [e.target.name]: e.target.value });
-    const geoLocal = e.target.value;
-    const data = {
-      geoNation: geoNation,
-      geoRegion: geoRegion,
-      geoLocal: geoLocal,
-    };
-    this.setState({
+    this.setState({ 
+      ...INITIAL_STATE_OPEN,
+      // ...INITIAL_STATE_VALUES_BIZ_CATEGORY,
       activeStep: 3,
-      openNation: false,
-      openRegion: false,
-      openLocal: false,
-      // geoNation: '',
-      // geoRegion: '',
-      geoLocal: geoLocal,
-    });
-    // this.handleNext();
+      // geoNation,
+      // geoRegion,
+      geoLocal: e.target.value,
+    }
+    // , () => {
     // console.log('state\n', this.state);
-    this.props.onChange(data);
-    this.props.onValid(data);
+    // }
+    );
   };
+
+  // ---------- category ------------
+
+  // handleOpenCategory = () => {
+  //   this.setState({
+  //     ...INITIAL_STATE_OPEN,
+  //     activeStep: 3,
+  //     isOpenCategory: true,
+  //   }
+  //   // , () => console.log('state\n', this.state)
+  //   );
+  // };
+
+  // handleChangeCategory = e => {
+  //   // console.log('e\n', e);
+  //   // this.setState({ [e.target.name]: e.target.value });
+  //   this.setState({
+  //     ...INITIAL_STATE_OPEN, 
+  //     activeStep: 4,
+  //     bizCategory: e.target.value,
+  //   }
+  //   // , () => {
+  //   // console.log('state\n', this.state);
+  //   // }
+  //   );
+  // };
 
   // ---------- stepper ------------
 
-  // handleNext = () => {
-  //   this.setState(state => ({
-  //     activeStep: state.activeStep + 1,
-  //   }));
-  // };
-
-  handleReset = () => {
-    // this.setState({
-    //   activeStep: 0,
-    // });
-    this.setState(INITIAL_STATE);
-  };
-
-  handleBack = () => {
-    this.setState(state => ({
-      activeStep: state.activeStep - 1,
-    }));
-  };
-
-  // handleSave = () => {
-  //   this.setState({openSnackbar: true,});
-  // };
-
-  handleCloseSnackbar = () => {
-    this.setState({openSnackbar: false,});
-  };
-
-  // ------------------------------
-
-  // handleBack = () => {
-  //   const { activeStep } = this.state;
-  //   switch( activeStep ) {
-  //     case 1:
-  //       this.setState({
-  //         geoNation: null,
-  //       })
-  //       break;
-  //     case 2:
-  //       this.setState({
-  //         geoRegion: null,
-  //       })
-  //       break;
-  //     default:
-  //       console.log('activeState out of range');
-  //   }
-  //   this.setState({
-  //     activeStep: (activeStep + 1),
-  //   });
-  // }
-
-  handleClickButton = () => {
-    const { activeStep } = this.state;
-    // console.log('button clicked...');
-    // console.log('activeStep', activeStep);
-    const a = this.getOpenHandlers();
-    // console.log('open handlers\n', a);
-    a[activeStep]();
-  }
-
-  handleClickChip = index => {
-    // console.log('button clicked...');
-    // console.log('index', index);
-    const a = this.getOpenHandlers();
-    // console.log('open handlers\n', a);
-    a[index]();
-  }
+  handleReset             = ()    => this.setState(   INITIAL_STATE                                )
+  handleClose             = ()    => this.setState(   INITIAL_STATE_OPEN                           )
+  handleBack              = ()    => this.setState( { activeStep   : this.state.activeStep - 1 , } )
+  handleSave              = ()    => this.setState( { isOpenSnackbar : true                      , } )
+  handleCloseSnackbar     = ()    => this.setState( { isOpenSnackbar : false                     , } )
+  handleClickSelectButton = ()    => this.openHandlers[this.state.activeStep]()
+  handleClickChip         = index => this.openHandlers[index]()
 
   render() {
+    const { onSave, } = this.props;
+    const { activeStep, isOpenSnackbar, } = this.state;
     const {
-      state, getGeoValue, getStepContent,
-      handleClickChip, handleBack, handleReset,
-      handleClickButton, handleCloseSnackbar,
+      getChipValues, getStepContent, handleClickChip, handleCloseSnackbar,
+      handleClickSelectButton, handleBack, handleReset,
     } = this;
-    const {
-      classes, key, onSave, heading, showSaveButton,
-      // onValid, onChange,
-    } = this.props;
-    const { activeStep, openSnackbar, } = this.state;
-    const { root, chip, close, button, resetContainer, actionsContainer, } = classes;
+    const { classes, } = this.props;
 
-    return (
-      <div key={key} className={root}>
-        <Typography variant="subtitle1" color="inherit" className="my-4">
-          {heading}
-        </Typography>
-        <Stepper
-          activeStep={activeStep}
-          // orientation="horizontal"
-          orientation="vertical"
-        >
-          {steps.map((label, index) =>
+    const getFinalStep = () =>
+      <Paper square elevation={0} className={classes.resetContainer}>
+        {FINISH_MESSAGE}
+        <Button onClick={handleReset} className={[classes.button, "mr-32"].join(" ")}>Reset</Button>
+        <Button onClick={handleBack} className={classes.button}>Back</Button>
+        <Button onClick={() => onSave(this.state)} className={classes.button} variant="contained" color="primary">
+          Save
+        </Button>
+      </Paper>
+
+    const getStepper = () =>
+      <Stepper
+        activeStep={activeStep}
+        // orientation="horizontal"
+        orientation="vertical"
+      >
+        {
+          STEP_LABELS.map( ( label, index, ) =>
             <Step key={label}>
               <StepLabel>
                 {/* <span className="opacity-50 ml-8 text-base">{this.getGeoValue()[index]}</span> */}
-                {'Step ' + (index + 1) + ': ' + label}
+                {`Step ${index + 1}: ${label}`}
                 {
-                  getGeoValue()[index] ?
-                  <Chip className={chip + ' ml-8'}
-                  label={getGeoValue()[index]}
-                  onClick={() => handleClickChip(index)} />
-                  : null
+                  getChipValues()[index]
+                  ?
+                  <Chip
+                    className={[classes.chip, 'ml-8', 'capitalize',].join(' ')}
+                    label={getChipValues()[index]} onClick={() => handleClickChip(index)}
+                  />
+                  :
+                  null
                 }
               </StepLabel>
               <StepContent>
                 <div>{getStepContent(index)}</div>
-                <div className={actionsContainer}>
+                <div className={classes.actionsContainer}>
+                  <Button className={classes.button} disabled={activeStep === 0} onClick={handleBack}>Back</Button>
                   <Button
-                    className={button}
-                    disabled={activeStep === 0}
-                    onClick={handleBack}
-                  >
-                    Back
-                  </Button>
-                  <Button
-                    className={button}
-                    variant="contained"
-                    color="primary"
-                    onClick={handleClickButton}
+                    className={classes.button} onClick={handleClickSelectButton} variant="contained" color="primary"
                   >
                     Select
                   </Button>
                 </div>
               </StepContent>
             </Step>
-          )}
-        </Stepper>
-        {activeStep === showSaveButton && steps.length && (
-          <Paper square elevation={0} className={resetContainer}>
-            <div>You finished all steps. You&rsquo;re done!</div>
-            <Button onClick={handleReset} className={[button, "mr-32"].join(" ")}>Reset</Button>
-            <Button onClick={handleBack} className={button}>Back</Button>
-            <Button onClick={() => onSave(state)} className={button}
-              variant="contained"
-              color="primary"
-            >Save</Button>
-          </Paper>
-        )}
+          )
+        }
+      </Stepper>
 
-        <Snackbar
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
-          }}
-          open={openSnackbar}
-          autoHideDuration={3000}
-          onClose={handleCloseSnackbar}
-          ContentProps={{
-            'aria-describedby': 'message-id',
-          }}
-          message={<span id="message-id">Saved</span>}
-          action={[
-            <Button key="undo" color="secondary" size="small" onClick={handleCloseSnackbar}>
-              UNDO
-            </Button>,
-            <IconButton
-              key="close"
-              aria-label="Close"
-              color="inherit"
-              className={close}
-              onClick={handleCloseSnackbar}
-            >
-              <CloseIcon />
-            </IconButton>,
-          ]}
-        />
+    const getSnackbar = () =>
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        open={isOpenSnackbar}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackbar}
+        ContentProps={{
+          'aria-describedby': 'message-id',
+        }}
+        message={<span id="message-id">Saved</span>}
+        action={[
+          <Button className="uppercase" key="undo" color="secondary" size="small" onClick={handleCloseSnackbar}>
+            Undo
+          </Button>,
+          <IconButton
+            key="close" aria-label="Close" color="inherit"
+            className={classes.close} onClick={handleCloseSnackbar}
+          >
+            <Icon>close</Icon>
+          </IconButton>,
+        ]}
+      />
 
-      </div>
-    );
+    const getMainContent = () =>
+      <Paper className={classes.root} elevation={1}>
+        {getStepper()} {(activeStep === STEP_LABELS.length) && getFinalStep()}
+      </Paper>
+
+    const getGeoStepper = () =>
+      <div className={classes.root}> {HEADER_MESSAGE} {getMainContent()} {getSnackbar()} </div>
+
+    return getGeoStepper();
   }
 }
 
-GeoStepper.defaultProps = {
-  showSaveButton: true,
-  onChange: () => {},
-  onValid: () => {},
-  onSave: () => {},
-  key: Date.now(),
-  heading: 'Location', // 'Set your location',
-};
-
 GeoStepper.propTypes = {
-  classes: PropTypes.object,
-  onChange: PropTypes.func,
-  onValid: PropTypes.func,
-  onSave: PropTypes.func,
-  showSaveButton: PropTypes.bool,
-  key: PropTypes.number,
-  heading: PropTypes.string,
+  classes: PropTypes.object.isRequired,
+  onSave: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(GeoStepper);

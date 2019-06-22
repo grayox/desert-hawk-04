@@ -260,8 +260,13 @@ class ProfilePage extends Component {
       anchorElMenu: null,  // closes menu, saves to local state
       firestoreKey: Date.now(), // resets <FetchFirestore />
       settings,
-    });
-    this.props.updateSettings(settings);
+    }
+    , () => {
+      // this.props.updateSettings(settings);
+      const path = this.getPath('settings');
+      this.props.saveUserDataToFirestore( path, settings, );
+    }
+    );
   };
 
   handleCloseMenu = () => {
@@ -296,10 +301,15 @@ class ProfilePage extends Component {
     // console.log('state\n', this.state);
     const settings = _.merge(this.state.settings, this.state.tempSetting);
     // console.log('settings\n', settings);
-    this.setState({settings});
-    // console.log('state\n', this.state);
-    this.props.updateSettings(this.state.settings);
-    this.handleResetDialog();
+    this.setState({settings}
+      , () => {
+        // console.log('state\n', this.state);
+        // this.props.updateSettings(this.state.settings);
+        const path = this.getPath('settings');
+        this.props.saveUserDataToFirestore( path, settings, );
+        this.handleResetDialog();
+      }
+    );
   }
 
   // --------------------------------
@@ -346,14 +356,18 @@ class ProfilePage extends Component {
 
   // --------------------------------
 
-  mapSwitchesToSettings = () => {
+  // mapSwitchesToSettings = () => {}
 
+  getPath = path => {
+    const uid = this.props.profile.uid;
+    const out = [ 'users' , uid , path , ].join('/');
+    return out;
   }
 
   handleToggle = value => () => {
     // console.log('value\n', value,);
     const { checked, } = this.state;
-    const { settings, updateSettings, } = this.props;
+    const { settings, saveUserDataToFirestore, } = this.props; // updateSettings,
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
 
@@ -375,7 +389,9 @@ class ProfilePage extends Component {
     },() => {
       // console.log('state\n', this.state,);
       // console.log('settings\n', settings,);
-      updateSettings(newSettings);
+      // updateSettings(newSettings);
+      const path = this.getPath('settings');
+      saveUserDataToFirestore( path, newSettings, );
     });
   };
 
@@ -670,7 +686,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateSettings: settings => dispatch(updateSettings(settings)),
+    // updateSettings: settings => dispatch(updateSettings(settings)), // deprecated // use saveUserDataToFirestore()
+    saveUserDataToFirestore : ( path, newData, ) => dispatch(saveUserDataToFirestore( path, newData, )), // common mistakes: 1. forget to use this.props... when calling function in class 2. copy/paste forget to change function name in mapStateToProps => dispatch
   }
 }
 
