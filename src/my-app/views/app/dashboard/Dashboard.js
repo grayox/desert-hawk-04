@@ -43,7 +43,7 @@ const Dashboard = ({ classes, dashboard, settings, profile, show, type, saveUser
     return out;
   }
 
-  const handleSaveSettingsStepper = async ( data ) => {
+  const handleSaveSettingsStepper = data => {
     // const { saveUserDataToFirestore, settings, dashboard, } = this.props; // updateUserData,
     const { bizCategory, geoNation, geoRegion, geoLocal, } = data;
     const createdAt = Date.now();

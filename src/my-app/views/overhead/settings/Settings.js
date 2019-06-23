@@ -210,18 +210,69 @@ class ProfilePage extends Component {
 
   handleValidGeoStepper = model => {
     // handleSaveGeoStepper = model => {
-    // console.log('model\n', model);
+    console.log('model\n', model,);
     const picked = _.pick(model, [ 'geoNation', 'geoRegion', 'geoLocal', ]);
     const tempSetting = {
       ...picked,
       isValidGeo: true,
     };
-    this.setState(
-      { tempSetting, }
-      , () => {
-        // console.log('state\n', this.state);
-      });
+    console.log('tempSetting\n', tempSetting,);
+    this.setState({
+      tempSetting,
+    }
+    , () => {
+      console.log('state\n', this.state,);
+    });
   };
+
+  handleSaveGeoStepper = data => {
+    console.log( 'data\n', data, );
+    const { saveUserDataToFirestore, settings, } = this.props; // updateUserData, dashboard,
+    const { geoNation, geoRegion, geoLocal, } = data; // bizCategory,
+
+    const createdAt = Date.now();
+    // const newData = { ...data, createdAt, };
+    const newData = { createdAt, geoNation, geoRegion, geoLocal, }; // bizCategory,
+    console.log( 'newData\n', newData, );
+
+    // const { settings, dashboard, } = this.props; //
+    console.log('settings\n', settings,);
+    // console.log('dashboard\n', dashboard,)
+
+    const newSettings = {
+      ...settings,
+      ...newData,
+    };
+    // const newDashboard = {
+    //   ...dashboard,
+    //   ...newData,
+    // };
+    console.log('newSettings\n', newSettings,);
+    // console.log('newDashboard\n', newDashboard,)
+
+    // this.setState({
+    //   ...newData,
+    //   show: 'main',
+    // }
+    //   // , () => {
+    //   //   console.log('props\n', this.props,);
+    //   //   console.log('state\n', this.state,);
+    //   // }
+    // );
+
+    const { getPath, } = this;
+    const settingsPath  = getPath('settings');
+    // const dashboardPath = getPath('dashboard');
+    // db.collection(settingsPath).add(newData);
+    // db.collection(dashboardPath).add(newData);
+    // updateUserData( 'settings'  , newData , );
+    // updateUserData( 'dashboard' , newData , ); 
+    saveUserDataToFirestore( settingsPath , newSettings  , );
+    // saveUserDataToFirestore( dashboardPath , newDashboard , );
+
+    // this.handleChangeDashboard();
+    // onChange();
+  }
 
   // --------------------------------
 
@@ -231,9 +282,9 @@ class ProfilePage extends Component {
 
   handleMenuItemClickMenu = (event, index) => {
     const option = optionsMenu[index];
-    console.log('option\n', option);
-    console.log('props-settings\n', this.props.settings);
-    console.log('this-settings\n', this.settings);
+    // console.log('option\n', option);
+    // console.log('props-settings\n', this.props.settings);
+    // console.log('this-settings\n', this.settings);
     // const settings = _.merge(this./*state*/props.settings, {bizCategory: option,}); // fails
     const settings = {
       ...this.props.settings,
@@ -286,10 +337,15 @@ class ProfilePage extends Component {
     // console.log('event.target\n', event.target);
     const val = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
     // console.log('val\n', val);
-    const tempSetting = { [event.target.name] : val };
-    // console.log('tempSetting\n', tempSetting);
-    this.setState({tempSetting});
-    // console.log('state\n', this.state);
+    const tempSetting = { [event.target.name]: val, };
+    console.log('tempSetting\n', tempSetting);
+    this.setState({
+      tempSetting,
+    }
+    , () => {
+      console.log('state\n', this.state);
+    }
+    );
   };
   
   handleResetDialog = event => {
@@ -329,15 +385,22 @@ class ProfilePage extends Component {
   // --------------------------------
 
   handleCloseMenu1 = () => {
-    this.setState({ anchorElMenu1: null });
+    this.setState({
+      anchorElMenu1: null,
+    });
   };
 
   handleClickListItemMenu1 = event => {
-    this.setState({ anchorElMenu1: event.currentTarget });
+    this.setState({
+      anchorElMenu1: event.currentTarget,
+    });
   };
 
   handleMenuItemClickMenu1 = (event, index) => {
-    this.setState({ selectedIndexMenu1: index, anchorElMenu1: null });
+    this.setState({
+      selectedIndexMenu1: index,
+      anchorElMenu1: null,
+    });
   };
 
   // --------------------------------
@@ -347,11 +410,16 @@ class ProfilePage extends Component {
   };
 
   handleMenuItemClickMenu2 = (event, index) => {
-    this.setState({ selectedIndexMenu2: index, anchorElMenu2: null });
+    this.setState({
+      selectedIndexMenu2: index,
+      anchorElMenu2: null,
+    });
   };
 
   handleClickListItemMenu2 = event => {
-    this.setState({ anchorElMenu2: event.currentTarget });
+    this.setState({
+      anchorElMenu2: event.currentTarget,
+    });
   };
 
   // --------------------------------
@@ -425,7 +493,8 @@ class ProfilePage extends Component {
     } = this.state;
     const {
       handleChange, handleToggle,
-      handleValidGeoStepper, handleClickListItemDialog, handleClickListItemMenu,
+      handleSaveGeoStepper, handleValidGeoStepper,
+      handleClickListItemDialog, handleClickListItemMenu,
       handleMenuItemClickMenu, handleCloseMenu,
       handleKeyPressDialog, handleChangeDialog,
       handleResetDialog, handleSaveDialog,
@@ -456,9 +525,10 @@ class ProfilePage extends Component {
         geoRegion={geoRegion}
         geoLocal={geoLocal}
         bizCategory={bizCategory}
+        onSaveGeoStepper={handleSaveGeoStepper}
         onValidGeoStepper={handleValidGeoStepper}
-        onClickListItemDialog={handleClickListItemDialog}
         onClickListItemMenu={handleClickListItemMenu}
+        onClickListItemDialog={handleClickListItemDialog}
       />
 
     const getPreferencesTab = () =>
@@ -516,7 +586,7 @@ class ProfilePage extends Component {
         scrollable
         scrollButtons="auto"
         classes={{
-          root: classes.tabsRoot
+          root: classes.tabsRoot,
         }}
       >
         {/* <Tab
@@ -534,11 +604,11 @@ class ProfilePage extends Component {
         {/* begin my add */}
         <Tab
           classes={{
-            root: classes.tabRoot
+            root: classes.tabRoot,
           }} label="Details" />
         <Tab
           classes={{
-            root: classes.tabRoot
+            root: classes.tabRoot,
           }} label="Preferences" />
         {/* end my add */}
       </Tabs>

@@ -287,8 +287,8 @@ class GeoStepper extends Component {
     const { onSave, } = this.props;
     const { activeStep, isOpenSnackbar, } = this.state;
     const {
-      getChipValues, getStepContent, handleClickChip, handleCloseSnackbar,
-      handleClickSelectButton, handleBack, handleReset,
+      state, getChipValues, getStepContent,
+      handleClickSelectButton, handleBack, handleReset, handleClickChip, handleCloseSnackbar,
     } = this;
     const { classes, } = this.props;
 
@@ -297,7 +297,7 @@ class GeoStepper extends Component {
         {FINISH_MESSAGE}
         <Button onClick={handleReset} className={[classes.button, "mr-32"].join(" ")}>Reset</Button>
         <Button onClick={handleBack} className={classes.button}>Back</Button>
-        <Button onClick={() => onSave(this.state)} className={classes.button} variant="contained" color="primary">
+        <Button onClick={() => onSave(state)} className={classes.button} variant="contained" color="primary">
           Save
         </Button>
       </Paper>

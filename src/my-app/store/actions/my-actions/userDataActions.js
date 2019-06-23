@@ -39,8 +39,8 @@ export const UPDATE_FEEDBACK_NOTE     = '[FEEDBACK] UPDATE NOTE';
 // updates global state in redux store
 export const updateUserData = ( path, value, ) => {
   // path: string: 'settings' | 'dashboard' | 'feedbackRating' | 'feedbackRating'
-  // console.log('path\n', path);
-  // console.log('value\n', value);
+  console.log('path\n', path);
+  console.log('value\n', value);
   const typeConfig = {
     // settings: UPDATE_SETTINGS,
     settings: UPDATE_SETTINGS_SUCCESS,
@@ -94,8 +94,8 @@ export const saveUserDataToFirestore = ( path, item, ) =>
   // this function is called later, by redux
   (dispatch, getState, { getFirebase, getFirestore, }) => {
     // path: string: 'users/<uid>/dashboard' // keeps this method simple and most flexible
-    // console.log('path\n', path,); // use this
-    // console.log('item\n', item,); // use this
+    console.log('path\n', path,); // use this
+    console.log('item\n', item,); // use this
 
     // fixes bug:
     // Unhandled Rejection (FirebaseError): Invalid path (users//dashboard). Paths must not contain // in them.
@@ -144,9 +144,9 @@ export const saveUserDataToFirestore = ( path, item, ) =>
       .add(newData)
     .then( docRef => {
 
-      // console.log('item\n', item,);
-      // console.log('docRef\n', docRef,);
-      // console.log('Document was written with id: ', docRef.id,);
+      console.log('item\n', item,);
+      console.log('docRef\n', docRef,);
+      console.log('Document was written with id: ', docRef.id,);
 
       // dispatch({ type: 'SAVE_INITIAL_VALUES_SUCCESS' });
       // dispatch({ type: 'CREATE_ITEM_SUCCESS' });
