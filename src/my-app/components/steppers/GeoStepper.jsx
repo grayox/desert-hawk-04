@@ -27,10 +27,10 @@ const styles = theme => ({
   },
 });
 
-const HEADER_MESSAGE =
-  <Typography variant="h5" className="opacity-50 font-light" color="inherit" gutterBottom>
-    Set your location
-  </Typography>
+// const HEADER_MESSAGE =
+//   <Typography variant="h5" className="opacity-50 font-light" color="inherit" gutterBottom>
+//     Set your location
+//   </Typography>
 
 const FINISH_MESSAGE = <div>You finished all steps. You&rsquo;re done!</div>
 
@@ -85,6 +85,8 @@ class GeoStepper extends Component {
 
   getStepContent = step => {
     
+    const { onChange, } = this.props;
+
     const {
       isOpenNation, isOpenRegion, isOpenLocal, // isOpenCategory,
       geoNation, geoRegion, geoLocal, // bizCategory,
@@ -150,9 +152,9 @@ class GeoStepper extends Component {
   }
 
   openHandlers = [
-    () => this.handleOpenNation()   ,
-    () => this.handleOpenRegion()   ,
-    () => this.handleOpenLocal()    ,
+    () => this.handleOpenNation() ,
+    () => this.handleOpenRegion() ,
+    () => this.handleOpenLocal()  ,
     // () => this.handleOpenCategory() ,
   ]
 
@@ -185,9 +187,10 @@ class GeoStepper extends Component {
       geoRegion: '',
       geoLocal: '',
     }
-    // , () => {
-    // console.log('state\n', this.state);
-    // }
+    , () => {
+      // console.log('state\n', this.state);
+      this.props.onChange(this.state);
+      }
     );
   };
 
@@ -214,9 +217,10 @@ class GeoStepper extends Component {
       geoRegion: e.target.value,
       geoLocal: '',
     }
-    // , () => {
-    // console.log('state\n', this.state);
-    // }
+    , () => {
+      // console.log('state\n', this.state);
+      this.props.onChange(this.state);
+      }
     );
   };
   
@@ -241,9 +245,10 @@ class GeoStepper extends Component {
       // geoRegion,
       geoLocal: e.target.value,
     }
-    // , () => {
+    , () => {
     // console.log('state\n', this.state);
-    // }
+    this.props.onChange(this.state);
+    }
     );
   };
 
@@ -284,23 +289,23 @@ class GeoStepper extends Component {
   handleClickChip         = index => this.openHandlers[index]()
 
   render() {
-    const { onSave, } = this.props;
+    // const { onSave, } = this.props;
     const { activeStep, isOpenSnackbar, } = this.state;
     const {
       state, getChipValues, getStepContent,
-      handleClickSelectButton, handleBack, handleReset, handleClickChip, handleCloseSnackbar,
+      handleClickSelectButton, handleBack, handleClickChip, handleCloseSnackbar, // handleReset, 
     } = this;
-    const { classes, } = this.props;
+    const { classes, } = this.props; // onChange,
 
-    const getFinalStep = () =>
-      <Paper square elevation={0} className={classes.resetContainer}>
-        {FINISH_MESSAGE}
-        <Button onClick={handleReset} className={[classes.button, "mr-32"].join(" ")}>Reset</Button>
-        <Button onClick={handleBack} className={classes.button}>Back</Button>
-        <Button onClick={() => onSave(state)} className={classes.button} variant="contained" color="primary">
-          Save
-        </Button>
-      </Paper>
+    // const getFinalStep = () =>
+    //   <Paper square elevation={0} className={classes.resetContainer}>
+    //     {FINISH_MESSAGE}
+    //     <Button onClick={handleReset} className={[classes.button, "mr-32"].join(" ")}>Reset</Button>
+    //     <Button onClick={handleBack} className={classes.button}>Back</Button>
+    //     <Button onClick={() => onSave(state)} className={classes.button} variant="contained" color="primary">
+    //       Save
+    //     </Button>
+    //   </Paper>
 
     const getStepper = () =>
       <Stepper
@@ -341,39 +346,39 @@ class GeoStepper extends Component {
         }
       </Stepper>
 
-    const getSnackbar = () =>
-      <Snackbar
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        open={isOpenSnackbar}
-        autoHideDuration={3000}
-        onClose={handleCloseSnackbar}
-        ContentProps={{
-          'aria-describedby': 'message-id',
-        }}
-        message={<span id="message-id">Saved</span>}
-        action={[
-          <Button className="uppercase" key="undo" color="secondary" size="small" onClick={handleCloseSnackbar}>
-            Undo
-          </Button>,
-          <IconButton
-            key="close" aria-label="Close" color="inherit"
-            className={classes.close} onClick={handleCloseSnackbar}
-          >
-            <Icon>close</Icon>
-          </IconButton>,
-        ]}
-      />
+    // const getSnackbar = () =>
+    //   <Snackbar
+    //     anchorOrigin={{
+    //       vertical: 'bottom',
+    //       horizontal: 'left',
+    //     }}
+    //     open={isOpenSnackbar}
+    //     autoHideDuration={3000}
+    //     onClose={handleCloseSnackbar}
+    //     ContentProps={{
+    //       'aria-describedby': 'message-id',
+    //     }}
+    //     message={<span id="message-id">Saved</span>}
+    //     action={[
+    //       <Button className="uppercase" key="undo" color="secondary" size="small" onClick={handleCloseSnackbar}>
+    //         Undo
+    //       </Button>,
+    //       <IconButton
+    //         key="close" aria-label="Close" color="inherit"
+    //         className={classes.close} onClick={handleCloseSnackbar}
+    //       >
+    //         <Icon>close</Icon>
+    //       </IconButton>,
+    //     ]}
+    //   />
 
-    const getMainContent = () =>
-      <Paper className={classes.root} elevation={1}>
-        {getStepper()} {(activeStep === STEP_LABELS.length) && getFinalStep()}
-      </Paper>
+    const getMainContent = () => getStepper()
+      // <Paper className={classes.root} elevation={1}>
+      //   {getStepper()} {(activeStep === STEP_LABELS.length) && getFinalStep()}
+      // </Paper>
 
-    const getGeoStepper = () =>
-      <div className={classes.root}> {HEADER_MESSAGE} {getMainContent()} {getSnackbar()} </div>
+    const getGeoStepper = () => getMainContent()
+      // <div className={classes.root}> {HEADER_MESSAGE} {getMainContent()} {getSnackbar()} </div>
 
     return getGeoStepper();
   }

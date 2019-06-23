@@ -274,6 +274,13 @@ class ProfilePage extends Component {
     // onChange();
   }
 
+  handleChangeGeoStepper = geoState => {
+    console.log('geoState\n', geoState,);
+    const geoLocation = _.pick(geoState, [ 'geoNation', 'geoRegion', 'geoLocal', ]);
+    console.log('geoLocation\n', geoLocation,);
+    this.setState({tempSetting: geoLocation,});
+  }
+
   // --------------------------------
 
   handleClickListItemMenu = event => {
@@ -493,7 +500,7 @@ class ProfilePage extends Component {
     } = this.state;
     const {
       handleChange, handleToggle,
-      handleSaveGeoStepper, handleValidGeoStepper,
+      handleSaveGeoStepper, handleValidGeoStepper, handleChangeGeoStepper,
       handleClickListItemDialog, handleClickListItemMenu,
       handleMenuItemClickMenu, handleCloseMenu,
       handleKeyPressDialog, handleChangeDialog,
@@ -525,8 +532,11 @@ class ProfilePage extends Component {
         geoRegion={geoRegion}
         geoLocal={geoLocal}
         bizCategory={bizCategory}
+
         onSaveGeoStepper={handleSaveGeoStepper}
         onValidGeoStepper={handleValidGeoStepper}
+        onChangeGeoStepper={handleChangeGeoStepper}
+
         onClickListItemMenu={handleClickListItemMenu}
         onClickListItemDialog={handleClickListItemDialog}
       />

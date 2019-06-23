@@ -48,7 +48,8 @@ const DetailsTab = props => {
   const {
     classes, profile, settings, // user, leads,
     geoKey, isValidGeo, geoNation, geoRegion, geoLocal, bizCategory,
-    onSaveGeoStepper, onValidGeoStepper, onClickListItemDialog, onClickListItemMenu,
+    onSaveGeoStepper, onValidGeoStepper, onChangeGeoStepper,
+    onClickListItemDialog, onClickListItemMenu,
   } = props;
 
   return (
@@ -217,7 +218,8 @@ const DetailsTab = props => {
                           showSaveButton={false}
                           // onSave={handleSaveGeoStepper}
                           onValid={onValidGeoStepper}
-                          onSave={onSaveGeoStepper} 
+                          onSave={onSaveGeoStepper}
+                          onChange={onChangeGeoStepper}
                         />),
                     })}
                   >
