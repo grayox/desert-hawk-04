@@ -4,7 +4,7 @@ import React, { Component, } from 'react';
 import PropTypes from 'prop-types';
 
 import {
-  withStyles, Typography, Button, Paper, Chip, Snackbar, IconButton, Icon, Stepper, Step, StepLabel, StepContent,
+  withStyles, Button, Chip, Stepper, Step, StepLabel, StepContent, // Typography, Paper, Snackbar, IconButton, Icon,
 } from '@material-ui/core';
 
 import GeoSelect from '../GeoSelect/GeoSelect';
@@ -32,7 +32,7 @@ const styles = theme => ({
 //     Set your location
 //   </Typography>
 
-const FINISH_MESSAGE = <div>You finished all steps. You&rsquo;re done!</div>
+// const FINISH_MESSAGE = <div>You finished all steps. You&rsquo;re done!</div>
 
 const STEP_LABELS = [
   'Select country'           ,
@@ -85,7 +85,7 @@ class GeoStepper extends Component {
 
   getStepContent = step => {
     
-    const { onChange, } = this.props;
+    // const { onChange, } = this.props;
 
     const {
       isOpenNation, isOpenRegion, isOpenLocal, // isOpenCategory,
@@ -283,19 +283,18 @@ class GeoStepper extends Component {
   handleReset             = ()    => this.setState(   INITIAL_STATE                                )
   handleClose             = ()    => this.setState(   INITIAL_STATE_OPEN                           )
   handleBack              = ()    => this.setState( { activeStep   : this.state.activeStep - 1 , } )
-  handleSave              = ()    => this.setState( { isOpenSnackbar : true                      , } )
+//handleSave              = ()    => this.setState( { isOpenSnackbar : true                      , } )
   handleCloseSnackbar     = ()    => this.setState( { isOpenSnackbar : false                     , } )
   handleClickSelectButton = ()    => this.openHandlers[this.state.activeStep]()
   handleClickChip         = index => this.openHandlers[index]()
 
   render() {
-    // const { onSave, } = this.props;
-    const { activeStep, isOpenSnackbar, } = this.state;
+    const { activeStep, } = this.state; // isOpenSnackbar, 
     const {
-      state, getChipValues, getStepContent,
-      handleClickSelectButton, handleBack, handleClickChip, handleCloseSnackbar, // handleReset, 
+      getChipValues, getStepContent,
+      handleClickSelectButton, handleBack, handleClickChip, // handleCloseSnackbar, // handleReset, state,
     } = this;
-    const { classes, } = this.props; // onChange,
+    const { classes, } = this.props; // onChange, onSave,
 
     // const getFinalStep = () =>
     //   <Paper square elevation={0} className={classes.resetContainer}>
@@ -386,7 +385,7 @@ class GeoStepper extends Component {
 
 GeoStepper.propTypes = {
   classes: PropTypes.object.isRequired,
-  onSave: PropTypes.func.isRequired,
+  // onSave: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(GeoStepper);

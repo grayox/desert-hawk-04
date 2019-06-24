@@ -182,6 +182,10 @@ class ProfilePage extends Component {
   //   // });
   // }
 
+  componentDidMount() {
+    this.handleDidMount();
+  }
+
   // saveToFirebase = data => {
   //   const collectionRef = db.collection(this.props.savePath);
   //   console.info('submitting...', data);
@@ -202,83 +206,131 @@ class ProfilePage extends Component {
   //   });
   // }
 
+  handleDidMount = () => {
+    const { settings, } = this.props;
+    console.log('settings\n', settings,);
+    
+    const geoLocation = _.pick(settings, [ 'geoNation', 'geoRegion', 'geoLocal', ]);
+    const isValidGeo = this.getIsValidGeo(geoLocation);
+
+    const ready1 = isValidGeo;
+    if(!ready1) return;
+
+    console.log('isValidGeo\n', isValidGeo,);
+    console.log('geoLocation\n', geoLocation,);
+    this.setState({ isValidGeo, });
+  }
+
   handleChange = ( event, value, ) => {
     this.setState({ value, });
   };
 
   // --------------------------------
 
-  handleValidGeoStepper = model => {
-    // handleSaveGeoStepper = model => {
-    console.log('model\n', model,);
-    const picked = _.pick(model, [ 'geoNation', 'geoRegion', 'geoLocal', ]);
-    const tempSetting = {
-      ...picked,
-      isValidGeo: true,
-    };
-    console.log('tempSetting\n', tempSetting,);
-    this.setState({
-      tempSetting,
-    }
-    , () => {
-      console.log('state\n', this.state,);
-    });
-  };
+  // handleValidGeoStepper = model => {
+  //   // handleSaveGeoStepper = model => {
+  //   console.log('model\n', model,);
+  //   const picked = _.pick(model, [ 'geoNation', 'geoRegion', 'geoLocal', ]);
+  //   const tempSetting = {
+  //     ...picked,
+  //     isValidGeo: true,
+  //   };
+  //   console.log('tempSetting\n', tempSetting,);
+  //   this.setState({
+  //     tempSetting,
+  //   }
+  //   , () => {
+  //     console.log('state\n', this.state,);
+  //   });
+  // };
 
-  handleSaveGeoStepper = data => {
-    console.log( 'data\n', data, );
-    const { saveUserDataToFirestore, settings, } = this.props; // updateUserData, dashboard,
-    const { geoNation, geoRegion, geoLocal, } = data; // bizCategory,
+  // handleSaveGeoStepper = data => {
+  //   console.log( 'data\n', data, );
+  //   const { saveUserDataToFirestore, settings, } = this.props; // updateUserData, dashboard,
+  //   const { geoNation, geoRegion, geoLocal, } = data; // bizCategory,
 
-    const createdAt = Date.now();
-    // const newData = { ...data, createdAt, };
-    const newData = { createdAt, geoNation, geoRegion, geoLocal, }; // bizCategory,
-    console.log( 'newData\n', newData, );
+  //   const createdAt = Date.now();
+  //   // const newData = { ...data, createdAt, };
+  //   const newData = { createdAt, geoNation, geoRegion, geoLocal, }; // bizCategory,
+  //   console.log( 'newData\n', newData, );
 
-    // const { settings, dashboard, } = this.props; //
-    console.log('settings\n', settings,);
-    // console.log('dashboard\n', dashboard,)
+  //   // const { settings, dashboard, } = this.props; //
+  //   console.log('settings\n', settings,);
+  //   // console.log('dashboard\n', dashboard,)
 
-    const newSettings = {
-      ...settings,
-      ...newData,
-    };
-    // const newDashboard = {
-    //   ...dashboard,
-    //   ...newData,
-    // };
-    console.log('newSettings\n', newSettings,);
-    // console.log('newDashboard\n', newDashboard,)
+  //   const newSettings = {
+  //     ...settings,
+  //     ...newData,
+  //   };
+  //   // const newDashboard = {
+  //   //   ...dashboard,
+  //   //   ...newData,
+  //   // };
+  //   console.log('newSettings\n', newSettings,);
+  //   // console.log('newDashboard\n', newDashboard,)
 
-    // this.setState({
-    //   ...newData,
-    //   show: 'main',
-    // }
-    //   // , () => {
-    //   //   console.log('props\n', this.props,);
-    //   //   console.log('state\n', this.state,);
-    //   // }
-    // );
+  //   // this.setState({
+  //   //   ...newData,
+  //   //   show: 'main',
+  //   // }
+  //   //   // , () => {
+  //   //   //   console.log('props\n', this.props,);
+  //   //   //   console.log('state\n', this.state,);
+  //   //   // }
+  //   // );
 
-    const { getPath, } = this;
-    const settingsPath  = getPath('settings');
-    // const dashboardPath = getPath('dashboard');
-    // db.collection(settingsPath).add(newData);
-    // db.collection(dashboardPath).add(newData);
-    // updateUserData( 'settings'  , newData , );
-    // updateUserData( 'dashboard' , newData , ); 
-    saveUserDataToFirestore( settingsPath , newSettings  , );
-    // saveUserDataToFirestore( dashboardPath , newDashboard , );
+  //   const { getPath, } = this;
+  //   const settingsPath  = getPath('settings');
+  //   // const dashboardPath = getPath('dashboard');
+  //   // db.collection(settingsPath).add(newData);
+  //   // db.collection(dashboardPath).add(newData);
+  //   // updateUserData( 'settings'  , newData , );
+  //   // updateUserData( 'dashboard' , newData , ); 
+  //   saveUserDataToFirestore( settingsPath , newSettings  , );
+  //   // saveUserDataToFirestore( dashboardPath , newDashboard , );
 
-    // this.handleChangeDashboard();
-    // onChange();
+  //   // this.handleChangeDashboard();
+  //   // onChange();
+  // }
+
+  // handleChangeGeoStepper = geoState => {
+  //   // console.log('geoState\n', geoState,);
+
+  //   const isValidGeo = !!(geoState
+  //     && geoState.geoNation && geoState.geoNation.length
+  //     && geoState.geoRegion && geoState.geoRegion.length
+  //     && geoState.geoLocal  && geoState.geoLocal.length
+  //   );
+  //   const ready1 = isValidGeo;
+  //   if(!ready1) return;
+
+  //   const tempSetting = _.pick(geoState, [ 'geoNation', 'geoRegion', 'geoLocal', ]);
+  //   // console.log('tempSetting-geoLocation\n', tempSetting,);
+  //   this.setState({ isValidGeo, tempSetting, });
+  // }
+
+  getIsValidGeo = ({ geoNation, geoRegion, geoLocal, }) => {
+    const toBool = geoNation && geoNation.length
+                && geoRegion && geoRegion.length
+                && geoLocal  && geoLocal.length
+    const out = !!toBool;
+    return out;
   }
 
   handleChangeGeoStepper = geoState => {
-    console.log('geoState\n', geoState,);
+    // console.log('geoState\n', geoState,);
     const geoLocation = _.pick(geoState, [ 'geoNation', 'geoRegion', 'geoLocal', ]);
-    console.log('geoLocation\n', geoLocation,);
-    this.setState({tempSetting: geoLocation,});
+    
+    const isValidGeo = this.getIsValidGeo(geoLocation);
+    const ready1 = isValidGeo;
+    if(!ready1) return;
+
+    // console.log('isValidGeo\n', isValidGeo,);
+    // console.log('geoLocation\n', geoLocation,);
+    this.setState({
+      isValidGeo,
+      tempSetting: geoLocation,
+    });
   }
 
   // --------------------------------
@@ -345,13 +397,13 @@ class ProfilePage extends Component {
     const val = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
     // console.log('val\n', val);
     const tempSetting = { [event.target.name]: val, };
-    console.log('tempSetting\n', tempSetting);
+    // console.log('tempSetting\n', tempSetting);
     this.setState({
       tempSetting,
     }
-    , () => {
-      console.log('state\n', this.state);
-    }
+    // , () => {
+    //   console.log('state\n', this.state);
+    // }
     );
   };
   
@@ -488,19 +540,18 @@ class ProfilePage extends Component {
 
     // const { isValidGeo, geoNation, geoRegion, geoLocal, bizCategory } = this.state.settings;
     // const { isValidGeo, geoNation, geoRegion, geoLocal, bizCategory } = this.props.settings;
-    const { isValidGeo, geoNation, geoRegion, geoLocal, bizCategory }
-      = this.props.settings || this.state.settings;
+    const { geoNation, geoRegion, geoLocal, bizCategory } = settings;
     const {
       dialogIsOpen, dialogContent, dialogContentText, dialogTitle,
       isDialogTextField, dialogTextFieldLabel, dialogFieldName,
       geoKey, value, checked, anchorElMenu, selectedIndexMenu,
-      // firestoreKey, isValidName, isValidEmail, isValidPhone, isValidBizCategory, isValidForm,
+      isValidGeo, // firestoreKey, isValidName, isValidEmail, isValidPhone, isValidBizCategory, isValidForm,
       anchorElMenu1, anchorElMenu2,
       selectedIndexMenu1, selectedIndexMenu2,
     } = this.state;
     const {
       handleChange, handleToggle,
-      handleSaveGeoStepper, handleValidGeoStepper, handleChangeGeoStepper,
+      handleChangeGeoStepper, // handleSaveGeoStepper, handleValidGeoStepper,
       handleClickListItemDialog, handleClickListItemMenu,
       handleMenuItemClickMenu, handleCloseMenu,
       handleKeyPressDialog, handleChangeDialog,
@@ -532,11 +583,9 @@ class ProfilePage extends Component {
         geoRegion={geoRegion}
         geoLocal={geoLocal}
         bizCategory={bizCategory}
-
-        onSaveGeoStepper={handleSaveGeoStepper}
-        onValidGeoStepper={handleValidGeoStepper}
+        // onSaveGeoStepper={handleSaveGeoStepper}
+        // onValidGeoStepper={handleValidGeoStepper}
         onChangeGeoStepper={handleChangeGeoStepper}
-
         onClickListItemMenu={handleClickListItemMenu}
         onClickListItemDialog={handleClickListItemDialog}
       />

@@ -48,7 +48,7 @@ const DetailsTab = props => {
   const {
     classes, profile, settings, // user, leads,
     geoKey, isValidGeo, geoNation, geoRegion, geoLocal, bizCategory,
-    onSaveGeoStepper, onValidGeoStepper, onChangeGeoStepper,
+    onChangeGeoStepper, // onSaveGeoStepper, onValidGeoStepper,
     onClickListItemDialog, onClickListItemMenu,
   } = props;
 
@@ -217,8 +217,8 @@ const DetailsTab = props => {
                           heading={'Tell us your home market so we can send you leads'}
                           showSaveButton={false}
                           // onSave={handleSaveGeoStepper}
-                          onValid={onValidGeoStepper}
-                          onSave={onSaveGeoStepper}
+                          // onValid={onValidGeoStepper}
+                          // onSave={onSaveGeoStepper}
                           onChange={onChangeGeoStepper}
                         />),
                     })}
@@ -231,8 +231,9 @@ const DetailsTab = props => {
                     <ListItemText
                       primary="Location"
                       secondary={
-                        isValidGeo ? (`${geoLocal}, ${geoRegion}, ${geoNation}`)
-                          : 'Click to select...'
+                        isValidGeo
+                        ? (`${geoLocal}, ${geoRegion}, ${geoNation}`)
+                        : 'Click to select...'
                       }
                     />
                   </ListItem>
