@@ -202,22 +202,26 @@ class ProfilePage extends Component {
   //   });
   // }
 
-  handleLoad = () => {
+  // handleLoad = () => {
+  getWasValidGeo = () => {
+    const ready1 = !this.state.isValidGeo; // this method only sets state of isValidGeo from falsy to true
+    if(!ready1) return null;
+
     const { settings, } = this.props;
-    console.log('settings\n', settings,);
+    // console.log('settings\n', settings,);
     
     const geoLocation = _.pick(settings, [ 'geoNation', 'geoRegion', 'geoLocal', ]);
     const isValidGeo = this.getIsValidGeo(geoLocation);
 
-    const ready1 = isValidGeo;
-    if(!ready1) return null;
-    
-    const ready2 = !this.state.isValidGeo;
+    const ready2 = isValidGeo;
     if(!ready2) return null;
 
-    console.log('isValidGeo\n', isValidGeo,);
-    console.log('geoLocation\n', geoLocation,);
-    this.setState({ isValidGeo, });
+    // console.log('isValidGeo\n', isValidGeo,);
+    // console.log('geoLocation\n', geoLocation,);
+
+    // this.setState({ isValidGeo, });
+    // fixes bug: Warning: Cannot update during an existing state transition (such as within `render`). Render methods should be a pure function of props and state.
+    return true;
   }
 
   handleChange = ( event, value, ) => {
@@ -531,11 +535,7 @@ class ProfilePage extends Component {
     // console.log('user\n', this.props.user);
     // console.log('leads\n', this.props.leads);
     // console.log('profile\n', this.props.profile);
-    console.log('settings\n', this.props.settings,);
-
-    // memoization
-    this.handleLoad();
-    // ref: https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#what-about-memoization
+    // console.log('settings\n', this.props.settings,);
 
     const { classes, profile, settings, dataHasLoaded, } = this.props; // leads, user,
     // if (!user.data.uid) return <Redirect to='/login' /> 
@@ -564,6 +564,11 @@ class ProfilePage extends Component {
       handleMenuItemClickMenu1, handleMenuItemClickMenu2,
     } = this;
 
+    // memoization
+    // this.handleLoad();
+    // ref: https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#what-about-memoization
+    const wasValidGeo = this.getWasValidGeo();
+
     const getDetailsTab = () =>
       // <div>Hello world</div>
       <DetailsTab
@@ -581,7 +586,7 @@ class ProfilePage extends Component {
         anchorElMenu={anchorElMenu}
         selectedIndexMenu={selectedIndexMenu}
         geoKey={geoKey}
-        isValidGeo={isValidGeo}
+        isValidGeo={isValidGeo || wasValidGeo}
         geoNation={geoNation}
         geoRegion={geoRegion}
         geoLocal={geoLocal}
