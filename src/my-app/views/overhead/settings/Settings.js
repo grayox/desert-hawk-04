@@ -182,10 +182,6 @@ class ProfilePage extends Component {
   //   // });
   // }
 
-  componentDidMount() {
-    this.handleDidMount();
-  }
-
   // saveToFirebase = data => {
   //   const collectionRef = db.collection(this.props.savePath);
   //   console.info('submitting...', data);
@@ -206,7 +202,7 @@ class ProfilePage extends Component {
   //   });
   // }
 
-  handleDidMount = () => {
+  handleLoad = () => {
     const { settings, } = this.props;
     console.log('settings\n', settings,);
     
@@ -214,7 +210,10 @@ class ProfilePage extends Component {
     const isValidGeo = this.getIsValidGeo(geoLocation);
 
     const ready1 = isValidGeo;
-    if(!ready1) return;
+    if(!ready1) return null;
+    
+    const ready2 = !this.state.isValidGeo;
+    if(!ready2) return null;
 
     console.log('isValidGeo\n', isValidGeo,);
     console.log('geoLocation\n', geoLocation,);
@@ -532,7 +531,11 @@ class ProfilePage extends Component {
     // console.log('user\n', this.props.user);
     // console.log('leads\n', this.props.leads);
     // console.log('profile\n', this.props.profile);
-    // console.log('settings\n', this.props.settings,);
+    console.log('settings\n', this.props.settings,);
+
+    // memoization
+    this.handleLoad();
+    // ref: https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#what-about-memoization
 
     const { classes, profile, settings, dataHasLoaded, } = this.props; // leads, user,
     // if (!user.data.uid) return <Redirect to='/login' /> 
@@ -805,7 +808,7 @@ const mapStateToProps = state => {
   // // console.log('user\n', user);
   // // console.log('leads\n', leads);
   // console.log('profile\n', profile);
-  console.log('settings\n', settings);
+  // console.log('settings\n', settings);
   // console.log('dataHasLoaded\n', dataHasLoaded);
   
   // //       YES   YES      YES       NO     NO
