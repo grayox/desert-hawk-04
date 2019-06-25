@@ -46,9 +46,9 @@ class DashboardContainer extends Component {
 
   getShow = () => {
     const { dashboard, profile, settings, } = this.props; // profile, settings,
-    // console.log('profile\n', profile,);
-    // console.log('settings\n', settings,);
-    // console.log('dashboard\n', dashboard,);
+    console.log('profile\n', profile,);
+    console.log('settings\n', settings,);
+    console.log('dashboard\n', dashboard,);
     const ready1 = dashboard && settings && profile;
     if(!ready1) return null;
     const ready2 = dashboard.geoNation   && dashboard.geoNation.length   ;

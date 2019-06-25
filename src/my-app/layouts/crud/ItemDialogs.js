@@ -30,7 +30,7 @@ const CreateDialog = ({
   // console.log('ready2\n', ready2);
   if(!ready2) return null;
   const ready3 = onChangeForm && onCloseDialog && onCreateItem;
-  console.log('ready3\n', ready3);
+  // console.log('ready3\n', ready3);
   if(!ready3) return null;
 
   const name = findFormField( crudForm, 'name', );

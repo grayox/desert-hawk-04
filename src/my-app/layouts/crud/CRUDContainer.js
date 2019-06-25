@@ -203,9 +203,9 @@ class CRUDContainer extends Component {
     const { items, searchFilterSortModel, } = this.state;
     
     const ready1 = readable && readable.path;
-    if( !ready1 ) return;
+    if( !ready1 ) return null;
     const ready2 = this && this.state && this.state.hasMore;
-    if( !ready2 ) return;
+    if( !ready2 ) return null;
     
     const { path, } = readable;
 
@@ -217,8 +217,10 @@ class CRUDContainer extends Component {
     this._asyncRequest = loadAsyncData( path, BATCH_SIZE, this.state.lastShown, searchFilterSortModel, );
     // const items = await this._asyncRequest;
     const newData = await this._asyncRequest; // { data:<arrayOfObjects>, lastShown:<documentSnapshot>, }
+    // console.log('newData\n', newData,);
     const { lastShown, } = newData;
     const newItems = newData.data;
+    // console.log('newItems\n', newItems,);
     const hasMore = newItems.length === BATCH_SIZE;
     this._asyncRequest = null;
     if(isMounted) {
@@ -306,7 +308,7 @@ class CRUDContainer extends Component {
         </IconButton>
       </Tooltip>
       
-    const getMainContent = () => ( items && <React.Fragment> {getRefreshButton()} {getCRUDView()} </React.Fragment> )
+    const getMainContent = () => ( items ? <React.Fragment> {getRefreshButton()} {getCRUDView()} </React.Fragment> : null )
     const getIsError = () => <div className="h-full"><Error500Page /></div>
     const getHasLoaded = () => ( isError ? getIsError() : getMainContent() )
     const getIsLoading = () => <div className="h-full"><Loading /></div>

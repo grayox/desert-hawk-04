@@ -75,7 +75,7 @@ const ViewEmpty = ({ classes, side, creatable, onClick, }) => (
       leave={{ animation: "transition.expandOut" }}
     // className="hidden md:flex md-flex-1"
     >  
-      { getEmpty(side, creatable, onClick,) }
+      { getEmpty( side, creatable, onClick, ) }
     </FuseAnimateGroup>
   </div>
 )

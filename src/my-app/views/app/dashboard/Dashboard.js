@@ -103,7 +103,7 @@ const Dashboard = ({ classes, dashboard, settings, profile, show, type, saveUser
     main  : getMainContent(),
   }
 
-  const getDashboard = () => showConfig[show];
+  const getDashboard = () => ( type === 'standard' ) ? showConfig[show] : getMainContent();
 
   return getDashboard();
   // return <div>Hello Dashboard!</div>;
@@ -112,7 +112,7 @@ const Dashboard = ({ classes, dashboard, settings, profile, show, type, saveUser
 Dashboard.propTypes = {
   classes: PropTypes.object.isRequired,
   dashboard: PropTypes.object,
-  type: PropTypes.oneOf(['standard', 'mini', 'micro',]),
+  type: PropTypes.oneOf([ 'standard', 'mini', 'micro', ]),
 };
 
 Dashboard.defaultProps = {

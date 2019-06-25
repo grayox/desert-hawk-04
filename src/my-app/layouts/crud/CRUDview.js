@@ -109,6 +109,7 @@ class CRUDView extends Component {
       updateDialogIsOpen : false  ,
       deleteDialogIsOpen : false  ,
     }
+    // console.log('out\n', out,);
     return out;
   }
 
@@ -160,7 +161,10 @@ class CRUDView extends Component {
 
   handleOpenUpdateDialog  = () => this.setState({ ...STATE_OPEN_UPDATE_DIALOG, });
   handleOpenDeleteDialog  = () => this.setState({ ...STATE_OPEN_DELETE_DIALOG, });
-  handleClickCreateButton = () => this.setState(this.getStateOpenCreateDialog());
+  handleClickCreateButton = () => this.setState(
+    this.getStateOpenCreateDialog()
+    // , () => console.log('state\n', this.state,)
+  );
  
   handleChangeForm = event => {
     // console.log('target\n', event.target);
@@ -346,7 +350,11 @@ class CRUDView extends Component {
     // console.log('detail\n', detail,);
     
     const getFetchUserData = () => <FetchUserData path="dashboard" uid={uid} onChange={handleChangeUserData} />
-    const getViewEmpty = () => <ViewEmpty side="list" onClick={handleClickCreateButton} creatable={creatable} />
+    const getViewEmpty = () =>
+      <React.Fragment>
+        { getCreateDialog() }
+        <ViewEmpty side="list" onClick={handleClickCreateButton} creatable={creatable} />
+      </React.Fragment>
     
     const getCreateDialog = () =>
       <CreateDialog
@@ -425,10 +433,10 @@ class CRUDView extends Component {
     
     const getMainContent = () => (
       <React.Fragment>
-        { getFetchUserData() } {/* updates dashboard after CRUD task */}
-        { getCreateDialog()  }        
-        { getUpdateDialog()  }
-        { getDeleteDialog()  }
+        {    getFetchUserData() } {/* updates dashboard after CRUD task */}
+        { /* getCreateDialog() moved to getViewEmpty() */}
+        {    getUpdateDialog()  }
+        {    getDeleteDialog()  }
         <div className={classes.wrapper}>
           <MediaWidth
             mobile={getMobileContent()}
