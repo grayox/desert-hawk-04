@@ -10,7 +10,7 @@ import * as Actions from 'my-app/store/actions/my-actions';
 import { defaultSettings } from 'my-app/config/AppConfig';
 // end my add
 
-import _ from 'lodash';
+import _ from '@lodash';
 // import { 
 //   FuseDefaultSettings,
 //   // FuseLayouts,

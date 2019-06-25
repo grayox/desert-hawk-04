@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from "prop-types";
 
 // utilities
-import _ from 'lodash';
+import _ from '@lodash';
 import * as EmailValidator from 'email-validator';
 import NumberFormat from 'react-number-format';
 

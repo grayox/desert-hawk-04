@@ -1,6 +1,8 @@
 // inspired by src/store/actions/fuse/settings.actions.js
 
 // begin my add
+import _ from '@lodash';
+
 export const UPDATE_SETTINGS          = '[SETTINGS] UPDATE SETTINGS';
 export const UPDATE_SETTINGS_SUCCESS  = '[SETTINGS] UPDATE SETTINGS SUCCESS';
 export const UPDATE_SETTINGS_ERROR    = '[SETTINGS] UPDATE SETTINGS ERROR';
@@ -35,6 +37,24 @@ export const UPDATE_FEEDBACK_NOTE     = '[FEEDBACK] UPDATE NOTE';
 // }
 
 // begin my add
+
+const syncData = ({ item, pathArray, isSync, }) => {
+  console.log('item\n', item,);
+  console.log('pathArray\n', pathArray,);
+  console.log('isSync\n', isSync,);
+  if(!!isSync) return null; // prevent infinite loop (redundant)
+  
+  const syncConfig = {
+    settings  : 'dashboard' ,
+    dashboard : 'settings'  ,
+  }
+  const oldType = pathArray[2]; // 'settings'|'dashboard' // pathArray = ['user', uid, 'settings'|'dashboard',]
+  const newType = syncConfig[oldType]; // 'dashboard'|'settings'
+  const newPathArray = [pathArray[0], pathArray[1], newType,];
+  const newPath = newPathArray.join('/');
+  // const newItem = _.pick();
+  // saveUserDataToFirestore( newPath, newItem, true, );
+}
 
 // updates global state in redux store
 export const updateUserData = ( path, value, ) => {
@@ -82,7 +102,7 @@ export const updateUserData = ( path, value, ) => {
 // source: https://github.com/iamshaunjp/React-Redux-Firebase-App/blob/lesson-18/marioplan/src/store/actions/projectActions.js
 // export const createItem = ( path, item, ) =>
 // updates data in firestore
-export const saveUserDataToFirestore = ( path, item, ) => 
+export const saveUserDataToFirestore = ( path, item, isSync, ) => 
   //{
   // console.log('path\n', path,); // don't use this (without curly braces)
   // console.log('item\n', item,); // don't use this (without curly braces)
@@ -154,7 +174,13 @@ export const saveUserDataToFirestore = ( path, item, ) =>
         type: dispatchType,
         value: item,
       });
-      return item;
+      const out1 = { item, pathArray, isSync, };
+      return out1;
+    })
+    .then( out1 => {
+      // console.log('out1\n', out1,);
+      if(!!out1.isSync) return out1; // prevent infinite loop
+      syncData(out1);
     })
     .catch( error => {
       // dispatch({ type: 'CREATE_ITEM_ERROR' }, error);

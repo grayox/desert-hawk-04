@@ -34,7 +34,7 @@ import { Menu, MenuItem, } from '@material-ui/core';
 import SettingsDialog from './SettingsDialog';
 
 // utilities
-import _ from 'lodash';
+import _ from '@lodash';
 // import * as EmailValidator from 'email-validator';
 // import NumberFormat from 'react-number-format';
 

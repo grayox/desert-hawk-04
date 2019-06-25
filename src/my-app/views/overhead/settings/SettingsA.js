@@ -11,7 +11,7 @@ import { compose } from 'redux';
 import { updateSettings } from 'my-app/store/actions/my-actions';
 import { Menu, MenuItem, } from '@material-ui/core';
 import SettingsDialog from './SettingsDialog';
-import _ from 'lodash';
+import _ from '@lodash';
 import Loading from 'my-app/components/Loading';
 import ErrorBoundary from 'my-app/containers/ErrorBoundary';
 import DetailsTab from './tabs/DetailsTab';
