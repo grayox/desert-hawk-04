@@ -7,7 +7,7 @@ const getNavElement = path => {
   // path: string: 'leads', 'archive', 'outbox'
   // console.log('path\n', path,);
   const componentsNavConfig = getComponentsNavConfig();
-  const out = componentsNavConfig.find(x => (x.crudConfig && x.crudConfig.readable) === path);
+  const out = componentsNavConfig.find(x => (x && x.crudConfig && x.crudConfig.readable) === path);
   // console.log('out\n', out,);
   return out;
 }

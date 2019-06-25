@@ -6,6 +6,8 @@ import {
   List, ListItem, ListItemText, ListItemAvatar, Avatar, Icon,
 } from '@material-ui/core';
 
+// import GeoStepper from 'my-app/components/steppers/GeoStepper';
+
 // usage
 // import { DashboardGridConfig } from 'my-app/config/DashboardGridConfig';
 
@@ -131,8 +133,8 @@ export const DashboardGridConfig = {
       // color: 'warning',
       // buttonLabel: 'Hai',
       links: [
-        { id: 'outbox' , label: 'Deposit new referral' , },
-        { id: 'inbox'  , label: 'Shop for new leads'   , },
+        { label: 'Deposit new referral' , id: 'outbox' , },
+        { label: 'Shop for new leads'   , id: 'inbox'  , },
       ],
       // eslint-disable-next-line
       description: '\
@@ -155,7 +157,7 @@ export const DashboardGridConfig = {
       // color: 'success',
       // buttonLabel: 'Deposit new',
       links: [
-        { id: 'outbox', label: 'Deposit new referral', },
+        { label: 'Deposit new referral', id: 'outbox', },
       ],
       // eslint-disable-next-line
       description: '\
@@ -180,8 +182,8 @@ export const DashboardGridConfig = {
       // color: 'danger',
       // buttonLabel: 'See available',
       links: [
-        { id: 'archive' , label: 'Jump to lead archive' , },
-        { id: 'inbox'   , label: 'Shop for new leads'   , },
+        { label: 'Jump to lead archive' , id: 'archive' , },
+        { label: 'Shop for new leads'   , id: 'inbox'   , },
       ],
       // eslint-disable-next-line
       description: '\
@@ -203,7 +205,7 @@ export const DashboardGridConfig = {
       // color: 'primary',
       // buttonLabel: 'See challenges',
       links: [
-        { id: 'inbox', label: 'Search for leads', },
+        { label: 'Search for leads', id: 'inbox', },
       ],
       // eslint-disable-next-line
       description: '\
@@ -226,7 +228,7 @@ export const DashboardGridConfig = {
       // color: 'info',
       // buttonLabel: 'View inbox',
       links: [
-        { id: 'inbox', label: 'Jump to inbox', },
+        { label: 'Jump to inbox', id: 'inbox', },
       ],
       // eslint-disable-next-line
       description: '\
@@ -243,7 +245,7 @@ export const DashboardGridConfig = {
       // color: 'success',
       // buttonLabel: 'View archive',
       links: [
-        { id: 'archive', label: 'Jump to archive', },
+        { label: 'Jump to archive', id: 'archive', },
       ],
       // eslint-disable-next-line
       description: '\
@@ -260,7 +262,7 @@ export const DashboardGridConfig = {
       // color: 'primary',
       // buttonLabel: 'View outbox',
       links: [
-        { id: 'outbox', label: 'Jump to outbox', },
+        { label: 'Jump to outbox', id: 'outbox', },
       ],
       // eslint-disable-next-line
       description: '\
@@ -277,7 +279,7 @@ export const DashboardGridConfig = {
       // color: 'success',
       // buttonLabel: 'Add contact',
       links: [
-        { id: 'contacts', label: 'Edit contacts', },
+        { label: 'Edit contacts', id: 'contacts', },
       ],
       // eslint-disable-next-line
       description: '\
@@ -311,7 +313,7 @@ export const DashboardGridConfig = {
       //   />
       // ,
       links: [
-        { id: 'settings', label: 'Edit category', },
+        { label: 'Edit category', id: 'settings', },
       ],
       // eslint-disable-next-line
       description: <CategoryDescription />,
@@ -329,7 +331,7 @@ export const DashboardGridConfig = {
       // typog: 'subtitle1',
       // buttonLabel: 'Edit',
       links: [
-        { id: 'settings', label: 'Edit location', },
+        { label: 'Edit location', id: 'settings', },
       ],
       // eslint-disable-next-line
       description: '\
@@ -351,7 +353,7 @@ export const DashboardGridConfig = {
       // typog: 'subtitle1',
       // buttonLabel: 'Edit',
       links: [
-        { id: 'settings', label: 'Edit state', },
+        { label: 'Edit state', id: 'settings', },
       ],
       // eslint-disable-next-line
       description: '\
@@ -372,7 +374,8 @@ export const DashboardGridConfig = {
       // typog: 'subtitle1',
       // buttonLabel: 'Edit',
       links: [
-        { id: 'settings', label: 'Edit country', },
+      //{ label: 'Edit location'    , id: <GeoStepper onChange={onChangeGeoStepper}/> , },
+        { label: 'Jump to settings' , id: 'settings', },
       ],
       // eslint-disable-next-line
       description: '\

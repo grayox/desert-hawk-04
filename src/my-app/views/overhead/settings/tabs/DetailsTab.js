@@ -46,8 +46,8 @@ const styles = theme => ({
 const DetailsTab = props => {
 
   const {
-    classes, profile, settings, // user, leads,
-    geoKey, isValidGeo, geoNation, geoRegion, geoLocal, bizCategory,
+    classes, profile, settings, // user, leads, geoKey,
+    isValidGeo, geoNation, geoRegion, geoLocal, bizCategory,
     onChangeGeoStepper, // onSaveGeoStepper, onValidGeoStepper,
     onClickListItemDialog, onClickListItemMenu,
   } = props;
@@ -212,10 +212,10 @@ const DetailsTab = props => {
                       dialogTitle: 'Location',
                       dialogContent :
                         (<GeoStepper
-                          key={geoKey} // reset with unique new key
+                          // key={geoKey} // reset with unique new key
                           // heading={geoStepperLabel}
-                          heading={'Tell us your home market so we can send you leads'}
-                          showSaveButton={false}
+                          // heading={'Tell us your home market so we can send you leads'}
+                          // showSaveButton={false}
                           // onSave={handleSaveGeoStepper}
                           // onValid={onValidGeoStepper}
                           // onSave={onSaveGeoStepper}

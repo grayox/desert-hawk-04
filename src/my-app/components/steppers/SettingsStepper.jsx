@@ -380,6 +380,10 @@ class SettingsStepper extends Component {
 SettingsStepper.propTypes = {
   classes: PropTypes.object.isRequired,
   onSave: PropTypes.func.isRequired,
+  key: PropTypes.string,
+  // heading: PropTypes.string,
+  // showSaveButton: PropTypes.bool,
+  // onChange: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(SettingsStepper);

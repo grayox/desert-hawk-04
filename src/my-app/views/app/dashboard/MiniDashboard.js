@@ -92,8 +92,8 @@ const getMini = ( key, value, ) =>
   </ListItem>
 
 const MiniDashboard = ({ data, micro, }) => {
-  console.log('data\n', data,);
-  console.log('micro\n', micro,);
+  // console.log('data\n', data,);
+  // console.log('micro\n', micro,);
 
   const ready1 = data;
   if(!ready1) return null;

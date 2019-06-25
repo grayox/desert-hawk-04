@@ -58,9 +58,10 @@ const WidgetMenu = ({ links, }) => {
           const targetComponent = targetComponentArray[0];
           // console.log('targetComponent\n', targetComponent,);
           const pathTo = targetComponent.path;
-          return (
+          const getLink = () =>
             <MenuItem key={link.id} onClick={handleClose} component={Link} to={pathTo}>{link.label}</MenuItem>
-          );
+          const getComponent = () => console.log('TODO: Component goes here')
+          return ( ( link && link.id ) ? getLink() : getComponent() );
         })
         }
       </Menu>
