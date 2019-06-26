@@ -90,7 +90,7 @@ const Dashboard = ({ classes, dashboard, settings, profile, show, type, saveUser
   }
 
   const dashConfig = {
-    standard : <div className={classes.wrapper}><DashboardWidgets data={dashboard} /></div>,
+    standard : <div className={classes.wrapper}><DashboardWidgets data={dashboard} settings={settings} /></div>,
     mini     : <Paper><MiniDashboard data={dashboard} /></Paper>,
     micro    : <Paper><MiniDashboard data={dashboard} micro /></Paper>,
   }

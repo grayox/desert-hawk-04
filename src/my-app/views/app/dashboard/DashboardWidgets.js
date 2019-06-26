@@ -58,7 +58,7 @@ const styles = theme => ({
 //   </div>
 // )
 
-const DashboardWidgets = ({ data, }) => { // classes,
+const DashboardWidgets = ({ data, settings, }) => { // classes,
   const items = DashboardGridConfig.cells; // getItems();
   const count = items && items.length;
   return (
@@ -85,7 +85,7 @@ const DashboardWidgets = ({ data, }) => { // classes,
         {items && items.map((item, index,) => {
           // console.log('data\n', data,);
           const { id, } = item;
-          const itemData = data[id];
+          const itemData = settings[id] || data[id];
           // item.data = 
           return (
             <Grid

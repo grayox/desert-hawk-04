@@ -38,25 +38,30 @@ export const UPDATE_FEEDBACK_NOTE     = '[FEEDBACK] UPDATE NOTE';
 
 // begin my add
 
-const syncData = ({ item, pathArray, isSync, }) => {
-  console.log('item\n', item,);
-  console.log('pathArray\n', pathArray,);
-  console.log('isSync\n', isSync,);
-  if(!!isSync) return null; // prevent infinite loop (redundant)
+// const syncData = ({ item, pathArray, isSync, }) => {
+//   console.log('item\n', item,);
+//   console.log('pathArray\n', pathArray,);
+//   console.log('isSync\n', isSync,);
+//   if(!!isSync) return null; // prevent infinite loop (redundant)
   
-  const syncConfig = {
-    settings  : 'dashboard' ,
-    dashboard : 'settings'  ,
-  }
-  const oldType = pathArray[2]; // 'settings'|'dashboard' // pathArray = ['user', uid, 'settings'|'dashboard',]
-  const newType = syncConfig[oldType]; // 'dashboard'|'settings'
-  const newPathArray = [pathArray[0], pathArray[1], newType,];
-  const newPath = newPathArray.join('/');
-  // const newItem = _.pick();
-  // saveUserDataToFirestore( newPath, newItem, true, );
-}
+//   const syncConfig = {
+//     settings  : 'dashboard' ,
+//     dashboard : 'settings'  ,
+//   }
+//   const oldType = pathArray[2]; // 'settings'|'dashboard' // pathArray = ['user', uid, 'settings'|'dashboard',]
+//   const newType = syncConfig[oldType]; // 'dashboard'|'settings'
+//   const newPathArray = [pathArray[0], pathArray[1], newType,];
+//   const newPath = newPathArray.join('/');
+//   console.log('newPath\n', newPath,);
+//   const newItem = _.pick(item, [ 'geoNation', 'geoRegion', 'geoLocal', 'bizCategory', ]);
+//   console.log('newItem\n', newItem,);
+//   // xTODOx: 1. get fields common to settings and dashboard >> insert into .pick()
+//   //         2. marge newItem into: 'settings'|'dashboard'
+//   saveUserDataToFirestore( newPath, newItem, true, );
+// }
 
 // updates global state in redux store
+// TODO: consider calling updateUserData() inside saveUserDataToFirestore()
 export const updateUserData = ( path, value, ) => {
   // path: string: 'settings' | 'dashboard' | 'feedbackRating' | 'feedbackRating'
   // console.log('path\n', path);
@@ -102,13 +107,14 @@ export const updateUserData = ( path, value, ) => {
 // source: https://github.com/iamshaunjp/React-Redux-Firebase-App/blob/lesson-18/marioplan/src/store/actions/projectActions.js
 // export const createItem = ( path, item, ) =>
 // updates data in firestore
-export const saveUserDataToFirestore = ( path, item, isSync, ) => 
+export const saveUserDataToFirestore = ( path, item, ) => // isSync,
   //{
   // console.log('path\n', path,); // don't use this (without curly braces)
   // console.log('item\n', item,); // don't use this (without curly braces)
   // return (dispatch, getState, { getFirebase, getFirestore, }) => {
-  //   console.log('path\n', path,);
-  //   console.log('item\n', item,);
+  // console.log('path\n', path,);
+  // console.log('item\n', item,);
+  // console.log('isSync\n', isSync,);
   
   // this pattern is called currying
   // this function is called later, by redux
@@ -163,25 +169,25 @@ export const saveUserDataToFirestore = ( path, item, isSync, ) =>
       .collection(path)
       .add(newData)
     .then( docRef => {
-
       // console.log('item\n', item,);
       // console.log('docRef\n', docRef,);
+      // console.log('dispatchType\n', dispatchType,);
       // console.log('Document was written with id: ', docRef.id,);
-
       // dispatch({ type: 'SAVE_INITIAL_VALUES_SUCCESS' });
       // dispatch({ type: 'CREATE_ITEM_SUCCESS' });
       dispatch({
         type: dispatchType,
         value: item,
       });
-      const out1 = { item, pathArray, isSync, };
-      return out1;
+      // const out1 = { item, pathArray, isSync, };
+      // return out1;
+      return item;
     })
-    .then( out1 => {
-      // console.log('out1\n', out1,);
-      if(!!out1.isSync) return out1; // prevent infinite loop
-      syncData(out1);
-    })
+    // .then( out1 => {
+    //   // console.log('out1\n', out1,);
+    //   if(!!out1.isSync) return out1; // prevent infinite loop
+    //   syncData(out1);
+    // })
     .catch( error => {
       // dispatch({ type: 'CREATE_ITEM_ERROR' }, error);
       // dispatch({ type: 'SAVE_INITIAL_VALUES_ERROR' }, error);
