@@ -1,7 +1,7 @@
 // inspired by src/store/actions/fuse/settings.actions.js
 
 // begin my add
-import _ from '@lodash';
+// import _ from '@lodash';
 
 export const UPDATE_SETTINGS          = '[SETTINGS] UPDATE SETTINGS';
 export const UPDATE_SETTINGS_SUCCESS  = '[SETTINGS] UPDATE SETTINGS SUCCESS';

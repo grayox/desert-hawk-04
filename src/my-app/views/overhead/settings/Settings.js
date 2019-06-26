@@ -100,16 +100,17 @@ const INITIAL_STATE_OTHER = {
 
   checked: [],
 
-  settings: {
-    name: null,
-    email: null,
-    mobile: null, 
-    bizCategory: null,
-    geoNation: null,
-    geoRegion: null,
-    geoLocal: null,
-    isValidGeo: null,
-  },
+  // use props, not state, for settings integration
+  // settings: {
+  //   name: null,
+  //   email: null,
+  //   mobile: null, 
+  //   bizCategory: null,
+  //   geoNation: null,
+  //   geoRegion: null,
+  //   geoLocal: null,
+  //   isValidGeo: null,
+  // },
 
   firestoreKey : Date.now(), // necessary to re-render FetchFirestore component after reset
   geoKey       : Date.now(), // necessary to re-render GeoSelect      component after reset
@@ -317,6 +318,7 @@ class ProfilePage extends Component {
                 && geoRegion && geoRegion.length
                 && geoLocal  && geoLocal.length
     const out = !!toBool;
+    // console.log('isValidGeo\n', out,);
     return out;
   }
 
@@ -333,7 +335,9 @@ class ProfilePage extends Component {
     this.setState({
       isValidGeo,
       tempSetting: geoLocation,
-    });
+    }
+    // , () => console.log('state', this.state,)
+    );
   }
 
   // --------------------------------
@@ -417,7 +421,7 @@ class ProfilePage extends Component {
   
   handleSaveDialog = event => {
     // console.log('state\n', this.state);
-    const settings = _.merge(this.state.settings, this.state.tempSetting);
+    const settings = _.merge(this.props.settings, this.state.tempSetting);
     // console.log('settings\n', settings);
     this.setState({settings}
       , () => {
