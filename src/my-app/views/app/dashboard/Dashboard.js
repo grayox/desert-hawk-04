@@ -5,6 +5,9 @@ import PropTypes from 'prop-types';
 import { connect, } from 'react-redux';
 import { compose, } from 'redux';
 
+// lodash
+import _ from '@lodash';
+
 // @material-ui/core
 import { withStyles, Paper, } from '@material-ui/core';
 
@@ -18,7 +21,7 @@ import DashboardWidgets from './DashboardWidgets';
 import MiniDashboard from './MiniDashboard';
 
 // config
-import { uiSpecs, } from 'my-app/config/AppConfig';
+import { uiSpecs, } from 'my-app/config/AppConfig'; // getMatchHash,
 
 const styles = theme => ({
   root: {
@@ -44,10 +47,14 @@ const Dashboard = ({ classes, dashboard, settings, profile, show, type, saveUser
   }
 
   const handleSaveSettingsStepper = data => {
+    console.log('data\n', data,);
     // const { saveUserDataToFirestore, settings, dashboard, } = this.props; // updateUserData,
-    const { bizCategory, geoNation, geoRegion, geoLocal, } = data;
+    // const { bizCategory, geoNation, geoRegion, geoLocal, } = data;
+    const picked = _.pick( data, [ 'bizCategory', 'geoNation', 'geoRegion', 'geoLocal', ], );
     const createdAt = Date.now();
-    const newData = { createdAt, bizCategory, geoNation, geoRegion, geoLocal, };
+    // const matchHash = getMatchHash(picked);
+    // const newData = { createdAt, bizCategory, geoNation, geoRegion, geoLocal, };
+    const newData = { ...picked, createdAt, }; // matchHash,
     // console.log('newData\n', newData,);
     // console.log('settings\n', settings,);
     // console.log('dashboard\n', dashboard,);

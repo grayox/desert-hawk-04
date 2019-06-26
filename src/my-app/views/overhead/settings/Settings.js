@@ -48,6 +48,7 @@ import PreferencesTab from './tabs/PreferencesTab';
 
 // import { FetchFirestore } from 'my-app/config/AppConfig'; // fails
 // import FetchFirestore from 'my-app/config/AppConfig'; // success
+// import { getMatchHash, } from 'my-app/config/AppConfig';
 // import FuseLoadable from '@fuse/components/FuseLoadable/FuseLoadable';
 // end my add
 
@@ -418,8 +419,22 @@ class ProfilePage extends Component {
     this.setState({ dialogIsOpen: false, });
     this.setState({ ...INITIAL_STATE_SETTINGS_DIALOG });
   }
-  
-  handleSaveDialog = event => {
+
+  // updateTempSettingWithMatchHash = async () => {
+  //   const pickList = ['bizCategory', 'geoNation', 'geoRegion', 'geoLocal',];
+  //   const pickedSettings    = _.pick( this.props.settings    , pickList , );
+  //   const pickedTempSetting = _.pick( this.state.tempSetting , pickList , );
+  //   const newTempSetting = { ...pickedSettings, ...pickedTempSetting, };
+  //   const matchHash = await getMatchHash(newTempSetting);
+  //   newTempSetting.matchHash = matchHash;
+  //   console.log('newTempSetting\n', newTempSetting,);
+  //   this.setState({tempSetting: newTempSetting,}
+  //     , () => this.doHandleSaveDialog()
+  //   );
+  // }
+  // handleSaveDialog = event => this.updateTempSettingWithMatchHash();
+
+  handleSaveDialog = () => {
     // console.log('state\n', this.state);
     const settings = _.merge(this.props.settings, this.state.tempSetting);
     // console.log('settings\n', settings);

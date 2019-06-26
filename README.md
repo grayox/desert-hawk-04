@@ -12,11 +12,11 @@ how to deploy a react app to firebase hosting
   - https://www.youtube.com/watch?v=ji6urVl6oP4
   - https://stackoverflow.com/questions/54693223/what-does-yarn-build-command-do-are-npm-build-and-yarn-build-simila
   yarn run build # deprecated, use `yarn build` instead
-  yarn build
+  yarn build # ongoing
   npm install -g firebase-tools
   firebase login
   firebase init
-  firebase deploy
+  firebase deploy # ongoing
   - if empty, edit firebase.json with: {"hosting":{"public":"dist"}} | https://stackoverflow.com/a/47695000/1640892
 
 ----------------------------------------------

@@ -256,6 +256,16 @@ const formFieldProps = {
 
 export const getIdHash = (uid, timestamp,) => hash([uid, timestamp,]) // uid == createdBy, timestamp == createdAt,
 
+// Deprecate the following and use a series of .where() filters in the call to firestore.
+// That is actually how this app is designed to be built. Below might be a case of over-engineering.
+// export const getMatchHash = ({ bizCategory, geoNation, geoRegion, geoLocal, }) => {
+//   const ready1 = !!bizCategory && !!geoNation && !!geoRegion && !!geoLocal;
+//   if(!ready1) throw new Error('Attempted to hash incomplete object');
+//   const out = hash([ bizCategory, geoNation, geoRegion, geoLocal, ]);
+//   console.log('out\n', out,);
+//   return out;
+// }
+
 export const handleKeyPress = (event, targetKey, handlerFunction,) => {
 // example usage:
 // import { handleKeyPress, } from 'my-app/config/AppConfig';
