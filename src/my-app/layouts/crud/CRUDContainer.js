@@ -264,6 +264,8 @@ class CRUDContainer extends Component {
     );
   };
 
+  handleResetSearchFilterSort = () => this.setState({searchFilterSortModelWithLabels: {},})
+
   // render() {
   //   return (
   //     <div className="App">
@@ -281,7 +283,7 @@ class CRUDContainer extends Component {
   // }
 
   render() {
-    const { handleLoad, handleFetchMoreData, handleSearchFilterSort, } = this;
+    const { handleLoad, handleFetchMoreData, handleSearchFilterSort, handleResetSearchFilterSort, } = this;
     const {
       isLoading, isError, items, hasMore,
       searchMenuOptions, filterMenuOptions, sortMenuOptions, searchFilterSortModelWithLabels,
@@ -298,6 +300,7 @@ class CRUDContainer extends Component {
         creatable={creatable} readable={readable} updatable={updatable} deletable={deletable}
         searchMenuOptions={searchMenuOptions} filterMenuOptions={filterMenuOptions} sortMenuOptions={sortMenuOptions}
         searchFilterSortModelWithLabels={searchFilterSortModelWithLabels} // for initial state after re-render following data fetch
+        onResetSearchFilterSort={handleResetSearchFilterSort}
         onRefresh={handleLoad} onNext={handleFetchMoreData} onSearchFilterSort={handleSearchFilterSort}
       />
 

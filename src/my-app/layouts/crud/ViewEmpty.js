@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FuseAnimateGroup } from '@fuse'; // FuseScrollbars, FuseAnimate,
+import _ from '@lodash';
 
 import { withStyles, Zoom, Button, Tooltip, Typography, Icon, } from '@material-ui/core';
 
@@ -20,8 +21,25 @@ const styles = theme => ({
   },
 })
 
+const getReset = onResetSearchFilterSort =>
+  <div className="h-full w-full flex flex-col justify-center content-center">
+    <Typography variant="h6" color="textSecondary">
+      No items found
+    </Typography>
+    <Button
+      className="mt-32 max-w-lg self-center"
+      // color="secondary"
+      // variant="contained"
+      variant="outlined"
+      size="large"
+      onClick={onResetSearchFilterSort}
+    >
+      Reset search and filters
+    </Button>
+  </div>
+
 // getEmpty = () => (<img src="https://via.placeholder.com/800x900.png/e91e63/fff?text=Detail+goes+here"/>)
-const getEmpty = ( side, creatable, onClick, ) => {
+const getEmpty = ( side, creatable, onClick, searchFilterSortModelWithLabels, onResetSearchFilterSort, ) => {
   const getEmptyConfig = {
     list: (
       <div className="h-full w-full flex flex-col justify-center content-center">
@@ -54,10 +72,14 @@ const getEmpty = ( side, creatable, onClick, ) => {
       </Tooltip>
     ),
   };
-  return getEmptyConfig[side];
+  const out = _.isEmpty(searchFilterSortModelWithLabels) ? getEmptyConfig[side] : getReset(onResetSearchFilterSort);
+  return out;
 }
 
-const ViewEmpty = ({ classes, side, creatable, onClick, }) => (
+const ViewEmpty = ({
+  classes, side, creatable, onClick,
+  searchFilterSortModelWithLabels, onResetSearchFilterSort,
+}) => (
   <div className={classes.root}>
     {
     // <FuseAnimate animation="transition.expandIn" delay={100}>
@@ -75,7 +97,7 @@ const ViewEmpty = ({ classes, side, creatable, onClick, }) => (
       leave={{ animation: "transition.expandOut" }}
     // className="hidden md:flex md-flex-1"
     >  
-      { getEmpty( side, creatable, onClick, ) }
+      { getEmpty( side, creatable, onClick, searchFilterSortModelWithLabels, onResetSearchFilterSort, ) }
     </FuseAnimateGroup>
   </div>
 )
@@ -88,6 +110,8 @@ ViewEmpty.propTypes = {
     PropTypes.object,
     PropTypes.bool,
   ]),
+  searchFilterSortModelWithLabels: PropTypes.object,
+  onResetSearchFilterSort: PropTypes.func,
 };
 
 ViewEmpty.defaultProps = {

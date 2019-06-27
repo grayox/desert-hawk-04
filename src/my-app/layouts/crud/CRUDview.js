@@ -331,7 +331,8 @@ class CRUDView extends Component {
     const {
       classes, profile, items, condensed, onNext, hasMore, miniDashboard,
       creatable, updatable, deletable, actionable, searchable, sortable, filterable, starrable,
-      searchMenuOptions, filterMenuOptions, sortMenuOptions, searchFilterSortModelWithLabels, onSearchFilterSort,
+      searchMenuOptions, filterMenuOptions, sortMenuOptions, searchFilterSortModelWithLabels,
+      onSearchFilterSort, onResetSearchFilterSort,
     } = this.props;
     const {
       handleCloseDialog, handleDeleteItem, handleChangeUserData,
@@ -345,6 +346,7 @@ class CRUDView extends Component {
 
     const { uid, } = profile;
 
+    // console.log('props\n', this.props,);
     // console.log('state\n', this.state,);
     // console.log('items\n', items,);
     // console.log('detail\n', detail,);
@@ -353,7 +355,11 @@ class CRUDView extends Component {
     const getViewEmpty = () =>
       <React.Fragment>
         { getCreateDialog() }
-        <ViewEmpty side="list" onClick={handleClickCreateButton} creatable={creatable} />
+        <ViewEmpty
+          side="list" onClick={handleClickCreateButton} creatable={creatable}
+          searchFilterSortModelWithLabels={searchFilterSortModelWithLabels}
+          onResetSearchFilterSort={onResetSearchFilterSort}
+        />
       </React.Fragment>
     
     const getCreateDialog = () =>
@@ -433,10 +439,10 @@ class CRUDView extends Component {
     
     const getMainContent = () => (
       <React.Fragment>
-        {    getFetchUserData() } {/* updates dashboard after CRUD task */}
-        {    getCreateDialog()  }
-        {    getUpdateDialog()  }
-        {    getDeleteDialog()  }
+        { getFetchUserData() } {/* updates dashboard after CRUD task */}
+        { getCreateDialog()  }
+        { getUpdateDialog()  }
+        { getDeleteDialog()  }
         <div className={classes.wrapper}>
           <MediaWidth
             mobile={getMobileContent()}
