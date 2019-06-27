@@ -250,13 +250,13 @@ const formFieldProps = {
   notes     : { type : 'text' , label : 'Notes'      , icon : 'note'           , multiline: true, rows: 5,},
 }
 
-
 // GLOBAL UTILITY FUNCTIONS
 // These are utility, helper functions stored here as a centralized location
 
+// used as .map() key for list
 export const getIdHash = (uid, timestamp,) => hash([uid, timestamp,]) // uid == createdBy, timestamp == createdAt,
 
-// Deprecate the following and use a series of .where() filters in the call to firestore.
+// Deprecate the following method getMatchHash() and use a series of .where() filters in the call to firestore.
 // That is actually how this app is designed to be built. Below might be a case of over-engineering.
 // export const getMatchHash = ({ bizCategory, geoNation, geoRegion, geoLocal, }) => {
 //   const ready1 = !!bizCategory && !!geoNation && !!geoRegion && !!geoLocal;

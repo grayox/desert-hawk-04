@@ -434,7 +434,7 @@ class CRUDView extends Component {
     const getMainContent = () => (
       <React.Fragment>
         {    getFetchUserData() } {/* updates dashboard after CRUD task */}
-        { /* getCreateDialog() moved to getViewEmpty() */}
+        {    getCreateDialog()  }
         {    getUpdateDialog()  }
         {    getDeleteDialog()  }
         <div className={classes.wrapper}>
