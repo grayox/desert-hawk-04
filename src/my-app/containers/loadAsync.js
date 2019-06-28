@@ -116,10 +116,10 @@ const getUserData = async path => {
   // }
 };
 
-export const loadAsyncData = async ( path, batchSize, lastVisible, searchFilterSortModel, ) => {
+export const loadAsyncData = async ( readable, batchSize, lastVisible, searchFilterSortModel, ) => {
   // console.log('path\n', path);
   const batch = batchSize || BATCH_SIZE;
-  const out = await getAsyncItems( path, batch, lastVisible, searchFilterSortModel, );
+  const out = await getAsyncItems( readable, batch, lastVisible, searchFilterSortModel, );
   // console.log('out\n', out);
 
   const promise = new Promise((resolve, reject,) => {
@@ -129,13 +129,32 @@ export const loadAsyncData = async ( path, batchSize, lastVisible, searchFilterS
   return promise;
 };
 
-const getAsyncItems = async ( path, batchSize = BATCH_SIZE, lastVisible, searchFilterSortModel = {}, ) => {
-  // used for reading CRUD objects
+const addWhereContraintsToQuery = (startingQuery, whereArray,) => {
+  let out = startingQuery;
 
-  const ready1 = path;
+  const ready1 = whereArray.length;
+  if(!ready1) return out;
+
+  whereArray.forEach( constraint => {
+    out = out.where( constraint[0], constraint[1], constraint[2], );
+  });
+
+  return out;
+}
+
+const getAsyncItems = async ( readable, batchSize = BATCH_SIZE, lastVisible, searchFilterSortModel = {}, ) => {
+  // used for reading CRUD objects
+  
+  const ready1 = readable;
   if(!ready1) return;
 
+  const { path, where, } = readable;
+
+  const ready2 = path;
+  if(!ready2) return;
+
   // console.log('path\n', path);
+  // console.log('where\n', where);
   // console.log('searchFilterSortModel\n', searchFilterSortModel);
   // console.log('state\n', this.state);
   // this.setState({isLoading: true});
@@ -147,8 +166,8 @@ const getAsyncItems = async ( path, batchSize = BATCH_SIZE, lastVisible, searchF
   // debugger;
   const data = [];
   const db = firebase.firestore();
-  const ready2 = db;
-  if(!ready2) return;
+  const ready3 = db;
+  if(!ready3) return;
 
   let lastShown;
 
@@ -157,7 +176,9 @@ const getAsyncItems = async ( path, batchSize = BATCH_SIZE, lastVisible, searchF
     // .where( 'name', '==', 'alpha', )
     .orderBy( 'createdAt', 'desc', ); // throws error: "firebase error: the query requires an index"
 
-  // augment queryInit with searchString, searchBy, filterBy, sortBy, sortDirectionIsDescending,
+  const queryWhere = addWhereContraintsToQuery(queryInit, where,);
+
+  // augment queryWhere with searchString, searchBy, filterBy, sortBy, sortDirectionIsDescending,
 
   // // start compound query in series
   // // note: limited support for compound queries in firestore and need for indexing
@@ -190,7 +211,7 @@ const getAsyncItems = async ( path, batchSize = BATCH_SIZE, lastVisible, searchF
   //   return out;
   // }
 
-  // const searchedQuery = await getSearchedQuery( queryInit, searchString, searchBy, );
+  // const searchedQuery = await getSearchedQuery( queryWhere, searchString, searchBy, );
   // const filteredQuery = await getFilteredQuery( searchedQuery, filterBy, );
   // const sortedQuery = await getSortedQuery( filteredQuery, sortBy, sortDirectionIsDescending, );
   // const qualifiedQuery = await sortedQuery;
@@ -205,7 +226,7 @@ const getAsyncItems = async ( path, batchSize = BATCH_SIZE, lastVisible, searchF
     if(!ready1) return null;
     const ready2 = searchBy && searchBy.length;
     if(!ready2) return null;
-    const out = queryInit.where( searchBy, '==', searchString, );
+    const out = queryWhere.where( searchBy, '==', searchString, );
     return out;
   }
   
@@ -218,14 +239,14 @@ const getAsyncItems = async ( path, batchSize = BATCH_SIZE, lastVisible, searchF
     if(!ready2) return null;
     const ready3 = value && value.length;
     if(!ready3) return null;
-    const out = queryInit.where(field, operator, value,);
+    const out = queryWhere.where(field, operator, value,);
     return out;
   }
   
   const getSortedQuery = ( sortBy, sortDirectionIsDescending, ) => {
     const ready1 = sortBy && sortBy.length;
     if(!ready1) return null;
-    const out = queryInit.orderBy( sortBy, (sortDirectionIsDescending ? 'desc' : null), );
+    const out = queryWhere.orderBy( sortBy, (sortDirectionIsDescending ? 'desc' : null), );
     return out;
   }
 
@@ -236,7 +257,7 @@ const getAsyncItems = async ( path, batchSize = BATCH_SIZE, lastVisible, searchF
     ||
     getSortedQuery( sortBy, sortDirectionIsDescending, )
     ||
-    queryInit;
+    queryWhere;
 
   // end simple query
 

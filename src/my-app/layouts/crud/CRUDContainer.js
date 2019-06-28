@@ -207,14 +207,12 @@ class CRUDContainer extends Component {
     const ready2 = this && this.state && this.state.hasMore;
     if( !ready2 ) return null;
     
-    const { path, } = readable;
-
     // ref: https://stackoverflow.com/a/49906662/1640892
     let isMounted = true;
 
     // this._asyncRequest = loadAsyncData();
     // ref: https://firebase.google.com/docs/firestore/query-data/query-cursors#paginate_a_query
-    this._asyncRequest = loadAsyncData( path, BATCH_SIZE, this.state.lastShown, searchFilterSortModel, );
+    this._asyncRequest = loadAsyncData( readable, BATCH_SIZE, this.state.lastShown, searchFilterSortModel, );
     // const items = await this._asyncRequest;
     const newData = await this._asyncRequest; // { data:<arrayOfObjects>, lastShown:<documentSnapshot>, }
     // console.log('newData\n', newData,);

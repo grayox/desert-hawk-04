@@ -409,8 +409,8 @@ export const getItemsFilteredBySearch = (items, searchString, searchableFields,)
 // syncronize: changes in either of the following files must be hard coded in the other
 // src/fuse-configs/fuseNavigationConfig.js
 // src/main/content/components/ComponentsConfig.js
-export const getComponentsNavConfig = ( props = {}, ) => {
-  const { uid, docId, item, } = props; // profile,
+export const getComponentsNavConfig = ({ uid='', docId='', item={}, settings={}, }) => { // props = {},
+  // const { uid, docId, item, settings, } = props; // profile,
   const out = [
     // import { componentsNavConfig, } from 'my-app/config/AppConfig';
     // * Note: It is currently not possible to use expressions like `loader : () => import(item.path)`
@@ -480,18 +480,18 @@ export const getComponentsNavConfig = ( props = {}, ) => {
         miniDashboard: [ 'net', 'deposits', 'withdrawals', ],
         creatable: false, // false only makes button not appear on CRUD view
         readable: {
-          path: 'leads',
           // src/my-app/containers/LoadAsync.js
-          where: [
-            [ 'deletedAt'       , '==' , 0                     , ] ,
-            [ 'archivedBy'      , '==' , null                  , ] ,
-            [ 'challengesCount' , '<=' , CHALLENGES_LIMIT      , ] ,
-            [ 'bizCategory'     , '==' , 'profile.bizCategory' , ] ,
-            [ 'geoNation'       , '==' , 'profile.geoNation'   , ] ,
-            [ 'geoRegion'       , '==' , 'profile.geoRegion'   , ] ,
-            [ 'geoLoaction'     , '==' , 'profile.geoLoaction' , ] ,
-          ],
+          path: 'leads',
           orderBy: [ 'createdAt', 'desc', ],
+          where: [
+            [ 'deletedAt'       , '==' , 0                , ] ,
+            [ 'archivedBy'      , '==' , null             , ] ,
+          //[ 'challengesCount' , '<=' , CHALLENGES_LIMIT , ] , // Unhandled Rejection (FirebaseError): Invalid query. You have a where filter with an inequality (<, <=, >, or >=) on field 'challengesCount' and so you must also use 'challengesCount' as your first Query.orderBy(), but your first Query.orderBy() is on field 'createdAt' instead.
+            [ 'bizCategory'     , '==' , 'Home'           , ] , // settings.bizCategory
+            [ 'geoNation'       , '==' , 'United States'  , ] , // settings.geoNation
+            [ 'geoRegion'       , '==' , 'Washington'     , ] , // settings.geoRegion
+            [ 'geoLocal'        , '==' , 'Seattle'        , ] , // settings.geoLocal
+          ],
         },
         updatable: false,
         deletable: false,
@@ -542,11 +542,11 @@ export const getComponentsNavConfig = ( props = {}, ) => {
         creatable  : false,
         readable: {
           path: 'leads', // src/my-app/containers/LoadAsync.js
+          orderBy: [ 'createdAt', 'desc', ] ,
           where: [
             [ 'deletedAt'  , '==' , 0   , ] ,  
             [ 'archivedBy' , '==' , uid , ] ,
           ],
-          orderBy: [ 'createdAt', 'desc', ] ,
         },
         updatable: false,
         deletable: true,
@@ -585,6 +585,10 @@ export const getComponentsNavConfig = ( props = {}, ) => {
             createdBy: uid,
             deletedAt: 0,
             archivedBy: null,
+            bizCategory: settings.bizCategory,
+            geoNation: settings.geoNation,
+            geoRegion: settings.geoRegion,
+            geoLocal: settings.geoLocal,
           },
           dashboard: {
             local: {
