@@ -10,7 +10,7 @@ import CRUDContainer from './CRUDContainer';
 const Child = ({ match: { params: { id }}, profile, settings, }) => {
   // const matches = componentsNavConfig.filter(r => (r.id === id));
   const args = { profile, settings, };
-  console.log('args\n', args,);
+  // console.log('args\n', args,);
   const componentsNavConfig = getComponentsNavConfig(args);
   const matches = _.filter(componentsNavConfig, {id,},);
   const item = matches[0];
