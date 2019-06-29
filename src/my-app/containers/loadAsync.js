@@ -130,15 +130,24 @@ export const loadAsyncData = async ( readable, batchSize, lastVisible, searchFil
 };
 
 const addWhereContraintsToQuery = (startingQuery, whereArray,) => {
+  console.log('startingQuery\n', startingQuery,);
+  console.log('whereArray\n', whereArray,);
+
   let out = startingQuery;
 
-  const ready1 = whereArray.length;
+  const ready1 = startingQuery && whereArray && whereArray.length;
   if(!ready1) return out;
 
   whereArray.forEach( constraint => {
-    out = out.where( constraint[0], constraint[1], constraint[2], );
+    console.log('constraint\n', constraint,);
+    try {
+      out = out.where( constraint[0], constraint[1], constraint[2], );
+    } catch(error) {
+      console.error(`Error adding "where" constraints to ${constraint}`, error,);
+      return out;
+    }
   });
-
+  console.log('queryWhere\n', out,);
   return out;
 }
 

@@ -7,15 +7,13 @@ import _ from '@lodash';
 import { getComponentsNavConfig, } from 'my-app/config/AppConfig';
 import CRUDContainer from './CRUDContainer';
 
-const Child = ({ match: { params: { id }}, profile, settings, }) => {
+const Child = ({ match: { params: { id }}}) => {
   // const matches = componentsNavConfig.filter(r => (r.id === id));
-  const args = { profile, settings, };
-  console.log('args\n', args,);
-  const componentsNavConfig = getComponentsNavConfig(args);
+  const componentsNavConfig = getComponentsNavConfig();
   const matches = _.filter(componentsNavConfig, {id,},);
   const item = matches[0];
   const { crudConfig, } = item;
-  // console.log('crudConfig\n', crudConfig,);
+  // console.log('crudConfig\n', crudConfig);
   const {
     condensed, actionable, creatable, readable, updatable, deletable,
     searchable, filterable, sortable, starrable, miniDashboard,
@@ -39,15 +37,8 @@ const Child = ({ match: { params: { id }}, profile, settings, }) => {
   )
 };
 
-const getCRUDRouter = props =>
-  <Route
-    path="/:id"
-    // component={Child} // ref: https://tylermcginnis.com/react-router-pass-props-to-components/
-    render={ nativeProps => Child({ ...props, ...nativeProps, })}
-  />
-
 // ref: https://reacttraining.com/react-router/web/example/url-params
-const CRUDRouter = props => getCRUDRouter(props)
+const CRUDRouter = () => <Route path="/:id" component={Child} />
 
 // begin add
 

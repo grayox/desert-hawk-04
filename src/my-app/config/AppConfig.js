@@ -406,11 +406,18 @@ export const getItemsFilteredBySearch = (items, searchString, searchableFields,)
 // // https://www.freecodecamp.org/forum/t/newline-in-react-string-solved/68484/10
 // let newText = text.split ('\n').map( (item, index,) => <p key={farmhash.hash32(item+index)}>{item}</p>);
 
-// syncronize: changes in either of the following files must be hard coded in the other
+// syncronization: changes in either of the following files must be hard coded in the other
 // src/fuse-configs/fuseNavigationConfig.js
 // src/main/content/components/ComponentsConfig.js
-export const getComponentsNavConfig = ({ uid='', docId='', item={}, settings={}, }) => { // props = {},
-  // const { uid, docId, item, settings, } = props; // profile,
+export const getComponentsNavConfig = props => {
+  console.log('props\n', props,);
+  const item     = ( props && props.item     ) || {} ;
+  const docId    = ( props && props.docId    ) || '' ;
+  const profile  = ( props && props.profile  ) || {} ;
+  const settings = ( props && props.settings ) || {} ;
+  
+  const { uid } = profile;
+  
   const out = [
     // import { componentsNavConfig, } from 'my-app/config/AppConfig';
     // * Note: It is currently not possible to use expressions like `loader : () => import(item.path)`
@@ -484,13 +491,13 @@ export const getComponentsNavConfig = ({ uid='', docId='', item={}, settings={},
           path: 'leads',
           orderBy: [ 'createdAt', 'desc', ],
           where: [
-            [ 'deletedAt'       , '==' , 0                , ] ,
-            [ 'archivedBy'      , '==' , null             , ] ,
-          //[ 'challengesCount' , '<=' , CHALLENGES_LIMIT , ] , // Unhandled Rejection (FirebaseError): Invalid query. You have a where filter with an inequality (<, <=, >, or >=) on field 'challengesCount' and so you must also use 'challengesCount' as your first Query.orderBy(), but your first Query.orderBy() is on field 'createdAt' instead.
-            [ 'bizCategory'     , '==' , 'Home'           , ] , // settings.bizCategory
-            [ 'geoNation'       , '==' , 'United States'  , ] , // settings.geoNation
-            [ 'geoRegion'       , '==' , 'Washington'     , ] , // settings.geoRegion
-            [ 'geoLocal'        , '==' , 'Seattle'        , ] , // settings.geoLocal
+          //[ 'deletedAt'       , '==' , 0                    , ] ,
+          //[ 'archivedBy'      , '==' , null                 , ] ,
+          //[ 'challengesCount' , '<=' , CHALLENGES_LIMIT     , ] , // Unhandled Rejection (FirebaseError): Invalid query. You have a where filter with an inequality (<, <=, >, or >=) on field 'challengesCount' and so you must also use 'challengesCount' as your first Query.orderBy(), but your first Query.orderBy() is on field 'createdAt' instead.
+            [ 'bizCategory'     , '==' , settings.bizCategory , ] , // 'Home'         
+            [ 'geoNation'       , '==' , settings.geoNation   , ] , // 'Asia, Pacific, and Middle East' | 'Latin America and Caribbean'
+            [ 'geoRegion'       , '==' , settings.geoRegion   , ] , // 'Kazakhstan' | 'Chile'
+            [ 'geoLocal'        , '==' , settings.geoLocal    , ] , // 'Almaty' | 'Santiago'
           ],
         },
         updatable: false,

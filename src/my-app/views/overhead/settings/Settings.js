@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, } from 'react';
 // import React, { PureComponent } from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import { FusePageSimple, FuseAnimate } from '@fuse';
+import { withStyles, } from '@material-ui/core/styles';
+import { FusePageSimple, FuseAnimate, } from '@fuse';
 import { Avatar, Tab, Tabs, Typography, } from '@material-ui/core'; // Button,
 // import TimelineTab from 'main/content/pages/profile/tabs/TimelineTab';
 // import PhotosVideosTab from 'main/content/pages/profile/tabs/PhotosVideosTab';
@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
 // import classNames from 'classnames';
 
 // import * as Actions from './store/actions';
-import { connect } from 'react-redux';
+import { connect, } from 'react-redux';
 // import { bindActionCreators } from 'redux';
 // import {withRouter} from 'react-router-dom'
 
@@ -22,7 +22,7 @@ import { connect } from 'react-redux';
 // import '@firebase/firestore';
 // const db = firebase.firestore();
 // import { firestoreConnect } from 'react-redux-firebase';
-import { compose } from 'redux';
+import { compose, } from 'redux';
 // import compose from 'recompose/compose';
 
 // for actions

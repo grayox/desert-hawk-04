@@ -2,7 +2,7 @@ import React, { Component, } from 'react';
 import PropTypes from 'prop-types';
 
 import compose from 'recompose/compose';
-import { connect } from 'react-redux';
+import { connect, } from 'react-redux';
 import { createItem, updateItem, deleteItem, } from './store/actions';
 
 import { updateUserData, } from 'my-app/store/actions/my-actions'; // updateSettings, updateDashboard, saveUserDataToFirestore,
