@@ -587,7 +587,7 @@ export const getComponentsNavConfig = props => {
           title: 'Send new referral', // form: <UserMultiForm />,
           path: 'leads',
           fields: [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ], // 'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
-          addons: {
+          addOns: {
             createdAt: 'timestamp',
             createdBy: uid,
             deletedAt: 0,

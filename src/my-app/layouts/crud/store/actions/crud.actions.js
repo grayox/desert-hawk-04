@@ -8,7 +8,7 @@ const getNavElement = path => {
   // console.log('path\n', path,);
   const componentsNavConfig = getComponentsNavConfig();
   const out = componentsNavConfig.find(x => (x && x.crudConfig && x.crudConfig.readable) === path);
-  // console.log('out\n', out,);
+  console.log('out\n', out,);
   return out;
 }
 
@@ -44,25 +44,25 @@ const getDashboardNewData = (path, oldData, incrementer, sourceDocId,) => {
   // console.log('out\n', out,);
 
   const navElement = getNavElement(path,);
-  // const navId = navElement.id; // outbox
-  // console.log('navId\n', navId,); // outbox
-  // console.log('navElement\n', navElement,); // outbox
+  const navId = navElement.id; // outbox
+  console.log('navId\n', navId,); // outbox
+  console.log('navElement\n', navElement,); // outbox
   // const dashboardChangeOrders = navElement.dashboardConfig[incrementer]; // deprecated // { archive: 1, withdrawals: 1, net: -1, }
   const dashboardChangeOrders = navElement.crudConfig.creatable.dashboard.local;
   // console.log('dashboardChangeOrders\n', dashboardChangeOrders,); // outbox
   // ref: https://codeburst.io/javascript-the-difference-between-foreach-and-for-in-992db038e4c2
   // dashboardChangeOrders.forEach(r => {
   for (let dashboardItemId in dashboardChangeOrders) {
-    // console.log('dashboardItemId\n', dashboardItemId,); // 'outbox' | 'net'
+    console.log('dashboardItemId\n', dashboardItemId,); // 'outbox' | 'net'
     const delta = incrementer * dashboardChangeOrders[dashboardItemId]; // 1
-    // console.log('delta\n', delta,);
+    console.log('delta\n', delta,);
     const oldCount = oldData[dashboardItemId]; // 4
-    // console.log('oldCount\n', oldCount,);
+    console.log('oldCount\n', oldCount,);
     const newCount = oldCount + delta; // 5
-    // console.log('newCount\n', newCount,);
+    console.log('newCount\n', newCount,);
     out[dashboardItemId] = newCount; // outbox: 5
   };
-  // console.log('out\n', out,); // {net: 5, outbox: 5, ...}
+  console.log('out\n', out,); // {net: 5, outbox: 5, ...}
   return out;
 }
 
@@ -121,6 +121,12 @@ export const createItem = ( path, item, uid, dashboard, ) =>
       // authorId: 12345,
     };
 
+    // addOns go here
+    const navElement = getNavElement(path,);
+    console.log('navElement\n', navElement,)
+    const addOns = navElement.crudConfig.creatable.addOns;
+    console.log('addOns\n', addOns,)
+
     if(!item.createdAt) {
       const timestamp = Date.now();
       item.createdAt = timestamp;
@@ -138,14 +144,14 @@ export const createItem = ( path, item, uid, dashboard, ) =>
       .collection(path)
       .add(newData)
     .then( docRef => {
-      // console.log('uid\n', uid,); // 'abcxyz'
-      // console.log('path\n', path,); // 'leads'
-      // console.log('docRef\n', docRef,);
+      console.log('uid\n', uid,); // 'abcxyz'
+      console.log('path\n', path,); // 'leads'
+      console.log('docRef\n', docRef,);
       handleEditDashboard( uid, path, dashboard, 1, docRef.id, dispatch, getFirestore, );
       // dispatch({ type: 'CREATE_ITEM_SUCCESS', });
     })
     .catch( error => {
-      console.log('error\n', error,);
+      console.error('error\n', error,);
       dispatch({ type: 'CREATE_ITEM_ERROR', }, error);
     });
   }
