@@ -5,9 +5,12 @@ import { getComponentsNavConfig, } from 'my-app/config/AppConfig';
 
 const getNavElement = path => {
   // path: string: 'leads', 'archive', 'outbox'
-  // console.log('path\n', path,);
+  console.log('path\n', path,);
   const componentsNavConfig = getComponentsNavConfig();
-  const out = componentsNavConfig.find(x => (x && x.crudConfig && x.crudConfig.readable) === path);
+  console.log('componentsNavConfig\n', componentsNavConfig,);
+  const out = componentsNavConfig.find(x =>
+    (x && x.crudConfig && x.crudConfig.readable && x.crudConfig.readable.path) === path
+  );
   console.log('out\n', out,);
   return out;
 }
@@ -104,10 +107,10 @@ const handleEditDashboard = ( uid, path, oldData, incrementer, sourceDocId, disp
 export const createItem = ( path, item, uid, dashboard, ) =>
   (dispatch, getState, { getFirebase, getFirestore, }) => {
 
-    // console.log('path\n', path,)
-    // console.log('item\n', item,)
-    // console.log('uid\n', uid,)
-    // console.log('dashboard\n', dashboard,)
+    console.log('path\n', path,)
+    console.log('item\n', item,)
+    console.log('uid\n', uid,)
+    console.log('dashboard\n', dashboard,)
 
     // const timestamp = Date.now();
     const newData = {
@@ -121,11 +124,12 @@ export const createItem = ( path, item, uid, dashboard, ) =>
       // authorId: 12345,
     };
 
-    // addOns go here
+    // begin addOns
     const navElement = getNavElement(path,);
     console.log('navElement\n', navElement,)
     const addOns = navElement.crudConfig.creatable.addOns;
     console.log('addOns\n', addOns,)
+    // end addOns
 
     if(!item.createdAt) {
       const timestamp = Date.now();
