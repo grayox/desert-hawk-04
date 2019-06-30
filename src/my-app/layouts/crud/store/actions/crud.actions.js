@@ -3,15 +3,15 @@
 
 import { getComponentsNavConfig, } from 'my-app/config/AppConfig';
 
-const getNavElement = path => {
+const getNavElement = ({path, settings,}) => {
   // path: string: 'leads', 'archive', 'outbox'
-  console.log('path\n', path,);
-  const componentsNavConfig = getComponentsNavConfig();
-  console.log('componentsNavConfig\n', componentsNavConfig,);
+  // console.log('path\n', path,);
+  const componentsNavConfig = getComponentsNavConfig(settings,);
+  // console.log('componentsNavConfig\n', componentsNavConfig,);
   const out = componentsNavConfig.find(x =>
     (x && x.crudConfig && x.crudConfig.readable && x.crudConfig.readable.path) === path
   );
-  console.log('out\n', out,);
+  // console.log('out\n', out,);
   return out;
 }
 
@@ -46,7 +46,7 @@ const getDashboardNewData = (path, oldData, incrementer, sourceDocId,) => {
   };
   // console.log('out\n', out,);
 
-  const navElement = getNavElement(path,);
+  const navElement = getNavElement({path,});
   const navId = navElement.id; // outbox
   console.log('navId\n', navId,); // outbox
   console.log('navElement\n', navElement,); // outbox
@@ -104,7 +104,7 @@ const handleEditDashboard = ( uid, path, oldData, incrementer, sourceDocId, disp
 }
 
 // source: https://github.com/iamshaunjp/React-Redux-Firebase-App/blob/lesson-18/marioplan/src/store/actions/projectActions.js
-export const createItem = ( path, item, uid, dashboard, ) =>
+export const createItem = ( path, item, uid, dashboard, settings, ) =>
   (dispatch, getState, { getFirebase, getFirestore, }) => {
 
     console.log('path\n', path,)
@@ -125,7 +125,7 @@ export const createItem = ( path, item, uid, dashboard, ) =>
     };
 
     // begin addOns
-    const navElement = getNavElement(path,);
+    const navElement = getNavElement({path, settings,});
     console.log('navElement\n', navElement,)
     const addOns = navElement.crudConfig.creatable.addOns;
     console.log('addOns\n', addOns,)
