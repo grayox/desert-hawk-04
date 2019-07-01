@@ -113,7 +113,20 @@ export const createItem = ( path, item, uid, dashboard, creatable, ) =>
     // console.log('uid\n', uid,);
     // console.log('dashboard\n', dashboard,);
     // console.log('settings\n', settings,);
-    console.log('creatable\n', creatable,);
+    // console.log('creatable\n', creatable,);
+
+    if(!item.createdAt) {
+      const timestamp = Date.now();
+      item.createdAt = timestamp;
+    }
+
+    // begin addOns
+    // const navElement = getNavElement({path, creatable,});
+    // console.log('navElement\n', navElement,)
+    const addOns = creatable && creatable.addOns;
+    // console.log('addOns\n', addOns,)
+    // end addOns
+
 
     // const timestamp = Date.now();
     const newData = {
@@ -125,19 +138,8 @@ export const createItem = ( path, item, uid, dashboard, creatable, ) =>
       // authorFirstName: 'Net',
       // authorLastName: 'Ninja',
       // authorId: 12345,
+      ...addOns,
     };
-
-    // begin addOns
-    // const navElement = getNavElement({path, creatable,});
-    // console.log('navElement\n', navElement,)
-    const addOns = creatable && creatable.addOns;
-    console.log('addOns\n', addOns,)
-    // end addOns
-
-    if(!item.createdAt) {
-      const timestamp = Date.now();
-      item.createdAt = timestamp;
-    }
 
     // make async call to database
     const firestore = getFirestore();

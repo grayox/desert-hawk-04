@@ -588,7 +588,7 @@ export const getComponentsNavConfig = props => {
           path: 'leads',
           fields: [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ], // 'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
           addOns: {
-            createdAt: 'timestamp',
+          //createdAt: 'timestamp', // added in cred.actions at save time
             createdBy: uid,
             deletedAt: 0,
             archivedBy: null,
