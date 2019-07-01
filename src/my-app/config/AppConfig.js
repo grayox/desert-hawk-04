@@ -533,7 +533,7 @@ export const getComponentsNavConfig = props => {
           label: 'Challenge this lead for poor quality',
           entries: {
             challengedBy: uid,
-            challengesCount: 'incrementBy1',
+          //challengesCount: 'incrementBy1',
             dashboard: {
               local: {
                 challenges: 1,
@@ -617,7 +617,7 @@ export const getComponentsNavConfig = props => {
           where: [
             [ 'deletedAt'       , '==' , 0                , ] ,  
             [ 'createdBy'       , '==' , uid              , ] ,
-            [ 'challengesCount' , '<=' , CHALLENGES_LIMIT , ] ,
+          //[ 'challengesCount' , '<=' , CHALLENGES_LIMIT , ] ,
           ],
           orderBy: [ 'createdAt', 'desc', ],
         },

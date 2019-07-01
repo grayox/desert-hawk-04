@@ -201,7 +201,7 @@ class CRUDView extends Component {
     // console.log('state\n', this.state);
     const { handleCloseDialog, handleRefresh, } = this;
     const { crudForm, crudFormTimestamp, crudFormIdHash, } = this.state;
-    const { createItem, creatable, profile, dashboard,  settings, } = this.props;
+    const { createItem, creatable, profile, dashboard, } = this.props; // settings,
     const { uid, } = profile;
     const { path, } = creatable;
     
@@ -225,7 +225,7 @@ class CRUDView extends Component {
     // console.log('profile\n', profile,)
     // console.log('uid\n', uid,)
     // console.log('dashboard\n', dashboard,)
-    createItem( path, newItem, uid, dashboard, settings, );
+    createItem( path, newItem, uid, dashboard, creatable, ); // settings,
     // this.props.history.push('/');
 
     handleCloseDialog();
@@ -237,7 +237,7 @@ class CRUDView extends Component {
     // console.log('props\n', this.props);
     const { handleCloseDialog, handleRefresh, } = this;
     const { detail, crudForm, } = this.state; // selectedIndex,
-    const { readable, updateItem, settings, } = this.props; // items, profile,
+    const { readable, updatable, updateItem, } = this.props; // items, profile, // settings,
     // const { uid, } = profile;
     // console.log('selectedIndex', selectedIndex,);
     // console.log('selectedItem', items[selectedIndex],);
@@ -255,7 +255,7 @@ class CRUDView extends Component {
 
     // old item: detail
     // new item: crudForm => newItem
-    updateItem( readable, docId, newItem, detail, settings, ); // note: readable is the path // uid,
+    updateItem( readable, docId, newItem, detail, updatable, ); // note: readable is the path // uid, // settings,
     handleCloseDialog();
     handleRefresh();
   }
@@ -265,14 +265,14 @@ class CRUDView extends Component {
     // console.log('props\n', this.props);
     const { handleCloseDialog, handleRefresh, } = this;
     const { selectedIndex, } = this.state;
-    const { items, readable, deleteItem, profile, dashboard, settings, } = this.props;
+    const { items, readable, deletable, deleteItem, profile, dashboard, } = this.props; // settings,
     const { uid, } = profile;
     // console.log('selectedIndex', selectedIndex,);
     // console.log('selectedItem', items[selectedIndex],);
     const item = items[selectedIndex];
     const docId = item.docId;
     // console.log('docId', docId,);
-    deleteItem( readable, docId, uid, dashboard, settings, ); // readable is the path
+    deleteItem( readable, docId, uid, dashboard, deletable, ); // readable is the path // settings,
     handleCloseDialog();
     handleRefresh();
   }
@@ -528,18 +528,18 @@ const mapStateToProps = state => {
     && state.myApp.reducers
     && state.myApp.reducers.userDataReducer
     && state.myApp.reducers.userDataReducer.dashboard;
-  const settings = state
-    && state.myApp
-    && state.myApp.reducers
-    && state.myApp.reducers.userDataReducer
-    && state.myApp.reducers.userDataReducer.settings;
-  return { profile, dashboard, settings, };
+  // const settings = state
+  //   && state.myApp
+  //   && state.myApp.reducers
+  //   && state.myApp.reducers.userDataReducer
+  //   && state.myApp.reducers.userDataReducer.settings;
+  return { profile, dashboard, }; // settings, 
 }
 
 const mapDispatchToProps = dispatch => ({
-  createItem: ( path , item  , uid     , dashboard , settings , ) => dispatch(createItem( path , item  , uid     , dashboard , settings , )), // inspired by: src/my-app/components/forms/CreateLead.js
-  updateItem: ( path , docId , newItem , oldItem   , settings , ) => dispatch(updateItem( path , docId , newItem , oldItem   , settings , )),
-  deleteItem: ( path , docId , uid     , dashboard , settings , ) => dispatch(deleteItem( path , docId , uid     , dashboard , settings , )),
+  createItem: ( path , item  , uid     , dashboard , creatable , ) => dispatch(createItem( path , item  , uid     , dashboard , creatable , )), // inspired by: src/my-app/components/forms/CreateLead.js
+  updateItem: ( path , docId , newItem , oldItem   , updatable , ) => dispatch(updateItem( path , docId , newItem , oldItem   , updatable , )),
+  deleteItem: ( path , docId , uid     , dashboard , creatable , ) => dispatch(deleteItem( path , docId , uid     , dashboard , creatable , )),
   // update dashboard
   updateUserData: (path, newData,) => dispatch(updateUserData(path, newData,)),
 })
