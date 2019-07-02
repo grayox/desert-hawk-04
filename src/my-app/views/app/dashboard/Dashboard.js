@@ -47,7 +47,7 @@ const Dashboard = ({ classes, dashboard, settings, profile, show, type, saveUser
   }
 
   const handleSaveSettingsStepper = data => {
-    console.log('data\n', data,);
+    // console.log('data\n', data,);
     // const { saveUserDataToFirestore, settings, dashboard, } = this.props; // updateUserData,
     // const { bizCategory, geoNation, geoRegion, geoLocal, } = data;
     const picked = _.pick( data, [ 'bizCategory', 'geoNation', 'geoRegion', 'geoLocal', ], );

@@ -49,6 +49,7 @@ import PreferencesTab from './tabs/PreferencesTab';
 // import { FetchFirestore } from 'my-app/config/AppConfig'; // fails
 // import FetchFirestore from 'my-app/config/AppConfig'; // success
 // import { getMatchHash, } from 'my-app/config/AppConfig';
+import { bizCategoryItems, } from 'my-app/config/AppConfig';
 // import FuseLoadable from '@fuse/components/FuseLoadable/FuseLoadable';
 // end my add
 
@@ -140,13 +141,13 @@ const INITIAL_STATE = {
   ...INITIAL_STATE_SETTINGS_DIALOG,
 }
 
-const optionsMenu = [
-  // 'Select one',
-  'Home',
-  'Mortgage',
-  'Insurance',
-  'Financial',
-];
+// const optionsMenu = [
+//   // 'Select one',
+//   'Home',
+//   'Mortgage',
+//   'Insurance',
+//   'Financial',
+// ];
 
 const optionsMenu1 = [
   'Light',
@@ -348,7 +349,7 @@ class ProfilePage extends Component {
   };
 
   handleMenuItemClickMenu = (event, index) => {
-    const option = optionsMenu[index];
+    const option = bizCategoryItems[index].value; // optionsMenu[index];
     // console.log('option\n', option);
     // console.log('props-settings\n', this.props.settings);
     // console.log('this-settings\n', this.settings);
@@ -562,7 +563,7 @@ class ProfilePage extends Component {
 
     // const { isValidGeo, geoNation, geoRegion, geoLocal, bizCategory } = this.state.settings;
     // const { isValidGeo, geoNation, geoRegion, geoLocal, bizCategory } = this.props.settings;
-    const { geoNation, geoRegion, geoLocal, bizCategory } = settings;
+    const { geoNation, geoRegion, geoLocal, bizCategory, } = settings;
     const {
       dialogIsOpen, dialogContent, dialogContentText, dialogTitle,
       isDialogTextField, dialogTextFieldLabel, dialogFieldName,
@@ -588,6 +589,16 @@ class ProfilePage extends Component {
     // ref: https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#what-about-memoization
     const wasValidGeo = this.getWasValidGeo();
 
+    const getBizCategory = () => {
+      const filteredArray = _.filter(bizCategoryItems, ['value', bizCategory,]);
+      // console.log('filteredArray\n', filteredArray,);
+      const filteredItem = filteredArray[0];
+      // console.log('filteredItem\n', filteredItem,);
+      const out = filteredItem && filteredItem.label;
+      // console.log('out\n', out,);
+      return out || '';
+    }
+
     const getDetailsTab = () =>
       // <div>Hello world</div>
       <DetailsTab
@@ -609,7 +620,8 @@ class ProfilePage extends Component {
         geoNation={geoNation}
         geoRegion={geoRegion}
         geoLocal={geoLocal}
-        bizCategory={bizCategory}
+        bizCategory={getBizCategory()}
+        // bizCategory={bizCategory}
         // onSaveGeoStepper={handleSaveGeoStepper}
         // onValidGeoStepper={handleValidGeoStepper}
         onChangeGeoStepper={handleChangeGeoStepper}
@@ -770,14 +782,15 @@ class ProfilePage extends Component {
         open={Boolean(anchorElMenu)}
         onClose={handleCloseMenu}
       >
-        {optionsMenu.map(( option, index, ) => (
+        {/* {optionsMenu.map(( option, index, ) => ( */}
+        {bizCategoryItems.map(( option, index, ) => (
           <MenuItem
-            key={option}
+            key={option.value}
             // disabled={index === 0}
             selected={index === selectedIndexMenu}
             onClick={event => handleMenuItemClickMenu(event, index,)}
           >
-            {option}
+            {option.label}
           </MenuItem>
         ))}
       </Menu>

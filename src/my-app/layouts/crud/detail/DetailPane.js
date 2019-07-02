@@ -108,7 +108,7 @@ const styles = theme => ({
 
 const DetailPane = ({
   classes, detail, condensed, itemsLength, selectedIndex,
-  creatable, updatable, deletable, actionable, starrable, miniDashboard,
+  creatable, updatable, deletable, actionable, starrable, dashboard, miniDashboard,
   onClickStar, onToggle, onUpdate, onDelete, onNavBack, onNavNext, getFormFields,
 }) => {
 
@@ -212,7 +212,7 @@ const DetailPane = ({
             //   getDetailListItem( keyName, keyIndex, item, condensed, )
             // )
             formFields.map( field =>
-              field.value.length > uiSpecs.maxCharsForDetailItemField // MAX_LENGTH
+              ( field.value && field.value.length ) > uiSpecs.maxCharsForDetailItemField // MAX_LENGTH
               ?
               <SimpleExpansionPanel key={field.label} heading={field.label} content={field.value} />
               :
@@ -230,24 +230,25 @@ const DetailPane = ({
     <List component="nav">
       {/* {getSummary(detail, false,)} */}
       <ItemSummary
-          side="detail"
-          item={detail}
-          actionable={actionable}
-          starrable={starrable}
-          selectedIndex={selectedIndex}
-          onToggle={onToggle}
-          onClickStar={onClickStar}
-          // index={index} // never select summary on detail side
-        />
+        side="detail"
+        item={detail}
+        actionable={actionable}
+        starrable={starrable}
+        selectedIndex={selectedIndex}
+        onToggle={onToggle}
+        onClickStar={onClickStar}
+        // index={index} // never select summary on detail side
+      />
     </List>
 
   const getButtonsTier = () => {
     const limit = itemsLength - 2;
     // console.log('limit\n', limit,);
+    // console.log('actionable\n', actionable,);
     return (
       <ButtonsTierDetail
         limit={limit} selectedIndex={selectedIndex}
-        actionable={actionable} starrable={starrable} updatable={updatable} deletable={deletable}
+        updatable={updatable} deletable={deletable} // actionable={actionable} starrable={starrable}
         onToggle={onToggle} onUpdate={onUpdate} onDelete={onDelete} onNavBack={onNavBack} onNavNext={onNavNext}
       />
     );
@@ -256,9 +257,9 @@ const DetailPane = ({
   const getDashboard = () =>
     <Paper className={classNames(classes.paper, "z-0",)}>
       <MediaWidth
-        mobile={<Dashboard type="micro" />}
-        tablet={<Dashboard type="mini" />}
-        laptop={<Dashboard type="mini" />}
+        mobile={<Dashboard dashboard={dashboard} type="micro" />}
+        tablet={<Dashboard dashboard={dashboard} type="mini" />}
+        laptop={<Dashboard dashboard={dashboard} type="mini" />}
       />
     </Paper> 
 

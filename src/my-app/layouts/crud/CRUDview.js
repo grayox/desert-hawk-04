@@ -329,7 +329,7 @@ class CRUDView extends Component {
       crudForm, crudFormTimestamp, crudFormIdHash,
     } = this.state;
     const {
-      classes, profile, items, condensed, onNext, hasMore, miniDashboard,
+      classes, profile, items, condensed, onNext, hasMore, dashboard, miniDashboard,
       creatable, updatable, deletable, actionable, searchable, sortable, filterable, starrable,
       searchMenuOptions, filterMenuOptions, sortMenuOptions, searchFilterSortModelWithLabels,
       onSearchFilterSort, onResetSearchFilterSort,
@@ -350,6 +350,7 @@ class CRUDView extends Component {
     // console.log('state\n', this.state,);
     // console.log('items\n', items,);
     // console.log('detail\n', detail,);
+    console.log('miniDashboard\n', miniDashboard,);
     
     const getFetchUserData = () => <FetchUserData path="dashboard" uid={uid} onChange={handleChangeUserData} />
     const getViewEmpty = () =>
@@ -419,6 +420,7 @@ class CRUDView extends Component {
         actionable={actionable}
         starrable={starrable}
         miniDashboard={miniDashboard}
+        dashboard={dashboard}
         onClickStar={handleClickStar}
         onToggle={handleToggle}
         onUpdate={handleOpenUpdateDialog}

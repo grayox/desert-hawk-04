@@ -491,9 +491,9 @@ export const getComponentsNavConfig = props => {
           path: 'leads',
           orderBy: [ 'createdAt', 'desc', ],
           where: [
-          //[ 'deletedAt'       , '==' , 0                    , ] ,
-          //[ 'archivedBy'      , '==' , null                 , ] ,
-          //[ 'challengesCount' , '<=' , CHALLENGES_LIMIT     , ] , // Unhandled Rejection (FirebaseError): Invalid query. You have a where filter with an inequality (<, <=, >, or >=) on field 'challengesCount' and so you must also use 'challengesCount' as your first Query.orderBy(), but your first Query.orderBy() is on field 'createdAt' instead.
+            //[ 'deletedAt'       , '==' , 0                    , ] ,
+            //[ 'archivedBy'      , '==' , null                 , ] ,
+            //[ 'challengesCount' , '<=' , CHALLENGES_LIMIT     , ] , // Unhandled Rejection (FirebaseError): Invalid query. You have a where filter with an inequality (<, <=, >, or >=) on field 'challengesCount' and so you must also use 'challengesCount' as your first Query.orderBy(), but your first Query.orderBy() is on field 'createdAt' instead.
             [ 'bizCategory'     , '==' , settings.bizCategory , ] , // 'Home'         
             [ 'geoNation'       , '==' , settings.geoNation   , ] , // 'Asia, Pacific, and Middle East' | 'Latin America and Caribbean'
             [ 'geoRegion'       , '==' , settings.geoRegion   , ] , // 'Kazakhstan' | 'Chile'
@@ -533,7 +533,7 @@ export const getComponentsNavConfig = props => {
           label: 'Challenge this lead for poor quality',
           entries: {
             challengedBy: uid,
-          //challengesCount: 'incrementBy1',
+            //challengesCount: 'incrementBy1',
             dashboard: {
               local: {
                 challenges: 1,
@@ -588,7 +588,7 @@ export const getComponentsNavConfig = props => {
           path: 'leads',
           fields: [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ], // 'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
           addOns: {
-          //createdAt: 'timestamp', // added in cred.actions at save time
+            //createdAt: 'timestamp', // added in cred.actions at save time
             createdBy: uid,
             deletedAt: 0,
             archivedBy: null,

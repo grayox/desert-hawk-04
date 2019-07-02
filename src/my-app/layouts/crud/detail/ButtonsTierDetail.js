@@ -48,7 +48,6 @@ ButtonsTier.propTypes = {
   deletable: PropTypes.bool,
 };
 
-
 ButtonsTier.defaultProps = {
   actionable: false,
   deletable: false,
