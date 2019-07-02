@@ -305,6 +305,8 @@ class CRUDView extends Component {
     if(newSelectedIndex === (limit - BUFFER)) this.props.onNext();
   };
 
+  handleClickAction = () => alert('You clicked me!');
+
   handleToggle = ( detail, side, selectedIndex, ) => {
     // console.log('model\n', model);
     // const { detail } = this.state;
@@ -336,7 +338,7 @@ class CRUDView extends Component {
     } = this.props;
     const {
       handleCloseDialog, handleDeleteItem, handleChangeUserData,
-      handleClickCreateButton, handleClickStar, handleToggle,
+      handleClickCreateButton, handleClickAction, handleClickStar, handleToggle,
       handleOpenUpdateDialog, handleOpenDeleteDialog, handleNavBack, handleNavNext, getFormFields,
       handleEnterDialog, handleChangeForm, handleCreateItem, handleUpdateItem,
     } = this;
@@ -350,7 +352,7 @@ class CRUDView extends Component {
     // console.log('state\n', this.state,);
     // console.log('items\n', items,);
     // console.log('detail\n', detail,);
-    console.log('miniDashboard\n', miniDashboard,);
+    // console.log('miniDashboard\n', miniDashboard,);
     
     const getFetchUserData = () => <FetchUserData path="dashboard" uid={uid} onChange={handleChangeUserData} />
     const getViewEmpty = () =>
@@ -421,6 +423,7 @@ class CRUDView extends Component {
         starrable={starrable}
         miniDashboard={miniDashboard}
         dashboard={dashboard}
+        onClickAction={handleClickAction}
         onClickStar={handleClickStar}
         onToggle={handleToggle}
         onUpdate={handleOpenUpdateDialog}

@@ -109,7 +109,7 @@ const styles = theme => ({
 const DetailPane = ({
   classes, detail, condensed, itemsLength, selectedIndex,
   creatable, updatable, deletable, actionable, starrable, dashboard, miniDashboard,
-  onClickStar, onToggle, onUpdate, onDelete, onNavBack, onNavNext, getFormFields,
+  onClickAction, onClickStar, onToggle, onUpdate, onDelete, onNavBack, onNavNext, getFormFields,
 }) => {
 
   // console.log('detail\n', detail,);
@@ -235,6 +235,7 @@ const DetailPane = ({
         actionable={actionable}
         starrable={starrable}
         selectedIndex={selectedIndex}
+        onClickAction={onClickAction}
         onToggle={onToggle}
         onClickStar={onClickStar}
         // index={index} // never select summary on detail side

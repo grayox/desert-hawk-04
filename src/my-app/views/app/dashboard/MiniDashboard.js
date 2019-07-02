@@ -154,7 +154,7 @@ const MiniDashboard = ({ data, micro, }) => {
   const { cells, } = DashboardGridConfig;
   // const pickedData = _.filter(dataAsArray, item => _.includes(picker, item.key)); // does nor sort or return labels // 
   const pickedData = getPickedData(data, picker, cells,);
-  console.log('pickedData\n', pickedData,);
+  // console.log('pickedData\n', pickedData,);
 
   const getMiniDashboard = () =>
     <React.Fragment>

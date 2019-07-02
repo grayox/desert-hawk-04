@@ -9,7 +9,7 @@ import {
 
 const styles = theme => ({
   margin: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing.unit * 3,
   },
 });
 
@@ -18,7 +18,7 @@ const DEFAULT_STAR_COLOR = 'secondary'; // supported colors: 'inherit', 'primary
 
 // getSummary = ( item, isList, index, ) => {
 const ItemSummary = ({
-  classes, actionable, starrable, item, side, index, selectedIndex, onClickStar, onToggle,
+  classes, actionable, starrable, item, side, index, selectedIndex, onClickAction, onClickStar, onToggle,
 }) => {
 
   const ready1 = item;
@@ -96,7 +96,7 @@ const ItemSummary = ({
           actionable &&
           <Zoom in mountOnEnter unmountOnExit>
             <Tooltip TransitionComponent={Zoom} placement="left" title={actionable && actionable.label}>
-              <Fab size="small" color="primary" className={classes.margin}>
+              <Fab size="small" color="primary" className={classes.margin} onClick={onClickAction}>
                 <Icon>{actionableIcon}</Icon>
               </Fab>
             </Tooltip>
