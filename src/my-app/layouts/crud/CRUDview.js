@@ -369,7 +369,7 @@ class CRUDView extends Component {
     } = this.props;
     const {
       handleCloseDialog, handleDeleteItem, handleChangeUserData,
-      handleClickCreateButton, handleClickStar, handleToggle,
+      handleClickCreateButton, handleClickStar, handleToggle, handleAction,
       handleOpenUpdateDialog, handleOpenDeleteDialog, handleOpenActionDialog,
       handleEnterDialog, handleChangeForm, handleCreateItem, handleUpdateItem,
       handleNavBack, handleNavNext, getFormFields,
@@ -418,7 +418,7 @@ class CRUDView extends Component {
       />
     const getActionDialog = () =>
       <ActionDialog
-        isOpen={actionDialogIsOpen} actionable={actionable}
+        isOpen={actionDialogIsOpen} actionable={actionable} onAction={handleAction}
         onCancel={handleCloseDialog} onClose={handleCloseDialog}
       />
 
