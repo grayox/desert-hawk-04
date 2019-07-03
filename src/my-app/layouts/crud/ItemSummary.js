@@ -80,6 +80,7 @@ const ItemSummary = ({
         <IconButton
           color="inherit"
           aria-label="More detail"
+          className={classes.margin}
           onClick={() => onToggle( item, "list", index, )}
         >
           <Icon>more_horiz</Icon>

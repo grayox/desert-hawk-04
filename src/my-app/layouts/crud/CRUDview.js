@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import compose from 'recompose/compose';
 import { connect, } from 'react-redux';
-import { createItem, updateItem, deleteItem, } from './store/actions';
+import { createItem, updateItem, deleteItem, actionItem, } from './store/actions';
 
 import { updateUserData, } from 'my-app/store/actions/my-actions'; // updateSettings, updateDashboard, saveUserDataToFirestore,
 import FetchUserData from 'my-app/containers/FetchUserData';
@@ -305,7 +305,41 @@ class CRUDView extends Component {
     if(newSelectedIndex === (limit - BUFFER)) this.props.onNext();
   };
 
-  handleClickAction = () => alert('You clicked me!');
+  handleClickAction = e => {
+    alert('You clicked me!');
+    // console.log('state\n', this.state);
+    const { handleCloseDialog, handleRefresh, } = this;
+    const { crudForm, crudFormTimestamp, crudFormIdHash, } = this.state;
+    const { createItem, creatable, profile, dashboard, } = this.props; // settings,
+    const { uid, } = profile;
+    const { path, } = creatable;
+    
+    // inspired by: src/my-app/components/forms/CreateLead.js
+    e.preventDefault();
+    // console.log(this.state);
+    // this.props.createItem('leads', crudForm,);
+
+    const newItem = {
+      idHash: crudFormIdHash,
+      createdAt: crudFormTimestamp,
+    };
+    crudForm.forEach( item => {
+      let newVal = item.value;
+      if(newVal === undefined || newVal === null) return; // newVal = null; //
+      newItem[item.id] = newVal;
+    });
+
+    // console.log('path\n', path,)
+    // console.log('newItem\n', newItem,)
+    // console.log('profile\n', profile,)
+    // console.log('uid\n', uid,)
+    // console.log('dashboard\n', dashboard,)
+    actionItem( path, newItem, uid, dashboard, actionable, ); // settings,
+    // this.props.history.push('/');
+
+    handleCloseDialog();
+    handleRefresh();
+  }
 
   handleToggle = ( detail, side, selectedIndex, ) => {
     // console.log('model\n', model);
@@ -542,9 +576,11 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
+  // CRUD item
   createItem: ( path , item  , uid     , dashboard , creatable , ) => dispatch(createItem( path , item  , uid     , dashboard , creatable , )), // inspired by: src/my-app/components/forms/CreateLead.js
   updateItem: ( path , docId , newItem , oldItem   , updatable , ) => dispatch(updateItem( path , docId , newItem , oldItem   , updatable , )),
   deleteItem: ( path , docId , uid     , dashboard , creatable , ) => dispatch(deleteItem( path , docId , uid     , dashboard , creatable , )),
+  actionItem: ( path , docId , uid     , dashboard , creatable , ) => dispatch(actionItem( path , docId , uid     , dashboard , actionable , )),
   // update dashboard
   updateUserData: (path, newData,) => dispatch(updateUserData(path, newData,)),
 })
