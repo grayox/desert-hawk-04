@@ -174,17 +174,23 @@ const UpdateDialog = ({
 const DeleteDialog = props => {
   const header = 'Permanently delete item?';
   const body = <span>It&rsquo;s permanent and cannot be undone.</span>
-  const args = { header, body, ...props, };
+  const button = 'Delete';
+  const args = { header, body, button, ...props, };
   return getDialog(args);
 }
 
 const ActionDialog = ({ actionable, ...other, }) => {
-  const { header, body, } = actionable;
-  const args =  { header, body, ...other, };
+  const { dialogHeader, dialogBody, buttonLabel, } = actionable;
+  const args =  {
+    header: dialogHeader,
+    body: dialogBody,
+    button: buttonLabel,
+    ...other,
+  };
   return getDialog(args);
 }
 
-const getDialog = ({ header, body, isOpen, onCancel, onDelete, onClose, }) =>
+const getDialog = ({ header, body, button, isOpen, onCancel, onDelete, onClose, }) =>
   <Dialog
     open={isOpen}
     onClose={onClose}
@@ -212,7 +218,7 @@ const getDialog = ({ header, body, isOpen, onCancel, onDelete, onClose, }) =>
         Cancel
       </Button>
       <Button onClick={onDelete} color="primary">
-        Delete
+        {button}
       </Button>
     </DialogActions>
   </Dialog>
