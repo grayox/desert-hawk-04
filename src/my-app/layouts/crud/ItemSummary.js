@@ -18,7 +18,7 @@ const DEFAULT_STAR_COLOR = 'secondary'; // supported colors: 'inherit', 'primary
 
 // getSummary = ( item, isList, index, ) => {
 const ItemSummary = ({
-  classes, actionable, starrable, item, side, index, selectedIndex, onClickAction, onClickStar, onToggle,
+  classes, actionable, starrable, item, side, index, selectedIndex, onAction, onClickStar, onToggle,
 }) => {
 
   const ready1 = item;
@@ -97,7 +97,7 @@ const ItemSummary = ({
           actionable &&
           <Zoom in mountOnEnter unmountOnExit>
             <Tooltip TransitionComponent={Zoom} placement="left" title={actionable && actionable.label}>
-              <Fab size="small" color="primary" className={classes.margin} onClick={onClickAction}>
+              <Fab size="small" color="primary" className={classes.margin} onClick={onAction}>
                 <Icon>{actionableIcon}</Icon>
               </Fab>
             </Tooltip>

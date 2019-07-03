@@ -16,7 +16,7 @@ import MediaWidth from 'my-app/layouts/MediaWidth';
 import ListPane from './list/ListPane';
 import DetailPane from './detail/DetailPane';
 import ViewEmpty from './ViewEmpty';
-import { CreateDialog, UpdateDialog, DeleteDialog, } from './ItemDialogs';
+import { CreateDialog, UpdateDialog, DeleteDialog, ActionDialog, } from './ItemDialogs';
 
 const styles = theme => ({
   root: {
@@ -46,18 +46,28 @@ const STATE_OPEN_UPDATE_DIALOG = {
   createDialogIsOpen : false ,
   updateDialogIsOpen : true  ,
   deleteDialogIsOpen : false ,
+  actionDialogIsOpen : false ,
 }
 
 const STATE_OPEN_DELETE_DIALOG = {
   createDialogIsOpen : false ,
   updateDialogIsOpen : false ,
   deleteDialogIsOpen : true  ,
+  actionDialogIsOpen : false ,
+}
+
+const STATE_OPEN_ACTION_DIALOG = {
+  createDialogIsOpen : false ,
+  updateDialogIsOpen : false ,
+  deleteDialogIsOpen : false ,
+  actionDialogIsOpen : true  ,
 }
 
 const INITIAL_STATE_DIALOG = {
   createDialogIsOpen : false     ,
   updateDialogIsOpen : false     ,
   deleteDialogIsOpen : false     ,
+  actionDialogIsOpen : false     ,
   crudForm           : undefined ,
   crudFormIdHash     : undefined ,
   crudFormTimestamp  : undefined ,
@@ -108,6 +118,7 @@ class CRUDView extends Component {
       createDialogIsOpen : true   ,
       updateDialogIsOpen : false  ,
       deleteDialogIsOpen : false  ,
+      actionDialogIsOpen : false  ,
     }
     // console.log('out\n', out,);
     return out;
@@ -161,6 +172,7 @@ class CRUDView extends Component {
 
   handleOpenUpdateDialog  = () => this.setState({ ...STATE_OPEN_UPDATE_DIALOG, });
   handleOpenDeleteDialog  = () => this.setState({ ...STATE_OPEN_DELETE_DIALOG, });
+  handleOpenActionDialog  = () => this.setState({ ...STATE_OPEN_ACTION_DIALOG, });
   handleClickCreateButton = () => this.setState(
     this.getStateOpenCreateDialog()
     // , () => console.log('state\n', this.state,)
@@ -305,7 +317,7 @@ class CRUDView extends Component {
     if(newSelectedIndex === (limit - BUFFER)) this.props.onNext();
   };
 
-  handleClickAction = e => {
+  handleAction = e => {
     // alert('You clicked me!');
     // console.log('state\n', this.state);
     const { handleCloseDialog, handleRefresh, } = this;
@@ -314,30 +326,15 @@ class CRUDView extends Component {
     const { uid, } = profile;
     const { path, } = creatable;
     
-    // inspired by: src/my-app/components/forms/CreateLead.js
-    e.preventDefault();
-    // console.log(this.state);
-    // this.props.createItem('leads', crudForm,);
-
-    const newItem = {
-      idHash: crudFormIdHash,
-      createdAt: crudFormTimestamp,
-    };
-    crudForm.forEach( item => {
-      let newVal = item.value;
-      if(newVal === undefined || newVal === null) return; // newVal = null; //
-      newItem[item.id] = newVal;
-    });
-
     // console.log('path\n', path,)
     // console.log('newItem\n', newItem,)
     // console.log('profile\n', profile,)
     // console.log('uid\n', uid,)
     // console.log('dashboard\n', dashboard,)
-    actionItem( path, newItem, uid, dashboard, actionable, ); // settings,
+    actionItem(); // path, newItem, uid, dashboard, actionable, // settings,
     // this.props.history.push('/');
 
-    handleCloseDialog();
+    // handleCloseDialog();
     handleRefresh();
   }
 
@@ -360,7 +357,7 @@ class CRUDView extends Component {
 
   render() {
     const {
-      detail, deleteDialogIsOpen, selectedIndex,
+      detail, deleteDialogIsOpen, actionDialogIsOpen, selectedIndex,
       createDialogIsOpen, updateDialogIsOpen,
       crudForm, crudFormTimestamp, crudFormIdHash,
     } = this.state;
@@ -372,9 +369,10 @@ class CRUDView extends Component {
     } = this.props;
     const {
       handleCloseDialog, handleDeleteItem, handleChangeUserData,
-      handleClickCreateButton, handleClickAction, handleClickStar, handleToggle,
-      handleOpenUpdateDialog, handleOpenDeleteDialog, handleNavBack, handleNavNext, getFormFields,
+      handleClickCreateButton, handleClickStar, handleToggle,
+      handleOpenUpdateDialog, handleOpenDeleteDialog, handleOpenActionDialog,
       handleEnterDialog, handleChangeForm, handleCreateItem, handleUpdateItem,
+      handleNavBack, handleNavNext, getFormFields,
     } = this;
 
     const ready1 = !!profile;
@@ -418,6 +416,11 @@ class CRUDView extends Component {
         isOpen={deleteDialogIsOpen} onCancel={handleCloseDialog}
         onDelete={handleDeleteItem} onClose={handleCloseDialog}
       />
+    const getActionDialog = () =>
+      <ActionDialog
+        isOpen={actionDialogIsOpen} actionable={actionable}
+        onCancel={handleCloseDialog} onClose={handleCloseDialog}
+      />
 
     const getListPane = () =>
       <ListPane
@@ -457,11 +460,11 @@ class CRUDView extends Component {
         starrable={starrable}
         miniDashboard={miniDashboard}
         dashboard={dashboard}
-        onClickAction={handleClickAction}
         onClickStar={handleClickStar}
         onToggle={handleToggle}
         onUpdate={handleOpenUpdateDialog}
         onDelete={handleOpenDeleteDialog}
+        onAction={handleOpenActionDialog}
         onNavBack={handleNavBack}
         onNavNext={handleNavNext}
         getFormFields={getFormFields}
@@ -482,6 +485,7 @@ class CRUDView extends Component {
         { getCreateDialog()  }
         { getUpdateDialog()  }
         { getDeleteDialog()  }
+        { getActionDialog()  }
         <div className={classes.wrapper}>
           <MediaWidth
             mobile={getMobileContent()}

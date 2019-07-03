@@ -467,6 +467,8 @@ export const getComponentsNavConfig = props => {
         actionable: {
           icon: 'send', // 'outlined_flag',
           label: 'Claim this lead and send it to your archive',
+          dialogHeader: '',
+          dialogBody: '',
           entries: [
             {
               path: `leads/${docId}`,

@@ -171,20 +171,7 @@ const UpdateDialog = ({
 }
 
 // getDeleteDialog = () => (
-const DeleteDialog = props => {
-  const header = 'Permanently delete item?';
-  const body = <span>It&rsquo;s permanent and cannot be undone.</span>
-  const args = { header, body, ...props, };
-  return getDialog(args);
-}
-
-const ActionDialog = ({ actionable, ...other, }) => {
-  const { header, body, } = actionable;
-  const args =  { header, body, ...other, };
-  return getDialog(args);
-}
-
-const getDialog = ({ header, body, isOpen, onCancel, onDelete, onClose, }) =>
+const DeleteDialog = ({ isOpen, onCancel, onDelete, onClose, }) =>
   <Dialog
     open={isOpen}
     onClose={onClose}
@@ -194,14 +181,14 @@ const getDialog = ({ header, body, isOpen, onCancel, onDelete, onClose, }) =>
     // aria-describedby="alert-dialog-slide-description"
     // aria-labelledby="alert-dialog-slide-title"
   >
-    <DialogTitle id="form-dialog-title">{header}</DialogTitle>
+    <DialogTitle id="form-dialog-title">Permanently delete item?</DialogTitle>
     <DialogContent>
       <DialogContentText>
-        { body }
-        {
-          // Are you sure you want to delete this record?
-          // After deleted, this record will not be recoverable.
-        }
+        It&rsquo;s permanent and cannot be undone.
+      {
+        // Are you sure you want to delete this record?
+        // After deleted, this record will not be recoverable.
+      }
       </DialogContentText>
       {
         // <TextField autoFocus margin="dense" id="dialog" label="dialog" type="email" fullWidth />
