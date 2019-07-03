@@ -165,6 +165,10 @@ export const createItem = ( path, item, uid, dashboard, creatable, ) =>
     });
   }
 
+export const actionItem = ( path, newItem, uid, dashboard, actionable, ) => {
+  console.log(path, newItem, uid, dashboard, actionable,);
+}
+
 export const updateItem = ( path, docId, newItem, oldItem, ) => // uid,
   (dispatch, getState, { getFirebase, getFirestore, }) => {
     // ref: https://firebase.google.com/docs/firestore/manage-data/add-data#update-data

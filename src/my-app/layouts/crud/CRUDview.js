@@ -306,11 +306,11 @@ class CRUDView extends Component {
   };
 
   handleClickAction = e => {
-    alert('You clicked me!');
+    // alert('You clicked me!');
     // console.log('state\n', this.state);
     const { handleCloseDialog, handleRefresh, } = this;
     const { crudForm, crudFormTimestamp, crudFormIdHash, } = this.state;
-    const { createItem, creatable, profile, dashboard, } = this.props; // settings,
+    const { creatable, actionable, profile, dashboard, } = this.props; // settings, createItem, 
     const { uid, } = profile;
     const { path, } = creatable;
     
@@ -577,10 +577,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   // CRUD item
-  createItem: ( path , item  , uid     , dashboard , creatable , ) => dispatch(createItem( path , item  , uid     , dashboard , creatable , )), // inspired by: src/my-app/components/forms/CreateLead.js
-  updateItem: ( path , docId , newItem , oldItem   , updatable , ) => dispatch(updateItem( path , docId , newItem , oldItem   , updatable , )),
-  deleteItem: ( path , docId , uid     , dashboard , creatable , ) => dispatch(deleteItem( path , docId , uid     , dashboard , creatable , )),
-  actionItem: ( path , docId , uid     , dashboard , creatable , ) => dispatch(actionItem( path , docId , uid     , dashboard , actionable , )),
+  createItem: ( path , item  , uid     , dashboard , creatable  , ) => dispatch(createItem( path , item  , uid     , dashboard , creatable  , )), // inspired by: src/my-app/components/forms/CreateLead.js
+  updateItem: ( path , docId , newItem , oldItem   , updatable  , ) => dispatch(updateItem( path , docId , newItem , oldItem   , updatable  , )),
+  deleteItem: ( path , docId , uid     , dashboard , creatable  , ) => dispatch(deleteItem( path , docId , uid     , dashboard , creatable  , )),
+  actionItem: ( path , docId , uid     , dashboard , actionable , ) => dispatch(actionItem( path , docId , uid     , dashboard , actionable , )),
   // update dashboard
   updateUserData: (path, newData,) => dispatch(updateUserData(path, newData,)),
 })
