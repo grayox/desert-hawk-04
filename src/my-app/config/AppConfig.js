@@ -470,19 +470,21 @@ export const getComponentsNavConfig = props => {
           dialogHeader: 'Claim lead',
           dialogBody: 'Do you want to claim this lead and send it to your archive?',
           buttonLabel: 'Claim it now!',
-          entries: [
+          dashboard: {
+            local: { // path: `users/${uid}/dashboard`,
+              net: -1,
+              inbox: -1,
+              archived: 1,
+              withdrawals: 1,
+            },
+            // remote: {},
+          },
+          updates: [
             {
               path: `leads/${docId}`,
               fields: {
                 archivedBy: uid,
                 archivedAt: Date.now(),
-              },
-            },
-            {
-              path: `users/${uid}/dashboard`,
-              fields: {
-                net: -1,
-                archived: 1,
               },
             },
           ],
@@ -534,20 +536,28 @@ export const getComponentsNavConfig = props => {
         actionable : {
           icon: 'priority_high', // 'warning', // 'report',
           label: 'Challenge this lead for poor quality',
-          entries: {
-            challengedBy: uid,
-            //challengesCount: 'incrementBy1',
-            dashboard: {
-              local: {
-                challenges: 1,
-              },
-              remote: {
-                [`users/${item && item.createdBy}/dashboard`]: {
+          dashboard: {
+            local: {
+              challenges: 1,
+            },
+            remote: [
+              {
+                path: `users/${item && item.createdBy}/dashboard`,
+                fields: {
                   challenges: 1,
                 },
               },
-            },
+            ],
           },
+          updates: [
+            {
+              path: ``,
+              fields: {
+                challengedBy: uid,
+                //challengesCount: 'incrementBy1',
+              },
+            },
+          ],
         },
         creatable  : false,
         readable: {
@@ -620,7 +630,7 @@ export const getComponentsNavConfig = props => {
           where: [
             [ 'deletedAt'       , '==' , 0                , ] ,  
             [ 'createdBy'       , '==' , uid              , ] ,
-          //[ 'challengesCount' , '<=' , CHALLENGES_LIMIT , ] ,
+            // [ 'challengesCount' , '<=' , CHALLENGES_LIMIT , ] ,
           ],
           orderBy: [ 'createdAt', 'desc', ],
         },

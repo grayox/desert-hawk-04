@@ -165,8 +165,11 @@ export const createItem = ( path, item, uid, dashboard, creatable, ) =>
     });
   }
 
-export const actionItem = ( path, newItem, uid, dashboard, actionable, ) => {
-  console.log(path, newItem, uid, dashboard, actionable,);
+export const actionItem = ( uid, actionable, settings, dashboard, ) => {
+  console.log('uid\n', uid,);
+  console.log('actionable\n', actionable,);
+  console.log('settings\n', settings,);
+  console.log('dashboard\n', dashboard,);
 }
 
 export const updateItem = ( path, docId, newItem, oldItem, ) => // uid,

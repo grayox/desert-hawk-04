@@ -320,21 +320,14 @@ class CRUDView extends Component {
   handleAction = e => {
     // alert('You clicked me!');
     // console.log('state\n', this.state);
-    const { handleCloseDialog, handleRefresh, } = this;
-    const { crudForm, crudFormTimestamp, crudFormIdHash, } = this.state;
-    const { creatable, actionable, profile, dashboard, } = this.props; // settings, createItem, 
+    const { handleRefresh, } = this;
+    const { actionable, profile, dashboard, } = this.props; // settings,
     const { uid, } = profile;
-    const { path, } = creatable;
-    
-    // console.log('path\n', path,)
-    // console.log('newItem\n', newItem,)
-    // console.log('profile\n', profile,)
+
     // console.log('uid\n', uid,)
     // console.log('dashboard\n', dashboard,)
-    actionItem(); // path, newItem, uid, dashboard, actionable, // settings,
-    // this.props.history.push('/');
+    actionItem( uid, actionable, dashboard, ); // settings, 
 
-    // handleCloseDialog();
     handleRefresh();
   }
 
@@ -584,7 +577,7 @@ const mapDispatchToProps = dispatch => ({
   createItem: ( path , item  , uid     , dashboard , creatable  , ) => dispatch(createItem( path , item  , uid     , dashboard , creatable  , )), // inspired by: src/my-app/components/forms/CreateLead.js
   updateItem: ( path , docId , newItem , oldItem   , updatable  , ) => dispatch(updateItem( path , docId , newItem , oldItem   , updatable  , )),
   deleteItem: ( path , docId , uid     , dashboard , creatable  , ) => dispatch(deleteItem( path , docId , uid     , dashboard , creatable  , )),
-  actionItem: ( path , docId , uid     , dashboard , actionable , ) => dispatch(actionItem( path , docId , uid     , dashboard , actionable , )),
+  actionItem: ( uid  , actionable      , settings  , dashboard  , ) => dispatch(actionItem( uid  , actionable      , settings  , dashboard  , )),
   // update dashboard
   updateUserData: (path, newData,) => dispatch(updateUserData(path, newData,)),
 })
