@@ -464,6 +464,24 @@ export const getComponentsNavConfig = props => {
         sortable: false, // see searchable
         starrable: false,
         taggable: false,
+        miniDashboard: [ 'net', 'deposits', 'withdrawals', ],
+        creatable: false, // false only makes button not appear on CRUD view
+        readable: {
+          // src/my-app/containers/LoadAsync.js
+          path: 'leads',
+          orderBy: [ 'createdAt', 'desc', ],
+          where: [
+            // [ 'deletedAt'       , '==' , 0                    , ] ,
+            // [ 'archivedBy'      , '==' , null                 , ] ,
+            // [ 'challengesCount' , '<=' , CHALLENGES_LIMIT     , ] , // Unhandled Rejection (FirebaseError): Invalid query. You have a where filter with an inequality (<, <=, >, or >=) on field 'challengesCount' and so you must also use 'challengesCount' as your first Query.orderBy(), but your first Query.orderBy() is on field 'createdAt' instead.
+            [ 'bizCategory'     , '==' , settings.bizCategory , ] , // 'Home'         
+            [ 'geoNation'       , '==' , settings.geoNation   , ] , // 'Asia, Pacific, and Middle East' | 'Latin America and Caribbean'
+            [ 'geoRegion'       , '==' , settings.geoRegion   , ] , // 'Kazakhstan' | 'Chile'
+            [ 'geoLocal'        , '==' , settings.geoLocal    , ] , // 'Almaty' | 'Santiago'
+          ],
+        },
+        updatable: false,
+        deletable: false,
         actionable: {
           icon: 'send', // 'outlined_flag',
           label: 'Claim this lead and send it to your archive',
@@ -489,24 +507,6 @@ export const getComponentsNavConfig = props => {
             },
           ],
         },
-        miniDashboard: [ 'net', 'deposits', 'withdrawals', ],
-        creatable: false, // false only makes button not appear on CRUD view
-        readable: {
-          // src/my-app/containers/LoadAsync.js
-          path: 'leads',
-          orderBy: [ 'createdAt', 'desc', ],
-          where: [
-            //[ 'deletedAt'       , '==' , 0                    , ] ,
-            //[ 'archivedBy'      , '==' , null                 , ] ,
-            //[ 'challengesCount' , '<=' , CHALLENGES_LIMIT     , ] , // Unhandled Rejection (FirebaseError): Invalid query. You have a where filter with an inequality (<, <=, >, or >=) on field 'challengesCount' and so you must also use 'challengesCount' as your first Query.orderBy(), but your first Query.orderBy() is on field 'createdAt' instead.
-            [ 'bizCategory'     , '==' , settings.bizCategory , ] , // 'Home'         
-            [ 'geoNation'       , '==' , settings.geoNation   , ] , // 'Asia, Pacific, and Middle East' | 'Latin America and Caribbean'
-            [ 'geoRegion'       , '==' , settings.geoRegion   , ] , // 'Kazakhstan' | 'Chile'
-            [ 'geoLocal'        , '==' , settings.geoLocal    , ] , // 'Almaty' | 'Santiago'
-          ],
-        },
-        updatable: false,
-        deletable: false,
       },
     },
     {
@@ -533,6 +533,17 @@ export const getComponentsNavConfig = props => {
         sortable: true, // see searchable
         starrable: true,
         taggable: false,
+        creatable  : false,
+        readable: {
+          path: 'leads', // src/my-app/containers/LoadAsync.js
+          orderBy: [ 'createdAt', 'desc', ] ,
+          where: [
+            [ 'deletedAt'  , '==' , 0   , ] ,  
+            [ 'archivedBy' , '==' , uid , ] ,
+          ],
+        },
+        updatable: false,
+        deletable: true,
         actionable : {
           icon: 'priority_high', // 'warning', // 'report',
           label: 'Challenge this lead for poor quality',
@@ -559,17 +570,6 @@ export const getComponentsNavConfig = props => {
             },
           ],
         },
-        creatable  : false,
-        readable: {
-          path: 'leads', // src/my-app/containers/LoadAsync.js
-          orderBy: [ 'createdAt', 'desc', ] ,
-          where: [
-            [ 'deletedAt'  , '==' , 0   , ] ,  
-            [ 'archivedBy' , '==' , uid , ] ,
-          ],
-        },
-        updatable: false,
-        deletable: true,
       },
     },
     {
@@ -594,14 +594,13 @@ export const getComponentsNavConfig = props => {
         sortable: true, // see searchable
         starrable: false,
         taggable: false,
-        actionable: false,
         miniDashboard: [ 'net', 'deposits', 'withdrawals', ],
         creatable: {
           title: 'Send new referral', // form: <UserMultiForm />,
           path: 'leads',
           fields: [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ], // 'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
           addOns: {
-            //createdAt: 'timestamp', // added in cred.actions at save time
+            // createdAt: 'timestamp', // added in cred.actions at save time
             createdBy: uid,
             deletedAt: 0,
             archivedBy: null,
@@ -640,6 +639,7 @@ export const getComponentsNavConfig = props => {
           fields: [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ],
         },
         deletable: true,
+        actionable: false,
       },
       // dashboardConfig:{onCreate:{net:1,deposits:1,outbox:1,},onDelete:{net:-1,deposits:-1,outbox:-1,},},
     },
@@ -664,11 +664,6 @@ export const getComponentsNavConfig = props => {
         sortable: true, // see searchable
         starrable: true,
         taggable: false,
-        actionable : {
-          icon: 'send',
-          label: 'Challenge',
-          entries: {},
-        },
         miniDashboard: [ 'contacts', ],
         creatable: {
           title: 'Create new contact', // form: <UserMultiForm />,
@@ -695,6 +690,30 @@ export const getComponentsNavConfig = props => {
           fields: [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ],
         },
         deletable: true,
+        actionable: {
+          icon: 'send', // 'outlined_flag',
+          label: 'Challenge',
+          dialogHeader: 'Challenge lead',
+          dialogBody: 'Do you want to challenge this lead due to poor quality?',
+          buttonLabel: 'Challenge now!',
+          dashboard: {
+            local: { // path: `users/${uid}/dashboard`,
+              challengesMade: -1,
+            },
+            remote: {
+              challengesReceived: 1,
+            },
+          },
+          updates: [
+            {
+              path: `leads/${docId}`,
+              fields: {
+                challengedBy: uid,
+                challengedAt: Date.now(),
+              },
+            },
+          ],
+        },
       },
     },
 
