@@ -320,13 +320,15 @@ class CRUDView extends Component {
   handleAction = e => {
     // alert('You clicked me!');
     // console.log('state\n', this.state);
+    // console.log('props\n', this.props);
     const { handleRefresh, } = this;
-    const { actionable, profile, dashboard, } = this.props; // settings,
+    const { detail, } = this.state;
+    const { readable, actionable, profile, dashboard, } = this.props; // settings,
     const { uid, } = profile;
 
     // console.log('uid\n', uid,)
     // console.log('dashboard\n', dashboard,)
-    actionItem( uid, actionable, dashboard, ); // settings, 
+    actionItem( uid, actionable, /*settings,*/ dashboard, detail, readable, );
 
     handleRefresh();
   }
@@ -574,10 +576,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   // CRUD item
-  createItem: ( path , item  , uid     , dashboard , creatable  , ) => dispatch(createItem( path , item  , uid     , dashboard , creatable  , )), // inspired by: src/my-app/components/forms/CreateLead.js
-  updateItem: ( path , docId , newItem , oldItem   , updatable  , ) => dispatch(updateItem( path , docId , newItem , oldItem   , updatable  , )),
-  deleteItem: ( path , docId , uid     , dashboard , creatable  , ) => dispatch(deleteItem( path , docId , uid     , dashboard , creatable  , )),
-  actionItem: ( uid  , actionable      , settings  , dashboard  , ) => dispatch(actionItem( uid  , actionable      , settings  , dashboard  , )),
+  createItem: ( path , item  , uid     , dashboard , creatable , ) => dispatch(createItem( path , item  , uid     , dashboard , creatable  , )), // inspired by: src/my-app/components/forms/CreateLead.js
+  updateItem: ( path , docId , newItem , oldItem   , updatable , ) => dispatch(updateItem( path , docId , newItem , oldItem   , updatable  , )),
+  deleteItem: ( path , docId , uid     , dashboard , creatable , ) => dispatch(deleteItem( path , docId , uid     , dashboard , creatable  , )),
+  actionItem: ( uid, actionable, /*settings,*/ dashboard, detail, readable, ) => dispatch(actionItem( uid, actionable, /*settings,*/ dashboard, detail, readable, )),
   // update dashboard
   updateUserData: (path, newData,) => dispatch(updateUserData(path, newData,)),
 })
