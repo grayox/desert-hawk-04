@@ -167,25 +167,27 @@ export const createItem = ( path, item, uid, dashboard, creatable, ) =>
 
 export const actionItem = ( uid, actionable, /*settings,*/ dashboard, detail, readable, ) =>
   (dispatch, getState, { getFirebase, getFirestore, }) => {
-  console.log('uid\n', uid,);
-  console.log('actionable\n', actionable,);
-  // console.log('settings\n', settings,);
-  console.log('dashboard\n', dashboard,);
-  console.log('detail\n', detail,);
-  console.log('readable, \n', readable,);
-  const { path, } = readable;
-  const { docId, } = detail;
+    console.log('uid\n', uid,);
+    console.log('actionable\n', actionable,);
+    // console.log('settings\n', settings,);
+    console.log('dashboard\n', dashboard,);
+    console.log('detail\n', detail,);
+    console.log('readable\n', readable,);
+    const { path, } = readable;
+    const { docId, } = detail;
 
-  const firestore = getFirestore();
-  
-  const newData = actionable.updates[0].fields;
+    // const firestore = getFirestore();
+    
+    const newData = actionable.updates[0].fields;
+    console.log('newData\n', newData,);
+    dispatch({ type: 'ACTION_ITEM_SUCCESS', });
 
-  firestore
-    .collection(path)
-    .doc(docId)
-    .update(newData // use .update() method: https://firebase.google.com/docs/firestore/manage-data/add-data#update-data
-      , { merge: true, } ,
-    )
+    // firestore
+    //   .collection(path)
+    //   .doc(docId)
+    //   .update(newData // use .update() method: https://firebase.google.com/docs/firestore/manage-data/add-data#update-data
+    //     , { merge: true, } ,
+    //   )
 }
 
 export const updateItem = ( path, docId, newItem, oldItem, ) => // uid,

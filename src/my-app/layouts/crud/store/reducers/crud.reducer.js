@@ -22,6 +22,9 @@ const itemsReducer = (state = initState, action) => {
       //   ...state,
       //   dashboard: _.merge( {}, action.value, ),
       // };
+    case 'ACTION_ITEM_SUCCESS':
+      console.log('action item success');
+      return state;
     case 'CREATE_ITEM_SUCCESS':
       console.log('create item success');
       return state;

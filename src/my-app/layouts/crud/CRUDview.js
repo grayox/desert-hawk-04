@@ -323,7 +323,7 @@ class CRUDView extends Component {
     // console.log('props\n', this.props);
     const { handleRefresh, } = this;
     const { detail, } = this.state;
-    const { readable, actionable, profile, dashboard, } = this.props; // settings,
+    const { actionItem, readable, actionable, profile, dashboard, } = this.props; // settings,
     const { uid, } = profile;
 
     // console.log('uid\n', uid,)
@@ -576,6 +576,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   // CRUD item
+  // common mistakes: 1. forget to use this.props... when calling function in class 2. copy/paste forget to change function name in mapStateToProps => dispatch
   createItem: ( path , item  , uid     , dashboard , creatable , ) => dispatch(createItem( path , item  , uid     , dashboard , creatable  , )), // inspired by: src/my-app/components/forms/CreateLead.js
   updateItem: ( path , docId , newItem , oldItem   , updatable , ) => dispatch(updateItem( path , docId , newItem , oldItem   , updatable  , )),
   deleteItem: ( path , docId , uid     , dashboard , creatable , ) => dispatch(deleteItem( path , docId , uid     , dashboard , creatable  , )),

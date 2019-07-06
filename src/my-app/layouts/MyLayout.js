@@ -95,8 +95,9 @@ const MyLayout = props => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  updateUserData          : ( path, newData, ) => dispatch(updateUserData         ( path, newData, )), // common mistakes: 1. forget to use this.props... when calling function in class 2. copy/paste forget to change function name in mapStateToProps => dispatch
-  saveUserDataToFirestore : ( path, newData, ) => dispatch(saveUserDataToFirestore( path, newData, )), // common mistakes: 1. forget to use this.props... when calling function in class 2. copy/paste forget to change function name in mapStateToProps => dispatch
+  // common mistakes: 1. forget to use this.props... when calling function in class 2. copy/paste forget to change function name in mapStateToProps => dispatch
+  updateUserData          : ( path, newData, ) => dispatch(updateUserData         ( path, newData, )),
+  saveUserDataToFirestore : ( path, newData, ) => dispatch(saveUserDataToFirestore( path, newData, )),
 })
 
 const mapStateToProps = state => {
