@@ -197,11 +197,11 @@ const getAsyncItems = async ( readable, batchSize = BATCH_SIZE, lastVisible, sea
     .orderBy( 'createdAt', 'desc', ); // throws error: "firebase error: the query requires an index"
 
   const queryWhere = addWhereContraintsToQuery(queryInit, where,);
-  console.log('queryWhere\n', queryWhere,);
+  // console.log('queryWhere\n', queryWhere,);
   const queryWhereType = typeof queryWhere;
-  console.log('queryWhereType\n', queryWhereType,);
+  // console.log('queryWhereType\n', queryWhereType,);
   const ready4 = queryWhereType !== 'undefined';
-  console.log('ready4\n', ready4,); 
+  // console.log('ready4\n', ready4,); 
   if(!ready4) return undefined;
 
   // augment queryWhere with searchString, searchBy, filterBy, sortBy, sortDirectionIsDescending,
