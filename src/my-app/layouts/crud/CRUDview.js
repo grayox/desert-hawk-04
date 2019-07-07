@@ -370,11 +370,11 @@ class CRUDView extends Component {
       handleNavBack, handleNavNext, getFormFields,
     } = this;
 
-    console.log('props\n', this.props,);
-    console.log('state\n', this.state,);
-    console.log('items\n', items,);
-    console.log('detail\n', detail,);
-    console.log('miniDashboard\n', miniDashboard,);
+    // console.log('props\n', this.props,);
+    // console.log('state\n', this.state,);
+    // console.log('items\n', items,);
+    // console.log('detail\n', detail,);
+    // console.log('miniDashboard\n', miniDashboard,);
 
     const ready1 = !!profile;
     if(!ready1) return null;
