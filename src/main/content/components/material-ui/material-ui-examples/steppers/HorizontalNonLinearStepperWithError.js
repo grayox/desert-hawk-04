@@ -80,7 +80,7 @@ class HorizontalNonLinearStepperWithError extends React.Component {
         {
             // You probably want to guard against something like this,
             // it should never occur unless someone's actively trying to break something.
-            throw new Error("You can't skip a step that isn't optional.");
+            throw "You can't skip a step that isn't optional.";
         }
 
         this.setState(state => {

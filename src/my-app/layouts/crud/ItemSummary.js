@@ -43,7 +43,7 @@ const ItemSummary = ({
       case 'detail':
         return null;
       default:
-        throw new Error('Side must be one of: "list" or "detail"');
+        throw 'Side must be one of: "list" or "detail"';
     }
   }
 

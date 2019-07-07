@@ -260,7 +260,7 @@ export const getIdHash = (uid, timestamp,) => hash([uid, timestamp,]) // uid == 
 // That is actually how this app is designed to be built. Below might be a case of over-engineering.
 // export const getMatchHash = ({ bizCategory, geoNation, geoRegion, geoLocal, }) => {
 //   const ready1 = !!bizCategory && !!geoNation && !!geoRegion && !!geoLocal;
-//   if(!ready1) throw new Error('Attempted to hash incomplete object');
+//   if(!ready1) throw 'Attempted to hash incomplete object';
 //   const out = hash([ bizCategory, geoNation, geoRegion, geoLocal, ]);
 //   console.log('out\n', out,);
 //   return out;
@@ -346,7 +346,7 @@ export const getSearchableFields = ( searchable, readable, ) => {
     // console.log('filteredArray\n', filteredArray,); // array // crudConfig element where id === 'outbox'
     const target = filteredArray[0];
     // console.log('target\n', target,); // single item // crudConfig element where id === 'outbox'
-    if(typeof target != 'object') throw new Error ('Target value is not an object');
+    if(typeof target != 'object') throw 'Target value is not an object';
     const { fields, } = target && target.crudConfig && target.crudConfig.creatable;
     const result = getCleanFieldNames(fields);
     return result;
@@ -471,8 +471,9 @@ export const getComponentsNavConfig = props => {
           path: 'leads',
           orderBy: [ 'createdAt', 'desc', ],
           where: [
-            // [ 'deletedAt'       , '==' , 0                    , ] ,
-            // [ 'archivedBy'      , '==' , null                 , ] ,
+            [ 'deletedAt'       , '==' , 0    , ] ,
+            [ 'archivedBy'      , '==' , null , ] ,
+            [ 'archivedAt'      , '==' , 0    , ] ,
             // [ 'challengesCount' , '<=' , CHALLENGES_LIMIT     , ] , // Unhandled Rejection (FirebaseError): Invalid query. You have a where filter with an inequality (<, <=, >, or >=) on field 'challengesCount' and so you must also use 'challengesCount' as your first Query.orderBy(), but your first Query.orderBy() is on field 'createdAt' instead.
             [ 'bizCategory'     , '==' , settings && settings.bizCategory , ] , // 'Home'         
             [ 'geoNation'       , '==' , settings && settings.geoNation   , ] , // 'Asia, Pacific, and Middle East' | 'Latin America and Caribbean'
@@ -538,7 +539,7 @@ export const getComponentsNavConfig = props => {
           path: 'leads', // src/my-app/containers/LoadAsync.js
           orderBy: [ 'createdAt', 'desc', ] ,
           where: [
-            [ 'deletedAt'  , '==' , 0   , ] ,  
+            [ 'deletedAt'  , '==' , 0   , ] ,
             [ 'archivedBy' , '==' , uid , ] ,
           ],
         },
@@ -604,6 +605,7 @@ export const getComponentsNavConfig = props => {
             createdBy: uid,
             deletedAt: 0,
             archivedBy: null,
+            archivedAt: 0,
             bizCategory: settings.bizCategory,
             geoNation: settings.geoNation,
             geoRegion: settings.geoRegion,

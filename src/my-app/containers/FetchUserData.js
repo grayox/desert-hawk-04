@@ -61,9 +61,9 @@ class FetchUserData extends Component {
   // getPath() {
   //   // console.log('props\n', this.props);
   //   const uid = this && this.props && this.props.profile && this.props.profile.uid;
-  //   if(!uid) throw new Error('uid not available');
+  //   if(!uid) throw 'uid not available';
   //   const path = this && this.props && this.props.path;
-  //   if(!path) throw new Error('path variable not available');
+  //   if(!path) throw 'path variable not available';
 
   //   return (uid && path) ? [ 'users' , uid , path , ].join('/') : null;
   // }
