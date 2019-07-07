@@ -45,7 +45,7 @@ const Child = ({ match: { params: { id }}, profile, settings, dashboard, }) => {
 const getCRUDRouter = props => {
   const { profile, settings, dashboard, } = props;
   const ready1 = !_.isEmpty(profile) && !_.isEmpty(settings) && !_.isEmpty(dashboard);
-  console.log('ready1\n', ready1,);
+  // console.log('ready1\n', ready1,);
   if(!ready1) return null;
   return (
     <Route
@@ -75,10 +75,10 @@ const mapStateToProps = state => {
     && state.myApp.reducers
     && state.myApp.reducers.userDataReducer
     && state.myApp.reducers.userDataReducer.dashboard;
-  console.log('profile\n', profile,);
-  console.log('settings\n', settings,);
-  console.log('dashboard\n', dashboard,); 
-  return { profile, settings, dashboard, }; // 
+  // console.log('profile\n', profile,);
+  // console.log('settings\n', settings,);
+  // console.log('dashboard\n', dashboard,); 
+  return { profile, settings, dashboard, };
 }
 
 // export default CRUDRouter;

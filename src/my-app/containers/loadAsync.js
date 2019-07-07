@@ -131,7 +131,7 @@ export const loadAsyncData = async ( readable, batchSize, lastVisible, searchFil
 
 const addWhereContraintsToQuery = (startingQuery, whereArray,) => {
   // console.log('startingQuery\n', startingQuery,);
-  console.log('whereArray\n', whereArray,);
+  // console.log('whereArray\n', whereArray,);
 
   let out = startingQuery;
 
@@ -141,8 +141,12 @@ const addWhereContraintsToQuery = (startingQuery, whereArray,) => {
   // whereArray.forEach( async (constraint) => {
   for(let constraint of whereArray) {
     console.log('constraint\n', constraint,);
-    const ready2 = /*await*/ (!!constraint[0] && !!constraint[1] && !!constraint[2]);
-    console.log('ready2\n', ready2,);
+    // const ready2 = /*await*/ (!!constraint[0] && !!constraint[1] && !!constraint[2]);
+
+    const constraint2type = typeof constraint[2];
+    console.log('constraint2type\n', constraint2type,);
+    const ready2 = constraint2type !== 'undefined';
+    console.log('ready2\n', ready2,); 
     if(!ready2) {
       out = undefined; // throw new Error('Encountered falsey constraint');
       break;
@@ -154,7 +158,7 @@ const addWhereContraintsToQuery = (startingQuery, whereArray,) => {
       return out;
     }
   };
-  // console.log('queryWhere\n', out,);
+  console.log('queryWhere\n', out,);
   return out;
 }
 
@@ -193,11 +197,11 @@ const getAsyncItems = async ( readable, batchSize = BATCH_SIZE, lastVisible, sea
     .orderBy( 'createdAt', 'desc', ); // throws error: "firebase error: the query requires an index"
 
   const queryWhere = addWhereContraintsToQuery(queryInit, where,);
-  // console.log('queryWhere\n', queryWhere,);
+  console.log('queryWhere\n', queryWhere,);
   const queryWhereType = typeof queryWhere;
-  // console.log('queryWhereType\n', queryWhereType,);
+  console.log('queryWhereType\n', queryWhereType,);
   const ready4 = queryWhereType !== 'undefined';
-  // console.log('ready4\n', ready4,); 
+  console.log('ready4\n', ready4,); 
   if(!ready4) return undefined;
 
   // augment queryWhere with searchString, searchBy, filterBy, sortBy, sortDirectionIsDescending,
@@ -299,8 +303,8 @@ const getAsyncItems = async ( readable, batchSize = BATCH_SIZE, lastVisible, sea
         // console.log(doc.id, '\n', doc.data(),);
         // console.log('createdAt: ', doc.createdAt(),); // throws error // must define createdAt, then save it
         // console.log('createdAt: ', doc.get('createdAt'),); // undefined
-        // console.log('id: ', doc.id,); // works
-        // console.log('data\n', doc.data(),); // works
+        console.log('id: ', doc.id,); // works
+        console.log('data\n', doc.data(),); // works
         // console.log('doc\n', doc,);
         data.push({
           docId: doc.id,
