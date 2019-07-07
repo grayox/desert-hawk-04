@@ -357,7 +357,7 @@ class CRUDView extends Component {
       crudForm, crudFormTimestamp, crudFormIdHash,
     } = this.state;
     const {
-      classes, profile, items, condensed, onNext, hasMore, dashboard, miniDashboard,
+      classes, profile, settings, dashboard, items, condensed, onNext, hasMore, miniDashboard,
       creatable, updatable, deletable, actionable, searchable, sortable, filterable, starrable,
       searchMenuOptions, filterMenuOptions, sortMenuOptions, searchFilterSortModelWithLabels,
       onSearchFilterSort, onResetSearchFilterSort,
@@ -474,26 +474,29 @@ class CRUDView extends Component {
         <Grid item xs={6}>{getDetailPane()}</Grid>
       </Grid>
     
-    const getMainContent = () => (
-      <React.Fragment>
-        { getFetchUserData() } {/* updates dashboard after CRUD task */}
-        { getCreateDialog()  }
-        { getUpdateDialog()  }
-        { getDeleteDialog()  }
-        { getActionDialog()  }
-        <div className={classes.wrapper}>
-          <MediaWidth
-            mobile={getMobileContent()}
-            tablet={getTabletContent()}
-            laptop={getLaptopContent()}
-          />
-        </div>
-      </React.Fragment>
-    )
+    const getMainContent = () => // {
+      // console.log('settings\n', settings,);
+      // return (
+        <React.Fragment>
+          { getFetchUserData() } {/* updates dashboard after CRUD task */}
+          { getCreateDialog()  }
+          { getUpdateDialog()  }
+          { getDeleteDialog()  }
+          { getActionDialog()  }
+          <div className={classes.wrapper}>
+            <MediaWidth
+              mobile={getMobileContent()}
+              tablet={getTabletContent()}
+              laptop={getLaptopContent()}
+            />
+          </div>
+        </React.Fragment>
+      // );
+    // }
 
     return (
       // <FuseScrollbars className="overflow-auto">
-      <div className={classes.root}>{( items && items.length ) ? getMainContent() : getViewEmpty() }</div>   
+      <div key={settings} className={classes.root}>{( items && items.length ) ? getMainContent() : getViewEmpty() }</div>   
       // </FuseScrollbars>
     );
   }
@@ -557,23 +560,6 @@ CRUDView.defaultProps = {
   deletable: false,
 };
 
-const mapStateToProps = state => {
-  const profile = state
-    && state.firebase
-    && state.firebase.profile;
-  const dashboard = state
-    && state.myApp
-    && state.myApp.reducers
-    && state.myApp.reducers.userDataReducer
-    && state.myApp.reducers.userDataReducer.dashboard;
-  // const settings = state
-  //   && state.myApp
-  //   && state.myApp.reducers
-  //   && state.myApp.reducers.userDataReducer
-  //   && state.myApp.reducers.userDataReducer.settings;
-  return { profile, dashboard, }; // settings, 
-}
-
 const mapDispatchToProps = dispatch => ({
   // CRUD item
   // common mistakes: 1. forget to use this.props... when calling function in class 2. copy/paste forget to change function name in mapStateToProps => dispatch
@@ -590,5 +576,6 @@ const mapDispatchToProps = dispatch => ({
 export default compose(
   withStyles(styles),
   withWidth(),
-  connect( mapStateToProps, mapDispatchToProps, ),
+  // connect( mapStateToProps, mapDispatchToProps, ),
+  connect( null, mapDispatchToProps, ),
 )(CRUDView);

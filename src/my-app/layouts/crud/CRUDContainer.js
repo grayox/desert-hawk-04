@@ -216,6 +216,16 @@ class CRUDContainer extends Component {
     // const items = await this._asyncRequest;
     const newData = await this._asyncRequest; // { data:<arrayOfObjects>, lastShown:<documentSnapshot>, }
     // console.log('newData\n', newData,);
+
+    const newDataType = typeof newData;
+    // console.log('newDataType\n', newDataType,);
+    const ready3 = newDataType !== 'undefined';
+    // console.log('ready3\n', ready3,); 
+    if(!ready3) {
+      // this.handleLoad();
+      return null;
+    }
+
     const { lastShown, } = newData;
     const newItems = newData.data;
     // console.log('newItems\n', newItems,);
@@ -236,7 +246,7 @@ class CRUDContainer extends Component {
     }
   }
 
-  // xhandleFetchMoreData = () => {
+  // handleFetchMoreData = () => {
   //   if (this.state.items.length >= 500) {
   //     this.setState({ hasMore: false });
   //     return;
@@ -287,13 +297,15 @@ class CRUDContainer extends Component {
       searchMenuOptions, filterMenuOptions, sortMenuOptions, searchFilterSortModelWithLabels,
     } = this.state;
     const {
-      classes, condensed, searchable, sortable, filterable, starrable,
-      miniDashboard, actionable, creatable, readable, updatable, deletable,
+      classes, profile, settings, dashboard,
+      condensed, miniDashboard, searchable, sortable, filterable, starrable,
+      creatable, readable, updatable, deletable, actionable,
     } = this.props;
     
     const getCRUDView = () =>
       <CRUDView
-        items={items} condensed={condensed} miniDashboard={miniDashboard} hasMore={hasMore}
+        profile={profile} settings={settings} dashboard={dashboard} items={items}
+        condensed={condensed} miniDashboard={miniDashboard} hasMore={hasMore}
         searchable={searchable} sortable={sortable} filterable={filterable} starrable={starrable} actionable={actionable}
         creatable={creatable} readable={readable} updatable={updatable} deletable={deletable}
         searchMenuOptions={searchMenuOptions} filterMenuOptions={filterMenuOptions} sortMenuOptions={sortMenuOptions}

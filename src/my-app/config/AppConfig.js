@@ -474,10 +474,10 @@ export const getComponentsNavConfig = props => {
             // [ 'deletedAt'       , '==' , 0                    , ] ,
             // [ 'archivedBy'      , '==' , null                 , ] ,
             // [ 'challengesCount' , '<=' , CHALLENGES_LIMIT     , ] , // Unhandled Rejection (FirebaseError): Invalid query. You have a where filter with an inequality (<, <=, >, or >=) on field 'challengesCount' and so you must also use 'challengesCount' as your first Query.orderBy(), but your first Query.orderBy() is on field 'createdAt' instead.
-            [ 'bizCategory'     , '==' , settings.bizCategory , ] , // 'Home'         
-            [ 'geoNation'       , '==' , settings.geoNation   , ] , // 'Asia, Pacific, and Middle East' | 'Latin America and Caribbean'
-            [ 'geoRegion'       , '==' , settings.geoRegion   , ] , // 'Kazakhstan' | 'Chile'
-            [ 'geoLocal'        , '==' , settings.geoLocal    , ] , // 'Almaty' | 'Santiago'
+            [ 'bizCategory'     , '==' , settings && settings.bizCategory , ] , // 'Home'         
+            [ 'geoNation'       , '==' , settings && settings.geoNation   , ] , // 'Asia, Pacific, and Middle East' | 'Latin America and Caribbean'
+            [ 'geoRegion'       , '==' , settings && settings.geoRegion   , ] , // 'Kazakhstan' | 'Chile'
+            [ 'geoLocal'        , '==' , settings && settings.geoLocal    , ] , // 'Almaty' | 'Santiago'
           ],
         },
         updatable: false,

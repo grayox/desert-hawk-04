@@ -117,7 +117,7 @@ const getUserData = async path => {
 };
 
 export const loadAsyncData = async ( readable, batchSize, lastVisible, searchFilterSortModel, ) => {
-  // console.log('path\n', path);
+  // console.log('readable\n', readable);
   const batch = batchSize || BATCH_SIZE;
   const out = await getAsyncItems( readable, batch, lastVisible, searchFilterSortModel, );
   // console.log('out\n', out);
@@ -131,22 +131,29 @@ export const loadAsyncData = async ( readable, batchSize, lastVisible, searchFil
 
 const addWhereContraintsToQuery = (startingQuery, whereArray,) => {
   // console.log('startingQuery\n', startingQuery,);
-  // console.log('whereArray\n', whereArray,);
+  console.log('whereArray\n', whereArray,);
 
   let out = startingQuery;
 
   const ready1 = startingQuery && whereArray && whereArray.length;
   if(!ready1) return out;
 
-  whereArray.forEach( constraint => {
-    // console.log('constraint\n', constraint,);
+  // whereArray.forEach( async (constraint) => {
+  for(let constraint of whereArray) {
+    console.log('constraint\n', constraint,);
+    const ready2 = /*await*/ (!!constraint[0] && !!constraint[1] && !!constraint[2]);
+    console.log('ready2\n', ready2,);
+    if(!ready2) {
+      out = undefined; // throw new Error('Encountered falsey constraint');
+      break;
+    }
     try {
       out = out.where( constraint[0], constraint[1], constraint[2], );
     } catch(error) {
       console.error(`Error adding "where" constraints to ${constraint}`, error,);
       return out;
     }
-  });
+  };
   // console.log('queryWhere\n', out,);
   return out;
 }
@@ -186,6 +193,12 @@ const getAsyncItems = async ( readable, batchSize = BATCH_SIZE, lastVisible, sea
     .orderBy( 'createdAt', 'desc', ); // throws error: "firebase error: the query requires an index"
 
   const queryWhere = addWhereContraintsToQuery(queryInit, where,);
+  // console.log('queryWhere\n', queryWhere,);
+  const queryWhereType = typeof queryWhere;
+  // console.log('queryWhereType\n', queryWhereType,);
+  const ready4 = queryWhereType !== 'undefined';
+  // console.log('ready4\n', ready4,); 
+  if(!ready4) return undefined;
 
   // augment queryWhere with searchString, searchBy, filterBy, sortBy, sortDirectionIsDescending,
 

@@ -66,6 +66,7 @@ const MyLayout = props => {
   return (
     <div
       // className="w-full"
+      // key={settings} // forces reload after settings populate // memoization
       className={classNames( "w-full overflow-auto", classes.wrapper, )}
     >
     {
@@ -116,7 +117,7 @@ const mapStateToProps = state => {
   const profile = state
     && state.firebase
     && state.firebase.profile;
-  return { profile, } // user, settings, dashboard,
+  return { profile, } // settings, user, dashboard,
 }
 
 // export default MyLayout;

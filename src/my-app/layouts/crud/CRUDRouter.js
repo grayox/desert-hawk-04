@@ -7,7 +7,7 @@ import _ from '@lodash';
 import { getComponentsNavConfig, } from 'my-app/config/AppConfig';
 import CRUDContainer from './CRUDContainer';
 
-const Child = ({ match: { params: { id }}, profile, settings, }) => {
+const Child = ({ match: { params: { id }}, profile, settings, dashboard, }) => {
   // const matches = componentsNavConfig.filter(r => (r.id === id));
   const args = { profile, settings, };
   // console.log('args\n', args,);
@@ -23,6 +23,9 @@ const Child = ({ match: { params: { id }}, profile, settings, }) => {
   return (
     // <div>{id}</div>
     <CRUDContainer
+      profile={profile}
+      settings={settings}
+      dashboard={dashboard}
       // items={items} // these will be acquired as state, not props
       condensed={condensed}
       actionable={actionable}
@@ -39,12 +42,19 @@ const Child = ({ match: { params: { id }}, profile, settings, }) => {
   )
 };
 
-const getCRUDRouter = props =>
-  <Route
-    path="/:id"
-    // component={Child} // ref: https://tylermcginnis.com/react-router-pass-props-to-components/
-    render={ nativeProps => Child({ ...props, ...nativeProps, })}
-  />
+const getCRUDRouter = props => {
+  const { profile, settings, dashboard, } = props;
+  const ready1 = !_.isEmpty(profile) && !_.isEmpty(settings) && !_.isEmpty(dashboard);
+  console.log('ready1\n', ready1,);
+  if(!ready1) return null;
+  return (
+    <Route
+      path="/:id"
+      // component={Child} // ref: https://tylermcginnis.com/react-router-pass-props-to-components/
+      render={ nativeProps => Child({ ...props, ...nativeProps, })}
+    />
+  );
+}
 
 // ref: https://reacttraining.com/react-router/web/example/url-params
 const CRUDRouter = props => getCRUDRouter(props)
@@ -52,16 +62,23 @@ const CRUDRouter = props => getCRUDRouter(props)
 // begin add
 
 const mapStateToProps = state => {
-  // console.log('state\n', state);
-  const settings = state
-                && state.myApp
-                && state.myApp.reducers
-                && state.myApp.reducers.userDataReducer
-                && state.myApp.reducers.userDataReducer.settings;
   const profile = state
-               && state.firebase
-               && state.firebase.profile;
-  return { profile, settings, }
+    && state.firebase
+    && state.firebase.profile;
+  const settings = state
+    && state.myApp
+    && state.myApp.reducers
+    && state.myApp.reducers.userDataReducer
+    && state.myApp.reducers.userDataReducer.settings;
+  const dashboard = state
+    && state.myApp
+    && state.myApp.reducers
+    && state.myApp.reducers.userDataReducer
+    && state.myApp.reducers.userDataReducer.dashboard;
+  console.log('profile\n', profile,);
+  console.log('settings\n', settings,);
+  console.log('dashboard\n', dashboard,); 
+  return { profile, settings, dashboard, }; // 
 }
 
 // export default CRUDRouter;
