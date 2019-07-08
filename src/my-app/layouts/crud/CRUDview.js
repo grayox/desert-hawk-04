@@ -148,8 +148,8 @@ class CRUDView extends Component {
           field.value = detail && detail[field.id];
           break;
         default:
-          // throw 'Type must be one of: "loadSavedData" or "loadNewData"';
-          console.error('Type must be one of: "loadSavedData" or "loadNewData"');
+          // console.error('Type must be one of: "loadSavedData" or "loadNewData"');
+          throw new Error('Type must be one of: "loadSavedData" or "loadNewData"');
       }
       // console.log(`field: ${field.id}\n`, field);
     });

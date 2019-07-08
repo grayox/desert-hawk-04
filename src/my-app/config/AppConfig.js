@@ -260,7 +260,7 @@ export const getIdHash = (uid, timestamp,) => hash([uid, timestamp,]) // uid == 
 // That is actually how this app is designed to be built. Below might be a case of over-engineering.
 // export const getMatchHash = ({ bizCategory, geoNation, geoRegion, geoLocal, }) => {
 //   const ready1 = !!bizCategory && !!geoNation && !!geoRegion && !!geoLocal;
-//   if(!ready1) throw 'Attempted to hash incomplete object';
+//   if(!ready1) throw new Error('Attempted to hash incomplete object');
 //   const out = hash([ bizCategory, geoNation, geoRegion, geoLocal, ]);
 //   console.log('out\n', out,);
 //   return out;
@@ -346,7 +346,7 @@ export const getSearchableFields = ( searchable, readable, ) => {
     // console.log('filteredArray\n', filteredArray,); // array // crudConfig element where id === 'outbox'
     const target = filteredArray[0];
     // console.log('target\n', target,); // single item // crudConfig element where id === 'outbox'
-    if(typeof target != 'object') throw 'Target value is not an object';
+    if(typeof target != 'object') throw new Error('Target value is not an object');
     const { fields, } = target && target.crudConfig && target.crudConfig.creatable;
     const result = getCleanFieldNames(fields);
     return result;

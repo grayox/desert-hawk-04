@@ -105,7 +105,7 @@ const getUserData = async path => {
     // })
     .catch(error => {
       console.error('Error getting documents: \n', error);
-      throw `Unable to get items from: ${path}\nError:\n${error}`;
+      throw new Error(`Unable to get items from: ${path}\nError:\n${error}`);
     });
   // console.log('out\n', out); // returns before promise settles; therefore, returns empty array
   // always set state inside promise!
@@ -148,7 +148,7 @@ const addWhereContraintsToQuery = (startingQuery, whereArray,) => {
     const ready2 = constraint2type !== 'undefined';
     // console.log('ready2\n', ready2,); 
     if(!ready2) {
-      out = undefined; // throw 'Encountered falsey constraint';
+      out = undefined; // throw new Error('Encountered falsey constraint');
       break;
     }
     try {
@@ -330,7 +330,7 @@ const getAsyncItems = async ( readable, batchSize = BATCH_SIZE, lastVisible, sea
     // })
     .catch(error => {
       console.error('Error getting documents: \n', error);
-      throw `Unable to get items from: ${path}\nError:\n${error}`;
+      throw new Error(`Unable to get items from: ${path}\nError:\n${error}`);
     });
     // if not contained within a promise,
     // then this step returns before promise settles;

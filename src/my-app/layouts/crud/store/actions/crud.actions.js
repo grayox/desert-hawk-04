@@ -175,19 +175,41 @@ export const actionItem = ( uid, actionable, /*settings,*/ dashboard, detail, re
     console.log('readable\n', readable,);
     const { path, } = readable;
     const { docId, } = detail;
-
-    // const firestore = getFirestore();
     
     const newData = actionable.updates[0].fields;
     console.log('newData\n', newData,);
     dispatch({ type: 'ACTION_ITEM_SUCCESS', });
-
+    
+    // const firestore = getFirestore();
     // firestore
     //   .collection(path)
     //   .doc(docId)
     //   .update(newData // use .update() method: https://firebase.google.com/docs/firestore/manage-data/add-data#update-data
     //     , { merge: true, } ,
     //   )
+
+    const db = getFirestore();
+    // ref: https://firebase.google.com/docs/firestore/manage-data/transactions
+
+    // Get a new write batch
+    const batch = db.batch();
+
+    // Set the value of 'NYC'
+    const nycRef = db.collection("cities").doc("NYC");
+    batch.set(nycRef, { name: "New York City" });
+
+    // Update the population of 'SF'
+    const sfRef = db.collection("cities").doc("SF");
+    batch.update(sfRef, { "population": 1000000 });
+
+    // Delete the city 'LA'
+    const laRef = db.collection("cities").doc("LA");
+    batch.delete(laRef);
+
+    // Commit the batch
+    batch.commit().then(function () {
+      // ...
+    });
 }
 
 export const updateItem = ( path, docId, newItem, oldItem, ) => // uid,
