@@ -9,7 +9,7 @@ import {
 import { Link, } from 'react-router-dom';
 import { getComponentsNavConfig, } from 'my-app/config/AppConfig.js';
 
-const items = getComponentsNavConfig().filter(r => r.overhead) // filters in only objects with overhead property
+const items = getComponentsNavConfig()().filter(r => r.overhead) // filters in only objects with overhead property
 
 // class SimpleMenu extends Component {
 class OverflowMenu extends Component {

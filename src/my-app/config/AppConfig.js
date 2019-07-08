@@ -15,6 +15,7 @@ import { FuseLoadable, } from '@fuse';
 
 // utilities
 import _ from '@lodash';
+import moment from 'moment';
 import hash from 'object-hash'; // https://www.npmjs.com/package/object-hash
 
 // creatable
@@ -332,7 +333,7 @@ export const getSearchableFields = ( searchable, readable, ) => {
   // TODO: Save 'notes' (and other similar) fields as array of words and search by .where('notes', 'array_contains', 'foo') // ref: https://firebase.google.com/docs/firestore/query-data/queries#array_membership
   // console.log('searchable\n', searchable,);
   // console.log('readable\n', readable,);
-  const componentsNavConfig = getComponentsNavConfig();
+  const componentsNavConfig = getComponentsNavConfig()();
   const getBoolean = () => {
     const ready1 = searchable;
     if(!ready1) return;
@@ -409,9 +410,9 @@ export const getItemsFilteredBySearch = (items, searchString, searchableFields,)
 // syncronization: changes in either of the following files must be hard coded in the other
 // src/fuse-configs/fuseNavigationConfig.js
 // src/main/content/components/ComponentsConfig.js
-export const getComponentsNavConfig = props => {
-  // console.log('props\n', props,);
-  const item     = ( props && props.item     ) || {} ;
+export const getComponentsNavConfig = props => ( item = {} ) => {
+  console.log('props\n', props,);
+  // const item     = ( props && props.item     ) || {} ;
   const docId    = ( props && props.docId    ) || '' ;
   const profile  = ( props && props.profile  ) || {} ;
   const settings = ( props && props.settings ) || {} ;
@@ -480,8 +481,8 @@ export const getComponentsNavConfig = props => {
             [ 'geoRegion'       , '==' , settings && settings.geoRegion   , ] , // 'Kazakhstan' | 'Chile'
             [ 'geoLocal'        , '==' , settings && settings.geoLocal    , ] , // 'Almaty' | 'Santiago'
           ],
-          summaryPrimaryText: '',
-          summarySecondaryText: '',
+          summaryPrimaryText: item.bizCategory || item.geoLocal,
+          summarySecondaryText: moment(item.createdAt).fromNow(),
         },
         updatable: false,
         deletable: false,

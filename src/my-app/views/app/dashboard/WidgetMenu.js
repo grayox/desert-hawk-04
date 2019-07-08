@@ -52,7 +52,7 @@ const WidgetMenu = ({ links, }) => {
         // <MenuItem onClick={handleClose} component={Link} to="/archive">My action</MenuItem>
         links.map( link => {
           // console.log('link\n', link,);
-          const componentsNavConfig = getComponentsNavConfig();
+          const componentsNavConfig = getComponentsNavConfig()();
           const targetComponentArray = componentsNavConfig.filter(r => (r.id === link.id));
           // console.log('targetComponentArray\n', targetComponentArray,);
           const targetComponent = targetComponentArray[0];

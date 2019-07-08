@@ -27,7 +27,7 @@ const styles = theme => ({
   },
 })
 
-const componentsNavConfig = getComponentsNavConfig();
+const componentsNavConfig = getComponentsNavConfig()();
 
 const items = componentsNavConfig.filter(r => (r.type==='item' || r.type==='route'));
 

@@ -113,7 +113,7 @@ const MiniDashboard = ({ data, micro, }) => {
   const getPicker = () => {
     // console.log('browserPath\n', browserPath,); // 'inbox'
     // componentsNavConfig[1].crudConfig.miniDashboard;
-    const componentsNavConfig = getComponentsNavConfig();
+    const componentsNavConfig = getComponentsNavConfig()();
     const navItems = _.filter(componentsNavConfig, { id: browserPath, },);
     const navItem = navItems[0];
     // console.log('navItem\n', navItem,);

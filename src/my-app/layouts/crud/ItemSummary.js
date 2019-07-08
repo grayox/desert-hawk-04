@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment';
+// import moment from 'moment';
 
 import HashAvatar from 'my-app/components/HashAvatar';
 import {
@@ -129,7 +129,12 @@ const ItemSummary = ({
           // variant="uic" //"robohashx" //"robohash4" //"retro" //"monsterid" //"wavatar" //"adorable" //"identicon" //"mp" //"ui" //"random"(deprecated)
         />
       </Zoom>
-      <ListItemText primary={item.geoLocal} secondary={moment(createdAt).fromNow()} />
+      <ListItemText
+        // primary={item.geoLocal}
+        // secondary={moment(createdAt).fromNow()}
+        primary={readable.summaryPrimaryText}
+        secondary={readable.summarySecondaryText}
+      />
       <ListItemSecondaryAction>{getSecondaryAction()}</ListItemSecondaryAction>
     </ListItem>
   )
