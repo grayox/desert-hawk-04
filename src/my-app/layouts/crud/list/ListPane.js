@@ -18,9 +18,9 @@ const styles = theme => ({
 });
 
 const ListPane = ({
-  classes, items, hasMore, creatable, searchable, filterable, sortable, starrable, selectedIndex,
+  classes, items, hasMore, creatable, readable, searchable, filterable, sortable, starrable,
   searchMenuOptions, filterMenuOptions, sortMenuOptions, searchFilterSortModelWithLabels,
-  onClickStar, onNext, onToggle, onClickCreateButton, onSearchFilterSort,
+  selectedIndex, onClickStar, onNext, onToggle, onClickCreateButton, onSearchFilterSort,
 }) => {
 
   const ready1 = items && items.length;
@@ -90,6 +90,7 @@ const ListPane = ({
                   index={index}
                   onToggle={onToggle}
                   selectedIndex={selectedIndex}
+                  readable={readable}
                   starrable={starrable}
                   onClickStar={onClickStar}
                   // actionable={actionable} // not needed on list side

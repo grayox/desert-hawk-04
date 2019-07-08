@@ -480,6 +480,8 @@ export const getComponentsNavConfig = props => {
             [ 'geoRegion'       , '==' , settings && settings.geoRegion   , ] , // 'Kazakhstan' | 'Chile'
             [ 'geoLocal'        , '==' , settings && settings.geoLocal    , ] , // 'Almaty' | 'Santiago'
           ],
+          summaryPrimaryText: '',
+          summarySecondaryText: '',
         },
         updatable: false,
         deletable: false,
@@ -542,6 +544,8 @@ export const getComponentsNavConfig = props => {
             [ 'deletedAt'  , '==' , 0   , ] ,
             [ 'archivedBy' , '==' , uid , ] ,
           ],
+          summaryPrimaryText: '',
+          summarySecondaryText: '',
         },
         updatable: false,
         deletable: true,
@@ -634,6 +638,8 @@ export const getComponentsNavConfig = props => {
             // [ 'challengesCount' , '<=' , CHALLENGES_LIMIT , ] ,
           ],
           orderBy: [ 'createdAt', 'desc', ],
+          summaryPrimaryText: '',
+          summarySecondaryText: '',
         },
         updatable: {
           title: 'Edit referral',
@@ -685,6 +691,8 @@ export const getComponentsNavConfig = props => {
             [ 'createdBy' , '==' , uid , ] ,
           ],
           orderBy: [ 'createdAt', 'desc', ] ,
+          summaryPrimaryText: '',
+          summarySecondaryText: '',
         },
         updatable: {
           title: 'Edit contact',

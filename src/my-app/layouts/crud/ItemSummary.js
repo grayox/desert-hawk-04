@@ -18,7 +18,7 @@ const DEFAULT_STAR_COLOR = 'secondary'; // supported colors: 'inherit', 'primary
 
 // getSummary = ( item, isList, index, ) => {
 const ItemSummary = ({
-  classes, actionable, starrable, item, side, index, selectedIndex, onAction, onClickStar, onToggle,
+  classes, readable, actionable, starrable, item, side, index, selectedIndex, onAction, onClickStar, onToggle,
 }) => {
 
   const ready1 = item;

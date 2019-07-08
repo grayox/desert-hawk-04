@@ -358,7 +358,7 @@ class CRUDView extends Component {
     } = this.state;
     const {
       classes, profile, settings, dashboard, items, condensed, onNext, hasMore, miniDashboard,
-      creatable, updatable, deletable, actionable, searchable, sortable, filterable, starrable,
+      creatable, readable, updatable, deletable, actionable, searchable, sortable, filterable, starrable,
       searchMenuOptions, filterMenuOptions, sortMenuOptions, searchFilterSortModelWithLabels,
       onSearchFilterSort, onResetSearchFilterSort,
     } = this.props;
@@ -424,6 +424,7 @@ class CRUDView extends Component {
         hasMore={hasMore}
         
         creatable={creatable}
+        readable={readable}
         searchable={searchable}
         filterable={filterable}
         sortable={sortable}
@@ -449,6 +450,7 @@ class CRUDView extends Component {
         itemsLength={items.length}
         selectedIndex={selectedIndex}
         creatable={creatable}
+        readable={readable}
         updatable={updatable}
         deletable={deletable}
         actionable={actionable}

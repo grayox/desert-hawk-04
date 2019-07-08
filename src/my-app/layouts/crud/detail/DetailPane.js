@@ -108,7 +108,7 @@ const styles = theme => ({
 
 const DetailPane = ({
   classes, detail, condensed, itemsLength, selectedIndex,
-  creatable, updatable, deletable, actionable, starrable, dashboard, miniDashboard,
+  creatable, readable, updatable, deletable, actionable, starrable, dashboard, miniDashboard,
   onAction, onClickStar, onToggle, onUpdate, onDelete, onNavBack, onNavNext, getFormFields,
 }) => {
 
@@ -232,6 +232,7 @@ const DetailPane = ({
       <ItemSummary
         side="detail"
         item={detail}
+        readable={readable}
         actionable={actionable}
         starrable={starrable}
         selectedIndex={selectedIndex}
