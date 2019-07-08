@@ -1,11 +1,14 @@
 import React from 'react';
 // import moment from 'moment';
+import _ from '@lodash';
 
 import HashAvatar from 'my-app/components/HashAvatar';
 import {
   withStyles, Zoom, Fab, Tooltip, Icon, IconButton,
   ListItem, ListItemText, ListItemSecondaryAction,
 } from '@material-ui/core';
+
+import { getComponentsNavConfig, } from 'my-app/config/AppConfig';
 
 const styles = theme => ({
   margin: {
@@ -18,7 +21,8 @@ const DEFAULT_STAR_COLOR = 'secondary'; // supported colors: 'inherit', 'primary
 
 // getSummary = ( item, isList, index, ) => {
 const ItemSummary = ({
-  classes, readable, actionable, starrable, item, side, index, selectedIndex, onAction, onClickStar, onToggle,
+  classes, navComponentId, readable, actionable, starrable, item,
+  side, index, selectedIndex, onAction, onClickStar, onToggle,
 }) => {
 
   const ready1 = item;
@@ -114,6 +118,18 @@ const ItemSummary = ({
     };
     return getSecondaryActionConfig[side];
   }
+
+  const componentsNavConfig = getComponentsNavConfig({ item, });
+  const matches = _.filter(componentsNavConfig, {id: navComponentId,},);
+  const component = matches[0];
+  const read = component && component.crudConfig && component.crudConfig.readable;
+  const { summaryPrimaryText, summarySecondaryText, } = read;
+  console.log('componentsNavConfig\n', componentsNavConfig,);
+  console.log('navComponentId\n', navComponentId,);
+  console.log('component\n', component,);
+  console.log('read\n', read,);
+  console.log('readable\n', readable,);
+  // const { summaryPrimaryText, summarySecondaryText, } = readable; // summaryPrimaryText: undefined
   
   return (
     <ListItem
@@ -132,8 +148,8 @@ const ItemSummary = ({
       <ListItemText
         // primary={item.geoLocal}
         // secondary={moment(createdAt).fromNow()}
-        primary={readable.summaryPrimaryText}
-        secondary={readable.summarySecondaryText}
+        primary={summaryPrimaryText}
+        secondary={summarySecondaryText}
       />
       <ListItemSecondaryAction>{getSecondaryAction()}</ListItemSecondaryAction>
     </ListItem>

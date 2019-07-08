@@ -2,4 +2,4 @@
 // import { authRoles } from 'auth/auth';
 import { getComponentsNavConfig, } from 'my-app/config/AppConfig'; // my add
 
-export const fuseNavigationConfig = getComponentsNavConfig()();
+export const fuseNavigationConfig = getComponentsNavConfig();

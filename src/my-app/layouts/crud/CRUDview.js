@@ -357,7 +357,7 @@ class CRUDView extends Component {
       crudForm, crudFormTimestamp, crudFormIdHash,
     } = this.state;
     const {
-      classes, profile, settings, dashboard, items, condensed, onNext, hasMore, miniDashboard,
+      classes, profile, settings, dashboard, items, condensed, onNext, hasMore, miniDashboard, navComponentId,
       creatable, readable, updatable, deletable, actionable, searchable, sortable, filterable, starrable,
       searchMenuOptions, filterMenuOptions, sortMenuOptions, searchFilterSortModelWithLabels,
       onSearchFilterSort, onResetSearchFilterSort,
@@ -423,6 +423,7 @@ class CRUDView extends Component {
         selectedIndex={selectedIndex}
         hasMore={hasMore}
         
+        navComponentId={navComponentId}
         creatable={creatable}
         readable={readable}
         searchable={searchable}
@@ -449,6 +450,7 @@ class CRUDView extends Component {
         condensed={condensed}
         itemsLength={items.length}
         selectedIndex={selectedIndex}
+        navComponentId={navComponentId}
         creatable={creatable}
         readable={readable}
         updatable={updatable}
@@ -511,6 +513,7 @@ CRUDView.propTypes = {
 
   classes: PropTypes.object.isRequired,
   items: PropTypes.array.isRequired,
+  navComponentId: PropTypes.string.isRequired,
 
   condensed: PropTypes.bool, // one-line per list item in detail pane
   
@@ -549,6 +552,7 @@ CRUDView.propTypes = {
 };
 
 CRUDView.defaultProps = {
+  navComponentId: '',
   condensed: false,
   searchable: false,
   sortable: false,

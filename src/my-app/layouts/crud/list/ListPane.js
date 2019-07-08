@@ -18,7 +18,8 @@ const styles = theme => ({
 });
 
 const ListPane = ({
-  classes, items, hasMore, creatable, readable, searchable, filterable, sortable, starrable,
+  classes, items, hasMore, navComponentId,
+  creatable, readable, searchable, filterable, sortable, starrable,
   searchMenuOptions, filterMenuOptions, sortMenuOptions, searchFilterSortModelWithLabels,
   selectedIndex, onClickStar, onNext, onToggle, onClickCreateButton, onSearchFilterSort,
 }) => {
@@ -86,6 +87,7 @@ const ListPane = ({
                 {/* { getSummary( item, true, index, ) } */}
                 <ItemSummary
                   side="list"
+                  navComponentId={navComponentId}
                   item={item}
                   index={index}
                   onToggle={onToggle}

@@ -11,7 +11,7 @@ const Child = ({ match: { params: { id }}, profile, settings, dashboard, }) => {
   // const matches = componentsNavConfig.filter(r => (r.id === id));
   const args = { profile, settings, };
   // console.log('args\n', args,);
-  const componentsNavConfig = getComponentsNavConfig(args)();
+  const componentsNavConfig = getComponentsNavConfig(args);
   const matches = _.filter(componentsNavConfig, {id,},);
   const item = matches[0];
   const { crudConfig, } = item;
@@ -28,6 +28,7 @@ const Child = ({ match: { params: { id }}, profile, settings, dashboard, }) => {
       dashboard={dashboard}
       // items={items} // these will be acquired as state, not props
       condensed={condensed}
+      navComponentId={item && item.id}
       actionable={actionable}
       creatable={creatable}
       readable={readable}

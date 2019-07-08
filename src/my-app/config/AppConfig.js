@@ -46,7 +46,9 @@ import { FaSignOutAlt, } from 'react-icons/fa'; // https://react-icons.netlify.c
 // import CRUDRouter from 'my-app/layouts/crud/CRUDRouter';
 
 // usage
-// import { uiSpecs } from 'my-app/config/AppConfig';
+// import { getComponentsNavConfig, } from 'my-app/config/AppConfig';
+// const componentsNavConfig = getComponentsNavConfig({ item, });
+
 export const uiSpecs = {
   drawerWidth: 256, // https://material.io/design/components/navigation-drawer.html#specs
   // appBarHeight:  64, // 64 per MUI theme // 56 per spec: https://material.io/design/components/app-bars-top.html#specs
@@ -333,7 +335,7 @@ export const getSearchableFields = ( searchable, readable, ) => {
   // TODO: Save 'notes' (and other similar) fields as array of words and search by .where('notes', 'array_contains', 'foo') // ref: https://firebase.google.com/docs/firestore/query-data/queries#array_membership
   // console.log('searchable\n', searchable,);
   // console.log('readable\n', readable,);
-  const componentsNavConfig = getComponentsNavConfig()();
+  const componentsNavConfig = getComponentsNavConfig();
   const getBoolean = () => {
     const ready1 = searchable;
     if(!ready1) return;
@@ -410,9 +412,9 @@ export const getItemsFilteredBySearch = (items, searchString, searchableFields,)
 // syncronization: changes in either of the following files must be hard coded in the other
 // src/fuse-configs/fuseNavigationConfig.js
 // src/main/content/components/ComponentsConfig.js
-export const getComponentsNavConfig = props => ( item = {} ) => {
+export const getComponentsNavConfig = props => {
   console.log('props\n', props,);
-  // const item     = ( props && props.item     ) || {} ;
+  const item     = ( props && props.item     ) || {} ;
   const docId    = ( props && props.docId    ) || '' ;
   const profile  = ( props && props.profile  ) || {} ;
   const settings = ( props && props.settings ) || {} ;
@@ -639,8 +641,8 @@ export const getComponentsNavConfig = props => ( item = {} ) => {
             // [ 'challengesCount' , '<=' , CHALLENGES_LIMIT , ] ,
           ],
           orderBy: [ 'createdAt', 'desc', ],
-          summaryPrimaryText: '',
-          summarySecondaryText: '',
+          summaryPrimaryText: item.bizCategory || item.geoLocal,
+          summarySecondaryText: moment(item.createdAt).fromNow(),
         },
         updatable: {
           title: 'Edit referral',

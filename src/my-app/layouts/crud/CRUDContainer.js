@@ -299,13 +299,13 @@ class CRUDContainer extends Component {
     const {
       classes, profile, settings, dashboard,
       condensed, miniDashboard, searchable, sortable, filterable, starrable,
-      creatable, readable, updatable, deletable, actionable,
+      creatable, readable, updatable, deletable, actionable, navComponentId,
     } = this.props;
     
     const getCRUDView = () =>
       <CRUDView
-        profile={profile} settings={settings} dashboard={dashboard} items={items}
-        condensed={condensed} miniDashboard={miniDashboard} hasMore={hasMore}
+        profile={profile} settings={settings} dashboard={dashboard} navComponentId={navComponentId}
+        items={items} condensed={condensed} miniDashboard={miniDashboard} hasMore={hasMore}
         searchable={searchable} sortable={sortable} filterable={filterable} starrable={starrable} actionable={actionable}
         creatable={creatable} readable={readable} updatable={updatable} deletable={deletable}
         searchMenuOptions={searchMenuOptions} filterMenuOptions={filterMenuOptions} sortMenuOptions={sortMenuOptions}
