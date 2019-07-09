@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { FuseAnimateGroup } from '@fuse'; // FuseScrollbars, FuseAnimate,
 
-import { withStyles, Zoom, Paper, Tooltip, Divider, List, CircularProgress, } from '@material-ui/core';
+import { withStyles, Zoom, Paper, Chip, Tooltip, Divider, List, CircularProgress, } from '@material-ui/core';
 
 import hash from 'object-hash'; // https://www.npmjs.com/package/object-hash
 import ButtonsTierList from './ButtonsTierList'; // CRUDButtons,
@@ -27,7 +27,25 @@ const ListPane = ({
   const ready1 = items && items.length;
   if(!ready1) return null;
 
-  const getHeader = () => (
+  const getHeaderChips = () => {
+    const { listPaneHeaderChips, } = readable;
+
+    const ready1 = listPaneHeaderChips.length;
+    if(!ready1) return null;
+
+    const getChipsArray = () =>
+      listPaneHeaderChips.map( item => <Chip className="ml-4 my-4" title={item} label={item} /> )
+
+    return (
+      <div className="w-full">
+        <Zoom in mountOnEnter unmountOnExit>
+          <Paper className="w-full p-4 mb-8">{getChipsArray()}</Paper>
+        </Zoom>
+      </div>
+    )
+  }
+
+  const getHeaderButtons = () => (
     ( creatable || searchable || filterable || sortable )
     &&
     <div className="w-full">
@@ -107,7 +125,8 @@ const ListPane = ({
 
   return (
     <React.Fragment>
-      {getHeader()}
+      {getHeaderButtons()}
+      {getHeaderChips()}
       <Paper className={classNames(classes.paper, "z-10",)}>
         <List className="m-0 p-0" component="nav">
           {/* <ListSubheader className="text-left">Items</ListSubheader> */}

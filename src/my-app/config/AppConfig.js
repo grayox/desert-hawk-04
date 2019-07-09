@@ -233,6 +233,21 @@ export const bizCategoryItems = [
   { value : 'financial' , label : 'Financial' , icon : 'assessment'      } ,
   { value : 'insurance' , label : 'Insurance' , icon : 'assignment'      } ,
 ]
+export const setBizCategoryValue2Label = value => {
+  // console.log('value\n', value,);
+  // console.log('bizCategoryItems\n', bizCategoryItems,);
+
+  const ready1 = bizCategoryItems && value;
+  if(!ready1) return null;
+
+  const matches = _.filter(bizCategoryItems, { value, },);
+  // console.log('matches\n', matches,);
+  const match = matches[0];
+  // console.log('match\n', match,);
+  const out = match.label;
+  // console.log('out\n', out,);
+  return out;
+}
 
 // end app-specific parameters
 
@@ -413,13 +428,15 @@ export const getItemsFilteredBySearch = (items, searchString, searchableFields,)
 // src/fuse-configs/fuseNavigationConfig.js
 // src/main/content/components/ComponentsConfig.js
 export const getComponentsNavConfig = props => {
-  console.log('props\n', props,);
+  // console.log('props\n', props,);
   const item     = ( props && props.item     ) || {} ;
   const docId    = ( props && props.docId    ) || '' ;
   const profile  = ( props && props.profile  ) || {} ;
   const settings = ( props && props.settings ) || {} ;
   
   const { uid } = profile;
+
+  const { bizCategory, geoNation, geoRegion, geoLocal } = settings;
   
   const out = [
     // import { componentsNavConfig, } from 'my-app/config/AppConfig';
@@ -478,13 +495,15 @@ export const getComponentsNavConfig = props => {
             [ 'archivedBy'      , '==' , null , ] ,
             [ 'archivedAt'      , '==' , 0    , ] ,
             // [ 'challengesCount' , '<=' , CHALLENGES_LIMIT     , ] , // Unhandled Rejection (FirebaseError): Invalid query. You have a where filter with an inequality (<, <=, >, or >=) on field 'challengesCount' and so you must also use 'challengesCount' as your first Query.orderBy(), but your first Query.orderBy() is on field 'createdAt' instead.
-            [ 'bizCategory'     , '==' , settings && settings.bizCategory , ] , // 'Home'         
-            [ 'geoNation'       , '==' , settings && settings.geoNation   , ] , // 'Asia, Pacific, and Middle East' | 'Latin America and Caribbean'
-            [ 'geoRegion'       , '==' , settings && settings.geoRegion   , ] , // 'Kazakhstan' | 'Chile'
-            [ 'geoLocal'        , '==' , settings && settings.geoLocal    , ] , // 'Almaty' | 'Santiago'
+            [ 'bizCategory'     , '==' , bizCategory , ] , // 'Home'         
+            [ 'geoNation'       , '==' , geoNation   , ] , // 'Asia, Pacific, and Middle East' | 'Latin America and Caribbean'
+            [ 'geoRegion'       , '==' , geoRegion   , ] , // 'Kazakhstan' | 'Chile'
+            [ 'geoLocal'        , '==' , geoLocal    , ] , // 'Almaty' | 'Santiago'
           ],
-          summaryPrimaryText: item.bizCategory || item.geoLocal,
-          summarySecondaryText: moment(item.createdAt).fromNow(),
+          itemSummaryPrimaryText: setBizCategoryValue2Label(item && item.bizCategory), // || item.geoLocal,
+          itemSummarySecondaryText: moment(item.createdAt).fromNow(),
+          listPaneHeaderText: '',
+          listPaneHeaderChips: [setBizCategoryValue2Label(bizCategory), geoLocal, geoRegion, geoNation,],
         },
         updatable: false,
         deletable: false,
@@ -547,8 +566,8 @@ export const getComponentsNavConfig = props => {
             [ 'deletedAt'  , '==' , 0   , ] ,
             [ 'archivedBy' , '==' , uid , ] ,
           ],
-          summaryPrimaryText: '',
-          summarySecondaryText: '',
+          itemSummaryPrimaryText: '',
+          itemSummarySecondaryText: '',
         },
         updatable: false,
         deletable: true,
@@ -641,8 +660,8 @@ export const getComponentsNavConfig = props => {
             // [ 'challengesCount' , '<=' , CHALLENGES_LIMIT , ] ,
           ],
           orderBy: [ 'createdAt', 'desc', ],
-          summaryPrimaryText: item.bizCategory || item.geoLocal,
-          summarySecondaryText: moment(item.createdAt).fromNow(),
+          itemSummaryPrimaryText: item && item.name, // item.bizCategory && _.filter(bizCategoryItems, {value:item.bizCategory,},)[0].label, // || item.geoLocal,
+          itemSummarySecondaryText: moment(item.createdAt).fromNow(),
         },
         updatable: {
           title: 'Edit referral',
@@ -694,8 +713,8 @@ export const getComponentsNavConfig = props => {
             [ 'createdBy' , '==' , uid , ] ,
           ],
           orderBy: [ 'createdAt', 'desc', ] ,
-          summaryPrimaryText: '',
-          summarySecondaryText: '',
+          itemSummaryPrimaryText: '',
+          itemSummarySecondaryText: '',
         },
         updatable: {
           title: 'Edit contact',

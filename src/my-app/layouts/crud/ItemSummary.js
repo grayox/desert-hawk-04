@@ -8,7 +8,7 @@ import {
   ListItem, ListItemText, ListItemSecondaryAction,
 } from '@material-ui/core';
 
-import { getComponentsNavConfig, } from 'my-app/config/AppConfig';
+import { getComponentsNavConfig, getBizCategoryLabel, } from 'my-app/config/AppConfig';
 
 const styles = theme => ({
   margin: {
@@ -21,7 +21,7 @@ const DEFAULT_STAR_COLOR = 'secondary'; // supported colors: 'inherit', 'primary
 
 // getSummary = ( item, isList, index, ) => {
 const ItemSummary = ({
-  classes, navComponentId, readable, actionable, starrable, item,
+  classes, navComponentId, actionable, starrable, item, // readable,
   side, index, selectedIndex, onAction, onClickStar, onToggle,
 }) => {
 
@@ -123,13 +123,13 @@ const ItemSummary = ({
   const matches = _.filter(componentsNavConfig, {id: navComponentId,},);
   const component = matches[0];
   const read = component && component.crudConfig && component.crudConfig.readable;
-  const { summaryPrimaryText, summarySecondaryText, } = read;
-  console.log('componentsNavConfig\n', componentsNavConfig,);
-  console.log('navComponentId\n', navComponentId,);
-  console.log('component\n', component,);
-  console.log('read\n', read,);
-  console.log('readable\n', readable,);
-  // const { summaryPrimaryText, summarySecondaryText, } = readable; // summaryPrimaryText: undefined
+  const { itemSummaryPrimaryText, itemSummarySecondaryText, } = read;
+  // console.log('componentsNavConfig\n', componentsNavConfig,);
+  // console.log('navComponentId\n', navComponentId,);
+  // console.log('component\n', component,);
+  // console.log('read\n', read,);
+  // console.log('readable\n', readable,);
+  // const { itemSummaryPrimaryText, itemSummarySecondaryText, } = readable; // itemSummaryPrimaryText: undefined
   
   return (
     <ListItem
@@ -148,8 +148,8 @@ const ItemSummary = ({
       <ListItemText
         // primary={item.geoLocal}
         // secondary={moment(createdAt).fromNow()}
-        primary={summaryPrimaryText}
-        secondary={summarySecondaryText}
+        primary={itemSummaryPrimaryText}
+        secondary={itemSummarySecondaryText}
       />
       <ListItemSecondaryAction>{getSecondaryAction()}</ListItemSecondaryAction>
     </ListItem>
