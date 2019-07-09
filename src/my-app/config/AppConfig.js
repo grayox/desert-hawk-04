@@ -233,7 +233,7 @@ export const bizCategoryItems = [
   { value : 'financial' , label : 'Financial' , icon : 'assessment'      } ,
   { value : 'insurance' , label : 'Insurance' , icon : 'assignment'      } ,
 ]
-export const setBizCategoryValue2Label = value => {
+export const setBizCategoryValue2Label = value => { // home
   // console.log('value\n', value,);
   // console.log('bizCategoryItems\n', bizCategoryItems,);
 
@@ -246,7 +246,7 @@ export const setBizCategoryValue2Label = value => {
   // console.log('match\n', match,);
   const out = match.label;
   // console.log('out\n', out,);
-  return out;
+  return out; // Home
 }
 
 // end app-specific parameters

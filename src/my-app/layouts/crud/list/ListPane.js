@@ -30,7 +30,7 @@ const ListPane = ({
   const getHeaderChips = () => {
     const { listPaneHeaderChips, } = readable;
 
-    const ready1 = listPaneHeaderChips.length;
+    const ready1 = listPaneHeaderChips && listPaneHeaderChips.length;
     if(!ready1) return null;
 
     const getChipsArray = () =>
