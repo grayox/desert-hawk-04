@@ -165,16 +165,49 @@ export const createItem = ( path, item, uid, dashboard, creatable, ) =>
     });
   }
 
+const assembleBatchWrite = (db, batch, actionable,) => {
+  // // ref: https://firebase.google.com/docs/firestore/manage-data/transactions
+  // // Set the value of 'NYC'
+  // const nycRef = db.collection("cities").doc("NYC");
+  // batch.set(nycRef, { name: "New York City" });
+  // // Update the population of 'SF'
+  // const sfRef = db.collection("cities").doc("SF");
+  // batch.update(sfRef, { "population": 1000000 });
+  // // Delete the city 'LA'
+  // const laRef = db.collection("cities").doc("LA");
+  // batch.delete(laRef);
+  const { updates, sets, deletes, } = actionable;
+  if(updates && updates.length) {
+    for(let update of updates) {
+      const dbRef = db.doc(update.path);
+      batch.update(dbRef, update.fields, ); // { "population": 1000000 }
+    }
+  }
+  if(sets && sets.length) {
+    for(let set of sets) {
+      const dbRef = db.doc(set.path);
+      batch.update(dbRef, set.fields, ); // { name: "New York City" }
+    }
+  }
+  if(deletes && deletes.length) {
+    for(let delet of deletes) {
+      const dbRef = db.doc(delet.path);
+      batch.delete(dbRef,);
+    }
+  }
+  return batch;
+}
+
 export const actionItem = ( uid, actionable, /*settings,*/ dashboard, detail, readable, ) =>
   (dispatch, getState, { getFirebase, getFirestore, }) => {
-    console.log('uid\n', uid,);
-    console.log('actionable\n', actionable,);
+    // console.log('uid\n', uid,);
+    // console.log('actionable\n', actionable,);
     // console.log('settings\n', settings,);
-    console.log('dashboard\n', dashboard,);
-    console.log('detail\n', detail,);
-    console.log('readable\n', readable,);
-    const { path, } = readable;
-    const { docId, } = detail;
+    // console.log('dashboard\n', dashboard,);
+    // console.log('detail\n', detail,);
+    // console.log('readable\n', readable,);
+    // const { path, } = readable;
+    // const { docId, } = detail;
     
     const newData = actionable.updates[0].fields;
     console.log('newData\n', newData,);
@@ -194,21 +227,12 @@ export const actionItem = ( uid, actionable, /*settings,*/ dashboard, detail, re
     // Get a new write batch
     const batch = db.batch();
 
-    // Set the value of 'NYC'
-    const nycRef = db.collection("cities").doc("NYC");
-    batch.set(nycRef, { name: "New York City" });
-
-    // Update the population of 'SF'
-    const sfRef = db.collection("cities").doc("SF");
-    batch.update(sfRef, { "population": 1000000 });
-
-    // Delete the city 'LA'
-    const laRef = db.collection("cities").doc("LA");
-    batch.delete(laRef);
+    const assembledBatchWrite = assembleBatchWrite(db, batch, actionable,);
 
     // Commit the batch
-    batch.commit().then(function () {
-      // ...
+    // batch.commit().then( () => {
+    assembledBatchWrite.commit().then( docRef => {
+      console.log('docRef\n', docRef,);
     });
 }
 

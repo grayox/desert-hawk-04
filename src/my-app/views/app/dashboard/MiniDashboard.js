@@ -77,7 +77,7 @@ const getPickedData = ( values, selectors, definitions, ) => {
 }
 
 const getMicro = ( key, value, ) => {
-  const formattedData = typeof value === 'number' ? numeral(value).format('0.0a') : value;
+  const formattedData = typeof value === 'number' ? numeral(value).format('0,0') : value; // .format('0.0a')
   return (
     <span key={key} className="ml-8">
       <ShieldsIo label={key} message={formattedData} color="informational" />

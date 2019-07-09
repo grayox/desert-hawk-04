@@ -522,6 +522,8 @@ export const getComponentsNavConfig = props => {
             },
             // remote: {},
           },
+          // sets: [],
+          // deletes: [],
           updates: [
             {
               path: `leads/${docId}`,
@@ -587,6 +589,8 @@ export const getComponentsNavConfig = props => {
               },
             ],
           },
+          // sets: [],
+          // deletes: [],
           updates: [
             {
               path: ``,
@@ -736,6 +740,8 @@ export const getComponentsNavConfig = props => {
               challengesReceived: 1,
             },
           },
+          // sets: [],
+          // deletes: [],
           updates: [
             {
               path: `leads/${docId}`,
