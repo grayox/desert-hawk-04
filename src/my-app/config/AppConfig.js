@@ -661,7 +661,7 @@ export const getComponentsNavConfig = props => {
           ],
           orderBy: [ 'createdAt', 'desc', ],
           itemSummaryPrimaryText: item && item.name, // item.bizCategory && _.filter(bizCategoryItems, {value:item.bizCategory,},)[0].label, // || item.geoLocal,
-          itemSummarySecondaryText: moment(item.createdAt).fromNow(),
+          itemSummarySecondaryText: `${item && setBizCategoryValue2Label(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
         },
         updatable: {
           title: 'Edit referral',
