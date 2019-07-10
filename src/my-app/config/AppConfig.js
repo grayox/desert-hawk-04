@@ -431,7 +431,8 @@ export const getComponentsNavConfig = props => {
   console.log('props\n', props,);
 
   const item     = ( props && props.item     ) || {} ;
-  const docId    = 'aZZsxdvfv3o6ZGfj5mIt'; // ( props && props.docId    ) || ( props && props.item && props.item.docId ) || '' ;
+  // const docId    = 'aZZsxdvfv3o6ZGfj5mIt';
+  const docId    = ( props && props.docId    ) || ( props && props.item && props.item.docId ); // || '' ;
   const profile  = ( props && props.profile  ) || {} ;
   const settings = ( props && props.settings ) || {} ;
   
