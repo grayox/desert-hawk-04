@@ -34,7 +34,7 @@ const ListPane = ({
     if(!ready1) return null;
 
     const getChipsArray = () =>
-      listPaneHeaderChips.map( item => <Chip className="ml-4 my-4" title={item} label={item} /> )
+      listPaneHeaderChips.map( item => <Chip className="ml-4 my-4" key={item} title={item} label={item} /> )
 
     return (
       <div className="w-full">

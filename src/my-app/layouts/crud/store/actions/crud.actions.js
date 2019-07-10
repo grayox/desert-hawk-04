@@ -178,22 +178,30 @@ const assembleBatchWrite = (db, batch, actionable,) => {
   // // Delete the city 'LA'
   // const laRef = db.collection("cities").doc("LA");
   // batch.delete(laRef);
-  
+
   const { updates, sets, deletes, } = actionable;
+
+  // console.log('updates\n', updates,);
+  // console.log('sets\n', sets,);
+  // console.log('deletes\n', deletes,);
+
   if(updates && updates.length) {
     for(let update of updates) {
+      // console.log('update\n', update,);
       const dbRef = db.doc(update.path);
       batch.update(dbRef, update.fields, ); // { "population": 1000000 }
     }
   }
   if(sets && sets.length) {
     for(let set of sets) {
+      // console.log('set\n', set,);
       const dbRef = db.doc(set.path);
       batch.update(dbRef, set.fields, ); // { name: "New York City" }
     }
   }
   if(deletes && deletes.length) {
     for(let delet of deletes) {
+      // console.log('delet\n', delet,);
       const dbRef = db.doc(delet.path);
       batch.delete(dbRef,);
     }
@@ -231,6 +239,7 @@ export const actionItem = ( uid, actionable, /*settings,*/ dashboard, detail, re
     const batch = db.batch();
 
     const assembledBatchWrite = assembleBatchWrite(db, batch, actionable,);
+    console.log('assembledBatchWrite\n', assembledBatchWrite,);
 
     // Commit the batch
     // batch.commit().then( () => {

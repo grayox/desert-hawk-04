@@ -428,15 +428,26 @@ export const getItemsFilteredBySearch = (items, searchString, searchableFields,)
 // src/fuse-configs/fuseNavigationConfig.js
 // src/main/content/components/ComponentsConfig.js
 export const getComponentsNavConfig = props => {
-  // console.log('props\n', props,);
+  console.log('props\n', props,);
+
   const item     = ( props && props.item     ) || {} ;
-  const docId    = ( props && props.docId    ) || ( item && item.docID ) && '' ;
+  const docId    = 'aZZsxdvfv3o6ZGfj5mIt'; // ( props && props.docId    ) || ( props && props.item && props.item.docId ) || '' ;
   const profile  = ( props && props.profile  ) || {} ;
   const settings = ( props && props.settings ) || {} ;
   
   const { uid } = profile;
 
   const { bizCategory, geoNation, geoRegion, geoLocal } = settings;
+
+  console.log('item\n', item,);
+  console.log('docId\n', docId,);
+  console.log('profile\n', profile,);
+  console.log('settings\n', settings,);
+  console.log('uid\n', uid,);
+  console.log('bizCategory\n', bizCategory,);
+  console.log('geoNation\n', geoNation,);
+  console.log('geoRegion\n', geoRegion,);
+  console.log('geoLocal\n', geoLocal,);
   
   const out = [
     // import { componentsNavConfig, } from 'my-app/config/AppConfig';
