@@ -166,6 +166,7 @@ export const createItem = ( path, item, uid, dashboard, creatable, ) =>
   }
 
 const assembleBatchWrite = (db, batch, actionable,) => {
+  console.log('actionable\n', actionable,);
   // // ref: https://firebase.google.com/docs/firestore/manage-data/transactions
   // // Set the value of 'NYC'
   // const nycRef = db.collection("cities").doc("NYC");

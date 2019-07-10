@@ -428,7 +428,7 @@ export const getItemsFilteredBySearch = (items, searchString, searchableFields,)
 // src/fuse-configs/fuseNavigationConfig.js
 // src/main/content/components/ComponentsConfig.js
 export const getComponentsNavConfig = props => {
-  // console.log('props\n', props,);
+  console.log('props\n', props,);
   const item     = ( props && props.item     ) || {} ;
   const docId    = ( props && props.docId    ) || '' ;
   const profile  = ( props && props.profile  ) || {} ;

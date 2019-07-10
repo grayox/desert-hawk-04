@@ -8,7 +8,7 @@ import {
   ListItem, ListItemText, ListItemSecondaryAction,
 } from '@material-ui/core';
 
-import { getComponentsNavConfig, getBizCategoryLabel, } from 'my-app/config/AppConfig';
+import { getComponentsNavConfig, } from 'my-app/config/AppConfig'; // getBizCategoryLabel, 
 
 const styles = theme => ({
   margin: {
