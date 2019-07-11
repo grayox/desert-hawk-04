@@ -27,14 +27,19 @@ const styles = theme => ({
   },
 })
 
-const componentsNavConfig = getComponentsNavConfig();
-
-const items = componentsNavConfig.filter(r => (r.type==='item' || r.type==='route'));
+const getItems = () => {
+  const componentsNavConfig = getComponentsNavConfig();
+  const items = componentsNavConfig.filter(r => (r.type==='item' || r.type==='route'));
+  // console.log('items\n', items,);
+  return items;
+}
 
 class Routes extends Component {
   render() {
     const { classes, } = this.props;
     // const Settings = FuseLoadable({loader: () => import('my-app/views/overhead/settings/Settings')});
+
+    const items = getItems();
 
     return (
 

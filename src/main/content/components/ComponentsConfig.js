@@ -71,6 +71,12 @@ const items = [
       loader: () => import('my-app/views/overhead/Help')
     }),
   },
+  {
+    path: '/logout',
+    component: FuseLoadable({
+      loader: () => import('my-app/views/overhead/Logout')
+    }),
+  },
 ]
 
 

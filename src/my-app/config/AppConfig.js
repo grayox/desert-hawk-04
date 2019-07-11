@@ -425,7 +425,7 @@ export const getItemsFilteredBySearch = (items, searchString, searchableFields,)
 // let newText = text.split ('\n').map( (item, index,) => <p key={farmhash.hash32(item+index)}>{item}</p>);
 
 // syncronization: changes in either of the following files must be hard coded in the other
-// src/fuse-configs/fuseNavigationConfig.js
+// src/fuse-configs/fuseNavigationConfig.js // abbreviated
 // src/main/content/components/ComponentsConfig.js
 export const getComponentsNavConfig = props => {
   console.log('props\n', props,);
@@ -788,7 +788,7 @@ export const getComponentsNavConfig = props => {
       overhead  : true,
       // see src/my-app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
-      component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/settings/Settings')}),
+      component : () => FuseLoadable({loader: () => import('my-app/views/overhead/settings/Settings')}),
     },
     {
       // eslint-disable-next-line
@@ -804,7 +804,7 @@ export const getComponentsNavConfig = props => {
       overhead  : true,
       // see src/my-app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
-      component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/feedback/Feedback')}),
+      component : () => FuseLoadable({loader: () => import('my-app/views/overhead/feedback/Feedback')}),
     },
     {
       // eslint-disable-next-line
@@ -820,18 +820,18 @@ export const getComponentsNavConfig = props => {
       overhead  : true,
       // see src/my-app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
-      component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/Help')}),
+      component : () => FuseLoadable({loader: () => import('my-app/views/overhead/Help')}),
     },
     {
       // eslint-disable-next-line
       description: '\
         Click here to log out of the app.\
       ',
-      id      : 'logout',
-      path    : '/logout',
-      title   : 'Logout',
-      type    : 'item',
-      altIcon : (
+      id        : 'logout',
+      path      : '/logout',
+      title     : 'Logout',
+      type      : 'item',
+      altIcon   : (
         <IconContext.Provider value={{ color: 'white', className: 'text-20 flex-no-shrink' }}>
           <span><FaSignOutAlt /></span>
         </IconContext.Provider>
@@ -840,7 +840,7 @@ export const getComponentsNavConfig = props => {
       overhead  : true,
       // see src/my-app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
-      component  : () => FuseLoadable({loader: () => import('my-app/views/overhead/Logout')}),
+      component : () => FuseLoadable({loader: () => import('my-app/views/overhead/Logout')}),
     },
   ];
 

@@ -150,6 +150,8 @@ export function removeUserData() {
 /**
  * Logout
  */
+// export const logoutUser = () => firebaseService.signOut();
+
 export function logoutUser() {
   history.push({
     pathname: '/'

@@ -196,7 +196,7 @@ class firebaseService {
 
   // start my add
 
-  saveDocToFirestore = (data, path) => {
+  saveDocToFirestore = (data, path,) => {
     const collectionRef = this.firestore.collection(path);
     // console.info('submitting...', model);  
     collectionRef.add(data)
