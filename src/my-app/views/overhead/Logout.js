@@ -5,6 +5,7 @@ import { Redirect, } from 'react-router-dom';
 import { logoutUser, } from 'auth/store/actions/user.actions';
 
 const Logout = props => {
+  // ref: https://reacttraining.com/react-router/web/example/auth-workflow
   // console.log('Logging out...');
   // alert('Logging out...');
   props.logoutUser();

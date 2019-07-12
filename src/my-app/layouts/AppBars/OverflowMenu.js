@@ -68,8 +68,8 @@ class OverflowMenu extends Component {
           // <MenuItem onClick={this.handleClose}>My account</MenuItem>
           // <MenuItem onClick={this.handleClose}>Logout</MenuItem>
           items.map( ({ title, path, }, index) => (
-            <Link to={path} className="no-underline text-black">
-              <MenuItem key={title} onClick={this.handleClose}>{title}</MenuItem>
+            <Link to={path} key={title} className="no-underline text-black">
+              <MenuItem onClick={this.handleClose}>{title}</MenuItem>
             </Link>     
           ))
           }

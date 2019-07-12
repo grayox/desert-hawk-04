@@ -1,19 +1,19 @@
 // inspired by: src/my-app/store/actions/my-actions/leadsActions.js
 // ref: https://firebase.google.com/docs/firestore/quickstart#next_steps
 
-// import { getComponentsNavConfig, } from 'my-app/config/AppConfig';
+import { getComponentsNavConfig, } from 'my-app/config/AppConfig';
 
-// const getNavElement = ({path, settings,}) => {
-//   // path: string: 'leads', 'archive', 'outbox'
-//   // console.log('path\n', path,);
-//   const componentsNavConfig = getComponentsNavConfig(settings,);
-//   // console.log('componentsNavConfig\n', componentsNavConfig,);
-//   const out = componentsNavConfig.find(x =>
-//     (x && x.crudConfig && x.crudConfig.readable && x.crudConfig.readable.path) === path
-//   );
-//   // console.log('out\n', out,);
-//   return out;
-// }
+const getNavElement = ({path, settings,}) => {
+  // path: string: 'leads', 'archive', 'outbox'
+  // console.log('path\n', path,);
+  const componentsNavConfig = getComponentsNavConfig(settings,);
+  // console.log('componentsNavConfig\n', componentsNavConfig,);
+  const out = componentsNavConfig.find(x =>
+    (x && x.crudConfig && x.crudConfig.readable && x.crudConfig.readable.path) === path
+  );
+  // console.log('out\n', out,);
+  return out;
+}
 
 const getDashboardNewData = (path, oldData, incrementer, sourceDocId, creatable,) => {
   // uid: string: 'abcxyz'
@@ -165,8 +165,13 @@ export const createItem = ( path, item, uid, dashboard, creatable, ) =>
     });
   }
 
-const assembleBatchWrite = (db, batch, actionable,) => {
+const assembleBatchWrite = (db, batch, actionable, uid, docId,) => {
   // console.log('actionable\n', actionable,);
+  console.log('uid\n', uid,);
+
+  const componentsNavConfig = getComponentsNavConfig({ uid, docId, });
+  // console.log('componentsNavConfig\n', componentsNavConfig,);
+  console.log('componentNavConfig\n', componentsNavConfig[1],);
 
   // // ref: https://firebase.google.com/docs/firestore/manage-data/transactions
   // // Set the value of 'NYC'
@@ -215,10 +220,10 @@ export const actionItem = ( uid, actionable, /*settings,*/ dashboard, detail, re
     // console.log('actionable\n', actionable,);
     // console.log('settings\n', settings,);
     // console.log('dashboard\n', dashboard,);
-    // console.log('detail\n', detail,);
+    console.log('detail\n', detail,);
     // console.log('readable\n', readable,);
     // const { path, } = readable;
-    // const { docId, } = detail;
+    const { docId, } = detail;
     
     // const newData = actionable.updates[0].fields;
     // console.log('newData\n', newData,);
@@ -238,7 +243,7 @@ export const actionItem = ( uid, actionable, /*settings,*/ dashboard, detail, re
     // Get a new write batch
     const batch = db.batch();
 
-    const assembledBatchWrite = assembleBatchWrite(db, batch, actionable,);
+    const assembledBatchWrite = assembleBatchWrite(db, batch, actionable, uid, docId,);
     console.log('assembledBatchWrite\n', assembledBatchWrite,);
 
     // Commit the batch
