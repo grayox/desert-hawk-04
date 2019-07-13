@@ -2,15 +2,26 @@
 // ref: https://firebase.google.com/docs/firestore/quickstart#next_steps
 
 import { getComponentsNavConfig, } from 'my-app/config/AppConfig';
+import _ from '@lodash';
 
-const getNavElement = ({path, settings,}) => {
-  // path: string: 'leads', 'archive', 'outbox'
-  // console.log('path\n', path,);
-  const componentsNavConfig = getComponentsNavConfig(settings,);
+// const getNavElement = ({path, settings,}) => {
+//   // path: string: 'leads', 'archive', 'outbox'
+//   // console.log('path\n', path,);
+//   const componentsNavConfig = getComponentsNavConfig(settings,);
+//   // console.log('componentsNavConfig\n', componentsNavConfig,);
+//   const out = componentsNavConfig.find(x =>
+//     (x && x.crudConfig && x.crudConfig.readable && x.crudConfig.readable.path) === path
+//   );
+//   // console.log('out\n', out,);
+//   return out;
+// }
+
+const getComponentNavConfig = ( componentsNavConfig, navComponentId, ) => {
+  // navComponentId: string: 'inbox',
+  // console.log('navComponentId\n', navComponentId,);
   // console.log('componentsNavConfig\n', componentsNavConfig,);
-  const out = componentsNavConfig.find(x =>
-    (x && x.crudConfig && x.crudConfig.readable && x.crudConfig.readable.path) === path
-  );
+  const matches = _.filter(componentsNavConfig, {id: navComponentId,},);
+  const out = matches[0];
   // console.log('out\n', out,);
   return out;
 }
@@ -165,13 +176,20 @@ export const createItem = ( path, item, uid, dashboard, creatable, ) =>
     });
   }
 
-const assembleBatchWrite = (db, batch, actionable, uid, docId,) => {
+const assembleBatchWrite = (db, batch, navComponentId, uid, docId,) => {
+  // console.log('navComponentId\n', navComponentId,); // inbox
   // console.log('actionable\n', actionable,);
-  console.log('uid\n', uid,);
+  // console.log('uid\n', uid,);
 
   const componentsNavConfig = getComponentsNavConfig({ uid, docId, });
   // console.log('componentsNavConfig\n', componentsNavConfig,);
-  console.log('componentNavConfig\n', componentsNavConfig[1],);
+  // console.log('componentNavConfig\n', componentsNavConfig[1],);
+  
+  const componentNavConfig = getComponentNavConfig(componentsNavConfig, navComponentId,);
+  // console.log('componentNavConfig\n', componentNavConfig,);
+  const { crudConfig, } = componentNavConfig;
+  const { actionable, } = crudConfig;
+  // console.log('actionable\n', actionable,);
 
   // // ref: https://firebase.google.com/docs/firestore/manage-data/transactions
   // // Set the value of 'NYC'
@@ -214,13 +232,13 @@ const assembleBatchWrite = (db, batch, actionable, uid, docId,) => {
   return batch;
 }
 
-export const actionItem = ( uid, actionable, /*settings,*/ dashboard, detail, readable, ) =>
+export const actionItem = ( uid, detail, navComponentId, ) => // settings, dashboard, readable, actionable,
   (dispatch, getState, { getFirebase, getFirestore, }) => {
     // console.log('uid\n', uid,);
     // console.log('actionable\n', actionable,);
     // console.log('settings\n', settings,);
     // console.log('dashboard\n', dashboard,);
-    console.log('detail\n', detail,);
+    // console.log('detail\n', detail,);
     // console.log('readable\n', readable,);
     // const { path, } = readable;
     const { docId, } = detail;
@@ -243,7 +261,7 @@ export const actionItem = ( uid, actionable, /*settings,*/ dashboard, detail, re
     // Get a new write batch
     const batch = db.batch();
 
-    const assembledBatchWrite = assembleBatchWrite(db, batch, actionable, uid, docId,);
+    const assembledBatchWrite = assembleBatchWrite(db, batch, navComponentId, uid, docId,);
     console.log('assembledBatchWrite\n', assembledBatchWrite,);
 
     // Commit the batch

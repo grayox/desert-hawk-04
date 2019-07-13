@@ -323,12 +323,12 @@ class CRUDView extends Component {
     // console.log('props\n', this.props);
     const { handleRefresh, } = this;
     const { detail, } = this.state;
-    const { actionItem, readable, actionable, profile, dashboard, } = this.props; // settings,
+    const { actionItem, navComponentId, profile, } = this.props; // settings, readable, actionable, dashboard,
     const { uid, } = profile;
 
     // console.log('uid\n', uid,)
     // console.log('dashboard\n', dashboard,)
-    actionItem( uid, actionable, /*settings,*/ dashboard, detail, readable, );
+    actionItem( uid, detail, navComponentId, );
 
     handleRefresh();
   }
@@ -572,7 +572,7 @@ const mapDispatchToProps = dispatch => ({
   createItem: ( path , item  , uid     , dashboard , creatable , ) => dispatch(createItem( path , item  , uid     , dashboard , creatable  , )), // inspired by: src/my-app/components/forms/CreateLead.js
   updateItem: ( path , docId , newItem , oldItem   , updatable , ) => dispatch(updateItem( path , docId , newItem , oldItem   , updatable  , )),
   deleteItem: ( path , docId , uid     , dashboard , creatable , ) => dispatch(deleteItem( path , docId , uid     , dashboard , creatable  , )),
-  actionItem: ( uid, actionable, /*settings,*/ dashboard, detail, readable, ) => dispatch(actionItem( uid, actionable, /*settings,*/ dashboard, detail, readable, )),
+  actionItem: ( uid  , detail, navComponentId      ,             ) => dispatch(actionItem( uid  , detail, navComponentId      ,              )),  
   // update dashboard
   updateUserData: (path, newData,) => dispatch(updateUserData(path, newData,)),
 })
