@@ -262,12 +262,12 @@ export const actionItem = ( uid, detail, navComponentId, ) => // settings, dashb
     const batch = db.batch();
 
     const assembledBatchWrite = assembleBatchWrite(db, batch, navComponentId, uid, docId,);
-    console.log('assembledBatchWrite\n', assembledBatchWrite,);
+    // console.log('assembledBatchWrite\n', assembledBatchWrite,);
 
     // Commit the batch
     // batch.commit().then( () => {
     assembledBatchWrite.commit().then( docRef => {
-      console.log('docRef\n', docRef,);
+      // console.log('docRef\n', docRef,);
     });
 }
 
