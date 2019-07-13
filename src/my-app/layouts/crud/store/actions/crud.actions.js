@@ -16,6 +16,10 @@ import _ from '@lodash';
 //   return out;
 // }
 
+const updateDashboard = ( dashboard, actionable, ) => {
+  console.log('dashboard\n', dashboard,);
+}
+
 const getComponentNavConfig = ( componentsNavConfig, navComponentId, ) => {
   // navComponentId: string: 'inbox',
   // console.log('navComponentId\n', navComponentId,);
@@ -176,7 +180,7 @@ export const createItem = ( path, item, uid, dashboard, creatable, ) =>
     });
   }
 
-const assembleBatchWrite = (db, batch, navComponentId, uid, docId,) => {
+const assembleBatchWrite = ( db, batch, navComponentId, uid, docId, dashboard, ) => {
   // console.log('navComponentId\n', navComponentId,); // inbox
   // console.log('actionable\n', actionable,);
   // console.log('uid\n', uid,);
@@ -232,7 +236,7 @@ const assembleBatchWrite = (db, batch, navComponentId, uid, docId,) => {
   return batch;
 }
 
-export const actionItem = ( uid, detail, navComponentId, ) => // settings, dashboard, readable, actionable,
+export const actionItem = ( uid, detail, navComponentId, dashboard, ) => // settings, readable, actionable,
   (dispatch, getState, { getFirebase, getFirestore, }) => {
     // console.log('uid\n', uid,);
     // console.log('actionable\n', actionable,);
@@ -261,7 +265,7 @@ export const actionItem = ( uid, detail, navComponentId, ) => // settings, dashb
     // Get a new write batch
     const batch = db.batch();
 
-    const assembledBatchWrite = assembleBatchWrite(db, batch, navComponentId, uid, docId,);
+    const assembledBatchWrite = assembleBatchWrite(db, batch, navComponentId, uid, docId, dashboard,);
     // console.log('assembledBatchWrite\n', assembledBatchWrite,);
 
     // Commit the batch

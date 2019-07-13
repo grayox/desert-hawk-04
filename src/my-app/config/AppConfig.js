@@ -670,8 +670,8 @@ export const getComponentsNavConfig = props => {
           path: 'leads',
           // src/my-app/containers/LoadAsync.js
           where: [
-            [ 'deletedAt'       , '==' , 0                , ] ,  
-            [ 'createdBy'       , '==' , uid              , ] ,
+            [ 'deletedAt', '==' , 0   , ] ,  
+            [ 'createdBy', '==' , uid , ] ,
             // [ 'challengesCount' , '<=' , CHALLENGES_LIMIT , ] ,
           ],
           orderBy: [ 'createdAt', 'desc', ],

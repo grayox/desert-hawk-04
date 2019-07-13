@@ -323,12 +323,12 @@ class CRUDView extends Component {
     // console.log('props\n', this.props);
     const { handleRefresh, } = this;
     const { detail, } = this.state;
-    const { actionItem, navComponentId, profile, } = this.props; // settings, readable, actionable, dashboard,
+    const { actionItem, navComponentId, profile, dashboard, } = this.props; // settings, readable, actionable,
     const { uid, } = profile;
 
     // console.log('uid\n', uid,)
     // console.log('dashboard\n', dashboard,)
-    actionItem( uid, detail, navComponentId, );
+    actionItem( uid, detail, navComponentId, dashboard, );
 
     handleRefresh();
   }
@@ -569,10 +569,10 @@ CRUDView.defaultProps = {
 const mapDispatchToProps = dispatch => ({
   // CRUD item
   // common mistakes: 1. forget to use this.props... when calling function in class 2. copy/paste forget to change function name in mapStateToProps => dispatch
-  createItem: ( path , item  , uid     , dashboard , creatable , ) => dispatch(createItem( path , item  , uid     , dashboard , creatable  , )), // inspired by: src/my-app/components/forms/CreateLead.js
-  updateItem: ( path , docId , newItem , oldItem   , updatable , ) => dispatch(updateItem( path , docId , newItem , oldItem   , updatable  , )),
-  deleteItem: ( path , docId , uid     , dashboard , creatable , ) => dispatch(deleteItem( path , docId , uid     , dashboard , creatable  , )),
-  actionItem: ( uid  , detail, navComponentId      ,             ) => dispatch(actionItem( uid  , detail, navComponentId      ,              )),  
+  createItem: ( path , item  , uid     , dashboard , creatable , ) => dispatch(createItem( path , item  , uid     , dashboard , creatable , )), // inspired by: src/my-app/components/forms/CreateLead.js
+  updateItem: ( path , docId , newItem , oldItem   , updatable , ) => dispatch(updateItem( path , docId , newItem , oldItem   , updatable , )),
+  deleteItem: ( path , docId , uid     , dashboard , creatable , ) => dispatch(deleteItem( path , docId , uid     , dashboard , creatable , )),
+  actionItem: ( uid  , detail, navComponentId      , dashboard , ) => dispatch(actionItem( uid  , detail, navComponentId      , dashboard , )),  
   // update dashboard
   updateUserData: (path, newData,) => dispatch(updateUserData(path, newData,)),
 })
