@@ -16,10 +16,6 @@ import _ from '@lodash';
 //   return out;
 // }
 
-const updateDashboard = ( dashboard, actionable, ) => {
-  console.log('dashboard\n', dashboard,);
-}
-
 const getComponentNavConfig = ( componentsNavConfig, navComponentId, ) => {
   // navComponentId: string: 'inbox',
   // console.log('navComponentId\n', navComponentId,);
@@ -86,6 +82,7 @@ const getDashboardNewData = (path, oldData, incrementer, sourceDocId, creatable,
 }
 
 const handleEditDashboard = ( uid, path, oldData, incrementer, sourceDocId, dispatch, getFirestore, creatable, ) => {
+  // used for createItem() only; actionItem() handles dashboard edits internally
   // uid: string: 'abcxyz'
   // path: string: 'leads'
   // oldData: object: { net: 5, outbox: 4, ... }
@@ -206,24 +203,26 @@ const assembleBatchWrite = ( db, batch, navComponentId, uid, docId, dashboard, )
   // const laRef = db.collection("cities").doc("LA");
   // batch.delete(laRef);
 
-  const { updates, sets, deletes, } = actionable;
+  const { updates, sets, deletes, dashboard: { local, remotes, }, } = actionable;
 
   // console.log('updates\n', updates,);
   // console.log('sets\n', sets,);
   // console.log('deletes\n', deletes,);
+  // console.log('local\n', local,);
+  // console.log('remotes\n', remotes,);
 
   if(updates && updates.length) {
     for(let update of updates) {
       // console.log('update\n', update,);
       const dbRef = db.doc(update.path);
-      batch.update(dbRef, update.fields, ); // { "population": 1000000 }
+      batch.update(dbRef, update.fields,); // { "population": 1000000 }
     }
   }
   if(sets && sets.length) {
     for(let set of sets) {
       // console.log('set\n', set,);
       const dbRef = db.doc(set.path);
-      batch.update(dbRef, set.fields, ); // { name: "New York City" }
+      batch.update(dbRef, set.fields,); // { name: "New York City" }
     }
   }
   if(deletes && deletes.length) {
@@ -232,6 +231,21 @@ const assembleBatchWrite = ( db, batch, navComponentId, uid, docId, dashboard, )
       const dbRef = db.doc(delet.path);
       batch.delete(dbRef,);
     }
+  }
+  // dashboards
+  if(local && (!_.isEmpty(local))) {
+    console.log('local\n', local,);
+    const path = `users/${uid}/dashboard`;
+    const dbRef = db.doc(path);
+    batch.update(dbRef, fields,);
+  }
+  if(remotes && remotes.length) {
+    // console.log('remotes\n', remotes,);
+    for(let remote of remotes) {
+      // console.log('remote\n', remote,);
+      const dbRef = db.doc(remote.path);
+      batch.remote(dbRef, remote.fields,); // { "population": 1000000 }
+    }    
   }
   return batch;
 }

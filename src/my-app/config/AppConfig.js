@@ -531,7 +531,7 @@ export const getComponentsNavConfig = props => {
               archived: 1,
               withdrawals: 1,
             },
-            // remote: {},
+            // remotes: {},
           },
           // sets: [],
           // deletes: [],
@@ -591,7 +591,7 @@ export const getComponentsNavConfig = props => {
             local: {
               challenges: 1,
             },
-            remote: [
+            remotes: [
               {
                 path: `users/${item && item.createdBy}/dashboard`,
                 fields: {
@@ -658,7 +658,7 @@ export const getComponentsNavConfig = props => {
               deposits: 1,
               outbox: 1,
             },
-            remote: [
+            remotes: [
               {
                 path: `leads-meta/${item && item.geoNation}/${item && item.geoRegion}/${item && item.geoLocal}`,
                 incrementer: 1,
@@ -747,9 +747,14 @@ export const getComponentsNavConfig = props => {
             local: { // path: `users/${uid}/dashboard`,
               challengesMade: -1,
             },
-            remote: {
-              challengesReceived: 1,
-            },
+            remotes: [
+              {
+                path: `users/${item.createdBy}/dashboard`,
+                fields: {
+                  challengesReceived: 1,
+                },
+              },
+            ],
           },
           // sets: [],
           // deletes: [],
