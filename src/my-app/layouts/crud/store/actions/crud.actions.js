@@ -237,7 +237,7 @@ const assembleBatchWrite = ( db, batch, navComponentId, uid, docId, dashboard, )
     console.log('local\n', local,);
     const path = `users/${uid}/dashboard`;
     const dbRef = db.doc(path);
-    batch.update(dbRef, fields,);
+    batch.update(dbRef, local.fields,);
   }
   if(remotes && remotes.length) {
     // console.log('remotes\n', remotes,);
