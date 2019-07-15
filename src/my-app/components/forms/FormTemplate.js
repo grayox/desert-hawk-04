@@ -50,42 +50,52 @@ import {
 //   );
 // }
 
+const getTextField = (
+  onChange,
+  { value, id, icon, label, autoFocus, type, required, multiline, rows, InputLabelProps, },
+) =>
+  <div key={id} className="flex">
+    <div className="min-w-48 pt-20">
+      <Icon color="action">{icon}</Icon>
+    </div>
+    <TextField
+      // className={classes.formControl}
+      className="mb-24"
+      label={label}
+      autoFocus={autoFocus}
+      id={id}
+      name={id}
+      type={type}
+      // value={this.state.name}
+      // value={"hello"}
+      value={value}
+      // defaultValue={'hi'}//{id && values && values[id]}//
+      onChange={onChange}
+      variant="outlined"
+      required={required}
+      fullWidth
+      multiline={multiline}
+      rows={rows}
+      InputLabelProps={InputLabelProps}
+    />
+  </div>
+
 const FormTemplate = ({ fields, onChange, }) => {
   // console.log('fields\n', fields);
   // debugger;
-  const ready = fields;
-  if(!ready) return null;
+  const ready1 = fields;
+  if(!ready1) return null;
 
   return (
     <div className="p-24px">
       {
-        fields.map( ({ value, id, icon, label, autoFocus, type, required, multiline, rows, InputLabelProps, }) => (
-          <div key={id} className="flex">
-            <div className="min-w-48 pt-20">
-              <Icon color="action">{icon}</Icon>
-            </div>
-            <TextField
-              // className={classes.formControl}
-              className="mb-24"
-              label={label}
-              autoFocus={autoFocus}
-              id={id}
-              name={id}
-              type={type}
-              // value={this.state.name}
-              // value={"hello"}
-              value={value}
-              // defaultValue={'hi'}//{id && values && values[id]}//
-              onChange={onChange}
-              variant="outlined"
-              required={required}
-              fullWidth
-              multiline={multiline}
-              rows={rows}
-              InputLabelProps={InputLabelProps}
-            />
-          </div>
-        ))
+        fields.map( ({ component, ...rest, }) =>
+          ( component && (rest.type === 'component') )
+          ?
+          component
+          :
+          getTextField(onChange, rest,)
+        )
       }
     </div>
   );

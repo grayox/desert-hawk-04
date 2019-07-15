@@ -131,8 +131,8 @@ class CRUDView extends Component {
     // console.log('fields\n', fields);
     // console.log('state\n', this.state);
 
-    const ready = fields && typeof fields === 'object';
-    if(!ready) return;
+    const ready1 = fields && typeof fields === 'object';
+    if(!ready1) return;
 
     const { detail, } = this.state;
     // console.log('updateDialogIsOpen\n', updateDialogIsOpen);

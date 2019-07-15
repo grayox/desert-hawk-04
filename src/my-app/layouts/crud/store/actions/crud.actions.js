@@ -222,7 +222,7 @@ const assembleBatchWrite = ( db, batch, navComponentId, uid, docId, dashboard, )
     for(let set of sets) {
       // console.log('set\n', set,);
       const dbRef = db.doc(set.path);
-      batch.update(dbRef, set.fields,); // { name: "New York City" }
+      batch.set(dbRef, set.fields,); // { name: "New York City" }
     }
   }
   if(deletes && deletes.length) {
@@ -236,15 +236,15 @@ const assembleBatchWrite = ( db, batch, navComponentId, uid, docId, dashboard, )
   if(local && (!_.isEmpty(local))) {
     console.log('local\n', local,);
     const path = `users/${uid}/dashboard`;
-    const dbRef = db.doc(path);
-    batch.update(dbRef, local.fields,);
+    const dbRef = db.collection(path);
+    batch.set(dbRef, local.fields,);
   }
   if(remotes && remotes.length) {
     // console.log('remotes\n', remotes,);
     for(let remote of remotes) {
       // console.log('remote\n', remote,);
-      const dbRef = db.doc(remote.path);
-      batch.remote(dbRef, remote.fields,); // { "population": 1000000 }
+      const dbRef = db.collection(remote.path);
+      batch.set(dbRef, remote.fields,); // { "population": 1000000 }
     }    
   }
   return batch;

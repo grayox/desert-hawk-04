@@ -18,6 +18,9 @@ import _ from '@lodash';
 import moment from 'moment';
 import hash from 'object-hash'; // https://www.npmjs.com/package/object-hash
 
+// custom components
+import ZipCodeInput from 'my-app/components/ZipCodeInput';
+
 // creatable
 // import UserMultiForm from 'my-app/components/forms/UserMultiForm';
 
@@ -251,21 +254,22 @@ export const setBizCategoryValue2Label = value => { // home
 
 // end app-specific parameters
 
-const formFieldProps = {
+const formFieldConfig = {
   // type must be an HTML5 input type | https://www.w3schools.com/html/html_form_input_types.asp | https://material-ui.com/api/text-field/
   // button|checkbox|color|date|datetime-local|email|file|hidden|image|month|number|password|radio|range|reset|search|submit|tel|text|time|url|week
-  name      : { type : 'text' , label : 'Name'       , icon : 'account_circle' , } ,
-  firstName : { type : 'text' , label : 'First name' , icon : 'account_circle' , } ,
-  lastName  : { type : 'text' , label : 'Last name'  , icon : 'account_circle' , } ,
-  nickname  : { type : 'text' , label : 'Nickname'   , icon : 'star'           , } ,
-  address   : { type : 'text' , label : 'Address'    , icon : 'home'           , } ,
-  zip       : { type : 'text' , label : 'Zip code'   , icon : 'place'          , } ,
-  phone     : { type : 'text' , label : 'Phone'      , icon : 'phone'          , } ,
-  email     : { type : 'text' , label : 'Email'      , icon : 'email'          , } ,
-  company   : { type : 'text' , label : 'Company'    , icon : 'domain'         , } ,
-  jobTitle  : { type : 'text' , label : 'Job title'  , icon : 'work'           , } ,
-  birthday  : { type : 'date' , label : 'Birthday'   , icon : 'cake'           , InputLabelProps: {shrink: true,},},
-  notes     : { type : 'text' , label : 'Notes'      , icon : 'note'           , multiline: true, rows: 5,},
+  name      : { type : 'text'      , label : 'Name'       , icon : 'account_circle' , } ,
+  firstName : { type : 'text'      , label : 'First name' , icon : 'account_circle' , } ,
+  lastName  : { type : 'text'      , label : 'Last name'  , icon : 'account_circle' , } ,
+  nickname  : { type : 'text'      , label : 'Nickname'   , icon : 'star'           , } ,
+  address   : { type : 'text'      , label : 'Address'    , icon : 'home'           , } ,
+  // zip       : { type : 'text'      , label : 'Zip code'   , icon : 'place'          , } ,
+  zip       : { type : 'component' , label : 'Zip code'   , icon : 'place'          , component: <ZipCodeInput />,},
+  phone     : { type : 'text'      , label : 'Phone'      , icon : 'phone'          , } ,
+  email     : { type : 'text'      , label : 'Email'      , icon : 'email'          , } ,
+  company   : { type : 'text'      , label : 'Company'    , icon : 'domain'         , } ,
+  jobTitle  : { type : 'text'      , label : 'Job title'  , icon : 'work'           , } ,
+  birthday  : { type : 'date'      , label : 'Birthday'   , icon : 'cake'           , InputLabelProps: {shrink: true,},},
+  notes     : { type : 'text'      , label : 'Notes'      , icon : 'note'           , multiline: true, rows: 5,},
 }
 
 // GLOBAL UTILITY FUNCTIONS
@@ -297,7 +301,7 @@ export const replaceFormFieldsArrayWithLabels = form =>
   form.map(({ label, }) => label); // form: array, output of: getForm(searchableFieldIds);
 
 export const replaceFormFieldLabelWithKeyId = formFieldLabel =>
-  _.findKey(formFieldProps, {label: formFieldLabel,},) // formFieldLabel: string, 'Name'
+  _.findKey(formFieldConfig, {label: formFieldLabel,},) // formFieldLabel: string, 'Name'
 
 export const replaceFormFieldsLabelArrayWithKeyIds = formFieldLabels =>
   formFieldLabels.map( label => replaceFormFieldLabelWithKeyId(label,) )
@@ -323,7 +327,7 @@ const getFormFieldProps = (s, n,) => {
   // console.log('s\n', s);
   // console.log('n\n', n);
   const str = getOnlyAlpha(s); // 'name*' => 'name'
-  const out = {...formFieldProps[str]};
+  const out = {...formFieldConfig[str]}; // form field
   // console.log('out\n', out);
   if(!out) return;
 
@@ -332,7 +336,7 @@ const getFormFieldProps = (s, n,) => {
   out.autoFocus = !n; // autofocus on first item (index === 0) only
   out.id = str;
   // console.log('out\n', out);
-  return out;
+  return out; // adorned form field
 }
 
 export const getForm = arrayOfIds =>
