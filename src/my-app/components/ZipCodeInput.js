@@ -37,12 +37,18 @@ class ZipCodeInput extends Component {
 
   handleChange = event => {
     // console.log('target\n', event.target);
+    const TARGET_LENGTH = 5; // nominal length of zip code string, e.g., 10118
     const { value, } = event.target; // id,
+    const length = value && value.length;
 
-    const ready1 = ( value && value.length ) < 6;
+    const ready1 = length < (TARGET_LENGTH + 1); // 6
     if(!ready1) return null;
 
-    this.setState({ zip: value, }, () => this.setValid());
+    if ( length < TARGET_LENGTH ) this.setState({ valid: false, });
+    
+    this.setState({ zip: value, }, () => {
+      if( length === TARGET_LENGTH ) this.setValid();
+    });
   }
 
   render() {
