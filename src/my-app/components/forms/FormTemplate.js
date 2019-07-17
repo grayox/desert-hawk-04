@@ -80,6 +80,8 @@ const getTextField = (
     />
   </div>
 
+const getComponent = ( onChange, component, ) => React.cloneElement( component, { onChange, }, )
+
 const FormTemplate = ({ fields, onChange, }) => {
   // console.log('fields\n', fields);
   // debugger;
@@ -92,7 +94,7 @@ const FormTemplate = ({ fields, onChange, }) => {
         fields.map( ({ component, ...rest, }) =>
           ( component && (rest.type === 'component') )
           ?
-          component
+          getComponent(onChange, component,)
           :
           getTextField(onChange, rest,)
         )

@@ -4,7 +4,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles, TextField, Icon, InputAdornment, } from '@material-ui/core';
+import { TextField, Icon, } from '@material-ui/core'; // withStyles, InputAdornment,
 import zipCodeData from 'my-app/components/GeoSelect/zip-code-data';
 import _ from '@lodash';
 
@@ -20,9 +20,15 @@ class ZipCodeInput extends Component {
     county  : ''    ,
   }
 
+  onValid = data => {
+    // console.log('data\n', data,);
+    // const { onChange, } = this.props;
+    this.props.onChange(data); // data
+  }
+
   setValid = () => {
     const { zip, } = this.state;
-    const { onValid, } = this.props;
+    const { onValid, } = this;
     const zipData = zipCodeData[zip];
     // console.log('zipData\n', zipData,);
 
@@ -35,7 +41,16 @@ class ZipCodeInput extends Component {
       isValid, ...zipData, // lat, lon, city, state, county,
     },
       () => {
-        if(isValid) onValid(this.state);
+        if(isValid) {
+          // make arg conform to canonical structure of event.target
+          const arg = {
+            target: {
+              id: 'zip',
+              value: this.state,
+            }
+          };
+          onValid(arg);
+        }
       }
     );
   }
@@ -43,7 +58,7 @@ class ZipCodeInput extends Component {
   handleChange = event => {
     const TARGET_LENGTH = 5; // nominal length of zip code string, e.g., 10118
     
-    // console.log('target\n', event.target);
+    // console.log( 'target\n', event.target, );
     const { value, } = event.target; // id,
     const length = value && value.length;
 
@@ -58,7 +73,7 @@ class ZipCodeInput extends Component {
   }
 
   render() {
-    const { icon, isRequired, } = this.props; // onValid,
+    const { icon, isRequired, } = this.props; // onChange, onValid,
     const { handleChange, } = this;
     const { isValid, zip, city, state, county, } = this.state; // lat, lon,
 
@@ -73,6 +88,7 @@ class ZipCodeInput extends Component {
           label={`Zip code${isRequired ? ' *' : ''}`} //"Zip code" // {label}
           // autoFocus={autoFocus}
           // id="zip-code-input"
+          // id="zip"
           // name={id}
           type="text" // {type}
           // value={this.state.name}
@@ -87,9 +103,15 @@ class ZipCodeInput extends Component {
           // rows={rows}
           // InputLabelProps={InputLabelProps}
 
-          helperText={isValid ? `${city}, ${county} County, ${state}` : ''} // ${lat} ${lon} ${isValid} // "Some important text"
           margin="normal"
-
+          helperText={
+            isValid
+            ?
+            `${city}, ${county} County, ${state}` // ${lat} ${lon} ${isValid} // "Some important text"
+            :
+            '' // 'Zip code not recognized'
+          }
+          
           // InputProps={{
           //   endAdornment: (
           //     <InputAdornment position="end">
@@ -116,12 +138,14 @@ ZipCodeInput.propTypes = {
   icon: PropTypes.string,
   isRequired: PropTypes.bool,
   onValid: PropTypes.func,
+  onChange: PropTypes.func,
 };
 
 ZipCodeInput.defaultProps = {
   icon: 'place',
   isRequired: true,
   onValid: () => console.log('is valid'),
+  onChange: () => console.log('I changed'),
 };
  
 export default ZipCodeInput;
