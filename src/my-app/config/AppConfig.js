@@ -13,6 +13,9 @@ import { FuseLoadable, } from '@fuse';
 // import { connect } from 'react-redux';
 // import { compose } from 'redux';
 
+// @material-ui/core
+// import { Chip, } from '@material-ui/core'; // withStyles,
+
 // utilities
 import _ from '@lodash';
 import moment from 'moment';
@@ -515,10 +518,12 @@ export const getComponentsNavConfig = props => {
             [ 'geoRegion'       , '==' , geoRegion   , ] , // 'Kazakhstan' | 'Chile'
             [ 'geoLocal'        , '==' , geoLocal    , ] , // 'Almaty' | 'Santiago'
           ],
-          itemSummaryPrimaryText: setBizCategoryValue2Label(item && item.bizCategory), // || item.geoLocal,
+          // itemSummaryPrimaryText: setBizCategoryValue2Label(item && item.bizCategory), // || item.geoLocal,
+          // itemSummaryPrimaryText: <Chip label={item && item.zip && item.zip.city} />,
+          itemSummaryPrimaryChips: [ (item && item.zip && item.zip.city), ],
           itemSummarySecondaryText: moment(item.createdAt).fromNow(),
           listPaneHeaderText: '',
-          listPaneHeaderChips: [setBizCategoryValue2Label(bizCategory), geoLocal, geoRegion, geoNation,],
+          listPaneHeaderChips: [ setBizCategoryValue2Label(bizCategory), geoLocal, geoRegion, geoNation, ],
         },
         updatable: false,
         deletable: false,

@@ -23,7 +23,7 @@ class ZipCodeInput extends Component {
   onValid = data => {
     // console.log('data\n', data,);
     // const { onChange, } = this.props;
-    this.props.onChange(data); // data
+    this.props.onChange(data);
   }
 
   setValid = () => {
@@ -45,7 +45,7 @@ class ZipCodeInput extends Component {
           // make arg conform to canonical structure of event.target
           const arg = {
             target: {
-              id: 'zip',
+              id: 'zip', // substitutes for field name/id
               value: this.state,
             }
           };

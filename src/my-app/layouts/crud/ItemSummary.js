@@ -4,7 +4,7 @@ import _ from '@lodash';
 
 import HashAvatar from 'my-app/components/HashAvatar';
 import {
-  withStyles, Zoom, Fab, Tooltip, Icon, IconButton,
+  withStyles, Zoom, Fab, Chip, Tooltip, Icon, IconButton,
   ListItem, ListItemText, ListItemSecondaryAction,
 } from '@material-ui/core';
 
@@ -123,7 +123,10 @@ const ItemSummary = ({
   const matches = _.filter(componentsNavConfig, {id: navComponentId,},);
   const component = matches[0];
   const read = component && component.crudConfig && component.crudConfig.readable;
-  const { itemSummaryPrimaryText, itemSummarySecondaryText, } = read;
+  const {
+    itemSummaryPrimaryText, itemSummaryPrimaryChips,
+    itemSummarySecondaryText, itemSummarySecondaryChips,
+  } = read;
   // console.log('componentsNavConfig\n', componentsNavConfig,);
   // console.log('navComponentId\n', navComponentId,);
   // console.log('component\n', component,);
@@ -131,6 +134,17 @@ const ItemSummary = ({
   // console.log('readable\n', readable,);
   // const { itemSummaryPrimaryText, itemSummarySecondaryText, } = readable; // itemSummaryPrimaryText: undefined
   
+  const getChips = a => a.map( item => <Chip label={item} />,) // a: array Of Strings
+
+  const getItemSummary = level => {
+    const config = {
+      primary   : itemSummaryPrimaryChips   ? getChips(itemSummaryPrimaryChips)   : itemSummaryPrimaryText   ,
+      secondary : itemSummarySecondaryChips ? getChips(itemSummarySecondaryChips) : itemSummarySecondaryText ,
+    }
+    const out = config[level];
+    return out;
+  }
+
   return (
     <ListItem
       button
@@ -148,8 +162,8 @@ const ItemSummary = ({
       <ListItemText
         // primary={item.geoLocal}
         // secondary={moment(createdAt).fromNow()}
-        primary={itemSummaryPrimaryText}
-        secondary={itemSummarySecondaryText}
+        primary={getItemSummary('primary')}
+        secondary={getItemSummary('secondary')}
       />
       <ListItemSecondaryAction>{getSecondaryAction()}</ListItemSecondaryAction>
     </ListItem>
