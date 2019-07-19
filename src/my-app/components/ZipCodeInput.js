@@ -46,8 +46,11 @@ class ZipCodeInput extends Component {
           const arg = {
             target: {
               id: 'zip', // substitutes for field name/id
-              value: this.state,
-            }
+              value: {
+                ...this.state,
+                formFieldConfigKey: 'zipInput', // maps to key in AppConfig.formFieldConfig
+              }
+            },
           };
           onValid(arg);
         }

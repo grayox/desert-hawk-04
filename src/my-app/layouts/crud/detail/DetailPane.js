@@ -7,6 +7,7 @@ import {
 } from '@material-ui/core';
 
 import { FuseAnimateGroup } from '@fuse'; // FuseScrollbars, FuseAnimate,
+// import _ from '@lodash';
 
 import MediaWidth from 'my-app/layouts/MediaWidth';
 import { uiSpecs, } from 'my-app/config/AppConfig'; // getCleanFieldNames,
@@ -183,7 +184,35 @@ const DetailPane = ({
     if(!ready1) return null;
 
     const formFields = getFormFields('loadSavedData', creatable.fields,);
-    // console.log('formFields\n', formFields);
+    console.log('formFields\n', formFields);
+
+    const getDetailListItemObject = fields => {
+      const { formFieldConfigKey: key, } = fields;
+      
+      const ready1 = key;
+      if(!ready1) return null;
+
+      // turn object into array
+      const newArray = getFormFields('loadSavedData', fields,);
+      return getFormFieldsMap(newArray)
+    }
+    
+    const getDetailListItemString = field =>
+      ( field.value && field.value.length ) > uiSpecs.maxCharsForDetailItemField // MAX_LENGTH
+      ?
+      <SimpleExpansionPanel key={field.label} heading={field.label} content={field.value} />
+      :
+      getDetailListItem(field)
+
+    const getFormFieldsMap = formFields =>
+      formFields.map( field => {
+        const type = typeof field.value;
+        const config = {
+          string: getDetailListItemString(field),
+          object: getDetailListItemObject(field),
+        };
+        return config[type];
+      })
     
     return (
       // <FuseAnimate
@@ -211,13 +240,7 @@ const DetailPane = ({
             //   :
             //   getDetailListItem( keyName, keyIndex, item, condensed, )
             // )
-            formFields.map( field =>
-              ( field.value && field.value.length ) > uiSpecs.maxCharsForDetailItemField // MAX_LENGTH
-              ?
-              <SimpleExpansionPanel key={field.label} heading={field.label} content={field.value} />
-              :
-              getDetailListItem(field)
-            )
+            getFormFieldsMap(formFields)
           }
           </FuseAnimateGroup>
         </List>
@@ -273,6 +296,7 @@ const DetailPane = ({
     </Paper>
 
   const getContent = () => <React.Fragment>{getHeader()}{getDetail()}</React.Fragment>
+  const getViewEmpty = () => <ViewEmpty side="detail" />
 
   // console.log('detail\n', detail);
   return (
@@ -285,7 +309,7 @@ const DetailPane = ({
         unmountOnExit
         // timeout={3000}
       >
-        { detail ? getContent() : <ViewEmpty side="detail" /> }
+        { detail ? getContent() : getViewEmpty() }
       </Slide>
       {/* // </Grow> // </Zoom> // */}
     </React.Fragment>

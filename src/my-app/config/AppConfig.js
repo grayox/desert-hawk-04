@@ -266,7 +266,13 @@ const formFieldConfig = {
   nickname  : { type : 'text'      , label : 'Nickname'   , icon : 'star'           , } ,
   address   : { type : 'text'      , label : 'Address'    , icon : 'home'           , } ,
   // zip       : { type : 'text'      , label : 'Zip code'   , icon : 'place'          , } ,
-  zip       : { type : 'component' , label : 'Zip code'   , icon : 'place'          , component: <ZipCodeInput />,},
+  zipInput  : { type : 'component' , label : 'Zip code'   , icon : 'place'          , component: <ZipCodeInput />, fields: ['city', 'state', 'zip', 'county',],},
+  zip       : { type : 'text'      , label : 'Zip'        , icon : 'place'          , } ,
+  city      : { type : 'text'      , label : 'City'       , icon : 'place'          , } ,
+  state     : { type : 'text'      , label : 'State'      , icon : 'place'          , } ,
+  county    : { type : 'text'      , label : 'County'     , icon : 'place'          , } ,
+  lat       : { type : 'text'      , label : 'Latitude'   , icon : 'place'          , } ,
+  lon       : { type : 'text'      , label : 'Longitude'  , icon : 'place'          , } ,
   phone     : { type : 'text'      , label : 'Phone'      , icon : 'phone'          , } ,
   email     : { type : 'text'      , label : 'Email'      , icon : 'email'          , } ,
   company   : { type : 'text'      , label : 'Company'    , icon : 'domain'         , } ,
@@ -518,12 +524,14 @@ export const getComponentsNavConfig = props => {
             [ 'geoRegion'       , '==' , geoRegion   , ] , // 'Kazakhstan' | 'Chile'
             [ 'geoLocal'        , '==' , geoLocal    , ] , // 'Almaty' | 'Santiago'
           ],
+          // listPaneHeaderText: '',
+          listPaneHeaderChips: [ setBizCategoryValue2Label(bizCategory), geoLocal, geoRegion, geoNation, ],
           // itemSummaryPrimaryText: setBizCategoryValue2Label(item && item.bizCategory), // || item.geoLocal,
           // itemSummaryPrimaryText: <Chip label={item && item.zip && item.zip.city} />,
-          itemSummaryPrimaryChips: [ (item && item.zip && item.zip.city), ],
-          itemSummarySecondaryText: moment(item.createdAt).fromNow(),
-          listPaneHeaderText: '',
-          listPaneHeaderChips: [ setBizCategoryValue2Label(bizCategory), geoLocal, geoRegion, geoNation, ],
+          // itemSummaryPrimaryChips: [ (item && item.zip && item.zip.city), ],
+          itemSummaryPrimaryText: moment(item.createdAt).fromNow(),
+          // itemSummarySecondaryText: moment(item.createdAt).fromNow(),
+          itemSummarySecondaryChips: [ (item && item.zip && item.zip.city), ],
         },
         updatable: false,
         deletable: false,
@@ -649,7 +657,7 @@ export const getComponentsNavConfig = props => {
         creatable: {
           title: 'Send new referral', // form: <UserMultiForm />,
           path: 'leads',
-          fields: [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ], // 'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
+          fields: [ 'name*', 'phone*', 'email*', 'zipInput*', 'notes', ], // 'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
           addOns: {
             // createdAt: 'timestamp', // added in cred.actions at save time
             createdBy: uid,
@@ -685,7 +693,8 @@ export const getComponentsNavConfig = props => {
           ],
           orderBy: [ 'createdAt', 'desc', ],
           itemSummaryPrimaryText: item && item.name, // item.bizCategory && _.filter(bizCategoryItems, {value:item.bizCategory,},)[0].label, // || item.geoLocal,
-          itemSummarySecondaryText: `${item && setBizCategoryValue2Label(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
+          // itemSummarySecondaryText: `${item && setBizCategoryValue2Label(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
+          itemSummarySecondaryChips: [ (item && setBizCategoryValue2Label(item.bizCategory)), (item && item.local), ], // moment(item.createdAt).fromNow(),
         },
         updatable: {
           title: 'Edit referral',
