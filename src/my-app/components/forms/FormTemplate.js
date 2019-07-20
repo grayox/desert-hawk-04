@@ -101,17 +101,17 @@ const FormTemplate = ({ fields, onChange, }) => {
     return out;
   }
 
+  const getField = (id, icon, type, rest, component,) =>
+    <div key={id} className="flex">
+      <div className="min-w-48 pt-20">
+        <Icon color="action">{icon}</Icon>
+      </div>
+      { getConfig(id, icon, type, rest, component,) }
+    </div>
+
   return (
     <div className="p-24px">
-      { 
-        fields.map(({ id, icon, type, component, ...rest, }) =>
-          <div key={id} className="flex">
-            <div className="min-w-48 pt-20">
-              <Icon color="action">{icon}</Icon>
-            </div>
-            { getConfig(id, icon, type, rest, component,) }
-          </div>
-        )}
+      {fields.map(({ id, icon, type, component, ...rest, }) => getField(id, icon, type, rest, component,))}          
     </div>
   );
 
