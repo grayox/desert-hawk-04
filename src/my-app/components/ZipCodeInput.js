@@ -81,58 +81,53 @@ class ZipCodeInput extends Component {
     const { isValid, zip, city, state, county, } = this.state; // lat, lon,
 
     return (
-      <div className="flex">
-        <div className="min-w-48 pt-20">
-          <Icon color="action">{icon}</Icon>
-        </div>
-        <TextField
-          // className={classes.formControl}
-          className="mb-24"
-          label={`Zip code${isRequired ? ' *' : ''}`} //"Zip code" // {label}
-          // autoFocus={autoFocus}
-          // id="zip-code-input"
-          // id="zip"
-          // name={id}
-          type="text" // {type}
-          // value={this.state.name}
-          // value={"hello"}
-          value={zip}//{value}
-          // defaultValue={'hi'}//{id && values && values[id]}//
-          onChange={handleChange}
-          variant="outlined"
-          // required={required}
-          fullWidth
-          // multiline={multiline}
-          // rows={rows}
-          // InputLabelProps={InputLabelProps}
+      <TextField
+        // className={classes.formControl}
+        className="mb-24"
+        label={`Zip code${isRequired ? ' *' : ''}`} //"Zip code" // {label}
+        // autoFocus={autoFocus}
+        // id="zip-code-input"
+        // id="zip"
+        // name={id}
+        type="text" // {type}
+        // value={this.state.name}
+        // value={"hello"}
+        value={zip}//{value}
+        // defaultValue={'hi'}//{id && values && values[id]}//
+        onChange={handleChange}
+        variant="outlined"
+        // required={required}
+        fullWidth
+        // multiline={multiline}
+        // rows={rows}
+        // InputLabelProps={InputLabelProps}
 
-          margin="normal"
-          helperText={
-            isValid
-            ?
-            `${city}, ${county} County, ${state}` // ${lat} ${lon} ${isValid} // "Some important text"
-            :
-            '' // 'Zip code not recognized'
-          }
-          
-          // InputProps={{
-          //   endAdornment: (
-          //     <InputAdornment position="end">
-          //       {
-          //       // <IconButton
-          //       //   edge="end"
-          //       //   aria-label="Toggle password visibility"
-          //       //   onClick={handleClickShowPassword}
-          //       // >
-          //       //   {values.showPassword ? <VisibilityOff /> : <Visibility />}
-          //       // </IconButton>
-          //       }
-          //       <Icon>{ isValid ? 'done' : 'clear' }</Icon>
-          //     </InputAdornment>
-          //   ),
-          // }}
-        />
-      </div>
+        margin="normal"
+        helperText={
+          isValid
+          ?
+          `${city}, ${county} County, ${state}` // ${lat} ${lon} ${isValid} // "Some important text"
+          :
+          '' // 'Zip code not recognized'
+        }
+        
+        // InputProps={{
+        //   endAdornment: (
+        //     <InputAdornment position="end">
+        //       {
+        //       // <IconButton
+        //       //   edge="end"
+        //       //   aria-label="Toggle password visibility"
+        //       //   onClick={handleClickShowPassword}
+        //       // >
+        //       //   {values.showPassword ? <VisibilityOff /> : <Visibility />}
+        //       // </IconButton>
+        //       }
+        //       <Icon>{ isValid ? 'done' : 'clear' }</Icon>
+        //     </InputAdornment>
+        //   ),
+        // }}
+      />
     );
   }
 }

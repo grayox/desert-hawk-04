@@ -6,6 +6,9 @@ import {
   TextField, Icon,
   // Button, Dialog, DialogActions, DialogContent, IconButton, Typography, Toolbar, AppBar, Avatar
 } from '@material-ui/core';
+
+import MenuField from '../MenuField';
+
 // import { withStyles } from '@material-ui/core/styles/index';
 // import { bindActionCreators } from 'redux';
 // import * as Actions from './store/actions';
@@ -51,13 +54,8 @@ import {
 // }
 
 const getTextField = (
-  onChange,
-  { value, id, icon, label, autoFocus, type, required, multiline, rows, InputLabelProps, },
+  onChange, { value, id, label, autoFocus, type, required, multiline, rows, InputLabelProps, },
 ) =>
-  <div key={id} className="flex">
-    <div className="min-w-48 pt-20">
-      <Icon color="action">{icon}</Icon>
-    </div>
     <TextField
       // className={classes.formControl}
       className="mb-24"
@@ -78,9 +76,11 @@ const getTextField = (
       rows={rows}
       InputLabelProps={InputLabelProps}
     />
-  </div>
 
-const getComponent = ( onChange, component, ) => React.cloneElement( component, { onChange, }, )
+const getComponent = ( onChange, component, key,) => component && React.cloneElement( component, { key, onChange, }, )
+
+const getMenuField = (onChange, id, icon, label, options,) =>
+  <MenuField key={id} onChange={onChange} id={id} icon={icon} label={label} options={options} />
 
 const FormTemplate = ({ fields, onChange, }) => {
   // console.log('fields\n', fields);
@@ -88,21 +88,34 @@ const FormTemplate = ({ fields, onChange, }) => {
   const ready1 = fields;
   if(!ready1) return null;
 
+  const getConfig = ( id, icon, type, rest, component, ) => {
+    // console.log('id\n', id,);
+    // console.log('type\n', type,);
+    // console.log('rest\n', rest,);
+    const config = {
+      component: getComponent(onChange, component, id,),
+      text: getTextField(onChange, rest,),
+      menu: getMenuField(onChange, id, icon, rest.label, rest.options,),
+    }
+    const out = config[type];
+    return out;
+  }
+
   return (
     <div className="p-24px">
-      {
-        fields.map( ({ component, ...rest, }) =>
-          ( component && (rest.type === 'component') )
-          ?
-          getComponent(onChange, component,)
-          :
-          getTextField(onChange, rest,)
-        )
-      }
+      { 
+        fields.map(({ id, icon, type, component, ...rest, }) =>
+          <div key={id} className="flex">
+            <div className="min-w-48 pt-20">
+              <Icon color="action">{icon}</Icon>
+            </div>
+            { getConfig(id, icon, type, rest, component,) }
+          </div>
+        )}
     </div>
   );
-}
 
+}
 
 // export default withStyles(styles, { withTheme: true })(connect(mapStateToProps, mapDispatchToProps)(FormTemplate));
 // export default withStyles(styles, { withTheme: true })(FormTemplate);

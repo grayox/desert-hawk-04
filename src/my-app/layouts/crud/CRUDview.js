@@ -179,14 +179,14 @@ class CRUDView extends Component {
   );
  
   handleChangeForm = event => {
-    // console.log('target\n', event.target);
+    console.log('target\n', event.target);
     const { id, value, } = event.target;
-    // console.log('id\n', id); // 'name'
-    // console.log('value\n', value); // 'john doe'
+    console.log('id\n', id); // 'name'
+    console.log('value\n', value); // 'john doe'
     const { crudForm, } = { ...this.state, }; // use spread syntax to create and modify a copy only
-    // console.log('crudForm\n', crudForm); // 'john doe'
+    console.log('crudForm\n', crudForm); // 'john doe'
     const targetFieldIndex = crudForm.findIndex( field => field.id === id );
-    // console.log('targetFieldIndex\n', targetFieldIndex); // 'john doe'
+    console.log('targetFieldIndex\n', targetFieldIndex); // 'john doe'
     crudForm[targetFieldIndex].value = value;
     this.setState({ crudForm, }
       // ,() => console.log('state\n', this.state)

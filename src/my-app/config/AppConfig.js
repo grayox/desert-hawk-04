@@ -260,25 +260,25 @@ export const setBizCategoryValue2Label = value => { // home
 const formFieldConfig = {
   // type must be an HTML5 input type | https://www.w3schools.com/html/html_form_input_types.asp | https://material-ui.com/api/text-field/
   // button|checkbox|color|date|datetime-local|email|file|hidden|image|month|number|password|radio|range|reset|search|submit|tel|text|time|url|week
-  name      : { type : 'text'      , label : 'Name'       , icon : 'account_circle' , } ,
-  firstName : { type : 'text'      , label : 'First name' , icon : 'account_circle' , } ,
-  lastName  : { type : 'text'      , label : 'Last name'  , icon : 'account_circle' , } ,
-  nickname  : { type : 'text'      , label : 'Nickname'   , icon : 'star'           , } ,
-  address   : { type : 'text'      , label : 'Address'    , icon : 'home'           , } ,
-  // zip       : { type : 'text'      , label : 'Zip code'   , icon : 'place'          , } ,
-  zipInput  : { type : 'component' , label : 'Zip code'   , icon : 'place'          , component: <ZipCodeInput />, fields: ['city', 'state', 'zip', 'county',],},
-  zip       : { type : 'text'      , label : 'Zip'        , icon : 'place'          , } ,
-  city      : { type : 'text'      , label : 'City'       , icon : 'place'          , } ,
-  state     : { type : 'text'      , label : 'State'      , icon : 'place'          , } ,
-  county    : { type : 'text'      , label : 'County'     , icon : 'place'          , } ,
-  lat       : { type : 'text'      , label : 'Latitude'   , icon : 'place'          , } ,
-  lon       : { type : 'text'      , label : 'Longitude'  , icon : 'place'          , } ,
-  phone     : { type : 'text'      , label : 'Phone'      , icon : 'phone'          , } ,
-  email     : { type : 'text'      , label : 'Email'      , icon : 'email'          , } ,
-  company   : { type : 'text'      , label : 'Company'    , icon : 'domain'         , } ,
-  jobTitle  : { type : 'text'      , label : 'Job title'  , icon : 'work'           , } ,
-  birthday  : { type : 'date'      , label : 'Birthday'   , icon : 'cake'           , InputLabelProps: {shrink: true,},},
-  notes     : { type : 'text'      , label : 'Notes'      , icon : 'note'           , multiline: true, rows: 5,},
+  name        : { type : 'text'      , label : 'Name'       , icon : 'account_circle' , } ,
+  firstName   : { type : 'text'      , label : 'First name' , icon : 'account_circle' , } ,
+  lastName    : { type : 'text'      , label : 'Last name'  , icon : 'account_circle' , } ,
+  nickname    : { type : 'text'      , label : 'Nickname'   , icon : 'star'           , } ,
+  address     : { type : 'text'      , label : 'Address'    , icon : 'home'           , } ,
+  bizCategory : { type : 'menu'      , label : 'Lead type'  , icon : 'extension'      , options: bizCategoryItems,},
+  zipInput    : { type : 'component' , label : 'Zip code'   , icon : 'place'          , component: <ZipCodeInput />, fields: ['city', 'state', 'zip', 'county',],},
+  zip         : { type : 'text'      , label : 'Zip'        , icon : 'place'          , } ,
+  city        : { type : 'text'      , label : 'City'       , icon : 'place'          , } ,
+  state       : { type : 'text'      , label : 'State'      , icon : 'place'          , } ,
+  county      : { type : 'text'      , label : 'County'     , icon : 'place'          , } ,
+  lat         : { type : 'text'      , label : 'Latitude'   , icon : 'place'          , } ,
+  lon         : { type : 'text'      , label : 'Longitude'  , icon : 'place'          , } ,
+  phone       : { type : 'text'      , label : 'Phone'      , icon : 'phone'          , } ,
+  email       : { type : 'text'      , label : 'Email'      , icon : 'email'          , } ,
+  company     : { type : 'text'      , label : 'Company'    , icon : 'domain'         , } ,
+  jobTitle    : { type : 'text'      , label : 'Job title'  , icon : 'work'           , } ,
+  birthday    : { type : 'date'      , label : 'Birthday'   , icon : 'cake'           , InputLabelProps: {shrink: true,},},
+  notes       : { type : 'text'      , label : 'Notes'      , icon : 'note'           , multiline: true, rows: 5,},
 }
 
 // GLOBAL UTILITY FUNCTIONS
@@ -657,7 +657,7 @@ export const getComponentsNavConfig = props => {
         creatable: {
           title: 'Send new referral', // form: <UserMultiForm />,
           path: 'leads',
-          fields: [ 'name*', 'phone*', 'email*', 'zipInput*', 'notes', ], // 'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
+          fields: [ 'bizCategory*', 'zipInput*', 'name*', 'phone*', 'email*', 'notes', ], // 'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
           addOns: {
             // createdAt: 'timestamp', // added in cred.actions at save time
             createdBy: uid,
@@ -694,7 +694,11 @@ export const getComponentsNavConfig = props => {
           orderBy: [ 'createdAt', 'desc', ],
           itemSummaryPrimaryText: item && item.name, // item.bizCategory && _.filter(bizCategoryItems, {value:item.bizCategory,},)[0].label, // || item.geoLocal,
           // itemSummarySecondaryText: `${item && setBizCategoryValue2Label(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
-          itemSummarySecondaryChips: [ (item && setBizCategoryValue2Label(item.bizCategory)), (item && item.local), ], // moment(item.createdAt).fromNow(),
+          itemSummarySecondaryChips: [
+            (item && setBizCategoryValue2Label(item.bizCategory)),
+            (item && item.local),
+            // moment(item.createdAt).fromNow(),
+          ],
         },
         updatable: {
           title: 'Edit referral',
