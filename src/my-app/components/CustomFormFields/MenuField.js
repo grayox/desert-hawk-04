@@ -24,10 +24,14 @@ import Menu from '@material-ui/core/Menu';
 //   'Hide all notification content',
 // ];
 
+const HEADER = 'Select one';
+
 const MenuField = ({onChange, id, label, options,}) => {
   // console.log('id\n', id,);
   // console.log('icon\n', icon,);
   // console.log('options\n', options,);
+
+  if(options[0].label !== HEADER) options.unshift({label: HEADER,},);
 
   // const classes = useStyles();
   const [anchorEl, setAnchorEl,] = React.useState(null);

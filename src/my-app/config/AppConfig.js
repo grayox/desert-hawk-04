@@ -22,7 +22,7 @@ import moment from 'moment';
 import hash from 'object-hash'; // https://www.npmjs.com/package/object-hash
 
 // custom components
-import ZipCodeInput from 'my-app/components/ZipCodeInput';
+import ZipCodeInput from 'my-app/components/CustomFormFields/ZipCodeInput.js';
 
 // creatable
 // import UserMultiForm from 'my-app/components/forms/UserMultiForm';
@@ -266,7 +266,8 @@ const formFieldConfig = {
   lastName    : { type : 'text'      , label : 'Last name'  , icon : 'account_circle' , } ,
   nickname    : { type : 'text'      , label : 'Nickname'   , icon : 'star'           , } ,
   address     : { type : 'text'      , label : 'Address'    , icon : 'home'           , } ,
-  bizCategory : { type : 'menu'      , label : 'Lead type'  , icon : 'extension'      , options: bizCategoryItems,},
+  // bizCategory : { type : 'menu'      , label : 'Lead type'  , icon : 'extension'      , options: bizCategoryItems,},
+  bizCategory : { type : 'select'    , label : 'Lead type'  , icon : 'extension'      , options: bizCategoryItems,},
   zipInput    : { type : 'component' , label : 'Zip code'   , icon : 'place'          , component: <ZipCodeInput />, fields: ['city', 'state', 'zip', 'county',],},
   zip         : { type : 'text'      , label : 'Zip'        , icon : 'place'          , } ,
   city        : { type : 'text'      , label : 'City'       , icon : 'place'          , } ,

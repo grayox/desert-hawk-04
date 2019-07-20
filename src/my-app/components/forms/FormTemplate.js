@@ -7,7 +7,8 @@ import {
   // Button, Dialog, DialogActions, DialogContent, IconButton, Typography, Toolbar, AppBar, Avatar
 } from '@material-ui/core';
 
-import MenuField from '../MenuField';
+import MenuField from '../CustomFormFields/MenuField';
+import SelectField from '../CustomFormFields/SelectField';
 
 // import { withStyles } from '@material-ui/core/styles/index';
 // import { bindActionCreators } from 'redux';
@@ -82,6 +83,9 @@ const getComponent = ( onChange, component, key,) => component && React.cloneEle
 const getMenuField = (onChange, id, label, options,) =>
   <MenuField key={id} onChange={onChange} id={id} label={label} options={options} />
 
+const getSelectField = (onChange, id, label, options,) =>
+  <SelectField key={id} onChange={onChange} id={id} label={label} options={options} />
+
 const FormTemplate = ({ fields, onChange, }) => {
   // console.log('fields\n', fields);
   // debugger;
@@ -98,6 +102,7 @@ const FormTemplate = ({ fields, onChange, }) => {
       component: getComponent(onChange, component, id,),
       text: getTextField(onChange, rest,),
       menu: getMenuField(onChange, id, rest.label, rest.options,),
+      select: getSelectField(onChange, id, rest.label, rest.options,),
     };
     const out = config[type];
     return out;
