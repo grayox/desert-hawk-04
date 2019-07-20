@@ -47,13 +47,17 @@ const MenuField = ({onChange, id, icon, label, options,}) => {
   }
 
   return (
-    <div /*className={classes.root}*/>
-      <List component="nav" aria-label="Device settings">
+    <div
+      // {classes.root}
+      className="w-full"
+    >
+      <List component="nav" aria-label={`${label} menu`}>
         <ListItem
           button
           aria-haspopup="true"
           aria-controls="lock-menu"
-          aria-label="When device is locked"
+          // aria-label="When device is locked"
+          aria-label={label}
           onClick={handleClickListItem}
         >
           <ListItemText

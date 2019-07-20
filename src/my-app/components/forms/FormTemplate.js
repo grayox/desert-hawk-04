@@ -96,7 +96,7 @@ const FormTemplate = ({ fields, onChange, }) => {
       component: getComponent(onChange, component, id,),
       text: getTextField(onChange, rest,),
       menu: getMenuField(onChange, id, icon, rest.label, rest.options,),
-    }
+    };
     const out = config[type];
     return out;
   }
