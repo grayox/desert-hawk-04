@@ -79,8 +79,8 @@ const getTextField = (
 
 const getComponent = ( onChange, component, key,) => component && React.cloneElement( component, { key, onChange, }, )
 
-const getMenuField = (onChange, id, icon, label, options,) =>
-  <MenuField key={id} onChange={onChange} id={id} icon={icon} label={label} options={options} />
+const getMenuField = (onChange, id, label, options,) =>
+  <MenuField key={id} onChange={onChange} id={id} label={label} options={options} />
 
 const FormTemplate = ({ fields, onChange, }) => {
   // console.log('fields\n', fields);
@@ -88,30 +88,32 @@ const FormTemplate = ({ fields, onChange, }) => {
   const ready1 = fields;
   if(!ready1) return null;
 
-  const getConfig = ( id, icon, type, rest, component, ) => {
+  const getConfig = ( id, type, rest, component, ) => {
+    // Add new component types here
+    // (from src/my-app/config/AppConfig.js)
     // console.log('id\n', id,);
     // console.log('type\n', type,);
     // console.log('rest\n', rest,);
     const config = {
       component: getComponent(onChange, component, id,),
       text: getTextField(onChange, rest,),
-      menu: getMenuField(onChange, id, icon, rest.label, rest.options,),
+      menu: getMenuField(onChange, id, rest.label, rest.options,),
     };
     const out = config[type];
     return out;
   }
 
-  const getField = (id, icon, type, rest, component,) =>
+  const getField = (icon, id, type, rest, component,) =>
     <div key={id} className="flex">
       <div className="min-w-48 pt-20">
         <Icon color="action">{icon}</Icon>
       </div>
-      { getConfig(id, icon, type, rest, component,) }
+      { getConfig(id, type, rest, component,) }
     </div>
 
   return (
     <div className="p-24px">
-      {fields.map(({ id, icon, type, component, ...rest, }) => getField(id, icon, type, rest, component,))}          
+      {fields.map(({ icon, id, type, component, ...rest, }) => getField(icon, id, type, rest, component,))}          
     </div>
   );
 

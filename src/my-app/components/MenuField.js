@@ -2,7 +2,7 @@
 // https://material-ui.com/components/menus/#selected-menus
 
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -24,7 +24,7 @@ import Menu from '@material-ui/core/Menu';
 //   'Hide all notification content',
 // ];
 
-const MenuField = ({onChange, id, icon, label, options,}) => {
+const MenuField = ({onChange, id, label, options,}) => {
   // console.log('id\n', id,);
   // console.log('icon\n', icon,);
   // console.log('options\n', options,);
@@ -37,9 +37,22 @@ const MenuField = ({onChange, id, icon, label, options,}) => {
     setAnchorEl(event.currentTarget);
   }
 
-  const handleMenuItemClick = (event, index) => {
+  const handleMenuItemClick = (event, index,) => {
+    // const { target, } = event;
+    // console.log('target\n', target,);
+    // console.log('index\n', index,);
+    // console.log('id\n', id,);
     setSelectedIndex(index);
     setAnchorEl(null);
+
+    const arg = {
+      target: {
+        id, // substitutes for field name/id
+        value: options[index].value,
+      },
+    };
+
+    onChange(arg);
   }
 
   const handleClose = () => {

@@ -4,7 +4,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { TextField, Icon, } from '@material-ui/core'; // withStyles, InputAdornment,
+import { TextField, } from '@material-ui/core'; // withStyles, InputAdornment,
 import zipCodeData from 'my-app/components/GeoSelect/zip-code-data';
 import _ from '@lodash';
 
@@ -76,7 +76,7 @@ class ZipCodeInput extends Component {
   }
 
   render() {
-    const { icon, isRequired, } = this.props; // onChange, onValid,
+    const { isRequired, } = this.props; // onChange, onValid,
     const { handleChange, } = this;
     const { isValid, zip, city, state, county, } = this.state; // lat, lon,
 
@@ -142,8 +142,8 @@ ZipCodeInput.propTypes = {
 ZipCodeInput.defaultProps = {
   icon: 'place',
   isRequired: true,
-  onValid: () => console.log('is valid'),
-  onChange: () => console.log('I changed'),
+  onValid: () => console.log('is valid. I am default.'),
+  onChange: () => console.log('I changed. I am default.'),
 };
  
 export default ZipCodeInput;
