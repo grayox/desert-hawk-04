@@ -26,7 +26,7 @@ import Menu from '@material-ui/core/Menu';
 
 const HEADER = 'Select one';
 
-const MenuField = ({onChange, id, label, options,}) => {
+const MenuField = ({onChange, id, label, options, required,}) => {
   // console.log('id\n', id,);
   // console.log('icon\n', icon,);
   // console.log('options\n', options,);
@@ -66,7 +66,7 @@ const MenuField = ({onChange, id, label, options,}) => {
   return (
     <div
       // {classes.root}
-      className="w-full"
+      className="mb-24 w-full"
     >
       <List component="nav" aria-label={`${label} menu`}>
         <ListItem

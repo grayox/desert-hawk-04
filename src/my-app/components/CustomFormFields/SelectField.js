@@ -1,7 +1,7 @@
 // inspired by
 // https://material-ui.com/components/selects/#simple-select
 
-import React from 'react';
+import React, { useRef, useState, useEffect, } from 'react';
 import {
   // makeStyles, Input, FilledInput, FormHelperText,
   OutlinedInput, InputLabel, MenuItem, FormControl, Select,
@@ -21,49 +21,52 @@ import {
 //   },
 // }));
 
-const SelectField = ({onChange, id, label, options,}) => {
+const SelectField = ({onChange, id, label, options, required,}) => {
   // const classes = useStyles();
   const [ values, setValues, ] = React.useState({
     age: '',
     name: 'hai',
   });
 
-  const inputLabel = React.useRef(null);
-  const [labelWidth, setLabelWidth] = React.useState(0);
-  React.useEffect(() => {
+  const inputLabel = useRef(null);
+  const [ labelWidth, setLabelWidth, ] = useState(0);
+  useEffect(() => {
     setLabelWidth(inputLabel.current.offsetWidth);
   }, []);
 
-  const handleChange = event => {
-    setValues(oldValues => ({
+  // const handleChange = event => {
+  const handleChange = ({ target: { name, value, },}) => {
+    setValues( oldValues => ({
       ...oldValues,
-      [event.target.name]: event.target.value,
+      // [event.target.name]: event.target.value,
+      [name]: value,
     }));
   }
 
   return (
     <form
       // className={classes.root}
-      className="w-full"
+      className="mb-24 w-full"
       autoComplete="off"
     >
       <FormControl
         variant="outlined"
         fullWidth
         // className={classes.formControl}
+        required={required}
       >
-        <InputLabel ref={inputLabel} htmlFor="outlined-age-simple">
+        <InputLabel ref={inputLabel} htmlFor={label}>
           {/* Age */}
           {label}
         </InputLabel>
         <Select
-          fullWidth
+          // fullWidth
           value={values.age}
           onChange={handleChange}
           input={<OutlinedInput labelWidth={labelWidth} name={label} id={id} />}
         >
           <MenuItem value="">
-            <em>None</em>
+            <em>Select one</em>
           </MenuItem>
           {/* <MenuItem value={10}>Ten</MenuItem>
           <MenuItem value={20}>Twenty</MenuItem>

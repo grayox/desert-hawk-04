@@ -60,6 +60,8 @@ const getTextField = (
     <TextField
       // className={classes.formControl}
       className="mb-24"
+      fullWidth
+      // margin="normal"
       label={label}
       autoFocus={autoFocus}
       id={id}
@@ -72,19 +74,19 @@ const getTextField = (
       onChange={onChange}
       variant="outlined"
       required={required}
-      fullWidth
       multiline={multiline}
       rows={rows}
       InputLabelProps={InputLabelProps}
     />
 
-const getComponent = ( onChange, component, key,) => component && React.cloneElement( component, { key, onChange, }, )
+const getComponent = ( onChange, component, key, {required,}, ) =>
+  component && React.cloneElement( component, { key, onChange, required, }, )
 
-const getMenuField = (onChange, id, label, options,) =>
-  <MenuField key={id} onChange={onChange} id={id} label={label} options={options} />
+const getMenuField = (onChange, id, { label, options, required, },) =>
+  <MenuField key={id} onChange={onChange} id={id} label={label} options={options} required={required} />
 
-const getSelectField = (onChange, id, label, options,) =>
-  <SelectField key={id} onChange={onChange} id={id} label={label} options={options} />
+const getSelectField = (onChange, id, { label, options, required, },) =>
+  <SelectField key={id} onChange={onChange} id={id} label={label} options={options} required={required} />
 
 const FormTemplate = ({ fields, onChange, }) => {
   // console.log('fields\n', fields);
@@ -99,10 +101,10 @@ const FormTemplate = ({ fields, onChange, }) => {
     // console.log('type\n', type,);
     // console.log('rest\n', rest,);
     const config = {
-      component: getComponent(onChange, component, id,),
+      component: getComponent(onChange, component, id, rest,),
       text: getTextField(onChange, rest,),
-      menu: getMenuField(onChange, id, rest.label, rest.options,),
-      select: getSelectField(onChange, id, rest.label, rest.options,),
+      menu: getMenuField(onChange, id, rest,),
+      select: getSelectField(onChange, id, rest,),
     };
     const out = config[type];
     return out;

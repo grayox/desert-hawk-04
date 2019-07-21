@@ -76,7 +76,7 @@ class ZipCodeInput extends Component {
   }
 
   render() {
-    const { isRequired, } = this.props; // onChange, onValid,
+    const { required, } = this.props; // onChange, onValid,
     const { handleChange, } = this;
     const { isValid, zip, city, state, county, } = this.state; // lat, lon,
 
@@ -84,7 +84,10 @@ class ZipCodeInput extends Component {
       <TextField
         // className={classes.formControl}
         className="mb-24"
-        label={`Zip code${isRequired ? ' *' : ''}`} //"Zip code" // {label}
+        fullWidth
+        // margin="normal"
+        // label={`Zip code${isRequired ? ' *' : ''}`} //"Zip code" // {label}
+        label="Zip code" // {label}
         // autoFocus={autoFocus}
         // id="zip-code-input"
         // id="zip"
@@ -96,13 +99,11 @@ class ZipCodeInput extends Component {
         // defaultValue={'hi'}//{id && values && values[id]}//
         onChange={handleChange}
         variant="outlined"
-        // required={required}
-        fullWidth
+        required={required}
         // multiline={multiline}
         // rows={rows}
         // InputLabelProps={InputLabelProps}
 
-        margin="normal"
         helperText={
           isValid
           ?
@@ -134,14 +135,14 @@ class ZipCodeInput extends Component {
 
 ZipCodeInput.propTypes = {
   icon: PropTypes.string,
-  isRequired: PropTypes.bool,
+  required: PropTypes.bool,
   onValid: PropTypes.func,
   onChange: PropTypes.func,
 };
 
 ZipCodeInput.defaultProps = {
   icon: 'place',
-  isRequired: true,
+  required: false, //true,
   onValid: () => console.log('is valid. I am default.'),
   onChange: () => console.log('I changed. I am default.'),
 };
