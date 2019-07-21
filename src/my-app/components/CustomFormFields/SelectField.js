@@ -1,9 +1,9 @@
 // inspired by
 // https://material-ui.com/components/selects/#simple-select
 
-import React, { useState, } from 'react'; // useRef, useEffect,
+import React, { useRef, useEffect, useState, } from 'react'; //
 import {
-  // makeStyles, Input, FilledInput, FormHelperText,
+  // makeStyles, // Input, FilledInput, FormHelperText,
   OutlinedInput, InputLabel, MenuItem, FormControl, Select,
 } from '@material-ui/core';
 
@@ -23,24 +23,27 @@ import {
 
 const SelectField = ({onChange, id, label, options, required,}) => {
   // const classes = useStyles();
-  const [ values, setValues, ] = useState({
-    age: '',
-    name: 'hai',
-  });
+  // const [ values, setValues, ] = useState({
+  //   age: '',
+  //   name: 'hai',
+  // });
+  const [ value, setValue, ] = useState('');
 
-  // const inputLabel = useRef(null);
-  // const [ labelWidth, setLabelWidth, ] = useState(0);
-  // useEffect(() => {
-  //   setLabelWidth(inputLabel.current.offsetWidth);
-  // }, []);
+  // solves "labelWidth error": "The prop `labelWidth` is marked as required in `OutlinedInput`, but its value is `undefined`."
+  const inputLabel = useRef(null);
+  const [ labelWidth, setLabelWidth, ] = useState(0);
+  useEffect(() => {
+    setLabelWidth(inputLabel.current.offsetWidth);
+  }, []);
 
   // const handleChange = event => {
-  const handleChange = ({ target: { name, value, },}) => {
+  const handleChange = ({ target: { /*name,*/ value, },}) => {
     // setValues( oldValues => ({
     //   ...oldValues,
     //   // [event.target.name]: event.target.value,
     //   [name]: value,
     // }));
+    setValue(value);
 
     // console.log('id\n', id);
     // console.log('name\n', name);
@@ -69,19 +72,21 @@ const SelectField = ({onChange, id, label, options, required,}) => {
         required={required}
       >
         <InputLabel
-          // ref={inputLabel}
-          // htmlFor={label}
+          // solves "labelWidth error"
+          ref={inputLabel}
+          htmlFor={label}
         >
           {/* Age */}
           {label}
         </InputLabel>
         <Select
           // fullWidth
-          value={values.age}
+          // value={values.age}
+          value={value}
           onChange={handleChange}
           input={
             <OutlinedInput
-              // labelWidth={labelWidth}
+              labelWidth={labelWidth} // solves "labelWidth error"
               id={id}
               name={label}
             />
@@ -115,4 +120,4 @@ const SelectField = ({onChange, id, label, options, required,}) => {
 }
 
 export default SelectField;
-// makeStyles(styles, { withTheme: true })(FormTemplate);
+// export default makeStyles(styles, { withTheme: true })(SelectField);
