@@ -1,7 +1,7 @@
 // inspired by
 // https://material-ui.com/components/selects/#simple-select
 
-import React, { useRef, useState, useEffect, } from 'react';
+import React, { useState, } from 'react'; // useRef, useEffect,
 import {
   // makeStyles, Input, FilledInput, FormHelperText,
   OutlinedInput, InputLabel, MenuItem, FormControl, Select,
@@ -23,24 +23,37 @@ import {
 
 const SelectField = ({onChange, id, label, options, required,}) => {
   // const classes = useStyles();
-  const [ values, setValues, ] = React.useState({
+  const [ values, setValues, ] = useState({
     age: '',
     name: 'hai',
   });
 
-  const inputLabel = useRef(null);
-  const [ labelWidth, setLabelWidth, ] = useState(0);
-  useEffect(() => {
-    setLabelWidth(inputLabel.current.offsetWidth);
-  }, []);
+  // const inputLabel = useRef(null);
+  // const [ labelWidth, setLabelWidth, ] = useState(0);
+  // useEffect(() => {
+  //   setLabelWidth(inputLabel.current.offsetWidth);
+  // }, []);
 
   // const handleChange = event => {
   const handleChange = ({ target: { name, value, },}) => {
-    setValues( oldValues => ({
-      ...oldValues,
-      // [event.target.name]: event.target.value,
-      [name]: value,
-    }));
+    // setValues( oldValues => ({
+    //   ...oldValues,
+    //   // [event.target.name]: event.target.value,
+    //   [name]: value,
+    // }));
+
+    // console.log('id\n', id);
+    // console.log('name\n', name);
+    // console.log('value\n', value);
+
+    const arg = {
+      target: {
+        id, // substitutes for field name/id
+        value,
+      },
+    };
+
+    onChange(arg);
   }
 
   return (
@@ -55,7 +68,10 @@ const SelectField = ({onChange, id, label, options, required,}) => {
         // className={classes.formControl}
         required={required}
       >
-        <InputLabel ref={inputLabel} htmlFor={label}>
+        <InputLabel
+          // ref={inputLabel}
+          // htmlFor={label}
+        >
           {/* Age */}
           {label}
         </InputLabel>
@@ -63,9 +79,15 @@ const SelectField = ({onChange, id, label, options, required,}) => {
           // fullWidth
           value={values.age}
           onChange={handleChange}
-          input={<OutlinedInput labelWidth={labelWidth} name={label} id={id} />}
+          input={
+            <OutlinedInput
+              // labelWidth={labelWidth}
+              id={id}
+              name={label}
+            />
+          }
         >
-          <MenuItem value="">
+          <MenuItem value="" disabled>
             <em>Select one</em>
           </MenuItem>
           {/* <MenuItem value={10}>Ten</MenuItem>

@@ -79,13 +79,13 @@ const getTextField = (
       InputLabelProps={InputLabelProps}
     />
 
-const getComponent = ( onChange, component, key, {required,}, ) =>
+const getComponent = ( onChange, component, key, { required, }, ) =>
   component && React.cloneElement( component, { key, onChange, required, }, )
 
-const getMenuField = (onChange, id, { label, options, required, },) =>
+const getMenuField = ( onChange, id, { label, options, required, }, ) =>
   <MenuField key={id} onChange={onChange} id={id} label={label} options={options} required={required} />
 
-const getSelectField = (onChange, id, { label, options, required, },) =>
+const getSelectField = ( onChange, id, { label, options, required, }, ) =>
   <SelectField key={id} onChange={onChange} id={id} label={label} options={options} required={required} />
 
 const FormTemplate = ({ fields, onChange, }) => {
