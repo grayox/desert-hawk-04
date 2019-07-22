@@ -181,7 +181,7 @@ class CRUDView extends Component {
   handleChangeForm = event => {
     // console.log('target\n', event.target);
     const { id, value, } = event.target;
-    console.log('id\n', id); // 'name'
+    // console.log('id\n', id); // 'name'
     // console.log('value\n', value); // 'john doe'
     const { crudForm, } = { ...this.state, }; // use spread syntax to create and modify a copy only
     // console.log('crudForm\n', crudForm); // 'john doe'
