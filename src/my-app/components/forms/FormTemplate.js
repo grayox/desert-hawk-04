@@ -69,7 +69,7 @@ const getTextField = (
       type={type}
       // value={this.state.name}
       // value={"hello"}
-      value={value}
+      value={value && value.length && value} // solves error when passed empty string
       // defaultValue={'hi'}//{id && values && values[id]}//
       onChange={onChange}
       variant="outlined"
@@ -99,7 +99,7 @@ const FormTemplate = ({ fields, onChange, }) => {
     // (from src/my-app/config/AppConfig.js)
     // console.log('id\n', id,);
     // console.log('type\n', type,);
-    console.log('rest\n', rest,);
+    // console.log('rest\n', rest,);
     const config = {
       component: getComponent(onChange, component, id, rest,),
       text: getTextField(onChange, id, rest,),
