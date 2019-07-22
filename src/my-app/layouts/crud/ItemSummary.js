@@ -134,7 +134,7 @@ const ItemSummary = ({
   // console.log('readable\n', readable,);
   // const { itemSummaryPrimaryText, itemSummarySecondaryText, } = readable; // itemSummaryPrimaryText: undefined
   
-  const getChips = a => a.map( item => item && item.length && <Chip key={item} label={item} />,) // a: array Of Strings
+  const getChips = a => a.map( item => item && item.length && <Chip key={item} label={item} variant="outlined" />,) // a: array Of Strings
 
   const getItemSummary = level => {
     const config = {
