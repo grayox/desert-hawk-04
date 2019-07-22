@@ -136,7 +136,7 @@ const ItemSummary = ({
   
   const getChips = a =>
     // a: array Of Strings
-    a.map(item => item && item.length && <Chip key={item} label={item} variant="outlined" className="mr-1" />)
+    a.map(item => item && item.length && <Chip key={item} label={item} variant="outlined" className="mr-4" />)
 
   const getItemSummary = level => {
     const config = {

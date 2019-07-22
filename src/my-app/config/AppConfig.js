@@ -533,7 +533,7 @@ export const getComponentsNavConfig = props => {
           // itemSummaryPrimaryChips: [ (item && item.zip && item.zip.city), ],
           itemSummaryPrimaryText: moment(item.createdAt).fromNow(),
           // itemSummarySecondaryText: moment(item.createdAt).fromNow(),
-          itemSummarySecondaryChips: [ (item && item.zip && item.zip.city), ],
+          itemSummarySecondaryChips: [ (item && item.zipInput && item.zipInput.city), ],
         },
         updatable: false,
         deletable: false,
