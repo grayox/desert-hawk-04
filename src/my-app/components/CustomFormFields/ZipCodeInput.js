@@ -8,6 +8,10 @@ import { TextField, } from '@material-ui/core'; // withStyles, InputAdornment,
 import zipCodeData from 'my-app/components/GeoSelect/zip-code-data';
 import _ from '@lodash';
 
+// maps to key in my-app/config/AppConfig.formFieldConfig
+// must be customized for custom components
+const FORM_FIELD_ID = 'zipInput';
+
 class ZipCodeInput extends Component {
   
   state = { 
@@ -21,7 +25,7 @@ class ZipCodeInput extends Component {
   }
 
   onValid = data => {
-    // console.log('data\n', data,);
+    console.log('data\n', data,);
     // const { onChange, } = this.props;
     this.props.onChange(data);
   }
@@ -45,10 +49,10 @@ class ZipCodeInput extends Component {
           // make arg conform to canonical structure of event.target
           const arg = {
             target: {
-              id: 'zip', // substitutes for field name/id
+              id: FORM_FIELD_ID,
               value: {
                 ...this.state,
-                formFieldConfigKey: 'zipInput', // maps to key in AppConfig.formFieldConfig
+                formFieldConfigKey: FORM_FIELD_ID,
               }
             },
           };

@@ -55,7 +55,7 @@ import SelectField from '../CustomFormFields/SelectField';
 // }
 
 const getTextField = (
-  onChange, { value, id, label, autoFocus, type, required, multiline, rows, InputLabelProps, },
+  onChange, id, { value, label, autoFocus, type, required, multiline, rows, InputLabelProps, },
 ) =>
     <TextField
       // className={classes.formControl}
@@ -102,7 +102,7 @@ const FormTemplate = ({ fields, onChange, }) => {
     // console.log('rest\n', rest,);
     const config = {
       component: getComponent(onChange, component, id, rest,),
-      text: getTextField(onChange, rest,),
+      text: getTextField(onChange, id, rest,),
       menu: getMenuField(onChange, id, rest,),
       select: getSelectField(onChange, id, rest,),
     };

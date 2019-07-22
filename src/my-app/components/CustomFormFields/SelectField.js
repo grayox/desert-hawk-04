@@ -51,7 +51,7 @@ const SelectField = ({onChange, id, label, options, required,}) => {
 
     const arg = {
       target: {
-        id, // substitutes for field name/id
+        id, // maps to key in my-app/config/AppConfig.formFieldConfig // must be customized for custom components
         value,
       },
     };
