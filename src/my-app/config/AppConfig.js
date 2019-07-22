@@ -737,7 +737,7 @@ export const getComponentsNavConfig = props => {
         creatable: {
           title: 'Create new contact', // form: <UserMultiForm />,
           path: 'contacts',
-          fields: [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ], // 'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
+          fields: [ 'name*', 'email*', 'bizCategory', 'phone', 'zip', 'notes', ], // 'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
           dashboard: {
             local: {
               contacts: 1,
