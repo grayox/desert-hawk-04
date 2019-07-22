@@ -184,7 +184,7 @@ const DetailPane = ({
     if(!ready1) return null;
 
     const formFields = getFormFields('loadSavedData', creatable.fields,);
-    console.log('formFields\n', formFields);
+    // console.log('formFields\n', formFields);
 
     const getDetailListItemObject = fields => {
       const { formFieldConfigKey: key, } = fields;

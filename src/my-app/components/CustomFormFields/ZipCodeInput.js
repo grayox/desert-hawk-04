@@ -25,7 +25,7 @@ class ZipCodeInput extends Component {
   }
 
   onValid = data => {
-    console.log('data\n', data,);
+    // console.log('data\n', data,);
     // const { onChange, } = this.props;
     this.props.onChange(data);
   }
