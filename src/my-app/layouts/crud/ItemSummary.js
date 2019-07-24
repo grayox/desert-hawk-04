@@ -124,9 +124,14 @@ const ItemSummary = ({
   const component = matches[0];
   const read = component && component.crudConfig && component.crudConfig.readable;
   const {
-    itemSummaryPrimaryText, itemSummaryPrimaryChips,
-    itemSummarySecondaryText, itemSummarySecondaryChips,
+    // itemSummaryPrimaryText, itemSummaryPrimaryChips,
+    // itemSummarySecondaryText, itemSummarySecondaryChips,
+    itemSummary, detailExceptions,
   } = read;
+  const {
+    primaryText: itemSummaryPrimaryText, secondaryText: itemSummarySecondaryText,
+    primaryChips: itemSummaryPrimaryChips, secondaryChips: itemSummarySecondaryChips,
+  } = itemSummary;
   // console.log('componentsNavConfig\n', componentsNavConfig,);
   // console.log('navComponentId\n', navComponentId,);
   // console.log('component\n', component,);

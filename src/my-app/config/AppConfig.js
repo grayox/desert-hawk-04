@@ -528,12 +528,14 @@ export const getComponentsNavConfig = props => {
           ],
           // listPaneHeaderText: '',
           listPaneHeaderChips: [ setBizCategoryValue2Label(bizCategory), geoLocal, geoRegion, geoNation, ],
-          // itemSummaryPrimaryText: setBizCategoryValue2Label(item && item.bizCategory), // || item.geoLocal,
-          // itemSummaryPrimaryText: <Chip label={item && item.zip && item.zip.city} />,
-          // itemSummaryPrimaryChips: [ (item && item.zip && item.zip.city), ],
-          itemSummaryPrimaryText: moment(item.createdAt).fromNow(),
-          // itemSummarySecondaryText: moment(item.createdAt).fromNow(),
-          itemSummarySecondaryChips: [ (item && item.zipInput && item.zipInput.city), ],
+          itemSummary: {
+            // primaryText: setBizCategoryValue2Label(item && item.bizCategory), // || item.geoLocal,
+            // primaryText: <Chip label={item && item.zip && item.zip.city} />,
+            // primaryChips: [ (item && item.zip && item.zip.city), ],
+            primaryText: moment(item.createdAt).fromNow(),
+            // secondaryText: moment(item.createdAt).fromNow(),
+            secondaryChips: [ (item && item.zipInput && item.zipInput.city), ],
+          },
         },
         updatable: false,
         deletable: false,
@@ -598,8 +600,10 @@ export const getComponentsNavConfig = props => {
             [ 'deletedAt'  , '==' , 0   , ] ,
             [ 'archivedBy' , '==' , uid , ] ,
           ],
-          itemSummaryPrimaryText: '',
-          itemSummarySecondaryText: '',
+          itemSummary: {
+            primaryText: '',
+            summarySecondaryText: '',
+          },
         },
         updatable: false,
         deletable: true,
@@ -694,13 +698,19 @@ export const getComponentsNavConfig = props => {
             // [ 'challengesCount' , '<=' , CHALLENGES_LIMIT , ] ,
           ],
           orderBy: [ 'createdAt', 'desc', ],
-          itemSummaryPrimaryText: item && item.name, // item.bizCategory && _.filter(bizCategoryItems, {value:item.bizCategory,},)[0].label, // || item.geoLocal,
-          // itemSummarySecondaryText: `${item && setBizCategoryValue2Label(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
-          itemSummarySecondaryChips: [
-            (item && setBizCategoryValue2Label(item.bizCategory,)),
-            (item && item.zipInput && item.zipInput.city),
-            // moment(item.createdAt).fromNow(),
-          ],
+          itemSummary: {
+            primaryText: item && item.name, // item.bizCategory && _.filter(bizCategoryItems, {value:item.bizCategory,},)[0].label, // || item.geoLocal,
+            // secondaryText: `${item && setBizCategoryValue2Label(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
+            secondaryChips: [
+              (item && setBizCategoryValue2Label(item.bizCategory,)),
+              (item && item.zipInput && item.zipInput.city),
+              // moment(item.createdAt).fromNow(),
+            ],
+          },
+          detailExceptions: {
+            // relative to 'creatable' object
+            bizCategory: (item && setBizCategoryValue2Label(item.bizCategory,)),
+          },
         },
         updatable: {
           title: 'Edit referral',
@@ -752,8 +762,10 @@ export const getComponentsNavConfig = props => {
             [ 'createdBy' , '==' , uid , ] ,
           ],
           orderBy: [ 'createdAt', 'desc', ] ,
-          itemSummaryPrimaryText: '',
-          itemSummarySecondaryText: '',
+          itemSummary: {
+            primaryText: '',
+            secondaryText: '',
+          },
         },
         updatable: {
           title: 'Edit contact',
