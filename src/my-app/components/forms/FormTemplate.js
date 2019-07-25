@@ -85,8 +85,8 @@ const getComponent = ( onChange, component, key, { required, }, ) =>
 const getMenuField = ( onChange, id, { label, options, required, }, ) =>
   <MenuField key={id} onChange={onChange} id={id} label={label} options={options} required={required} />
 
-const getSelectField = ( onChange, id, { label, options, required, }, ) =>
-  <SelectField key={id} onChange={onChange} id={id} label={label} options={options} required={required} />
+const getSelectField = ( onChange, id, { label, options, required, value, }, ) =>
+  <SelectField key={id} onChange={onChange} id={id} label={label} options={options} required={required} value={value} />
 
 const FormTemplate = ({ fields, onChange, }) => {
   // console.log('fields\n', fields);
@@ -95,16 +95,16 @@ const FormTemplate = ({ fields, onChange, }) => {
   if(!ready1) return null;
 
   const getConfig = ( id, type, rest, component, ) => {
-    // Add new component types here
+    // Add new component types to the below config object
     // (from src/my-app/config/AppConfig.js)
     // console.log('id\n', id,);
     // console.log('type\n', type,);
     // console.log('rest\n', rest,);
     const config = {
-      component: getComponent(onChange, component, id, rest,),
       text: getTextField(onChange, id, rest,),
       menu: getMenuField(onChange, id, rest,),
       select: getSelectField(onChange, id, rest,),
+      component: getComponent(onChange, component, id, rest,), // includes: zipInput
     };
     const out = config[type];
     return out;

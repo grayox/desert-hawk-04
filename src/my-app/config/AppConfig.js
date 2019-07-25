@@ -280,7 +280,7 @@ const formFieldConfig = {
   lastName    : { type : 'text'      , label : 'Last name'  , icon : 'account_circle' , } ,
   nickname    : { type : 'text'      , label : 'Nickname'   , icon : 'star'           , } ,
   address     : { type : 'text'      , label : 'Address'    , icon : 'home'           , } ,
-  bizCategory : { type : 'select'    , label : 'Type'       , icon : 'extension'      , options: bizCategoryItems, getValueMask: value => getValueMaskBizCategory(value), }, // does not work: getValueMask: value => bizCategoryItems => getValueMaskSelectOrMenuOptions(bizCategoryItems, value,), },
+  bizCategory : { type : 'select'    , label : 'Type'       , icon : 'extension'      , options: bizCategoryItems, getValueMask: value => getValueMaskBizCategory(value), }, // curry first attempt -- does not work: getValueMask: value => bizCategoryItems => getValueMaskSelectOrMenuOptions(bizCategoryItems, value,), },
   zipInput    : { type : 'component' , label : 'Zip code'   , icon : 'place'          , component: <ZipCodeInput />, fields: ['city', 'state', 'zip', 'county',],},
   zip         : { type : 'text'      , label : 'Zip'        , icon : 'place'          , } ,
   city        : { type : 'text'      , label : 'City'       , icon : 'place'          , } ,
