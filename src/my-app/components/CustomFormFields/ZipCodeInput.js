@@ -14,14 +14,25 @@ const FORM_FIELD_ID = 'zipInput';
 
 class ZipCodeInput extends Component {
   
+  // state = { 
+  //   isValid : false ,
+  //   zip     : ''    ,
+  //   lat     : ''    ,
+  //   lon     : ''    ,
+  //   city    : ''    ,
+  //   state   : ''    ,
+  //   county  : ''    ,
+  // }
+
+  // ref: https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#recommendation-fully-uncontrolled-component-with-a-key
   state = { 
-    isValid : false ,
-    zip     : ''    ,
-    lat     : ''    ,
-    lon     : ''    ,
-    city    : ''    ,
-    state   : ''    ,
-    county  : ''    ,
+    isValid : this.props.value.isValid || false ,
+    zip     : this.props.value.zip     || ''    ,
+    lat     : this.props.value.lat     || ''    ,
+    lon     : this.props.value.lon     || ''    ,
+    city    : this.props.value.city    || ''    ,
+    state   : this.props.value.state   || ''    ,
+    county  : this.props.value.county  || ''    ,
   }
 
   onValid = data => {

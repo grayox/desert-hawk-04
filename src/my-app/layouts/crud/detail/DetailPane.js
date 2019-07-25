@@ -196,7 +196,6 @@ const DetailPane = ({
 
       // turn object into array
       // TODO: implement recursive field listings
-      // TODO: populate non-text fields including menu, select and zipInput
       const newArray = getFormFields('loadSavedData', fields,);
       console.log('fields\n', fields,);
       console.log('newArray\n', newArray,);

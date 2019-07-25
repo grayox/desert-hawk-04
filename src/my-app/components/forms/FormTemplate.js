@@ -79,11 +79,13 @@ const getTextField = (
       InputLabelProps={InputLabelProps}
     />
 
-const getComponent = ( onChange, component, key, { required, }, ) =>
-  component && React.cloneElement( component, { key, onChange, required, }, )
+// note: add value field to: populate non-text fields including menu, select and zipInput
 
-const getMenuField = ( onChange, id, { label, options, required, }, ) =>
-  <MenuField key={id} onChange={onChange} id={id} label={label} options={options} required={required} />
+const getComponent = ( onChange, component, key, { required, value, }, ) =>
+  component && React.cloneElement( component, { key, onChange, required, value, }, )
+
+const getMenuField = ( onChange, id, { label, options, required, value, }, ) =>
+  <MenuField key={id} onChange={onChange} id={id} label={label} options={options} required={required} value={value} />
 
 const getSelectField = ( onChange, id, { label, options, required, value, }, ) =>
   <SelectField key={id} onChange={onChange} id={id} label={label} options={options} required={required} value={value} />
