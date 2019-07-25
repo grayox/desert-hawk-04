@@ -239,11 +239,12 @@ export const bizCategoryItems = [
   { value : 'financial' , label : 'Financial' , icon : 'assessment'      } ,
   { value : 'insurance' , label : 'Insurance' , icon : 'assignment'      } ,
 ]
-export const setBizCategoryValue2Label = value => { // home
-  // console.log('value\n', value,);
-  // console.log('bizCategoryItems\n', bizCategoryItems,);
 
-  const ready1 = bizCategoryItems && value;
+export const getValueMaskSelectOrMenuOptions = ( optionItems, value, ) => {
+  // optionItems: object: { value, label, }: {value: 'home', label: 'Home',}
+  // return: string: label
+
+  const ready1 = optionItems && value;
   if(!ready1) return null;
 
   const matches = _.filter(bizCategoryItems, { value, },);
@@ -253,6 +254,19 @@ export const setBizCategoryValue2Label = value => { // home
   const out = match.label;
   // console.log('out\n', out,);
   return out; // Home
+
+}
+
+export const getValueMaskBizCategory = value => { // home
+  // console.log('value\n', value,);
+  // console.log('bizCategoryItems\n', bizCategoryItems,);
+  
+  const ready1 = bizCategoryItems && value;
+  if(!ready1) return null;
+  
+  const out = getValueMaskSelectOrMenuOptions(bizCategoryItems, value,);
+  // console.log( 'out\n', out, );
+  return out;
 }
 
 // end app-specific parameters
@@ -267,7 +281,7 @@ const formFieldConfig = {
   nickname    : { type : 'text'      , label : 'Nickname'   , icon : 'star'           , } ,
   address     : { type : 'text'      , label : 'Address'    , icon : 'home'           , } ,
   // bizCategory : { type : 'menu'      , label : 'Type'       , icon : 'extension'      , options: bizCategoryItems,},
-  bizCategory : { type : 'select'    , label : 'Type'       , icon : 'extension'      , options: bizCategoryItems,},
+  bizCategory : { type : 'select'    , label : 'Type'       , icon : 'extension'      , options: bizCategoryItems, getValueMask: value => getValueMaskBizCategory(value), }, // getValueMask(bizCategoryItems) //  // brand,
   zipInput    : { type : 'component' , label : 'Zip code'   , icon : 'place'          , component: <ZipCodeInput />, fields: ['city', 'state', 'zip', 'county',],},
   zip         : { type : 'text'      , label : 'Zip'        , icon : 'place'          , } ,
   city        : { type : 'text'      , label : 'City'       , icon : 'place'          , } ,
@@ -527,9 +541,9 @@ export const getComponentsNavConfig = props => {
             [ 'geoLocal'        , '==' , geoLocal    , ] , // 'Almaty' | 'Santiago'
           ],
           // listPaneHeaderText: '',
-          listPaneHeaderChips: [ setBizCategoryValue2Label(bizCategory), geoLocal, geoRegion, geoNation, ],
+          listPaneHeaderChips: [ getValueMaskBizCategory(bizCategory), geoLocal, geoRegion, geoNation, ],
           itemSummary: {
-            // primaryText: setBizCategoryValue2Label(item && item.bizCategory), // || item.geoLocal,
+            // primaryText: getValueMaskBizCategory(item && item.bizCategory), // || item.geoLocal,
             // primaryText: <Chip label={item && item.zip && item.zip.city} />,
             // primaryChips: [ (item && item.zip && item.zip.city), ],
             primaryText: moment(item.createdAt).fromNow(),
@@ -700,16 +714,12 @@ export const getComponentsNavConfig = props => {
           orderBy: [ 'createdAt', 'desc', ],
           itemSummary: {
             primaryText: item && item.name, // item.bizCategory && _.filter(bizCategoryItems, {value:item.bizCategory,},)[0].label, // || item.geoLocal,
-            // secondaryText: `${item && setBizCategoryValue2Label(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
+            // secondaryText: `${item && getValueMaskBizCategory(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
             secondaryChips: [
-              (item && setBizCategoryValue2Label(item.bizCategory,)),
+              (item && getValueMaskBizCategory(item.bizCategory,)),
               (item && item.zipInput && item.zipInput.city),
               // moment(item.createdAt).fromNow(),
             ],
-          },
-          detailExceptions: {
-            // relative to 'creatable' object
-            bizCategory: (item && setBizCategoryValue2Label(item.bizCategory,)),
           },
         },
         updatable: {

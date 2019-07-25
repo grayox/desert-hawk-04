@@ -135,11 +135,11 @@ class CRUDView extends Component {
     if(!ready1) return;
 
     const { detail, } = this.state;
-    // console.log('updateDialogIsOpen\n', updateDialogIsOpen);
     // console.log('detail\n', detail);
     const formFields = getForm(fields);
     // console.log('formFields\n', formFields); // debugger;
     formFields.forEach( field => {
+      // console.log('field\n', field); // debugger;
       switch(type) {
         case 'loadNewData':
           field.value = '';
@@ -151,10 +151,13 @@ class CRUDView extends Component {
           // console.error('Type must be one of: "loadSavedData" or "loadNewData"');
           throw new Error('Type must be one of: "loadSavedData" or "loadNewData"');
       }
-      // console.log(`field: ${field.id}\n`, field);
+      console.log(`field: ${field.id}\n`, field,);
+      // for non-text fields, include a mask to deal with capitalization, formatting, etc.
+      if(field.getValueMask) field.valueMask = field.getValueMask(field.value);
+      console.log('valueMask\n', field.valueMask);
     });
-    // console.log('formFields\n', formFields);
-    // console.log('state\n', this.state);
+    console.log('formFields\n', formFields);
+    console.log('state\n', this.state);
     return formFields;
   }
 

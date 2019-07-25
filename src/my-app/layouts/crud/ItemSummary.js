@@ -126,7 +126,7 @@ const ItemSummary = ({
   const {
     // itemSummaryPrimaryText, itemSummaryPrimaryChips,
     // itemSummarySecondaryText, itemSummarySecondaryChips,
-    itemSummary, detailExceptions,
+    itemSummary,
   } = read;
   const {
     primaryText: itemSummaryPrimaryText, secondaryText: itemSummarySecondaryText,

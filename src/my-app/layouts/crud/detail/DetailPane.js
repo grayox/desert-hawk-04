@@ -193,7 +193,10 @@ const DetailPane = ({
       if(!ready1) return null;
 
       // turn object into array
+      // TODO: implement recursive field listing
       const newArray = getFormFields('loadSavedData', fields,);
+      console.log('fields\n', fields,);
+      console.log('newArray\n', newArray,);
       return getFormFieldsMap(newArray)
     }
     
