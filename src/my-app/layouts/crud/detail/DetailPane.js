@@ -115,62 +115,64 @@ const DetailPane = ({
 
   // console.log('detail\n', detail,);
 
-  const getDetailListItem = ({ label, value, }) => (
-
-    // Prevent React from throwing an error if the 'update' field is an object
-    (
-      // field.id === 'update'
-      // // because 'update' is constructed as object in src/my-app/layouts/crud/store/actions/item.actions.js
-      // ||
-      // Error guards against returning objects as fields
-      typeof value === 'string'
-      ||
-      typeof value === 'number'
+  const getDetailListItem = ({ label, value, valueMask, }) => {
+    const display = valueMask || value;
+    return (
+      // Prevent React from throwing an error if the 'update' field is an object
+      (
+        // field.id === 'update'
+        // // because 'update' is constructed as object in src/my-app/layouts/crud/store/actions/item.actions.js
+        // ||
+        // Error guards against returning objects as fields
+        typeof display === 'string'
+        ||
+        typeof display === 'number'
+      )
+  
+      &&
+  
+      // skip empty fields
+     display.length
+  
+      &&
+  
+      // keyName // success
+      // `${keyName}: ${item[keyName]}` // success
+      // // success
+      // <Typography className="text-left">
+      //   {keyName}: {item[keyName]}
+      // </Typography>
+      // attempt
+      <ListItem
+        // key={keyName.createdAt}
+        key={label}
+        divider
+        // light
+        // button
+        // onClick={() => handleToggle(item)}
+      >
+        {
+        // <Avatar>
+        //   <BeachAccessIcon />
+        // </Avatar>
+        }
+        <ListItemText
+          primary={label}
+          secondary={ condensed ? null : display }
+        />
+        {
+          condensed
+          ?
+          <ListItemSecondaryAction>
+            <Typography className="mr-16">{display}</Typography>
+          </ListItemSecondaryAction>
+          :
+          null
+        }
+      </ListItem>
     )
-
-    &&
-
-    // skip empty fields
-    value.length
-
-    &&
-
-    // keyName // success
-    // `${keyName}: ${item[keyName]}` // success
-    // // success
-    // <Typography className="text-left">
-    //   {keyName}: {item[keyName]}
-    // </Typography>
-    // attempt
-    <ListItem
-      // key={keyName.createdAt}
-      key={label}
-      divider
-      // light
-      // button
-      // onClick={() => handleToggle(item)}
-    >
-      {
-      // <Avatar>
-      //   <BeachAccessIcon />
-      // </Avatar>
-      }
-      <ListItemText
-        primary={label}
-        secondary={ condensed ? null : value }
-      />
-      {
-        condensed
-        ?
-        <ListItemSecondaryAction>
-          <Typography className="mr-16">{value}</Typography>
-        </ListItemSecondaryAction>
-        :
-        null
-      }
-    </ListItem>
-  )
-
+  }
+  
   const getDetail = () => {
     // const MAX_LENGTH = 40;
     // console.log('condensed\n', condensed);
@@ -193,7 +195,8 @@ const DetailPane = ({
       if(!ready1) return null;
 
       // turn object into array
-      // TODO: implement recursive field listing
+      // TODO: implement recursive field listings
+      // TODO: populate non-text fields including menu, select and zipInput
       const newArray = getFormFields('loadSavedData', fields,);
       console.log('fields\n', fields,);
       console.log('newArray\n', newArray,);
