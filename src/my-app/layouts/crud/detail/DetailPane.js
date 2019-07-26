@@ -189,15 +189,26 @@ const DetailPane = ({
     // console.log('formFields\n', formFields);
 
     const getDetailListItemObject = fields => {
-      const { formFieldConfigKey: key, } = fields;
-      
-      const ready1 = key;
+      // implement recursive field listings
+      console.log('fields\n', fields,);
+
+      const ready1 = fields && (typeof fields === 'object');
+      console.log('ready1\n', ready1,);
       if(!ready1) return null;
 
+      // const { value: { formFieldConfigKey: key, }, } = fields;
+      const { value, } = fields;
+      console.log('value\n', value,);
+      const key = value && value.formFieldConfigKey; // 'zipInput'
+      
+      const ready2 = key;
+      console.log('ready2\n', ready2,);
+      if(!ready2) return null;
+
       // turn object into array
-      // TODO: implement recursive field listings
-      const newArray = getFormFields('loadSavedData', fields,);
-      console.log('fields\n', fields,);
+      const keys = Object.keys(value);
+      console.log('keys\n', keys,);
+      const newArray = getFormFields('loadSavedData', keys,);
       console.log('newArray\n', newArray,);
       return getFormFieldsMap(newArray)
     }
@@ -212,9 +223,13 @@ const DetailPane = ({
     const getFormFieldsMap = formFields =>
       formFields.map( field => {
         const type = typeof field.value;
+        // console.log('type\n', type,);
+        // console.log('field\n', field,);
         const config = {
           string: getDetailListItemString(field),
           object: getDetailListItemObject(field),
+          // object: getDetailListItemObject(field.value),
+          // object: getFormFieldsMap(field.value), // recursion
         };
         return config[type];
       })

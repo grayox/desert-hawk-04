@@ -110,7 +110,7 @@ class ZipCodeInput extends Component {
         type="text" // {type}
         // value={this.state.name}
         // value={"hello"}
-        value={zip}//{value}
+        value={zip} // {value}
         // defaultValue={'hi'}//{id && values && values[id]}//
         onChange={handleChange}
         variant="outlined"
