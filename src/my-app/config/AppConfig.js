@@ -271,7 +271,7 @@ export const getValueMaskBizCategory = value => { // home
 
 // end app-specific parameters
 
-const formFieldConfig = {
+export const formFieldConfig = {
   // Deprecated: type must be an HTML5 input type | https://www.w3schools.com/html/html_form_input_types.asp | https://material-ui.com/api/text-field/
   // Deprecated: button|checkbox|color|date|datetime-local|email|file|hidden|image|month|number|password|radio|range|reset|search|submit|tel|text|time|url|week
   // Add new component types to src/my-app/components/forms/FormTemplate.js > FormTemplate > getConfig()

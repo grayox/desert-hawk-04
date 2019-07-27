@@ -10,7 +10,7 @@ import { FuseAnimateGroup } from '@fuse'; // FuseScrollbars, FuseAnimate,
 // import _ from '@lodash';
 
 import MediaWidth from 'my-app/layouts/MediaWidth';
-import { uiSpecs, } from 'my-app/config/AppConfig'; // getCleanFieldNames,
+import { uiSpecs, formFieldConfig, } from 'my-app/config/AppConfig'; // getCleanFieldNames,
 import Dashboard from 'my-app/views/app/dashboard/Dashboard';
 import SimpleExpansionPanel from 'my-app/components/SimpleExpansionPanel';
 import ButtonsTierDetail from './ButtonsTierDetail'; // CRUDButtons,
@@ -107,6 +107,90 @@ const styles = theme => ({
 //     }
 //   </ListItem>
 
+const appendObjectToArray = ( a, o, ) => {
+  // a: arrayOfObjects: [ {id: [string], value: [string], valueMask: [string], required: [bool], ... } ]
+  // o: object: {city: [string], county: [string], state: [string], zip: [string], ...}
+  // return: arrayOfObjects: [{ label: [string], value: [string], [optional] valueMask: [string],}, ...]
+  const out = a.map( item => ({label: formFieldConfig[item].label, value: o[item],}));
+  // keys.forEach( key => newArray.push({id: key, value: value[key],}));
+  // console.log('out\n', out,);
+  return out;
+}
+
+// const getDetailListItem = data => {
+//   let display, label;
+//   // data: can be one of two formats:
+//   // 1st format: { label: [string], value: [string | number], valueMask: [string], }
+//   // 2nd format: { [string]: [string | number] }
+//   // case: 1st format
+//   if( data.label && (data.value || data.valueMask)) {
+//     display = data.valueMask || data.value;
+//     label = data.label;
+//   } else {
+//     // case: 2nd format
+//     const keys = Object.keys(data);
+//     const key = label = keys[0];
+//     display = data[key];
+//   }
+// below only considers 1st format as above defined
+const getDetailListItem = ({ label, value, valueMask, }, condensed,) => {
+  const display = valueMask || value;
+  return (
+    // Prevent React from throwing an error if the 'update' field is an object
+    (
+      // field.id === 'update'
+      // // because 'update' is constructed as object in src/my-app/layouts/crud/store/actions/item.actions.js
+      // ||
+      // Error guards against returning objects as fields
+      typeof display === 'string'
+      ||
+      typeof display === 'number'
+    )
+
+    &&
+
+    // skip empty fields
+    display.length
+
+    &&
+
+    // keyName // success
+    // `${keyName}: ${item[keyName]}` // success
+    // // success
+    // <Typography className="text-left">
+    //   {keyName}: {item[keyName]}
+    // </Typography>
+    // attempt
+    <ListItem
+      // key={keyName.createdAt}
+      key={label}
+      divider
+      // light
+      // button
+      // onClick={() => handleToggle(item)}
+    >
+      {
+      // <Avatar>
+      //   <BeachAccessIcon />
+      // </Avatar>
+      }
+      <ListItemText
+        primary={label}
+        secondary={ condensed ? null : display }
+      />
+      {
+        condensed
+        ?
+        <ListItemSecondaryAction>
+          <Typography className="mr-16">{display}</Typography>
+        </ListItemSecondaryAction>
+        :
+        null
+      }
+    </ListItem>
+  )
+}
+
 const DetailPane = ({
   classes, detail, condensed, itemsLength, selectedIndex, navComponentId,
   creatable, readable, updatable, deletable, actionable, starrable, dashboard, miniDashboard,
@@ -115,63 +199,60 @@ const DetailPane = ({
 
   // console.log('detail\n', detail,);
 
-  const getDetailListItem = ({ label, value, valueMask, }) => {
-    const display = valueMask || value;
-    return (
-      // Prevent React from throwing an error if the 'update' field is an object
-      (
-        // field.id === 'update'
-        // // because 'update' is constructed as object in src/my-app/layouts/crud/store/actions/item.actions.js
-        // ||
-        // Error guards against returning objects as fields
-        typeof display === 'string'
-        ||
-        typeof display === 'number'
-      )
+  const getDetailListItemObject = fields => {
+    // implement recursive field listings
+    // console.log('fields\n', fields,);
   
-      &&
+    const ready1 = fields && (typeof fields === 'object');
+    // console.log('ready1\n', ready1,);
+    if(!ready1) return null;
   
-      // skip empty fields
-     display.length
+    // const { value: { formFieldConfigKey: key, }, } = fields;
+    const { value, } = fields;
+    // console.log('value\n', value,);
+    const formFieldConfigKey = value && value.formFieldConfigKey; // 'zipInput'
+    
+    const ready2 = formFieldConfigKey;
+    // console.log('ready2\n', ready2,);
+    if(!ready2) return null;
   
-      &&
-  
-      // keyName // success
-      // `${keyName}: ${item[keyName]}` // success
-      // // success
-      // <Typography className="text-left">
-      //   {keyName}: {item[keyName]}
-      // </Typography>
-      // attempt
-      <ListItem
-        // key={keyName.createdAt}
-        key={label}
-        divider
-        // light
-        // button
-        // onClick={() => handleToggle(item)}
-      >
-        {
-        // <Avatar>
-        //   <BeachAccessIcon />
-        // </Avatar>
-        }
-        <ListItemText
-          primary={label}
-          secondary={ condensed ? null : display }
-        />
-        {
-          condensed
-          ?
-          <ListItemSecondaryAction>
-            <Typography className="mr-16">{display}</Typography>
-          </ListItemSecondaryAction>
-          :
-          null
-        }
-      </ListItem>
-    )
+    // turn object into array
+    // console.log('value\n', value,);
+    const keys = formFieldConfig[formFieldConfigKey].fields; // Object.keys(value);
+    // console.log('keys\n', keys,); // ['city', 'state', 'zip', 'county',]
+    // const newArray = getFormFields('loadSavedData', keys,);
+    const newArray = appendObjectToArray(keys, value,);
+    // console.log('newArray\n', newArray,);
+    getFormFieldsMap(newArray);
+    // return null;
   }
+
+  const getFormFieldsMap = formFields => {
+    // formFields: array of objects: [ {label: [string], value: [string | object]} ,... ] 
+    // console.log('formFields\n', formFields,);
+    formFields.map( field => {
+      const type = typeof (field.value); // || field);
+      // console.log('type\n', type,);
+      // console.log('field\n', field,);
+      // console.log('label\n', field.label,);
+      // console.log('value\n', field.valueMask || field.Value,);
+      console.log('field-core\n', `${field.label}: ${field.valueMask || field.value}`,);
+      const config = {
+        string: getDetailListItemString(field),
+        object: getDetailListItemObject(field),
+        // object: getDetailListItemObject(field.value),
+        // object: getFormFieldsMap(field.value), // recursion
+      };
+      return config[type];
+    });
+  }
+
+  const getDetailListItemString = field =>
+    ( field.value && field.value.length ) > uiSpecs.maxCharsForDetailItemField // MAX_LENGTH
+    ?
+    <SimpleExpansionPanel key={field.label} heading={field.label} content={field.valueMask || field.value} />
+    :
+    getDetailListItem(field, condensed,)
   
   const getDetail = () => {
     // const MAX_LENGTH = 40;
@@ -186,53 +267,7 @@ const DetailPane = ({
     if(!ready1) return null;
 
     const formFields = getFormFields('loadSavedData', creatable.fields,);
-    // console.log('formFields\n', formFields);
-
-    const getDetailListItemObject = fields => {
-      // implement recursive field listings
-      console.log('fields\n', fields,);
-
-      const ready1 = fields && (typeof fields === 'object');
-      console.log('ready1\n', ready1,);
-      if(!ready1) return null;
-
-      // const { value: { formFieldConfigKey: key, }, } = fields;
-      const { value, } = fields;
-      console.log('value\n', value,);
-      const key = value && value.formFieldConfigKey; // 'zipInput'
-      
-      const ready2 = key;
-      console.log('ready2\n', ready2,);
-      if(!ready2) return null;
-
-      // turn object into array
-      const keys = Object.keys(value);
-      console.log('keys\n', keys,);
-      const newArray = getFormFields('loadSavedData', keys,);
-      console.log('newArray\n', newArray,);
-      return getFormFieldsMap(newArray)
-    }
-    
-    const getDetailListItemString = field =>
-      ( field.value && field.value.length ) > uiSpecs.maxCharsForDetailItemField // MAX_LENGTH
-      ?
-      <SimpleExpansionPanel key={field.label} heading={field.label} content={field.value} />
-      :
-      getDetailListItem(field)
-
-    const getFormFieldsMap = formFields =>
-      formFields.map( field => {
-        const type = typeof field.value;
-        // console.log('type\n', type,);
-        // console.log('field\n', field,);
-        const config = {
-          string: getDetailListItemString(field),
-          object: getDetailListItemObject(field),
-          // object: getDetailListItemObject(field.value),
-          // object: getFormFieldsMap(field.value), // recursion
-        };
-        return config[type];
-      })
+    console.log('formFields\n', formFields);
     
     return (
       // <FuseAnimate

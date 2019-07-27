@@ -126,7 +126,7 @@ class CRUDView extends Component {
 
   getFormFields = ( type, fields, ) => {
     // type: string: enum: 'loadSavedData' | 'loadNewData'
-    // fields: arrayOFStrings: example: ['name*', 'phone*', 'email*', 'zip*', 'notes', ]
+    // fields: arrayOfStrings: example: ['name*', 'phone*', 'email*', 'zip*', 'notes', ]
     // console.log('type\n', type);
     // console.log('fields\n', fields);
     // console.log('state\n', this.state);
