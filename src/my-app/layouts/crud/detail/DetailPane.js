@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core';
 
 import { FuseAnimateGroup } from '@fuse'; // FuseScrollbars, FuseAnimate,
-// import _ from '@lodash';
+import _ from '@lodash';
 
 import MediaWidth from 'my-app/layouts/MediaWidth';
 import { uiSpecs, formFieldConfig, } from 'my-app/config/AppConfig'; // getCleanFieldNames,
@@ -223,28 +223,40 @@ const DetailPane = ({
     // const newArray = getFormFields('loadSavedData', keys,);
     const newArray = appendObjectToArray(keys, value,);
     // console.log('newArray\n', newArray,);
-    getFormFieldsMap(newArray);
+    const out = getFormFieldsMap(newArray);
+    // console.log('out\n', out,);
+    return out;
     // return null;
   }
+
+  const configFormFieldsMap = {
+    string: field => getDetailListItemString(field),
+    object: field => getDetailListItemObject(field),
+    // object: getDetailListItemObject(field.value),
+    // object: getFormFieldsMap(field.value), // recursion
+  };
+
+  const getConfigFormFieldsMap = (type, field,) => configFormFieldsMap[type](field);
 
   const getFormFieldsMap = formFields => {
     // formFields: array of objects: [ {label: [string], value: [string | object]} ,... ] 
     // console.log('formFields\n', formFields,);
-    formFields.map( field => {
+    // const flattened = _.flatten(formFields);
+    // console.log('flattened\n', flattened,); debugger;
+    const out = [];
+    formFields.forEach( field => {
       const type = typeof (field.value); // || field);
       // console.log('type\n', type,);
       // console.log('field\n', field,);
       // console.log('label\n', field.label,);
       // console.log('value\n', field.valueMask || field.Value,);
-      console.log('field-core\n', `${field.label}: ${field.valueMask || field.value}`,);
-      const config = {
-        string: getDetailListItemString(field),
-        object: getDetailListItemObject(field),
-        // object: getDetailListItemObject(field.value),
-        // object: getFormFieldsMap(field.value), // recursion
-      };
-      return config[type];
+      // console.log('field-core\n', `${field.label}: ${field.valueMask || field.value}`,);
+      const outInner = getConfigFormFieldsMap(type, field,);
+      console.log('outInner\n', outInner,);
+      if(outInner) out.push(outInner); // setGetFormFieldsMap(outInner) // 
     });
+    console.log('out\n', out,);
+    return out;
   }
 
   const getDetailListItemString = field =>
