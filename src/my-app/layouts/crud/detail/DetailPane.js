@@ -252,10 +252,10 @@ const DetailPane = ({
       // console.log('value\n', field.valueMask || field.Value,);
       // console.log('field-core\n', `${field.label}: ${field.valueMask || field.value}`,);
       const outInner = getConfigFormFieldsMap(type, field,);
-      console.log('outInner\n', outInner,);
+      // console.log('outInner\n', outInner,);
       if(outInner) out.push(outInner); // setGetFormFieldsMap(outInner) // 
     });
-    console.log('out\n', out,);
+    // console.log('out\n', out,);
     return out;
   }
 
@@ -279,7 +279,7 @@ const DetailPane = ({
     if(!ready1) return null;
 
     const formFields = getFormFields('loadSavedData', creatable.fields,);
-    console.log('formFields\n', formFields);
+    // console.log('formFields\n', formFields);
     
     return (
       // <FuseAnimate
