@@ -7,3 +7,8 @@ service cloud.firestore {
     }
   }
 }
+
+// leads: read, write: if logged in && not archivedBy anyone else && lead.geo === user.geo
+// leads: archived: read: if lead.archivedBy === user.uid
+// contacts: read, write: if contact.createdBy === user.uid
+// users: read, write: if uid === user.uid

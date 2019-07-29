@@ -28,9 +28,9 @@ const SelectField = ({ onChange, id, label, options, required, value: valueInit=
   //   name: 'hai',
   // });
 
-  console.log('id\n', id,);
-  console.log('label\n', label,);
-  console.log('valueInit\n', valueInit,);
+  // console.log('id\n', id,);
+  // console.log('label\n', label,);
+  // console.log('valueInit\n', valueInit,);
   const [ value, setValue, ] = useState(valueInit);
 
   // solves "labelWidth error": "The prop `labelWidth` is marked as required in `OutlinedInput`, but its value is `undefined`."

@@ -1,7 +1,7 @@
 // inspired by: src/my-app/store/actions/my-actions/leadsActions.js
 // ref: https://firebase.google.com/docs/firestore/quickstart#next_steps
 
-import { getComponentsNavConfig, } from 'my-app/config/AppConfig';
+import { getComponentsNavConfig, } from 'my-app/config/AppConfig'; // OVERWRITE_OLD_DATA,
 import _ from '@lodash';
 
 // const getNavElement = ({path, settings,}) => {
@@ -82,6 +82,7 @@ const getDashboardNewData = (path, oldData, incrementer, sourceDocId, creatable,
 }
 
 const handleEditDashboard = ( uid, path, oldData, incrementer, sourceDocId, dispatch, getFirestore, creatable, ) => {
+  // on create
   // used for createItem() only; actionItem() handles dashboard edits internally
   // uid: string: 'abcxyz'
   // path: string: 'leads'
@@ -95,10 +96,18 @@ const handleEditDashboard = ( uid, path, oldData, incrementer, sourceDocId, disp
   // console.log('newData\n', newData,); // 1
   const firestore = getFirestore();
   firestore
-    .collection('users')
+
+    // old structure
+    // .collection('users')
+    // .doc(uid)
+    // .collection('dashboard')
+    // .add(newData) // adds new doc
+
+    // new structure: root level collections
+    .collection('dashboards')
     .doc(uid)
-    .collection('dashboard')
-    .add(newData)
+    .set(newData) // overwrites old doc
+
     // ref: https://firebase.google.com/docs/firestore/manage-data/add-data#increment_a_numeric_value
     // .update({
     //   [dashItem] : firestore.FieldValue.increment(incrementer),
@@ -178,10 +187,11 @@ export const createItem = ( path, item, uid, dashboard, creatable, ) =>
   }
 
 const assembleBatchWrite = ( db, batch, navComponentId, uid, docId, dashboard, ) => {
-  // console.log('navComponentId\n', navComponentId,); // inbox
-  // console.log('actionable\n', actionable,);
-  // console.log('uid\n', uid,);
-
+  console.log('navComponentId\n', navComponentId,); // inbox
+  console.log('uid\n', uid,);
+  console.log('docId\n', docId,);
+  console.log('dashboard\n', dashboard,);
+  
   const componentsNavConfig = getComponentsNavConfig({ uid, docId, });
   // console.log('componentsNavConfig\n', componentsNavConfig,);
   // console.log('componentNavConfig\n', componentsNavConfig[1],);
@@ -190,7 +200,7 @@ const assembleBatchWrite = ( db, batch, navComponentId, uid, docId, dashboard, )
   // console.log('componentNavConfig\n', componentNavConfig,);
   const { crudConfig, } = componentNavConfig;
   const { actionable, } = crudConfig;
-  // console.log('actionable\n', actionable,);
+  console.log('actionable\n', actionable,);
 
   // // ref: https://firebase.google.com/docs/firestore/manage-data/transactions
   // // Set the value of 'NYC'
@@ -226,7 +236,7 @@ const assembleBatchWrite = ( db, batch, navComponentId, uid, docId, dashboard, )
     }
   }
   if(deletes && deletes.length) {
-    for(let delet of deletes) {
+    for(let delet of deletes) { // use delet instead of delete because delete is a reserved word in JS
       // console.log('delet\n', delet,);
       const dbRef = db.doc(delet.path);
       batch.delete(dbRef,);

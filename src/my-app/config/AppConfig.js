@@ -62,6 +62,8 @@ export const uiSpecs = {
   maxCharsForDetailItemField: 40,
 }
 
+// export const OVERWRITE_OLD_DATA = true; // .add() if false, .set() if true
+
 export const firebaseConfig = {
   apiKey: 'AIzaSyAOEXILaYcxjmJsJ81_WfubS_h3AQ3lLdA',
   authDomain: 'green-comet-e2c85.firebaseapp.com',
@@ -334,8 +336,8 @@ const getOnlyAlpha = s => {
   // s: string: 'name*'
   const re = /[a-zA-Z]+/gm;
   const a = s.match(re); // expected result: ['name']
-  const str = a[0]; // expected result: 'name'
-  return str; // 'name'
+  const out = a[0]; // expected result: 'name'
+  return out; // 'name'
 }
 
 const getRequiredField = s => {
