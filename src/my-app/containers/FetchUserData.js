@@ -57,7 +57,10 @@ class FetchUserData extends Component {
     this.handleCancel();
   }
 
-  getPath = ( uid, path, ) => [ 'users' , uid , path , ].join('/')
+  // old data structure: subcollections: https://firebase.google.com/docs/firestore/manage-data/structure-data#nested_data_in_documents
+  // getPath = ( uid, path, ) => [ 'users' , uid , path , ].join('/')
+  // new data structure: root-level collections: https://firebase.google.com/docs/firestore/manage-data/structure-data#root-level_collections
+  getPath = ( uid, path, ) => [ path , uid , ].join('/')
   // getPath() {
   //   // console.log('props\n', this.props);
   //   const uid = this && this.props && this.props.profile && this.props.profile.uid;

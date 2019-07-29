@@ -58,7 +58,12 @@ const MyLayout = props => {
     const { updateUserData, saveUserDataToFirestore, } = props; //
     updateUserData( path, newData, ); // updates global state in redux store
     if(saveDataToFirestore) {
-      const dataPath = [ 'users' , uid , path , ].join('/');
+
+      // old data structure: subcollections: https://firebase.google.com/docs/firestore/manage-data/structure-data#nested_data_in_documents
+      // const dataPath = [ 'users' , uid , path , ].join('/');
+      // new data structure: root-level collections: https://firebase.google.com/docs/firestore/manage-data/structure-data#root-level_collections
+      const dataPath = [ path , uid , ].join('/');
+     
       saveUserDataToFirestore( dataPath, newData, ); // updates firebase
     }
   }

@@ -38,7 +38,10 @@ class FetchSettings extends Component {
     const uid = this && this.props && this.props.user &&
                 // this.props.user.data && this.props.user.data.uid;
                 this.props.user.uid;
-    return uid ? [ 'users' , uid , 'settings' , ].join('/') : null;
+    // old data structure: subcollections: https://firebase.google.com/docs/firestore/manage-data/structure-data#nested_data_in_documents
+    // return uid ? [ 'users' , uid , 'settings' , ].join('/') : null;
+    // new data structure: root-level collections: https://firebase.google.com/docs/firestore/manage-data/structure-data#root-level_collections
+    return uid ? [ 'settings' , uid , ].join('/') : null;
   }
 
   // refs: https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#fetching-external-data

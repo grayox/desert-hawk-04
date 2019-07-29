@@ -21,9 +21,16 @@ export const updateSettings = settings => {
     // const authorId = getState().firebase.auth.uid;
     
     const targetCollection = firestore
-                             .collection('users')
-                             .doc(uid)
-                             .collection('settings');
+
+      // old data structure: subcollections: https://firebase.google.com/docs/firestore/manage-data/structure-data#nested_data_in_documents
+      // .collection('users')
+      // .doc(uid)
+      // .collection('settings');
+
+      // new data structure: root-level collections: https://firebase.google.com/docs/firestore/manage-data/structure-data#root-level_collections
+      .collection('settings')
+      .doc(uid);
+      
     // const targetDoc = targetCollection.doc('current');
     const targetContent = {
       ...settings,
@@ -34,7 +41,10 @@ export const updateSettings = settings => {
     // targetCollection.add(targetContent) // archive with unique id
     // targetDoc.update(targetContent)
     // targetDoc.set(targetContent)
-    targetCollection.add(targetContent)
+
+    // targetCollection.add(targetContent) // old data structure: subcollections: adds new doc
+    targetCollection.set(targetContent)    // new data structure: root-level collections: overwrites old doc
+
     // targetDoc
     //   .update(targetContent) // update current
     //   .then(() => {

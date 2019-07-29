@@ -49,7 +49,7 @@ import PreferencesTab from './tabs/PreferencesTab';
 // import { FetchFirestore } from 'my-app/config/AppConfig'; // fails
 // import FetchFirestore from 'my-app/config/AppConfig'; // success
 // import { getMatchHash, } from 'my-app/config/AppConfig';
-import { bizCategoryItems, } from 'my-app/config/AppConfig';
+import { bizCategoryItems, } from 'my-app/config/AppConfig'; // getPath,
 // import FuseLoadable from '@fuse/components/FuseLoadable/FuseLoadable';
 // end my add
 
@@ -382,7 +382,7 @@ class ProfilePage extends Component {
     }
     , () => {
       // this.props.updateSettings(settings);
-      const path = this.getPath('settings');
+      const path = [ 'settings', this.props.profile.uid, ].join('/'); // getPath( this.props.profile.uid, 'settings', );
       this.props.saveUserDataToFirestore( path, settings, );
     }
     );
@@ -443,7 +443,7 @@ class ProfilePage extends Component {
       , () => {
         // console.log('state\n', this.state);
         // this.props.updateSettings(this.state.settings);
-        const path = this.getPath('settings');
+        const path = [ 'settings', this.props.profile.uid, ].join('/'); // getPath( this.props.profile.uid, 'settings', );
         this.props.saveUserDataToFirestore( path, settings, );
         this.handleResetDialog();
       }
@@ -508,12 +508,6 @@ class ProfilePage extends Component {
 
   // mapSwitchesToSettings = () => {}
 
-  getPath = path => {
-    const uid = this.props.profile.uid;
-    const out = [ 'users' , uid , path , ].join('/');
-    return out;
-  }
-
   handleToggle = value => () => {
     // console.log('value\n', value,);
     const { checked, } = this.state;
@@ -540,7 +534,7 @@ class ProfilePage extends Component {
       // console.log('state\n', this.state,);
       // console.log('settings\n', settings,);
       // updateSettings(newSettings);
-      const path = this.getPath('settings');
+      const path = [ 'settings', this.props.profile.uid, ].join('/'); // getPath( this.props.profile.uid, 'settings', );
       saveUserDataToFirestore( path, newSettings, );
     });
   };

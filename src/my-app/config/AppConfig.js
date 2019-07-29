@@ -323,6 +323,16 @@ if (event.key === targetKey) handlerFunction();
 
 // end global utility functions
 
+// export const getPath = ( uid, path, ) => [ path , uid , ].join('/')
+// export const getPath = ( uid, path, ) => {
+//   // const uid = profile.uid;
+//   // old data structure: subcollections: https://firebase.google.com/docs/firestore/manage-data/structure-data#nested_data_in_documents
+//   // const out = [ 'users' , uid , path , ].join('/');
+//   // new data structure: root-level collections: https://firebase.google.com/docs/firestore/manage-data/structure-data#root-level_collections
+//   const out = [ path , uid , ].join('/');
+//   return out;
+// }
+
 export const replaceFormFieldsArrayWithLabels = form =>
   form.map(({ label, }) => label); // form: array, output of: getForm(searchableFieldIds);
 

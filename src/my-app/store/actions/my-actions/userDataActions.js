@@ -132,8 +132,13 @@ export const saveUserDataToFirestore = ( path, item, ) => // isSync,
     
     const pathArray = path.split('/');
     const pathArrayLength = pathArray.length;
-    const ready2 = (pathArrayLength === 3);
+    
+    // depends on data structure model
+    // oot-level collections instead of subcollections vs nested data in a document
+    // const ready2 = (pathArrayLength === 2); // 3
+    const ready2 = !!pathArrayLength;
     if(!ready2) return;
+    
     // console.log('pathArray\n', pathArray,);
     // console.log('pathArray[1]\n', pathArray[1],);
     // console.log('pathArrayLength\n', pathArrayLength,);
@@ -149,7 +154,8 @@ export const saveUserDataToFirestore = ( path, item, ) => // isSync,
     const newData = {
       ...item,
       createdAt: timestamp,
-      deletedAt: 0,
+      deletedAt: 0, // delete for new data structure (root-level collections)
+
       // createdAt: new Date(),
       // authorFirstName: 'Net',
       // authorLastName: 'Ninja',
@@ -159,6 +165,7 @@ export const saveUserDataToFirestore = ( path, item, ) => // isSync,
     // make async call to database
     const firestore = getFirestore();
     // console.log('item\n', item);
+    // console.log('path\n', path,);
     // console.log('newData\n', newData,);
     // console.log('firestore\n', firestore);
     // console.log('getState\n', getState);
@@ -166,8 +173,14 @@ export const saveUserDataToFirestore = ( path, item, ) => // isSync,
     // ref: https://firebase.google.com/docs/firestore/manage-data/add-data#add_a_document
     // firestore.collection('test').add({
     firestore
-      .collection(path)
-      .add(newData)
+
+      // old data structure: subcollections: https://firebase.google.com/docs/firestore/manage-data/structure-data#nested_data_in_documents
+      // .collection(path)
+      // .add(newData) // adds new doc
+      // new data structure: root-level collections: https://firebase.google.com/docs/firestore/manage-data/structure-data#root-level_collections
+      .doc(path)
+      .set(newData) // overwrites old doc
+
     .then( docRef => {
       // console.log('item\n', item,);
       // console.log('docRef\n', docRef,);

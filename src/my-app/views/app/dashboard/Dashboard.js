@@ -21,7 +21,7 @@ import DashboardWidgets from './DashboardWidgets';
 import MiniDashboard from './MiniDashboard';
 
 // config
-import { uiSpecs, } from 'my-app/config/AppConfig'; // getMatchHash,
+import { uiSpecs, } from 'my-app/config/AppConfig'; // getMatchHash, getPath,
 
 const styles = theme => ({
   root: {
@@ -39,12 +39,6 @@ const styles = theme => ({
 
 
 const Dashboard = ({ classes, dashboard, settings, profile, show, type, saveUserDataToFirestore, }) => { // onChange,
-
-  const getPath = path => {
-    const uid = profile.uid;
-    const out = [ 'users' , uid , path , ].join('/');
-    return out;
-  }
 
   const handleSaveSettingsStepper = data => {
     // console.log('data\n', data,);
@@ -78,8 +72,13 @@ const Dashboard = ({ classes, dashboard, settings, profile, show, type, saveUser
     //   // }
     // );
 
-    const settingsPath  = getPath('settings');
-    const dashboardPath = getPath('dashboard');
+    const { uid, } = profile;
+    const settingsPath  = [ 'settings'  , uid , ].join('/'); // getPath( uid , 'settings'  , );
+    const dashboardPath = [ 'dashboard' , uid , ].join('/'); // getPath( uid , 'dashboard' , );
+    // console.log('settingsPath\n', settingsPath,);
+    // console.log('dashboardPath\n', dashboardPath,);
+    // console.log('settingsPath\n', newSettings,);
+    // console.log('newDashboard\n', newDashboard,);
     // db.collection(settingsPath).add(newData);
     // db.collection(dashboardPath).add(newData);
     // updateUserData( 'settings'  , newData , );

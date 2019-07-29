@@ -50,7 +50,8 @@ const getDashboardNewData = (path, oldData, incrementer, sourceDocId, creatable,
   const out = {
     ...oldData,
     // [dashItem]: newCount, // outbox: 5
-    // deletedAt: 0,
+
+    deletedAt: 0,
     createdAt: timestamp,
     sourceDocPath: path,
     sourceDocId,
@@ -97,14 +98,14 @@ const handleEditDashboard = ( uid, path, oldData, incrementer, sourceDocId, disp
   const firestore = getFirestore();
   firestore
 
-    // old structure
+    // old data structure: subcollections: https://firebase.google.com/docs/firestore/manage-data/structure-data#nested_data_in_documents
     // .collection('users')
     // .doc(uid)
     // .collection('dashboard')
     // .add(newData) // adds new doc
 
-    // new structure: root level collections
-    .collection('dashboards')
+    // new data structure: root-level collections: https://firebase.google.com/docs/firestore/manage-data/structure-data#root-level_collections
+    .collection('dashboard')
     .doc(uid)
     .set(newData) // overwrites old doc
 
