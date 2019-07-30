@@ -49,14 +49,20 @@ class DashboardContainer extends Component {
     // console.log('profile\n', profile,);
     // console.log('settings\n', settings,);
     // console.log('dashboard\n', dashboard,);
-    const ready1 = dashboard && settings && profile;
+    const ready1 = !!(dashboard && settings && profile);
     if(!ready1) return null;
-    const ready2 = dashboard.geoNation   && dashboard.geoNation.length   ;
-    const ready3 = dashboard.geoRegion   && dashboard.geoRegion.length   ;
-    const ready4 = dashboard.geoLocal    && dashboard.geoLocal.length    ;
-    const ready5 = dashboard.bizCategory && dashboard.bizCategory.length ;
-    const ready6 = ready1 && ready2 && ready3 && ready4 && ready5;
+    const ready2 = !!( dashboard.geoNation   && dashboard.geoNation.length   );
+    const ready3 = !!( dashboard.geoRegion   && dashboard.geoRegion.length   );
+    const ready4 = !!( dashboard.geoLocal    && dashboard.geoLocal.length    );
+    const ready5 = !!( dashboard.bizCategory && dashboard.bizCategory.length );
+    const ready6 = !!( ready1 && ready2 && ready3 && ready4 && ready5        );
     const show = ready6 ? 'main' : 'step';
+    // console.log('ready1\n', ready1,);
+    // console.log('ready2\n', ready2,);
+    // console.log('ready3\n', ready3,);
+    // console.log('ready4\n', ready4,);
+    // console.log('ready5\n', ready5,);
+    // console.log('ready6\n', ready6,);
     // console.log('show\n', show,);
     // this.setState({ show, });
 
@@ -90,8 +96,8 @@ class DashboardContainer extends Component {
 
     const getDashboard = () =>
       <Dashboard
-        dashboard={dashboard} settings={settings} profile={profile}
-        type={type} show={show} // onChange={handleChange}
+        dashboard={dashboard} settings={settings} profile={profile} type={type} show={show}
+        // onChange={handleChange} // search "old data structure"; see changes to === 3 and pathArray[2] in src/my-app/store/actions/my-actions/userDataActions.js
       />
     const getMainContent = () => <React.Fragment> {getRefreshButton()} {getDashboard()} </React.Fragment>
     const getIsError = () => <div className="h-full"><Error500Page /></div>

@@ -62,9 +62,9 @@ const Dashboard = ({ classes, dashboard, settings, profile, show, type, saveUser
       ...newData,
     };
 
-    // this.setState({
+    // this.setState({ // this is a controlled component, so no state
     //   ...newData,
-    //   show: 'main',
+    //   show: 'main',  // show is controlled from DashboardContainer
     // }
     //   // , () => {
     //   //   console.log('props\n', this.props,);
@@ -90,10 +90,11 @@ const Dashboard = ({ classes, dashboard, settings, profile, show, type, saveUser
     // onChange();
   }
 
-  const handleClickGeo = () => {
-    this.setState({ show: 'step', });
-    window.scrollTo( 0, 0, );
-  }
+  // const handleClickGeo = () => {
+  //   // this is a controlled component, so no state
+  //   // this.setState({ show: 'step', }); // show is controlled from DashboardContainer
+  //   window.scrollTo( 0, 0, );
+  // }
 
   const dashConfig = {
     standard : <div className={classes.wrapper}><DashboardWidgets data={dashboard} settings={settings} /></div>,
@@ -104,7 +105,7 @@ const Dashboard = ({ classes, dashboard, settings, profile, show, type, saveUser
   const getMainContent = () => dashConfig[type]
 
   const showConfig = {
-    greet : <SettingsMessage onClick={handleClickGeo} /> ,
+    // greet : <SettingsMessage onClick={handleClickGeo} /> ,
     step  : <SettingsStepper onSave={handleSaveSettingsStepper} /> ,
     main  : getMainContent(),
   }
