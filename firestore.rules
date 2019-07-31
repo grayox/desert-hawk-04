@@ -2,13 +2,35 @@
 // rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /{document=**} {
-      allow read, write;
+
+    match /users/{userId} {
+      // ref: https://firebase.google.com/docs/firestore/security/rules-conditions#authentication
+      // Make sure the uid of the requesting user matches name of the user document.
+      // The wildcard expression {userId} makes the userId variable available in rules.
+      allow read, update, delete: if request.auth.uid == userId;
+      allow create: if request.auth.uid != null;
     }
+
+    match /settings/{userId} {
+      allow read, write: if request.auth.uid == userId;
+    }
+
+    match /dashboard/{userId} {
+      allow read, write: if request.auth.uid == userId;
+    }
+
+    match /leads/{lead} {
+      // allow read, update, delete: if resource.data.createdBy == request.auth.uid;
+      allow create: if request.auth.uid != null;
+    }
+
+    match /contacts/{contact} {
+      allow read, update, delete: if resource.data.createdBy == request.auth.uid;
+      allow create: if request.auth.uid != null;
+    }
+
   }
 }
 
 // leads: read, write: if logged in && not archivedBy anyone else && lead.geo === user.geo
 // leads: archived: read: if lead.archivedBy === user.uid
-// contacts: read, write: if contact.createdBy === user.uid
-// users: read, write: if uid === user.uid
