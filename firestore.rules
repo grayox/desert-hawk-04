@@ -1,8 +1,16 @@
 // ref: https://firebase.google.com/docs/firestore/security/rules-structure
+// firebase deploy --only firestore:rules
 // rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-
+    
+    // match /{document=**} {
+    // // Allow read/write access to all users under any conditions
+    // // Warning: **NEVER** use this rule set in production; it allows
+    // // anyone to overwrite your entire database.
+    //   allow read, write: if true;
+    // }
+  
     match /users/{userId} {
       // ref: https://firebase.google.com/docs/firestore/security/rules-conditions#authentication
       // Make sure the uid of the requesting user matches name of the user document.
@@ -21,7 +29,8 @@ service cloud.firestore {
 
     match /leads/{lead} {
       // allow read, update, delete: if resource.data.createdBy == request.auth.uid;
-      allow create: if request.auth.uid != null;
+      // allow create: if request.auth.uid != null;
+      allow read, write: if request.auth.uid != null;
     }
 
     match /contacts/{contact} {
