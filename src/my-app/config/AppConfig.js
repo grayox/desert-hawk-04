@@ -688,7 +688,7 @@ export const getComponentsNavConfig = props => {
         creatable: {
           title: 'Send new referral', // form: <UserMultiForm />,
           path: 'leads',
-          fields: [ 'bizCategory*', 'zipInput*', 'name*', 'phone*', 'email*', 'notes', ], // 'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
+          fields: [ 'name*', 'bizCategory*', 'email*', 'phone*', 'zipInput*', 'notes', ], // 'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
           addOns: {
             // createdAt: 'timestamp', // added in cred.actions at save time
             createdBy: uid,

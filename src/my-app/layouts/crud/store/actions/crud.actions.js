@@ -246,9 +246,13 @@ const assembleBatchWrite = ( db, batch, navComponentId, uid, docId, dashboard, )
   // dashboards
   if(local && (!_.isEmpty(local))) {
     console.log('local\n', local,);
-    const path = `users/${uid}/dashboard`;
-    const dbRef = db.collection(path);
-    batch.set(dbRef, local.fields,);
+    // old data structure: subcollections
+    // const path = `users/${uid}/dashboard`;
+    // const dbRef = db.collection(path);
+    // new data structure: root-level collections
+    const path = `dashboard/${uid}`;
+    const dbRef = db.doc(path);
+    batch.set(dbRef, local,); //.fields
   }
   if(remotes && remotes.length) {
     // console.log('remotes\n', remotes,);

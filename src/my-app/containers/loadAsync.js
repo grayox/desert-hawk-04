@@ -31,9 +31,9 @@ const BATCH_SIZE = 15; // 20
 
 export const loadUserData = async path => {
   // path: string: example: 'users/myUserID/settings' | 'users/myUserID/dashboard'
-  console.log('path\n', path);
+  // console.log('path\n', path);
   const out = await getUserData(path);
-  console.log('out\n', out);
+  // console.log('out\n', out);
   return out;
 
   // const promise = new Promise((resolve, reject) => {
@@ -125,17 +125,17 @@ export const loadUserData = async path => {
 // new data structure: root-level collections
 // inspired by: https://firebase.google.com/docs/firestore/query-data/get-data#get_a_document
 const getUserData = async path => {
-  console.log('path\n', path,);
+  // console.log('path\n', path,);
   const db = firebase.firestore();
   
   // const docRef = db.collection("cities").doc("SF");
   const docRef = db.doc(path);
-  console.log('docRef\n', docRef,);
+  // console.log('docRef\n', docRef,);
 
   const out = await docRef.get().then( doc => {
     if (doc.exists) {
       const data = doc.data();
-      console.log("Document data:", data,);
+      // console.log("Document data:", data,);
       return data;
     } else {
       // doc.data() will be undefined in this case
@@ -146,7 +146,7 @@ const getUserData = async path => {
     console.log("Error getting document:", error);
   });
 
-  console.log('out\n', out,);
+  // console.log('out\n', out,);
   return out;
 }
 
