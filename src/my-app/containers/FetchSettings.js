@@ -18,11 +18,12 @@ const INITIAL_STATE = {
 
 class FetchSettings extends Component {
 
-  // state = INITIAL_STATE;
-  constructor(props) {
-    super(props);
-    this.state = INITIAL_STATE;
-  }
+  state = INITIAL_STATE;
+
+  // constructor(props) {
+  //   super(props);
+  //   this.state = INITIAL_STATE;
+  // }
 
   componentDidMount() {
     this.handleLoad();
@@ -104,7 +105,7 @@ const mapStateToProps = state => {
   // const profile = state.firebase.profile;
   // const dataHasLoaded = user && leads && profile && settings;
   
-  console.log('user\n', user);
+  // console.log('user\n', user);
   // console.log('leads\n', leads);
   // console.log('profile\n', profile);
   // console.log('settings\n', settings);

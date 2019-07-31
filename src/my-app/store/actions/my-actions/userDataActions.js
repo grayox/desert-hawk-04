@@ -71,7 +71,7 @@ export const updateUserData = ( path, value, ) => {
     settings: UPDATE_SETTINGS_SUCCESS,
     dashboard: UPDATE_DASHBOARD_SUCCESS,
     feedbackRating: UPDATE_FEEDBACK_RATING,
-    feedbacKNote: UPDATE_FEEDBACK_NOTE,
+    feedbackNote: UPDATE_FEEDBACK_NOTE,
   }
   const out = {
     type: typeConfig[path],
@@ -128,7 +128,7 @@ export const saveUserDataToFirestore = ( path, item, ) => // isSync,
     // duplicated at: src/my-app/containers/LoadAsync.js
     const ready1 = !path.includes('//');
     // console.log('ready1', ready1,);
-    if(!ready1) return;
+    if(!ready1) return null;
     
     const pathArray = path.split('/');
     const pathArrayLength = pathArray.length;
@@ -137,7 +137,7 @@ export const saveUserDataToFirestore = ( path, item, ) => // isSync,
     // oot-level collections instead of subcollections vs nested data in a document
     // const ready2 = (pathArrayLength === 2); // === 3 old data structure: subcollections
     const ready2 = !!pathArrayLength;
-    if(!ready2) return;
+    if(!ready2) return null;
     
     // console.log('pathArray\n', pathArray,);
     // console.log('pathArray[1]\n', pathArray[1],);

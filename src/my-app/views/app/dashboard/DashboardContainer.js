@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 
 // import { Tooltip, Zoom, IconButton, Icon, } from '@material-ui/core'; // withStyles, Paper,
-import { saveUserDataToFirestore, } from 'my-app/store/actions/my-actions/userDataActions'; // updateUserData, 
+// import { saveUserDataToFirestore, } from 'my-app/store/actions/my-actions/userDataActions'; // updateUserData, 
 // import _ from '@lodash';
 
 import Dashboard from './Dashboard';
@@ -85,6 +85,11 @@ class DashboardContainer extends Component {
     const { isError, } = this.state; // isLoading,
     const { dashboard, settings, profile, type, isLoading, } = this.props; // dataHasLoaded,
 
+    // console.log('profile\n', profile,);
+    // console.log('settings\n', settings,);
+    // console.log('dashboard\n', dashboard,);
+    // debugger;
+
     const show = this.getShow();
     
     const getRefreshButton = () => null;
@@ -158,6 +163,7 @@ const mapStateToProps = state => {
   // console.log('settings\n', settings,);
   // console.log('dashboard\n', dashboard,);
   // console.log('dataHasLoaded\n', dataHasLoaded,);
+  // debugger;
   
   // //       YES   YES      YES       NO     NO
   // return { user, profile, settings, leads, dataHasLoaded, }
@@ -166,18 +172,19 @@ const mapStateToProps = state => {
   return { profile, dashboard, settings, isLoading, } // dataHasLoaded,
 }
 
-const mapDispatchToProps = dispatch => ({
-  // common mistakes: 1. forget to use this.props... when calling function in class 2. copy/paste forget to change function name in mapStateToProps => dispatch
-  // updateSettings: settings => dispatch(updateSettings(settings)),
-  // updateUserData          : (path, newData,) => dispatch(updateUserData         (path, newData,)),
-  saveUserDataToFirestore : (path, newData,) => dispatch(saveUserDataToFirestore(path, newData,)),
-})
+// const mapDispatchToProps = dispatch => ({
+//   // common mistakes: 1. forget to use this.props... when calling function in class 2. copy/paste forget to change function name in mapStateToProps => dispatch
+//   // updateSettings: settings => dispatch(updateSettings(settings)),
+//   // updateUserData          : (path, newData,) => dispatch(updateUserData         (path, newData,)),
+//   saveUserDataToFirestore : (path, newData,) => dispatch(saveUserDataToFirestore(path, newData,)),
+// })
 
 // export default DashboardContainer;
 // export default withStyles(styles, {withTheme: true})(DashboardContainer);
 export default compose(
   // withStyles(styles, { withTheme: true }),
-  connect(mapStateToProps, mapDispatchToProps,),
+  // connect(mapStateToProps, mapDispatchToProps,),
+  connect(mapStateToProps, null,),
   // withRouter(connect(mapStateToProps, mapDispatchToProps),
   // firestoreConnect(props => {
   //   return [

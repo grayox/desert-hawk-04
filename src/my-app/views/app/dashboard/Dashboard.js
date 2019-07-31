@@ -12,7 +12,7 @@ import _ from '@lodash';
 import { withStyles, Paper, } from '@material-ui/core';
 
 import dashboardStyle from "my-app/vendors/creative-tim/assets/jss/material-dashboard-react/views/dashboardStyle";
-import SettingsMessage from 'my-app/components/SettingsMessage';
+// import SettingsMessage from 'my-app/components/SettingsMessage';
 import SettingsStepper from 'my-app/components/steppers/SettingsStepper';
 import { saveUserDataToFirestore, updateUserData, } from 'my-app/store/actions/my-actions/userDataActions'; //
 

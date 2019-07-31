@@ -2,7 +2,8 @@ import React, { Component, } from 'react';
 import PropTypes from 'prop-types';
 
 import {
-  withStyles, Typography, Button, Paper, Chip, Snackbar, IconButton, Icon, Stepper, Step, StepLabel, StepContent,
+  withStyles, CircularProgress, Typography, Button, Paper, Chip,
+  Snackbar, IconButton, Icon, Stepper, Step, StepLabel, StepContent,
 } from '@material-ui/core';
 
 import GeoSelect from '../GeoSelect/GeoSelect';
@@ -23,11 +24,14 @@ const styles = theme => ({
   resetContainer: {
     padding: theme.spacing.unit * 3,
   },
+  // progress: {
+  //   margin: theme.spacing(2),
+  // },
 });
 
 const HEADER_MESSAGE =
   <Typography variant="h5" className="opacity-50 font-light" color="inherit" gutterBottom>
-    Set your location
+    Select location and business type
   </Typography>
 
 const FINISH_MESSAGE = <div>You finished all steps. You&rsquo;re done!</div>
@@ -61,6 +65,10 @@ const INITIAL_STATE_VALUES_BIZ_CATEGORY = {
   bizCategory : '' ,
 };
 
+const INITIAL_STATE_LOADING = {
+  isLoading: false,
+}
+
 const INITIAL_STATE_VALUES = {
   ...INITIAL_STATE_VALUES_GEO,
   ...INITIAL_STATE_VALUES_BIZ_CATEGORY,
@@ -70,6 +78,7 @@ const INITIAL_STATE = {
   ...INITIAL_STATE_ACTIVE_STEP,
   ...INITIAL_STATE_OPEN,
   ...INITIAL_STATE_VALUES,
+  ...INITIAL_STATE_LOADING,
 };
 
 class SettingsStepper extends Component {
@@ -275,27 +284,30 @@ class SettingsStepper extends Component {
 
   handleReset             = ()    => this.setState(   INITIAL_STATE                                )
   handleClose             = ()    => this.setState(   INITIAL_STATE_OPEN                           )
-  handleBack              = ()    => this.setState( { activeStep   : this.state.activeStep - 1 , } )
-  handleSave              = ()    => this.setState( { isOpenSnackbar : true                      , } )
+  handleBack              = ()    => this.setState( { activeStep     : this.state.activeStep - 1 , } )
+  handleSave              = ()    =>{this.setState( { isLoading      : true                      , } ); this.props.onSave(this.state);} // isOpenSnackbar : true
   handleCloseSnackbar     = ()    => this.setState( { isOpenSnackbar : false                     , } )
   handleClickSelectButton = ()    => this.openHandlers[this.state.activeStep]()
   handleClickChip         = index => this.openHandlers[index]()
 
   render() {
-    const { onSave, } = this.props;
-    const { activeStep, isOpenSnackbar, } = this.state;
+    const { classes, } = this.props; // onSave, 
+    const { activeStep, isOpenSnackbar, isLoading, } = this.state;
     const {
       getChipValues, getStepContent, handleClickChip, handleCloseSnackbar,
-      handleClickSelectButton, handleBack, handleReset,
+      handleClickSelectButton, handleBack, handleReset, handleSave,
     } = this;
-    const { classes, } = this.props;
 
     const getFinalStep = () =>
       <Paper square elevation={0} className={classes.resetContainer}>
         {FINISH_MESSAGE}
         <Button onClick={handleReset} className={[classes.button, "mr-32"].join(" ")}>Reset</Button>
         <Button onClick={handleBack} className={classes.button}>Back</Button>
-        <Button onClick={() => onSave(this.state)} className={classes.button} variant="contained" color="primary">
+        <Button
+            className={classes.button} variant="contained" color="primary"
+            // onClick={() => onSave(this.state)}
+            onClick={handleSave}
+        >
           Save
         </Button>
       </Paper>
@@ -365,13 +377,25 @@ class SettingsStepper extends Component {
         ]}
       />
 
+    const getProgress = () =>
+      <div class="flex items-stretch">
+        <div class="w-full">
+          <CircularProgress
+            // className={classes.progress}
+            color="secondary"
+          />
+        </div>
+      </div>
+
     const getMainContent = () =>
       <Paper className={classes.root} elevation={1}>
         {getStepper()} {(activeStep === STEP_LABELS.length) && getFinalStep()}
       </Paper>
 
-    const getSettingsStepper = () =>
+    const getSettingsStepperMain = () =>
       <div className={classes.root}> {HEADER_MESSAGE} {getMainContent()} {getSnackbar()} </div>
+
+    const getSettingsStepper = () => isLoading ? getProgress() : getSettingsStepperMain()
 
     return getSettingsStepper();
   }

@@ -86,13 +86,15 @@ class FetchUserData extends Component {
     // console.log('props\n', this.props);
     const { uid, path, onChange, } = this.props; // updateUserData, saveUserDataToFirestore,
     // path: string: 'settings' || 'dashboard'
-    const dataPath = await this.getPath(uid, path,); // 'users/<uid>/settings'
+    const dataPath = await this.getPath(uid, path,); // 'settings/<uid> // 'users/<uid>/settings'
     // console.log('dataPath\n', dataPath);
-
+    
     this.setState({ isLoading: true, });
     // this._asyncRequest = loadUserData();
-    this._asyncRequest = loadUserData(dataPath);
-    const newData = await this._asyncRequest;
+    this._asyncRequest = await loadUserData(dataPath);
+    const newData = this._asyncRequest;
+    // console.log('newData\n', newData);
+    // debugger;
 
     if(!!newData) {
       // updateUserData(path, newData,);
