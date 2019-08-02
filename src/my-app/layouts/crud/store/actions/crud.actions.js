@@ -252,7 +252,7 @@ const assembleBatchWrite = ( db, batch, navComponentId, uid, docId, dashboard, )
     // new data structure: root-level collections
     const path = `dashboard/${uid}`;
     const dbRef = db.doc(path);
-    batch.set(dbRef, local,); //.fields
+    batch.update(dbRef, local,); //.fields
   }
   if(remotes && remotes.length) {
     // console.log('remotes\n', remotes,);

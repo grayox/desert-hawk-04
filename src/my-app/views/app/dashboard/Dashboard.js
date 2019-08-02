@@ -14,6 +14,7 @@ import { withStyles, Paper, } from '@material-ui/core';
 import dashboardStyle from "my-app/vendors/creative-tim/assets/jss/material-dashboard-react/views/dashboardStyle";
 // import SettingsMessage from 'my-app/components/SettingsMessage';
 import SettingsStepper from 'my-app/components/steppers/SettingsStepper';
+import CustomAlert from 'my-app/components/CustomAlert';
 import { saveUserDataToFirestore, updateUserData, } from 'my-app/store/actions/my-actions/userDataActions'; //
 
 // Custom Components
@@ -96,13 +97,25 @@ const Dashboard = ({ classes, dashboard, settings, profile, show, type, saveUser
   //   window.scrollTo( 0, 0, );
   // }
 
+  const getAlert = () =>
+    <React.Fragment>
+      <CustomAlert variant="traditional" />
+      <CustomAlert variant="modern" />
+      <CustomAlert variant="left" />
+      <CustomAlert variant="titled" />
+      <CustomAlert variant="solid" />
+      <CustomAlert variant="top" />
+      <CustomAlert variant="banner" />
+    </React.Fragment>
+
   const dashConfig = {
     standard : <div className={classes.wrapper}><DashboardWidgets data={dashboard} settings={settings} /></div>,
     mini     : <Paper><MiniDashboard data={dashboard} /></Paper>,
     micro    : <Paper><MiniDashboard data={dashboard} micro /></Paper>,
   }
 
-  const getMainContent = () => dashConfig[type]
+  const getMainContent = () =>
+    <React.Fragment> {getAlert()} {dashConfig[type]} </React.Fragment>
 
   const showConfig = {
     // greet : <SettingsMessage onClick={handleClickGeo} /> ,

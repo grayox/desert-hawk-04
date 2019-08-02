@@ -68,19 +68,7 @@ const MyLayout = props => {
     }
   }
 
-  return (
-    <div
-      // className="w-full"
-      // key={settings} // forces reload after settings populate // memoization
-      className={classNames( "w-full overflow-auto", classes.wrapper, )}
-    >
-    {
-      uid &&
-      <React.Fragment>
-        <FetchUserData path="settings"  uid={uid} onChange={handleChangeUserData} />
-        <FetchUserData path="dashboard" uid={uid} onChange={handleChangeUserData} />
-      </React.Fragment> 
-     
+  const getFetchUserData = () =>
     // <FetchUserData key={timestamp+1} key={`${dashboardHash}0`}  ... />
     // <FetchUserData key={timestamp+2} key={`${dashboardHash}1`}  ... />
     // <FetchSettings />
@@ -89,13 +77,27 @@ const MyLayout = props => {
     // <div className="m-32">
     //   <button className="m-32 text-white" onClick={handleUpdateUserData}>Update data</button>
     // </div>
-    }
-      <MediaWidth
-        mobile={<MobileDrawer/>}
-        tablet={<TabletDrawer/>}
-        laptop={<LaptopDrawer/>}
-        // <ResponsiveDrawer/>
-      />
+    uid &&
+    <React.Fragment>
+      <FetchUserData path="settings"  uid={uid} onChange={handleChangeUserData} />
+      <FetchUserData path="dashboard" uid={uid} onChange={handleChangeUserData} />
+    </React.Fragment>
+
+  const getMediaWidth = () =>
+    <MediaWidth
+      mobile={<MobileDrawer/>}
+      tablet={<TabletDrawer/>}
+      laptop={<LaptopDrawer/>}
+      // <ResponsiveDrawer/>
+    />
+
+  return (
+    <div
+      // className="w-full"
+      // key={settings} // forces reload after settings populate // memoization
+      className={classNames( "w-full overflow-auto", classes.wrapper, )}
+    >
+      {getFetchUserData()} {getMediaWidth()}
     </div>
   );
 }
