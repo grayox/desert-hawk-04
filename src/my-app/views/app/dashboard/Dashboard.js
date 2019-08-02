@@ -11,7 +11,7 @@ import _ from '@lodash';
 // @material-ui/core
 import { withStyles, Paper, } from '@material-ui/core';
 
-import dashboardStyle from "my-app/vendors/creative-tim/assets/jss/material-dashboard-react/views/dashboardStyle";
+// import dashboardStyle from "my-app/vendors/creative-tim/assets/jss/material-dashboard-react/views/dashboardStyle";
 // import SettingsMessage from 'my-app/components/SettingsMessage';
 import SettingsStepper from 'my-app/components/steppers/SettingsStepper';
 import CustomAlert from 'my-app/components/CustomAlert';
@@ -25,11 +25,11 @@ import MiniDashboard from './MiniDashboard';
 import { uiSpecs, } from 'my-app/config/AppConfig'; // getMatchHash, getPath,
 
 const styles = theme => ({
-  root: {
-    // display: 'flex',
-    ...dashboardStyle,
-    height: '100vh',
-  }, 
+  // root: {
+  //   // display: 'flex',
+  //   // ...dashboardStyle,
+  //   height: '100vh',
+  // }, 
   wrapper: {
     padding: 0, // flush with top on mobile //'56px', // clears <AppBar />
     // verticalAlign: 'top', // overcomes default
@@ -97,16 +97,23 @@ const Dashboard = ({ classes, dashboard, settings, profile, show, type, saveUser
   //   window.scrollTo( 0, 0, );
   // }
 
-  const getAlert = () =>
-    <React.Fragment>
-      <CustomAlert variant="traditional" />
-      <CustomAlert variant="modern" />
-      <CustomAlert variant="left" />
-      <CustomAlert variant="titled" />
-      <CustomAlert variant="solid" />
-      <CustomAlert variant="top" />
-      <CustomAlert variant="banner" />
-    </React.Fragment>
+  const getAlert = () => {
+    // console.log('dashboard\n', dashboard,);
+    const { net, } = dashboard;
+    const ready1 = typeof net === 'number';
+    const ready2 = net > 0;
+    const hideAlert = !!ready1 && !!ready2;
+    const showAlert = !hideAlert;
+    return (
+      showAlert &&
+      <CustomAlert
+        variant="traditional"
+        heading="⚠️ Your lead balance is zero!"
+        content="To access more referrals, you must refer a lead now"
+        shadow
+      />
+    )
+  } 
 
   const dashConfig = {
     standard : <div className={classes.wrapper}><DashboardWidgets data={dashboard} settings={settings} /></div>,
@@ -114,8 +121,9 @@ const Dashboard = ({ classes, dashboard, settings, profile, show, type, saveUser
     micro    : <Paper><MiniDashboard data={dashboard} micro /></Paper>,
   }
 
-  const getMainContent = () =>
-    <React.Fragment> {getAlert()} {dashConfig[type]} </React.Fragment>
+  const getDashConfig = type => dashConfig[type]
+
+  const getMainContent = () => <React.Fragment>{getAlert()}{getDashConfig(type)}</React.Fragment>
 
   const showConfig = {
     // greet : <SettingsMessage onClick={handleClickGeo} /> ,

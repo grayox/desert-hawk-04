@@ -615,7 +615,7 @@ export const getComponentsNavConfig = props => {
         searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
         filterable: true,
         sortable: true, // see searchable
-        starrable: true,
+        starrable: false, // true,
         taggable: false,
         creatable  : false,
         readable: {
@@ -626,8 +626,13 @@ export const getComponentsNavConfig = props => {
             [ 'archivedBy' , '==' , uid , ] ,
           ],
           itemSummary: {
-            primaryText: '',
-            summarySecondaryText: '',
+            primaryText: item && item.name, // item.bizCategory && _.filter(bizCategoryItems, {value:item.bizCategory,},)[0].label, // || item.geoLocal,
+            // secondaryText: `${item && getValueMaskBizCategory(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
+            secondaryChips: [
+              (item && getValueMaskBizCategory(item.bizCategory,)),
+              (item && item.zipInput && item.zipInput.city),
+              // moment(item.createdAt).fromNow(),
+            ],
           },
         },
         updatable: false,

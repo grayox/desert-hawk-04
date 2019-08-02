@@ -63,7 +63,7 @@ const CustomAlert = ({ variant, heading, content, }) => {
   //   />
 
   const getTraditional = () =>
-    <div class="my-16 p-16 bg-red-lightest border border-red-light text-red-dark rounded relative shadow-md" role="alert">
+    <div class="mb-16 p-16 bg-red-lightest border border-red-light text-red-dark rounded relative xshadow-md" role="alert">
       <strong class="font-bold">{heading}</strong>
       <span class="block sm:inline ml-6">{content}</span>
       {
@@ -92,7 +92,7 @@ const CustomAlert = ({ variant, heading, content, }) => {
     </div>
 
   const getTitled = () =>
-    <div role="my-16 alert">
+    <div class="my-16" role="alert">
       <div class="px-16 py-8 bg-red text-white font-bold rounded-t">
         {heading}
       </div>
