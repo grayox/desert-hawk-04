@@ -109,7 +109,7 @@ const Dashboard = ({ classes, dashboard, settings, profile, show, type, saveUser
       <CustomAlert
         variant="traditional"
         heading="⚠️ Your lead balance is zero!"
-        content="To access more referrals, you must refer a lead now"
+        content="To access more referrals, you must refer a new lead now"
         shadow
       />
     )

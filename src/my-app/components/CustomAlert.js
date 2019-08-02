@@ -35,6 +35,17 @@ import PropTypes from 'prop-types';
 //   },
 // })
 
+// const getCustomAlertDemo = () =>
+//   <React.Fragment>
+//     <CustomAlert variant="traditional" />
+//     <CustomAlert variant="modern"      />
+//     <CustomAlert variant="left"        />
+//     <CustomAlert variant="titled"      />
+//     <CustomAlert variant="solid"       />
+//     <CustomAlert variant="top"         />
+//     <CustomAlert variant="banner"      />
+//   </React.Fragment>
+
 const CustomAlert = ({ variant, heading, content, }) => {
 
   // const onClose = () => {}
@@ -74,7 +85,7 @@ const CustomAlert = ({ variant, heading, content, }) => {
     </div>
 
   const getModernWithBadge = () =>
-    <div class="my-16 p-16 bg-indigo-darkest text-center">
+    <div class="mb-16 p-16 bg-indigo-darkest text-center">
       <div class="p-8 bg-indigo-darker items-center text-indigo-lightest leading-none lg:rounded-full flex lg:inline-flex" role="alert">
         <span class="mr-8 p-8 flex rounded-full bg-indigo uppercase text-xs font-bold">{heading}</span>
         <span class="mr-8 font-semibold text-left flex-auto">{content}</span>
@@ -86,13 +97,13 @@ const CustomAlert = ({ variant, heading, content, }) => {
 
 
   const getLeftAccentBorder = () =>
-    <div class="my-16 p-16 bg-orange-lightest border-l-4 border-orange text-orange-dark" role="alert">
+    <div class="mb-16 p-16 bg-orange-lightest border-l-4 border-orange text-orange-dark" role="alert">
       <p class="font-bold">{heading}</p>
       <p>{content}</p>
     </div>
 
   const getTitled = () =>
-    <div class="my-16" role="alert">
+    <div class="mb-16" role="alert">
       <div class="px-16 py-8 bg-red text-white font-bold rounded-t">
         {heading}
       </div>
@@ -102,7 +113,7 @@ const CustomAlert = ({ variant, heading, content, }) => {
     </div>
 
   const getSolid = () =>
-    <div class="my-16 p-16 flex items-center bg-blue text-white text-sm font-bold" role="alert">
+    <div class="mb-16 p-16 flex items-center bg-blue text-white text-sm font-bold" role="alert">
       {
       // <svg class="mr-2 fill-current w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.432 0c1.34 0 2.01.912 2.01 1.957 0 1.305-1.164 2.512-2.679 2.512-1.269 0-2.009-.75-1.974-1.99C9.789 1.436 10.67 0 12.432 0zM8.309 20c-1.058 0-1.833-.652-1.093-3.524l1.214-5.092c.211-.814.246-1.141 0-1.141-.317 0-1.689.562-2.502 1.117l-.528-.88c2.572-2.186 5.531-3.467 6.801-3.467 1.057 0 1.233 1.273.705 3.23l-1.391 5.352c-.246.945-.141 1.271.106 1.271.317 0 1.357-.392 2.379-1.207l.6.814C12.098 19.02 9.365 20 8.309 20z"/></svg>
       }
@@ -110,7 +121,7 @@ const CustomAlert = ({ variant, heading, content, }) => {
     </div>
 
   const getTopAccentBorder = () =>
-    <div class="my-16 p-16 bg-teal-lightest border-t-4 border-teal rounded-b text-teal-darkest shadow-md" role="alert">
+    <div class="mb-16 p-16 bg-teal-lightest border-t-4 border-teal rounded-b text-teal-darkest shadow-md" role="alert">
       <div class="flex">
         {
         // <div class="py-1"><svg class="fill-current h-6 w-6 text-teal mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
@@ -123,7 +134,7 @@ const CustomAlert = ({ variant, heading, content, }) => {
     </div>
 
   const getBanner = () =>
-    <div class="my-16 p-16 bg-blue-lightest border-t border-b border-blue text-blue-dark" role="alert">
+    <div class="my-1b p-16 bg-blue-lightest border-t border-b border-blue text-blue-dark" role="alert">
       <p class="font-bold">{heading}</p>
       <p class="text-sm">{content}</p>
     </div>

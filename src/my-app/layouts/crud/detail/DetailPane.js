@@ -348,13 +348,11 @@ const DetailPane = ({
   }
 
   const getDashboard = () =>
-    // <Paper className={classNames(classes.paper, "z-0",)}>
-      <MediaWidth
-        mobile={<Dashboard dashboard={dashboard} type="micro" />}
-        tablet={<Dashboard dashboard={dashboard} type="mini" />}
-        laptop={<Dashboard dashboard={dashboard} type="mini" />}
-      />
-    // </Paper> 
+    <MediaWidth
+      mobile={<Dashboard dashboard={dashboard} type="micro" />}
+      tablet={<Dashboard dashboard={dashboard} type="mini" />}
+      laptop={<Dashboard dashboard={dashboard} type="mini" />}
+    />
 
   const getHeader = () =>
     <Paper className={classNames(classes.paper, "z-0",)}>
