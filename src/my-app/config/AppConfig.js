@@ -479,18 +479,18 @@ export const getAlert = ( dashboard, content, ) => {
       // shadow
       variant="traditional"
       heading="⚠️ Your lead balance is zero!"
-      body="To access referrals, you must refer a new lead now."
+      body="To access referrals in your Inbox, you must refer a new lead now."
       dialog={
         <React.Fragment>
           <p>
             It is very important to keep your net lead balance above zero.
-            Your net lead balance is the number of lead referrals you made
-            through your Outbox minus the number of leads you claimed from your Inbox.
+            Your net lead balance is the number of lead referrals you deposited
+            in your Outbox minus the number of leads you withdrew from your Inbox.
             By keeping a positive net lead balance, we can let you claim new leads
             whenever they become available for your market.
           </p>
           <p>
-            In order to contribute a lead, navigate to the Outbox and click the blue button in the upper left.
+            In order to deposit a lead, navigate to the Outbox and click the blue button in the upper left.
             That will open a form where you can add the contact information of your lead referral.
             From there, users can see the leads you and others refer by navigating to the Inbox.
             In the Inbox, you can claim new leads (as long as your lead balance is above zero).
