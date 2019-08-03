@@ -916,9 +916,9 @@ export const getComponentsNavConfig = props => {
 export const faqDB = [
   {
     'id'       : '1',
-    'question' : 'Whom is Swap made for?',
+    'question' : 'Who uses Swap?',
     // eslint-disable-next-line
-    'answer'   : 'Swap is made for sales professionals.\
+    'answer'   : 'Sales professionals.\
                   Especially those selling mortgages, real estate, insurance and financial advisory services\
                   who want to decrease their marketing costs and increase their sales volume by leveraging\
                   the power of their referral network to generate a steady supply of leads.',
@@ -936,7 +936,7 @@ export const faqDB = [
   },
   {
     'id'       : '3',
-    'question' : 'How does Swap solve this central problem?',
+    'question' : 'How does Swap solve this problem?',
     // eslint-disable-next-line
     'answer'   : 'Swap solves this problem by adding a layer of speed and accountability.\
                   Speed because everything is online and you can do all your referral networking by the press\
@@ -955,6 +955,40 @@ export const faqDB = [
   },
   {
     'id'       : '5',
+    'question' : 'Where do I get new leads being referred to me?',
+    // eslint-disable-next-line
+    'answer'   : 'Inbox.\n\
+                  Navigate there, then "claim" a lead to view it.',
+  },
+  {
+    'id'       : '6',
+    'question' : 'Where to I see all the leads Ive claimed?',
+    // eslint-disable-next-line
+    'answer'   : 'Archive.',
+  },
+  {
+    'id'       : '7',
+    'question' : 'How do I refer a new lead?',
+    // eslint-disable-next-line
+    'answer'   : 'Outbox.',
+  },
+  {
+    'id'       : '8',
+    'question' : 'How do I invite people I want to refer leads to?',
+    // eslint-disable-next-line
+    'answer'   : 'Contacts.',
+  },
+  {
+    'id'       : '9',
+    'question' : 'What if I receive bad or bogus leads? Will they count against me?',
+    // eslint-disable-next-line
+    'answer'   : 'No. At least that’s our goal. Our first release will not have our technology in this area\
+                  fully refined so we might just have to ban users who abuse the system. However, in future\
+                  versions we will implement a system of fair resolution and settlement of bad leads.\
+                  Until we roll out this technology, it will remain a high priority item fo us to solve.',
+  },
+  {
+    'id'       : '10',
     'question' : 'How does your pricing work?',
     // eslint-disable-next-line
     'answer'   : 'We are a free service during our initial phase. We reserve the right to charge a very small\
@@ -962,7 +996,7 @@ export const faqDB = [
                   extra business from our service, we will have earned every penny and then some in your eyes.',
   },
   {
-    'id'       : '6',
+    'id'       : '11',
     'question' : 'Will I get to meet the members whom I send and receive leads?',
     // eslint-disable-next-line
     'answer'   : 'We leave that decision in your capable hands. Swap does not require personal meetings\
@@ -971,27 +1005,27 @@ export const faqDB = [
                   know or meet via Swap.',
   },
   {
-    'id'       : '7',
+    'id'       : '12',
     'question' : 'How do you ensure the lead referrals are of good quality?',
     // eslint-disable-next-line
     'answer'   : 'We have a challenge system that allows the network to self-police\
                   the lead quality of the system.',
   },
   {
-    'id'       : '8',
+    'id'       : '13',
     'question' : 'What happens if I get a bad lead?',
     // eslint-disable-next-line
     'answer'   : 'You can dispute it by clicking a button that creates a “challenge.”',
   },
   {
-    'id'       : '9',
+    'id'       : '14',
     'question' : 'How many challenges am I allowed?',
     // eslint-disable-next-line
     'answer'   : 'You have an unlimited number of challenges. And we encourage you to challenge any leads\
                   you consider problematic. However, we also monitor all challenges for abuse.',
   },
   {
-    'id'       : '10',
+    'id'       : '15',
     'question' : 'What happens if I get flagged as a “challenge abuser?”',
     // eslint-disable-next-line
     'answer'   : 'If we verify you have abuses the process in bad faith, you could have your account\
@@ -1000,7 +1034,7 @@ export const faqDB = [
                   quality to make the network as valuable as possible to all our members.',
   },
   {
-    'id'       : '11',
+    'id'       : '16',
     'question' : 'What if I submit a bad lead?',
     // eslint-disable-next-line
     'answer'   : 'If you receive a challenge and you agree it was a bad lead, you should correct it or\
@@ -1010,14 +1044,14 @@ export const faqDB = [
                   to our members.',
   },
   {
-    'id'       : '12',
+    'id'       : '17',
     'question' : 'How exactly are challenges resolved?',
     // eslint-disable-next-line
     'answer'   : 'First we notify the referrer and they have an opportunity to concede the issue immediately.\
                   Then we review the lead and determine to determine the outcome.',
   },
   {
-    'id'       : '13',
+    'id'       : '18',
     'question' : 'Can I send referrals to a specific member?',
     // eslint-disable-next-line
     'answer'   : 'Yes. We let you invite that person to the network and then select that person to receive\
@@ -1025,7 +1059,7 @@ export const faqDB = [
                   your target member serves.',
   },
   {
-    'id'       : '14',
+    'id'       : '19',
     'question' : 'What do I need to do before I can get my first referral?',
     // eslint-disable-next-line
     'answer'   : 'After you sign in with your Google, Facebook or Twitter account, we will need two pieces\
@@ -1035,13 +1069,13 @@ export const faqDB = [
                   qualified referral. Then we can show you the lead referrals that you qualify to receive.',
   },
   {
-    'id'       : '15',
+    'id'       : '20',
     'question' : 'Why do you need me to sign in with my Google, Facebook or Twitter account?',
     // eslint-disable-next-line
     'answer'   : 'We need to verify you are a real person.',
   },
   {
-    'id'       : '16',
+    'id'       : '21',
     'question' : 'Why do you need my line of business and geographical location?',
     // eslint-disable-next-line
     'answer'   : 'Because that is the way we match you to the lead referrals in the network.\

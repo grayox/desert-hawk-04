@@ -107,10 +107,26 @@ const Dashboard = ({ classes, dashboard, settings, profile, show, type, saveUser
     return (
       showAlert &&
       <CustomAlert
+        // shadow
         variant="traditional"
         heading="⚠️ Your lead balance is zero!"
-        content="To access more referrals, you must refer a new lead now"
-        shadow
+        body="To access referrals, you must refer a new lead now."
+        dialog={
+          <React.Fragment>
+            <p>
+              It is very important to keep your lead balance above zero.
+              By keeping a positive net lead balance, we can let you claim new leads
+              whenever they become available for your market.
+            </p>
+            <p>
+              In order to contribute a lead, navigate to the Outbox and click the blue button in the upper left.
+              That will open a form where you can add the contact information of your lead referral.
+              From there, users can see the leads you and others refer by navigating to the Inbox.
+              In the Inbox, you can claim new leads (as long as your lead balance is above zero).
+              After you claim a lead, we move it to your Archive.
+            </p>
+          </React.Fragment>
+        }
       />
     )
   } 
