@@ -11,7 +11,7 @@ import FetchUserData from 'my-app/containers/FetchUserData';
 // @material-ui/core
 import { withStyles, withWidth, Grid, } from '@material-ui/core';
 
-import { getForm, getIdHash, } from 'my-app/config/AppConfig'; // getSearchableFields, getItemsFilteredBySearch,
+import { getForm, getIdHash, getAlert, } from 'my-app/config/AppConfig'; // getSearchableFields, getItemsFilteredBySearch,
 import MediaWidth from 'my-app/layouts/MediaWidth';
 import ListPane from './list/ListPane';
 import DetailPane from './detail/DetailPane';
@@ -361,7 +361,7 @@ class CRUDView extends Component {
     } = this.state;
     const {
       classes, profile, settings, dashboard, items, condensed, onNext, hasMore, miniDashboard, navComponentId,
-      creatable, readable, updatable, deletable, actionable, searchable, sortable, filterable, starrable,
+      creatable, readable, updatable, deletable, actionable, searchable, sortable, filterable, starrable, alertable,
       searchMenuOptions, filterMenuOptions, sortMenuOptions, searchFilterSortModelWithLabels,
       onSearchFilterSort, onResetSearchFilterSort,
     } = this.props;
@@ -480,6 +480,15 @@ class CRUDView extends Component {
         <Grid item xs={6}>{getListPane()}</Grid>
         <Grid item xs={6}>{getDetailPane()}</Grid>
       </Grid>
+
+    const getMediaContent = () =>
+      <div className={classes.wrapper}>
+        <MediaWidth
+          mobile={getMobileContent()}
+          tablet={getTabletContent()}
+          laptop={getLaptopContent()}
+        />
+      </div>
     
     const getMainContent = () => // {
       // console.log('settings\n', settings,);
@@ -490,22 +499,28 @@ class CRUDView extends Component {
           { getUpdateDialog()  }
           { getDeleteDialog()  }
           { getActionDialog()  }
-          <div className={classes.wrapper}>
-            <MediaWidth
-              mobile={getMobileContent()}
-              tablet={getTabletContent()}
-              laptop={getLaptopContent()}
-            />
-          </div>
+          { getMediaContent()  }
         </React.Fragment>
       // );
     // }
 
-    return (
+    const getCrudView = () =>
       // <FuseScrollbars className="overflow-auto">
-      <div key={settings} className={classes.root}>{( items && items.length ) ? getMainContent() : getViewEmpty() }</div>   
+      <div
+        key={settings}
+        className={classes.root}
+      >
+        {
+          ( items && items.length )
+          ?
+          getMainContent()
+          :
+          getViewEmpty()
+        }
+      </div>   
       // </FuseScrollbars>
-    );
+
+    return ( alertable ? getAlert(dashboard, getCrudView(),) : getCrudView() );
   }
 
 }
@@ -517,11 +532,10 @@ CRUDView.propTypes = {
   classes: PropTypes.object.isRequired,
   items: PropTypes.array.isRequired,
   navComponentId: PropTypes.string.isRequired,
-
-  condensed: PropTypes.bool, // one-line per list item in detail pane
-  
   miniDashboard: PropTypes.array,
+  condensed: PropTypes.bool, // one-line per list item in detail pane
   starrable: PropTypes.bool,
+  alertable: PropTypes.bool,
   searchable: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.bool,
@@ -556,13 +570,14 @@ CRUDView.propTypes = {
 
 CRUDView.defaultProps = {
   navComponentId: '',
+  miniDashboard: [],
   condensed: false,
   searchable: false,
   sortable: false,
   filterable: false,
   starrable: false,
-  miniDashboard: [],
   // actionable: false,
+  alertable: false,
   creatable: false,
   // readable: false,
   updatable: false,

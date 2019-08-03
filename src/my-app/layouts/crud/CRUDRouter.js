@@ -18,7 +18,7 @@ const Child = ({ match: { params: { id }}, profile, settings, dashboard, }) => {
   // console.log('crudConfig\n', crudConfig,);
   const {
     condensed, actionable, creatable, readable, updatable, deletable,
-    searchable, filterable, sortable, starrable, miniDashboard,
+    searchable, filterable, sortable, starrable, alertable, miniDashboard,
   } = crudConfig;
   return (
     // <div>{id}</div>
@@ -26,9 +26,10 @@ const Child = ({ match: { params: { id }}, profile, settings, dashboard, }) => {
       profile={profile}
       settings={settings}
       dashboard={dashboard}
-      // items={items} // these will be acquired as state, not props
-      condensed={condensed}
       navComponentId={item && item.id}
+      // items={items} // these will be acquired as state, not props
+      miniDashboard={miniDashboard}
+      condensed={condensed}
       actionable={actionable}
       creatable={creatable}
       readable={readable}
@@ -38,7 +39,7 @@ const Child = ({ match: { params: { id }}, profile, settings, dashboard, }) => {
       filterable={filterable}
       sortable={sortable}
       starrable={starrable}
-      miniDashboard={miniDashboard}
+      alertable={alertable}
     />
   )
 };

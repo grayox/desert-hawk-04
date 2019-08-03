@@ -22,6 +22,7 @@ import moment from 'moment';
 import hash from 'object-hash'; // https://www.npmjs.com/package/object-hash
 
 // custom components
+import CustomAlert from 'my-app/components/CustomAlert';
 import ZipCodeInput from 'my-app/components/CustomFormFields/ZipCodeInput.js';
 
 // creatable
@@ -464,6 +465,45 @@ export const getItemsFilteredBySearch = (items, searchString, searchableFields,)
 // // https://www.freecodecamp.org/forum/t/newline-in-react-string-solved/68484/10
 // let newText = text.split ('\n').map( (item, index,) => <p key={farmhash.hash32(item+index)}>{item}</p>);
 
+export const getAlert = ( dashboard, content, ) => {
+  // console.log('dashboard\n', dashboard,);
+  const { net, } = dashboard;
+  const ready1 = typeof net === 'number';
+  const ready2 = net > 0;
+  const hideAlert = !!ready1 && !!ready2;
+  const showAlert = !hideAlert;
+  return (
+    showAlert
+    ?
+    <CustomAlert
+      // shadow
+      variant="traditional"
+      heading="⚠️ Your lead balance is zero!"
+      body="To access referrals, you must refer a new lead now."
+      dialog={
+        <React.Fragment>
+          <p>
+            It is very important to keep your net lead balance above zero.
+            Your net lead balance is the number of lead referrals you made
+            through your Outbox minus the number of leads you claimed from your Inbox.
+            By keeping a positive net lead balance, we can let you claim new leads
+            whenever they become available for your market.
+          </p>
+          <p>
+            In order to contribute a lead, navigate to the Outbox and click the blue button in the upper left.
+            That will open a form where you can add the contact information of your lead referral.
+            From there, users can see the leads you and others refer by navigating to the Inbox.
+            In the Inbox, you can claim new leads (as long as your lead balance is above zero).
+            After you claim a lead, we move it to your Archive.
+          </p>
+        </React.Fragment>
+      }
+    />
+    :
+    {content}
+  )
+}
+
 // syncronization: changes in either of the following files must be hard coded in the other
 // src/fuse-configs/fuseNavigationConfig.js // abbreviated
 // src/main/content/components/ComponentsConfig.js
@@ -529,13 +569,14 @@ export const getComponentsNavConfig = props => {
       // also update in: src/main/content/components/ComponentsConfig.js
       component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
       crudConfig : {
+        miniDashboard: [ 'net', 'deposits', 'withdrawals', ],
         condensed: true,
         searchable: false, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
         filterable: false,
         sortable: false, // see searchable
         starrable: false,
         taggable: false,
-        miniDashboard: [ 'net', 'deposits', 'withdrawals', ],
+        alertable: true,
         creatable: false, // false only makes button not appear on CRUD view
         readable: {
           // src/my-app/containers/LoadAsync.js
@@ -617,6 +658,7 @@ export const getComponentsNavConfig = props => {
         sortable: true, // see searchable
         starrable: false, // true,
         taggable: false,
+        alertable: false,
         creatable  : false,
         readable: {
           path: 'leads', // src/my-app/containers/LoadAsync.js
@@ -683,13 +725,14 @@ export const getComponentsNavConfig = props => {
       // also update in: src/main/content/components/ComponentsConfig.js
       component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
       crudConfig : {
+        miniDashboard: [ 'net', 'deposits', 'withdrawals', ],
         condensed: true,
         searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
         filterable: true,
         sortable: true, // see searchable
         starrable: false,
         taggable: false,
-        miniDashboard: [ 'net', 'deposits', 'withdrawals', ],
+        alertable: false,
         creatable: {
           title: 'Send new referral', // form: <UserMultiForm />,
           path: 'leads',
@@ -763,13 +806,14 @@ export const getComponentsNavConfig = props => {
       // also update in: src/main/content/components/ComponentsConfig.js
       component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
       crudConfig : {
+        miniDashboard: [ 'contacts', ],
         condensed: true,
         searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
         filterable: true,
         sortable: true, // see searchable
         starrable: true,
         taggable: false,
-        miniDashboard: [ 'contacts', ],
+        alertable: false,
         creatable: {
           title: 'Create new contact', // form: <UserMultiForm />,
           path: 'contacts',

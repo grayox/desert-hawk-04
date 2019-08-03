@@ -40,39 +40,51 @@ const getReset = onResetSearchFilterSort =>
 
 // getEmpty = () => (<img src="https://via.placeholder.com/800x900.png/e91e63/fff?text=Detail+goes+here"/>)
 const getEmpty = ( side, creatable, onClick, searchFilterSortModelWithLabels, onResetSearchFilterSort, ) => {
-  const getEmptyConfig = {
-    list: (
-      <div className="h-full w-full flex flex-col justify-center content-center">
-        <Icon className="opacity-25 self-center" fontSize="large">add_circle_outline</Icon>
-        <Typography variant="h6" color="textSecondary">
-          There are no items in this list yet
+
+  const getList = () =>
+    <div className="h-full w-full flex flex-col justify-center content-center">
+      <Icon className="opacity-25 self-center" fontSize="large">add_circle_outline</Icon>
+      <Typography variant="h6" color="textSecondary">
+        There are no items in this list
+      </Typography>
+      {
+        !!creatable &&
+        <Button
+          className="mt-32 max-w-lg self-center"
+          color="secondary"
+          variant="contained"
+          size="large"
+          onClick={onClick}
+        >
+          Add item
+        </Button>
+      }
+    </div>
+
+  const getDetail = () =>
+    <Tooltip TransitionComponent={Zoom} placement="top" title="Detail shows here after clicking a list item">
+      <div>
+        <Icon className="mt-32 opacity-25" fontSize="large">library_books</Icon>
+        <Typography variant="body1" color="textSecondary">
+          Select an item to view
         </Typography>
-        {
-          !!creatable &&
-          <Button
-            className="mt-32 max-w-lg self-center"
-            color="secondary"
-            variant="contained"
-            size="large"
-            onClick={onClick}
-          >
-            Add item
-          </Button>
-        }
       </div>
-    ),
-    detail: (
-      <Tooltip TransitionComponent={Zoom} placement="top" title="Detail shows here after clicking a list item">
-        <div>
-          <Icon className="mt-32 opacity-25" fontSize="large">library_books</Icon>
-          <Typography variant="body1" color="textSecondary">
-            Select an item to view
-          </Typography>
-        </div>
-      </Tooltip>
-    ),
-  };
-  const out = _.isEmpty(searchFilterSortModelWithLabels) ? getEmptyConfig[side] : getReset(onResetSearchFilterSort);
+    </Tooltip>
+
+  const emptyConfig = {
+    list: getList(),
+    detail: getDetail(),
+  }
+
+  const getEmptyConfig = side => emptyConfig[side]
+
+  const out =
+    _.isEmpty(searchFilterSortModelWithLabels)
+    ?
+    getEmptyConfig(side)
+    :
+    getReset(onResetSearchFilterSort);
+    
   return out;
 }
 

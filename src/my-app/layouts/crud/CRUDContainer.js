@@ -297,9 +297,9 @@ class CRUDContainer extends Component {
       searchMenuOptions, filterMenuOptions, sortMenuOptions, searchFilterSortModelWithLabels,
     } = this.state;
     const {
-      classes, profile, settings, dashboard,
+      classes, profile, settings, dashboard, navComponentId,
       condensed, miniDashboard, searchable, sortable, filterable, starrable,
-      creatable, readable, updatable, deletable, actionable, navComponentId,
+      creatable, readable, updatable, deletable, actionable, alertable,
     } = this.props;
     
     const getCRUDView = () =>
@@ -307,7 +307,7 @@ class CRUDContainer extends Component {
         profile={profile} settings={settings} dashboard={dashboard} navComponentId={navComponentId}
         items={items} condensed={condensed} miniDashboard={miniDashboard} hasMore={hasMore}
         searchable={searchable} sortable={sortable} filterable={filterable} starrable={starrable} actionable={actionable}
-        creatable={creatable} readable={readable} updatable={updatable} deletable={deletable}
+        creatable={creatable} readable={readable} updatable={updatable} deletable={deletable} alertable={alertable}
         searchMenuOptions={searchMenuOptions} filterMenuOptions={filterMenuOptions} sortMenuOptions={sortMenuOptions}
         searchFilterSortModelWithLabels={searchFilterSortModelWithLabels} // for initial state after re-render following data fetch
         onResetSearchFilterSort={handleResetSearchFilterSort}

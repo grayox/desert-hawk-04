@@ -14,7 +14,6 @@ import { withStyles, Paper, } from '@material-ui/core';
 // import dashboardStyle from "my-app/vendors/creative-tim/assets/jss/material-dashboard-react/views/dashboardStyle";
 // import SettingsMessage from 'my-app/components/SettingsMessage';
 import SettingsStepper from 'my-app/components/steppers/SettingsStepper';
-import CustomAlert from 'my-app/components/CustomAlert';
 import { saveUserDataToFirestore, updateUserData, } from 'my-app/store/actions/my-actions/userDataActions'; //
 
 // Custom Components
@@ -22,7 +21,7 @@ import DashboardWidgets from './DashboardWidgets';
 import MiniDashboard from './MiniDashboard';
 
 // config
-import { uiSpecs, } from 'my-app/config/AppConfig'; // getMatchHash, getPath,
+import { uiSpecs, getAlert, } from 'my-app/config/AppConfig'; // getMatchHash, getPath,
 
 const styles = theme => ({
   // root: {
@@ -97,39 +96,7 @@ const Dashboard = ({ classes, dashboard, settings, profile, show, type, saveUser
   //   window.scrollTo( 0, 0, );
   // }
 
-  const getAlert = () => {
-    // console.log('dashboard\n', dashboard,);
-    const { net, } = dashboard;
-    const ready1 = typeof net === 'number';
-    const ready2 = net > 0;
-    const hideAlert = !!ready1 && !!ready2;
-    const showAlert = !hideAlert;
-    return (
-      showAlert &&
-      <CustomAlert
-        // shadow
-        variant="traditional"
-        heading="⚠️ Your lead balance is zero!"
-        body="To access referrals, you must refer a new lead now."
-        dialog={
-          <React.Fragment>
-            <p>
-              It is very important to keep your lead balance above zero.
-              By keeping a positive net lead balance, we can let you claim new leads
-              whenever they become available for your market.
-            </p>
-            <p>
-              In order to contribute a lead, navigate to the Outbox and click the blue button in the upper left.
-              That will open a form where you can add the contact information of your lead referral.
-              From there, users can see the leads you and others refer by navigating to the Inbox.
-              In the Inbox, you can claim new leads (as long as your lead balance is above zero).
-              After you claim a lead, we move it to your Archive.
-            </p>
-          </React.Fragment>
-        }
-      />
-    )
-  } 
+
 
   const dashConfig = {
     standard : <div className={classes.wrapper}><DashboardWidgets data={dashboard} settings={settings} /></div>,
@@ -139,8 +106,12 @@ const Dashboard = ({ classes, dashboard, settings, profile, show, type, saveUser
 
   const getDashConfig = type => dashConfig[type]
 
-  const getMainContent = () => <React.Fragment>{getAlert()}{getDashConfig(type)}</React.Fragment>
-
+  const getMainContent = () =>
+    <React.Fragment>
+      { getAlert(dashboard,) }
+      { getDashConfig(type,) }
+    </React.Fragment>
+   
   const showConfig = {
     // greet : <SettingsMessage onClick={handleClickGeo} /> ,
     step  : <SettingsStepper onSave={handleSaveSettingsStepper} /> ,

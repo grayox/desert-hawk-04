@@ -363,8 +363,7 @@ const DetailPane = ({
   const getContent = () => <React.Fragment>{getHeader()}{getDetail()}</React.Fragment>
   const getViewEmpty = () => <ViewEmpty side="detail" />
 
-  // console.log('detail\n', detail);
-  return (
+  const getDetailPane = () =>
     <React.Fragment>
       { miniDashboard && getDashboard() }      
       <Slide // <Zoom // <Grow 
@@ -378,8 +377,9 @@ const DetailPane = ({
       </Slide>
       {/* // </Grow> // </Zoom> // */}
     </React.Fragment>
-  )
 
+  // console.log('detail\n', detail);
+  return getDetailPane();
 }
  
 // export default DetailPane;
