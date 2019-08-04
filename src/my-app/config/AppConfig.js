@@ -382,6 +382,22 @@ export const getForm = arrayOfIds =>
 
 export const getCleanFieldNames = arrayOfIds => arrayOfIds.map(s => getOnlyAlpha(s)); // a: arrayOfStrings: ['name*', 'phone', 'email*']
 
+export const getCreatableFields = readablePath => {
+  // readablePath: string: 'leads'
+  const componentsNavConfig = getComponentsNavConfig();
+  // console.log('componentsNavConfig\n', componentsNavConfig,);
+  const filteredArray = _.filter(componentsNavConfig, {crudConfig: {creatable: {path: readablePath,}}});
+  // console.log('componentsNavConfig\n', componentsNavConfig,);
+  // console.log('readable\n', readable,);
+  // console.log('filteredArray\n', filteredArray,); // array // crudConfig element where id === 'outbox'
+  const target = filteredArray[0];
+  // console.log('target\n', target,); // single item // crudConfig element where id === 'outbox'
+  if(typeof target != 'object') throw new Error('Target value is not an object');
+  const { fields, } = target && target.crudConfig && target.crudConfig.creatable;
+  const result = getCleanFieldNames(fields);
+  return result;
+}
+
 // begin SEARCH section
 
 export const getSearchableFields = ( searchable, readable, ) => {
@@ -391,24 +407,15 @@ export const getSearchableFields = ( searchable, readable, ) => {
   // TODO: Save 'notes' (and other similar) fields as array of words and search by .where('notes', 'array_contains', 'foo') // ref: https://firebase.google.com/docs/firestore/query-data/queries#array_membership
   // console.log('searchable\n', searchable,);
   // console.log('readable\n', readable,);
-  const componentsNavConfig = getComponentsNavConfig();
   const getBoolean = () => {
     const ready1 = searchable;
     if(!ready1) return;
     // searchable === true
     // find property in crudConfig where readable is created, then return those field names with alpha characters only
-    // console.log('componentsNavConfig\n', componentsNavConfig,);
+    const readablePath = readable && readable.path;
     // console.log('readablePath\n', readable.path,);
-    const filteredArray = _.filter(componentsNavConfig, {crudConfig: {creatable: {path: readable.path,}}});
-    // console.log('componentsNavConfig\n', componentsNavConfig,);
-    // console.log('readable\n', readable,);
-    // console.log('filteredArray\n', filteredArray,); // array // crudConfig element where id === 'outbox'
-    const target = filteredArray[0];
-    // console.log('target\n', target,); // single item // crudConfig element where id === 'outbox'
-    if(typeof target != 'object') throw new Error('Target value is not an object');
-    const { fields, } = target && target.crudConfig && target.crudConfig.creatable;
-    const result = getCleanFieldNames(fields);
-    return result;
+    const out = getCreatableFields(readablePath);
+    return out;
   }
   const config = {
     boolean: getBoolean(),
@@ -482,11 +489,11 @@ export const getAlert = ( dashboard, content, ) => {
       body="To access referrals in your Inbox, you must refer a new lead now."
       dialog={
         <React.Fragment>
-          <p>
+          <p className="mb-6">
             It is very important to keep your net lead balance above zero.
             Your net lead balance is the number of lead referrals you deposited
             in your Outbox minus the number of leads you withdrew from your Inbox.
-            By keeping a positive net lead balance, we can let you claim new leads
+            By keeping a positive net lead balance, you can claim new leads
             whenever they become available for your market.
           </p>
           <p>
@@ -682,13 +689,16 @@ export const getComponentsNavConfig = props => {
         actionable : {
           icon: 'priority_high', // 'warning', // 'report',
           label: 'Challenge this lead for poor quality',
+          dialogHeader: 'Challenge lead',
+          dialogBody: 'Do you want to return this lead and challenge it for poor quality?',
+          buttonLabel: 'Challenge',
           dashboard: {
             local: {
               challenges: 1,
             },
             remotes: [
               {
-                path: `users/${item && item.createdBy}/dashboard`,
+                path: `dashboard/${item && item.createdBy}`,
                 fields: {
                   challenges: 1,
                 },
@@ -833,10 +843,16 @@ export const getComponentsNavConfig = props => {
           ],
           orderBy: [ 'createdAt', 'desc', ] ,
           itemSummary: {
-            primaryText: '',
-            secondaryText: '',
+            primaryText: item && item.name, // item.bizCategory && _.filter(bizCategoryItems, {value:item.bizCategory,},)[0].label, // || item.geoLocal,
+            // secondaryText: `${item && getValueMaskBizCategory(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
+            secondaryChips: [
+              (item && getValueMaskBizCategory(item.bizCategory,)),
+              // (item && item.zipInput && item.zipInput.city),
+              // moment(item.createdAt).fromNow(),
+            ],
           },
         },
+
         updatable: {
           title: 'Edit contact',
           path: 'contacts',

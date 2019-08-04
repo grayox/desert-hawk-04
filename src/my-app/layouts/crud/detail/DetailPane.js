@@ -10,7 +10,7 @@ import { FuseAnimateGroup } from '@fuse'; // FuseScrollbars, FuseAnimate,
 // import _ from '@lodash';
 
 import MediaWidth from 'my-app/layouts/MediaWidth';
-import { uiSpecs, formFieldConfig, } from 'my-app/config/AppConfig'; // getCleanFieldNames,
+import { uiSpecs, formFieldConfig, getCreatableFields, } from 'my-app/config/AppConfig'; // getCleanFieldNames,
 import Dashboard from 'my-app/views/app/dashboard/Dashboard';
 import SimpleExpansionPanel from 'my-app/components/SimpleExpansionPanel';
 import ButtonsTierDetail from './ButtonsTierDetail'; // CRUDButtons,
@@ -275,10 +275,19 @@ const DetailPane = ({
     // const dataFields = getForm(keys);
     // console.log('dataFields\n', dataFields);
 
-    const ready1 = creatable && creatable.fields;
-    if(!ready1) return null;
+    // const ready1 = creatable && creatable.fields;
+    // if(!ready1) return null;
 
-    const formFields = getFormFields('loadSavedData', creatable.fields,);
+    const getTargetFields = () =>  {
+      const readablePath = readable && readable.path; // 'leads'
+      // see AppConfig > getSearchableFields(creatable, readable,);
+      const out = getCreatableFields(readablePath);
+      return out;
+    }
+
+    const targetFields = (creatable && creatable.fields) || getTargetFields();
+
+    const formFields = getFormFields('loadSavedData', targetFields,);
     // console.log('formFields\n', formFields);
     
     return (
