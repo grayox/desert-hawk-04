@@ -111,6 +111,7 @@ const appendObjectToArray = ( a, o, ) => {
   // a: arrayOfObjects: [ {id: [string], value: [string], valueMask: [string], required: [bool], ... } ]
   // o: object: {city: [string], county: [string], state: [string], zip: [string], ...}
   // return: arrayOfObjects: [{ label: [string], value: [string], [optional] valueMask: [string],}, ...]
+  // console.log('a\n', a,);
   const out = a.map( item => ({label: formFieldConfig[item].label, value: o[item],}));
   // keys.forEach( key => newArray.push({id: key, value: value[key],}));
   // console.log('out\n', out,);
@@ -198,6 +199,7 @@ const DetailPane = ({
 }) => {
 
   // console.log('detail\n', detail,);
+  // console.log('miniDashboard\n', miniDashboard,);
 
   const getDetailListItemObject = fields => {
     // implement recursive field listings
@@ -359,8 +361,8 @@ const DetailPane = ({
   const getDashboard = () =>
     <MediaWidth
       mobile={<Dashboard dashboard={dashboard} type="micro" />}
-      tablet={<Dashboard dashboard={dashboard} type="mini" />}
-      laptop={<Dashboard dashboard={dashboard} type="mini" />}
+      tablet={<Dashboard dashboard={dashboard} type="mini"  />}
+      laptop={<Dashboard dashboard={dashboard} type="mini"  />}
     />
 
   const getHeader = () =>
@@ -374,7 +376,7 @@ const DetailPane = ({
 
   const getDetailPane = () =>
     <React.Fragment>
-      { miniDashboard && getDashboard() }      
+      { miniDashboard && !!miniDashboard.length && getDashboard() }      
       <Slide // <Zoom // <Grow 
         in //={detail}
         direction="right"

@@ -384,6 +384,7 @@ export const getCleanFieldNames = arrayOfIds => arrayOfIds.map(s => getOnlyAlpha
 
 export const getCreatableFields = readablePath => {
   // readablePath: string: 'leads'
+  // console.log('readablePath\n', readablePath,); // 'leads'
   const componentsNavConfig = getComponentsNavConfig();
   // console.log('componentsNavConfig\n', componentsNavConfig,);
   const filteredArray = _.filter(componentsNavConfig, {crudConfig: {creatable: {path: readablePath,}}});
@@ -394,8 +395,9 @@ export const getCreatableFields = readablePath => {
   // console.log('target\n', target,); // single item // crudConfig element where id === 'outbox'
   if(typeof target != 'object') throw new Error('Target value is not an object');
   const { fields, } = target && target.crudConfig && target.crudConfig.creatable;
-  const result = getCleanFieldNames(fields);
-  return result;
+  const out = getCleanFieldNames(fields);
+  // console.log('out\n', out,); // [ 'name', 'bizCategory', 'email', 'phone', 'zipInput', 'notes', ]
+  return out;
 }
 
 // begin SEARCH section
@@ -413,8 +415,9 @@ export const getSearchableFields = ( searchable, readable, ) => {
     // searchable === true
     // find property in crudConfig where readable is created, then return those field names with alpha characters only
     const readablePath = readable && readable.path;
-    // console.log('readablePath\n', readable.path,);
+    // console.log('readablePath\n', readablePath,); // 'leads
     const out = getCreatableFields(readablePath);
+    // console.log('out\n', out,); // [ 'name', 'bizCategory', 'email', 'phone', 'zipInput', 'notes', ]
     return out;
   }
   const config = {
@@ -492,7 +495,7 @@ export const getAlert = ( dashboard, content, ) => {
           <p className="mb-6">
             It is very important to keep your net lead balance above zero.
             Your net lead balance is the number of lead referrals you deposited
-            in your Outbox minus the number of leads you withdrew from your Inbox.
+            into your Outbox minus the number of leads you withdrew from your Inbox.
             By keeping a positive net lead balance, you can claim new leads
             whenever they become available for your market.
           </p>
@@ -507,7 +510,7 @@ export const getAlert = ( dashboard, content, ) => {
       }
     />
     :
-    {content}
+    content
   )
 }
 
@@ -821,7 +824,7 @@ export const getComponentsNavConfig = props => {
         searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
         filterable: true,
         sortable: true, // see searchable
-        starrable: true,
+        starrable: false, // true,
         taggable: false,
         alertable: false,
         creatable: {

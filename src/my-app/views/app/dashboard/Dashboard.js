@@ -96,8 +96,6 @@ const Dashboard = ({ classes, dashboard, settings, profile, show, type, saveUser
   //   window.scrollTo( 0, 0, );
   // }
 
-
-
   const dashConfig = {
     standard : <div className={classes.wrapper}><DashboardWidgets data={dashboard} settings={settings} /></div>,
     mini     : <Paper><MiniDashboard data={dashboard} /></Paper>,

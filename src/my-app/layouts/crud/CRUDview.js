@@ -511,7 +511,7 @@ class CRUDView extends Component {
         className={classes.root}
       >
         {
-          ( items && items.length )
+          ( items && !!items.length )
           ?
           getMainContent()
           :
@@ -520,7 +520,7 @@ class CRUDView extends Component {
       </div>   
       // </FuseScrollbars>
 
-    return ( alertable ? getAlert(dashboard, getCrudView(),) : getCrudView() );
+    return getCrudView(); // ( alertable ? getAlert(dashboard, getCrudView(),) : getCrudView() );
   }
 
 }
