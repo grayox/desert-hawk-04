@@ -769,7 +769,7 @@ export const getComponentsNavConfig = props => {
             },
             remotes: [
               {
-                path: `leads-meta/${item && item.geoNation}/${item && item.geoRegion}/${item && item.geoLocal}`,
+                path: `leads-count/${item && item.geoNation}/${item && item.geoRegion}/${item && item.geoLocal}`,
                 incrementer: 1,
               },
             ],

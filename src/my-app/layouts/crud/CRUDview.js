@@ -520,7 +520,9 @@ class CRUDView extends Component {
       </div>   
       // </FuseScrollbars>
 
-    return getCrudView(); // ( alertable ? getAlert(dashboard, getCrudView(),) : getCrudView() );
+    const getAltertable = () => alertable ? getAlert(dashboard, getCrudView(),) : getCrudView()
+
+    return getAltertable();
   }
 
 }

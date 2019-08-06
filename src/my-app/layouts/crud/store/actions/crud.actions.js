@@ -90,11 +90,12 @@ const handleEditDashboard = ( uid, path, oldData, incrementer, sourceDocId, disp
   // oldData: object: { net: 5, outbox: 4, ... }
   // incrementer: integer: 1 | -1 (deprecated)
   // incrementer: string: 'onCreate' | 'onDelete'
-  // console.log('uid\n', uid,); // 'abcxyz'
-  // console.log('path\n', path,); // 'leads'
-  // console.log('incrementer\n', incrementer,); // 1
+  console.log('uid\n', uid,); // 'abcxyz'
+  console.log('path\n', path,); // 'leads'
+  console.log('oldData\n', oldData,);
+  console.log('incrementer\n', incrementer,); // 1
   const newData = getDashboardNewData(path, oldData, incrementer, sourceDocId, creatable,);
-  // console.log('newData\n', newData,); // 1
+  console.log('newData\n', newData,); // 1
   const firestore = getFirestore();
   firestore
 
@@ -130,13 +131,11 @@ const handleEditDashboard = ( uid, path, oldData, incrementer, sourceDocId, disp
 export const createItem = ( path, item, uid, dashboard, creatable, ) =>
   (dispatch, getState, { getFirebase, getFirestore, }) => {
 
-    // console.log('path\n', path,);
-    // console.log('item\n', item,);
-    // console.log('uid\n', uid,);
-    // console.log('dashboard\n', dashboard,);
-    // console.log('settings\n', settings,);
-    // console.log('creatable\n', creatable,);
-
+    console.log('path\n', path,);
+    console.log('item\n', item,);
+    console.log('uid\n', uid,);
+    console.log('dashboard\n', dashboard,);
+    
     if(!item.createdAt) {
       const timestamp = Date.now();
       item.createdAt = timestamp;
@@ -168,6 +167,7 @@ export const createItem = ( path, item, uid, dashboard, creatable, ) =>
     // console.log('item\n', item);
     // console.log('firestore\n', firestore);
     // console.log('getState\n', getState);
+    console.log('newData\n', newData);
 
     // ref: https://firebase.google.com/docs/firestore/manage-data/add-data#add_a_document
     // firestore.collection('test').add({
@@ -175,9 +175,9 @@ export const createItem = ( path, item, uid, dashboard, creatable, ) =>
       .collection(path)
       .add(newData)
     .then( docRef => {
-      // console.log('uid\n', uid,); // 'abcxyz'
-      // console.log('path\n', path,); // 'leads'
-      // console.log('docRef\n', docRef,);
+      console.log('uid\n', uid,); // 'abcxyz'
+      console.log('path\n', path,); // 'leads'
+      console.log('docRef\n', docRef,);
       handleEditDashboard( uid, path, dashboard, 1, docRef.id, dispatch, getFirestore, creatable, );
       // dispatch({ type: 'CREATE_ITEM_SUCCESS', });
     })
