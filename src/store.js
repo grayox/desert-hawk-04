@@ -4,8 +4,8 @@ import createReducer from 'store/reducers';
 import thunk from 'redux-thunk';
 
 // begin insert from marioplan
-import { reduxFirestore, getFirestore } from 'redux-firestore';
-import { reactReduxFirebase, getFirebase } from 'react-redux-firebase';
+import { reduxFirestore, getFirestore, } from 'redux-firestore';
+import { reactReduxFirebase, getFirebase, } from 'react-redux-firebase';
 // import firebaseConfig from './config/firebaseConfig'
 import firebaseConfig from './my-app/config/firebaseConfig'
 // import rootReducer from './store/reducers/rootReducer'
@@ -13,7 +13,7 @@ import firebaseConfig from './my-app/config/firebaseConfig'
 // end insert from marioplan
 
 // begin insert from react-redux-firebase
-import firebase from 'firebase'
+import firebase from 'firebase';
 // http://react-redux-firebase.com/docs/v2-migration-guide.html
 // react-redux-firebase config
 const rrfConfig = {

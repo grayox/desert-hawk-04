@@ -2,6 +2,7 @@
 // ref: https://firebase.google.com/docs/firestore/quickstart#next_steps
 
 import { getComponentsNavConfig, } from 'my-app/config/AppConfig'; // OVERWRITE_OLD_DATA,
+import firebase from 'firebase';
 import _ from '@lodash';
 
 // const getNavElement = ({path, settings,}) => {
@@ -15,6 +16,8 @@ import _ from '@lodash';
 //   // console.log('out\n', out,);
 //   return out;
 // }
+
+const getIncrement = amount => firebase.firestore.FieldValue.increment(amount)
 
 const getComponentNavConfig = ( componentsNavConfig, navComponentId, ) => {
   // navComponentId: string: 'inbox',
@@ -90,12 +93,12 @@ const handleEditDashboard = ( uid, path, oldData, incrementer, sourceDocId, disp
   // oldData: object: { net: 5, outbox: 4, ... }
   // incrementer: integer: 1 | -1 (deprecated)
   // incrementer: string: 'onCreate' | 'onDelete'
-  console.log('uid\n', uid,); // 'abcxyz'
-  console.log('path\n', path,); // 'leads'
-  console.log('oldData\n', oldData,);
-  console.log('incrementer\n', incrementer,); // 1
+  // console.log('uid\n', uid,); // 'abcxyz'
+  // console.log('path\n', path,); // 'leads'
+  // console.log('oldData\n', oldData,);
+  // console.log('incrementer\n', incrementer,); // 1
   const newData = getDashboardNewData(path, oldData, incrementer, sourceDocId, creatable,);
-  console.log('newData\n', newData,); // 1
+  // console.log('newData\n', newData,); // 1
   const firestore = getFirestore();
   firestore
 
@@ -131,10 +134,10 @@ const handleEditDashboard = ( uid, path, oldData, incrementer, sourceDocId, disp
 export const createItem = ( path, item, uid, dashboard, creatable, ) =>
   (dispatch, getState, { getFirebase, getFirestore, }) => {
 
-    console.log('path\n', path,);
-    console.log('item\n', item,);
-    console.log('uid\n', uid,);
-    console.log('dashboard\n', dashboard,);
+    // console.log('path\n', path,);
+    // console.log('item\n', item,);
+    // console.log('uid\n', uid,);
+    // console.log('dashboard\n', dashboard,);
     
     if(!item.createdAt) {
       const timestamp = Date.now();
@@ -163,35 +166,44 @@ export const createItem = ( path, item, uid, dashboard, creatable, ) =>
     };
 
     // make async call to database
-    const firestore = getFirestore();
+    const db = getFirestore();
     // console.log('item\n', item);
-    // console.log('firestore\n', firestore);
+    // console.log('db\n', db);
     // console.log('getState\n', getState);
-    console.log('newData\n', newData);
+    // console.log('newData\n', newData);
 
-    // ref: https://firebase.google.com/docs/firestore/manage-data/add-data#add_a_document
-    // firestore.collection('test').add({
-    firestore
-      .collection(path)
-      .add(newData)
-    .then( docRef => {
-      console.log('uid\n', uid,); // 'abcxyz'
-      console.log('path\n', path,); // 'leads'
-      console.log('docRef\n', docRef,);
-      handleEditDashboard( uid, path, dashboard, 1, docRef.id, dispatch, getFirestore, creatable, );
-      // dispatch({ type: 'CREATE_ITEM_SUCCESS', });
-    })
-    .catch( error => {
-      console.error('error\n', error,);
-      dispatch({ type: 'CREATE_ITEM_ERROR', }, error);
-    });
+    // // replace this:
+    // // ref: https://firebase.google.com/docs/firestore/manage-data/add-data#add_a_document
+    // // db.collection('test').add({
+    // db
+    //   .collection(path)
+    //   .add(newData) // use 'add' for firestore auto generated ID, use 'set' for custom ID
+    // .then( docRef => {
+    //   // console.log('uid\n', uid,); // 'abcxyz'
+    //   // console.log('path\n', path,); // 'leads'
+    //   // console.log('docRef\n', docRef,);
+    //   handleEditDashboard( uid, path, dashboard, 1, docRef.id, dispatch, getFirestore, creatable, );
+    //   // dispatch({ type: 'CREATE_ITEM_SUCCESS', });
+    // })
+    // .catch( error => {
+    //   console.error('error\n', error,);
+    //   dispatch({ type: 'CREATE_ITEM_ERROR', }, error);
+    // });
+
+    // replace with:
+    const batch = db.batch();
+    const newDocRef = db.collection(path).doc(); // .doc() generates autoID
+    batch.set(newDocRef, newData,);
+    batch.update(db.collection(path).doc('--stats--'), {count: getIncrement(1),},);
+    batch.commit();
+
   }
 
 const assembleBatchWrite = ( db, batch, navComponentId, uid, docId, dashboard, ) => {
-  console.log('navComponentId\n', navComponentId,); // inbox
-  console.log('uid\n', uid,);
-  console.log('docId\n', docId,);
-  console.log('dashboard\n', dashboard,);
+  // console.log('navComponentId\n', navComponentId,); // inbox
+  // console.log('uid\n', uid,);
+  // console.log('docId\n', docId,);
+  // console.log('dashboard\n', dashboard,);
   
   const componentsNavConfig = getComponentsNavConfig({ uid, docId, });
   // console.log('componentsNavConfig\n', componentsNavConfig,);
@@ -201,7 +213,7 @@ const assembleBatchWrite = ( db, batch, navComponentId, uid, docId, dashboard, )
   // console.log('componentNavConfig\n', componentNavConfig,);
   const { crudConfig, } = componentNavConfig;
   const { actionable, } = crudConfig;
-  console.log('actionable\n', actionable,);
+  // console.log('actionable\n', actionable,);
 
   // // ref: https://firebase.google.com/docs/firestore/manage-data/transactions
   // // Set the value of 'NYC'

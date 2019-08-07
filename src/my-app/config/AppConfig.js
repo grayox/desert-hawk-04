@@ -236,6 +236,16 @@ export const brand = {
   description: 'Real estate agents, mortgage brokers, insurance agents and financial planners need leads. Referrals are a good way to get them. Swap lets you turn your clients into referrals and get back referrals in exchange.',
 }
 export const CHALLENGES_LIMIT = 3
+// challenges
+//   made
+//     won
+//     lost
+//     pending
+//   received
+//     won
+//     lost
+//     pending
+
 export const bizCategoryItems = [
   { value : 'home'      , label : 'Home'      , icon : 'home'            } ,
   { value : 'mortgage'  , label : 'Mortgage'  , icon : 'account_balance' } ,
@@ -769,8 +779,16 @@ export const getComponentsNavConfig = props => {
             },
             remotes: [
               {
-                path: `leads-count/${item && item.geoNation}/${item && item.geoRegion}/${item && item.geoLocal}`,
-                incrementer: 1,
+                path: 'leads'/'--stats--',
+                value: {
+                  [(item && item.geoNation)]: {
+                    [(item && item.geoRegion)]: {
+                      [(item && item.geoLocal)]: {
+                      },
+                    },
+                  },
+                },
+                increment: 1,
               },
             ],
           },
