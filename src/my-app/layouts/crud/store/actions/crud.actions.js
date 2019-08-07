@@ -194,7 +194,18 @@ export const createItem = ( path, item, uid, dashboard, creatable, ) =>
     const batch = db.batch();
     const newDocRef = db.collection(path).doc(); // .doc() generates autoID
     batch.set(newDocRef, newData,);
-    batch.update(db.collection(path).doc('--stats--'), {count: getIncrement(1),},);
+    batch.set(
+      db.collection(path).doc('--stats--'),
+      // {count: getIncrement(1),},
+      { 
+        [dashboard.geoNation]: {
+          [dashboard.geoRegion]: {
+            [dashboard.geoLocal]: getIncrement(1),
+          },
+        }
+      },
+      {merge: true,},
+    );
     batch.commit();
 
   }
