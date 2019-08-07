@@ -313,7 +313,7 @@ export const DashboardGridConfig = {
       //   />
       // ,
       links: [
-        { label: 'Edit category', id: 'settings', },
+        { label: 'Jump to settings', id: 'settings', },
       ],
       // eslint-disable-next-line
       description: <CategoryDescription />,
@@ -331,7 +331,7 @@ export const DashboardGridConfig = {
       // typog: 'subtitle1',
       // buttonLabel: 'Edit',
       links: [
-        { label: 'Edit location', id: 'settings', },
+        { label: 'Jump to settings', id: 'settings', },
       ],
       // eslint-disable-next-line
       description: '\
@@ -353,7 +353,7 @@ export const DashboardGridConfig = {
       // typog: 'subtitle1',
       // buttonLabel: 'Edit',
       links: [
-        { label: 'Edit state', id: 'settings', },
+        { label: 'Jump to settings', id: 'settings', },
       ],
       // eslint-disable-next-line
       description: '\

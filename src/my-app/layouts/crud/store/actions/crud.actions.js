@@ -189,6 +189,7 @@ export const createItem = ( path, item, uid, dashboard, creatable, ) =>
     //   console.error('error\n', error,);
     //   dispatch({ type: 'CREATE_ITEM_ERROR', }, error);
     // });
+    // // end replace this
 
     // replace with:
     const batch = db.batch();
@@ -196,8 +197,8 @@ export const createItem = ( path, item, uid, dashboard, creatable, ) =>
     batch.set(newDocRef, newData,);
     batch.set(
       db.collection(path).doc('--stats--'),
-      // {count: getIncrement(1),},
-      { 
+      {
+        count: getIncrement(1), 
         [dashboard.geoNation]: {
           [dashboard.geoRegion]: {
             [dashboard.geoLocal]: getIncrement(1),
@@ -207,6 +208,7 @@ export const createItem = ( path, item, uid, dashboard, creatable, ) =>
       {merge: true,},
     );
     batch.commit();
+    // end replace with
 
   }
 
