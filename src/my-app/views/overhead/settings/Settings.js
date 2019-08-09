@@ -28,7 +28,7 @@ import { compose, } from 'redux';
 // for actions
 // import {bindActionCreators} from 'redux';
 // import { updateSettings } from 'my-app/store/actions/my-actions'; // deprecate
-import { saveUserDataToFirestore, } from 'my-app/store/actions/my-actions/userDataActions'; // updateUserData,
+import { saveUserDataToFirestore, updateUserData, } from 'my-app/store/actions/my-actions/userDataActions'; //
 
 import { Menu, MenuItem, } from '@material-ui/core';
 import SettingsDialog from './SettingsDialog';
@@ -511,7 +511,8 @@ class ProfilePage extends Component {
   handleToggle = value => () => {
     // console.log('value\n', value,);
     const { checked, } = this.state;
-    const { settings, saveUserDataToFirestore, } = this.props; // updateSettings,
+    const { settings, profile, saveUserDataToFirestore, } = this.props; // updateSettings,
+    const { uid, } = profile;
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
 
@@ -534,7 +535,9 @@ class ProfilePage extends Component {
       // console.log('state\n', this.state,);
       // console.log('settings\n', settings,);
       // updateSettings(newSettings);
-      const path = [ 'settings', this.props.profile.uid, ].join('/'); // getPath( this.props.profile.uid, 'settings', );
+      const path = [ 'settings', uid, ].join('/');
+      // console.log('path\n', path,);
+      // console.log('newSettings\n', newSettings,);
       saveUserDataToFirestore( path, newSettings, );
     });
   };
@@ -847,12 +850,12 @@ const mapStateToProps = state => {
   return { profile, settings, dataHasLoaded, }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    // updateSettings: settings => dispatch(updateSettings(settings)), // deprecated // use saveUserDataToFirestore()
-    saveUserDataToFirestore : ( path, newData, ) => dispatch(saveUserDataToFirestore( path, newData, )), // common mistakes: 1. forget to use this.props... when calling function in class 2. copy/paste forget to change function name in mapStateToProps => dispatch
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  // common mistakes: 1. forget to use this.props... when calling function in class 2. copy/paste forget to change function name in mapStateToProps => dispatch
+  updateUserData          : ( path, newData, ) => dispatch(updateUserData         ( path, newData, )),
+  saveUserDataToFirestore : ( path, newData, ) => dispatch(saveUserDataToFirestore( path, newData, )),
+  // updateSettings: settings => dispatch(updateSettings(settings)), // deprecated // use saveUserDataToFirestore()
+})
 
 export default compose(
   withStyles(styles, { withTheme: true }),  

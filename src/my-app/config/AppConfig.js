@@ -707,7 +707,7 @@ export const getComponentsNavConfig = props => {
           buttonLabel: 'Challenge',
           dashboard: {
             local: {
-              challenges: 1,
+              'challenges.made.pending': 1,
             },
             remotes: [
               {
@@ -783,12 +783,10 @@ export const getComponentsNavConfig = props => {
                 value: {
                   [(item && item.geoNation)]: {
                     [(item && item.geoRegion)]: {
-                      [(item && item.geoLocal)]: {
-                      },
+                      [(item && item.geoLocal)]: 1,
                     },
                   },
                 },
-                increment: 1,
               },
             ],
           },
