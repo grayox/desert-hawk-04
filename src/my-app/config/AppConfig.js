@@ -51,6 +51,7 @@ import { FaSignOutAlt, } from 'react-icons/fa'; // https://react-icons.netlify.c
 
 // utility components
 // import CRUDRouter from 'my-app/layouts/crud/CRUDRouter';
+import { getDashboardInitialValues, } from 'my-app/config/DashboardGridConfig';
 
 // usage
 // import { getComponentsNavConfig, } from 'my-app/config/AppConfig';
@@ -75,12 +76,17 @@ export const firebaseConfig = {
 }
 
 export const defaultSettings = {
+  // default settings
+  // default dashboard: src/my-app/config/DashboardGridConfig.js > getDashboardInitialValues
+  // also see: FetchUserData.js > getInitialValues
   // placeholeder only for now
   // prevents import error at userDataReducer.js
   // experimenting with replacement by settingsConfig
 }
 
-export const settingsConfig = {
+export const getSettingsConfig = () => settingsConfig;
+
+const settingsConfig = {
   // define default settings
   // name: undefined,
   // email: undefined,
@@ -89,6 +95,7 @@ export const settingsConfig = {
   // geoNation: undefined,
   // geoRegion: undefined,
   // geoLocal: undefined,
+  dashboard: getDashboardInitialValues(),
   autoClaimLeads: false,
   autoTextMe: false,
   // autoTextMeToNumber: undefined,

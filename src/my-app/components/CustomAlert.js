@@ -187,7 +187,10 @@ CustomAlert.propTypes = {
   heading: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,
   buttonText: PropTypes.string,
-  dialog: PropTypes.string,
+  dialog: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]),
 };
 
 CustomAlert.defaultProps = {

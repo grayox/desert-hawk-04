@@ -52,8 +52,8 @@ const MyLayout = props => {
   // console.log('dashboardHash\n', dashboardHash,);
 
   const handleChangeUserData = ( path, newData, saveDataToFirestore, ) => {
-    // console.log('handleChangeUserData-path\n', path,);
-    // console.log('handleChangeUserData-data\n', newData,);
+    // console.log('path\n', path,);
+    // console.log('newData\n', newData,);
     // console.log('saveDataToFirestore\n', saveDataToFirestore,);
     const { updateUserData, saveUserDataToFirestore, } = props; //
     updateUserData( path, newData, ); // updates global state in redux store
@@ -77,11 +77,12 @@ const MyLayout = props => {
     // <div className="m-32">
     //   <button className="m-32 text-white" onClick={handleUpdateUserData}>Update data</button>
     // </div>
-    uid &&
-    <React.Fragment>
-      <FetchUserData path="settings"  uid={uid} onChange={handleChangeUserData} />
-      <FetchUserData path="dashboard" uid={uid} onChange={handleChangeUserData} />
-    </React.Fragment>
+    uid && <FetchUserData path="settings" uid={uid} onChange={handleChangeUserData} />
+    // deprecate separate dashboard // make dashboard a subset of settings
+    // <React.Fragment>
+    //   <FetchUserData path="settings"  uid={uid} onChange={handleChangeUserData} />
+    //   <FetchUserData path="dashboard" uid={uid} onChange={handleChangeUserData} />
+    // </React.Fragment>
 
   const getMediaWidth = () =>
     <MediaWidth

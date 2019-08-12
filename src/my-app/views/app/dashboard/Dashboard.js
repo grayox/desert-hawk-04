@@ -57,10 +57,10 @@ const Dashboard = ({ classes, dashboard, settings, profile, show, type, saveUser
       ...settings,
       ...newData,
     };
-    const newDashboard = {
-      ...dashboard,
-      ...newData,
-    };
+    // const newDashboard = {
+    //   ...dashboard,
+    //   ...newData,
+    // };
 
     // this.setState({ // this is a controlled component, so no state
     //   ...newData,
@@ -74,7 +74,7 @@ const Dashboard = ({ classes, dashboard, settings, profile, show, type, saveUser
 
     const { uid, } = profile;
     const settingsPath  = [ 'settings'  , uid , ].join('/'); // getPath( uid , 'settings'  , );
-    const dashboardPath = [ 'dashboard' , uid , ].join('/'); // getPath( uid , 'dashboard' , );
+    // const dashboardPath = [ 'dashboard' , uid , ].join('/'); // getPath( uid , 'dashboard' , );
     // console.log('settingsPath\n', settingsPath,);
     // console.log('dashboardPath\n', dashboardPath,);
     // console.log('settingsPath\n', newSettings,);
@@ -84,7 +84,7 @@ const Dashboard = ({ classes, dashboard, settings, profile, show, type, saveUser
     // updateUserData( 'settings'  , newData , );
     // updateUserData( 'dashboard' , newData , ); 
     saveUserDataToFirestore( settingsPath  , newSettings  , );
-    saveUserDataToFirestore( dashboardPath , newDashboard , );
+    // saveUserDataToFirestore( dashboardPath , newDashboard , );
 
     // this.handleChangeDashboard();
     // onChange();

@@ -292,7 +292,7 @@ export const DashboardGridConfig = {
       // data: <span className="capitalize">{bizCategory}</span>,
       // data: 'Mortgage',
       // data: <Icon>warning</Icon>,
-      initialValue: '',
+      // initialValue: '', // fetch from settings
       group: 'detail',
       // icon: 'label',
       // color: 'info',
@@ -324,7 +324,7 @@ export const DashboardGridConfig = {
       // data: 'Scholes',
       // data: geoLocal,
       //data: <Icon>done</Icon>,
-      initialValue: '',
+      // initialValue: '', // fetch from settings
       group: 'detail',
       // icon: 'place',
       // color: 'primary',
@@ -346,7 +346,7 @@ export const DashboardGridConfig = {
       // data: 'Mississippi',
       // data: geoRegion,
       // data: <Icon>done</Icon>,
-      initialValue: '',
+      // initialValue: '', // fetch from settings
       group: 'detail',
       // icon: 'track_changes',
       // color: 'warning',
@@ -367,7 +367,7 @@ export const DashboardGridConfig = {
       // data: 'United States',
       // data: geoNation,
       // data: <Icon>done</Icon>,
-      initialValue: '',
+      // initialValue: '', // fetch from settings
       group: 'detail',
       // icon: 'flag',
       // color: 'primary',

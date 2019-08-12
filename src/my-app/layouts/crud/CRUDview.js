@@ -384,7 +384,7 @@ class CRUDView extends Component {
 
     const { uid, } = profile;
     
-    const getFetchUserData = () => <FetchUserData path="dashboard" uid={uid} onChange={handleChangeUserData} />
+    const getFetchUserData = () => <FetchUserData /*path="dashboard"*/ path="settings" uid={uid} onChange={handleChangeUserData} />
     const getViewEmpty = () =>
       <React.Fragment>
         { getCreateDialog() }

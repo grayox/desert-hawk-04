@@ -20,8 +20,8 @@ const INITIAL_STATE_ITEMS = {
 
 const INITIAL_STATE_LOADING = {
   isError: false,
-  // isLoading: true,
-  show: 'main', // 'main' | 'step' | 'greet'
+  isLoading: true,
+  // show: 'step', // 'main' | 'step' | 'greet'
 }
 
 const INITIAL_STATE = {
@@ -44,26 +44,29 @@ class DashboardContainer extends Component {
   //   console.log('newProps\n', newProps,);
   // }
 
+  componentDidMount = () => this.setState({show: this.getShow(),})
+
   getShow = () => {
     const { dashboard, profile, settings, } = this.props; // profile, settings,
-    // console.log('profile\n', profile,);
-    // console.log('settings\n', settings,);
-    // console.log('dashboard\n', dashboard,);
-    const ready1 = !!(dashboard && settings && profile);
+    console.log('profile\n', profile,);
+    console.log('settings\n', settings,);
+    console.log('dashboard\n', dashboard,);
+    // const ready1 = !!(dashboard && settings && profile);
+    const ready1 = !!(settings && profile);
     if(!ready1) return null;
-    const ready2 = !!( dashboard.geoNation   && dashboard.geoNation.length   );
-    const ready3 = !!( dashboard.geoRegion   && dashboard.geoRegion.length   );
-    const ready4 = !!( dashboard.geoLocal    && dashboard.geoLocal.length    );
-    const ready5 = !!( dashboard.bizCategory && dashboard.bizCategory.length );
+    const ready2 = !!( settings.geoNation   && settings.geoNation.length   );
+    const ready3 = !!( settings.geoRegion   && settings.geoRegion.length   );
+    const ready4 = !!( settings.geoLocal    && settings.geoLocal.length    );
+    const ready5 = !!( settings.bizCategory && settings.bizCategory.length );
     const ready6 = !!( ready1 && ready2 && ready3 && ready4 && ready5        );
     const show = ready6 ? 'main' : 'step';
-    // console.log('ready1\n', ready1,);
-    // console.log('ready2\n', ready2,);
-    // console.log('ready3\n', ready3,);
-    // console.log('ready4\n', ready4,);
-    // console.log('ready5\n', ready5,);
-    // console.log('ready6\n', ready6,);
-    // console.log('show\n', show,);
+    console.log('ready1\n', ready1,);
+    console.log('ready2\n', ready2,);
+    console.log('ready3\n', ready3,);
+    console.log('ready4\n', ready4,);
+    console.log('ready5\n', ready5,);
+    console.log('ready6\n', ready6,);
+    console.log('show\n', show,);
     // this.setState({ show, });
 
     // NOTE: When setState() is called inside componentDidUpdate(),
@@ -82,15 +85,17 @@ class DashboardContainer extends Component {
 
   render() {
     // const { handleChange, } = this;
-    const { isError, } = this.state; // isLoading,
+    const { getShow, } = this;
+    const { isError, } = this.state; // isLoading, show,
     const { dashboard, settings, profile, type, isLoading, } = this.props; // dataHasLoaded,
 
     // console.log('profile\n', profile,);
     // console.log('settings\n', settings,);
     // console.log('dashboard\n', dashboard,);
+    // console.log('isLoading\n', isLoading,);
     // debugger;
 
-    const show = this.getShow();
+    const show = getShow();
     
     const getRefreshButton = () => null;
       // <Tooltip TransitionComponent={Zoom} title="Refresh data">
@@ -107,7 +112,7 @@ class DashboardContainer extends Component {
     const getMainContent = () => <React.Fragment> {getRefreshButton()} {getDashboard()} </React.Fragment>
     const getIsError = () => <div className="h-full"><Error500Page /></div>
     const getHasLoaded = () => isError ? getIsError() : getMainContent()
-    const getIsLoading = () => <div className="h-full"><Loading /></div>
+    const getIsLoading = () => <div className="h-screen w-full"><Loading /></div>
     const getDashboardContainer = () => ( isLoading ? getIsLoading() : getHasLoaded() )
     
     // return getHasLoaded();
@@ -141,12 +146,12 @@ const mapStateToProps = state => {
              // && state.myApp.reducers.settingsReducer.settings;
                 && state.myApp.reducers.userDataReducer
                 && state.myApp.reducers.userDataReducer.settings;
-  const dashboard = state
-                 && state.myApp
-                 && state.myApp.reducers
-                 && state.myApp.reducers.userDataReducer
-                 && state.myApp.reducers.userDataReducer.dashboard;
-
+  // const dashboard = state
+  //                && state.myApp
+  //                && state.myApp.reducers
+  //                && state.myApp.reducers.userDataReducer
+  //                && state.myApp.reducers.userDataReducer.dashboard;
+  const { dashboard, } = settings; // folding-in dashboard as subset of settings
   const profile = state
                && state.firebase
                && state.firebase.profile;
@@ -159,10 +164,11 @@ const mapStateToProps = state => {
   // // console.log('user\n', user,);
   // // console.log('leads\n', leads,);
 
-  // console.log('profile\n', profile,);
-  // console.log('settings\n', settings,);
-  // console.log('dashboard\n', dashboard,);
-  // console.log('dataHasLoaded\n', dataHasLoaded,);
+  console.log('profile\n', profile,);
+  console.log('settings\n', settings,);
+  console.log('dashboard\n', dashboard,);
+  console.log('dataHasLoaded\n', dataHasLoaded,);
+  console.log('isLoading\n', isLoading,);
   // debugger;
   
   // //       YES   YES      YES       NO     NO

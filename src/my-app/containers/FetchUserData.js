@@ -16,8 +16,8 @@ import { loadUserData, } from 'my-app/containers/LoadAsync';
 // begin my add
 
 // import { updateUserData, saveUserDataToFirestore, } from 'my-app/store/actions/my-actions'; // updateSettings, updateDashboard,
-import { getDashboardInitialValues, } from 'my-app/config/DashboardGridConfig';
-import { settingsConfig, } from 'my-app/config/AppConfig';
+// import { getDashboardInitialValues, } from 'my-app/config/DashboardGridConfig'; // fold-in dashboard as a subset of settings
+import { getSettingsConfig, } from 'my-app/config/AppConfig';
 
 // inspired by: src/my-app/layouts/crud/store/actions/crud.actions.js
 // which was, in turn,
@@ -26,8 +26,8 @@ import { settingsConfig, } from 'my-app/config/AppConfig';
 
 const getInitialValues = path => {
   const initialValuesConfig = {
-    settings: settingsConfig,
-    dashboard: getDashboardInitialValues(),
+    settings: getSettingsConfig(),
+    // dashboard: getDashboardInitialValues(), // fold-in dashboard as a subset of settings
   };
   const out = initialValuesConfig[path];
   // console.log('out\n', out,);

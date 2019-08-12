@@ -30,21 +30,28 @@ const rrfConfig = {
 // failing to be picked up by the IFS in the read command initiating the `while IFS= ...` loop in src/my-app/config/upgrade/copy.sh
 // this was fixed by changing the while loop to read `while IFS= read -r fullfile || [ -n "$fullfile" ];`
 // as described here: https://stackoverflow.com/a/12919766/1640892
-firebase.initializeApp(firebaseConfig) // <- new to v2.*.*
-// firebase.firestore() // <- needed if using firestore
-const firestore = firebase.firestore();
-const settings = {
-  // your settings...
-  timestampsInSnapshots: true
-};
-firestore.settings(settings);
+firebase.initializeApp(firebaseConfig) // new to v2.*.*
+// firebase.firestore() // needed if using firestore
+
+// index.js:1452 [2019-08-11T18:42:34.650Z]  @firebase/firestore: Firestore (6.3.4): 
+// The timestampsInSnapshots setting now defaults to true and you no
+// longer need to explicitly set it. In a future release, the setting
+// will be removed entirely and so it is recommended that you remove it
+// from your firestore.settings() call now.
+// const firestore = firebase.firestore();
+// const settings = {
+//   // your settings...
+//   timestampsInSnapshots: true
+// };
+// firestore.settings(settings);
+
 // end insert from react-redux-firebase
 
-/*
-Fix for Firefox redux dev tools extension
-https://github.com/zalmoxisus/redux-devtools-instrument/pull/19#issuecomment-400637274
-*/
+// begin patch
+// Fix for Firefox redux dev tools extension
+// https://github.com/zalmoxisus/redux-devtools-instrument/pull/19#issuecomment-400637274
 reduxModule.__DO_NOT_USE__ActionTypes.REPLACE = '@@redux/INIT';
+// end patch
 
 const composeEnhancers =
   process.env.NODE_ENV !== 'production' &&
