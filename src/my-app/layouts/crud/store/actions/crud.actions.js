@@ -194,6 +194,7 @@ export const createItem = ( path, item, uid, settings, creatable, ) => // dashbo
     // replace with:
     const batch = db.batch();
     const newDocRef = db.collection(path).doc(); // .doc() generates autoID
+    const geoLocationKey = [settings.geoNation, settings.geoRegion, settings.geoLocal,].join(' | ');
     batch.set(newDocRef, newData,);
     batch.set(
       // db.collection('dashboard').doc(uid),
@@ -208,17 +209,33 @@ export const createItem = ( path, item, uid, settings, creatable, ) => // dashbo
       { merge: true, },
     );
     batch.set(
-      db.collection(path).doc('--stats--'),
+      db.collection('stats').doc('level-2'),
       {
-        count: getIncrement(1), 
-        [settings.geoNation]: {
-          [settings.geoRegion]: {
-            [settings.geoLocal]: getIncrement(1),
+        leads: {
+          deposited: getIncrement(1),
+        }
+      },
+      { merge: true, },
+    );
+    batch.set(
+      db.collection('stats').doc('level-1'),
+      {
+        leads: {
+          geoLocations: {
+            [settings.geoNation]: {
+              [settings.geoRegion]: {
+                [settings.geoLocal]: {
+                  [newData.bizCategory]: getIncrement(1),
+                },
+              },
+            },
+          },
+          zipCodes: {
+            [newData.zipInput.zip]: {
+              [geoLocationKey]: getIncrement(1),
+            },
           },
         },
-        // `"${dashboard.geoNation}.${dashboard.geoRegion}.${dashboard.geoLocal}"`: getIncrement(1),
-        // "[dashboard.geoNation].[dashboard.geoRegion].[dashboard.geoLocal]": getIncrement(1),
-        // `${dashboard.geoNation}.${dashboard.geoRegion}.${dashboard.geoLocal}`: getIncrement(1),
       },
       { merge: true, },
     );
