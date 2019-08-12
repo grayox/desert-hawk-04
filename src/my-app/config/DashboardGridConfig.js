@@ -85,7 +85,11 @@ const CategoryDescription = () => (
 export const getDashboardInitialValues = () => {
   const { cells, } = DashboardGridConfig;
   const out = {};
-  cells.forEach(cell => out[cell.id] = cell.initialValue);
+  cells.forEach( cell => {
+    // skips cells without initial values; they are initialized via settings;
+    // otherwise, they would throw exception for writing undefined value to firebase;
+    if(!!cell.initialValue || (cell.initialValue===0)) out[cell.id] = cell.initialValue;
+  })
   return out;
 }
 

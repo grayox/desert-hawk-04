@@ -47,10 +47,10 @@ class DashboardContainer extends Component {
   componentDidMount = () => this.setState({show: this.getShow(),})
 
   getShow = () => {
-    const { dashboard, profile, settings, } = this.props; // profile, settings,
-    console.log('profile\n', profile,);
-    console.log('settings\n', settings,);
-    console.log('dashboard\n', dashboard,);
+    const { profile, settings, } = this.props; // dashboard,
+    // console.log('profile\n', profile,);
+    // console.log('settings\n', settings,);
+    // console.log('dashboard\n', dashboard,);
     // const ready1 = !!(dashboard && settings && profile);
     const ready1 = !!(settings && profile);
     if(!ready1) return null;
@@ -60,13 +60,13 @@ class DashboardContainer extends Component {
     const ready5 = !!( settings.bizCategory && settings.bizCategory.length );
     const ready6 = !!( ready1 && ready2 && ready3 && ready4 && ready5        );
     const show = ready6 ? 'main' : 'step';
-    console.log('ready1\n', ready1,);
-    console.log('ready2\n', ready2,);
-    console.log('ready3\n', ready3,);
-    console.log('ready4\n', ready4,);
-    console.log('ready5\n', ready5,);
-    console.log('ready6\n', ready6,);
-    console.log('show\n', show,);
+    // console.log('ready1\n', ready1,);
+    // console.log('ready2\n', ready2,);
+    // console.log('ready3\n', ready3,);
+    // console.log('ready4\n', ready4,);
+    // console.log('ready5\n', ready5,);
+    // console.log('ready6\n', ready6,);
+    // console.log('show\n', show,);
     // this.setState({ show, });
 
     // NOTE: When setState() is called inside componentDidUpdate(),
@@ -164,11 +164,11 @@ const mapStateToProps = state => {
   // // console.log('user\n', user,);
   // // console.log('leads\n', leads,);
 
-  console.log('profile\n', profile,);
-  console.log('settings\n', settings,);
-  console.log('dashboard\n', dashboard,);
-  console.log('dataHasLoaded\n', dataHasLoaded,);
-  console.log('isLoading\n', isLoading,);
+  // console.log('profile\n', profile,);
+  // console.log('settings\n', settings,);
+  // console.log('dashboard\n', dashboard,);
+  // console.log('dataHasLoaded\n', dataHasLoaded,);
+  // console.log('isLoading\n', isLoading,);
   // debugger;
   
   // //       YES   YES      YES       NO     NO

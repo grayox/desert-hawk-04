@@ -378,8 +378,8 @@ class SettingsStepper extends Component {
       />
 
     const getProgress = () =>
-      <div className="flex items-stretch">
-        <div className="w-full h-screen self-center text-center align-middle border border-red">
+      <div className="w-full h-screen flex items-stretch">
+        <div className="w-full self-center text-center flex-1">
           <CircularProgress
             // className={classes.progress}
             color="secondary"

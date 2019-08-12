@@ -85,9 +85,9 @@ const DashboardWidgets = ({ data, settings, }) => { // classes,
         {items && items.map((item, index,) => {
           // console.log('data\n', data,);
           const { id, } = item;
-          console.log('id\n', id,);
-          console.log('settings[id]\n', settings[id],);
-          console.log('data[id]\n', data[id],);
+          // console.log('id\n', id,);
+          // console.log('settings[id]\n', settings[id],);
+          // console.log('data[id]\n', data[id],);
           const itemData = settings[id] || data[id];
           // item.data = 
           return (
