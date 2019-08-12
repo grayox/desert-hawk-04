@@ -131,7 +131,7 @@ const handleEditDashboard = ( uid, path, oldData, incrementer, sourceDocId, disp
 }
 
 // source: https://github.com/iamshaunjp/React-Redux-Firebase-App/blob/lesson-18/marioplan/src/store/actions/projectActions.js
-export const createItem = ( path, item, uid, dashboard, creatable, ) =>
+export const createItem = ( path, item, uid, settings, creatable, ) => // dashboard,
   (dispatch, getState, { getFirebase, getFirestore, }) => {
 
     // console.log('path\n', path,);
@@ -196,11 +196,14 @@ export const createItem = ( path, item, uid, dashboard, creatable, ) =>
     const newDocRef = db.collection(path).doc(); // .doc() generates autoID
     batch.set(newDocRef, newData,);
     batch.set(
-      db.collection('dashboard').doc(uid),
+      // db.collection('dashboard').doc(uid),
+      db.collection('settings').doc(uid),
       {
-        net: getIncrement(1), 
-        deposits: getIncrement(1),
-        outbox: getIncrement(1),
+        dashboard: {
+          net: getIncrement(1), 
+          deposits: getIncrement(1),
+          outbox: getIncrement(1),
+        },
       },
       { merge: true, },
     );
@@ -208,9 +211,9 @@ export const createItem = ( path, item, uid, dashboard, creatable, ) =>
       db.collection(path).doc('--stats--'),
       {
         count: getIncrement(1), 
-        [dashboard.geoNation]: {
-          [dashboard.geoRegion]: {
-            [dashboard.geoLocal]: getIncrement(1),
+        [settings.geoNation]: {
+          [settings.geoRegion]: {
+            [settings.geoLocal]: getIncrement(1),
           },
         },
         // `"${dashboard.geoNation}.${dashboard.geoRegion}.${dashboard.geoLocal}"`: getIncrement(1),

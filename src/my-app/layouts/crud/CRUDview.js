@@ -216,7 +216,7 @@ class CRUDView extends Component {
     // console.log('state\n', this.state);
     const { handleCloseDialog, handleRefresh, } = this;
     const { crudForm, crudFormTimestamp, crudFormIdHash, } = this.state;
-    const { createItem, creatable, profile, dashboard, } = this.props; // settings,
+    const { createItem, creatable, profile, settings, } = this.props; // dashboard,
     const { uid, } = profile;
     const { path, } = creatable;
     
@@ -240,7 +240,8 @@ class CRUDView extends Component {
     // console.log('profile\n', profile,)
     // console.log('uid\n', uid,)
     // console.log('dashboard\n', dashboard,)
-    createItem( path, newItem, uid, dashboard, creatable, ); // settings,
+    // console.log('settings\n', settings,)
+    createItem( path, newItem, uid, settings, creatable, ); // dashboard,
     // this.props.history.push('/');
 
     handleCloseDialog();
@@ -589,7 +590,7 @@ CRUDView.defaultProps = {
 const mapDispatchToProps = dispatch => ({
   // CRUD item
   // common mistakes: 1. forget to use this.props... when calling function in class 2. copy/paste forget to change function name in mapStateToProps => dispatch
-  createItem: ( path , item  , uid     , dashboard , creatable , ) => dispatch(createItem( path , item  , uid     , dashboard , creatable , )), // inspired by: src/my-app/components/forms/CreateLead.js
+  createItem: ( path , item  , uid     , settings  , creatable , ) => dispatch(createItem( path , item  , uid     , settings  , creatable , )), // dashboard, // inspired by: src/my-app/components/forms/CreateLead.js
   updateItem: ( path , docId , newItem , oldItem   , updatable , ) => dispatch(updateItem( path , docId , newItem , oldItem   , updatable , )),
   deleteItem: ( path , docId , uid     , dashboard , creatable , ) => dispatch(deleteItem( path , docId , uid     , dashboard , creatable , )),
   actionItem: ( uid  , detail, navComponentId      , dashboard , ) => dispatch(actionItem( uid  , detail, navComponentId      , dashboard , )),  
