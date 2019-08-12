@@ -151,7 +151,7 @@ const mapStateToProps = state => {
   //                && state.myApp.reducers
   //                && state.myApp.reducers.userDataReducer
   //                && state.myApp.reducers.userDataReducer.dashboard;
-  const { dashboard, } = settings; // folding-in dashboard as subset of settings
+  const { dashboard, } = settings; // fold-in dashboard to subset of settings
   const profile = state
                && state.firebase
                && state.firebase.profile;

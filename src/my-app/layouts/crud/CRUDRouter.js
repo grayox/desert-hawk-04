@@ -65,18 +65,19 @@ const CRUDRouter = props => getCRUDRouter(props)
 
 const mapStateToProps = state => {
   const profile = state
-    && state.firebase
-    && state.firebase.profile;
+               && state.firebase
+               && state.firebase.profile;
   const settings = state
-    && state.myApp
-    && state.myApp.reducers
-    && state.myApp.reducers.userDataReducer
-    && state.myApp.reducers.userDataReducer.settings;
-  const dashboard = state
-    && state.myApp
-    && state.myApp.reducers
-    && state.myApp.reducers.userDataReducer
-    && state.myApp.reducers.userDataReducer.dashboard;
+                && state.myApp
+                && state.myApp.reducers
+                && state.myApp.reducers.userDataReducer
+                && state.myApp.reducers.userDataReducer.settings;
+  // const dashboard = state
+  //                && state.myApp
+  //                && state.myApp.reducers
+  //                && state.myApp.reducers.userDataReducer
+  //                && state.myApp.reducers.userDataReducer.dashboard;
+  const { dashboard, } = settings; // fold-in dashboard to subset of settings
   // console.log('profile\n', profile,);
   // console.log('settings\n', settings,);
   // console.log('dashboard\n', dashboard,); 
