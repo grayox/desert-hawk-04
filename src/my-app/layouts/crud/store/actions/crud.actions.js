@@ -4,6 +4,7 @@
 import { getComponentsNavConfig, } from 'my-app/config/AppConfig'; // OVERWRITE_OLD_DATA,
 import firebase from 'firebase';
 import _ from '@lodash';
+import { getBatchWriteConfigs_createItem, } from 'my-app/config/DbWireConfig'
 
 // const getNavElement = ({path, settings,}) => {
 //   // path: string: 'leads', 'archive', 'outbox'
@@ -194,50 +195,10 @@ export const createItem = ( path, item, uid, settings, creatable, ) => // dashbo
     // replace with:
     const batch = db.batch();
     const newDocRef = db.collection(path).doc(); // .doc() generates autoID
-    const geoLocationKey = [settings.geoNation, settings.geoRegion, settings.geoLocal,].join(' | ');
     batch.set(newDocRef, newData,);
-    batch.set(
-      // db.collection('dashboard').doc(uid),
-      db.collection('settings').doc(uid),
-      {
-        dashboard: {
-          net: getIncrement(1), 
-          deposits: getIncrement(1),
-          outbox: getIncrement(1),
-        },
-      },
-      { merge: true, },
-    );
-    batch.set(
-      db.collection('stats').doc('level-2'),
-      {
-        leads: {
-          deposited: getIncrement(1),
-        }
-      },
-      { merge: true, },
-    );
-    batch.set(
-      db.collection('stats').doc('level-1'),
-      {
-        leads: {
-          geoLocations: {
-            [settings.geoNation]: {
-              [settings.geoRegion]: {
-                [settings.geoLocal]: {
-                  [newData.bizCategory]: getIncrement(1),
-                },
-              },
-            },
-          },
-          zipCodes: {
-            [newData.zipInput.zip]: {
-              [geoLocationKey]: getIncrement(1),
-            },
-          },
-        },
-      },
-      { merge: true, },
+    const batchWriteConfigs = getBatchWriteConfigs_createItem({ getIncrement, uid, settings, newData, });
+    batchWriteConfigs.map(
+      ({collection, doc, data,}) => batch.set( db.collection(collection).doc(doc), data, { merge: true, },)
     );
     batch.commit();
     // end replace with

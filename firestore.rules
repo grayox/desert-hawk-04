@@ -38,6 +38,18 @@ service cloud.firestore {
       allow create: if request.auth.uid != null;
     }
 
+    match /stats/level_1 {
+      allow create, read, update: if request.auth.uid != null;
+    }
+
+    match /stats/level_2 {
+      allow create, update: if request.auth.uid != null;
+    }
+
+    match /stats/level_3 {
+      allow create, update: if request.auth.uid != null;
+    }
+
   }
 }
 
