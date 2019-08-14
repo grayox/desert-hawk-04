@@ -4,7 +4,7 @@
 import React from 'react';
 import { Slide, Paper, Tooltip, Zoom, } from '@material-ui/core'; // withStyles, Icon, IconButton, Typography,
 
-import { DashboardGridConfig } from 'my-app/config/DashboardGridConfig';
+import { DashboardGridConfig, } from 'my-app/config/DashboardGridConfig';
 import WidgetNugget from './WidgetNugget';
 import WidgetMenu from './WidgetMenu';
 
@@ -23,7 +23,8 @@ const DashboardWidget = ({ widget, data, index, count, }) => { // data, classes,
   // widget: object: data defining the widget content
   // console.log('widget\n', widget,);
 
-  const { group, label, description, links, } = widget; // data, desc, rowDesc,rowName,
+  const { group, label, description, links, dataSource, } = widget; // data, desc, rowDesc,rowName,
+  // if(dataSource) console.log('dataSource\n', dataSource,);
 
   // linear staggered sequencing
   // const timeout = TARGET * (index + 1) / count;
@@ -62,7 +63,7 @@ const DashboardWidget = ({ widget, data, index, count, }) => { // data, classes,
         </div>
         <Tooltip TransitionComponent={Zoom} title={description}>
           <div className="mb-24">
-            <WidgetNugget type="kernel" label={label} message={description} data={data} />
+            <WidgetNugget type="kernel" label={label} message={description} data={data} dataSource={dataSource} />
           </div>
         </Tooltip>
         {

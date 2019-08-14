@@ -100,7 +100,7 @@ const DetailsTab = props => {
                         ||
                         (profile && profile.displayName)
                         ||
-                        'Click to enter...'
+                        'Set name'
                       }
                     />
                   </ListItem>
@@ -130,7 +130,7 @@ const DetailsTab = props => {
                         ||
                         (profile && profile.email)
                         ||
-                        'Click to enter...'
+                        'Set email'
                       }
                     />
                   </ListItem>
@@ -154,14 +154,14 @@ const DetailsTab = props => {
                     <ListItemText
                       primary="Mobile"
                       // secondary={mobile}
-                      // secondary={ user.data.phoneNumber || 'Click to enter...' }
-                      // secondary={ settings.mobile || profile.phoneNumber || 'Click to enter...' }
+                      // secondary={ user.data.phoneNumber || 'Set number' }
+                      // secondary={ settings.mobile || profile.phoneNumber || 'Set number' }
                       secondary={
                         (settings && settings.mobile)
                         ||
                         (profile && profile.mobile)
                         ||
-                        'Click to enter...'
+                        'Set number'
                       }
                     />
                   </ListItem>

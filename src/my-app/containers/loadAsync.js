@@ -33,7 +33,7 @@ export const loadUserData = async path => {
   // path: string: example: 'users/myUserID/settings' | 'users/myUserID/dashboard'
   // console.log('path\n', path);
   const out = await getUserData(path);
-  // console.log('out\n', out);
+  // console.log('out\n', out,);
   return out;
 
   // const promise = new Promise((resolve, reject) => {

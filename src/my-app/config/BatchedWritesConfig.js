@@ -44,7 +44,7 @@
 //   { merge: true, },
 // );
 
-export const getBatchWriteConfig_createItem= ({ getIncrement, uid, settings, newData, }) => {
+export const getCreateItem = ({ getIncrement, uid, settings, newData, }) => {
   const geoLocationKey = [ settings.geoNation, settings.geoRegion, settings.geoLocal, ].join(' | ');
   const geoLocationTypeKey = [ geoLocationKey, newData.bizCategory, ].join(' | ');
   const out = [

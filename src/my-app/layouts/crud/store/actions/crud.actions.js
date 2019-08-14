@@ -4,7 +4,7 @@
 import { getComponentsNavConfig, } from 'my-app/config/AppConfig'; // OVERWRITE_OLD_DATA,
 import firebase from 'firebase';
 import _ from '@lodash';
-import { getBatchWriteConfigs_createItem, } from 'my-app/config/DbWireConfig'
+import { getCreateItem, } from 'my-app/config/BatchedWritesConfig'
 
 // const getNavElement = ({path, settings,}) => {
 //   // path: string: 'leads', 'archive', 'outbox'
@@ -196,8 +196,8 @@ export const createItem = ( path, item, uid, settings, creatable, ) => // dashbo
     const batch = db.batch();
     const newDocRef = db.collection(path).doc(); // .doc() generates autoID
     batch.set(newDocRef, newData,);
-    const batchWriteConfigs = getBatchWriteConfigs_createItem({ getIncrement, uid, settings, newData, });
-    batchWriteConfigs.map(
+    const batchConfig = getCreateItem({ getIncrement, uid, settings, newData, });
+    batchConfig.map(
       ({collection, doc, data,}) => batch.set( db.collection(collection).doc(doc), data, { merge: true, },)
     );
     batch.commit();

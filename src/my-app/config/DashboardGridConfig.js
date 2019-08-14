@@ -226,7 +226,11 @@ export const DashboardGridConfig = {
       id: 'inbox',
       label: 'Inbox',
       // data: 5,
-      initialValue: 0,
+      // initialValue: 0,
+      dataSource: {
+        path: 'stats/level_1/',
+        field: 'leads.geoLocations[geoLocationsTypeKey]',
+      },
       group: 'inventory',
       // icon: 'cloud_download',
       // color: 'info',

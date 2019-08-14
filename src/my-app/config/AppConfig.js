@@ -535,6 +535,7 @@ export const getAlert = ( dashboard, content, ) => {
 // src/fuse-configs/fuseNavigationConfig.js // abbreviated
 // src/main/content/components/ComponentsConfig.js
 export const getComponentsNavConfig = props => {
+  // console.log('React version: ', React.version,); // 16.8.6
   // console.log('props\n', props,);
 
   const item     = ( props && props.item     ) || {} ;

@@ -7,6 +7,8 @@ import {
   Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
 } from '@material-ui/core';
 
+import WidgetData from './WidgetData';
+
 import _ from '@lodash';
 import numeral from 'numeral';
 
@@ -82,32 +84,32 @@ const Transition = props => <Slide direction="up" {...props} />
 
 // const WidgetNugget = props => <Chip className={classes.chip} />
 // const WidgetNugget = ({ label, message, }) => <Chip label={label} onClick={() => handleClick(message)} />
-const WidgetNugget = ({ type, data, label, message, }) => {
+const WidgetNugget = ({ type, data, label, message, dataSource, }) => {
+  // if(dataSource) console.log('dataSource\n', dataSource,);
 
   const formattedData = typeof data === 'number' ? numeral(data).format('0,0') : (data && data.toUpperCase());
 
+  const getChip = () => <Chip label={label} onClick={() => handleOpenDialog()} /> // direction: 'up',
+
+  const getKernelData = () => <WidgetData dataSource={dataSource} />
+
+  const getKernel = () =>
+    <div
+      className="flex flex-col h-116 text-center cursor-pointer" // direction: 'right', text-16 text-72
+      onClick={() => handleOpenDialog()}
+    >
+      <div className={`${computeFontSize(data)} h-72 flex items-end leading-none text-blue`}>
+        <span className="flex-1">{ (!!data || data===0) ? formattedData : getKernelData() }</span>
+      </div>
+      <div className="text-xs uppercase mt-8" color="textSecondary">{label}</div>
+    </div>
+
   const config = {
-    chip: {
-      // direction: 'up',
-      element: (<Chip label={label} onClick={() => handleOpenDialog()} />),
-    },
-    kernel: {
-      // direction: 'right',
-      // text-16
-      // text-72
-      element: (
-        <div
-          className="flex flex-col h-116 text-center cursor-pointer"
-          onClick={() => handleOpenDialog()}
-        >
-          <div className={`${computeFontSize(data)} h-72 flex items-end leading-none text-blue`}>
-            <span className="flex-1">{formattedData}</span>
-          </div>
-          <div className="text-xs uppercase mt-8" color="textSecondary">{label}</div>
-        </div>
-      ),
-    },
+    chip: getChip(),
+    kernel: getKernel(),
   };
+
+  const getConfig = type => config[type];
 
   const getDialog = () =>
     <Dialog
@@ -136,7 +138,7 @@ const WidgetNugget = ({ type, data, label, message, }) => {
   const handleCloseDialog = () => setDialogIsOpen(false);
   // const Transition = props => (<Slide direction={config[type].direction} {...props} />);
 
-  const getWidgetNugget = () => <div> {config[type].element} {getDialog()} </div>
+  const getWidgetNugget = () => <div> {getConfig(type)} {getDialog()} </div>
 
   return getWidgetNugget();
 }
