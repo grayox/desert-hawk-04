@@ -32,7 +32,7 @@ const INITIAL_STATE = {
 
 class WidgetData extends Component {
 
-  state = { ...INITIAL_STATE };
+  state = { ...INITIAL_STATE, };
 
   componentDidMount() {
     this.handleLoad();
@@ -80,7 +80,7 @@ class WidgetData extends Component {
     const { data, } = this.state;
     // const result = data && data.leads && data.leads.geoLocations
     //   && data.leads.geoLocations['United States | Washington | Seattle | financial'];
-    const result = _.get(data, TEST_STRING, '',)
+    const result = _.get(data, TEST_STRING, '',);
     // console.log('result\n', result,);
     const out = (typeof result === 'number') ? result : '⚠️';
     // console.log('out\n', out,);

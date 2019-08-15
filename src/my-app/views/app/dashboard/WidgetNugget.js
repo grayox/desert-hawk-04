@@ -1,6 +1,6 @@
 // inspired by // https://material-ui.com/demos/chips/#chip | https://material-ui.com/demos/dialogs/
 
-import React, { useState, } from 'react';
+import React, { useState, useEffect, } from 'react';
 
 import {
   Button, Slide, Chip, // Typography, // withStyles
@@ -87,6 +87,19 @@ const Transition = props => <Slide direction="up" {...props} />
 const WidgetNugget = ({ type, data, label, message, dataSource, }) => {
   // if(dataSource) console.log('dataSource\n', dataSource,);
 
+  const [ dialogIsOpen    , setDialogIsOpen    , ] = useState(false);
+  // const [ formattedResult , setFormattedResult , ] = useState('');
+  const [ fontSize        , setFontSize        , ] = useState('text-72');
+
+  // useEffect(() => {
+  //   const newFontSize = computeFontSize(formattedResult);
+  //   console.log('formattedResult\n', formattedResult,);
+  //   console.log('fontSize\n', fontSize,);
+  //   console.log('newFontSize\n', newFontSize,);
+  //   debugger;
+  //   if(newFontSize !== fontSize) setFontSize(newFontSize);
+  // }, [ formattedResult, ]);
+
   const getFormat = unformatted => {
     let out;
     const typeOfData = typeof unformatted;
@@ -115,15 +128,16 @@ const WidgetNugget = ({ type, data, label, message, dataSource, }) => {
     const result = ( !!data || data===0 ) ? data : getKernelData();
     // console.log('result\n', result,);
     const formattedResult = getFormat(result);
-    console.log('formattedResult\n', formattedResult,);
-    const computedFontSize = computeFontSize(result); // formattedResult converts all to text
-    console.log('computedFontSize\n', computedFontSize,);
+    // console.log('formattedResult\n', formattedResult,);
+    // setFormattedResult(formattedResult);
+    // const computedFontSize = computeFontSize(result); // formattedResult converts all to text
+    // console.log('computedFontSize\n', computedFontSize,);
     return (
       <div
         className="flex flex-col h-116 text-center cursor-pointer" // direction: 'right', text-16 text-72
         onClick={() => handleOpenDialog()}
       >
-        <div className={`${computedFontSize} h-72 flex items-end leading-none text-blue`}>
+        <div className={`${fontSize} h-72 flex items-end leading-none text-blue`}>
           <span className="flex-1">{formattedResult}</span>
         </div>
         <div className="text-xs uppercase mt-8" color="textSecondary">{label}</div>
@@ -159,8 +173,7 @@ const WidgetNugget = ({ type, data, label, message, dataSource, }) => {
         <Button onClick={handleCloseDialog} color="primary">Ok, got it</Button>
       </DialogActions>
     </Dialog>
-
-  const [ dialogIsOpen, setDialogIsOpen, ] = useState(false);
+  
   const handleOpenDialog = () => setDialogIsOpen(true);
   const handleCloseDialog = () => setDialogIsOpen(false);
   // const Transition = props => (<Slide direction={config[type].direction} {...props} />);
