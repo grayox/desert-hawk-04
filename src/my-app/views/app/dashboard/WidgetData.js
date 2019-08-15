@@ -6,7 +6,7 @@ import React, { Component, } from 'react'; // useState, Suspense,
 import { CircularProgress, } from '@material-ui/core';
 
 import { loadUserData, } from 'my-app/containers/LoadAsync';
-
+import _ from '@lodash';
 
 // // const WidgetData = props => {
 //   // if(props) console.log('props\n', props,);
@@ -22,6 +22,8 @@ import { loadUserData, } from 'my-app/containers/LoadAsync';
   // if(!ready2) return null;
 
   // const [ hasLoaded, setHasLoaded, ] = useState(false);
+
+const TEST_STRING = 'leads.geoLocations.United States | Washington | Seattle | financial';
 
 const INITIAL_STATE = {
   data: null,
@@ -76,8 +78,9 @@ class WidgetData extends Component {
 
   getData = () => {
     const { data, } = this.state;
-    const result = data && data.leads && data.leads.geoLocations
-      && data.leads.geoLocations['United States | Washington | Seattle | financial'];
+    // const result = data && data.leads && data.leads.geoLocations
+    //   && data.leads.geoLocations['United States | Washington | Seattle | financial'];
+    const result = _.get(data, TEST_STRING, '',)
     // console.log('result\n', result,);
     const out = (typeof result === 'number') ? result : '⚠️';
     // console.log('out\n', out,);
