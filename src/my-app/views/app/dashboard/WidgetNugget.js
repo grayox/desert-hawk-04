@@ -87,22 +87,49 @@ const Transition = props => <Slide direction="up" {...props} />
 const WidgetNugget = ({ type, data, label, message, dataSource, }) => {
   // if(dataSource) console.log('dataSource\n', dataSource,);
 
-  const formattedData = typeof data === 'number' ? numeral(data).format('0,0') : (data && data.toUpperCase());
+  const getFormat = unformatted => {
+    let out;
+    const typeOfData = typeof unformatted;
+    // console.log( 'typeOfData\n', typeOfData, );
+    switch (typeOfData) {
+      case 'number':
+        out = numeral(unformatted).format('0,0')
+        break;
+      case 'string':
+        out = unformatted.toUpperCase();
+        break;
+      case 'object':
+        out = unformatted;
+        break;
+      default:
+        out = unformatted;
+    }
+    return out;
+  }
 
   const getChip = () => <Chip label={label} onClick={() => handleOpenDialog()} /> // direction: 'up',
 
   const getKernelData = () => <WidgetData dataSource={dataSource} />
 
-  const getKernel = () =>
-    <div
-      className="flex flex-col h-116 text-center cursor-pointer" // direction: 'right', text-16 text-72
-      onClick={() => handleOpenDialog()}
-    >
-      <div className={`${computeFontSize(data)} h-72 flex items-end leading-none text-blue`}>
-        <span className="flex-1">{ (!!data || data===0) ? formattedData : getKernelData() }</span>
+  const getKernel = () => {
+    const result = ( !!data || data===0 ) ? data : getKernelData();
+    // console.log('result\n', result,);
+    const formattedResult = getFormat(result);
+    console.log('formattedResult\n', formattedResult,);
+    const computedFontSize = computeFontSize(result); // formattedResult converts all to text
+    console.log('computedFontSize\n', computedFontSize,);
+    return (
+      <div
+        className="flex flex-col h-116 text-center cursor-pointer" // direction: 'right', text-16 text-72
+        onClick={() => handleOpenDialog()}
+      >
+        <div className={`${computedFontSize} h-72 flex items-end leading-none text-blue`}>
+          <span className="flex-1">{formattedResult}</span>
+        </div>
+        <div className="text-xs uppercase mt-8" color="textSecondary">{label}</div>
       </div>
-      <div className="text-xs uppercase mt-8" color="textSecondary">{label}</div>
-    </div>
+    )
+  }
 
   const config = {
     chip: getChip(),

@@ -1,6 +1,8 @@
-// inspired by: https://github.com/withinpixels/fuse-react/blob/v2.2.3/src/app/main/apps/dashboards/project/widgets/Widget4.js
+// inspired by
+// https://medium.com/react-in-depth/why-react-suspense-will-be-a-game-changer-37b40fea71ec
+// see canonical data fetch pattern at above link and recopied below at the bottom of this file
 
-import React, { Component, } from 'react'; // useState,
+import React, { Component, } from 'react'; // useState, Suspense,
 import { CircularProgress, } from '@material-ui/core';
 
 import { loadUserData, } from 'my-app/containers/LoadAsync';
@@ -23,7 +25,7 @@ import { loadUserData, } from 'my-app/containers/LoadAsync';
 
 const INITIAL_STATE = {
   data: null,
-  // hasLoaded: false,
+  hasLoaded: false,
 }
 
 class WidgetData extends Component {
@@ -31,22 +33,33 @@ class WidgetData extends Component {
   state = { ...INITIAL_STATE };
 
   componentDidMount() {
-    const data = this.fetchData()
-      .then( () => {
-        console.log('data\n', data,);
-        this.setState({
-          data,
-          hasLoaded: () => (typeof data==='number'),
-        });
-      });
-    // set recurring data fetch
-    // this.timer = setInterval(() => fetchData(), 5000);
+    this.handleLoad();
   }
+
+  // componentDidUpdate(prevProps) {
+  //   // Typical usage (don't forget to compare props):
+  //   if (this.props.userID !== prevProps.userID) {
+  //     console.log('state\n', this.state);
+  //   }
+  // }
 
   // componentWillUnmount() {
   //   clearInterval(this.timer);
   //   this.timer = null;
   // }
+
+  handleLoad = () => {
+    this.fetchData()
+    .then( data => {
+      // console.log('data\n', data,);
+      this.setState({ data, hasLoaded: true, });
+    })
+    // .then( () => {
+      // console.log('state\n', this.state);
+    // });
+  // set recurring data fetch
+  // this.timer = setInterval(() => fetchData(), 5000);
+  }
 
   fetchData = async () => {
     this.setState({ hasLoaded: false, });
@@ -55,16 +68,20 @@ class WidgetData extends Component {
     // this._asyncRequest = await loadUserData(path,);
     // const data = this._asyncRequest;
     // const data = await loadUserData(path,);
-    console.log('path\n', path,);
+    // console.log('path\n', path,);
     const out = await loadUserData(path,);
-    console.log('out\n', out,);
+    // console.log('out\n', out,);
     return out;
   }
 
   getData = () => {
     const { data, } = this.state;
-    if (typeof data === 'number') return data;
-    else return null;
+    const result = data && data.leads && data.leads.geoLocations
+      && data.leads.geoLocations['United States | Washington | Seattle | financial'];
+    // console.log('result\n', result,);
+    const out = (typeof result === 'number') ? result : '⚠️';
+    // console.log('out\n', out,);
+    return out;
   }
 
   // const getData = () => {
@@ -108,3 +125,60 @@ class WidgetData extends Component {
 
 export default WidgetData;
 // export default withStyles(styles)(DashboardWidget);
+
+// Canonical data fetch pattern
+// ref: https://medium.com/react-in-depth/why-react-suspense-will-be-a-game-changer-37b40fea71ec
+// class DynamicData extends Component {
+//   state = {
+//     loading: true,
+//     error: null,
+//     data: null
+//   };
+
+//   componentDidMount () {
+//     fetchData(this.props.id)
+//       .then((data) => {
+//         this.setState({
+//           loading: false,
+//           data
+//         });
+//       })
+//       .catch((error) => {
+//         this.setState({
+//           loading: false,
+//           error: error.message
+//         });
+//       });
+//   }
+
+//   componentDidUpdate (prevProps) {
+//     if (this.props.id !== prevProps.id) {
+//       this.setState({ loading: true }, () => {
+//         fetchData(this.props.id)
+//           .then((data) => {
+//             this.setState({
+//               loading: false,
+//               data
+//             });
+//           })
+//           .catch((error) => {
+//             this.setState({
+//               loading: false,
+//               error: error.message
+//             });
+//           });
+//       });
+//     }
+//   }
+
+//   render () {
+//     const { loading, error, data } = this.state;
+//     return loading ? (
+//       <p>Loading...</p>
+//     ) : error ? (
+//       <p>Error: {error}</p>
+//     ) : (
+//       <p>Data loaded 🎉</p>
+//     );
+//   }
+// }
