@@ -12,9 +12,13 @@ import WidgetData from './WidgetData';
 import _ from '@lodash';
 import numeral from 'numeral';
 
-const computeFontSize = ( data = '' ) => {
+const getFontSize = ( data = '' ) => {
+  console.log('data\n', data,);
+  
+  const typeOfData = typeof data;
+  console.log('typeOfData\n', typeOfData,);
 
-  if(typeof data === 'string') return 'text-18';
+  if(typeOfData === 'string') return 'text-18';
 
   // minimum white space
   const fontSizeLookupTable = () => {
@@ -89,7 +93,7 @@ const WidgetNugget = ({ type, data, label, message, dataSource, }) => {
 
   const [ dialogIsOpen    , setDialogIsOpen    , ] = useState(false);
   // const [ formattedResult , setFormattedResult , ] = useState('');
-  const [ fontSize        , setFontSize        , ] = useState('text-72');
+  // const [ fontSize        , setFontSize        , ] = useState('text-72');
 
   // useEffect(() => {
   //   const newFontSize = computeFontSize(formattedResult);
@@ -106,7 +110,7 @@ const WidgetNugget = ({ type, data, label, message, dataSource, }) => {
     // console.log( 'typeOfData\n', typeOfData, );
     switch (typeOfData) {
       case 'number':
-        out = numeral(unformatted).format('0,0')
+        out = numeral(unformatted).format('0,0');
         break;
       case 'string':
         out = unformatted.toUpperCase();
@@ -122,7 +126,7 @@ const WidgetNugget = ({ type, data, label, message, dataSource, }) => {
 
   const getChip = () => <Chip label={label} onClick={() => handleOpenDialog()} /> // direction: 'up',
 
-  const getKernelData = () => <WidgetData dataSource={dataSource} />
+  const getKernelData = () => <WidgetData dataSource={dataSource} handleFontSize={getFontSize} />
 
   const getKernel = () => {
     const result = ( !!data || data===0 ) ? data : getKernelData();
@@ -130,7 +134,7 @@ const WidgetNugget = ({ type, data, label, message, dataSource, }) => {
     const formattedResult = getFormat(result);
     // console.log('formattedResult\n', formattedResult,);
     // setFormattedResult(formattedResult);
-    // const computedFontSize = computeFontSize(result); // formattedResult converts all to text
+    const fontSize = getFontSize(result); // formattedResult converts all to text
     // console.log('computedFontSize\n', computedFontSize,);
     return (
       <div

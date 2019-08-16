@@ -108,18 +108,22 @@ class WidgetData extends Component {
   render() {
     const { hasLoaded, } = this.state; // data,
     const { getData, } = this;
+    const { handleFontSize, } = this.props;
+
+    const data = getData();
+    const fontSize = handleFontSize(data);
 
     const getWidgetData = () =>
       // <div> {path} {field} </div>
-      <React.Fragment>
+      <div className={fontSize}>
         {
           hasLoaded
           ?
-          getData()
+          data
           :
           <CircularProgress color="secondary" />
         }
-      </React.Fragment>
+      </div>
   
     return getWidgetData();
   }
