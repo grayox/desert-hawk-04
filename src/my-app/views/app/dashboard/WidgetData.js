@@ -90,7 +90,7 @@ class WidgetData extends Component {
     const result = _.get(data, field, '',);
     // console.log('result\n', result,);
     // const out = (typeof result === 'number') ? result : '⚠️';
-    const out = !!result ? result : '⚠️';
+    const out = result || 0;
     // console.log('out\n', out,);
     return out;
   }
