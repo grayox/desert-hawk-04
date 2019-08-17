@@ -23,7 +23,7 @@ import _ from '@lodash';
 
   // const [ hasLoaded, setHasLoaded, ] = useState(false);
 
-const TEST_STRING = 'leads.geoLocations.United States | Washington | Seattle | financial';
+// const TEST_STRING = 'leads.geoLocations.United States | Washington | Seattle | financial';
 
 const INITIAL_STATE = {
   data: null,
@@ -66,7 +66,7 @@ class WidgetData extends Component {
   fetchData = async () => {
     this.setState({ hasLoaded: false, });
     const { dataSource, } = this.props;
-    const { path, field, } = dataSource;
+    const { path, } = dataSource; // field,
     // this._asyncRequest = await loadUserData(path,);
     // const data = this._asyncRequest;
     // const data = await loadUserData(path,);
@@ -78,9 +78,14 @@ class WidgetData extends Component {
 
   getData = () => {
     const { data, } = this.state;
+    const { dataSource, } = this.props;
+    const { field, } = dataSource; // path,
+    console.log('field\n', field,);
+    
     // const result = data && data.leads && data.leads.geoLocations
     //   && data.leads.geoLocations['United States | Washington | Seattle | financial'];
-    const result = _.get(data, TEST_STRING, '',);
+    // const result = _.get(data, TEST_STRING, '',);
+    const result = _.get(data, field, '',);
     // console.log('result\n', result,);
     const out = (typeof result === 'number') ? result : '⚠️';
     // console.log('out\n', out,);

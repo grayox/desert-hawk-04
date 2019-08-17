@@ -1,6 +1,6 @@
 // inspired by // https://material-ui.com/demos/chips/#chip | https://material-ui.com/demos/dialogs/
 
-import React, { useState, useEffect, } from 'react';
+import React, { useState, } from 'react'; // useEffect,
 
 import {
   Button, Slide, Chip, // Typography, // withStyles
@@ -13,11 +13,12 @@ import _ from '@lodash';
 import numeral from 'numeral';
 
 const getFontSize = ( data = '' ) => {
-  console.log('data\n', data,);
+  // console.log('data\n', data,);
   
   const typeOfData = typeof data;
-  console.log('typeOfData\n', typeOfData,);
+  // console.log('typeOfData\n', typeOfData,);
 
+  // if(typeOfData === 'object') return 'text-72';
   if(typeOfData === 'string') return 'text-18';
 
   // minimum white space
