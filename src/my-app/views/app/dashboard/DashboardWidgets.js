@@ -97,7 +97,7 @@ const DashboardWidgets = ({ data, settings, }) => { // classes,
               // className={classes.gridList}
               className="widget flex w-full mx-16 sm:mx-0 sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-16"
             >
-              <DashboardWidget widget={item} index={index} count={count} data={itemData} />
+              <DashboardWidget settings={settings} widget={item} index={index} count={count} data={itemData} />
             </Grid>
           )}
         )}

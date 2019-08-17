@@ -12,18 +12,18 @@ import _ from '@lodash';
 //   // if(props) console.log('props\n', props,);
 // const WidgetData = ({ dataSource={}, }) => {
 //   // path: string, fields: string,
-//   const { path, field, } = dataSource;
+//   const { path, getField, } = dataSource;
 //   // if(path) console.log('path\n', path,);
-//   // if(field) console.log('field\n', field,);
+//   // if(getField) console.log('getField\n', getField,);
 
   // const ready1 = path && path.length;
   // if(!ready1) return null;
-  // const ready2 = field && field.length;
+  // const ready2 = getField && getField.length;
   // if(!ready2) return null;
 
   // const [ hasLoaded, setHasLoaded, ] = useState(false);
 
-// const TEST_STRING = 'leads.geoLocations.United States | Washington | Seattle | financial';
+const TEST_STRING = 'leads.geoLocations.United States | Washington | Seattle | financial';
 
 const INITIAL_STATE = {
   data: null,
@@ -66,7 +66,7 @@ class WidgetData extends Component {
   fetchData = async () => {
     this.setState({ hasLoaded: false, });
     const { dataSource, } = this.props;
-    const { path, } = dataSource; // field,
+    const { path, } = dataSource; // getField,
     // this._asyncRequest = await loadUserData(path,);
     // const data = this._asyncRequest;
     // const data = await loadUserData(path,);
@@ -78,16 +78,19 @@ class WidgetData extends Component {
 
   getData = () => {
     const { data, } = this.state;
-    const { dataSource, } = this.props;
-    const { field, } = dataSource; // path,
-    console.log('field\n', field,);
-    
+    const { settings, dataSource, } = this.props;
+    const { getField, } = dataSource; // path,
+    const field = getField(settings);
+    // console.log('field\n', field,);
+
     // const result = data && data.leads && data.leads.geoLocations
     //   && data.leads.geoLocations['United States | Washington | Seattle | financial'];
+    // console.log('TEST_STRING\n', TEST_STRING,);
     // const result = _.get(data, TEST_STRING, '',);
     const result = _.get(data, field, '',);
     // console.log('result\n', result,);
-    const out = (typeof result === 'number') ? result : '⚠️';
+    // const out = (typeof result === 'number') ? result : '⚠️';
+    const out = !!result ? result : '⚠️';
     // console.log('out\n', out,);
     return out;
   }
@@ -119,7 +122,7 @@ class WidgetData extends Component {
     const fontSize = handleFontSize(data);
 
     const getWidgetData = () =>
-      // <div> {path} {field} </div>
+      // <div> {path} {getField} </div>
       <div className={fontSize}>
         {
           hasLoaded

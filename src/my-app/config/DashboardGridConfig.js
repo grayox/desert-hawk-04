@@ -38,16 +38,16 @@ const getCategoryDescription = () => {
     { icon: 'assignment', primary: 'Financial', secondary: 'Select this if you are a financial planner and advise clients on their personal finances', },
   ];
   const getListItems = () =>
-    config.map( item =>
-      <ListItem>
+    config.map( ({ icon, primary, secondary, }) =>
+      <ListItem key={primary}>
         <ListItemAvatar>
           <Avatar>
-            <Icon>{item.icon}</Icon>
+            <Icon>{icon}</Icon>
           </Avatar>
         </ListItemAvatar>
         <ListItemText
-          primary={item.primary}
-          secondary={item.secondary}
+          primary={primary}
+          secondary={secondary}
         />
       </ListItem>   
     );
@@ -207,7 +207,11 @@ export const DashboardGridConfig = {
       // initialValue: 0,
       dataSource: {
         path: 'stats/level_1/',
-        field: 'leads.geoLocations[geoLocationsTypeKey]',
+        getField: ({ geoNation, geoRegion, geoLocal, bizCategory, }) => {
+          const geoLocationsTypeKey = [ geoNation, geoRegion, geoLocal, bizCategory, ].join(' | ');
+          const out = [ 'leads', 'geoLocations', geoLocationsTypeKey, ].join('.');
+          return out;
+        },
       },
       group: 'inventory',
       // icon: 'cloud_download',

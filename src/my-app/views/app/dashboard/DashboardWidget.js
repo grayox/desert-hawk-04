@@ -17,7 +17,7 @@ const SCALAR = 1.5; // compensation for random factor; when combined with index,
 
 const { groups, } = DashboardGridConfig;
 
-const DashboardWidget = ({ widget, data, index, count, }) => { // data, classes,
+const DashboardWidget = ({ settings, widget, data, index, count, }) => { // data, classes,
   // count: number: total number of widgets on the dashboard (for purpose of calculating entry animation)
   // index: number: sequence number of this widget relative to all widgets on the dashboard (for purpose of calculating entry animation)
   // widget: object: data defining the widget content
@@ -63,7 +63,11 @@ const DashboardWidget = ({ widget, data, index, count, }) => { // data, classes,
         </div>
         <Tooltip TransitionComponent={Zoom} title={description}>
           <div className="mb-24">
-            <WidgetNugget type="kernel" label={label} message={description} data={data} dataSource={dataSource} />
+            <WidgetNugget
+              type="kernel" settings={settings}
+              label={label} message={description}
+              data={data} dataSource={dataSource}
+            />
           </div>
         </Tooltip>
         {

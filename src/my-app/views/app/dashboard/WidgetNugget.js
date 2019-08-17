@@ -89,7 +89,7 @@ const Transition = props => <Slide direction="up" {...props} />
 
 // const WidgetNugget = props => <Chip className={classes.chip} />
 // const WidgetNugget = ({ label, message, }) => <Chip label={label} onClick={() => handleClick(message)} />
-const WidgetNugget = ({ type, data, label, message, dataSource, }) => {
+const WidgetNugget = ({ settings, type, data, label, message, dataSource, }) => {
   // if(dataSource) console.log('dataSource\n', dataSource,);
 
   const [ dialogIsOpen    , setDialogIsOpen    , ] = useState(false);
@@ -127,7 +127,7 @@ const WidgetNugget = ({ type, data, label, message, dataSource, }) => {
 
   const getChip = () => <Chip label={label} onClick={() => handleOpenDialog()} /> // direction: 'up',
 
-  const getKernelData = () => <WidgetData dataSource={dataSource} handleFontSize={getFontSize} />
+  const getKernelData = () => <WidgetData settings={settings} dataSource={dataSource} handleFontSize={getFontSize} />
 
   const getKernel = () => {
     const result = ( !!data || data===0 ) ? data : getKernelData();
