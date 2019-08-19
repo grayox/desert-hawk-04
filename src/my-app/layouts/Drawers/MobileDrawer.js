@@ -43,19 +43,27 @@ const styles = theme => ({
     // flexGrow: 1,
     backgroundColor: theme.palette.background.default,
     // padding: theme.spacing.unit * 3,
+    border: '1px solid red',
+    paddingBottom: '2px',
+    marginBottom: '2px',
+    boxSizing: 'content-box',
+    // overflow: 'auto',
   },
 });
 
+const INITIAL_STATE = {
+  top: false,
+  left: false,
+  bottom: false,
+  right: false,
+}
+
 // class TemporaryDrawer extends Component {
 class MobileDrawer extends Component {
-  state = {
-    top: false,
-    left: false,
-    bottom: false,
-    right: false,
-  };
 
-  toggleDrawer = (side, open) => () => {
+  state = { ...INITIAL_STATE };
+
+  toggleDrawer = ( side, open, ) => () => {
     this.setState({
       [side]: open,
     });
@@ -115,14 +123,14 @@ class MobileDrawer extends Component {
     //   </div>
     // );
 
-    return (
+    const getMobileDrawer = () =>
       <React.Fragment>
       {
       // <div className="bg-grey-lightest">
       // <MyFab />
       }
         <MyBottomNav />
-        <MobileAppBar className="w-full" onClickMenuButton={this.toggleDrawer('left', true)} />
+        <MobileAppBar className="w-full" onClickMenuButton={this.toggleDrawer('left', true,)} />
 
         <Drawer
           className={classes.drawer}
@@ -132,8 +140,8 @@ class MobileDrawer extends Component {
           }}
           // anchor="left"
           open={this.state.left}
-          onClose={this.toggleDrawer('left', false)}
-          onClick={this.toggleDrawer('left', false)}
+          onClose={this.toggleDrawer( 'left', false, )}
+          onClick={this.toggleDrawer( 'left', false, )}
         >
           <BrandAppBar />
           <DrawerContent userHeader />
@@ -209,7 +217,9 @@ class MobileDrawer extends Component {
       // </div>
       }
       </React.Fragment> 
-    );
+
+    return getMobileDrawer();
+ 
   }
 }
 

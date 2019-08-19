@@ -31,6 +31,7 @@ const styles = theme => ({
   // }, 
   wrapper: {
     padding: 0, // flush with top on mobile //'56px', // clears <AppBar />
+    paddingBottom: '256px',
     // verticalAlign: 'top', // overcomes default
     width: `calc(100vw - ${uiSpecs.drawerWidth})`, // flush with right edge on mobile
     height: 'calc(100vh - 128px)',

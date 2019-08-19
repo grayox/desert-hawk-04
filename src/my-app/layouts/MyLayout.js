@@ -27,6 +27,10 @@ import reducer from 'my-app/store/reducers';
 const styles = theme => ({
   wrapper: {
     height: '100vh',
+    border: '1px solid blue',
+    paddingBottom: '256px', // positive padding makes less visible space?
+    // marginBottom: '256px',
+    boxSizing: 'content-box',
   },
 })
 
@@ -92,15 +96,17 @@ const MyLayout = props => {
       // <ResponsiveDrawer/>
     />
 
-  return (
+  const getMyLayout = () =>
     <div
       // className="w-full"
       // key={settings} // forces reload after settings populate // memoization
       className={classNames( "w-full overflow-auto", classes.wrapper, )}
     >
       {getFetchUserData()} {getMediaWidth()}
+      <div className="mt-256px border border-green">.</div>
     </div>
-  );
+
+  return getMyLayout();
 }
 
 const mapDispatchToProps = dispatch => ({

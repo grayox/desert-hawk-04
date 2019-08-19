@@ -23,7 +23,7 @@ import _ from '@lodash';
 
   // const [ hasLoaded, setHasLoaded, ] = useState(false);
 
-const TEST_STRING = 'leads.geoLocations.United States | Washington | Seattle | financial';
+// const TEST_STRING = 'leads.geoLocations.United States | Washington | Seattle | financial';
 
 const INITIAL_STATE = {
   data: null,

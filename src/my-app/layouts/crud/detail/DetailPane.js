@@ -280,10 +280,14 @@ const DetailPane = ({
     // const ready1 = creatable && creatable.fields;
     // if(!ready1) return null;
 
+    const getVisibleFields = () => ((readable && readable.visibleFields) || null );
+
     const getTargetFields = () =>  {
       const readablePath = readable && readable.path; // 'leads'
       // see AppConfig > getSearchableFields(creatable, readable,);
-      const out = getCreatableFields(readablePath);
+      const creatableFields = getCreatableFields(readablePath);
+      const visibleFields = getVisibleFields();
+      const out = visibleFields || creatableFields;
       return out;
     }
 
