@@ -653,7 +653,7 @@ export const getComponentsNavConfig = props => {
           //   local: { // path: `users/${uid}/dashboard`,
           //     net: -1,
           //     inbox: -1,
-          //     archived: 1,
+          //     archive: 1,
           //     withdrawals: 1,
           //   },
           //   // remotes: {},
@@ -687,8 +687,8 @@ export const getComponentsNavConfig = props => {
                 data: {
                   dashboard: {
                     net: getIncrement(-1), 
-                    // inbox: getIncrement(-1), // covered in seperate array element
-                    archived: getIncrement(1),
+                    // inbox: getIncrement(-1), // covered in seperate element of this array
+                    archive: getIncrement(1),
                     withdrawals: getIncrement(1),
                   },
                 },
@@ -761,9 +761,10 @@ export const getComponentsNavConfig = props => {
         creatable: false,
         readable: {
           path: 'leads', // src/my-app/containers/LoadAsync.js
-          orderBy: [ 'createdAt', 'desc', ] ,
+          orderBy: [ 'archivedAt', 'desc', ] ,
           where: [
             [ 'deletedAt'  , '==' , 0   , ] ,
+            // [ 'archivedAt' , '>'  , 0   , ] ,
             [ 'archivedBy' , '==' , uid , ] ,
           ],
           itemSummary: {
@@ -845,10 +846,10 @@ export const getComponentsNavConfig = props => {
             deletedAt: 0,
             archivedBy: null,
             archivedAt: 0,
-            // bizCategory: settings.bizCategory,
-            geoNation: settings.geoNation,
-            geoRegion: settings.geoRegion,
-            geoLocal: settings.geoLocal,
+            geoNation,
+            geoRegion,
+            geoLocal,
+            // bizCategory,
           },
           getCreatable: newData => { // { getIncrement, uid, settings, }
             const out = [
@@ -959,12 +960,26 @@ export const getComponentsNavConfig = props => {
             createdBy: uid,
             deletedAt: 0,
           },
-          dashboard: {
-            local: {
-              contacts: 1,
-            },
+          // dashboard: {
+          //   local: {
+          //     contacts: 1,
+          //   },
+          // },
+          // replace above dashboard property with getCreatable()
+          getCreatable: newData => { // { getIncrement, uid, settings, }
+            const out = [
+              {
+                collection: 'settings',
+                doc: uid,
+                data: {
+                  dashboard: {
+                    contacts: getIncrement(1), 
+                  },
+                },
+              },
+            ];
+            return out;
           },
-          // TODO: replace above dashboard property with getCreatable()
         },
         readable: {
           path: 'contacts',
@@ -984,7 +999,6 @@ export const getComponentsNavConfig = props => {
             ],
           },
         },
-
         updatable: {
           title: 'Edit contact',
           path: 'contacts',
