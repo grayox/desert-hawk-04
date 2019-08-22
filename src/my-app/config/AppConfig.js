@@ -686,7 +686,7 @@ export const getComponentsNavConfig = props => {
                 doc: uid,
                 data: {
                   dashboard: {
-                    net: getIncrement(1), 
+                    net: getIncrement(-1), 
                     // inbox: getIncrement(-1), // covered in seperate array element
                     archived: getIncrement(1),
                     withdrawals: getIncrement(1),
