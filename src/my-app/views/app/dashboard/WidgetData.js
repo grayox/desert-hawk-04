@@ -66,7 +66,13 @@ class WidgetData extends Component {
   fetchData = async () => {
     this.setState({ hasLoaded: false, });
     const { dataSource, } = this.props;
+    const ready1 = dataSource && (!_.isEmpty(dataSource));
+    if(!ready1) return null;
+
     const { path, } = dataSource; // getField,
+    console.log('path\n', path,);
+    const ready2 = path;
+    if(!ready2) return null;
     // this._asyncRequest = await loadUserData(path,);
     // const data = this._asyncRequest;
     // const data = await loadUserData(path,);
@@ -78,7 +84,15 @@ class WidgetData extends Component {
 
   getData = () => {
     const { data, } = this.state;
+    // console.log('props\n', this.props,);
     const { settings, dataSource, } = this.props;
+    // console.log('dataSource\n', dataSource,);
+
+    const ready1 = settings && (!_.isEmpty(settings));
+    if(!ready1) return null;
+    const ready2 = dataSource && (!_.isEmpty(dataSource));
+    if(!ready2) return null;
+
     const { getField, } = dataSource; // path,
     const field = getField(settings);
     // console.log('field\n', field,);

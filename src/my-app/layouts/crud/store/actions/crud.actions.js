@@ -1,10 +1,8 @@
 // inspired by: src/my-app/store/actions/my-actions/leadsActions.js
 // ref: https://firebase.google.com/docs/firestore/quickstart#next_steps
 
-import { getComponentsNavConfig, } from 'my-app/config/AppConfig'; // OVERWRITE_OLD_DATA,
-import firebase from 'firebase';
-import _ from '@lodash';
-import { getCreateItem, } from 'my-app/config/BatchedWritesConfig'
+// import { getComponentsNavConfig, } from 'my-app/config/AppConfig'; // OVERWRITE_OLD_DATA,
+// import _ from '@lodash';
 
 // const getNavElement = ({path, settings,}) => {
 //   // path: string: 'leads', 'archive', 'outbox'
@@ -18,121 +16,120 @@ import { getCreateItem, } from 'my-app/config/BatchedWritesConfig'
 //   return out;
 // }
 
-const getIncrement = amount => firebase.firestore.FieldValue.increment(amount)
+// const getComponentNavConfig = ( componentsNavConfig, navComponentId, ) => {
+//   // navComponentId: string: 'inbox',
+//   // console.log('navComponentId\n', navComponentId,);
+//   // console.log('componentsNavConfig\n', componentsNavConfig,);
+//   const matches = _.filter(componentsNavConfig, {id: navComponentId,},);
+//   const out = matches[0];
+//   // console.log('out\n', out,);
+//   return out;
+// }
 
-const getComponentNavConfig = ( componentsNavConfig, navComponentId, ) => {
-  // navComponentId: string: 'inbox',
-  // console.log('navComponentId\n', navComponentId,);
-  // console.log('componentsNavConfig\n', componentsNavConfig,);
-  const matches = _.filter(componentsNavConfig, {id: navComponentId,},);
-  const out = matches[0];
-  // console.log('out\n', out,);
-  return out;
-}
+// // replace by getIncrement() methed embedded in getCreatable(), getActionable, etc. and imported from AppConfig
+// const getDashboardNewData = (path, oldData, incrementer, sourceDocId, creatable,) => {
+//   // uid: string: 'abcxyz'
+//   // path: string: 'leads'
+//   // oldData: object: { net: 5, outbox: 4, ... }
+//   // incrementer: string: 'onCreate' | 'onDelete' (deprecated)
+//   // incrementer: integer: 1 | -1
+//   // console.log('path\n', path,); // 'leads'
+//   // console.log('oldData\n', oldData,); // 'abcxyz'
+//   // console.log('incrementer\n', incrementer,); // 1
+//   // console.log('sourceDocId\n', sourceDocId,); // 'abcxyz'
+//   const timestamp = Date.now();
+//   // const mapEntityPathNameToDashboard = {
+//   //   leads: {
+//   //     outbox: 1,
+//   //     net: 1,
+//   //   },
+//   // };
 
-const getDashboardNewData = (path, oldData, incrementer, sourceDocId, creatable,) => {
-  // uid: string: 'abcxyz'
-  // path: string: 'leads'
-  // oldData: object: { net: 5, outbox: 4, ... }
-  // incrementer: string: 'onCreate' | 'onDelete' (deprecated)
-  // incrementer: integer: 1 | -1
-  // console.log('path\n', path,); // 'leads'
-  // console.log('oldData\n', oldData,); // 'abcxyz'
-  // console.log('incrementer\n', incrementer,); // 1
-  // console.log('sourceDocId\n', sourceDocId,); // 'abcxyz'
-  const timestamp = Date.now();
-  // const mapEntityPathNameToDashboard = {
-  //   leads: {
-  //     outbox: 1,
-  //     net: 1,
-  //   },
-  // };
+//   // const dashItem = mapEntityPathNameToDashboard[path]; // 'outbox'
+//   // const oldCount = oldData[dashItem]; // 4
+//   // const newCount = oldCount + incrementer; // 5
+//   const out = {
+//     ...oldData,
+//     // [dashItem]: newCount, // outbox: 5
 
-  // const dashItem = mapEntityPathNameToDashboard[path]; // 'outbox'
-  // const oldCount = oldData[dashItem]; // 4
-  // const newCount = oldCount + incrementer; // 5
-  const out = {
-    ...oldData,
-    // [dashItem]: newCount, // outbox: 5
+//     deletedAt: 0,
+//     createdAt: timestamp,
+//     sourceDocPath: path,
+//     sourceDocId,
+//   };
+//   // console.log('out\n', out,);
 
-    deletedAt: 0,
-    createdAt: timestamp,
-    sourceDocPath: path,
-    sourceDocId,
-  };
-  // console.log('out\n', out,);
+//   // const navElement = getNavElement({path,});
+//   // const navId = navElement.id; // outbox
+//   // console.log('navId\n', navId,); // outbox
+//   // console.log('navElement\n', navElement,); // outbox
+//   // const dashboardChangeOrders = navElement.dashboardConfig[incrementer]; // deprecated // { archive: 1, withdrawals: 1, net: -1, }
+//   // const dashboardChangeOrders = navElement.crudConfig.creatable.dashboard.local;
+//   const dashboardChangeOrders = creatable && creatable.dashboard && creatable.dashboard.local;
+//   // console.log('dashboardChangeOrders\n', dashboardChangeOrders,); // outbox
+//   // ref: https://codeburst.io/javascript-the-difference-between-foreach-and-for-in-992db038e4c2
+//   // dashboardChangeOrders.forEach(r => {
+//   for (let dashboardItemId in dashboardChangeOrders) {
+//     // console.log('dashboardItemId\n', dashboardItemId,); // 'outbox' | 'net'
+//     const delta = incrementer * dashboardChangeOrders[dashboardItemId]; // 1
+//     // console.log('delta\n', delta,);
+//     const oldCount = oldData[dashboardItemId]; // 4
+//     // console.log('oldCount\n', oldCount,);
+//     const newCount = oldCount + delta; // 5
+//     // console.log('newCount\n', newCount,);
+//     out[dashboardItemId] = newCount; // outbox: 5
+//   };
+//   // console.log('out\n', out,); // {net: 5, outbox: 5, ...}
+//   return out;
+// }
 
-  // const navElement = getNavElement({path,});
-  // const navId = navElement.id; // outbox
-  // console.log('navId\n', navId,); // outbox
-  // console.log('navElement\n', navElement,); // outbox
-  // const dashboardChangeOrders = navElement.dashboardConfig[incrementer]; // deprecated // { archive: 1, withdrawals: 1, net: -1, }
-  // const dashboardChangeOrders = navElement.crudConfig.creatable.dashboard.local;
-  const dashboardChangeOrders = creatable && creatable.dashboard && creatable.dashboard.local;
-  // console.log('dashboardChangeOrders\n', dashboardChangeOrders,); // outbox
-  // ref: https://codeburst.io/javascript-the-difference-between-foreach-and-for-in-992db038e4c2
-  // dashboardChangeOrders.forEach(r => {
-  for (let dashboardItemId in dashboardChangeOrders) {
-    // console.log('dashboardItemId\n', dashboardItemId,); // 'outbox' | 'net'
-    const delta = incrementer * dashboardChangeOrders[dashboardItemId]; // 1
-    // console.log('delta\n', delta,);
-    const oldCount = oldData[dashboardItemId]; // 4
-    // console.log('oldCount\n', oldCount,);
-    const newCount = oldCount + delta; // 5
-    // console.log('newCount\n', newCount,);
-    out[dashboardItemId] = newCount; // outbox: 5
-  };
-  // console.log('out\n', out,); // {net: 5, outbox: 5, ...}
-  return out;
-}
+// const handleEditDashboard = ( uid, path, oldData, incrementer, sourceDocId, dispatch, getFirestore, creatable, ) => {
+//   // on create
+//   // used for createItem() only; actionItem() handles dashboard edits internally
+//   // uid: string: 'abcxyz'
+//   // path: string: 'leads'
+//   // oldData: object: { net: 5, outbox: 4, ... }
+//   // incrementer: integer: 1 | -1 (deprecated)
+//   // incrementer: string: 'onCreate' | 'onDelete'
+//   // console.log('uid\n', uid,); // 'abcxyz'
+//   // console.log('path\n', path,); // 'leads'
+//   // console.log('oldData\n', oldData,);
+//   // console.log('incrementer\n', incrementer,); // 1
+//   const newData = getDashboardNewData(path, oldData, incrementer, sourceDocId, creatable,);
+//   // console.log('newData\n', newData,); // 1
+//   const firestore = getFirestore();
+//   firestore
 
-const handleEditDashboard = ( uid, path, oldData, incrementer, sourceDocId, dispatch, getFirestore, creatable, ) => {
-  // on create
-  // used for createItem() only; actionItem() handles dashboard edits internally
-  // uid: string: 'abcxyz'
-  // path: string: 'leads'
-  // oldData: object: { net: 5, outbox: 4, ... }
-  // incrementer: integer: 1 | -1 (deprecated)
-  // incrementer: string: 'onCreate' | 'onDelete'
-  // console.log('uid\n', uid,); // 'abcxyz'
-  // console.log('path\n', path,); // 'leads'
-  // console.log('oldData\n', oldData,);
-  // console.log('incrementer\n', incrementer,); // 1
-  const newData = getDashboardNewData(path, oldData, incrementer, sourceDocId, creatable,);
-  // console.log('newData\n', newData,); // 1
-  const firestore = getFirestore();
-  firestore
+//     // old data structure: subcollections: https://firebase.google.com/docs/firestore/manage-data/structure-data#nested_data_in_documents
+//     // .collection('users')
+//     // .doc(uid)
+//     // .collection('dashboard')
+//     // .add(newData) // adds new doc
 
-    // old data structure: subcollections: https://firebase.google.com/docs/firestore/manage-data/structure-data#nested_data_in_documents
-    // .collection('users')
-    // .doc(uid)
-    // .collection('dashboard')
-    // .add(newData) // adds new doc
+//     // new data structure: root-level collections: https://firebase.google.com/docs/firestore/manage-data/structure-data#root-level_collections
+//     .collection('dashboard')
+//     .doc(uid)
+//     .set(newData) // overwrites old doc
 
-    // new data structure: root-level collections: https://firebase.google.com/docs/firestore/manage-data/structure-data#root-level_collections
-    .collection('dashboard')
-    .doc(uid)
-    .set(newData) // overwrites old doc
-
-    // ref: https://firebase.google.com/docs/firestore/manage-data/add-data#increment_a_numeric_value
-    // .update({
-    //   [dashItem] : firestore.FieldValue.increment(incrementer),
-    // })
-  .then( docRef => {
-    // console.log('docRef\n', docRef,);
-    dispatch({
-      type: 'EDIT_DASHBOARD_SUCCESS',
-      value: newData,
-    });
-  })
-  .catch( error => {
-    // console.log('error\n', error,);
-    dispatch({ type: 'EDIT_DASHBOARD_ERROR', }, error);
-  });
-}
+//     // ref: https://firebase.google.com/docs/firestore/manage-data/add-data#increment_a_numeric_value
+//     // .update({
+//     //   [dashItem] : firestore.FieldValue.increment(incrementer),
+//     // })
+//   .then( docRef => {
+//     // console.log('docRef\n', docRef,);
+//     dispatch({
+//       type: 'EDIT_DASHBOARD_SUCCESS',
+//       value: newData,
+//     });
+//   })
+//   .catch( error => {
+//     // console.log('error\n', error,);
+//     dispatch({ type: 'EDIT_DASHBOARD_ERROR', }, error);
+//   });
+// }
 
 // source: https://github.com/iamshaunjp/React-Redux-Firebase-App/blob/lesson-18/marioplan/src/store/actions/projectActions.js
-export const createItem = ( path, item, uid, settings, creatable, ) => // dashboard,
+export const createItem = ( item, { addOns, path, getCreatable, }, ) => // uid, settings, path, dashboard,
   (dispatch, getState, { getFirebase, getFirestore, }) => {
 
     // console.log('path\n', path,);
@@ -140,30 +137,30 @@ export const createItem = ( path, item, uid, settings, creatable, ) => // dashbo
     // console.log('uid\n', uid,);
     // console.log('dashboard\n', dashboard,);
     
-    if(!item.createdAt) {
-      const timestamp = Date.now();
-      item.createdAt = timestamp;
-    }
+    // if(!item.createdAt) {
+    //   const timestamp = Date.now();
+    //   item.createdAt = timestamp;
+    // }
 
-    // begin addOns
-    // const navElement = getNavElement({path, creatable,});
-    // console.log('navElement\n', navElement,)
-    const addOns = creatable && creatable.addOns;
-    // console.log('addOns\n', addOns,)
-    // end addOns
+    // // begin addOns
+    // // const navElement = getNavElement({path, creatable,});
+    // // console.log('navElement\n', navElement,)
+    // const addOns = creatable && creatable.addOns;
+    // // console.log('addOns\n', addOns,)
+    // // end addOns
 
 
     // const timestamp = Date.now();
     const newData = {
       ...item,
+      ...addOns,
       // createdAt: timestamp,
-      deletedAt: 0,
-      createdBy: uid,
+      // deletedAt: 0,
+      // createdBy: uid,
       // createdAt: new Date(),
       // authorFirstName: 'Net',
       // authorLastName: 'Ninja',
       // authorId: 12345,
-      ...addOns,
     };
 
     // make async call to database
@@ -195,95 +192,98 @@ export const createItem = ( path, item, uid, settings, creatable, ) => // dashbo
     // replace with:
     const batch = db.batch();
     const newDocRef = db.collection(path).doc(); // .doc() generates autoID
-    batch.set(newDocRef, newData,);
-    const batchConfig = getCreateItem({ getIncrement, uid, settings, newData, });
+    batch.set( newDocRef, newData, );
+    const batchConfig = getCreatable(newData,);
     batchConfig.map(
-      ({collection, doc, data,}) => batch.set( db.collection(collection).doc(doc), data, { merge: true, },)
+      ({collection, doc, data,}) => batch.set(db.collection(collection).doc(doc), data, { merge: true, },)
     );
     batch.commit();
     // end replace with
 
   }
 
-const assembleBatchWrite = ( db, batch, navComponentId, uid, docId, dashboard, ) => {
-  // console.log('navComponentId\n', navComponentId,); // inbox
-  // console.log('uid\n', uid,);
-  // console.log('docId\n', docId,);
-  // console.log('dashboard\n', dashboard,);
+// const assembleBatchWrite = ( db, batch, navComponentId, uid, docId, ) => { // dashboard, use getIncrement()
+//   // console.log('navComponentId\n', navComponentId,); // inbox
+//   // console.log('uid\n', uid,);
+//   // console.log('docId\n', docId,);
+//   // console.log('dashboard\n', dashboard,);
   
-  const componentsNavConfig = getComponentsNavConfig({ uid, docId, });
-  // console.log('componentsNavConfig\n', componentsNavConfig,);
-  // console.log('componentNavConfig\n', componentsNavConfig[1],);
+//   const componentsNavConfig = getComponentsNavConfig({ uid, docId, });
+//   // console.log('componentsNavConfig\n', componentsNavConfig,);
+//   // console.log('componentNavConfig\n', componentsNavConfig[1],);
   
-  const componentNavConfig = getComponentNavConfig(componentsNavConfig, navComponentId,);
-  // console.log('componentNavConfig\n', componentNavConfig,);
-  const { crudConfig, } = componentNavConfig;
-  const { actionable, } = crudConfig;
-  // console.log('actionable\n', actionable,);
+//   const componentNavConfig = getComponentNavConfig(componentsNavConfig, navComponentId,); // notice the 's', it's a different function than above
+//   // console.log('componentNavConfig\n', componentNavConfig,);
+//   const { crudConfig, } = componentNavConfig;
+//   const { actionable, } = crudConfig;
+//   console.log('actionable\n', actionable,);
 
-  // // ref: https://firebase.google.com/docs/firestore/manage-data/transactions
-  // // Set the value of 'NYC'
-  // const nycRef = db.collection("cities").doc("NYC");
-  // batch.set(nycRef, { name: "New York City" });
-  // // Update the population of 'SF'
-  // const sfRef = db.collection("cities").doc("SF");
-  // batch.update(sfRef, { "population": 1000000 });
-  // // Delete the city 'LA'
-  // const laRef = db.collection("cities").doc("LA");
-  // batch.delete(laRef);
+//   // // ref: https://firebase.google.com/docs/firestore/manage-data/transactions
+//   // // Set the value of 'NYC'
+//   // const nycRef = db.collection("cities").doc("NYC");
+//   // batch.set(nycRef, { name: "New York City" });
+//   // // Update the population of 'SF'
+//   // const sfRef = db.collection("cities").doc("SF");
+//   // batch.update(sfRef, { "population": 1000000 });
+//   // // Delete the city 'LA'
+//   // const laRef = db.collection("cities").doc("LA");
+//   // batch.delete(laRef);
 
-  const { updates, sets, deletes, dashboard: { local, remotes, }, } = actionable;
+//   const { updates, sets, deletes, dashboard: { local, remotes, }, } = actionable;
 
-  // console.log('updates\n', updates,);
-  // console.log('sets\n', sets,);
-  // console.log('deletes\n', deletes,);
-  // console.log('local\n', local,);
-  // console.log('remotes\n', remotes,);
+//   console.log('updates\n', updates,);
+//   console.log('sets\n', sets,);
+//   console.log('deletes\n', deletes,);
+//   console.log('local\n', local,);
+//   console.log('remotes\n', remotes,);
 
-  if(updates && updates.length) {
-    for(let update of updates) {
-      // console.log('update\n', update,);
-      const dbRef = db.doc(update.path);
-      batch.update(dbRef, update.fields,); // { "population": 1000000 }
-    }
-  }
-  if(sets && sets.length) {
-    for(let set of sets) {
-      // console.log('set\n', set,);
-      const dbRef = db.doc(set.path);
-      batch.set(dbRef, set.fields,); // { name: "New York City" }
-    }
-  }
-  if(deletes && deletes.length) {
-    for(let delet of deletes) { // use delet instead of delete because delete is a reserved word in JS
-      // console.log('delet\n', delet,);
-      const dbRef = db.doc(delet.path);
-      batch.delete(dbRef,);
-    }
-  }
-  // dashboards
-  if(local && (!_.isEmpty(local))) {
-    console.log('local\n', local,);
-    // old data structure: subcollections
-    // const path = `users/${uid}/dashboard`;
-    // const dbRef = db.collection(path);
-    // new data structure: root-level collections
-    const path = `dashboard/${uid}`;
-    const dbRef = db.doc(path);
-    batch.update(dbRef, local,); //.fields
-  }
-  if(remotes && remotes.length) {
-    // console.log('remotes\n', remotes,);
-    for(let remote of remotes) {
-      // console.log('remote\n', remote,);
-      const dbRef = db.collection(remote.path);
-      batch.set(dbRef, remote.fields,); // { "population": 1000000 }
-    }    
-  }
-  return batch;
-}
+//   if(updates && updates.length) {
+//     for(let update of updates) {
+//       // console.log('update\n', update,);
+//       const dbRef = db.doc(update.path);
+//       batch.update(dbRef, update.fields,); // { "population": 1000000 }
+//     }
+//   }
+//   if(sets && sets.length) {
+//     for(let set of sets) {
+//       // console.log('set\n', set,);
+//       const dbRef = db.doc(set.path);
+//       batch.set(dbRef, set.fields,); // { name: "New York City" }
+//     }
+//   }
+//   if(deletes && deletes.length) {
+//     for(let delet of deletes) { // use delet instead of delete because delete is a reserved word in JS
+//       // console.log('delet\n', delet,);
+//       const dbRef = db.doc(delet.path);
+//       batch.delete(dbRef,);
+//     }
+//   }
+//   // dashboards
+//   if(local && (!_.isEmpty(local))) {
+//     console.log('local\n', local,);
+//     const newDashboard = { dashboard: local, }
+//     // old data structure: subcollections
+//     // const path = `users/${uid}/dashboard`;
+//     // const dbRef = db.collection(path);
+//     // new data structure: root-level collections
+//     const path = `settings/${uid}`;
+//     const dbRef = db.doc(path);
+//     // batch.update(dbRef, local,); //.fields
+//     // batch.update(dbRef, local,); //.fields
+//     batch.update(dbRef, newDashboard,); //.fields
+//   }
+//   if(remotes && remotes.length) {
+//     // console.log('remotes\n', remotes,);
+//     for(let remote of remotes) {
+//       // console.log('remote\n', remote,);
+//       const dbRef = db.collection(remote.path);
+//       batch.set(dbRef, remote.fields,); // { "population": 1000000 }
+//     }    
+//   }
+//   return batch;
+// }
 
-export const actionItem = ( uid, detail, navComponentId, dashboard, ) => // settings, readable, actionable,
+export const actionItem = ( { docId, }, { getActionable, }, ) => // detail, actionable, uid, settings, dashboard, readable, navComponentId,
   (dispatch, getState, { getFirebase, getFirestore, }) => {
     // console.log('uid\n', uid,);
     // console.log('actionable\n', actionable,);
@@ -292,7 +292,7 @@ export const actionItem = ( uid, detail, navComponentId, dashboard, ) => // sett
     // console.log('detail\n', detail,);
     // console.log('readable\n', readable,);
     // const { path, } = readable;
-    const { docId, } = detail;
+    // const { docId, } = detail;
     
     // const newData = actionable.updates[0].fields;
     // console.log('newData\n', newData,);
@@ -302,7 +302,7 @@ export const actionItem = ( uid, detail, navComponentId, dashboard, ) => // sett
     // firestore
     //   .collection(path)
     //   .doc(docId)
-    //   .update(newData // use .update() method: https://firebase.google.com/docs/firestore/manage-data/add-data#update-data
+    //   .update( newData // use .update() method: https://firebase.google.com/docs/firestore/manage-data/add-data#update-data
     //     , { merge: true, } ,
     //   )
 
@@ -312,22 +312,34 @@ export const actionItem = ( uid, detail, navComponentId, dashboard, ) => // sett
     // Get a new write batch
     const batch = db.batch();
 
-    const assembledBatchWrite = assembleBatchWrite(db, batch, navComponentId, uid, docId, dashboard,);
-    // console.log('assembledBatchWrite\n', assembledBatchWrite,);
+    // // begin replace this
+    // const assembledBatchWrite = assembleBatchWrite(db, batch, navComponentId, uid, docId, dashboard,);
+    // // console.log('assembledBatchWrite\n', assembledBatchWrite,);
+    // // Commit the batch
+    // // batch.commit().then( () => {
+    // assembledBatchWrite.commit().then( docRef => {
+    //   // console.log('docRef\n', docRef,);
+    // });
+    // // end replace this
 
-    // Commit the batch
-    // batch.commit().then( () => {
-    assembledBatchWrite.commit().then( docRef => {
-      // console.log('docRef\n', docRef,);
-    });
+    // replace with:
+    // const batch = db.batch();
+    // const newDocRef = db.collection(path).doc(); // only used with creatable(), not actionable() // .doc() generates autoID
+    // batch.set( newDocRef, newData, ); // only used with creatable(), not actionable() 
+    const batchConfig = getActionable(docId,);
+    batchConfig.map(
+      ({ collection, doc, data, }) => batch.set(db.collection(collection).doc(doc), data, { merge: true, },)
+    );
+    batch.commit();
+    // end replace with
 }
 
 export const updateItem = ( path, docId, newItem, oldItem, ) => // uid,
   (dispatch, getState, { getFirebase, getFirestore, }) => {
     // ref: https://firebase.google.com/docs/firestore/manage-data/add-data#update-data
-    // console.log('path\n', path);
-    // console.log('docId\n', docId);
-    // console.log('getState\n', getState);
+    console.log('path\n', path);
+    console.log('docId\n', docId);
+    console.log('getState\n', getState);
 
     const timestamp = Date.now();
     const newDoc = {
@@ -397,7 +409,8 @@ export const deleteItem = ( path, docId, uid, dashboard, creatable, ) =>
       // , { merge: true, } ,
       )
     .then( () => {
-      handleEditDashboard( uid, path, dashboard, -1, docId, dispatch, getFirestore, creatable, );
+      // handleEditDashboard( uid, path, dashboard, -1, docId, dispatch, getFirestore, creatable, );
+      // TODO: replace above handleEditDashboard() with getDeletable() imported from AppConfig per getCreatable() and getActionable()
       dispatch({ type: 'DELETE_ITEM_SUCCESS', });
     }).catch( error => {
       console.log('error\n', error,);

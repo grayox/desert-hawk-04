@@ -5,6 +5,7 @@ import React from 'react';
 
 // firebase
 // import { firestoreConnect } from 'react-redux-firebase';
+import firebase from 'firebase';
 
 // fuse
 import { FuseLoadable, } from '@fuse';
@@ -74,6 +75,8 @@ export const firebaseConfig = {
   storageBucket: 'green-comet-e2c85.appspot.com',
   messagingSenderId: '682044250674',
 }
+
+const getIncrement = amount => firebase.firestore.FieldValue.increment(amount);
 
 export const defaultSettings = {
   // default settings
@@ -556,6 +559,12 @@ export const getComponentsNavConfig = props => {
   // console.log('geoNation\n', geoNation,);
   // console.log('geoRegion\n', geoRegion,);
   // console.log('geoLocal\n', geoLocal,);
+
+  // const ready1 = settings && geoNation && geoRegion && geoLocal && bizCategory;
+  // if(!ready1) return null; // throw new Error('Insufficient data');
+
+  const geoLocationKey = [ geoNation, geoRegion, geoLocal, ].join(' | ');
+  const geoLocationTypeKey = [ geoLocationKey, bizCategory, ].join(' | ');
   
   const out = [
     // import { componentsNavConfig, } from 'my-app/config/AppConfig';
@@ -595,8 +604,8 @@ export const getComponentsNavConfig = props => {
       bottomNav : true,
       // see src/my-app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
-      component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
-      crudConfig : {
+      component: () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
+      crudConfig: {
         miniDashboard: [ 'net', 'deposits', 'withdrawals', ],
         condensed: true,
         searchable: false, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
@@ -640,26 +649,87 @@ export const getComponentsNavConfig = props => {
           dialogHeader: 'Claim lead',
           dialogBody: 'Do you want to claim this lead and send it to your archive?',
           buttonLabel: 'Claim it now!',
-          dashboard: {
-            local: { // path: `users/${uid}/dashboard`,
-              net: -1,
-              inbox: -1,
-              archived: 1,
-              withdrawals: 1,
-            },
-            // remotes: {},
-          },
+          // dashboard: {
+          //   local: { // path: `users/${uid}/dashboard`,
+          //     net: -1,
+          //     inbox: -1,
+          //     archived: 1,
+          //     withdrawals: 1,
+          //   },
+          //   // remotes: {},
+          // },
           // sets: [],
           // deletes: [],
-          updates: [
-            {
-              path: `leads/${docId}`,
-              fields: {
-                archivedBy: uid,
-                archivedAt: Date.now(),
+          // updates: [
+          //   {
+          //     path: `leads/${docId}`,
+          //     fields: {
+          //       archivedBy: uid,
+          //       archivedAt: Date.now(),
+          //     },
+          //   },
+          // ],
+          getActionable: docId => { // { getIncrement, uid, settings, }
+            const out = [
+              {
+                // comment: 'update key fields of subject doc',
+                collection: 'leads',
+                doc: docId,
+                data: {
+                  archivedBy: uid,
+                  archivedAt: Date.now(),
+                },
               },
-            },
-          ],
+              {
+                // comment: 'update dashboard of local user',
+                collection: 'settings',
+                doc: uid,
+                data: {
+                  dashboard: {
+                    net: getIncrement(1), 
+                    // inbox: getIncrement(-1), // covered in seperate array element
+                    archived: getIncrement(1),
+                    withdrawals: getIncrement(1),
+                  },
+                },
+              },
+              {
+                // comment: 'decrease count when lead is claimed',
+                collection: 'stats',
+                doc: 'level_1',
+                data: {
+                  leads: {
+                    geoLocations: {
+                      // [settings.geoNation]: {
+                      //   [settings.geoRegion]: {
+                      //     [settings.geoLocal]: {
+                      //       [newData.bizCategory]: getIncrement(1),
+                      //     },
+                      //   },
+                      // },
+                      [geoLocationTypeKey]: getIncrement(-1),
+                    },
+                  },
+                },
+              },
+              // {
+              //   comment: 'no need to collect',
+              //   collection: 'stats',
+              //   doc: 'level_2',
+              //   data: {
+              //     leads: {
+              //       deposited: getIncrement(1),
+              //     },
+              //     zipCodes: {
+              //       [newData.zipInput.zip]: {
+              //         [geoLocationKey]: getIncrement(1),
+              //       },
+              //     },
+              //   },
+              // },
+            ];
+            return out;
+          },
         },
       },
     },
@@ -679,8 +749,8 @@ export const getComponentsNavConfig = props => {
       bottomNav : true,
       // see src/my-app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
-      component  : () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
-      crudConfig : {
+      component: () => FuseLoadable({loader: () => import('my-app/layouts/crud/CRUDRouter')}),
+      crudConfig: {
         condensed: true,
         searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
         filterable: true,
@@ -688,7 +758,7 @@ export const getComponentsNavConfig = props => {
         starrable: false, // true,
         taggable: false,
         alertable: false,
-        creatable  : false,
+        creatable: false,
         readable: {
           path: 'leads', // src/my-app/containers/LoadAsync.js
           orderBy: [ 'createdAt', 'desc', ] ,
@@ -780,24 +850,53 @@ export const getComponentsNavConfig = props => {
             geoRegion: settings.geoRegion,
             geoLocal: settings.geoLocal,
           },
-          dashboard: {
-            local: {
-              net: 1,
-              deposits: 1,
-              outbox: 1,
-            },
-            remotes: [
+          getCreatable: newData => { // { getIncrement, uid, settings, }
+            const out = [
               {
-                path: 'leads'/'--stats--',
-                value: {
-                  [(item && item.geoNation)]: {
-                    [(item && item.geoRegion)]: {
-                      [(item && item.geoLocal)]: 1,
+                collection: 'settings',
+                doc: uid,
+                data: {
+                  dashboard: {
+                    net: getIncrement(1), 
+                    deposits: getIncrement(1),
+                    outbox: getIncrement(1),
+                  },
+                },
+              },
+              {
+                collection: 'stats',
+                doc: 'level_1',
+                data: {
+                  leads: {
+                    geoLocations: {
+                      // [settings.geoNation]: {
+                      //   [settings.geoRegion]: {
+                      //     [settings.geoLocal]: {
+                      //       [newData.bizCategory]: getIncrement(1),
+                      //     },
+                      //   },
+                      // },
+                      [geoLocationTypeKey]: getIncrement(1),
                     },
                   },
                 },
               },
-            ],
+              {
+                collection: 'stats',
+                doc: 'level_2',
+                data: {
+                  leads: {
+                    deposited: getIncrement(1),
+                  },
+                  zipCodes: {
+                    [newData.zipInput.zip]: {
+                      [geoLocationKey]: getIncrement(1),
+                    },
+                  },
+                },
+              },
+            ];
+            return out;
           },
         },
         readable: {
@@ -856,18 +955,23 @@ export const getComponentsNavConfig = props => {
           title: 'Create new contact', // form: <UserMultiForm />,
           path: 'contacts',
           fields: [ 'name*', 'email*', 'bizCategory', 'phone', 'zipInput', 'notes', ], // 'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
+          addOns: {
+            createdBy: uid,
+            deletedAt: 0,
+          },
           dashboard: {
             local: {
               contacts: 1,
             },
           },
+          // TODO: replace above dashboard property with getCreatable()
         },
         readable: {
           path: 'contacts',
           // src/my-app/containers/LoadAsync.js
           where: [
-            [ 'deletedAt' , '==' , 0   , ] ,
             [ 'createdBy' , '==' , uid , ] ,
+            [ 'deletedAt' , '==' , 0   , ] ,
           ],
           orderBy: [ 'createdAt', 'desc', ] ,
           itemSummary: {

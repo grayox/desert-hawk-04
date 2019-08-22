@@ -216,9 +216,9 @@ class CRUDView extends Component {
     // console.log('state\n', this.state);
     const { handleCloseDialog, handleRefresh, } = this;
     const { crudForm, crudFormTimestamp, crudFormIdHash, } = this.state;
-    const { createItem, creatable, profile, settings, } = this.props; // dashboard,
-    const { uid, } = profile;
-    const { path, } = creatable;
+    const { createItem, creatable, } = this.props; // profile, settings, dashboard,
+    // const { uid, } = profile;
+    // const { path, } = creatable;
     
     // inspired by: src/my-app/components/forms/CreateLead.js
     e.preventDefault();
@@ -241,7 +241,7 @@ class CRUDView extends Component {
     // console.log('uid\n', uid,)
     // console.log('dashboard\n', dashboard,)
     // console.log('settings\n', settings,)
-    createItem( path, newItem, uid, settings, creatable, ); // dashboard,
+    createItem( newItem, creatable, ); // uid, settings, path, dashboard,
     // this.props.history.push('/');
 
     handleCloseDialog();
@@ -327,12 +327,13 @@ class CRUDView extends Component {
     // console.log('props\n', this.props);
     const { handleRefresh, } = this;
     const { detail, } = this.state;
-    const { actionItem, navComponentId, profile, dashboard, } = this.props; // settings, readable, actionable,
-    const { uid, } = profile;
+    const { actionItem, actionable, } = this.props; // settings, profile, dashboard, readable, navComponentId,
+    // const { uid, } = profile;
 
     // console.log('uid\n', uid,)
     // console.log('dashboard\n', dashboard,)
-    actionItem( uid, detail, navComponentId, dashboard, );
+    // const { docId } = detail;
+    actionItem( detail, actionable, ); // uid, navComponentId, dashboard,
 
     handleRefresh();
   }
@@ -590,10 +591,10 @@ CRUDView.defaultProps = {
 const mapDispatchToProps = dispatch => ({
   // CRUD item
   // common mistakes: 1. forget to use this.props... when calling function in class 2. copy/paste forget to change function name in mapStateToProps => dispatch
-  createItem: ( path , item  , uid     , settings  , creatable , ) => dispatch(createItem( path , item  , uid     , settings  , creatable , )), // dashboard, // inspired by: src/my-app/components/forms/CreateLead.js
-  updateItem: ( path , docId , newItem , oldItem   , updatable , ) => dispatch(updateItem( path , docId , newItem , oldItem   , updatable , )),
-  deleteItem: ( path , docId , uid     , dashboard , creatable , ) => dispatch(deleteItem( path , docId , uid     , dashboard , creatable , )),
-  actionItem: ( uid  , detail, navComponentId      , dashboard , ) => dispatch(actionItem( uid  , detail, navComponentId      , dashboard , )),  
+  createItem: ( item, creatable, ) => dispatch(createItem( item, creatable, )), // uid, settings, path , dashboard, // inspired by: src/my-app/components/forms/CreateLead.js
+  updateItem: ( path   , docId , newItem , oldItem   , updatable , ) => dispatch(updateItem( path , docId , newItem , oldItem   , updatable , )),
+  deleteItem: ( path   , docId , uid     , creatable , ) => dispatch(deleteItem( path , docId , uid     , creatable , )), // dashboard, 
+  actionItem: ( detail, actionable, ) => dispatch(actionItem( detail, actionable, )), // uid, navComponentId, dashboard, 
   // update dashboard
   updateUserData: (path, newData,) => dispatch(updateUserData(path, newData,)),
 })
