@@ -1,7 +1,36 @@
 {
+  "comments": "cli command: $ firebase firestore:indexes ",
   "indexes": [
     {
-      "collectionGroup": "leads",
+      "collectionGroup": "archive",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "deletedAt",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "contacts",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "createdBy",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "contacts",
       "queryScope": "COLLECTION",
       "fields": [
         {
@@ -20,6 +49,154 @@
       "fields": [
         {
           "fieldPath": "deletedAt",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "name",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "leads",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "archivedAt",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "leads",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "archivedBy",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "bizCategory",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "geoLocal",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "geoNation",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "geoRegion",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "leads",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "archivedBy",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "leads",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "bizCategory",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "geoLocal",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "geoNation",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "geoRegion",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "leads",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "createdBy",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "leads",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "deletedAt",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "leads",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "deletedAt",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdAt",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "name",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "leads",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "email",
           "order": "ASCENDING"
         },
         {
@@ -41,30 +218,16 @@
           "order": "DESCENDING"
         }
       ]
-    },
-    {
-      "collectionGroup": "archive",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "deletedAt",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "createdAt",
-          "order": "DESCENDING"
-        }
-      ]
     }
   ],
   "fieldOverrides": [
     {
-      "collectionGroup": "leads",
+      "collectionGroup": "contacts",
       "fieldPath": "notes",
       "indexes": []
     },
     {
-      "collectionGroup": "contacts",
+      "collectionGroup": "leads",
       "fieldPath": "notes",
       "indexes": []
     }

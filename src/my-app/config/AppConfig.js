@@ -67,13 +67,34 @@ export const uiSpecs = {
 
 // export const OVERWRITE_OLD_DATA = true; // .add() if false, .set() if true
 
+// New project checklist:
+// 1. create new project
+// 2. activate database
+// 3. set up sign-in method: authentication > sign-in method
+// 4. [upper left] ⚙️ > Project settings > General > Project ID (projectId) | Web API Key (apiKey)
+// 5. [upper left] ⚙️ > Project settings > Cloud Messaging > Sender ID (messagingSenderId)
+// 6. Derive from projectId, the other firebaseConfig properties
+
+// // production account
+// // Epimetheus Emporium
+// export const firebaseConfig = {
+//   projectId: 'epimetheus-emporium',
+//   apiKey: 'AIzaSyDC3RoirzgiX4jPHyVX6pRxWXzSiG79tzw',
+//   messagingSenderId: '750093838768',
+//   storageBucket: 'epimetheus-emporium.appspot.com',
+//   authDomain: 'epimetheus-emporium.firebaseapp.com',
+//   databaseURL: 'https://epimetheus-emporium.firebaseio.com',
+// }
+
+// test account
+// Green Comet
 export const firebaseConfig = {
+  projectId: 'green-comet-e2c85',
   apiKey: 'AIzaSyAOEXILaYcxjmJsJ81_WfubS_h3AQ3lLdA',
+  messagingSenderId: '682044250674',
+  storageBucket: 'green-comet-e2c85.appspot.com',
   authDomain: 'green-comet-e2c85.firebaseapp.com',
   databaseURL: 'https://green-comet-e2c85.firebaseio.com',
-  projectId: 'green-comet-e2c85',
-  storageBucket: 'green-comet-e2c85.appspot.com',
-  messagingSenderId: '682044250674',
 }
 
 const getIncrement = amount => firebase.firestore.FieldValue.increment(amount);
@@ -543,12 +564,12 @@ export const getComponentsNavConfig = props => {
 
   const item     = ( props && props.item     ) || {} ;
   // const docId    = 'aZZsxdvfv3o6ZGfj5mIt';
-  const docId    = ( props && props.docId    ) || ( props && props.item && props.item.docId ); // || '' ;
+  // const docId    = ( props && props.docId    ) || ( props && props.item && props.item.docId ); // || '' ;
   const profile  = ( props && props.profile  ) || {} ;
   const settings = ( props && props.settings ) || {} ;
   const uid      = ( props && props.uid )      || ( profile && profile.uid ) ;
   
-  const { bizCategory, geoNation, geoRegion, geoLocal } = settings;
+  const { bizCategory, geoNation, geoRegion, geoLocal, } = settings;
 
   // console.log('item\n', item,);
   // console.log('docId\n', docId,);
@@ -1005,37 +1026,7 @@ export const getComponentsNavConfig = props => {
           fields: [ 'name*', 'phone*', 'email*', 'zip*', 'notes', ],
         },
         deletable: true,
-        actionable: {
-          icon: 'send', // 'outlined_flag',
-          label: 'Challenge',
-          dialogHeader: 'Challenge lead',
-          dialogBody: 'Do you want to challenge this lead due to poor quality?',
-          buttonLabel: 'Challenge now!',
-          dashboard: {
-            local: { // path: `users/${uid}/dashboard`,
-              challengesMade: -1,
-            },
-            remotes: [
-              {
-                path: `users/${item.createdBy}/dashboard`,
-                fields: {
-                  challengesReceived: 1,
-                },
-              },
-            ],
-          },
-          // sets: [],
-          // deletes: [],
-          updates: [
-            {
-              path: `leads/${docId}`,
-              fields: {
-                challengedBy: uid,
-                challengedAt: Date.now(),
-              },
-            },
-          ],
-        },
+        actionable: false,
       },
     },
 
