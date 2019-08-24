@@ -26,16 +26,12 @@ import reducer from 'my-app/store/reducers';
 
 const styles = theme => ({
   wrapper: {
-    minHeight: '120vh',
+    minHeight: '100vh',
     border: '1px solid blue',
-    paddingBottom: '256px', // positive padding makes less visible space?
-    // marginBottom: '256px',
-    boxSizing: 'content-box',
-
-    overflow: 'auto',
-    paddingBottom: '100vh',
-    marginBottom: '100vh',
-    boxSizing: 'content-box',
+    // overflow: 'auto',
+    // paddingBottom: '100vh',
+    // marginBottom: '100vh',
+    // boxSizing: 'content-box',
   },
 })
 

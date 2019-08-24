@@ -48,8 +48,14 @@ const styles = theme => ({
     // border: 'solid purple',
     marginTop: 68,
     // width: `calc(100% - ${uiSpecs.drawerWidth}px)`,
-    height: 'calc(100vh - 128px)',
+    // height: 'calc(100vh - 128px)',
+    minHeight: '100vh',
     // overflow: 'auto',
+
+    overflow: 'auto',
+    paddingBottom: '100vh',
+    marginBottom: '100vh',
+    boxSizing: 'content-box',
   },
 });
 
