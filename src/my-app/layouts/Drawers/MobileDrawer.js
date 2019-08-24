@@ -44,8 +44,9 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.default,
     // padding: theme.spacing.unit * 3,
     border: '1px solid red',
-    paddingBottom: '2px',
-    marginBottom: '2px',
+    overflow: 'auto',
+    paddingBottom: '100vh',
+    marginBottom: '100vh',
     boxSizing: 'content-box',
     // overflow: 'auto',
   },
@@ -216,7 +217,7 @@ class MobileDrawer extends Component {
       {
       // </div>
       }
-      </React.Fragment> 
+      </React.Fragment>
 
     return getMobileDrawer();
  

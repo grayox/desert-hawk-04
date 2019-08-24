@@ -13,8 +13,8 @@ import LaptopDrawer from './drawers/LaptopDrawer';
 // import ResponsiveDrawer from './drawers/ResponsiveDrawer';
 // import { CssBaseline, } from '@material-ui/core';
 
-import { compose } from 'redux';
-import { connect } from 'react-redux';
+import { compose, } from 'redux';
+import { connect, } from 'react-redux';
 
 import { updateUserData, saveUserDataToFirestore, } from 'my-app/store/actions/my-actions'; // updateSettings, updateDashboard,
 
@@ -26,10 +26,15 @@ import reducer from 'my-app/store/reducers';
 
 const styles = theme => ({
   wrapper: {
-    height: '100vh',
+    minHeight: '120vh',
     border: '1px solid blue',
     paddingBottom: '256px', // positive padding makes less visible space?
     // marginBottom: '256px',
+    boxSizing: 'content-box',
+
+    overflow: 'auto',
+    paddingBottom: '100vh',
+    marginBottom: '100vh',
     boxSizing: 'content-box',
   },
 })
@@ -100,10 +105,10 @@ const MyLayout = props => {
     <div
       // className="w-full"
       // key={settings} // forces reload after settings populate // memoization
-      className={classNames( "w-full overflow-auto", classes.wrapper, )}
+      className={classNames( "w-full overflow-scroll", classes.wrapper, )} // overflow-auto
     >
       {getFetchUserData()} {getMediaWidth()}
-      <div className="mt-256px border border-green">.</div>
+      <div className="mb-256px border border-green">.</div>
     </div>
 
   return getMyLayout();
