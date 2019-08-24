@@ -235,12 +235,13 @@ class CRUDView extends Component {
       newItem[item.id] = newVal;
     });
 
-    console.log('path\n', path,);
+    // console.log('path\n', path,);
+    // console.log('profile\n', profile,);
+    // console.log('uid\n', uid,);
+    // console.log('dashboard\n', dashboard,);
+    // console.log('settings\n', settings,);
     console.log('newItem\n', newItem,);
-    console.log('profile\n', profile,);
-    console.log('uid\n', uid,);
-    console.log('dashboard\n', dashboard,);
-    console.log('settings\n', settings,);
+    console.log('creatable\n', creatable,);
     createItem( newItem, creatable, ); // uid, settings, path, dashboard,
     // this.props.history.push('/');
 
