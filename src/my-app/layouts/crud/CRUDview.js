@@ -213,7 +213,7 @@ class CRUDView extends Component {
   handleRefresh = () => this.props.onRefresh();
 
   handleCreateItem = e => {
-    console.log('state\n', this.state);
+    // console.log('state\n', this.state);
     const { handleCloseDialog, handleRefresh, } = this;
     const { crudForm, crudFormTimestamp, crudFormIdHash, } = this.state;
     const { createItem, creatable, } = this.props; // profile, settings, dashboard,
@@ -235,13 +235,13 @@ class CRUDView extends Component {
       newItem[item.id] = newVal;
     });
 
-    // console.log('path\n', path,);
-    // console.log('profile\n', profile,);
-    // console.log('uid\n', uid,);
-    // console.log('dashboard\n', dashboard,);
-    // console.log('settings\n', settings,);
-    console.log('newItem\n', newItem,);
-    console.log('creatable\n', creatable,);
+    // // console.log('path\n', path,);
+    // // console.log('profile\n', profile,);
+    // // console.log('uid\n', uid,);
+    // // console.log('dashboard\n', dashboard,);
+    // // console.log('settings\n', settings,);
+    // console.log('newItem\n', newItem,);
+    // console.log('creatable\n', creatable,);
     createItem( newItem, creatable, ); // uid, settings, path, dashboard,
     // this.props.history.push('/');
 
