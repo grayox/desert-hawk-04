@@ -7,7 +7,7 @@ import { FuseLoadable } from '@fuse';
 //   component: FuseLoadable({
 //     // none of the following work
 //     // loader: () => import(item.path)
-//     // loader: () => import('my-app/views/app/dashboard/Dashboard')
+//     // loader: () => import('my-app/views/dashboard/Dashboard')
 //     // loader: () => import(`${item.path}`)
 //     // loader: async () => await import(item.path) // per http://2ality.com/2017/01/import-operator.html
 //     // we will attempt the following
@@ -26,7 +26,7 @@ const items = [
   {
     path: '/dashboard',
     component: FuseLoadable({
-      loader: () => import('my-app/views/app/dashboard/DashboardContainer')
+      loader: () => import('my-app/views/dashboard/DashboardContainer')
     }),
   },
   {
@@ -56,25 +56,25 @@ const items = [
   {
     path: '/settings',
     component: FuseLoadable({
-      loader: () => import('my-app/views/overhead/settings/Settings')
+      loader: () => import('my-app/views/settings/Settings')
     }),
   },
   {
     path: '/feedback',
     component: FuseLoadable({
-      loader: () => import('my-app/views/overhead/feedback/Feedback')
+      loader: () => import('my-app/views/feedback/Feedback')
     }),
   },
   {
     path: '/help',
     component: FuseLoadable({
-      loader: () => import('my-app/views/overhead/Help')
+      loader: () => import('my-app/views/Help')
     }),
   },
   {
     path: '/logout',
     component: FuseLoadable({
-      loader: () => import('my-app/views/overhead/Logout')
+      loader: () => import('my-app/views/Logout')
     }),
   },
 ]

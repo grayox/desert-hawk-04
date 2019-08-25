@@ -604,8 +604,8 @@ export const getComponentsNavConfig = props => {
       bottomNav : true,
       // see src/my-app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
-      // component: () => FuseLoadable({loader: () => import('my-app/views/app/dashboard/Dashboard')}),
-      component: () => FuseLoadable({loader: () => import('my-app/views/app/dashboard/DashboardContainer')}),
+      // component: () => FuseLoadable({loader: () => import('my-app/views/dashboard/Dashboard')}),
+      component: () => FuseLoadable({loader: () => import('my-app/views/dashboard/DashboardContainer')}),
     },
     {
       // eslint-disable-next-line
@@ -1051,7 +1051,7 @@ export const getComponentsNavConfig = props => {
       overhead  : true,
       // see src/my-app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
-      component : () => FuseLoadable({loader: () => import('my-app/views/overhead/settings/Settings')}),
+      component : () => FuseLoadable({loader: () => import('my-app/views/settings/Settings')}),
     },
     {
       // eslint-disable-next-line
@@ -1067,7 +1067,7 @@ export const getComponentsNavConfig = props => {
       overhead  : true,
       // see src/my-app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
-      component : () => FuseLoadable({loader: () => import('my-app/views/overhead/feedback/Feedback')}),
+      component : () => FuseLoadable({loader: () => import('my-app/views/feedback/Feedback')}),
     },
     {
       // eslint-disable-next-line
@@ -1083,7 +1083,7 @@ export const getComponentsNavConfig = props => {
       overhead  : true,
       // see src/my-app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
-      component : () => FuseLoadable({loader: () => import('my-app/views/overhead/Help')}),
+      component : () => FuseLoadable({loader: () => import('my-app/views/Help')}),
     },
     {
       // eslint-disable-next-line
@@ -1103,7 +1103,7 @@ export const getComponentsNavConfig = props => {
       overhead  : true,
       // see src/my-app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
-      component : () => FuseLoadable({loader: () => import('my-app/views/overhead/Logout')}),
+      component : () => FuseLoadable({loader: () => import('my-app/views/Logout')}),
     },
   ];
 

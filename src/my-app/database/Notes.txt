@@ -8,5 +8,5 @@
 ├─src/my-app/layouts/crud/CRUDView.js
 │  └─src/my-app/layouts/crud/store/actions/crud.actions.js
 │
-└─src/my-app/views/overhead/settings/Settings.js
+└─src/my-app/views/settings/Settings.js
    └─src/my-app/store/actions/my-actions/settingsTabsActions.js

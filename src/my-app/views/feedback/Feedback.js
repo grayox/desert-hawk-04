@@ -1,7 +1,7 @@
 // inspired by src/main/content/pages/faq/FaqPage.js
 
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles/index';
+import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 
 import ErrorBoundary from 'my-app/containers/ErrorBoundary';
