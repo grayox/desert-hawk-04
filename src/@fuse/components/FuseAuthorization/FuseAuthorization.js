@@ -15,8 +15,8 @@ import Login from 'main/content/login/Login'; // my add
 // import { FuseLayout, FuseTheme } from '@fuse'; // my add
 
 // fetch settings, etc.
-// import { FetchFirestore } from 'my-app/config/AppConfig'; // fails
-// import FetchFirestore from 'my-app/config/AppConfig'; // success
+// import { FetchFirestore } from 'app/config/AppConfig'; // fails
+// import FetchFirestore from 'app/config/AppConfig'; // success
 
 let redirect = false;
 

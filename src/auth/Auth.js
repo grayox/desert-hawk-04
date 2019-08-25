@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import * as Actions from 'store/actions';
 import firebaseService from 'firebaseService';
 
-import { pickUserFromAuth } from 'my-app/config/AppConfig'; // my add
+import { pickUserFromAuth } from 'app/config/AppConfig'; // my add
 
 class Auth extends Component {
   constructor(props) {

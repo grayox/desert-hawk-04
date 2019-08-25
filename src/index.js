@@ -28,9 +28,9 @@ import store from 'store';
 import { Auth } from 'auth';
 
 // begin my add
-import MyLayout from 'my-app/layouts/MyLayout';
+import MyLayout from 'app/layouts/MyLayout';
 // import { CssBaseline, } from '@material-ui/core';
-// import MyBottomNav from 'my-app/layouts/AppBars/MyBottomNav.js';
+// import MyBottomNav from 'app/layouts/AppBars/MyBottomNav.js';
 // import { Hidden } from '@material-ui/core';
 // end my add
 

@@ -4,7 +4,7 @@ import 'firebase/auth';
 import 'firebase/database';
 // begin insert from marioplan/src/config/firebaseConfig.js
 import 'firebase/firestore';
-import { pickUserFromAuth } from 'my-app/config/AppConfig';
+import { pickUserFromAuth } from 'app/config/AppConfig';
 // end insert
 
 class firebaseService {

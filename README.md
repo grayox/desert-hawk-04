@@ -2,12 +2,12 @@
 
 Key directories:
 src/store.js:96 | main store state subscription log
-// import { updateSettings } from 'my-app/store/actions/my-actions'; // deprecate
-// import { saveUserDataToFirestore, updateUserData, } from 'my-app/store/actions/my-actions/userDataActions'
+// import { updateSettings } from 'app/store/actions/my-actions'; // deprecate
+// import { saveUserDataToFirestore, updateUserData, } from 'app/store/actions/my-actions/userDataActions'
 ...edited saveUserDataToFirestore() to automatically call updateUserData()
-import { saveUserDataToFirestore, } from 'my-app/store/actions/my-actions/userDataActions' updateUserData,
-src/my-app/layouts/MyLayout.js
-src/my-app/layouts/crud/store
+import { saveUserDataToFirestore, } from 'app/store/actions/my-actions/userDataActions' updateUserData,
+src/app/layouts/MyLayout.js
+src/app/layouts/crud/store
 how to deploy a react app to firebase hosting
   - https://www.youtube.com/watch?v=ji6urVl6oP4
   - https://stackoverflow.com/questions/54693223/what-does-yarn-build-command-do-are-npm-build-and-yarn-build-simila
@@ -24,11 +24,11 @@ how to deploy a react app to firebase hosting
   firebase deploy
 
 ----------------------------------------------
-./v04/src/my-app/config/upgrade/index.sh 04 05
+./v04/src/app/config/upgrade/index.sh 04 05
 ----------------------------------------------
 
 `cd dropbox/swap/fuse` # first, navigate to this directory
-`./v03/src/my-app/config/upgrade.sh v03 v04` # then run this script to upgrade from v03 to v04
+`./v03/src/app/config/upgrade.sh v03 v04` # then run this script to upgrade from v03 to v04
 
 checklist
 1. manually create new git repo here... https://github.com/new
@@ -37,19 +37,19 @@ checklist
 4. in mac finder
    a. rename upgrade target incrementally (e.g., v05)
    b. move directory to dropbox/swap/fuse
-5. in src/my-app/config/upgrade/index.sh, ensure all variables are named correctly
+5. in src/app/config/upgrade/index.sh, ensure all variables are named correctly
    e.g., and including: remoterepo="https://github.com/grayox/desert-hawk"
 6. edit final terminal command in three places to rename incrementally
    e.g.
-   ./v04/src/my-app/config/upgrade/index.sh 04 05
+   ./v04/src/app/config/upgrade/index.sh 04 05
    becomes...
-   ./v05/src/my-app/config/upgrade/index.sh 05 06
+   ./v05/src/app/config/upgrade/index.sh 05 06
 7. execute the below terminal commands   
    terminal commands
    --------------------
    cd dropbox/swap/fuse
    ----------------------------------------------
-   ./v04/src/my-app/config/upgrade/index.sh 04 05
+   ./v04/src/app/config/upgrade/index.sh 04 05
    ----------------------------------------------
 8. increment all commands here and in upgrade/index to avoid accidental overwrites
 
@@ -58,7 +58,7 @@ v04 - v1.2.8
 v03 - v1.2.6
 
 `cd dropbox/swap/fuse # first, navigate to this directory`
-`./v03/src/my-app/config/upgrade.sh v03 v04 # then run this script to upgrade from v03 to v04`
+`./v03/src/app/config/upgrade.sh v03 v04 # then run this script to upgrade from v03 to v04`
 
 terminal commands above this line automate the following manual tasks...
 
@@ -74,11 +74,11 @@ settings: src/main/MainToolbar.js > src/main/content/pages/profile/ProfilePage.j
 
 
 `cd dropbox/swap/fuse # first, navigate to this directory`
-`./v03/src/my-app/config/upgrade.sh v03 v04 # then run this script to upgrade from v03 to v04`
+`./v03/src/app/config/upgrade.sh v03 v04 # then run this script to upgrade from v03 to v04`
 
 note: terminal commands to compare files
-`while IFS= read -r filename; do diff v02/"$filename" v03/"$filename"; done < v03/src/my-app/config/compare.txt`
-`while IFS= read -r filename; do [[ $(md5sum v02/"$filename") = $(md5sum v03/"$filename") ]] || echo $filename differs; done < v03/src/my-app/config/compare.txt`
+`while IFS= read -r filename; do diff v02/"$filename" v03/"$filename"; done < v03/src/app/config/compare.txt`
+`while IFS= read -r filename; do [[ $(md5sum v02/"$filename") = $(md5sum v03/"$filename") ]] || echo $filename differs; done < v03/src/app/config/compare.txt`
 
 c1 = save as... -orig
 c2 = copy from v(n), paste to v(n+1)
@@ -87,28 +87,28 @@ c3 = c1 then c2
  1. `yarn` | installs dependencies
  2. `yarn start`
  3. `yarn add react-redux-firebase redux-firestore` | installs other libraries
- 4. src/my-app/config/xfer.txt => to contain the following content:
+ 4. src/app/config/xfer.txt => to contain the following content:
     src/auth/Auth.js
     src/auth/store/reducers/user.reducer.js
     src/firebaseService/
     src/firebaseService/firebaseServiceConfig.js
     src/firebaseService/firebaseService.js
     src/index.js
-    src/my-app/
+    src/app/
     src/store.js
 
     src/auth/store/actions/login.actions.js
     src/auth/store/actions/user.actions.js
     src/main/content/login/tabs/FirebaseLoginTab.js
     src/main/content/login/Login.js
-    src/my-app/components/AuthProviders.js
+    src/app/components/AuthProviders.js
  5. transfer files with terminal command
     ref: https://stackoverflow.com/a/53245169/1640892
-    `xargs -I{} -a v02/src/my-app/config/xfer.txt cp v02/{} v03/{}` # does not work
+    `xargs -I{} -a v02/src/app/config/xfer.txt cp v02/{} v03/{}` # does not work
     ref: https://unix.stackexchange.com/a/481043/167174
     `cd dropbox/swap/fuse`
-    `cd v02 && cpio -u --create < src/my-app/config/xfer.txt | (cd ../v03 && cpio --extract)`
-    `mkdir v03/src/my-app/ && cp -r v02/src/my-app/ v03/src/my-app/`
+    `cd v02 && cpio -u --create < src/app/config/xfer.txt | (cd ../v03 && cpio --extract)`
+    `mkdir v03/src/app/ && cp -r v02/src/app/ v03/src/app/`
 
 #### update procedure - v02 - v1.2.3
 
@@ -118,7 +118,7 @@ c3 = c1 then c2
 
 *  1. `yarn` -- install dependencies
 *  2. `yarn start`
-†  3. src/my-app
+†  3. src/app
       clone prior version and paste into new version
 *  4. src/firebaseService/firebaseServiceConfig.js
       save as... -orig
@@ -132,10 +132,10 @@ c3 = c1 then c2
 *  9. src/store.js
       save as... -orig
       modify with code from marioplan/src/index.js
-* 10. src/my-app/config/firebaseConfig
+* 10. src/app/config/firebaseConfig
       paste file copied from marioplan/src/config/firebaseConfig.js
       edit `import` in src/store.js
-* 11. src/my-app/store/reducers/marioplan/
+* 11. src/app/store/reducers/marioplan/
       paste folder copied from marioplan/src/store/reducers/
       edit `import` in src/store.js
 ‡ 12. find: `import firebaseService from '`
@@ -168,13 +168,13 @@ c3 = c1 then c2
         import { reduxFirestore, getFirestore } from 'redux-firestore';
         import { reactReduxFirebase, getFirebase } from 'react-redux-firebase';
         // import firebaseConfig from './config/firebaseConfig'
-        import firebaseConfig from './my-app/config/firebaseConfig'
+        import firebaseConfig from './app/config/firebaseConfig'
         ...
         applyMiddleware(thunk.withExtraArgument({getFirebase, getFirestore})),
         reactReduxFirebase(firebaseConfig, {userProfile: 'users', useFirestoreForProfile: true, attachAuthIsReady: true}),
         reduxFirestore(firebaseConfig) // redux bindings for firestore
         ````
-  18. src/my-app/config/firebaseConfig.js
+  18. src/app/config/firebaseConfig.js
       comment out
       ````
       // firebase.initializeApp(config);
@@ -185,7 +185,7 @@ c3 = c1 then c2
       Now turn to explore actions (and auth actions) as the place to replace firebase (Realtime Database) with   firestore (Cloud Firestore).
   20. src/firebaseService/firebaseService.js
       modify to include firestore `// my add`
-      copied code from src/my-app/components/forms/UserMultiForm.js
+      copied code from src/app/components/forms/UserMultiForm.js
   21. src/store.js
       respond to v1.x to v2.x upgrade
       modify the code inserted into step 17.
@@ -198,7 +198,7 @@ c3 = c1 then c2
       `store.firebaseAuthIsReady.then(() => {ReactDOM.render(...)})`
   24. src/store.js
       add root reducer per marioplan
-      `import rootReducer from './my-app/store/reducers/marioplan/rootReducer'`
+      `import rootReducer from './app/store/reducers/marioplan/rootReducer'`
   25. delete step 24; go to step 26.
   26. src/store/reducers/index.js
       save as... -orig
@@ -266,7 +266,7 @@ c3 = c1 then c2
       save as... -orig
       a. left: modify intro and tag line
       b. right: modify form and function to signup using vendors: Google, Twitter, Facebook
-         `import AuthProviders from 'my-app/components/AuthProviders';`
+         `import AuthProviders from 'app/components/AuthProviders';`
   34. Add Onboarding
   35. src/auth/store/actions/login.actions.js
       save as... -orig
@@ -283,7 +283,7 @@ c3 = c1 then c2
       - src/firebaseService/firebaseService.js
       - src/main/content/login/tabs/FirebaseLoginTab.js
       - src/main/content/login/Login.js
-      - src/my-app/components/AuthProviders.js
+      - src/app/components/AuthProviders.js
   38. src/store.js
       Track state
       ```
@@ -313,7 +313,7 @@ c3 = c1 then c2
       route guard against logged in users
       ref: https://www.youtube.com/watch?v=xY_27UI2W5U
   41. src/@fuse/components/FuseAnimate/FuseAnimate.js
-      add `<ErrorBoundary>` from my-app/containers/ErrorBoundary.js
+      add `<ErrorBoundary>` from app/containers/ErrorBoundary.js
       delete `<ErrorBoundary>`; doesn't catch error in that component; need to add it next level up in tree;
       add conditional before style
       delete
@@ -347,7 +347,7 @@ Search for: `~@edit@~`
 1. /src/fuse-configs/fuseNavigationConfig.js -- duplicate(append: `-orig`); rewrite file
 2. /src/fuse-configs/fuseRoutesConfig.js -- duplicate(append: `-orig`); rename below path [deprecated][reversed][deleted]
    - the coding concept reflected in the above comment has been reversed
-3. /src/main/content/components/ComponentsConfig.js => /src/my-app/ComponentsConfig.js (now /src/my-app/config/ComponentsConfig.js)
+3. /src/main/content/components/ComponentsConfig.js => /src/app/ComponentsConfig.js (now /src/app/config/ComponentsConfig.js)
    - when editing routes in 3 (ComponentsConfig), make sure they match the url in 1 (fuseNavigationConfig).
    - and that the redirectTo in 2 (fuseRoutesConfig) matches the first (home) route in both 1 (fuseNavigationConfig) and 3 (ComponentsConfig)
 4. note: home page redirection is via
@@ -374,14 +374,14 @@ Search for: `~@edit@~`
     Note: directory named `firebase-db` has been renamed to `firebaseService`
 
 NOTES
-- add all new files to /src/my-app
+- add all new files to /src/app
 - ~@edit@~ remove (comment out) footer and rightSidePanel from <FuseLayout> in index.js
 - insert new logo in root/public/assets/images/logos/new-brand.svg
 - ~@edit@~ branding in src/main/MainNavbarHeader.js (2 places)
 
 REDUX
-1. copy src/store/ directory and paste to src/my-app/store/
-2. in src/store.js, change `import reducers from 'store/reducers';` to `import reducers from 'my-app/store/reducers';`
+1. copy src/store/ directory and paste to src/app/store/
+2. in src/store.js, change `import reducers from 'store/reducers';` to `import reducers from 'app/store/reducers';`
 3. test
 
 Added packages:

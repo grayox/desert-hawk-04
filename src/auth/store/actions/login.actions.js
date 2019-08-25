@@ -4,7 +4,7 @@ import { setUserData } from 'auth/store/actions/user.actions';
 import * as Actions from 'store/actions';
 
 // begin my add
-import { pickUserFromAuth } from 'my-app/config/AppConfig';
+import { pickUserFromAuth } from 'app/config/AppConfig';
 // end my add
 
 export const LOGIN_ERROR = 'LOGIN_ERROR';
