@@ -132,8 +132,8 @@
 export const createItem = ( item, { addOns, path, getCreatable, }, ) => // uid, settings, path, dashboard,
   (dispatch, getState, { getFirebase, getFirestore, }) => {
 
-    console.log('path\n', path,);
-    console.log('item\n', item,);
+    // console.log('path\n', path,);
+    // console.log('item\n', item,);
     // console.log('uid\n', uid,);
     // console.log('dashboard\n', dashboard,);
     

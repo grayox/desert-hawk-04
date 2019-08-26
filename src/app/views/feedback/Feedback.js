@@ -51,7 +51,7 @@ const styles = theme => ({
 });
 
 const Feedback = props => {
-  const { classes, createItem, } = props;
+  const { classes, createItem, profile: { uid, }, } = props;
 
   const handleSave = ( value, type, ) => {
     // console.log('event\n', event,);
@@ -62,7 +62,7 @@ const Feedback = props => {
     const creatable = {
       addOns: {
         createdAt: Date.now(),
-        createdBy: 'uid',
+        createdBy: uid,
       },
       getCreatable: () => null,
       path: type,
@@ -111,6 +111,37 @@ const Feedback = props => {
   );
 }
 
+const mapStateToProps = state => {
+  // console.log('state\n', state);
+  // const settings = state.firestore.ordered.users
+  //               && state.firestore.ordered.users[0]
+  //               && state.firestore.ordered.users[0].settings
+  //               && state.firestore.ordered.users[0].settings[0];
+  // const settings = state.settings;
+  // const settings = state
+  //               && state.myApp
+  //               && state.myApp.reducers
+  //               && state.myApp.reducers.userDataReducer
+  //               && state.myApp.reducers.userDataReducer.settings;
+  const profile = state
+               && state.firebase
+               && state.firebase.profile;
+  // replace user with profile; user contains default settings
+  // const user = state.auth.user;
+  // const leads = state.firestore.ordered.leads;
+  const dataHasLoaded = !!profile; // && !!settings; // && !!leads && !!user && 
+  
+  // // console.log('user\n', user);
+  // // console.log('leads\n', leads);
+  // console.log('profile\n', profile);
+  // console.log('settings\n', settings);
+  // console.log('dataHasLoaded\n', dataHasLoaded);
+  
+  // //       YES   YES      YES       NO     NO
+  // return { user, profile, settings, leads, dataHasLoaded, }
+  return { profile, dataHasLoaded, } // settings,
+}
+
 // below this line borrowed from CRUDview
 const mapDispatchToProps = dispatch => ({
   // CRUD item
@@ -130,5 +161,5 @@ export default compose(
   withStyles(styles),
   // withWidth(),
   // connect( mapStateToProps, mapDispatchToProps, ),
-  connect( null, mapDispatchToProps, ),
+  connect( mapStateToProps, mapDispatchToProps, ),
 )(Feedback);

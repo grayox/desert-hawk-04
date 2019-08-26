@@ -7,8 +7,9 @@ import {
   withStyles, Zoom, Fab, Chip, Tooltip, Icon, IconButton,
   ListItem, ListItemText, ListItemSecondaryAction,
 } from '@material-ui/core';
+// import Skeleton from '@material-ui/lab/Skeleton';
 
-import { getComponentsNavConfig, } from 'app/config/AppConfig'; // getBizCategoryLabel, 
+import { getComponentsNavConfig, } from 'app/config/AppConfig'; // getBizCategoryLabel,
 
 const styles = theme => ({
   margin: {
@@ -143,7 +144,7 @@ const ItemSummary = ({
     // a: array Of Strings
     a.map(item => item && item.length && <Chip key={item} label={item} variant="outlined" className="mr-4" />)
 
-  const getItemSummary = level => {
+  const getItemConfig = level => {
     const config = {
       primary   : itemSummaryPrimaryChips   ? getChips(itemSummaryPrimaryChips)   : itemSummaryPrimaryText   ,
       secondary : itemSummarySecondaryChips ? getChips(itemSummarySecondaryChips) : itemSummarySecondaryText ,
@@ -152,7 +153,7 @@ const ItemSummary = ({
     return out;
   }
 
-  return (
+  const getItemSummaryActual = () =>
     <ListItem
       button
       // divider light // use <Divider /> instead
@@ -169,12 +170,19 @@ const ItemSummary = ({
       <ListItemText
         // primary={item.geoLocal}
         // secondary={moment(createdAt).fromNow()}
-        primary={getItemSummary('primary')}
-        secondary={getItemSummary('secondary')}
+        primary={getItemConfig('primary')}
+        secondary={getItemConfig('secondary')}
       />
       <ListItemSecondaryAction>{getSecondaryAction()}</ListItemSecondaryAction>
     </ListItem>
-  )
+
+  // const getItemSummarySkeleton = () => <Skeleton variant="circle" width={40} height={40} />
+
+  const getItemSummary = () =>
+    // getItemSummarySkeleton();
+    getItemSummaryActual();
+
+  return getItemSummary();
 }
  
 // export default ItemSummary;
