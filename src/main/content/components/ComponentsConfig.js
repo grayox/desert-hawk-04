@@ -1,5 +1,5 @@
 import { MaterialUIRoutes } from 'main/content/components/material-ui/MaterialUIRoutes';
-import { FuseLoadable } from '@fuse';
+// import { FuseLoadable } from '@fuse';
 // import { getComponentsNavConfig, } from 'app/config/AppConfig'; // my add
 
 // const items = getComponentsNavConfig().map( item => ({
@@ -78,7 +78,6 @@ const items = [
   //   }),
   // },
 ]
-
 
 export const ComponentsConfig = {
   routes: [

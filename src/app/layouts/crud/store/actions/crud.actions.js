@@ -195,7 +195,7 @@ export const createItem = ( item, { addOns, path, getCreatable, }, ) => // uid, 
     batch.set( newDocRef, newData, );
     const batchConfig = getCreatable(newData,);
     batchConfig.map(
-      ({collection, doc, data,}) => batch.set(db.collection(collection).doc(doc), data, { merge: true, },)
+      ({ collection, doc, data, }) => batch.set(db.collection(collection).doc(doc), data, { merge: true, },)
     );
     batch.commit();
     // end replace with

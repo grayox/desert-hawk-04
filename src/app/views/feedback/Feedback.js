@@ -4,12 +4,16 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 
+import compose from 'recompose/compose';
+import { connect, } from 'react-redux';
+import { createItem, } from 'app/layouts/crud/store/actions'; // updateItem, deleteItem, actionItem,
+
 import ErrorBoundary from 'app/containers/ErrorBoundary';
 
 import { Typography, } from '@material-ui/core';
 import { FuseAnimate, } from '@fuse';
 
-import FeedbackForm from './FeedbackForm';
+import NarrativeForm from './NarrativeForm';
 import RatingSelect from './RatingSelect';
 
 const styles = theme => ({
@@ -48,6 +52,14 @@ const styles = theme => ({
 
 const Feedback = props => {
   const { classes, } = props;
+
+  const handleSave = ( data, type, ) => {
+    // console.log('event\n', event,);
+    console.log('data\n', data,);
+    console.log('type\n', type,);
+    // createItem( newItem, creatable, ); // uid, settings, path, dashboard,
+  }
+
   return (
     <div className={classNames(classes.root, classes.wrapper, "")}>
 
@@ -66,7 +78,11 @@ const Feedback = props => {
           <ErrorBoundary>
             {/* <div className="border border-red border flex-1 max-w-xl mx-auto px-16 sm:px-24 py-24 sm:py-32"> */}
             <div className="flex-1 my-24 md:mr-12">
-              <RatingSelect initialRating={undefined} />
+              <RatingSelect
+                initialRating={undefined}
+                forwardMinimum={6} // effectively, shuts off forwarding option as scale top ends at 5
+                onSave={ data => handleSave(data, 'rating',)}
+              />
             </div>
           </ErrorBoundary>
         </FuseAnimate>
@@ -75,7 +91,7 @@ const Feedback = props => {
           <ErrorBoundary>
             {/* <div className="border border-red flex-1 max-w-xl mx-auto px-16 sm:px-24 py-24 sm:py-32"> */}
             <div className="flex-1 my-24 md:ml-12">
-              <FeedbackForm />
+              <NarrativeForm onSave={ data => handleSave(data, 'narrative',)} />
             </div>
           </ErrorBoundary>
         </FuseAnimate>
@@ -85,4 +101,24 @@ const Feedback = props => {
   );
 }
 
-export default withStyles(styles, { withTheme: true })(Feedback);
+// below this line borrowed from CRUDview
+const mapDispatchToProps = dispatch => ({
+  // CRUD item
+  // common mistakes: 1. forget to use this.props... when calling function in class 2. copy/paste forget to change function name in mapStateToProps => dispatch
+  createItem: ( item, creatable, ) => dispatch(createItem( item, creatable, )), // uid, settings, path , dashboard, // inspired by: src/app/components/forms/CreateLead.js
+  // updateItem: ( path   , docId , newItem , oldItem   , updatable , ) => dispatch(updateItem( path , docId , newItem , oldItem   , updatable , )),
+  // deleteItem: ( path   , docId , uid     , creatable , ) => dispatch(deleteItem( path , docId , uid     , creatable , )), // dashboard, 
+  // actionItem: ( detail, actionable, ) => dispatch(actionItem( detail, actionable, )), // uid, navComponentId, dashboard, 
+  // update dashboard
+  // updateUserData: (path, newData,) => dispatch(updateUserData(path, newData,)),
+})
+
+// export default Feedback;
+// export default withStyles(styles)(Feedback);
+// export default withStyles(styles, { withTheme: true })(Feedback);
+export default compose(
+  withStyles(styles),
+  // withWidth(),
+  // connect( mapStateToProps, mapDispatchToProps, ),
+  connect( null, mapDispatchToProps, ),
+)(Feedback);

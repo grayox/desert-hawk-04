@@ -15,7 +15,7 @@ const ALERT_SUCCESS = 'Your note was submitted. Thank you!';
 const ALERT_WARN = 'Your note has exceeded the maximum allowable size.\
                     Consider shortening it or splitting it into two parts.';
 
-const FeedbackForm = props => {
+const NarrativeForm = props => {
   // const { classes, } = props;
   // const { container, margin, textField, } = classes;
   const { heading, label, rowsCount, minLength, maxLength, initialContent, initialCanSubmit, } = props;
@@ -98,7 +98,7 @@ const FeedbackForm = props => {
   );
 }
 
-FeedbackForm.defaultProps = {
+NarrativeForm.defaultProps = {
   heading: 'Send us a note',
   label: 'What’s on your mind?',
   rowsCount: 8,
@@ -108,7 +108,7 @@ FeedbackForm.defaultProps = {
   initialCanSubmit: false,
 };
 
-FeedbackForm.propTypes = {
+NarrativeForm.propTypes = {
   // classes: PropTypes.object.isRequired,
   heading: PropTypes.string,
   label: PropTypes.string,
@@ -119,5 +119,5 @@ FeedbackForm.propTypes = {
   initialCanSubmit: PropTypes.bool,
 };
 
-// export default withStyles(styles)(FeedbackForm);
-export default FeedbackForm;
+// export default withStyles(styles)(NarrativeForm);
+export default NarrativeForm;

@@ -37,9 +37,9 @@ const styles = theme => ({
     boxSizing: 'border-box',
     // overflow: 'auto',
   },
-  progress: {
-    margin: theme.spacing.unit * 2,
-  },
+  // progress: {
+  //   margin: theme.spacing.unit * 2,
+  // },
 });
 
 const STATE_OPEN_UPDATE_DIALOG = {

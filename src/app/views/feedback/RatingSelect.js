@@ -16,11 +16,11 @@ import Rating from 'react-rating';
 // const styles = theme => ({});
 
 // eslint-disable-next-line
-const THANKS_MESSAGE = 'Thanks! 👼 Would you also like to rate us at';
+// const THANKS_MESSAGE = 'Thanks! 👼 Would you also like to rate us at';
 const FEEDBACK_REQUEST = 'Feedback submitted. Thank you. 🙏\n\nPlease consider sending us a note about how we can improve.';
 
 const RatingSelect = props => {
-  const { heading, initialRating, stop, forwardMinimum, redirectPath, } = props;
+  const { heading, initialRating, stop, forwardMinimum, onSave, } = props; // redirectPath,
   const [ value           , setValue           , ] = useState(initialRating);
   const [ disabledButtons , setDisabledButtons , ] = useState(true);
 
@@ -44,14 +44,16 @@ const RatingSelect = props => {
     setDisabledButtons(true);
   }
   
-  const handleSave = () => {
+  const handleSave = event => {
+    onSave(value,);
+
     if(value < forwardMinimum) {
       // alert(value);
       // alert(`${value}. ${FEEDBACK_REQUEST}`);
       alert(FEEDBACK_REQUEST);
       return;
     }
-    alert(`${THANKS_MESSAGE} ${redirectPath}`);
+    // alert(`${THANKS_MESSAGE} ${redirectPath}`);
   }
   
   const getAppBar = () =>
@@ -90,7 +92,7 @@ RatingSelect.defaultProps = {
   initialRating: undefined,
   stop: 5,
   forwardMinimum: 5,
-  redirectPath: 'example.com',
+  // redirectPath: null, // 'example.com',
 };
 
 RatingSelect.propTypes = {
@@ -99,7 +101,7 @@ RatingSelect.propTypes = {
   initialRating: PropTypes.number,
   stop: PropTypes.number,
   forwardMinimum: PropTypes.number,
-  redirectPath: PropTypes.string,
+  // redirectPath: PropTypes.string,
 };
 
 // export default withStyles(styles)(RatingSelect);
