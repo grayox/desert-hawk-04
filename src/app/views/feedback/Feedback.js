@@ -50,12 +50,13 @@ const styles = theme => ({
   },
 });
 
+const AUTOHIDE_DURATION = 4500;
 const SNACKBAR_MESSAGE = 'Feedback sent';
 
 const Feedback = props => {
   const { classes, createItem, profile: { uid, }, } = props;
 
-  const [snackBarIsOpen, setsnackBarIsOpen, ] = React.useState(false);
+  const [ snackBarIsOpen, setsnackBarIsOpen, ] = useState(false);
 
   const handleSave = ( value, type, ) => {
     // console.log('event\n', event,);
@@ -89,7 +90,7 @@ const Feedback = props => {
         horizontal: 'center', // 'left',
       }}
       open={snackBarIsOpen}
-      autoHideDuration={5000}
+      autoHideDuration={AUTOHIDE_DURATION}
       onClose={handleCloseSnackbar}
       ContentProps={{
         'aria-describedby': 'message-id',
