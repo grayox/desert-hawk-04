@@ -20,9 +20,9 @@ import Rating from 'react-rating';
 // const FEEDBACK_REQUEST = 'Feedback submitted. Thank you. 🙏\n\nPlease consider sending us a note about how we can improve.';
 
 const RatingSelect = props => {
-  const { heading, initialRating, stop, onSave, } = props; // forwardMinimum, // redirectPath,
-  const [ value           , setValue           , ] = useState(initialRating);
-  const [ disabledButtons , setDisabledButtons , ] = useState(true);
+  const { heading , initialRating , stop , onSave , } = props; // forwardMinimum, // redirectPath,
+  const [ value            , setValue             , ] = useState(initialRating);
+  const [ buttonIsDisabled , setButtonIsDisabled  , ] = useState(true);
 
   const handleClick = n => {
     // console.log('value\n', n,);
@@ -30,7 +30,7 @@ const RatingSelect = props => {
       handleReset();
     } else {
       handleChange(n);
-      setDisabledButtons(false);
+      setButtonIsDisabled(false);
     }
   }
 
@@ -41,11 +41,12 @@ const RatingSelect = props => {
 
   const handleReset = () => {
     setValue(undefined);
-    setDisabledButtons(true);
+    setButtonIsDisabled(true);
   }
   
   const handleSave = event => {
     onSave(value,);
+    setButtonIsDisabled(true);
 
     // if(value < forwardMinimum) {
     //   // alert(value);
@@ -76,8 +77,8 @@ const RatingSelect = props => {
   
   const getButtons = () => 
     <div className="mt-24 text-right">
-      <Button disabled={disabledButtons} onClick={handleReset}>Reset</Button>
-      <Button variant="contained" color="secondary" disabled={disabledButtons} onClick={handleSave}>Submit</Button>
+      <Button disabled={buttonIsDisabled} onClick={handleReset}>Reset</Button>
+      <Button variant="contained" color="secondary" disabled={buttonIsDisabled} onClick={handleSave}>Submit</Button>
     </div>
 
   const getCardContent = () =><CardContent className="p-32">{getRating()}{getValue()}{getButtons()}</CardContent>

@@ -1,6 +1,6 @@
 // inspired by src/main/content/pages/faq/FaqPage.js
 
-import React from 'react';
+import React, { useState, } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 
@@ -10,7 +10,7 @@ import { createItem, } from 'app/layouts/crud/store/actions'; // updateItem, del
 
 import ErrorBoundary from 'app/containers/ErrorBoundary';
 
-import { Typography, } from '@material-ui/core';
+import { Typography, Snackbar, } from '@material-ui/core';
 import { FuseAnimate, } from '@fuse';
 
 import NarrativeForm from './NarrativeForm';
@@ -50,8 +50,12 @@ const styles = theme => ({
   },
 });
 
+const SNACKBAR_MESSAGE = 'Feedback sent';
+
 const Feedback = props => {
   const { classes, createItem, profile: { uid, }, } = props;
+
+  const [snackBarIsOpen, setsnackBarIsOpen, ] = React.useState(false);
 
   const handleSave = ( value, type, ) => {
     // console.log('event\n', event,);
@@ -68,9 +72,46 @@ const Feedback = props => {
       path: type,
     }
     createItem( newItem, creatable, ); // uid, settings, path, dashboard,
+    setsnackBarIsOpen(true);
   }
 
-  return (
+  const handleCloseSnackbar = ( event, reason, ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setsnackBarIsOpen(false);
+  }
+
+  const getSnackbar = () =>
+    <Snackbar
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'center', // 'left',
+      }}
+      open={snackBarIsOpen}
+      autoHideDuration={5000}
+      onClose={handleCloseSnackbar}
+      ContentProps={{
+        'aria-describedby': 'message-id',
+      }}
+      message={<span id="message-id">{SNACKBAR_MESSAGE}</span>}
+      // action={[
+      //   <Button key="undo" color="secondary" size="small" onClick={handleClose}>
+      //     UNDO
+      //   </Button>,
+      //   <IconButton
+      //     key="close"
+      //     aria-label="close"
+      //     color="inherit"
+      //     className={classes.close}
+      //     onClick={handleClose}
+      //   >
+      //     <CloseIcon />
+      //   </IconButton>,
+      // ]}
+    />
+
+  const getMain = () =>
     <div className={classNames(classes.root, classes.wrapper, "")}>
 
       <div className={classNames(classes.header, "flex flex-col items-center justify-center text-center p-16 sm:p-24 h-200 sm:h-360")}>
@@ -108,7 +149,14 @@ const Feedback = props => {
 
       </div>
     </div>
-  );
+
+  const getFeedback = () =>
+    <React.Fragment>
+      {getMain()}
+      {getSnackbar()}
+    </React.Fragment>
+  
+  return getFeedback();
 }
 
 const mapStateToProps = state => {

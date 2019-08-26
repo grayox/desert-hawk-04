@@ -801,7 +801,7 @@ export const getComponentsNavConfig = props => {
         updatable: false,
         deletable: true,
         actionable : {
-          icon: 'priority_high', // 'warning', // 'report',
+          icon: 'thumb_down', // 'priority_high', // 'warning', // 'report',
           label: 'Challenge this lead for poor quality',
           dialogHeader: 'Challenge lead',
           dialogBody: 'Do you want to return this lead and challenge it for poor quality?',
