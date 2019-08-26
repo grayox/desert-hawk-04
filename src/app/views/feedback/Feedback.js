@@ -51,13 +51,23 @@ const styles = theme => ({
 });
 
 const Feedback = props => {
-  const { classes, } = props;
+  const { classes, createItem, } = props;
 
-  const handleSave = ( data, type, ) => {
+  const handleSave = ( value, type, ) => {
     // console.log('event\n', event,);
-    console.log('data\n', data,);
-    console.log('type\n', type,);
-    // createItem( newItem, creatable, ); // uid, settings, path, dashboard,
+    // console.log('value\n', value,);
+    // console.log('type\n', type,);
+    const newItem = { value, };
+    // console.log('newItem\n', newItem,);
+    const creatable = {
+      addOns: {
+        createdAt: Date.now(),
+        createdBy: 'uid',
+      },
+      getCreatable: () => null,
+      path: type,
+    }
+    createItem( newItem, creatable, ); // uid, settings, path, dashboard,
   }
 
   return (
@@ -81,7 +91,7 @@ const Feedback = props => {
               <RatingSelect
                 initialRating={undefined}
                 forwardMinimum={6} // effectively, shuts off forwarding option as scale top ends at 5
-                onSave={ data => handleSave(data, 'rating',)}
+                onSave={ data => handleSave(data, 'ratings',)}
               />
             </div>
           </ErrorBoundary>
@@ -91,7 +101,7 @@ const Feedback = props => {
           <ErrorBoundary>
             {/* <div className="border border-red flex-1 max-w-xl mx-auto px-16 sm:px-24 py-24 sm:py-32"> */}
             <div className="flex-1 my-24 md:ml-12">
-              <NarrativeForm onSave={ data => handleSave(data, 'narrative',)} />
+              <NarrativeForm onSave={ data => handleSave(data, 'narratives',)} />
             </div>
           </ErrorBoundary>
         </FuseAnimate>

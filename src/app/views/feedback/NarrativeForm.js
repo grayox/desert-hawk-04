@@ -10,7 +10,7 @@ import {
 
 // const styles = theme => ({});
 
-const ALERT_SUCCESS = 'Your note was submitted. Thank you!';
+// const ALERT_SUCCESS = 'Your note was submitted. Thank you!';
 // eslint-disable-next-line
 const ALERT_WARN = 'Your note has exceeded the maximum allowable size.\
                     Consider shortening it or splitting it into two parts.';
@@ -18,13 +18,14 @@ const ALERT_WARN = 'Your note has exceeded the maximum allowable size.\
 const NarrativeForm = props => {
   // const { classes, } = props;
   // const { container, margin, textField, } = classes;
-  const { heading, label, rowsCount, minLength, maxLength, initialContent, initialCanSubmit, } = props;
+  const { heading, label, rowsCount, minLength, maxLength, initialContent, initialCanSubmit, onSave, } = props;
   const [ content   , setContent   , ] = useState(initialContent);
   const [ canSubmit , setCanSubmit , ] = useState(initialCanSubmit);
 
-  const handleSubmit = () => {
+  const handleSubmit = event => {
+    onSave(content);
     // console.log('content\n', content,);
-    alert(`${ALERT_SUCCESS}\n\n${content}`);
+    // alert(`${ALERT_SUCCESS}\n\n${content}`);
     setContent(initialContent);
     setCanSubmit(initialCanSubmit);
   };

@@ -17,10 +17,10 @@ import Rating from 'react-rating';
 
 // eslint-disable-next-line
 // const THANKS_MESSAGE = 'Thanks! 👼 Would you also like to rate us at';
-const FEEDBACK_REQUEST = 'Feedback submitted. Thank you. 🙏\n\nPlease consider sending us a note about how we can improve.';
+// const FEEDBACK_REQUEST = 'Feedback submitted. Thank you. 🙏\n\nPlease consider sending us a note about how we can improve.';
 
 const RatingSelect = props => {
-  const { heading, initialRating, stop, forwardMinimum, onSave, } = props; // redirectPath,
+  const { heading, initialRating, stop, onSave, } = props; // forwardMinimum, // redirectPath,
   const [ value           , setValue           , ] = useState(initialRating);
   const [ disabledButtons , setDisabledButtons , ] = useState(true);
 
@@ -47,12 +47,12 @@ const RatingSelect = props => {
   const handleSave = event => {
     onSave(value,);
 
-    if(value < forwardMinimum) {
-      // alert(value);
-      // alert(`${value}. ${FEEDBACK_REQUEST}`);
-      alert(FEEDBACK_REQUEST);
-      return;
-    }
+    // if(value < forwardMinimum) {
+    //   // alert(value);
+    //   // alert(`${value}. ${FEEDBACK_REQUEST}`);
+    //   alert(FEEDBACK_REQUEST);
+    //   return;
+    // }
     // alert(`${THANKS_MESSAGE} ${redirectPath}`);
   }
   

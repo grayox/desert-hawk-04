@@ -132,8 +132,8 @@
 export const createItem = ( item, { addOns, path, getCreatable, }, ) => // uid, settings, path, dashboard,
   (dispatch, getState, { getFirebase, getFirestore, }) => {
 
-    // console.log('path\n', path,);
-    // console.log('item\n', item,);
+    console.log('path\n', path,);
+    console.log('item\n', item,);
     // console.log('uid\n', uid,);
     // console.log('dashboard\n', dashboard,);
     
@@ -194,7 +194,7 @@ export const createItem = ( item, { addOns, path, getCreatable, }, ) => // uid, 
     const newDocRef = db.collection(path).doc(); // .doc() generates autoID
     batch.set( newDocRef, newData, );
     const batchConfig = getCreatable(newData,);
-    batchConfig.map(
+    batchConfig && batchConfig.map(
       ({ collection, doc, data, }) => batch.set(db.collection(collection).doc(doc), data, { merge: true, },)
     );
     batch.commit();
