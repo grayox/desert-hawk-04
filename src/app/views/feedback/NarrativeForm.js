@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import {
   Typography, Button, TextField,
   AppBar, Card, CardContent, Toolbar, // Paper,
+  FormControl, FormLabel, FormControlLabel, Radio, RadioGroup,
 } from '@material-ui/core';
 
 // const styles = theme => ({});
@@ -18,17 +19,27 @@ const ALERT_WARN = 'Your note has exceeded the maximum allowable size.\
 const NarrativeForm = props => {
   // const { classes, } = props;
   // const { container, margin, textField, } = classes;
-  const { heading, label, rowsCount, minLength, maxLength, initialContent, initialCanSubmit, onSave, } = props;
+  const {
+    heading, label, rowsCount, minLength, maxLength,
+    initialType, initialContent, initialCanSubmit, onSave,
+  } = props;
+  const [ type      , setType      , ] = useState(initialType);
   const [ content   , setContent   , ] = useState(initialContent);
   const [ canSubmit , setCanSubmit , ] = useState(initialCanSubmit);
 
   const handleSubmit = event => {
-    onSave(content);
+    const newData = { type, content, };
+    onSave(newData);
     // console.log('content\n', content,);
     // alert(`${ALERT_SUCCESS}\n\n${content}`);
+    setType(initialType);
     setContent(initialContent);
     setCanSubmit(initialCanSubmit);
-  };
+  }
+
+  const handleTypeChange = event => {
+    setType(event.target.value);
+  }
 
   const handleEnableButton = () => {
     const { length, } = content;
@@ -52,49 +63,102 @@ const NarrativeForm = props => {
     handleEnableButton();
   }
 
-  return (
+  const getAppBar = () =>
+    <AppBar position="static" elevation={0}>
+      <Toolbar className="pl-16 pr-8">
+        <Typography variant="subtitle1" color="inherit" className="flex-1">
+          {heading}
+        </Typography>
+      </Toolbar>
+    </AppBar>
 
-    <Card className="w-full m-0 md:mb-16">
-      
-      <AppBar position="static" elevation={0}>
-        <Toolbar className="pl-16 pr-8">
-          <Typography variant="subtitle1" color="inherit" className="flex-1">
-            {heading}
-          </Typography>
-        </Toolbar>
-      </AppBar>
-
-      <CardContent className="px-32 pb-32 pt-12">
-      {/* <Paper className="max-w-sm m-32 p-32"> */}
-        {/* <Typography className="h1 mb-24">{heading}</Typography> */}
-        <TextField
-          // className={classNames(margin, textField,)} // className={textField}
-          variant="outlined"
-          id="feedback-form"
-          label={label}
-          fullWidth
-          multiline
-          rows={rowsCount}
-          value={content}
-          onChange={handleChange}
-          margin="normal"
+  const getTypeRadio = () =>
+    <FormControl component="fieldset">
+      <FormLabel component="legend">Type</FormLabel>
+      <RadioGroup aria-label="position" name="position" value={type} onChange={handleTypeChange} row>
+        <FormControlLabel
+          value="bug"
+          control={<Radio color="secondary" />} // primary
+          label="Bug report"
+          labelPlacement="start" // start | end | top | bottom
         />
-        <div className="text-right">
-          <Button
-            type="submit"
-            variant="contained"
-            // color="primary"
-            color="secondary"
-            className="mx-auto mt-16"
-            aria-label="Submit"
-            disabled={!canSubmit}
-            onClick={handleSubmit}
-          >
-            Submit
-          </Button>
-        </div>
-      {/* </Paper> */}
-      </CardContent>
+        <FormControlLabel
+          value="review"
+          control={<Radio color="secondary" />} // primary
+          label="Product review"
+          labelPlacement="start"
+        />
+        <FormControlLabel
+          value="question"
+          control={<Radio color="secondary" />} // primary
+          label="Question"
+          labelPlacement="start" // start | end | top | bottom
+        />
+        <FormControlLabel
+          value="suggestion"
+          control={<Radio color="secondary" />} // primary
+          label="Suggestion"
+          labelPlacement="start"
+        />
+        <FormControlLabel
+          value="request"
+          control={<Radio color="secondary" />} // primary
+          label="Feature request"
+          labelPlacement="start"
+        />
+        <FormControlLabel
+          value="feedback"
+          control={<Radio color="secondary" />} // primary
+          label="Feedback"
+          labelPlacement="start"
+        />
+      </RadioGroup>
+    </FormControl>
+
+  const getTextField = () =>
+    <TextField
+      // className={classNames(margin, textField,)} // className={textField}
+      variant="outlined"
+      id="feedback-form"
+      label={label}
+      fullWidth
+      multiline
+      rows={rowsCount}
+      value={content}
+      onChange={handleChange}
+      margin="normal"
+    />
+
+  const getButton = () =>
+    <div className="text-right">
+      <Button
+        type="submit"
+        variant="contained"
+        // color="primary"
+        color="secondary"
+        className="mx-auto mt-16"
+        aria-label="Submit"
+        disabled={!canSubmit}
+        onClick={handleSubmit}
+      >
+        Submit
+      </Button>
+    </div>
+
+  const getCardContent = () =>
+    <CardContent className="px-32 pb-32 pt-12">
+    {/* <Paper className="max-w-sm m-32 p-32"> */}
+      {/* <Typography className="h1 mb-24">{heading}</Typography> */}
+      {getTypeRadio()}
+      {getTextField()}
+      {getButton()}
+    {/* </Paper> */}
+    </CardContent>
+
+  return (
+    <Card className="w-full m-0 md:mb-16">
+      {getAppBar()} 
+      {getCardContent()}
     </Card>
   );
 }
@@ -105,6 +169,7 @@ NarrativeForm.defaultProps = {
   rowsCount: 8,
   minLength: 4,
   maxLength: 9999, // 1Mb/document, firestore limit
+  initialType: null,
   initialContent: '',
   initialCanSubmit: false,
 };
@@ -116,6 +181,7 @@ NarrativeForm.propTypes = {
   rowsCount: PropTypes.number,
   minLength: PropTypes.number,
   maxLength: PropTypes.number,
+  initialType: PropTypes.string,
   initialContent: PropTypes.string,
   initialCanSubmit: PropTypes.bool,
 };

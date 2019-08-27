@@ -62,7 +62,13 @@ const Feedback = props => {
     // console.log('event\n', event,);
     // console.log('value\n', value,);
     // console.log('type\n', type,);
-    const newItem = { value, };
+    const getNewItem = value => {
+      let out;
+      if(typeof value == 'object') out = value;
+      else out = { value, };
+      return out;
+    }
+    const newItem = getNewItem(value);
     // console.log('newItem\n', newItem,);
     const creatable = {
       addOns: {

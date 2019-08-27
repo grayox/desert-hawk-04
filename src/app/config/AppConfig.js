@@ -267,6 +267,8 @@ export const brand = {
   description: 'Real estate agents, mortgage brokers, insurance agents and financial planners need leads. Referrals are a good way to get them. Swap lets you turn your clients into referrals and get back referrals in exchange.',
 }
 export const CHALLENGES_LIMIT = 3
+// [ 'made', 'received', ]
+// [ 'won', 'lost', 'pending', ]
 // challenges
 //   made
 //     won
@@ -1028,6 +1030,23 @@ export const getComponentsNavConfig = props => {
         deletable: true,
         actionable: false,
       },
+    },
+
+    {
+      // eslint-disable-next-line
+      description: '\
+        This is where you can see all the challenges you made and that were made against you for poor lead quality.\
+      ',
+      id        : 'challenges',
+      path      : '/challenges',
+      title     : 'Challenges',
+      type      : 'item',
+      icon      : 'security', // policy // after material-ui/icons 4.x upgrade
+      bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
+      overhead  : false,
+      // see src/app/config/Routes.js
+      // also update in: src/main/content/components/ComponentsConfig.js
+      component : () => FuseLoadable({loader: () => import('app/views/Tabs')}),
     },
 
     // divider

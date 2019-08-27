@@ -698,13 +698,17 @@ class ProfilePage extends Component {
           }} label="Photos & Videos" /> */}
         {/* begin my add */}
         <Tab
+          label="Details"
           classes={{
             root: classes.tabRoot,
-          }} label="Details" />
+          }}
+        />
         <Tab
+          label="Preferences"
           classes={{
             root: classes.tabRoot,
-          }} label="Preferences" />
+          }}
+        />
         {/* end my add */}
       </Tabs>
 
