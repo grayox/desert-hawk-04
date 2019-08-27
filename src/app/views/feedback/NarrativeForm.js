@@ -1,15 +1,16 @@
-import React, { useState, } from 'react';
+import React, { useState, useEffect, useRef, } from 'react';
 import PropTypes from 'prop-types';
 // import { withStyles } from '@material-ui/core/styles';
 // import classNames from 'classnames';
 
 import {
-  Typography, Button, TextField,
   AppBar, Card, CardContent, Toolbar, // Paper,
-  FormControl, FormLabel, FormControlLabel, Radio, RadioGroup,
+  Typography, Button, TextField, Radio, RadioGroup,
+  FormControl, FormLabel, FormControlLabel,
+  InputLabel, Select, MenuItem, OutlinedInput,
 } from '@material-ui/core';
 
-import SelectControl from 'app/components/selects/SelectControl';
+// import SelectControl from 'app/components/selects/SelectControl';
 
 // const styles = theme => ({});
 
@@ -25,12 +26,19 @@ const NarrativeForm = props => {
   const initialCanSubmit = false;
   const initialTypeSelectIsOpen = false;
   const {
-    heading, label, rowsCount, minLength, maxLength, onSave, initialContent, radio,
+    heading, contentLabel, typeLabel, rowsCount, minLength, maxLength, onSave, initialContent, radio=false,
   } = props;
+
   const [ type             , setType             , ] = useState(initialType);
   const [ content          , setContent          , ] = useState(initialContent);
   const [ canSubmit        , setCanSubmit        , ] = useState(initialCanSubmit);
-  const [ typeSelectIsOpen , setTypeSelectIsOpen , ] = useState(initialTypeSelectIsOpen);
+  const [ labelWidth       , setLabelWidth       , ] = useState(0);
+  // const [ typeSelectIsOpen , setTypeSelectIsOpen , ] = useState(initialTypeSelectIsOpen);
+
+  const inputLabel = useRef(null);
+  useEffect(() => {
+    setLabelWidth(inputLabel.current.offsetWidth);
+  }, []);
 
   const handleSubmit = event => {
     const newData = { type, content, };
@@ -40,7 +48,7 @@ const NarrativeForm = props => {
     setType(initialType);
     setContent(initialContent);
     setCanSubmit(initialCanSubmit);
-    setTypeSelectIsOpen(initialTypeSelectIsOpen)
+    // setTypeSelectIsOpen(initialTypeSelectIsOpen);
   }
 
   const handleChangeType = event => {
@@ -79,7 +87,7 @@ const NarrativeForm = props => {
       </Toolbar>
     </AppBar>
 
-  const typeRadioConfig = [
+  const typeConfig = [
     { value : 'bug'        , label : 'Bug report'      , } ,
     { value : 'review'     , label : 'Product review'  , } ,
     { value : 'comment'    , label : 'Comment'         , } ,
@@ -89,29 +97,49 @@ const NarrativeForm = props => {
   ]
 
   const getTypeSelect = () =>
-    <SelectControl
-      size='medium'
-      control='select'
-      label='Type of feedback'
-      items={typeRadioConfig}
-      value={type}
-      isOpen={typeSelectIsOpen}
-      // onOpen={handleTypeSelectOpen}
-      // onClick={handleTypeSelectOpen}
-      // onClose={handleTypeSelectClose}
-      onChange={handleChangeType}
-    />
+    <FormControl
+      variant="outlined"
+      // className={classes.formControl}
+    >
+      <InputLabel ref={inputLabel} htmlFor="outlined-age-simple">{typeLabel}</InputLabel>
+      {
+      // <SelectControl
+      //   size='medium'
+      //   control='select'
+      //   label={typeLabel}
+      //   items={typeConfig}
+      //   value={type}
+      //   isOpen={typeSelectIsOpen}
+      //   // onOpen={handleTypeSelectOpen}
+      //   // onClick={handleTypeSelectOpen}
+      //   // onClose={handleTypeSelectClose}
+      //   onChange={handleChangeType}
+      // />
+      }
+      <Select
+        value={type}
+        onChange={handleChangeType}
+        input={<OutlinedInput labelWidth={labelWidth} name="age" id="outlined-age-simple" />}
+      >
+        <MenuItem value="">
+          <em>None</em>
+        </MenuItem>
+        <MenuItem value={10}>Ten</MenuItem>
+        <MenuItem value={20}>Twenty</MenuItem>
+        <MenuItem value={30}>Thirty</MenuItem>
+      </Select>
+    </FormControl>
   
   const getTypeRadio = () =>
     <FormControl component="fieldset">
       <FormLabel component="legend">
-        <div className="pt-4 pb-8">Type of feedback</div>
+        <div className="py-16">{typeLabel}</div>
       </FormLabel>
       <RadioGroup
         aria-label="position" name="position" value={type} onChange={handleChangeType} // row
       >
         {
-          typeRadioConfig.map( ({value, label,},) =>
+          typeConfig.map( ({value, label,},) =>
             <FormControlLabel
               value={value}
               control={<Radio color="secondary" />} // primary
@@ -128,7 +156,7 @@ const NarrativeForm = props => {
       // className={classNames(margin, textField,)} // className={textField}
       variant="outlined"
       id="feedback-form"
-      label={label}
+      label={contentLabel}
       fullWidth
       multiline
       rows={rowsCount}
@@ -173,7 +201,8 @@ const NarrativeForm = props => {
 
 NarrativeForm.defaultProps = {
   heading: 'Send us a note',
-  label: 'What’s on your mind?',
+  contentLabel: 'What’s on your mind?',
+  typeLabel: 'Type of feedback',
   radio: false, 
   rowsCount: 8,
   minLength: 4,
@@ -188,7 +217,8 @@ NarrativeForm.propTypes = {
   // classes: PropTypes.object.isRequired,
   radio: PropTypes.bool,
   heading: PropTypes.string,
-  label: PropTypes.string,
+  contentLabel: PropTypes.string,
+  typeLabel: PropTypes.string,
   rowsCount: PropTypes.number,
   minLength: PropTypes.number,
   maxLength: PropTypes.number,

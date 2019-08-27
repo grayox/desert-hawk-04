@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  withStyles, InputLabel, MenuItem, ListItemText, FormControl, Select, Button, Icon,
+  withStyles, InputLabel, MenuItem, ListItemText, FormControl, Select, Button, Icon, OutlinedInput,
 } from '@material-ui/core';
 
 const styles = theme => ({
@@ -58,24 +58,21 @@ const getFormContent = props => {
   return out;
 }
 
-const getSelect = props => {
-  const { isOpen, value, items, onOpen, onClose, onChange, } = props;
-  return (
-    <Select
-      open={isOpen}
-      value={value}
-      onOpen={onOpen}
-      onClose={onClose}
-      onChange={e => onChange(e)}
-      inputProps={{
-        name: 'value',
-        id: 'select',
-      }}
-    >
-      {getMenuItems(items,)}
-    </Select>
-  );
-}
+const getSelect = ({ isOpen, value, items, onOpen, onClose, onChange, }) => 
+  <Select
+    open={isOpen}
+    value={value}
+    onOpen={onOpen}
+    onClose={onClose}
+    onChange={e => onChange(e)}
+    inputProps={{
+      name: 'value',
+      id: 'select',
+    }}
+    // input={<OutlinedInput labelWidth={labelWidth} name="age" id="outlined-age-simple" />}
+  >
+    {getMenuItems(items,)}
+  </Select>
 
 const getMenuItems = items => {
   const out = items.map(item =>
