@@ -149,7 +149,9 @@ const Feedback = props => {
           <ErrorBoundary>
             {/* <div className="border border-red flex-1 max-w-xl mx-auto px-16 sm:px-24 py-24 sm:py-32"> */}
             <div className="flex-1 my-24 md:ml-12">
-              <NarrativeForm onSave={ data => handleSave(data, 'narratives',)} />
+              <NarrativeForm
+                onSave={ data => handleSave(data, 'narratives',)} radio
+              />
             </div>
           </ErrorBoundary>
         </FuseAnimate>

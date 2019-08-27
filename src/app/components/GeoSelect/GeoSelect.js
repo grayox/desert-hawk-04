@@ -12,8 +12,8 @@ const GeoSelect = props => {
       label={`Select ${variant}`}
       items={items}
       control={control}
-      open={open}
       value={value}
+      isOpen={open}
       onOpen={onOpen}
       onClose={onClose}
       onChange={onChange}

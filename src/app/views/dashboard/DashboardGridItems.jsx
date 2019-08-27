@@ -34,7 +34,7 @@ import {
 // import GridContainer from "app/vendors/creative-tim/components/Grid/GridContainer";
 
 // custom components
-import SelectControl from 'app/components/selects/SelectControl.js';
+import SelectControl from 'app/components/selects/SelectControl';
 import DashboardGridItem from './DashboardGridItem';
 // import { DashboardGridConfig } from 'app/config/DashboardGridConfig';
 
@@ -353,9 +353,9 @@ const getRows = props => {
               size='small'
               control='button'
               label='Change category'
-              open={categoryOpen}
               items={categoryItems}
               value={bizCategory}
+              isOpen={categoryOpen}
               onOpen={onCategoryOpen}
               onClick={onCategoryOpen}
               onClose={onCategoryClose}
@@ -475,7 +475,10 @@ DashboardGridItems.propTypes = {
   onCategoryChange: PropTypes.func.isRequired,
   onClickInfo: PropTypes.func.isRequired,
   categoryOpen: PropTypes.bool.isRequired,
-  categoryItems: PropTypes.arrayOf(PropTypes.object).isRequired,
+  categoryItems: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.string),
+    PropTypes.arrayOf(PropTypes.object),
+  ]).isRequired,
   bizCategory: PropTypes.string,
   geoLocal: PropTypes.string,
   geoRegion: PropTypes.string,

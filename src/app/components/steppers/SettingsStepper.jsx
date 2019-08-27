@@ -143,9 +143,9 @@ class SettingsStepper extends Component {
         size='small'
         control='none'
         label='Select category'
-        open={isOpenCategory}
         items={bizCategoryItems}
         value={bizCategory}
+        isOpen={isOpenCategory}
         onOpen={handleOpenCategory}
         onClick={handleOpenCategory}
         onClose={handleClose}

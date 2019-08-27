@@ -138,7 +138,7 @@ class GeoStepper extends Component {
       //   size='small'
       //   control='none'
       //   label='Select category'
-      //   open={isOpenCategory}
+      //   isOpen={isOpenCategory}
       //   items={bizCategoryItems}
       //   value={bizCategory}
       //   onOpen={handleOpenCategory}

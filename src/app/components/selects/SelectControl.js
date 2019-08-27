@@ -59,31 +59,31 @@ const getFormContent = props => {
 }
 
 const getSelect = props => {
-  const { open, value, items, onOpen, onClose, onChange, } = props;
+  const { isOpen, value, items, onOpen, onClose, onChange, } = props;
   return (
     <Select
-      open={open}
+      open={isOpen}
       value={value}
       onOpen={onOpen}
       onClose={onClose}
-      onChange={ e => onChange(e) }
+      onChange={e => onChange(e)}
       inputProps={{
         name: 'value',
         id: 'select',
       }}
     >
-      {getMenuItems(items, props,)}
+      {getMenuItems(items,)}
     </Select>
   );
 }
 
-const getMenuItems = ( items, props, ) => {
+const getMenuItems = items => {
   const out = items.map(item =>
-    item.icon
+    typeof item === 'object'
     ?
     (
       <MenuItem key={item.value} value={item.value}>
-        {props && props.icon && <Icon>{item.icon}</Icon>}
+        {item && item.icon && <Icon>{item.icon}</Icon>}
         <ListItemText primary={item.label} />
       </MenuItem>
     )
@@ -98,24 +98,31 @@ const getMenuItems = ( items, props, ) => {
 }
 
 SelectControl.defaultProps = {
-  size: 'medium',
-  control: 'select',
+  size: 'medium', // 'small', 'medium', 'large',
+  control: 'select', // 'none', 'select', 'button',
   icon: false,
 };
 
 SelectControl.propTypes = {
   // classes: PropTypes.object.isRequired,
   // button size
-  size: PropTypes.oneOf([ 'small', 'medium', 'large', ]).isRequired, // default: 'medium'
+  size: PropTypes.oneOf([ 'small', 'medium', 'large', ]), // default: 'medium'
   // 'none' requires an external button to control open and closing
   // 'button' provides its own button
   // 'select' provides standard dropdown interface
-  control: PropTypes.oneOf([ 'none', 'select', 'button', ]).isRequired, // default: 'select'
+  control: PropTypes.oneOf([ 'none', 'select', 'button', ]), // default: 'select'
   label: PropTypes.string,
-  open: PropTypes.bool.isRequired,
   icon: PropTypes.bool,
-  items: PropTypes.arrayOf(PropTypes.string).isRequired,
+  items: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.string),
+    PropTypes.arrayOf(PropTypes.shape({
+      icon  : PropTypes.string,
+      value : PropTypes.string.isRequired,
+      label : PropTypes.string.isRequired,
+    })),
+  ]).isRequired,
   value: PropTypes.string.isRequired,
+  isOpen: PropTypes.bool.isRequired,
   onOpen: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,

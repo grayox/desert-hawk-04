@@ -9,6 +9,8 @@ import {
   FormControl, FormLabel, FormControlLabel, Radio, RadioGroup,
 } from '@material-ui/core';
 
+import SelectControl from 'app/components/selects/SelectControl';
+
 // const styles = theme => ({});
 
 // const ALERT_SUCCESS = 'Your note was submitted. Thank you!';
@@ -19,13 +21,16 @@ const ALERT_WARN = 'Your note has exceeded the maximum allowable size.\
 const NarrativeForm = props => {
   // const { classes, } = props;
   // const { container, margin, textField, } = classes;
+  const initialType = null;
+  const initialCanSubmit = false;
+  const initialTypeSelectIsOpen = false;
   const {
-    heading, label, rowsCount, minLength, maxLength,
-    initialType, initialContent, initialCanSubmit, onSave,
+    heading, label, rowsCount, minLength, maxLength, onSave, initialContent, radio,
   } = props;
-  const [ type      , setType      , ] = useState(initialType);
-  const [ content   , setContent   , ] = useState(initialContent);
-  const [ canSubmit , setCanSubmit , ] = useState(initialCanSubmit);
+  const [ type             , setType             , ] = useState(initialType);
+  const [ content          , setContent          , ] = useState(initialContent);
+  const [ canSubmit        , setCanSubmit        , ] = useState(initialCanSubmit);
+  const [ typeSelectIsOpen , setTypeSelectIsOpen , ] = useState(initialTypeSelectIsOpen);
 
   const handleSubmit = event => {
     const newData = { type, content, };
@@ -35,6 +40,7 @@ const NarrativeForm = props => {
     setType(initialType);
     setContent(initialContent);
     setCanSubmit(initialCanSubmit);
+    setTypeSelectIsOpen(initialTypeSelectIsOpen)
   }
 
   const handleChangeType = event => {
@@ -82,14 +88,30 @@ const NarrativeForm = props => {
     { value : 'request'    , label : 'Feature request' , } ,
   ]
 
+  const getTypeSelect = () =>
+    <SelectControl
+      size='medium'
+      control='select'
+      label='Type of feedback'
+      items={typeRadioConfig}
+      value={type}
+      isOpen={typeSelectIsOpen}
+      // onOpen={handleTypeSelectOpen}
+      // onClick={handleTypeSelectOpen}
+      // onClose={handleTypeSelectClose}
+      onChange={handleChangeType}
+    />
+  
   const getTypeRadio = () =>
     <FormControl component="fieldset">
-      <FormLabel component="legend">Type</FormLabel>
+      <FormLabel component="legend">
+        <div className="pt-4 pb-8">Type of feedback</div>
+      </FormLabel>
       <RadioGroup
         aria-label="position" name="position" value={type} onChange={handleChangeType} // row
       >
         {
-          typeRadioConfig.map( ( { value, label, }, ) =>
+          typeRadioConfig.map( ({value, label,},) =>
             <FormControlLabel
               value={value}
               control={<Radio color="secondary" />} // primary
@@ -135,7 +157,7 @@ const NarrativeForm = props => {
     <CardContent className="px-32 pb-32 pt-12">
     {/* <Paper className="max-w-sm m-32 p-32"> */}
       {/* <Typography className="h1 mb-24">{heading}</Typography> */}
-      {getTypeRadio()}
+      {radio ? getTypeRadio() : getTypeSelect()}
       {getTextField()}
       {getButton()}
     {/* </Paper> */}
@@ -152,24 +174,28 @@ const NarrativeForm = props => {
 NarrativeForm.defaultProps = {
   heading: 'Send us a note',
   label: 'What’s on your mind?',
+  radio: false, 
   rowsCount: 8,
   minLength: 4,
   maxLength: 9999, // 1Mb/document, firestore limit
-  initialType: null,
   initialContent: '',
-  initialCanSubmit: false,
+  // initialType: null,
+  // initialCanSubmit: false,
+  // initialTypeSelectIsOpen: false,
 };
 
 NarrativeForm.propTypes = {
   // classes: PropTypes.object.isRequired,
+  radio: PropTypes.bool,
   heading: PropTypes.string,
   label: PropTypes.string,
   rowsCount: PropTypes.number,
   minLength: PropTypes.number,
   maxLength: PropTypes.number,
-  initialType: PropTypes.string,
   initialContent: PropTypes.string,
-  initialCanSubmit: PropTypes.bool,
+  // initialType: PropTypes.string,
+  // initialCanSubmit: PropTypes.bool,
+  // initialTypeSelectIsOpen: PropTypes.bool,
 };
 
 // export default withStyles(styles)(NarrativeForm);
