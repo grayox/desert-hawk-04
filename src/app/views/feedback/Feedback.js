@@ -64,7 +64,7 @@ const Feedback = props => {
     // console.log('type\n', type,);
     const getNewItem = value => {
       let out;
-      if(typeof value == 'object') out = value;
+      if(typeof value === 'object') out = value;
       else out = { value, };
       return out;
     }

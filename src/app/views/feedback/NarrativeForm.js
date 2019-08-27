@@ -37,17 +37,18 @@ const NarrativeForm = props => {
     setCanSubmit(initialCanSubmit);
   }
 
-  const handleTypeChange = event => {
+  const handleChangeType = event => {
     setType(event.target.value);
   }
 
   const handleEnableButton = () => {
-    const { length, } = content;
-    const ready = length > minLength;
+    const ready1 = type && type.length;
+    const ready2 = ( content && content.length ) > minLength;
+    const ready = ready1 && ready2;
     setCanSubmit(ready);
   }
 
-  const handleChange = ({ target, }) => {
+  const handleChangeContent = ({ target, }) => {
     // console.log('target\n', target,);
     const { value, } = target;
     // console.log('value\n', value,);
@@ -72,46 +73,31 @@ const NarrativeForm = props => {
       </Toolbar>
     </AppBar>
 
+  const typeRadioConfig = [
+    { value : 'bug'        , label : 'Bug report'      , } ,
+    { value : 'review'     , label : 'Product review'  , } ,
+    { value : 'comment'    , label : 'Comment'         , } ,
+    { value : 'question'   , label : 'Question'        , } ,
+    { value : 'suggestion' , label : 'Suggestion'      , } ,
+    { value : 'request'    , label : 'Feature request' , } ,
+  ]
+
   const getTypeRadio = () =>
     <FormControl component="fieldset">
       <FormLabel component="legend">Type</FormLabel>
-      <RadioGroup aria-label="position" name="position" value={type} onChange={handleTypeChange} row>
-        <FormControlLabel
-          value="bug"
-          control={<Radio color="secondary" />} // primary
-          label="Bug report"
-          labelPlacement="start" // start | end | top | bottom
-        />
-        <FormControlLabel
-          value="review"
-          control={<Radio color="secondary" />} // primary
-          label="Product review"
-          labelPlacement="start"
-        />
-        <FormControlLabel
-          value="question"
-          control={<Radio color="secondary" />} // primary
-          label="Question"
-          labelPlacement="start" // start | end | top | bottom
-        />
-        <FormControlLabel
-          value="suggestion"
-          control={<Radio color="secondary" />} // primary
-          label="Suggestion"
-          labelPlacement="start"
-        />
-        <FormControlLabel
-          value="request"
-          control={<Radio color="secondary" />} // primary
-          label="Feature request"
-          labelPlacement="start"
-        />
-        <FormControlLabel
-          value="feedback"
-          control={<Radio color="secondary" />} // primary
-          label="Feedback"
-          labelPlacement="start"
-        />
+      <RadioGroup
+        aria-label="position" name="position" value={type} onChange={handleChangeType} // row
+      >
+        {
+          typeRadioConfig.map( ( { value, label, }, ) =>
+            <FormControlLabel
+              value={value}
+              control={<Radio color="secondary" />} // primary
+              label={label}
+              labelPlacement="end" // start | end | top | bottom
+            />
+          )
+        }
       </RadioGroup>
     </FormControl>
 
@@ -125,7 +111,7 @@ const NarrativeForm = props => {
       multiline
       rows={rowsCount}
       value={content}
-      onChange={handleChange}
+      onChange={handleChangeContent}
       margin="normal"
     />
 
