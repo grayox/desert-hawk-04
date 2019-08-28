@@ -116,7 +116,7 @@ const NarrativeForm = props => {
       fullWidth
       // className={classes.formControl}
     >
-      <InputLabel ref={inputLabel} htmlFor="select">{typeLabel}</InputLabel>
+      <InputLabel ref={inputLabel} htmlFor="select">{type ? null : typeLabel}</InputLabel>
       {
       // <SelectControl
       //   size='medium'
@@ -131,27 +131,27 @@ const NarrativeForm = props => {
       //   onChange={handleChangeType}
       // />
       }
-      <Select
+      <Select  // for implementation examples and consolidation targets: search: <Select
         value={type}
         onChange={handleChangeType}
         input={<OutlinedInput labelWidth={labelWidth} name="select" id="select" />}
       >
         {
-          typeConfig.map( item =>
-            <MenuItem className="align-middle" key={item.value} value={item.value}>
+          typeConfig.map( ({ value, label, icon=null, }, index,) =>
+            <MenuItem key={value} value={value}>
               {
-                item.icon
+                icon
                 ?
                 <React.Fragment>
-                  <ListItemIcon className="inline align-middle">
-                    <Icon>{item.icon}</Icon>
+                  <ListItemIcon className="inline">
+                    <Icon className="align-middle">{icon}</Icon>
                   </ListItemIcon>
-                  <Typography className="inline align-middle" variant="inherit" display="inline" noWrap>
-                    {item.label}
+                  <Typography className="inline" variant="inherit" display="inline" noWrap>
+                    {label}
                   </Typography>
                 </React.Fragment>
                 :
-                <ListItemText primary={item.label} />
+                <ListItemText primary={label} />
               }
             </MenuItem>
         )}
@@ -196,11 +196,11 @@ const NarrativeForm = props => {
   const getButtons = () =>
     <div className="mt-16 text-right">
       <Button
-        type="submit"
+        type="reset"
         // variant="contained"
         // color="primary"
         // color="secondary"
-        className="mx-auto"
+        className="mr-8"
         aria-label="Reset"
         disabled={!canReset}
         onClick={handleReset}
@@ -212,7 +212,7 @@ const NarrativeForm = props => {
         variant="contained"
         // color="primary"
         color="secondary"
-        className="mx-auto"
+        // className="mx-auto"
         aria-label="Submit"
         disabled={!canSubmit}
         onClick={handleSubmit}

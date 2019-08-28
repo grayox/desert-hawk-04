@@ -77,8 +77,8 @@ const RatingSelect = props => {
   
   const getButtons = () => 
     <div className="mt-24 text-right">
-      <Button disabled={buttonIsDisabled} onClick={handleReset}>Reset</Button>
-      <Button variant="contained" color="secondary" disabled={buttonIsDisabled} onClick={handleSave}>Submit</Button>
+      <Button disabled={buttonIsDisabled} className="mr-8" onClick={handleReset}>Reset</Button>
+      <Button disabled={buttonIsDisabled} variant="contained" color="secondary" onClick={handleSave}>Submit</Button>
     </div>
 
   const getCardContent = () =><CardContent className="p-32">{getRating()}{getValue()}{getButtons()}</CardContent>

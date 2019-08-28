@@ -59,7 +59,7 @@ const getFormContent = props => {
 }
 
 const getSelect = ({ isOpen, value, items, onOpen, onClose, onChange, }) => 
-  <Select
+  <Select  // for implementation examples and consolidation targets: search: <Select
     open={isOpen}
     value={value}
     onOpen={onOpen}
