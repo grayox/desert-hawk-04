@@ -91,6 +91,7 @@ const Feedback = props => {
 
   const getSnackbar = () =>
     <Snackbar
+      className="mb-24" 
       anchorOrigin={{
         vertical: 'bottom',
         horizontal: 'center', // 'left',

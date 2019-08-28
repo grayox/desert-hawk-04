@@ -222,7 +222,7 @@ const NarrativeForm = props => {
     </div>
 
   const getCardContent = () =>
-    <CardContent className="px-32 pb-32 pt-12">
+    <CardContent className="p-32">
     {/* <Paper className="max-w-sm m-32 p-32"> */}
       {/* <Typography className="h1 mb-24">{heading}</Typography> */}
       {radio ? getTypeRadio() : getTypeSelect()}
@@ -231,12 +231,13 @@ const NarrativeForm = props => {
     {/* </Paper> */}
     </CardContent>
 
-  return (
+  const getNarrativeForm = () =>
     <Card className="w-full m-0 md:mb-16">
       {getAppBar()} 
       {getCardContent()}
     </Card>
-  );
+
+  return getNarrativeForm();
 }
 
 NarrativeForm.defaultProps = {
