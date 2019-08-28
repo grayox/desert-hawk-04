@@ -7,7 +7,7 @@ import _ from '@lodash';
 import { getComponentsNavConfig, } from 'app/config/AppConfig';
 import CRUDContainer from './CRUDContainer';
 
-const Child = ({ match: { params: { id }}, profile, settings, dashboard, }) => {
+const getChild = ({ match: { params: { id }}, profile, settings, dashboard, }) => {
   // const matches = componentsNavConfig.filter(r => (r.id === id));
   const args = { profile, settings, };
   // console.log('args\n', args,);
@@ -20,7 +20,7 @@ const Child = ({ match: { params: { id }}, profile, settings, dashboard, }) => {
     condensed, actionable, creatable, readable, updatable, deletable,
     searchable, filterable, sortable, starrable, alertable, miniDashboard,
   } = crudConfig;
-  return (
+  const out =
     // <div>{id}</div>
     <CRUDContainer
       profile={profile}
@@ -41,7 +41,7 @@ const Child = ({ match: { params: { id }}, profile, settings, dashboard, }) => {
       starrable={starrable}
       alertable={alertable}
     />
-  )
+  return out;
 };
 
 const getCRUDRouter = props => {
@@ -49,13 +49,13 @@ const getCRUDRouter = props => {
   const ready1 = !_.isEmpty(profile) && !_.isEmpty(settings) && !_.isEmpty(dashboard);
   // console.log('ready1\n', ready1,);
   if(!ready1) return null;
-  return (
+  const out =
     <Route
       path="/:id"
       // component={Child} // ref: https://tylermcginnis.com/react-router-pass-props-to-components/
-      render={ nativeProps => Child({ ...props, ...nativeProps, })}
+      render={ nativeProps => getChild({ ...props, ...nativeProps, },) }
     />
-  );
+  return out;
 }
 
 // ref: https://reacttraining.com/react-router/web/example/url-params
