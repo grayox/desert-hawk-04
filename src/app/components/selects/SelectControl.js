@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  withStyles, InputLabel, MenuItem, ListItemText, FormControl, Select, Button, Icon, OutlinedInput,
+  withStyles, InputLabel, MenuItem, ListItemText, FormControl, Select, Button, Icon, // OutlinedInput,
 } from '@material-ui/core';
 
 const styles = theme => ({

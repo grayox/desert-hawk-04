@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 // import classNames from 'classnames';
 
 import {
-  AppBar, Card, CardContent, Toolbar, // Paper,
+  AppBar, Card, CardContent, Toolbar, Icon, // Paper,
   Typography, Button, TextField, Radio, RadioGroup,
-  FormControl, FormLabel, FormControlLabel,
+  FormControl, FormLabel, FormControlLabel, ListItemIcon, ListItemText,
   InputLabel, Select, MenuItem, OutlinedInput,
 } from '@material-ui/core';
 
@@ -23,43 +23,54 @@ const NarrativeForm = props => {
   // const { classes, } = props;
   // const { container, margin, textField, } = classes;
   const initialType = null;
+  const initialCanReset = false;
   const initialCanSubmit = false;
-  const initialTypeSelectIsOpen = false;
+  // const initialTypeSelectIsOpen = false;
   const {
     heading, contentLabel, typeLabel, rowsCount, minLength, maxLength, onSave, initialContent, radio=false,
   } = props;
 
-  const [ type             , setType             , ] = useState(initialType);
-  const [ content          , setContent          , ] = useState(initialContent);
-  const [ canSubmit        , setCanSubmit        , ] = useState(initialCanSubmit);
-  const [ labelWidth       , setLabelWidth       , ] = useState(0);
+  const [ type       , setType       , ] = useState(initialType);
+  const [ content    , setContent    , ] = useState(initialContent);
+  const [ canReset   , setCanReset   , ] = useState(initialCanReset);
+  const [ canSubmit  , setCanSubmit  , ] = useState(initialCanSubmit);
+  const [ labelWidth , setLabelWidth , ] = useState(0);
   // const [ typeSelectIsOpen , setTypeSelectIsOpen , ] = useState(initialTypeSelectIsOpen);
 
   const inputLabel = useRef(null);
   useEffect(() => {
     setLabelWidth(inputLabel.current.offsetWidth);
-  }, []);
+    handleEnableButton();
+  }, [ type, content, ]);
+
+  const handleReset = () => {
+    setType(initialType);
+    setContent(initialContent);
+    setCanReset(initialCanReset);
+    setCanSubmit(initialCanSubmit);
+    // setTypeSelectIsOpen(initialTypeSelectIsOpen);
+  }
 
   const handleSubmit = event => {
     const newData = { type, content, };
     onSave(newData);
     // console.log('content\n', content,);
     // alert(`${ALERT_SUCCESS}\n\n${content}`);
-    setType(initialType);
-    setContent(initialContent);
-    setCanSubmit(initialCanSubmit);
-    // setTypeSelectIsOpen(initialTypeSelectIsOpen);
+    handleReset();
   }
 
-  const handleChangeType = event => {
-    setType(event.target.value);
+  const handleChangeType = ({ target, }) => {
+    setType(target.value);
   }
 
   const handleEnableButton = () => {
     const ready1 = type && type.length;
-    const ready2 = ( content && content.length ) > minLength;
-    const ready = ready1 && ready2;
-    setCanSubmit(ready);
+    const ready2 = content && content.length;
+    const ready3 = ready2 > minLength;
+    const ready4 = ready1 || ready2;
+    const ready5 = ready1 && ready3;
+    setCanReset(ready4);
+    setCanSubmit(ready5);
   }
 
   const handleChangeContent = ({ target, }) => {
@@ -75,7 +86,6 @@ const NarrativeForm = props => {
       return;
     }
     setContent(value);
-    handleEnableButton();
   }
 
   const getAppBar = () =>
@@ -88,20 +98,25 @@ const NarrativeForm = props => {
     </AppBar>
 
   const typeConfig = [
-    { value : 'bug'        , label : 'Bug report'      , } ,
-    { value : 'review'     , label : 'Product review'  , } ,
-    { value : 'comment'    , label : 'Comment'         , } ,
-    { value : 'question'   , label : 'Question'        , } ,
-    { value : 'suggestion' , label : 'Suggestion'      , } ,
-    { value : 'request'    , label : 'Feature request' , } ,
+    { value : 'bug'        , label : 'Bug report'      , icon : 'bug_report'      , } ,
+    // { value : 'review'     , label : 'Product review'  , icon : 'thumbs_up_down'  , } ,
+    // { value : 'review'     , label : 'Product review'  , icon : 'favorite_border' , } ,
+    { value : 'positive'   , label : 'Positive review' , icon : 'thumb_up'        , } ,
+    { value : 'negative'   , label : 'Negative review' , icon : 'thumb_down'      , } ,
+    { value : 'question'   , label : 'Question'        , icon : 'contact_support' , } ,
+    { value : 'comment'    , label : 'Comment'         , icon : 'comment'         , } ,
+    { value : 'suggestion' , label : 'Suggestion'      , icon : 'feedback'        , } ,
+    // { value : 'request'    , label : 'Feature request' , icon : 'star_border'     , } ,
+    { value : 'request'    , label : 'Feature request' , icon : 'touch_app'       , } ,
   ]
 
   const getTypeSelect = () =>
     <FormControl
       variant="outlined"
+      fullWidth
       // className={classes.formControl}
     >
-      <InputLabel ref={inputLabel} htmlFor="outlined-age-simple">{typeLabel}</InputLabel>
+      <InputLabel ref={inputLabel} htmlFor="select">{typeLabel}</InputLabel>
       {
       // <SelectControl
       //   size='medium'
@@ -119,17 +134,30 @@ const NarrativeForm = props => {
       <Select
         value={type}
         onChange={handleChangeType}
-        input={<OutlinedInput labelWidth={labelWidth} name="age" id="outlined-age-simple" />}
+        input={<OutlinedInput labelWidth={labelWidth} name="select" id="select" />}
       >
-        <MenuItem value="">
-          <em>None</em>
-        </MenuItem>
-        <MenuItem value={10}>Ten</MenuItem>
-        <MenuItem value={20}>Twenty</MenuItem>
-        <MenuItem value={30}>Thirty</MenuItem>
+        {
+          typeConfig.map( item =>
+            <MenuItem className="align-middle" key={item.value} value={item.value}>
+              {
+                item.icon
+                ?
+                <React.Fragment>
+                  <ListItemIcon className="inline align-middle">
+                    <Icon>{item.icon}</Icon>
+                  </ListItemIcon>
+                  <Typography className="inline align-middle" variant="inherit" display="inline" noWrap>
+                    {item.label}
+                  </Typography>
+                </React.Fragment>
+                :
+                <ListItemText primary={item.label} />
+              }
+            </MenuItem>
+        )}
       </Select>
     </FormControl>
-  
+
   const getTypeRadio = () =>
     <FormControl component="fieldset">
       <FormLabel component="legend">
@@ -165,14 +193,26 @@ const NarrativeForm = props => {
       margin="normal"
     />
 
-  const getButton = () =>
-    <div className="text-right">
+  const getButtons = () =>
+    <div className="mt-16 text-right">
+      <Button
+        type="submit"
+        // variant="contained"
+        // color="primary"
+        // color="secondary"
+        className="mx-auto"
+        aria-label="Reset"
+        disabled={!canReset}
+        onClick={handleReset}
+      >
+        Reset
+      </Button>
       <Button
         type="submit"
         variant="contained"
         // color="primary"
         color="secondary"
-        className="mx-auto mt-16"
+        className="mx-auto"
         aria-label="Submit"
         disabled={!canSubmit}
         onClick={handleSubmit}
@@ -187,7 +227,7 @@ const NarrativeForm = props => {
       {/* <Typography className="h1 mb-24">{heading}</Typography> */}
       {radio ? getTypeRadio() : getTypeSelect()}
       {getTextField()}
-      {getButton()}
+      {getButtons()}
     {/* </Paper> */}
     </CardContent>
 
