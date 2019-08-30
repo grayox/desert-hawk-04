@@ -57,11 +57,18 @@ const styles = theme => ({
   },
 });
 
-const FuseNavVerticalItem = ({ item, classes, navbarCloseMobile, active }) => { // nestedLevel, userRole,
+const FuseNavVerticalItem = ({
+  item: { id=false, exact=false, title='', icon=false, altIcon=false, badge=false, },
+  classes: { item, },
+  navbarCloseMobile, active,
+}) => { // nestedLevel, userRole,
   // if (item.auth && (!item.auth.includes(userRole) || (userRole !== 'guest' && item.auth.length === 1 && item.auth.includes('guest')))) {
   //   return null;
   // }
   // console.log('item\n', item,);
+  console.log('id\n', id,);
+  console.log('icon\n', icon,);
+  console.log('altIcon\n', altIcon,);
 
   // control indentation level based on nested hierarchy
   // note: original text sizes can be retrieved from original -orig version of this file: icons: text-16, text: text-14
@@ -69,45 +76,60 @@ const FuseNavVerticalItem = ({ item, classes, navbarCloseMobile, active }) => { 
   // const listItemPadding = nestedLevel > 0 ? 'pl-' + (paddingValue > 80 ? 80 : paddingValue) : 'pl-24';
   const listItemPadding = 'pl-24';
 
-  return (
+  const getStandardIcon = () => (
+    icon &&
+    <Icon
+      className="list-item-icon flex-no-shrink text-white"
+      color="action"
+    >{icon}</Icon>
+  )
+
+  const getAltIcon = () => (
+    altIcon &&
+    <span
+      className="list-item-icon flex-no-shrink text-white mt-8 ml-4 mr-3"
+      color="action"
+    >{altIcon}</span>
+  )
+
+  const getIcon = () => 
+    <React.Fragment>
+      {getStandardIcon()}
+      {getAltIcon()}
+    </React.Fragment>
+
+  const out = (
     <ListItem
       button
       component={NavLink}
       // to={item.path}
-      to={`/${item.id}`}
+      to={`/${id}`}
       activeClassName="active"
-      className={classNames(classes.item, listItemPadding, 'list-item text-white', active)} // md:rounded-full
+      className={classNames(item, listItemPadding, 'list-item text-white', active,)} // md:rounded-full
       onClick={navbarCloseMobile}
-      exact={item.exact}
-      title={item.title}
+      exact={exact}
+      title={title}
     >
       {
-        item.icon
+        ( icon || altIcon )
         ?
-        <Icon
-          className="list-item-icon flex-no-shrink text-white"
-          color="action"
-        >{item.icon}</Icon>
+        getIcon()
         :
         <span className="mr-32" />
       }
-      {item && item.altIcon && (
-        <span
-          className="list-item-icon flex-no-shrink text-white mt-8 ml-4 mr-3"
-          color="action"
-        >{item.altIcon}</span>
-      )}
       <ListItemText
         classes={{ primary: 'list-item-text-primary text-white' }} // this 'text-white' is the one that works!
         className="list-item-text ml-16 text-white"
         color="action"
-        primary={item.title}
+        primary={title}
       />
-      {item && item.badge && (
-        <FuseNavBadge badge={item.badge} />
+      {badge && (
+        <FuseNavBadge badge={badge} />
       )}
     </ListItem>
   );
+
+  return out;
 }
 
 function mapDispatchToProps(dispatch) {

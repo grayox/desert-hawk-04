@@ -588,25 +588,30 @@ export const getComponentsNavConfig = props => {
 
   const geoLocationKey = [ geoNation, geoRegion, geoLocal, ].join(' | ');
   const geoLocationTypeKey = [ geoLocationKey, bizCategory, ].join(' | ');
-  
-  const out = [
+    
     // import { componentsNavConfig, } from 'app/config/AppConfig';
     // * Note: It is currently not possible to use expressions like `loader : () => import(item.path)`
     // The path must be hard coded in src/app/config/Routes.js. See https://github.com/jamiebuilds/react-loadable
+
+    // item.path = '/' + item.id
+    // We eliminated .path as a separate property and made it a derivative of .id by refactoring the following files
+    // 1. src/@fuse/components/FuseNavigation/vertical/FuseNavVerticalItem.js > FuseNavVerticalItem.ListItem.to
+    // 2. src/app/components/RoutePageTitle.js > getItem > .filter()
+    // 3. src/app/config/Routes.js > getItems > .filter()
+    
+    // Modify the same 3 above files to recursively flatten the config object to filter by .id at any arbitrarily deep level
+    // How to recursively filter for nested .id: https://stackoverflow.com/a/57714572/1640892
+
+  const out = [
     {
       // eslint-disable-next-line
       description: '\
         This is your overview of metrics summarizing your use of this app.\
       ',
-      // id determines item.path @ src/@fuse/components/FuseNavigation/vertical/FuseNavVerticalItem.js > FuseNavVerticalItem.ListItem.to
-      // match id method goes:
-      // 1. above
-      // 2. src/app/components/RoutePageTitle.js > getItem > .filter()
-      // 3. src/app/config/Routes.js > getItems > .filter()
-      id        : 'dashboard',
       title     : 'Dashboard',
-      type      : 'item', // 'item' | 'group' | 'collapse' | 'divider' // see: src/@fuse/components/FuseNavigation/FuseNavigation.js
+      id        : 'dashboard',
       icon      : 'dashboard',
+      type      : 'item', // 'item' | 'group' | 'collapse' | 'divider' // see: src/@fuse/components/FuseNavigation/FuseNavigation.js
       bottomNav : true,
       // see src/app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
@@ -623,10 +628,10 @@ export const getComponentsNavConfig = props => {
         into your archive from the number of lead referrals you have made in your outbox.\
         And after all approprite adjustments for disputed leads have be settled.\
       ',
-      id        : 'inbox',
       title     : 'Inbox',
-      type      : 'item',
+      id        : 'inbox',
       icon      : 'cloud_download',
+      type      : 'item',
       bottomNav : true,
       // see src/app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
@@ -767,10 +772,10 @@ export const getComponentsNavConfig = props => {
         lead referrals you have made, after all dispute adjustments are settled, in order to\
         determine your net lead balance.\
       ',
-      id        : 'archive',
       title     : 'Archive',
-      type      : 'item',
+      id        : 'archive',
       icon      : 'folder',
+      type      : 'item',
       bottomNav : true,
       // see src/app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
@@ -844,10 +849,10 @@ export const getComponentsNavConfig = props => {
         the more leads are available to you in your inbox. You must have a positive net lead balance\
         in order to have leads available for you to claim.\
       ',
-      id    : 'outbox',
       title : 'Outbox',
-      type  : 'item',
+      id    : 'outbox',
       icon  : 'cloud_upload',
+      type  : 'item',
       // see src/app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
       component  : () => FuseLoadable({loader: () => import('app/layouts/crud/CRUDRouter')}),
@@ -959,10 +964,10 @@ export const getComponentsNavConfig = props => {
         This is the list of your contacts. The people whom you can feel comfortable sending your referrals to.\
         They will ultimately be matched to your referrals, just as you are, based on location and service field.\
       ',
-      id    : 'contacts',
       title : 'Contacts',
-      type  : 'item',
+      id    : 'contacts',
       icon  : 'account_box', // 'contacts',
+      type  : 'item',
       // see src/app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
       component  : () => FuseLoadable({loader: () => import('app/layouts/crud/CRUDRouter')}),
@@ -1037,24 +1042,24 @@ export const getComponentsNavConfig = props => {
       description: '\
         This is where you can see all the challenges you made and that were made against you for poor lead quality.\
       ',
-      id          : 'challenges',
       title       : 'Challenges',
-      type        : 'collapse',
+      id          : 'challenges',
       icon        : 'security', // policy // after material-ui/icons 4.x upgrade
+      type        : 'collapse',
       indentLevel : 0,
       children    : [
         {
-          id          : 'challenges-inbound',
           title       : 'Inbound',
-          type        : 'collapse',
+          id          : 'challenges-inbound',
           icon        : false,
+          type        : 'collapse',
           indentLevel : 1,
           children    : [
             {
-              id          : 'challenges-inbound-pending',
               title       : 'Pending',
-              type        : 'item',
+              id          : 'challenges-inbound-pending',
               icon        : false,
+              type        : 'item',
               indentLevel : 2,
               // exact: true,
               // see src/app/config/Routes.js
@@ -1101,10 +1106,10 @@ export const getComponentsNavConfig = props => {
               },              
             },
             {
-              id          : 'challenges-inbound-won',
               title       : 'Won',
-              type        : 'item',
+              id          : 'challenges-inbound-won',
               icon        : false,
+              type        : 'item',
               indentLevel : 2,
               // exact: true,
               // see src/app/config/Routes.js
@@ -1112,10 +1117,10 @@ export const getComponentsNavConfig = props => {
               component   : () => FuseLoadable({loader: () => import('app/layouts/crud/CRUDRouter')}),
             },
             {
-              id          : 'challenges-inbound-lost',
               title       : 'Lost',
-              type        : 'item',
+              id          : 'challenges-inbound-lost',
               icon        : false,
+              type        : 'item',
               indentLevel : 2,
               // exact: true,
               // see src/app/config/Routes.js
@@ -1125,17 +1130,17 @@ export const getComponentsNavConfig = props => {
           ],
         },
         {
-          id          : 'challenges-outbound',
           title       : 'Outbound',
-          type        : 'collapse',
+          id          : 'challenges-outbound',
           icon        : false,
+          type        : 'collapse',
           indentLevel : 1,
           children    : [
             {
-              id          : 'challenges-outbound-pending',
               title       : 'Pending',
-              type        : 'item',
+              id          : 'challenges-outbound-pending',
               icon        : false,
+              type        : 'item',
               indentLevel : 2,
               // exact: true,
               // see src/app/config/Routes.js
@@ -1143,10 +1148,10 @@ export const getComponentsNavConfig = props => {
               component   : () => FuseLoadable({loader: () => import('app/layouts/crud/CRUDRouter')}),
             },
             {
-              id          : 'challenges-outbound-won',
               title       : 'Won',
-              type        : 'item',
+              id          : 'challenges-outbound-won',
               icon        : false,
+              type        : 'item',
               indentLevel : 2,
               // exact: true,
               // see src/app/config/Routes.js
@@ -1154,10 +1159,10 @@ export const getComponentsNavConfig = props => {
               component   : () => FuseLoadable({loader: () => import('app/layouts/crud/CRUDRouter')}),
             },
             {
-              id          : 'challenges-outbound-lost',
               title       : 'Lost',
-              type        : 'item',
+              id          : 'challenges-outbound-lost',
               icon        : false,
+              type        : 'item',
               indentLevel : 2,
               // exact: true,
               // see src/app/config/Routes.js
@@ -1181,10 +1186,10 @@ export const getComponentsNavConfig = props => {
         For example, this is where you tell us your service field and your location so we\
         can properly match you to the leads that are referred by other members.\
       ',
-      id        : 'settings',
       title     : 'Settings',
-      type      : 'item',
+      id        : 'settings',
       icon      : 'settings',
+      type      : 'item',
       bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
       overhead  : true,
       // see src/app/config/Routes.js
@@ -1196,10 +1201,10 @@ export const getComponentsNavConfig = props => {
       description: '\
         Here you can tell us how the app is working for you and suggest ways we can improve it.\
       ',
-      id        : 'feedback',
       title     : 'Send feedback',
-      type      : 'item',
+      id        : 'feedback',
       icon      : 'feedback',
+      type      : 'item',
       bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
       overhead  : true,
       // see src/app/config/Routes.js
@@ -1211,10 +1216,10 @@ export const getComponentsNavConfig = props => {
       description: '\
         Here are some questions users commonly ask us. You can read the questions and there answers here.\
       ',
-      id        : 'help',
       title     : 'Help',
-      type      : 'item',
+      id        : 'help',
       icon      : 'help',
+      type      : 'item',
       bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
       overhead  : true,
       // see src/app/config/Routes.js
@@ -1226,8 +1231,8 @@ export const getComponentsNavConfig = props => {
       description: '\
         Click here to log out of the app.\
       ',
-      id        : 'logout',
       title     : 'Logout',
+      id        : 'logout',
       type      : 'item',
       altIcon   : (
         <IconContext.Provider value={{ color: 'white', className: 'text-20 flex-no-shrink' }}>

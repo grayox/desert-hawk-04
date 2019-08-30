@@ -105,7 +105,7 @@ class FuseNavVerticalCollapse extends Component {
           onClick={this.handleClick}
         >
           {
-            item.icon
+            ( item.icon || item.altIcon )
             ?
             // <Icon color="action" className="text-16 flex-no-shrink">{item.icon}</Icon>
             <Icon color="action" className="text-10px flex-no-shrink mx-3 text-white">{item.icon}</Icon>
