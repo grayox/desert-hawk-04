@@ -18,9 +18,9 @@ import {
 
 const RoutePageTitle = () => <Route path="/" component={pageTitle} />
 
-const getItem = pathname => {
+const getItem = id => {
   const componentsNavConfig = getComponentsNavConfig();
-  const items = componentsNavConfig.filter(r => (r.path === pathname));
+  const items = componentsNavConfig.filter(r => (r.id === id));
   // console.log('items\n', items);
   const out = ((items && items[0]) || undefined );
   return out;
@@ -31,7 +31,7 @@ const Transition = props => <Slide direction="up" {...props} />
 const pageTitle = ({ location, }) => {
   // console.log('location\n', location,);
   const { pathname, } = location;
-  const item = getItem(pathname);
+  const item = getItem(pathname.slice(1));
   if(!item) return null;
 
   const [ dialogIsOpen, setDialogIsOpen, ] = useState(false);

@@ -116,7 +116,8 @@ class Routes extends Component {
           <Route path='/' exact component={FuseLoadable({loader: () => import('app/views/dashboard/DashboardContainer')})} />
           <Route path='/login'  component={FuseLoadable({loader: () => import('app/views/dashboard/DashboardContainer')})} />
           {
-          items.map(({ id, path, component, }) => <Route key={id} path={path} component={component()} />)
+          // items.map(({ id, path, component, }) => <Route key={id} path={path} component={component()} />)
+          items.map(({ id, component, }) => <Route key={id} path={`/${id}`} component={component()} />)
           }
           <Route path='/logout' component={FuseLoadable({loader: () => import('app/views/Logout'  )})} />
           <Route                component={FuseLoadable({loader: () => import('app/views/Error404')})} />

@@ -73,7 +73,8 @@ const FuseNavVerticalItem = ({ item, classes, navbarCloseMobile, active }) => { 
     <ListItem
       button
       component={NavLink}
-      to={item.path}
+      // to={item.path}
+      to={`/${item.id}`}
       activeClassName="active"
       className={classNames(classes.item, listItemPadding, 'list-item text-white', active)} // md:rounded-full
       onClick={navbarCloseMobile}

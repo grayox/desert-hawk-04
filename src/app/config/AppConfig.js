@@ -598,8 +598,12 @@ export const getComponentsNavConfig = props => {
       description: '\
         This is your overview of metrics summarizing your use of this app.\
       ',
+      // id determines item.path @ src/@fuse/components/FuseNavigation/vertical/FuseNavVerticalItem.js > FuseNavVerticalItem.ListItem.to
+      // match id method goes:
+      // 1. above
+      // 2. src/app/components/RoutePageTitle.js > getItem > .filter()
+      // 3. src/app/config/Routes.js > getItems > .filter()
       id        : 'dashboard',
-      path      : '/dashboard',
       title     : 'Dashboard',
       type      : 'item', // 'item' | 'group' | 'collapse' | 'divider' // see: src/@fuse/components/FuseNavigation/FuseNavigation.js
       icon      : 'dashboard',
@@ -620,7 +624,6 @@ export const getComponentsNavConfig = props => {
         And after all approprite adjustments for disputed leads have be settled.\
       ',
       id        : 'inbox',
-      path      : '/inbox',
       title     : 'Inbox',
       type      : 'item',
       icon      : 'cloud_download',
@@ -765,7 +768,6 @@ export const getComponentsNavConfig = props => {
         determine your net lead balance.\
       ',
       id        : 'archive',
-      path      : '/archive',
       title     : 'Archive',
       type      : 'item',
       icon      : 'folder',
@@ -843,7 +845,6 @@ export const getComponentsNavConfig = props => {
         in order to have leads available for you to claim.\
       ',
       id    : 'outbox',
-      path  : '/outbox',
       title : 'Outbox',
       type  : 'item',
       icon  : 'cloud_upload',
@@ -959,7 +960,6 @@ export const getComponentsNavConfig = props => {
         They will ultimately be matched to your referrals, just as you are, based on location and service field.\
       ',
       id    : 'contacts',
-      path  : '/contacts',
       title : 'Contacts',
       type  : 'item',
       icon  : 'account_box', // 'contacts',
@@ -1038,7 +1038,6 @@ export const getComponentsNavConfig = props => {
         This is where you can see all the challenges you made and that were made against you for poor lead quality.\
       ',
       id          : 'challenges',
-      path        : '/challenges',
       title       : 'Challenges',
       type        : 'collapse',
       icon        : 'security', // policy // after material-ui/icons 4.x upgrade
@@ -1055,7 +1054,6 @@ export const getComponentsNavConfig = props => {
               id          : 'challenges-inbound-pending',
               title       : 'Pending',
               type        : 'item',
-              path        : '/challenges-inbound-pending',
               icon        : false,
               indentLevel : 2,
               // exact: true,
@@ -1106,7 +1104,6 @@ export const getComponentsNavConfig = props => {
               id          : 'challenges-inbound-won',
               title       : 'Won',
               type        : 'item',
-              path        : '/challenges/inbound/won',
               icon        : false,
               indentLevel : 2,
               // exact: true,
@@ -1118,7 +1115,6 @@ export const getComponentsNavConfig = props => {
               id          : 'challenges-inbound-lost',
               title       : 'Lost',
               type        : 'item',
-              path        : '/challenges/inbound/lost',
               icon        : false,
               indentLevel : 2,
               // exact: true,
@@ -1139,7 +1135,6 @@ export const getComponentsNavConfig = props => {
               id          : 'challenges-outbound-pending',
               title       : 'Pending',
               type        : 'item',
-              path        : '/challenges/outbound/pending',
               icon        : false,
               indentLevel : 2,
               // exact: true,
@@ -1151,7 +1146,6 @@ export const getComponentsNavConfig = props => {
               id          : 'challenges-outbound-won',
               title       : 'Won',
               type        : 'item',
-              path        : '/challenges/outbound/won',
               icon        : false,
               indentLevel : 2,
               // exact: true,
@@ -1163,7 +1157,6 @@ export const getComponentsNavConfig = props => {
               id          : 'challenges-outbound-lost',
               title       : 'Lost',
               type        : 'item',
-              path        : '/challenges/outbound/lost',
               icon        : false,
               indentLevel : 2,
               // exact: true,
@@ -1189,7 +1182,6 @@ export const getComponentsNavConfig = props => {
         can properly match you to the leads that are referred by other members.\
       ',
       id        : 'settings',
-      path      : '/settings',
       title     : 'Settings',
       type      : 'item',
       icon      : 'settings',
@@ -1205,7 +1197,6 @@ export const getComponentsNavConfig = props => {
         Here you can tell us how the app is working for you and suggest ways we can improve it.\
       ',
       id        : 'feedback',
-      path      : '/feedback',
       title     : 'Send feedback',
       type      : 'item',
       icon      : 'feedback',
@@ -1221,7 +1212,6 @@ export const getComponentsNavConfig = props => {
         Here are some questions users commonly ask us. You can read the questions and there answers here.\
       ',
       id        : 'help',
-      path      : '/help',
       title     : 'Help',
       type      : 'item',
       icon      : 'help',
@@ -1237,7 +1227,6 @@ export const getComponentsNavConfig = props => {
         Click here to log out of the app.\
       ',
       id        : 'logout',
-      path      : '/logout',
       title     : 'Logout',
       type      : 'item',
       altIcon   : (
