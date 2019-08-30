@@ -438,8 +438,10 @@ export const getFilterNested = ( searchable , key , value , trigger='children', 
   // key: string: the property name of the element to target with value matching argument
   // value: string | number | boolean: the value to match
   // trigger: string: 'children': recursively flattens when encountering this critical property
+  // return: array
   const flattenedArray = getFlatten( searchable, trigger, );
-  const out = flattenedArray.filter( e => e[key]=== value );
+  // const out = flattenedArray.filter( e => e[key]=== value );
+  const out = flattenedArray.filter( e => _.get(e, key,) === value );
   return out;
 }
 
@@ -452,9 +454,11 @@ export const getFindNested = ( searchable , key , value , ) => {
   // !imoportant: must contain property named 'children' to recursively search deeper nested levels
   // key: string: the property name of the element to target with value matching argument
   // value: string | number | boolean: the value to match
+  // return: object
   let out = null;
   searchable.some( e => {
-    if ( e[key] === value ) {
+    // if ( e[key] === value ) {
+    if ( _.get(e, key,) === value ) {
       out = e;
       return out;
     }
@@ -474,11 +478,12 @@ export const getCreatableFields = readablePath => {
   // console.log('readablePath\n', readablePath,); // 'leads'
   const componentsNavConfig = getComponentsNavConfig();
   // console.log('componentsNavConfig\n', componentsNavConfig,);
-  const filteredArray = _.filter(componentsNavConfig, {crudConfig: {creatable: {path: readablePath,}}});
+  // const filteredArray = _.filter(componentsNavConfig, {crudConfig: {creatable: {path: readablePath,}}});
   // console.log('componentsNavConfig\n', componentsNavConfig,);
   // console.log('readable\n', readable,);
   // console.log('filteredArray\n', filteredArray,); // array // crudConfig element where id === 'outbox'
-  const target = filteredArray[0];
+  // const target = filteredArray[0];
+  const target = getFindNested(componentsNavConfig, 'crudConfig.creatable.path', readablePath,);
   // console.log('target\n', target,); // single item // crudConfig element where id === 'outbox'
   if(typeof target != 'object') throw new Error('Target value is not an object');
   const { fields, } = target && target.crudConfig && target.crudConfig.creatable;
@@ -1152,6 +1157,7 @@ export const getComponentsNavConfig = props => {
                       // moment(item.createdAt).fromNow(),
                     ],
                   },
+                  listPaneHeaderChips: [ 'challenges', 'inbound', 'pending', ],
                 },
                 updatable: false,
                 deletable: false,
@@ -1202,6 +1208,7 @@ export const getComponentsNavConfig = props => {
                       // moment(item.createdAt).fromNow(),
                     ],
                   },
+                  listPaneHeaderChips: [ 'challenges', 'inbound', 'won', ],
                 },
                 updatable: false,
                 deletable: false,
@@ -1252,6 +1259,7 @@ export const getComponentsNavConfig = props => {
                       // moment(item.createdAt).fromNow(),
                     ],
                   },
+                  listPaneHeaderChips: [ 'challenges', 'inbound', 'lost', ],
                 },
                 updatable: false,
                 deletable: false,
@@ -1311,6 +1319,7 @@ export const getComponentsNavConfig = props => {
                       // moment(item.createdAt).fromNow(),
                     ],
                   },
+                  listPaneHeaderChips: [ 'challenges', 'outbound', 'pending', ],
                 },
                 updatable: false,
                 deletable: false,
@@ -1361,6 +1370,7 @@ export const getComponentsNavConfig = props => {
                       // moment(item.createdAt).fromNow(),
                     ],
                   },
+                  listPaneHeaderChips: [ 'challenges', 'outbound', 'won', ],
                 },
                 updatable: false,
                 deletable: false,
@@ -1411,6 +1421,7 @@ export const getComponentsNavConfig = props => {
                       // moment(item.createdAt).fromNow(),
                     ],
                   },
+                  listPaneHeaderChips: [ 'challenges', 'outbound', 'lost', ],
                 },
                 updatable: false,
                 deletable: false,
