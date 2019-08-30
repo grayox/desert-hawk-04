@@ -169,6 +169,7 @@ const NarrativeForm = props => {
         {
           typeConfig.map( ({value, label,},) =>
             <FormControlLabel
+              key={value}
               value={value}
               control={<Radio color="secondary" />} // primary
               label={label}

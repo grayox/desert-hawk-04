@@ -601,7 +601,7 @@ export const getComponentsNavConfig = props => {
       id        : 'dashboard',
       path      : '/dashboard',
       title     : 'Dashboard',
-      type      : 'item',
+      type      : 'item', // 'item' | 'group' | 'collapse' | 'divider' // see: src/@fuse/components/FuseNavigation/FuseNavigation.js
       icon      : 'dashboard',
       bottomNav : true,
       // see src/app/config/Routes.js
@@ -1037,16 +1037,143 @@ export const getComponentsNavConfig = props => {
       description: '\
         This is where you can see all the challenges you made and that were made against you for poor lead quality.\
       ',
-      id        : 'challenges',
-      path      : '/challenges',
-      title     : 'Challenges',
-      type      : 'item',
-      icon      : 'security', // policy // after material-ui/icons 4.x upgrade
-      bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
-      overhead  : false,
-      // see src/app/config/Routes.js
-      // also update in: src/main/content/components/ComponentsConfig.js
-      component : () => FuseLoadable({loader: () => import('app/views/Tabs')}),
+      id          : 'challenges',
+      path        : '/challenges',
+      title       : 'Challenges',
+      type        : 'collapse',
+      icon        : 'security', // policy // after material-ui/icons 4.x upgrade
+      indentLevel : 0,
+      children    : [
+        {
+          id          : 'challenges-inbound',
+          title       : 'Inbound',
+          type        : 'collapse',
+          icon        : false,
+          indentLevel : 1,
+          children    : [
+            {
+              id          : 'challenges-inbound-pending',
+              title       : 'Pending',
+              type        : 'item',
+              path        : '/challenges-inbound-pending',
+              icon        : false,
+              indentLevel : 2,
+              // exact: true,
+              // see src/app/config/Routes.js
+              // also update in: src/main/content/components/ComponentsConfig.js
+              component   : () => FuseLoadable({loader: () => import('app/layouts/crud/CRUDRouter')}),
+              crudConfig  : {
+                miniDashboard: [
+                  'challenges-inbound-pending'  ,
+                  'challenges-inbound-won'      ,
+                  'challenges-inbound-lost'     ,
+                  'challenges-outbound-pending' ,
+                  'challenges-outbound-won'     ,
+                  'challenges-outbound-lost'    ,
+                ],
+                condensed: true,
+                searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
+                filterable: true,
+                sortable: true, // see searchable
+                starrable: false, // true,
+                taggable: false,
+                alertable: false,
+                creatable: false,
+                readable: {
+                  path: 'leads',
+                  // src/app/containers/LoadAsync.js
+                  where: [
+                    [ 'createdBy' , '==' , uid , ] ,
+                    [ 'deletedAt' , '==' , 0   , ] ,
+                  ],
+                  orderBy: [ 'createdAt', 'desc', ] ,
+                  itemSummary: {
+                    primaryText: item && item.name, // item.bizCategory && _.filter(bizCategoryItems, {value:item.bizCategory,},)[0].label, // || item.geoLocal,
+                    // secondaryText: `${item && getValueMaskBizCategory(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
+                    secondaryChips: [
+                      (item && getValueMaskBizCategory(item.bizCategory,)),
+                      // (item && item.zipInput && item.zipInput.city),
+                      // moment(item.createdAt).fromNow(),
+                    ],
+                  },
+                },
+                updatable: false,
+                deletable: false,
+                actionable: false,
+              },              
+            },
+            {
+              id          : 'challenges-inbound-won',
+              title       : 'Won',
+              type        : 'item',
+              path        : '/challenges/inbound/won',
+              icon        : false,
+              indentLevel : 2,
+              // exact: true,
+              // see src/app/config/Routes.js
+              // also update in: src/main/content/components/ComponentsConfig.js
+              component   : () => FuseLoadable({loader: () => import('app/layouts/crud/CRUDRouter')}),
+            },
+            {
+              id          : 'challenges-inbound-lost',
+              title       : 'Lost',
+              type        : 'item',
+              path        : '/challenges/inbound/lost',
+              icon        : false,
+              indentLevel : 2,
+              // exact: true,
+              // see src/app/config/Routes.js
+              // also update in: src/main/content/components/ComponentsConfig.js
+              component   : () => FuseLoadable({loader: () => import('app/layouts/crud/CRUDRouter')}),
+            },
+          ],
+        },
+        {
+          id          : 'challenges-outbound',
+          title       : 'Outbound',
+          type        : 'collapse',
+          icon        : false,
+          indentLevel : 1,
+          children    : [
+            {
+              id          : 'challenges-outbound-pending',
+              title       : 'Pending',
+              type        : 'item',
+              path        : '/challenges/outbound/pending',
+              icon        : false,
+              indentLevel : 2,
+              // exact: true,
+              // see src/app/config/Routes.js
+              // also update in: src/main/content/components/ComponentsConfig.js
+              component   : () => FuseLoadable({loader: () => import('app/layouts/crud/CRUDRouter')}),
+            },
+            {
+              id          : 'challenges-outbound-won',
+              title       : 'Won',
+              type        : 'item',
+              path        : '/challenges/outbound/won',
+              icon        : false,
+              indentLevel : 2,
+              // exact: true,
+              // see src/app/config/Routes.js
+              // also update in: src/main/content/components/ComponentsConfig.js
+              component   : () => FuseLoadable({loader: () => import('app/layouts/crud/CRUDRouter')}),
+            },
+            {
+              id          : 'challenges-outbound-lost',
+              title       : 'Lost',
+              type        : 'item',
+              path        : '/challenges/outbound/lost',
+              icon        : false,
+              indentLevel : 2,
+              // exact: true,
+              // see src/app/config/Routes.js
+              // also update in: src/main/content/components/ComponentsConfig.js
+              component   : () => FuseLoadable({loader: () => import('app/layouts/crud/CRUDRouter')}),
+            },
+          ],
+        },
+      ],
     },
 
     // divider

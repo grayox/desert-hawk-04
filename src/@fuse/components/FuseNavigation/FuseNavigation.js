@@ -25,6 +25,7 @@ class FuseNavigation extends Component {
       <List className="whitespace-no-wrap">
         {
           navigation.map( item => (
+            // item.type is defined at src/app/config/AppConfig.js > getComponentsNavConfig.out[n].type
 
             <React.Fragment key={item.id}>
           

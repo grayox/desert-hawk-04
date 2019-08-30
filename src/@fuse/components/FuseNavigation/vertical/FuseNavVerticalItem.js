@@ -24,7 +24,7 @@ const defaultProps = {};
 const styles = theme => ({
   item: {
     height: 46, // 40 is original value; 46 is per spec: https://material.io/design/components/navigation-drawer.html#specs
-    color: 'white', //'inherit!important',
+    // color: 'white', //'inherit!important',
     textDecoration: 'none!important',
 
     // rounded right border
@@ -80,12 +80,16 @@ const FuseNavVerticalItem = ({ item, classes, navbarCloseMobile, active }) => { 
       exact={item.exact}
       title={item.title}
     >
-      {item && item.icon && (
+      {
+        item.icon
+        ?
         <Icon
           className="list-item-icon flex-no-shrink text-white"
           color="action"
         >{item.icon}</Icon>
-      )}
+        :
+        <span className="mr-32" />
+      }
       {item && item.altIcon && (
         <span
           className="list-item-icon flex-no-shrink text-white mt-8 ml-4 mr-3"
