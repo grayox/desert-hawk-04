@@ -4,7 +4,7 @@ import { compose, } from 'redux';
 import { connect, } from 'react-redux';
 
 import _ from '@lodash';
-import { getComponentsNavConfig, } from 'app/config/AppConfig';
+import { getComponentsNavConfig, getFindNested, } from 'app/config/AppConfig';
 import CRUDContainer from './CRUDContainer';
 
 const getChild = ({ match: { params: { id }}, profile, settings, dashboard, }) => {
@@ -12,8 +12,9 @@ const getChild = ({ match: { params: { id }}, profile, settings, dashboard, }) =
   const args = { profile, settings, };
   // console.log('args\n', args,);
   const componentsNavConfig = getComponentsNavConfig(args);
-  const matches = _.filter(componentsNavConfig, {id,},);
-  const item = matches[0];
+  // const matches = _.filter(componentsNavConfig, {id,},);
+  // const item = matches[0];
+  const item = getFindNested(componentsNavConfig, 'id', id,);
   const { crudConfig, } = item;
   // console.log('crudConfig\n', crudConfig,);
   const {

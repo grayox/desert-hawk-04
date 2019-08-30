@@ -1,6 +1,6 @@
 import React, { useState, } from 'react';
 import { Route, Redirect, } from "react-router-dom";
-import { getComponentsNavConfig, } from 'app/config/AppConfig.js';
+import { getComponentsNavConfig, getFilterNested, } from 'app/config/AppConfig.js';
 
 import {
   Button, Slide, Tooltip, Zoom, // Chip, Typography, // withStyles
@@ -20,7 +20,8 @@ const RoutePageTitle = () => <Route path="/" component={pageTitle} />
 
 const getItem = id => {
   const componentsNavConfig = getComponentsNavConfig();
-  const items = componentsNavConfig.filter(r => (r.id === id));
+  // const items = componentsNavConfig.filter(r => (r.id === id));
+  const items = getFilterNested( componentsNavConfig, 'id', id, );
   // console.log('items\n', items);
   const out = ((items && items[0]) || undefined );
   return out;

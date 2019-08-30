@@ -419,6 +419,50 @@ const getFormFieldProps = (s, n,) => {
   return out; // adorned form field
 }
 
+// function to create a nice, single level structure
+// ref: https://stackoverflow.com/a/57714910/1640892
+const getFlatten = ( a, trigger='children', ) => {
+  // a: array: flattens sub arrays containing trigger property
+  // trigger: string: recursively flattens when encountering this critical property: 'children'
+  return a.reduce( ( accum, e, ) => {
+    accum.push(e,);
+    if (e[trigger]) accum = accum.concat(getFlatten(e[trigger]));
+    return accum;
+  }, []);
+};
+
+// returns all found // ref: https://stackoverflow.com/a/57714910/1640892
+export const getFilterNested = ( searchable , key , value , trigger='children', ) => {
+  // searchable: array: array contains elements to iterate search over;
+  // !imoportant: must contain property named 'children' to recursively search deeper nested levels
+  // key: string: the property name of the element to target with value matching argument
+  // value: string | number | boolean: the value to match
+  // trigger: string: 'children': recursively flattens when encountering this critical property
+  const flattenedArray = getFlatten( searchable, trigger, );
+  const out = flattenedArray.filter( e => e[key]=== value );
+  return out;
+}
+
+// returns first found // ref: https://stackoverflow.com/a/57714572/1640892
+// use this one (over getFilterNested()) to replace the following pattern:
+// const matches = _.filter(componentsNavConfig, {id: navComponentId,},);
+// const component = matches[0];
+export const getFindNested = ( searchable , key , value , ) => {
+  // searchable: array: array contains elements to iterate search over;
+  // !imoportant: must contain property named 'children' to recursively search deeper nested levels
+  // key: string: the property name of the element to target with value matching argument
+  // value: string | number | boolean: the value to match
+  let out = null;
+  searchable.some( e => {
+    if ( e[key] === value ) {
+      out = e;
+      return out;
+    }
+    if (!out && e.children) out = getFindNested(e.children, key, value,);
+  })
+  return out;
+}
+
 export const getForm = arrayOfIds =>
   // arrayOfIds: array of strings: ['name', 'phone', 'email',]
   arrayOfIds.map((id, index,) => getFormFieldProps(id, index,));
@@ -599,7 +643,11 @@ export const getComponentsNavConfig = props => {
     // 2. src/app/components/RoutePageTitle.js > getItem > .filter()
     // 3. src/app/config/Routes.js > getItems > .filter()
     
-    // Modify the same 3 above files to recursively flatten the config object to filter by .id at any arbitrarily deep level
+    // Modify items numbered 2 and 3 in above list to recursively flatten the config object to filter by .id at any arbitrarily deep level
+    // Also the following files:
+    // 1. getCreatableFields.filteredArray
+    // 2. src/app/layouts/crud/CRUDRouter.js
+    // 3. src/app/layouts/crud/ItemSummary.js
     // How to recursively filter for nested .id: https://stackoverflow.com/a/57714572/1640892
 
   const out = [
@@ -1046,21 +1094,26 @@ export const getComponentsNavConfig = props => {
       id          : 'challenges',
       icon        : 'security', // policy // after material-ui/icons 4.x upgrade
       type        : 'collapse',
-      indentLevel : 0,
+      // indentLevel can be used in the future to programmatically set the indentation level at:
+      //   src/@fuse/components/FuseNavigation/vertical/FuseNavVerticalItem.js
+      //   src/@fuse/components/FuseNavigation/vertical/FuseNavVerticalCollapse.js
+      // the latter, FuseNavVerticalCollapse, already uses a variable called: nestedLevel,
+      // but that variable doesn't seem to be in operation at present.
+      // indentLevel : 0,
       children    : [
         {
           title       : 'Inbound',
           id          : 'challenges-inbound',
           icon        : false,
           type        : 'collapse',
-          indentLevel : 1,
+          // indentLevel : 1,
           children    : [
             {
               title       : 'Pending',
               id          : 'challenges-inbound-pending',
               icon        : false,
               type        : 'item',
-              indentLevel : 2,
+              // indentLevel : 2,
               // exact: true,
               // see src/app/config/Routes.js
               // also update in: src/main/content/components/ComponentsConfig.js
@@ -1110,22 +1163,100 @@ export const getComponentsNavConfig = props => {
               id          : 'challenges-inbound-won',
               icon        : false,
               type        : 'item',
-              indentLevel : 2,
+              // indentLevel : 2,
               // exact: true,
               // see src/app/config/Routes.js
               // also update in: src/main/content/components/ComponentsConfig.js
               component   : () => FuseLoadable({loader: () => import('app/layouts/crud/CRUDRouter')}),
+              crudConfig  : {
+                miniDashboard: [
+                  'challenges-inbound-pending'  ,
+                  'challenges-inbound-won'      ,
+                  'challenges-inbound-lost'     ,
+                  'challenges-outbound-pending' ,
+                  'challenges-outbound-won'     ,
+                  'challenges-outbound-lost'    ,
+                ],
+                condensed: true,
+                searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
+                filterable: true,
+                sortable: true, // see searchable
+                starrable: false, // true,
+                taggable: false,
+                alertable: false,
+                creatable: false,
+                readable: {
+                  path: 'leads',
+                  // src/app/containers/LoadAsync.js
+                  where: [
+                    [ 'createdBy' , '==' , uid , ] ,
+                    [ 'deletedAt' , '==' , 0   , ] ,
+                  ],
+                  orderBy: [ 'createdAt', 'desc', ] ,
+                  itemSummary: {
+                    primaryText: item && item.name, // item.bizCategory && _.filter(bizCategoryItems, {value:item.bizCategory,},)[0].label, // || item.geoLocal,
+                    // secondaryText: `${item && getValueMaskBizCategory(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
+                    secondaryChips: [
+                      (item && getValueMaskBizCategory(item.bizCategory,)),
+                      // (item && item.zipInput && item.zipInput.city),
+                      // moment(item.createdAt).fromNow(),
+                    ],
+                  },
+                },
+                updatable: false,
+                deletable: false,
+                actionable: false,
+              },
             },
             {
               title       : 'Lost',
               id          : 'challenges-inbound-lost',
               icon        : false,
               type        : 'item',
-              indentLevel : 2,
+              // indentLevel : 2,
               // exact: true,
               // see src/app/config/Routes.js
               // also update in: src/main/content/components/ComponentsConfig.js
               component   : () => FuseLoadable({loader: () => import('app/layouts/crud/CRUDRouter')}),
+              crudConfig  : {
+                miniDashboard: [
+                  'challenges-inbound-pending'  ,
+                  'challenges-inbound-won'      ,
+                  'challenges-inbound-lost'     ,
+                  'challenges-outbound-pending' ,
+                  'challenges-outbound-won'     ,
+                  'challenges-outbound-lost'    ,
+                ],
+                condensed: true,
+                searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
+                filterable: true,
+                sortable: true, // see searchable
+                starrable: false, // true,
+                taggable: false,
+                alertable: false,
+                creatable: false,
+                readable: {
+                  path: 'leads',
+                  // src/app/containers/LoadAsync.js
+                  where: [
+                    [ 'createdBy' , '==' , uid , ] ,
+                    [ 'deletedAt' , '==' , 0   , ] ,
+                  ],
+                  orderBy: [ 'createdAt', 'desc', ] ,
+                  itemSummary: {
+                    primaryText: item && item.name, // item.bizCategory && _.filter(bizCategoryItems, {value:item.bizCategory,},)[0].label, // || item.geoLocal,
+                    // secondaryText: `${item && getValueMaskBizCategory(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
+                    secondaryChips: [
+                      (item && getValueMaskBizCategory(item.bizCategory,)),
+                      // (item && item.zipInput && item.zipInput.city),
+                      // moment(item.createdAt).fromNow(),
+                    ],
+                  },
+                },
+                updatable: false,
+                deletable: false,
+                actionable: false,
+              },
             },
           ],
         },
@@ -1134,40 +1265,157 @@ export const getComponentsNavConfig = props => {
           id          : 'challenges-outbound',
           icon        : false,
           type        : 'collapse',
-          indentLevel : 1,
+          // indentLevel : 1,
           children    : [
             {
               title       : 'Pending',
               id          : 'challenges-outbound-pending',
               icon        : false,
               type        : 'item',
-              indentLevel : 2,
+              // indentLevel : 2,
               // exact: true,
               // see src/app/config/Routes.js
               // also update in: src/main/content/components/ComponentsConfig.js
               component   : () => FuseLoadable({loader: () => import('app/layouts/crud/CRUDRouter')}),
+              crudConfig  : {
+                miniDashboard: [
+                  'challenges-inbound-pending'  ,
+                  'challenges-inbound-won'      ,
+                  'challenges-inbound-lost'     ,
+                  'challenges-outbound-pending' ,
+                  'challenges-outbound-won'     ,
+                  'challenges-outbound-lost'    ,
+                ],
+                condensed: true,
+                searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
+                filterable: true,
+                sortable: true, // see searchable
+                starrable: false, // true,
+                taggable: false,
+                alertable: false,
+                creatable: false,
+                readable: {
+                  path: 'leads',
+                  // src/app/containers/LoadAsync.js
+                  where: [
+                    [ 'createdBy' , '==' , uid , ] ,
+                    [ 'deletedAt' , '==' , 0   , ] ,
+                  ],
+                  orderBy: [ 'createdAt', 'desc', ] ,
+                  itemSummary: {
+                    primaryText: item && item.name, // item.bizCategory && _.filter(bizCategoryItems, {value:item.bizCategory,},)[0].label, // || item.geoLocal,
+                    // secondaryText: `${item && getValueMaskBizCategory(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
+                    secondaryChips: [
+                      (item && getValueMaskBizCategory(item.bizCategory,)),
+                      // (item && item.zipInput && item.zipInput.city),
+                      // moment(item.createdAt).fromNow(),
+                    ],
+                  },
+                },
+                updatable: false,
+                deletable: false,
+                actionable: false,
+              },
             },
             {
               title       : 'Won',
               id          : 'challenges-outbound-won',
               icon        : false,
               type        : 'item',
-              indentLevel : 2,
+              // indentLevel : 2,
               // exact: true,
               // see src/app/config/Routes.js
               // also update in: src/main/content/components/ComponentsConfig.js
               component   : () => FuseLoadable({loader: () => import('app/layouts/crud/CRUDRouter')}),
+              crudConfig  : {
+                miniDashboard: [
+                  'challenges-inbound-pending'  ,
+                  'challenges-inbound-won'      ,
+                  'challenges-inbound-lost'     ,
+                  'challenges-outbound-pending' ,
+                  'challenges-outbound-won'     ,
+                  'challenges-outbound-lost'    ,
+                ],
+                condensed: true,
+                searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
+                filterable: true,
+                sortable: true, // see searchable
+                starrable: false, // true,
+                taggable: false,
+                alertable: false,
+                creatable: false,
+                readable: {
+                  path: 'leads',
+                  // src/app/containers/LoadAsync.js
+                  where: [
+                    [ 'createdBy' , '==' , uid , ] ,
+                    [ 'deletedAt' , '==' , 0   , ] ,
+                  ],
+                  orderBy: [ 'createdAt', 'desc', ] ,
+                  itemSummary: {
+                    primaryText: item && item.name, // item.bizCategory && _.filter(bizCategoryItems, {value:item.bizCategory,},)[0].label, // || item.geoLocal,
+                    // secondaryText: `${item && getValueMaskBizCategory(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
+                    secondaryChips: [
+                      (item && getValueMaskBizCategory(item.bizCategory,)),
+                      // (item && item.zipInput && item.zipInput.city),
+                      // moment(item.createdAt).fromNow(),
+                    ],
+                  },
+                },
+                updatable: false,
+                deletable: false,
+                actionable: false,
+              },
             },
             {
               title       : 'Lost',
               id          : 'challenges-outbound-lost',
               icon        : false,
               type        : 'item',
-              indentLevel : 2,
+              // indentLevel : 2,
               // exact: true,
               // see src/app/config/Routes.js
               // also update in: src/main/content/components/ComponentsConfig.js
               component   : () => FuseLoadable({loader: () => import('app/layouts/crud/CRUDRouter')}),
+              crudConfig  : {
+                miniDashboard: [
+                  'challenges-inbound-pending'  ,
+                  'challenges-inbound-won'      ,
+                  'challenges-inbound-lost'     ,
+                  'challenges-outbound-pending' ,
+                  'challenges-outbound-won'     ,
+                  'challenges-outbound-lost'    ,
+                ],
+                condensed: true,
+                searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
+                filterable: true,
+                sortable: true, // see searchable
+                starrable: false, // true,
+                taggable: false,
+                alertable: false,
+                creatable: false,
+                readable: {
+                  path: 'leads',
+                  // src/app/containers/LoadAsync.js
+                  where: [
+                    [ 'createdBy' , '==' , uid , ] ,
+                    [ 'deletedAt' , '==' , 0   , ] ,
+                  ],
+                  orderBy: [ 'createdAt', 'desc', ] ,
+                  itemSummary: {
+                    primaryText: item && item.name, // item.bizCategory && _.filter(bizCategoryItems, {value:item.bizCategory,},)[0].label, // || item.geoLocal,
+                    // secondaryText: `${item && getValueMaskBizCategory(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
+                    secondaryChips: [
+                      (item && getValueMaskBizCategory(item.bizCategory,)),
+                      // (item && item.zipInput && item.zipInput.city),
+                      // moment(item.createdAt).fromNow(),
+                    ],
+                  },
+                },
+                updatable: false,
+                deletable: false,
+                actionable: false,
+              },
             },
           ],
         },

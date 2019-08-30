@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 // import Skeleton from '@material-ui/lab/Skeleton';
 
-import { getComponentsNavConfig, } from 'app/config/AppConfig'; // getBizCategoryLabel,
+import { getComponentsNavConfig, getFindNested, } from 'app/config/AppConfig'; // getBizCategoryLabel,
 
 const styles = theme => ({
   margin: {
@@ -121,8 +121,9 @@ const ItemSummary = ({
   }
 
   const componentsNavConfig = getComponentsNavConfig({ item, });
-  const matches = _.filter(componentsNavConfig, {id: navComponentId,},);
-  const component = matches[0];
+  // const matches = _.filter(componentsNavConfig, {id: navComponentId,},);
+  // const component = matches[0];
+  const component = getFindNested(componentsNavConfig, 'id', navComponentId, );
   const read = component && component.crudConfig && component.crudConfig.readable;
   const {
     // itemSummaryPrimaryText, itemSummaryPrimaryChips,

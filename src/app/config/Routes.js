@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 import { FuseLoadable, } from '@fuse';
 
-import { getComponentsNavConfig, } from 'app/config/AppConfig';
+import { getComponentsNavConfig, getFilterNested, } from 'app/config/AppConfig';
 
 // import Error404 from 'app/views/Error404';
 // import Dashboard from 'app/views/dashboard/Dashboard';
@@ -29,7 +29,9 @@ const styles = theme => ({
 
 const getItems = () => {
   const componentsNavConfig = getComponentsNavConfig();
-  const items = componentsNavConfig.filter(r => (r.type==='item' || r.type==='route'));
+  // const items = componentsNavConfig.filter(r => (r.type==='item' || r.type==='route'));
+  // const items = componentsNavConfig.filter(r => (r.type==='item'));
+  const items = getFilterNested( componentsNavConfig, 'type', 'item', );
   // console.log('items\n', items,);
   return items;
 }

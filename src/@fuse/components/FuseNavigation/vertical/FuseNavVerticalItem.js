@@ -58,7 +58,7 @@ const styles = theme => ({
 });
 
 const FuseNavVerticalItem = ({
-  item: { id=false, exact=false, title='', icon=false, altIcon=false, badge=false, },
+  item: { id=false, exact=false, title='', icon=false, altIcon=false, badge=false, indentLevel=0, },
   classes: { item, },
   navbarCloseMobile, active,
 }) => { // nestedLevel, userRole,
@@ -66,9 +66,9 @@ const FuseNavVerticalItem = ({
   //   return null;
   // }
   // console.log('item\n', item,);
-  console.log('id\n', id,);
-  console.log('icon\n', icon,);
-  console.log('altIcon\n', altIcon,);
+  // console.log('id\n', id,);
+  // console.log('icon\n', icon,);
+  // console.log('altIcon\n', altIcon,);
 
   // control indentation level based on nested hierarchy
   // note: original text sizes can be retrieved from original -orig version of this file: icons: text-16, text: text-14
@@ -138,7 +138,7 @@ function mapDispatchToProps(dispatch) {
   }, dispatch);
 }
 
-function mapStateToProps({ auth, fuse }) {
+function mapStateToProps({ auth, fuse, }) {
   return {
   //   userRole: auth.user.role
   }
