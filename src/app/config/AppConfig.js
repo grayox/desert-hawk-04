@@ -1133,9 +1133,9 @@ export const getComponentsNavConfig = props => {
                   'challenges-outbound-lost'    ,
                 ],
                 condensed: true,
-                searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
-                filterable: true,
-                sortable: true, // see searchable
+                searchable: false, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
+                filterable: false,
+                sortable: false, // see searchable
                 starrable: false, // true,
                 taggable: false,
                 alertable: false,
@@ -1184,9 +1184,9 @@ export const getComponentsNavConfig = props => {
                   'challenges-outbound-lost'    ,
                 ],
                 condensed: true,
-                searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
-                filterable: true,
-                sortable: true, // see searchable
+                searchable: false, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
+                filterable: false,
+                sortable: false, // see searchable
                 starrable: false, // true,
                 taggable: false,
                 alertable: false,
@@ -1235,9 +1235,9 @@ export const getComponentsNavConfig = props => {
                   'challenges-outbound-lost'    ,
                 ],
                 condensed: true,
-                searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
-                filterable: true,
-                sortable: true, // see searchable
+                searchable: false, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
+                filterable: false,
+                sortable: false, // see searchable
                 starrable: false, // true,
                 taggable: false,
                 alertable: false,
@@ -1295,9 +1295,9 @@ export const getComponentsNavConfig = props => {
                   'challenges-outbound-lost'    ,
                 ],
                 condensed: true,
-                searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
-                filterable: true,
-                sortable: true, // see searchable
+                searchable: false, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
+                filterable: false,
+                sortable: false, // see searchable
                 starrable: false, // true,
                 taggable: false,
                 alertable: false,
@@ -1346,9 +1346,9 @@ export const getComponentsNavConfig = props => {
                   'challenges-outbound-lost'    ,
                 ],
                 condensed: true,
-                searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
-                filterable: true,
-                sortable: true, // see searchable
+                searchable: false, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
+                filterable: false,
+                sortable: false, // see searchable
                 starrable: false, // true,
                 taggable: false,
                 alertable: false,
@@ -1397,9 +1397,9 @@ export const getComponentsNavConfig = props => {
                   'challenges-outbound-lost'    ,
                 ],
                 condensed: true,
-                searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
-                filterable: true,
-                sortable: true, // see searchable
+                searchable: false, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
+                filterable: false,
+                sortable: false, // see searchable
                 starrable: false, // true,
                 taggable: false,
                 alertable: false,

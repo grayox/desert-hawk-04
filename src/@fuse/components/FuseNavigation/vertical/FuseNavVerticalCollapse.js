@@ -42,6 +42,7 @@ const styles = theme => ({
 });
 
 function needsToBeOpened(props) {
+  // console.log('props\n', props,);
   return props.location && isUrlInChildren(props.item, props.location.pathname)
 }
 
@@ -57,7 +58,8 @@ function isUrlInChildren(parent, url) {
       }
     }
 
-    if (parent.children[i].url === url || url.includes(parent.children[i].url)) {
+    // if (parent.children[i].url === url || url.includes(parent.children[i].url)) {
+    if (parent.children[i].id === url || url.includes(parent.children[i].id)) {
       return true;
     }
   }

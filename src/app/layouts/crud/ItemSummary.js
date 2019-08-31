@@ -1,6 +1,6 @@
 import React from 'react';
 // import moment from 'moment';
-import _ from '@lodash';
+// import _ from '@lodash';
 
 import HashAvatar from 'app/components/HashAvatar';
 import {
