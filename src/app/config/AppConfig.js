@@ -1098,14 +1098,15 @@ export const getComponentsNavConfig = props => {
       title       : 'Challenges',
       id          : 'challenges',
       icon        : 'security', // policy // after material-ui/icons 4.x upgrade
-      type        : 'collapse',
+      type        : 'item', // 'collapse',
+      component: () => FuseLoadable({loader: () => import('app/views/dashboard/DashboardContainer')}),
       // indentLevel can be used in the future to programmatically set the indentation level at:
       //   src/@fuse/components/FuseNavigation/vertical/FuseNavVerticalItem.js
       //   src/@fuse/components/FuseNavigation/vertical/FuseNavVerticalCollapse.js
       // the latter, FuseNavVerticalCollapse, already uses a variable called: nestedLevel,
       // but that variable doesn't seem to be in operation at present.
       // indentLevel : 0,
-      children    : [
+      children1   : [
         {
           title       : 'Inbound',
           id          : 'challenges-inbound',

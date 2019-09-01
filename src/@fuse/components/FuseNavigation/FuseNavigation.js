@@ -14,12 +14,14 @@ const propTypes = {
 };
 
 const defaultProps = {
-  layout: "vertical"
+  layout: "vertical",
 };
 
 class FuseNavigation extends Component {
   render() {
-    const { navigation, layout, active, } = this.props;
+    const { navigation, layout, active, } = this.props; // onPress,
+
+    // const handleClick = () => alert('clicked')
 
     const verticalNav = (
       <List className="whitespace-no-wrap">
@@ -38,7 +40,10 @@ class FuseNavigation extends Component {
               )}
 
               {item.type === 'item' && (
-                <FuseNavVerticalItem item={item} nestedLevel={0} active={active} />
+                <FuseNavVerticalItem item={item} nestedLevel={0} active={active}
+                // onPress={() => alert('clicked')}
+                // onPress={handleClick}
+                />
               )}
 
               {item.type === 'divider' && (
@@ -83,7 +88,9 @@ class FuseNavigation extends Component {
               )}
 
               {item.type === 'item' && (
-                <FuseNavHorizontalItem item={item} nestedLevel={0} />
+                <FuseNavHorizontalItem item={item} nestedLevel={0}
+                  // onPress={onPress}
+                />
               )}
 
               {item.type === 'divider' && (

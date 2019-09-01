@@ -1,11 +1,11 @@
 // inspired by src/main/MainNavbarContent.js
 
 import React from 'react';
-import { withStyles, AppBar, Typography, Avatar, Hidden } from '@material-ui/core';
-import { withRouter } from 'react-router-dom';
-import { FuseNavigation, FuseLayouts } from '@fuse';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { withStyles, AppBar, Typography, Avatar, Hidden, } from '@material-ui/core';
+import { withRouter, } from 'react-router-dom';
+import { FuseNavigation, FuseLayouts, } from '@fuse';
+import { bindActionCreators, } from 'redux';
+import { connect, } from 'react-redux';
 import classNames from 'classnames';
 
 const styles = theme => ({
@@ -38,7 +38,9 @@ const styles = theme => ({
 
 // function MainNavbar({ classes, navigation, layoutStyle, user }) {
 // function DrawerContent({ classes, navigation, layoutStyle, user, userHeader }) {
-const DrawerContent = ({ classes, navigation, layoutStyle, profile, settings, userHeader, }) => { // user,
+const DrawerContent = ({
+  classes, navigation, layoutStyle, profile, settings, userHeader, // onClick,
+}) => { // user,
 
   // username, email, photo
   // function UserHeader() {
@@ -111,7 +113,9 @@ const DrawerContent = ({ classes, navigation, layoutStyle, profile, settings, us
             <Hidden lgUp>
               { userHeader && (<UserHeader />) }
             </Hidden>
-            <FuseNavigation navigation={navigation} layout={navigationLayout} />
+            <FuseNavigation navigation={navigation} layout={navigationLayout}
+              // onClick={onClick}
+            />
           </React.Fragment>
         )
       }

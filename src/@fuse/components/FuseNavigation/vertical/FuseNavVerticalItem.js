@@ -6,8 +6,8 @@ import classNames from 'classnames';
 import FuseNavBadge from './../FuseNavBadge';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as Actions from 'store/actions';
+// import { bindActionCreators } from 'redux';
+// import * as Actions from 'store/actions';
  
 const propTypes = {
   item: PropTypes.shape(
@@ -58,9 +58,9 @@ const styles = theme => ({
 });
 
 const FuseNavVerticalItem = ({
-  item: { id=false, exact=false, title='', icon=false, altIcon=false, badge=false, indentLevel=0, },
+  item: { id=false, exact=false, title='', icon=false, altIcon=false, badge=false, }, // indentLevel=0,
   classes: { item, },
-  navbarCloseMobile, active,
+  active, navbarCloseMobile, // onPress,
 }) => { // nestedLevel, userRole,
   // if (item.auth && (!item.auth.includes(userRole) || (userRole !== 'guest' && item.auth.length === 1 && item.auth.includes('guest')))) {
   //   return null;
@@ -69,6 +69,7 @@ const FuseNavVerticalItem = ({
   // console.log('id\n', id,);
   // console.log('icon\n', icon,);
   // console.log('altIcon\n', altIcon,);
+  // console.log('onPress\n', onPress,);
 
   // control indentation level based on nested hierarchy
   // note: original text sizes can be retrieved from original -orig version of this file: icons: text-16, text: text-14
@@ -98,7 +99,7 @@ const FuseNavVerticalItem = ({
       {getAltIcon()}
     </React.Fragment>
 
-  const out = (
+  const out =
     <ListItem
       button
       component={NavLink}
@@ -107,6 +108,9 @@ const FuseNavVerticalItem = ({
       activeClassName="active"
       className={classNames(item, listItemPadding, 'list-item text-white', active,)} // md:rounded-full
       onClick={navbarCloseMobile}
+      // onClick={() => alert('clicked')}
+      // onClick={() => onPress()} // reloads entire app
+      // onClick={onPress} // doesn't allow passing down function as a prop from above in drawer component; reson: unknown
       exact={exact}
       title={title}
     >
@@ -127,29 +131,28 @@ const FuseNavVerticalItem = ({
         <FuseNavBadge badge={badge} />
       )}
     </ListItem>
-  );
 
   return out;
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    navbarCloseMobile: Actions.navbarCloseMobile
-  }, dispatch);
-}
+// function mapDispatchToProps(dispatch) {
+//   return bindActionCreators({
+//     // navbarCloseMobile: Actions.navbarCloseMobile,
+//   }, dispatch);
+// }
 
-function mapStateToProps({ auth, fuse, }) {
-  return {
-  //   userRole: auth.user.role
-  }
-}
+// function mapStateToProps({ auth, fuse, }) {
+//   return {
+//   //   userRole: auth.user.role
+//   }
+// }
 
 FuseNavVerticalItem.propTypes = propTypes;
 FuseNavVerticalItem.defaultProps = defaultProps;
 
 const NavVerticalItem = withStyles(styles, {withTheme: true })(withRouter(connect(
-  mapStateToProps,
-  mapDispatchToProps,
+  null, // mapStateToProps,
+  null, // mapDispatchToProps,
 )(FuseNavVerticalItem)));
 
 export default NavVerticalItem;

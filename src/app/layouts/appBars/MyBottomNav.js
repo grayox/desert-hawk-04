@@ -84,7 +84,7 @@ class MyBottomNav extends Component {
     const { value, } = this.state;
     const { handleChange, } = this; // showLabels,
 
-    return (
+    const getMyBottomNav = () =>
       <React.Fragment>
       {
       // <MuiThemeProvider
@@ -109,17 +109,18 @@ class MyBottomNav extends Component {
           // <BottomNavigationAction component={Link} to={items[0]} label="Dashboard" icon={<RestoreIcon />}    />
           // <BottomNavigationAction component={Link} to={items[1]} label="Inbox"     icon={<FavoriteIcon />}   />
           // <BottomNavigationAction component={Link} to={items[2]} label="Settings"  icon={<LocationOnIcon />} />
-          items.map((item, index) => (
+          items.map(( { title, icon, id, }, index, ) => (
             <BottomNavigationAction
-              key={item.title}
+              key={title}
               // className={classes.root}
               // classes={classes.actionClasses}
               // className="color-white"
               className={classes.actionClasses}
               component={Link}
-              to={items[index].path}
-              label={item.title}
-              icon={<Icon>{item.icon}</Icon>}
+              // to={`/${items[index].id}`}
+              to={`/${id}`}
+              label={title}
+              icon={<Icon>{icon}</Icon>}
               // icon={item.icon}
             />
           ))
@@ -130,7 +131,8 @@ class MyBottomNav extends Component {
       // </MuiThemeProvider>
       }
       </React.Fragment>
-    );
+    
+    return getMyBottomNav();
   }
 }
 

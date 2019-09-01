@@ -65,6 +65,8 @@ class MobileDrawer extends Component {
   state = { ...INITIAL_STATE };
 
   toggleDrawer = ( side, open, ) => () => {
+    // console.log('side\n', side,);
+    // console.log('open\n', open,);
     this.setState({
       [side]: open,
     });
@@ -145,7 +147,10 @@ class MobileDrawer extends Component {
           onClick={this.toggleDrawer( 'left', false, )}
         >
           <BrandAppBar />
-          <DrawerContent userHeader />
+          <DrawerContent
+            userHeader
+            onClick={this.toggleDrawer( 'left', false, )}
+          />
         </Drawer>
 
         {
