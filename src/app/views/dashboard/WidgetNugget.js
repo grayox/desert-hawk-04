@@ -89,7 +89,7 @@ const getFontSize = ( data = '' ) => {
 
 // const WidgetNugget = props => <Chip className={classes.chip} />
 // const WidgetNugget = ({ label, message, }) => <Chip label={label} onClick={() => handleClick(message)} />
-const WidgetNugget = ({ mobile=false, settings, type, data, label, onOpenDialog, message, dataSource, }) => {
+const WidgetNugget = ({ mobile=false, settings, type, data, label, onOpenDialog, dataSource, }) => { // message,
   // if(dataSource) console.log('dataSource\n', dataSource,);
 
   // const [ dialogIsOpen    , setDialogIsOpen    , ] = useState(false);

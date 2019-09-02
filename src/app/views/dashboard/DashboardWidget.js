@@ -48,8 +48,8 @@ const DashboardWidget = ({
   const chipDescription = groups[group].description;
   const chipLabel =  groups[group].label;
 
-  const handleOpenDialog = () => setDialogIsOpen(true);
-  const handleCloseDialog = () => setDialogIsOpen(false);
+  const handleOpenDialog = () => setDialogIsOpen(true)
+  const handleCloseDialog = () => setDialogIsOpen(false)
 
   const Transition = props => <Slide direction="up" {...props} />
 
@@ -113,7 +113,7 @@ const DashboardWidget = ({
   // variant 2: main feature: click main target, then automatically jump to most relevant link
   // const getDashboardWidgetVariant2 = () =>
 
-  const getLaptopMain = () =>
+  const getDashboardWidgetLaptop = () =>
     // <FuseAnimate
     //   animation="transition.slideUpIn"
     //   duration={Math.round(Math.random() * 500)}
@@ -129,10 +129,15 @@ const DashboardWidget = ({
           }
           <Tooltip TransitionComponent={Zoom} title={chipDescription}>
             <div>
-              <WidgetNugget type="chip" label={chipLabel} onOpenDialog={handleOpenDialog} message={chipDescription} />
+              <WidgetNugget
+                type="chip"
+                label={chipLabel}
+                onOpenDialog={handleOpenDialog}
+                // message={chipDescription}
+              />
             </div>
           </Tooltip>
-          <Tooltip TransitionComponent={Zoom} title="Action links">
+          <Tooltip TransitionComponent={Zoom} title="Action links" placement="left-start">
             <div>
               <WidgetMenu links={links} onOpenDialog={handleOpenDialog} />
             </div>
@@ -163,11 +168,12 @@ const DashboardWidget = ({
     </Slide>
     // </FuseAnimate>
 
-  const getDashboardWidgetLaptop = () => <React.Fragment>{getLaptopMain()}{getDialog()}</React.Fragment>
-
   const getDashboardWidget = () =>
-    mobile ? getDashboardWidgetMobile() : getDashboardWidgetLaptop()
-
+    <React.Fragment>
+      { getDialog() }
+      { mobile ? getDashboardWidgetMobile() : getDashboardWidgetLaptop() }
+    </React.Fragment>
+    
   return getDashboardWidget();
 }
 
