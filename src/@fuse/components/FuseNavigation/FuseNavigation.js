@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import FuseNavVerticalGroup from './vertical/FuseNavVerticalGroup';
-import FuseNavVerticalCollapse from './vertical/FuseNavVerticalCollapse';
+// import FuseNavVerticalGroup from './vertical/FuseNavVerticalGroup';
+// import FuseNavVerticalCollapse from './vertical/FuseNavVerticalCollapse';
 import FuseNavVerticalItem from './vertical/FuseNavVerticalItem';
 import FuseNavHorizontalGroup from './horizontal/FuseNavHorizontalGroup';
 import FuseNavHorizontalCollapse from './horizontal/FuseNavHorizontalCollapse';
@@ -31,13 +31,17 @@ class FuseNavigation extends Component {
 
             <React.Fragment key={item.id}>
           
-              {item.type === 'group' && (
-                <FuseNavVerticalGroup item={item} nestedLevel={0} active={active} />
-              )}
+              {
+              // // deprecated: use dashboards to achieve nesting; recursively if necessary
+              // {item.type === 'group' && (
+              //   <FuseNavVerticalGroup item={item} nestedLevel={0} active={active} />
+              // )}
 
-              {item.type === 'collapse' && (
-                <FuseNavVerticalCollapse item={item} nestedLevel={0} active={active} />
-              )}
+              // // deprecated: use dashboards to achieve nesting; recursively if necessary
+              // {item.type === 'collapse' && (
+              //   <FuseNavVerticalCollapse item={item} nestedLevel={0} active={active} />
+              // )}
+              }
 
               {item.type === 'item' && (
                 <FuseNavVerticalItem item={item} nestedLevel={0} active={active}

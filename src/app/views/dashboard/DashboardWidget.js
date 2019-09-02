@@ -4,7 +4,7 @@
 import React from 'react';
 import {
   Slide, Paper, Tooltip, Zoom,
-  Avatar, ListItem, ListItemText, ListItemSecondaryAction,
+  Avatar, ListItem, ListItemAvatar, ListItemText, ListItemSecondaryAction,
 } from '@material-ui/core'; // withStyles, Icon, IconButton, Typography,
 
 import { DashboardGridConfig, } from 'app/config/DashboardGridConfig';
@@ -52,7 +52,9 @@ const DashboardWidget = ({
       // onClick={handleClick}
     >
       <Zoom key={index} in mountOnEnter unmountOnExit>
-        <Avatar>{label.charAt(0)}</Avatar>
+        <ListItemAvatar>
+          <Avatar>{label.charAt(0)}</Avatar>
+        </ListItemAvatar>
       </Zoom>
       <ListItemText
         // primary={item.geoLocal}

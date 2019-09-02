@@ -5,7 +5,7 @@ import React from 'react';
 import HashAvatar from 'app/components/HashAvatar';
 import {
   withStyles, Zoom, Fab, Chip, Tooltip, Icon, IconButton,
-  ListItem, ListItemText, ListItemSecondaryAction,
+  ListItem, ListItemAvatar, ListItemText, ListItemSecondaryAction,
 } from '@material-ui/core';
 // import Skeleton from '@material-ui/lab/Skeleton';
 
@@ -13,7 +13,7 @@ import { getComponentsNavConfig, getFindNested, } from 'app/config/AppConfig'; /
 
 const styles = theme => ({
   margin: {
-    margin: theme.spacing.unit * 3,
+    margin: theme.spacing.unit * 2,
   },
 });
 
@@ -163,10 +163,12 @@ const ItemSummary = ({
       selected={!!index && (selectedIndex === index)}
     >
       <Zoom key={index} in mountOnEnter unmountOnExit>
-        <HashAvatar
-          message={idHash || createdAt}
-          // variant="uic" //"robohashx" //"robohash4" //"retro" //"monsterid" //"wavatar" //"adorable" //"identicon" //"mp" //"ui" //"random"(deprecated)
-        />
+        <ListItemAvatar>
+          <HashAvatar
+            message={idHash || createdAt}
+            // variant="uic" //"robohashx" //"robohash4" //"retro" //"monsterid" //"wavatar" //"adorable" //"identicon" //"mp" //"ui" //"random"(deprecated)
+          />
+        </ListItemAvatar>
       </Zoom>
       <ListItemText
         // primary={item.geoLocal}

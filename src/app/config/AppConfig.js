@@ -666,6 +666,7 @@ export const getComponentsNavConfig = props => {
       id        : 'dashboard',
       icon      : 'dashboard',
       type      : 'item', // 'item' | 'group' | 'collapse' | 'divider' // see: src/@fuse/components/FuseNavigation/FuseNavigation.js
+      // deprecated: 'collapse' | 'group' // use dashboards to achieve nesting; recursively if necessary
       bottomNav : true,
       // see src/app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
@@ -1099,7 +1100,7 @@ export const getComponentsNavConfig = props => {
       title       : 'Challenges',
       id          : 'challenges',
       icon        : 'security', // policy // after material-ui/icons 4.x upgrade
-      type        : 'item', // 'collapse',
+      type        : 'item', // 'collapse', // deprecated: 'collapse' | 'group' // use dashboards to achieve nesting; recursively if necessary
       component: () => FuseLoadable({loader: () => import('app/views/dashboard/DashboardContainer')}),
       // indentLevel can be used in the future to programmatically set the indentation level at:
       //   src/@fuse/components/FuseNavigation/vertical/FuseNavVerticalItem.js

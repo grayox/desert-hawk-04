@@ -26,6 +26,8 @@ const WidgetMenu = ({ mobile=false, links, }) => {
   // }
   const handleClose = () => setAnchorEl(null);
 
+  const handleOpenDialog = () => alert('TODO: Open info dialog here');
+
   return (
     <React.Fragment>
       {
@@ -60,10 +62,12 @@ const WidgetMenu = ({ mobile=false, links, }) => {
           const pathTo = targetComponent.path;
           const getLink = () =>
             <MenuItem key={link.id} onClick={handleClose} component={Link} to={pathTo}>{link.label}</MenuItem>
-          const getComponent = () => console.log('TODO: Component goes here')
-          return ( ( link && link.id ) ? getLink() : getComponent() );
+          // const getComponent = () => console.log('Component goes here') // deprecate component
+          // return ( ( link && link.id ) ? getLink() : getComponent() );
+          return getLink();
         })
         }
+        <MenuItem onClick={handleOpenDialog} >Learn more...</MenuItem>
       </Menu>
     </React.Fragment>
   );

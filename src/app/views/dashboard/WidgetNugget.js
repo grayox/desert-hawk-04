@@ -148,7 +148,8 @@ const WidgetNugget = ({ mobile=false, settings, type, data, label, message, data
       :
       <div
         className="flex flex-col h-116 text-center cursor-pointer" // direction: 'right', text-16 text-72
-        onClick={() => handleOpenDialog()}
+        // onClick={() => handleOpenDialog()}
+        onClick={() => {}} // TODO: jump to first link
       >
         <div className={`${fontSize} h-72 flex items-end leading-none text-blue`}>
           <span className="flex-1">{formattedResult}</span>
