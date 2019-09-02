@@ -67,7 +67,7 @@ const WidgetMenu = ({ mobile=false, links, }) => {
           return getLink();
         })
         }
-        <MenuItem onClick={handleOpenDialog} >Learn more...</MenuItem>
+        <MenuItem onClick={handleOpenDialog}>Learn more...</MenuItem>
       </Menu>
     </React.Fragment>
   );
