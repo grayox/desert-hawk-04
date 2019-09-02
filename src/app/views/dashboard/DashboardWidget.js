@@ -51,14 +51,15 @@ const DashboardWidget = ({
   const handleOpenDialog = () => setDialogIsOpen(true)
   const handleCloseDialog = () => setDialogIsOpen(false)
 
-  const Transition = props => <Slide direction="up" {...props} />
+  // const Transition = props => <Slide direction="up" {...props} /> // buggish
 
   const getDialog = () =>
     <Dialog
-      keepMounted
+      // keepMounted
       open={dialogIsOpen}
-      onClose={handleCloseDialog}
-      TransitionComponent={Transition}
+      // onClose={handleCloseDialog}
+      // TransitionComponent={Transition} // causes below bug
+      // disableFocusListener={true} // https://stackoverflow.com/a/51663448/1640892
       aria-labelledby="alert-dialog-slide-title"
       aria-describedby="alert-dialog-slide-description"
     >

@@ -26,6 +26,11 @@ const WidgetMenu = ({ mobile=false, links, onOpenDialog, }) => {
   // }
   const handleClose = () => setAnchorEl(null);
 
+  const handleSelectDialog = () => {
+    onOpenDialog();
+    handleClose();
+  }
+
   // const handleOpenDialog = () => alert('Open info dialog here');
 
   return (
@@ -72,7 +77,7 @@ const WidgetMenu = ({ mobile=false, links, onOpenDialog, }) => {
             </MenuItem>
           )
         }
-        <MenuItem onClick={onOpenDialog}>Help</MenuItem>
+        <MenuItem onClick={handleSelectDialog}>Help</MenuItem>
       </Menu>
     </React.Fragment>
   );
