@@ -51,14 +51,18 @@ const DashboardWidget = ({
   const handleOpenDialog = () => setDialogIsOpen(true)
   const handleCloseDialog = () => setDialogIsOpen(false)
 
-  // const Transition = props => <Slide direction="up" {...props} /> // buggish
+  // transitions are buggish // makes pointer non-responsive after closing dialog
+  // const Transition = props => <Slide direction="up" {...props} />
+  // const Transition = React.forwardRef(function Transition(props, ref) {
+  //   return <Slide direction="up" ref={ref} {...props} />;
+  // });
 
   const getDialog = () =>
     <Dialog
       // keepMounted
       open={dialogIsOpen}
       // onClose={handleCloseDialog}
-      // TransitionComponent={Transition} // causes below bug
+      // TransitionComponent={Transition} // buggish // see below and above comments
       // disableFocusListener={true} // https://stackoverflow.com/a/51663448/1640892
       aria-labelledby="alert-dialog-slide-title"
       aria-describedby="alert-dialog-slide-description"

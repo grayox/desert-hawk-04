@@ -187,13 +187,12 @@ export const DashboardGridConfig = {
       // color: 'primary',
       // buttonLabel: 'See challenges',
       links: [
-        { label: 'Search for leads', id: 'inbox', },
+        { label: 'See chalenges detail', id: 'challenges', },
       ],
       // eslint-disable-next-line
       description: '\
-        This is the number of net lead challenges you have won.\
-        Lost challenges are shown as a negative number.\
-        Users can challenge leads they believe are not legitimate.\
+        This is the net effect on your balance of lead challenges you have made and received against you.\
+        Users can challenge leads they believe are a mistake or otherwise not legitimate.\
         \n\n\
         You can challenge any lead you think is of poor quality.\
         Those who make or receive too many challenges could have negative consequences as a result.\
