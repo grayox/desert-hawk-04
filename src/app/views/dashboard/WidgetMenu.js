@@ -12,7 +12,7 @@ import {
 import { getComponentsNavConfig, } from 'app/config/AppConfig';
 
 // function SimpleMenu() {
-const WidgetMenu = ({ links, }) => {
+const WidgetMenu = ({ mobile=false, links, }) => {
   // console.log('React Version: ', React.version); // 16.6.3 -> 16.8.6
   const [ anchorEl, setAnchorEl, ] = useState(null);
 
@@ -27,7 +27,7 @@ const WidgetMenu = ({ links, }) => {
   const handleClose = () => setAnchorEl(null);
 
   return (
-    <div>
+    <React.Fragment>
       {
       // <Button
       //   aria-owns={anchorEl ? 'simple-menu' : undefined}
@@ -42,7 +42,7 @@ const WidgetMenu = ({ links, }) => {
                   aria-haspopup="true"
                   onClick={handleClick}
                   >
-        <Icon>more_vert</Icon>
+        <Icon>{ mobile ? 'more_horiz' : 'more_vert' }</Icon>
       </IconButton>
       <Menu id="simple-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
         {
@@ -65,7 +65,7 @@ const WidgetMenu = ({ links, }) => {
         })
         }
       </Menu>
-    </div>
+    </React.Fragment>
   );
 }
 

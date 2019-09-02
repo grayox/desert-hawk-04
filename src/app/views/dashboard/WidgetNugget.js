@@ -89,7 +89,7 @@ const Transition = props => <Slide direction="up" {...props} />
 
 // const WidgetNugget = props => <Chip className={classes.chip} />
 // const WidgetNugget = ({ label, message, }) => <Chip label={label} onClick={() => handleClick(message)} />
-const WidgetNugget = ({ settings, type, data, label, message, dataSource, }) => {
+const WidgetNugget = ({ mobile=false, settings, type, data, label, message, dataSource, }) => {
   // if(dataSource) console.log('dataSource\n', dataSource,);
 
   const [ dialogIsOpen    , setDialogIsOpen    , ] = useState(false);
@@ -127,7 +127,11 @@ const WidgetNugget = ({ settings, type, data, label, message, dataSource, }) => 
 
   const getChip = () => <Chip label={label} onClick={() => handleOpenDialog()} /> // direction: 'up',
 
-  const getKernelData = () => <WidgetData settings={settings} dataSource={dataSource} handleFontSize={getFontSize} />
+  const getKernelData = () =>
+    <WidgetData
+      settings={settings} dataSource={dataSource}
+      handleFontSize={mobile ? () => {} : getFontSize}
+    />
 
   const getKernel = () => {
     const result = ( !!data || data===0 ) ? data : getKernelData();
@@ -138,6 +142,10 @@ const WidgetNugget = ({ settings, type, data, label, message, dataSource, }) => 
     const fontSize = getFontSize(result); // formattedResult converts all to text
     // console.log('computedFontSize\n', computedFontSize,);
     return (
+      mobile
+      ?
+      formattedResult
+      :
       <div
         className="flex flex-col h-116 text-center cursor-pointer" // direction: 'right', text-16 text-72
         onClick={() => handleOpenDialog()}

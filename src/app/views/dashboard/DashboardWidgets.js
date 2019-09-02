@@ -7,8 +7,8 @@ import classNames from 'classnames';
 import { DashboardGridConfig } from 'app/config/DashboardGridConfig';
 import DashboardWidget from './DashboardWidget';
 import {
-  withStyles, Grid, Paper, Zoom, Divider, Avatar, // GridList, CircularProgress, HashAvatar, Tooltip,
-  List, ListItem, ListItemText, ListItemSecondaryAction,} from '@material-ui/core';
+  withStyles, Grid, Paper, Divider, List, // GridList, CircularProgress, HashAvatar, Tooltip,
+} from '@material-ui/core';
 
 import { FuseAnimateGroup } from '@fuse'; // FuseScrollbars, FuseAnimate,
 
@@ -78,31 +78,6 @@ const styles = theme => ({
 const DashboardWidgets = ({ classes, data, settings, }) => { // classes,
   const items = DashboardGridConfig.cells; // getItems();
   const count = items && items.length;
-
-  const getListItem = ({
-    settings, data, index, count,
-    item: { group, label, description, links, dataSource, },
-  }) =>
-    <ListItem
-      button
-      // divider light // use <Divider /> instead
-      // key={idHash || createdAt}
-      // selected={!!index && (selectedIndex === index)}
-      // onClick={handleClick}
-    >
-      <Zoom key={index} in mountOnEnter unmountOnExit>
-        <Avatar>A</Avatar>
-      </Zoom>
-      <ListItemText
-        // primary={item.geoLocal}
-        // secondary={moment(createdAt).fromNow()}
-        // primary={getItemConfig('primary')}
-        // secondary={getItemConfig('secondary')}
-        primary={data}
-        secondary={label}
-      />
-      <ListItemSecondaryAction>Hi</ListItemSecondaryAction>
-    </ListItem>
   
   const getList = () =>
     <FuseAnimateGroup
@@ -123,7 +98,10 @@ const DashboardWidgets = ({ classes, data, settings, }) => { // classes,
               key={hash([item, (item && item.createdAt),])}
               // className="border-b" // use divider instead
             >
-              {getListItem({ settings, item, index, count, itemData, })}
+              <DashboardWidget mobile
+                settings={settings} data={itemData}
+                widget={item} index={index} count={count}
+              />
               <Divider />
             </div>
           );
@@ -177,7 +155,10 @@ const DashboardWidgets = ({ classes, data, settings, }) => { // classes,
               // className={classes.gridList}
               className="widget flex w-full mx-16 sm:mx-0 sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-16"
             >
-              <DashboardWidget settings={settings} widget={item} index={index} count={count} data={itemData} />
+              <DashboardWidget
+                settings={settings} data={itemData}
+                widget={item} index={index} count={count}
+              />
             </Grid>
           )}
         )}

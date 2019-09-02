@@ -98,7 +98,7 @@ const Dashboard = ({ classes, dashboard, settings, profile, show, type, saveUser
   // }
 
   const dashConfig = {
-    standard:
+    standard: // includes laptop and mobile variants
       <div className={classes.wrapper}>
         <DashboardWidgets data={dashboard} settings={settings} />
       </div>,

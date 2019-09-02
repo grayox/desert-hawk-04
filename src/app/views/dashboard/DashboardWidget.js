@@ -2,7 +2,10 @@
 
 // import React, { Component } from 'react';
 import React from 'react';
-import { Slide, Paper, Tooltip, Zoom, } from '@material-ui/core'; // withStyles, Icon, IconButton, Typography,
+import {
+  Slide, Paper, Tooltip, Zoom,
+  Avatar, ListItem, ListItemText, ListItemSecondaryAction,
+} from '@material-ui/core'; // withStyles, Icon, IconButton, Typography,
 
 import { DashboardGridConfig, } from 'app/config/DashboardGridConfig';
 import WidgetNugget from './WidgetNugget';
@@ -18,7 +21,7 @@ const SCALAR = 1.5; // compensation for random factor; when combined with index,
 const { groups, } = DashboardGridConfig;
 
 const DashboardWidget = ({
-  settings, data, index, count,
+  mobile=false, settings, data, index, count,
   widget: { group, label, description, links, dataSource, },
 }) => { // data, classes,
   // count: number: total number of widgets on the dashboard (for purpose of calculating entry animation)
@@ -39,6 +42,37 @@ const DashboardWidget = ({
 
   const chipDescription = groups[group].description;
   const chipLabel =  groups[group].label;
+
+  const getDashboardWidgetMobile = () =>
+    <ListItem
+      button
+      // divider light // use <Divider /> instead
+      // key={idHash || createdAt}
+      // selected={!!index && (selectedIndex === index)}
+      // onClick={handleClick}
+    >
+      <Zoom key={index} in mountOnEnter unmountOnExit>
+        <Avatar>{label.charAt(0)}</Avatar>
+      </Zoom>
+      <ListItemText
+        // primary={item.geoLocal}
+        // secondary={moment(createdAt).fromNow()}
+        // primary={getItemConfig('primary')}
+        // secondary={getItemConfig('secondary')}
+        // primary={data}
+        primary={label}
+        secondary={
+          <WidgetNugget mobile
+            type="kernel" settings={settings}
+            label={label} message={description}
+            data={data} dataSource={dataSource}
+          />
+        }
+      />
+      <ListItemSecondaryAction className="mr-32">
+        <WidgetMenu mobile links={links} />
+      </ListItemSecondaryAction>
+    </ListItem>
 
   // variant 2: main feature: click main target, then automatically jump to most relevant link
   // const getDashboardWidgetVariant2 = () =>
@@ -91,7 +125,8 @@ const DashboardWidget = ({
     </Slide>
     // </FuseAnimate>
 
-  const getDashboardWidget = () => getDashboardWidgetVariant1();
+  const getDashboardWidget = () =>
+    mobile ? getDashboardWidgetMobile() : getDashboardWidgetVariant1()
 
   return getDashboardWidget();
 }
