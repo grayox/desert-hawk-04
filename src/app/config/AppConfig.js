@@ -463,6 +463,7 @@ export const getFindNested = ( searchable , key , value , ) => {
       return out;
     }
     if (!out && e.children) out = getFindNested(e.children, key, value,);
+    return out;
   })
   return out;
 }

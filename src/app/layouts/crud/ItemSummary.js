@@ -154,7 +154,7 @@ const ItemSummary = ({
     return out;
   }
 
-  const getItemSummaryActual = () =>
+  const getItemSummaryMain = () =>
     <ListItem
       button
       // divider light // use <Divider /> instead
@@ -181,7 +181,7 @@ const ItemSummary = ({
 
   const getItemSummary = () =>
     // getItemSummarySkeleton();
-    getItemSummaryActual();
+    getItemSummaryMain();
 
   return getItemSummary();
 }

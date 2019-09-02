@@ -17,13 +17,16 @@ const SCALAR = 1.5; // compensation for random factor; when combined with index,
 
 const { groups, } = DashboardGridConfig;
 
-const DashboardWidget = ({ settings, widget, data, index, count, }) => { // data, classes,
+const DashboardWidget = ({
+  settings, data, index, count,
+  widget: { group, label, description, links, dataSource, },
+}) => { // data, classes,
   // count: number: total number of widgets on the dashboard (for purpose of calculating entry animation)
   // index: number: sequence number of this widget relative to all widgets on the dashboard (for purpose of calculating entry animation)
   // widget: object: data defining the widget content
   // console.log('widget\n', widget,);
 
-  const { group, label, description, links, dataSource, } = widget; // data, desc, rowDesc,rowName,
+  // const { group, label, description, links, dataSource, } = widget; // data, desc, rowDesc,rowName,
   // if(dataSource) console.log('dataSource\n', dataSource,);
 
   // linear staggered sequencing
@@ -36,7 +39,11 @@ const DashboardWidget = ({ settings, widget, data, index, count, }) => { // data
 
   const chipDescription = groups[group].description;
   const chipLabel =  groups[group].label;
-  return (
+
+  // variant 2: main feature: click main target, then automatically jump to most relevant link
+  // const getDashboardWidgetVariant2 = () =>
+
+  const getDashboardWidgetVariant1 = () =>
     // <FuseAnimate
     //   animation="transition.slideUpIn"
     //   duration={Math.round(Math.random() * 500)}
@@ -83,7 +90,10 @@ const DashboardWidget = ({ settings, widget, data, index, count, }) => { // data
       </Paper>
     </Slide>
     // </FuseAnimate>
-  )
+
+  const getDashboardWidget = () => getDashboardWidgetVariant1();
+
+  return getDashboardWidget();
 }
 
 export default DashboardWidget;

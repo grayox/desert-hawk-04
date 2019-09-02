@@ -123,7 +123,7 @@ const ListPane = ({
       </FuseAnimateGroup>
     </InfiniteScroll>
 
-  return (
+  const getListPane = () =>
     <React.Fragment>
       {getHeaderButtons()}
       {getHeaderChips()}
@@ -134,7 +134,9 @@ const ListPane = ({
         </List>
       </Paper>
     </React.Fragment>
-  );
+
+  return getListPane();
+  
 }
 
 
