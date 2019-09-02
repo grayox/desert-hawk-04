@@ -1,10 +1,13 @@
 // inspired by: https://github.com/withinpixels/fuse-react/blob/v2.2.3/src/app/main/apps/dashboards/project/widgets/Widget4.js
 
 // import React, { Component } from 'react';
-import React from 'react';
+import React, { useState, } from 'react';
+import { Link, NavLink, } from 'react-router-dom'; // withRouter // see src/@fuse/components/FuseNavigation/vertical/FuseNavVerticalItem.js
+
 import {
-  Slide, Paper, Tooltip, Zoom,
+  Slide, Paper, Tooltip, Zoom, Button,
   Avatar, ListItem, ListItemAvatar, ListItemText, ListItemSecondaryAction,
+  Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
 } from '@material-ui/core'; // withStyles, Icon, IconButton, Typography,
 
 import { DashboardGridConfig, } from 'app/config/DashboardGridConfig';
@@ -29,6 +32,8 @@ const DashboardWidget = ({
   // widget: object: data defining the widget content
   // console.log('widget\n', widget,);
 
+  const [ dialogIsOpen , setDialogIsOpen , ] = useState(false);
+
   // const { group, label, description, links, dataSource, } = widget; // data, desc, rowDesc,rowName,
   // if(dataSource) console.log('dataSource\n', dataSource,);
 
@@ -43,6 +48,33 @@ const DashboardWidget = ({
   const chipDescription = groups[group].description;
   const chipLabel =  groups[group].label;
 
+  const handleOpenDialog = () => setDialogIsOpen(true);
+  const handleCloseDialog = () => setDialogIsOpen(false);
+
+  const Transition = props => <Slide direction="up" {...props} />
+
+  const getDialog = () =>
+    <Dialog
+      keepMounted
+      open={dialogIsOpen}
+      onClose={handleCloseDialog}
+      TransitionComponent={Transition}
+      aria-labelledby="alert-dialog-slide-title"
+      aria-describedby="alert-dialog-slide-description"
+    >
+      <DialogTitle id="alert-dialog-slide-title">{label}</DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-slide-description">{description}</DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        {
+        // <Button onClick={handleCloseDialog} color="primary">Disagree</Button>
+        // <Button onClick={handleCloseDialog} color="primary">Agree</Button>
+        }
+        <Button onClick={handleCloseDialog} color="primary">Ok, got it</Button>
+      </DialogActions>
+    </Dialog>
+
   const getDashboardWidgetMobile = () =>
     <ListItem
       button
@@ -50,6 +82,8 @@ const DashboardWidget = ({
       // key={idHash || createdAt}
       // selected={!!index && (selectedIndex === index)}
       // onClick={handleClick}
+      component={NavLink}
+      to={`/${links[0].id}`}
     >
       <Zoom key={index} in mountOnEnter unmountOnExit>
         <ListItemAvatar>
@@ -72,14 +106,14 @@ const DashboardWidget = ({
         }
       />
       <ListItemSecondaryAction className="mr-8">
-        <WidgetMenu mobile links={links} />
+        <WidgetMenu mobile links={links} onOpenDialog={handleOpenDialog} />
       </ListItemSecondaryAction>
     </ListItem>
 
   // variant 2: main feature: click main target, then automatically jump to most relevant link
   // const getDashboardWidgetVariant2 = () =>
 
-  const getDashboardWidgetVariant1 = () =>
+  const getLaptopMain = () =>
     // <FuseAnimate
     //   animation="transition.slideUpIn"
     //   duration={Math.round(Math.random() * 500)}
@@ -95,23 +129,25 @@ const DashboardWidget = ({
           }
           <Tooltip TransitionComponent={Zoom} title={chipDescription}>
             <div>
-              <WidgetNugget type="chip" label={chipLabel} message={chipDescription} />
+              <WidgetNugget type="chip" label={chipLabel} onOpenDialog={handleOpenDialog} message={chipDescription} />
             </div>
           </Tooltip>
           <Tooltip TransitionComponent={Zoom} title="Action links">
             <div>
-              <WidgetMenu links={links} />
+              <WidgetMenu links={links} onOpenDialog={handleOpenDialog} />
             </div>
           </Tooltip>
         </div>
         <Tooltip TransitionComponent={Zoom} title={description}>
-          <div className="mb-24">
-            <WidgetNugget
-              type="kernel" settings={settings}
-              label={label} message={description}
-              data={data} dataSource={dataSource}
-            />
-          </div>
+          <Link to={`/${links[0].id}`} className="no-underline text-grey-darker">
+            <div className="mb-24">
+              <WidgetNugget
+                type="kernel" settings={settings}
+                label={label} // message={description}
+                data={data} dataSource={dataSource}
+              />
+            </div>
+          </Link>
         </Tooltip>
         {
         // // "room to grow"
@@ -127,8 +163,10 @@ const DashboardWidget = ({
     </Slide>
     // </FuseAnimate>
 
+  const getDashboardWidgetLaptop = () => <React.Fragment>{getLaptopMain()}{getDialog()}</React.Fragment>
+
   const getDashboardWidget = () =>
-    mobile ? getDashboardWidgetMobile() : getDashboardWidgetVariant1()
+    mobile ? getDashboardWidgetMobile() : getDashboardWidgetLaptop()
 
   return getDashboardWidget();
 }

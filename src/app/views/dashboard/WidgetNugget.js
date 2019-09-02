@@ -1,10 +1,10 @@
 // inspired by // https://material-ui.com/demos/chips/#chip | https://material-ui.com/demos/dialogs/
 
-import React, { useState, } from 'react'; // useEffect,
+import React from 'react'; // useState,, useEffect,
 
 import {
-  Button, Slide, Chip, // Typography, // withStyles
-  Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
+  Chip, // Button, Slide, Typography, // withStyles
+  // Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
 } from '@material-ui/core';
 
 import WidgetData from './WidgetData';
@@ -82,19 +82,19 @@ const getFontSize = ( data = '' ) => {
   return out;
 }
 
-const Transition = props => <Slide direction="up" {...props} />
+// const Transition = props => <Slide direction="up" {...props} />
 
 // const handleClick = () => alert('You clicked the Chip.') // eslint-disable-line no-alert
 // const handleClick = msg => alert(msg)
 
 // const WidgetNugget = props => <Chip className={classes.chip} />
 // const WidgetNugget = ({ label, message, }) => <Chip label={label} onClick={() => handleClick(message)} />
-const WidgetNugget = ({ mobile=false, settings, type, data, label, message, dataSource, }) => {
+const WidgetNugget = ({ mobile=false, settings, type, data, label, onOpenDialog, message, dataSource, }) => {
   // if(dataSource) console.log('dataSource\n', dataSource,);
 
-  const [ dialogIsOpen    , setDialogIsOpen    , ] = useState(false);
-  // const [ formattedResult , setFormattedResult , ] = useState('');
-  // const [ fontSize        , setFontSize        , ] = useState('text-72');
+  // const [ dialogIsOpen    , setDialogIsOpen    , ] = useState(false);
+  // // const [ formattedResult , setFormattedResult , ] = useState('');
+  // // const [ fontSize        , setFontSize        , ] = useState('text-72');
 
   // useEffect(() => {
   //   const newFontSize = computeFontSize(formattedResult);
@@ -125,7 +125,13 @@ const WidgetNugget = ({ mobile=false, settings, type, data, label, message, data
     return out;
   }
 
-  const getChip = () => <Chip label={label} onClick={() => handleOpenDialog()} /> // direction: 'up',
+  const getChip = () =>
+    <Chip
+      label={label}
+      // direction: 'up',
+      // onClick={() => handleOpenDialog()}
+      onClick={onOpenDialog}
+    />
 
   const getKernelData = () =>
     <WidgetData
@@ -149,7 +155,6 @@ const WidgetNugget = ({ mobile=false, settings, type, data, label, message, data
       <div
         className="flex flex-col h-116 text-center cursor-pointer" // direction: 'right', text-16 text-72
         // onClick={() => handleOpenDialog()}
-        onClick={() => {}} // TODO: jump to first link
       >
         <div className={`${fontSize} h-72 flex items-end leading-none text-blue`}>
           <span className="flex-1">{formattedResult}</span>
@@ -166,33 +171,34 @@ const WidgetNugget = ({ mobile=false, settings, type, data, label, message, data
 
   const getConfig = type => config[type];
 
-  const getDialog = () =>
-    <Dialog
-      keepMounted
-      open={dialogIsOpen}
-      onClose={handleCloseDialog}
-      TransitionComponent={Transition}
-      aria-labelledby="alert-dialog-slide-title"
-      aria-describedby="alert-dialog-slide-description"
-    >
-      <DialogTitle id="alert-dialog-slide-title">{label}</DialogTitle>
-      <DialogContent>
-        <DialogContentText id="alert-dialog-slide-description">{message}</DialogContentText>
-      </DialogContent>
-      <DialogActions>
-        {
-        // <Button onClick={handleCloseDialog} color="primary">Disagree</Button>
-        // <Button onClick={handleCloseDialog} color="primary">Agree</Button>
-        }
-        <Button onClick={handleCloseDialog} color="primary">Ok, got it</Button>
-      </DialogActions>
-    </Dialog>
+  // const getDialog = () =>
+  //   <Dialog
+  //     keepMounted
+  //     open={dialogIsOpen}
+  //     onClose={handleCloseDialog}
+  //     TransitionComponent={Transition}
+  //     aria-labelledby="alert-dialog-slide-title"
+  //     aria-describedby="alert-dialog-slide-description"
+  //   >
+  //     <DialogTitle id="alert-dialog-slide-title">{label}</DialogTitle>
+  //     <DialogContent>
+  //       <DialogContentText id="alert-dialog-slide-description">{message}</DialogContentText>
+  //     </DialogContent>
+  //     <DialogActions>
+  //       {
+  //       // <Button onClick={handleCloseDialog} color="primary">Disagree</Button>
+  //       // <Button onClick={handleCloseDialog} color="primary">Agree</Button>
+  //       }
+  //       <Button onClick={handleCloseDialog} color="primary">Ok, got it</Button>
+  //     </DialogActions>
+  //   </Dialog>
   
-  const handleOpenDialog = () => setDialogIsOpen(true);
-  const handleCloseDialog = () => setDialogIsOpen(false);
+  // const handleOpenDialog = () => setDialogIsOpen(true);
+  // const handleCloseDialog = () => setDialogIsOpen(false);
   // const Transition = props => (<Slide direction={config[type].direction} {...props} />);
 
-  const getWidgetNugget = () => <div> {getConfig(type)} {getDialog()} </div>
+  // const getWidgetNugget = () => <div> {getConfig(type)} {getDialog()} </div>
+  const getWidgetNugget = () => getConfig(type)
 
   return getWidgetNugget();
 }
