@@ -69,7 +69,7 @@ const DashboardWidget = ({
           />
         }
       />
-      <ListItemSecondaryAction className="mr-32">
+      <ListItemSecondaryAction className="mr-8">
         <WidgetMenu mobile links={links} />
       </ListItemSecondaryAction>
     </ListItem>

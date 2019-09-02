@@ -56,11 +56,12 @@ const styles = theme => ({
     // },
     grow: {
       flexGrow: 1,
+      // marginLeft: 12,
     },
-    // leftButton: {
-    //   marginLeft: -12,
-    //   marginRight: 20,
-    // },
+    leftButton: {
+      marginLeft: -2,
+      marginRight: 12,
+    },
     // rightButton: {
     //   marginRight: -12,
     //   marginLeft: 20,
@@ -138,7 +139,7 @@ class MobileAppBar extends Component {
         >
           <Toolbar>
             <IconButton
-              className={classNames(classes.leftButton, 'lg:hidden')}
+              className={classNames(classes.leftButton, 'lg:hidden',)}
               onClick={handleClickMenuButton}
               color="inherit"
               aria-label="Menu"
