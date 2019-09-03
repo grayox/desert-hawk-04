@@ -10,7 +10,8 @@ import { Link, } from 'react-router-dom';
 import { getComponentsNavConfig, } from 'app/config/AppConfig.js';
 
 const getItems = () => {
-  const out = getComponentsNavConfig().filter(r => r.overhead); // filters in only objects with overhead property
+  // const out = getComponentsNavConfig().filter(r => r.overhead); // filters in only objects with overhead property
+  const out = getComponentsNavConfig().filter(r => r && r.type && r.type.component === 'overhead');
   // console.log('out\n', out,);
   return out;
 }

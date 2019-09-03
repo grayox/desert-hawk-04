@@ -654,6 +654,10 @@ export const getComponentsNavConfig = props => {
     // 1. getCreatableFields.filteredArray
     // 2. src/app/config/ComponentRouter.js
     // 3. src/app/layouts/crud/ItemSummary.js
+    // 4. src/app/layouts/appBars/MyBottomNav.js
+    // 5. src/app/layouts/appBars/OverflowMenu.js
+    // 6. src/app/views/dashboard/WidgetMenu.js
+    // search: `/${id}
     // How to recursively filter for nested .id: https://stackoverflow.com/a/57714572/1640892
 
   const out = [
@@ -665,9 +669,13 @@ export const getComponentsNavConfig = props => {
       title     : 'Dashboard',
       id        : 'dashboard',
       icon      : 'dashboard',
-      type      : 'item', // 'item' | 'group' | 'collapse' | 'divider' // see: src/@fuse/components/FuseNavigation/FuseNavigation.js
-      // deprecated: 'collapse' | 'group' // use dashboards to achieve nesting; recursively if necessary
       bottomNav : true,
+      // type      : 'item', // 'item' | 'group' | 'collapse' | 'divider' // see: src/@fuse/components/FuseNavigation/FuseNavigation.js
+      // deprecated: 'collapse' | 'group' // use dashboards to achieve nesting; recursively if necessary
+      type: {
+        navList: 'item', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        component: 'dashboard', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js
+      },
       // see src/app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
       // component: () => FuseLoadable({loader: () => import('app/views/dashboard/Dashboard')}),
@@ -687,8 +695,12 @@ export const getComponentsNavConfig = props => {
       title     : 'Inbox',
       id        : 'inbox',
       icon      : 'cloud_download',
-      type      : 'item',
       bottomNav : true,
+      // type      : 'item',
+      type: {
+        navList: 'item', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        component: 'crud', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
+      },
       // see src/app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
       component: () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
@@ -831,8 +843,12 @@ export const getComponentsNavConfig = props => {
       title     : 'Archive',
       id        : 'archive',
       icon      : 'folder',
-      type      : 'item',
       bottomNav : true,
+      // type      : 'item',
+      type: {
+        navList: 'item', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        component: 'crud', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
+      },
       // see src/app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
       component: () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
@@ -905,10 +921,15 @@ export const getComponentsNavConfig = props => {
         the more leads are available to you in your inbox. You must have a positive net lead balance\
         in order to have leads available for you to claim.\
       ',
-      title : 'Outbox',
-      id    : 'outbox',
-      icon  : 'cloud_upload',
-      type  : 'item',
+      title     : 'Outbox',
+      id        : 'outbox',
+      icon      : 'cloud_upload',
+      bottomNav : false,
+      // type      : 'item',
+      type: {
+        navList: 'item', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        component: 'crud', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
+      },
       // see src/app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
       component  : () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
@@ -1020,10 +1041,15 @@ export const getComponentsNavConfig = props => {
         This is the list of your contacts. The people whom you can feel comfortable sending your referrals to.\
         They will ultimately be matched to your referrals, just as you are, based on location and service field.\
       ',
-      title : 'Contacts',
-      id    : 'contacts',
-      icon  : 'account_box', // 'contacts',
-      type  : 'item',
+      title     : 'Contacts',
+      id        : 'contacts',
+      icon      : 'account_box', // 'contacts',
+      bottomNav : false,
+      // type      : 'item',
+      type: {
+        navList: 'item', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        component: 'crud', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
+      },
       // see src/app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
       component  : () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
@@ -1098,10 +1124,15 @@ export const getComponentsNavConfig = props => {
       description: '\
         This is where you can see all the challenges you made and that were made against you for poor lead quality.\
       ',
-      title       : 'Challenges',
-      id          : 'challenges',
-      icon        : 'security', // policy // after material-ui/icons 4.x upgrade
-      type        : 'item', // 'collapse', // deprecated: 'collapse' | 'group' // use dashboards to achieve nesting; recursively if necessary
+      title     : 'Challenges',
+      id        : 'challenges',
+      icon      : 'security', // policy // after material-ui/icons 4.x upgrade
+      bottomNav : false,
+      // type      : 'item', // 'collapse', // deprecated: 'collapse' | 'group' // use dashboards to achieve nesting; recursively if necessary
+      type: {
+        navList: 'nested', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        component: 'crud', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
+      },
       // component: () => FuseLoadable({loader: () => import('app/views/dashboard/DashboardContainer')}),
       component: () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
       // indentLevel can be used in the future to programmatically set the indentation level at:
@@ -1439,7 +1470,10 @@ export const getComponentsNavConfig = props => {
     },
 
     // divider
-    {id:'div1',title:'',type:'divider',icon:'',url:'',path:'',},
+    {
+      // id:'div1', title:'', type:'divider', icon:'', url:'', path:'',
+      id:'div1', type:'divider',
+    },
 
     // overhead views
     // see specs here: https://material.io/design/communication/help-feedback.html#use-placement
@@ -1453,9 +1487,13 @@ export const getComponentsNavConfig = props => {
       title     : 'Settings',
       id        : 'settings',
       icon      : 'settings',
-      type      : 'item',
       bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
       overhead  : true,
+      // type      : 'item',
+      type: {
+        navList: 'item', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        component: 'overhead', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
+      },
       // see src/app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
       component : () => FuseLoadable({loader: () => import('app/views/settings/Settings')}),
@@ -1468,9 +1506,13 @@ export const getComponentsNavConfig = props => {
       title     : 'Send feedback',
       id        : 'feedback',
       icon      : 'feedback',
-      type      : 'item',
       bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
       overhead  : true,
+      // type      : 'item',
+      type: {
+        navList: 'item', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        component: 'overhead', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
+      },
       // see src/app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
       component : () => FuseLoadable({loader: () => import('app/views/feedback/Feedback')}),
@@ -1483,9 +1525,13 @@ export const getComponentsNavConfig = props => {
       title     : 'Help',
       id        : 'help',
       icon      : 'help',
-      type      : 'item',
       bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
       overhead  : true,
+      // type      : 'item',
+      type: {
+        navList: 'item', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        component: 'overhead', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
+      },
       // see src/app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
       component : () => FuseLoadable({loader: () => import('app/views/Help')}),
@@ -1497,7 +1543,6 @@ export const getComponentsNavConfig = props => {
       ',
       title     : 'Logout',
       id        : 'logout',
-      type      : 'item',
       altIcon   : (
         <IconContext.Provider value={{ color: 'white', className: 'text-20 flex-no-shrink' }}>
           <span><FaSignOutAlt /></span>
@@ -1505,6 +1550,11 @@ export const getComponentsNavConfig = props => {
       ),
       bottomNav : false, // per spec: https://material.io/design/components/bottom-navigation.html#usage
       overhead  : true,
+      // type      : 'item',
+      type: {
+        navList: 'item', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        component: 'overhead', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
+      },
       // see src/app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
       component : () => FuseLoadable({loader: () => import('app/views/Logout')}),

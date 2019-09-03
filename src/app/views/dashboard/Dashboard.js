@@ -109,7 +109,7 @@ const Dashboard = ({ classes, dashboard, settings, profile, show, type, saveUser
       </Paper>,
 
     micro:
-      <Paper className="p-6">
+      <Paper className="flex content-center flex-wrap p-8 border border-red">
         <MiniDashboard data={dashboard} micro />
       </Paper>,
   }

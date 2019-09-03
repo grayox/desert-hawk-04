@@ -31,7 +31,8 @@ const getItems = () => {
   const componentsNavConfig = getComponentsNavConfig();
   // const items = componentsNavConfig.filter(r => (r.type==='item' || r.type==='route'));
   // const items = componentsNavConfig.filter(r => (r.type==='item'));
-  const items = getFilterNested( componentsNavConfig, 'type', 'item', );
+  // const items = getFilterNested( componentsNavConfig, 'type', 'item', );
+  const items = getFilterNested( componentsNavConfig, 'type.navList', 'item', );
   // console.log('items\n', items,);
   return items;
 }

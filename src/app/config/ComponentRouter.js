@@ -16,18 +16,18 @@ const getChild = ({ match: { params: { id }}, profile, settings, dashboard, }) =
   // const matches = _.filter(componentsNavConfig, {id,},);
   // const item = matches[0];
   const item = getFindNested(componentsNavConfig, 'id', id,);
-  const { dashConfig={}, crudConfig={}, } = item;
+  const { type: {component: type,}, dashboardConfig={}, crudConfig={}, } = item;
   // console.log('crudConfig\n', crudConfig,);
   const {
     condensed, actionable, creatable, readable, updatable, deletable,
     searchable, filterable, sortable, starrable, alertable, miniDashboard,
   } = crudConfig;
 
-  const type = ( crudConfig && !_.isEmpty(crudConfig) ) ? 'crud' : 'dash';
-  console.log('type\n', type,);
+  // const type = ( crudConfig && !_.isEmpty(crudConfig) ) ? 'crud' : 'dashboard';
+  // console.log('type\n', type,);
   
   const getDashboardContainer = () =>
-    <DashboardContainer profile={profile} settings={settings} dashboard={dashboard} />
+    <DashboardContainer profile={profile} settings={settings} dashboard={dashboard} config={dashboardConfig} />
 
   const getCRUDContainer = () =>
     // <div>{id}</div>
@@ -41,7 +41,7 @@ const getChild = ({ match: { params: { id }}, profile, settings, dashboard, }) =
 
   const typeConfig = {
     crud: getCRUDContainer(),
-    dash: getDashboardContainer(),
+    dashboard: getDashboardContainer(),
   }
 
   const getResult = type => typeConfig[type];

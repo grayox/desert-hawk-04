@@ -20,6 +20,8 @@ const defaultProps = {
 class FuseNavigation extends Component {
   render() {
     const { navigation, layout, active, } = this.props; // onPress,
+    // console.log('item\n', item,);
+    // console.log('navigation\n', navigation,);
 
     // const handleClick = () => alert('clicked')
 
@@ -27,6 +29,7 @@ class FuseNavigation extends Component {
       <List className="whitespace-no-wrap">
         {
           navigation.map( item => (
+            
             // item.type is defined at src/app/config/AppConfig.js > getComponentsNavConfig.out[n].type
 
             <React.Fragment key={item.id}>
@@ -41,16 +44,18 @@ class FuseNavigation extends Component {
               // {item.type === 'collapse' && (
               //   <FuseNavVerticalCollapse item={item} nestedLevel={0} active={active} />
               // )}
+
+              // add new type subcategory: navList
               }
 
-              {item.type === 'item' && (
+              {item.type && item.type.navList && (item.type.navList === 'item') && (
                 <FuseNavVerticalItem item={item} nestedLevel={0} active={active}
                 // onPress={() => alert('clicked')}
                 // onPress={handleClick}
                 />
               )}
 
-              {item.type === 'divider' && (
+              {item.type && (item.type === 'divider') && (
                 <Divider className="my-24 opacity-25 border border-white color-white bg-white" />
               )}
           
