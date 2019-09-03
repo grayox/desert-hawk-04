@@ -671,7 +671,8 @@ export const getComponentsNavConfig = props => {
       // see src/app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
       // component: () => FuseLoadable({loader: () => import('app/views/dashboard/Dashboard')}),
-      component: () => FuseLoadable({loader: () => import('app/views/dashboard/DashboardContainer')}),
+      // component: () => FuseLoadable({loader: () => import('app/views/dashboard/DashboardContainer')}),
+      component: () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
     },
     {
       // eslint-disable-next-line
@@ -1101,7 +1102,8 @@ export const getComponentsNavConfig = props => {
       id          : 'challenges',
       icon        : 'security', // policy // after material-ui/icons 4.x upgrade
       type        : 'item', // 'collapse', // deprecated: 'collapse' | 'group' // use dashboards to achieve nesting; recursively if necessary
-      component: () => FuseLoadable({loader: () => import('app/views/dashboard/DashboardContainer')}),
+      // component: () => FuseLoadable({loader: () => import('app/views/dashboard/DashboardContainer')}),
+      component: () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
       // indentLevel can be used in the future to programmatically set the indentation level at:
       //   src/@fuse/components/FuseNavigation/vertical/FuseNavVerticalItem.js
       //   src/@fuse/components/FuseNavigation/vertical/FuseNavVerticalCollapse.js

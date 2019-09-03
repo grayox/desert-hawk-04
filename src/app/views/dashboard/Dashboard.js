@@ -109,7 +109,7 @@ const Dashboard = ({ classes, dashboard, settings, profile, show, type, saveUser
       </Paper>,
 
     micro:
-      <Paper>
+      <Paper className="p-6">
         <MiniDashboard data={dashboard} micro />
       </Paper>,
   }

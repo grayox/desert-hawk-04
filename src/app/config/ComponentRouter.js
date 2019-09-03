@@ -5,7 +5,8 @@ import { connect, } from 'react-redux';
 
 import _ from '@lodash';
 import { getComponentsNavConfig, getFindNested, } from 'app/config/AppConfig';
-import CRUDContainer from '../layouts/crud/CRUDContainer';
+import DashboardContainer from 'app/views/dashboard/DashboardContainer';
+import CRUDContainer from 'app/layouts/crud/CRUDContainer';
 
 const getChild = ({ match: { params: { id }}, profile, settings, dashboard, }) => {
   // const matches = componentsNavConfig.filter(r => (r.id === id));
@@ -15,12 +16,18 @@ const getChild = ({ match: { params: { id }}, profile, settings, dashboard, }) =
   // const matches = _.filter(componentsNavConfig, {id,},);
   // const item = matches[0];
   const item = getFindNested(componentsNavConfig, 'id', id,);
-  const { crudConfig, } = item;
+  const { dashConfig={}, crudConfig={}, } = item;
   // console.log('crudConfig\n', crudConfig,);
   const {
     condensed, actionable, creatable, readable, updatable, deletable,
     searchable, filterable, sortable, starrable, alertable, miniDashboard,
   } = crudConfig;
+
+  const type = ( crudConfig && !_.isEmpty(crudConfig) ) ? 'crud' : 'dash';
+  console.log('type\n', type,);
+  
+  const getDashboardContainer = () =>
+    <DashboardContainer profile={profile} settings={settings} dashboard={dashboard} />
 
   const getCRUDContainer = () =>
     // <div>{id}</div>
@@ -32,9 +39,14 @@ const getChild = ({ match: { params: { id }}, profile, settings, dashboard, }) =
       filterable={filterable} sortable={sortable} starrable={starrable} alertable={alertable}
     />
 
-  const out = getCRUDContainer();
+  const typeConfig = {
+    crud: getCRUDContainer(),
+    dash: getDashboardContainer(),
+  }
 
-  return out;
+  const getResult = type => typeConfig[type];
+
+  return getResult(type);
 };
 
 const getComponentRouter = props => {
