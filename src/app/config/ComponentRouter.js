@@ -27,7 +27,10 @@ const getChild = ({ match: { params: { id }}, profile, settings, dashboard, }) =
   // console.log('type\n', type,);
   
   const getDashboardContainer = () =>
-    <DashboardContainer profile={profile} settings={settings} dashboard={dashboard} config={dashboardConfig} />
+    <DashboardContainer
+      profile={profile} settings={settings}
+      dashboard={dashboard} config={dashboardConfig}
+    />
 
   const getCRUDContainer = () =>
     // <div>{id}</div>

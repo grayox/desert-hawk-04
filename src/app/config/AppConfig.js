@@ -1130,8 +1130,8 @@ export const getComponentsNavConfig = props => {
       bottomNav : false,
       // type      : 'item', // 'collapse', // deprecated: 'collapse' | 'group' // use dashboards to achieve nesting; recursively if necessary
       type: {
-        navList: 'nested', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
-        component: 'crud', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
+        navList: 'item', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        component: 'dashboard', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
       },
       // component: () => FuseLoadable({loader: () => import('app/views/dashboard/DashboardContainer')}),
       component: () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
