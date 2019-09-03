@@ -51,7 +51,7 @@ import { FaSignOutAlt, } from 'react-icons/fa'; // https://react-icons.netlify.c
 // import { IoIosLogOut, IoMdLogOut, } from 'react-icons/io'; // https://react-icons.netlify.com/#/
 
 // utility components
-// import CRUDRouter from 'app/layouts/crud/CRUDRouter';
+// import ComponentRouter from 'app/config/ComponentRouter';
 import { getDashboardInitialValues, } from 'app/config/DashboardGridConfig';
 
 // usage
@@ -652,7 +652,7 @@ export const getComponentsNavConfig = props => {
     // Modify items numbered 2 and 3 in above list to recursively flatten the config object to filter by .id at any arbitrarily deep level
     // Also the following files:
     // 1. getCreatableFields.filteredArray
-    // 2. src/app/layouts/crud/CRUDRouter.js
+    // 2. src/app/config/ComponentRouter.js
     // 3. src/app/layouts/crud/ItemSummary.js
     // How to recursively filter for nested .id: https://stackoverflow.com/a/57714572/1640892
 
@@ -690,7 +690,7 @@ export const getComponentsNavConfig = props => {
       bottomNav : true,
       // see src/app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
-      component: () => FuseLoadable({loader: () => import('app/layouts/crud/CRUDRouter')}),
+      component: () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
       crudConfig: {
         miniDashboard: [ 'net', 'deposits', 'withdrawals', ],
         condensed: true,
@@ -834,7 +834,7 @@ export const getComponentsNavConfig = props => {
       bottomNav : true,
       // see src/app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
-      component: () => FuseLoadable({loader: () => import('app/layouts/crud/CRUDRouter')}),
+      component: () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
       crudConfig: {
         condensed: true,
         searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
@@ -910,7 +910,7 @@ export const getComponentsNavConfig = props => {
       type  : 'item',
       // see src/app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
-      component  : () => FuseLoadable({loader: () => import('app/layouts/crud/CRUDRouter')}),
+      component  : () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
       crudConfig : {
         miniDashboard: [ 'net', 'deposits', 'withdrawals', ],
         condensed: true,
@@ -1025,7 +1025,7 @@ export const getComponentsNavConfig = props => {
       type  : 'item',
       // see src/app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
-      component  : () => FuseLoadable({loader: () => import('app/layouts/crud/CRUDRouter')}),
+      component  : () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
       crudConfig : {
         miniDashboard: [ 'contacts', ],
         condensed: true,
@@ -1125,7 +1125,7 @@ export const getComponentsNavConfig = props => {
               // exact: true,
               // see src/app/config/Routes.js
               // also update in: src/main/content/components/ComponentsConfig.js
-              component   : () => FuseLoadable({loader: () => import('app/layouts/crud/CRUDRouter')}),
+              component   : () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
               crudConfig  : {
                 miniDashboard: [
                   'challenges-inbound-pending'  ,
@@ -1176,7 +1176,7 @@ export const getComponentsNavConfig = props => {
               // exact: true,
               // see src/app/config/Routes.js
               // also update in: src/main/content/components/ComponentsConfig.js
-              component   : () => FuseLoadable({loader: () => import('app/layouts/crud/CRUDRouter')}),
+              component   : () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
               crudConfig  : {
                 miniDashboard: [
                   'challenges-inbound-pending'  ,
@@ -1227,7 +1227,7 @@ export const getComponentsNavConfig = props => {
               // exact: true,
               // see src/app/config/Routes.js
               // also update in: src/main/content/components/ComponentsConfig.js
-              component   : () => FuseLoadable({loader: () => import('app/layouts/crud/CRUDRouter')}),
+              component   : () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
               crudConfig  : {
                 miniDashboard: [
                   'challenges-inbound-pending'  ,
@@ -1287,7 +1287,7 @@ export const getComponentsNavConfig = props => {
               // exact: true,
               // see src/app/config/Routes.js
               // also update in: src/main/content/components/ComponentsConfig.js
-              component   : () => FuseLoadable({loader: () => import('app/layouts/crud/CRUDRouter')}),
+              component   : () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
               crudConfig  : {
                 miniDashboard: [
                   'challenges-inbound-pending'  ,
@@ -1338,7 +1338,7 @@ export const getComponentsNavConfig = props => {
               // exact: true,
               // see src/app/config/Routes.js
               // also update in: src/main/content/components/ComponentsConfig.js
-              component   : () => FuseLoadable({loader: () => import('app/layouts/crud/CRUDRouter')}),
+              component   : () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
               crudConfig  : {
                 miniDashboard: [
                   'challenges-inbound-pending'  ,
@@ -1389,7 +1389,7 @@ export const getComponentsNavConfig = props => {
               // exact: true,
               // see src/app/config/Routes.js
               // also update in: src/main/content/components/ComponentsConfig.js
-              component   : () => FuseLoadable({loader: () => import('app/layouts/crud/CRUDRouter')}),
+              component   : () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
               crudConfig  : {
                 miniDashboard: [
                   'challenges-inbound-pending'  ,

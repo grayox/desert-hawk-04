@@ -5,7 +5,7 @@ import { connect, } from 'react-redux';
 
 import _ from '@lodash';
 import { getComponentsNavConfig, getFindNested, } from 'app/config/AppConfig';
-import CRUDContainer from './CRUDContainer';
+import CRUDContainer from '../layouts/crud/CRUDContainer';
 
 const getChild = ({ match: { params: { id }}, profile, settings, dashboard, }) => {
   // const matches = componentsNavConfig.filter(r => (r.id === id));
@@ -21,7 +21,8 @@ const getChild = ({ match: { params: { id }}, profile, settings, dashboard, }) =
     condensed, actionable, creatable, readable, updatable, deletable,
     searchable, filterable, sortable, starrable, alertable, miniDashboard,
   } = crudConfig;
-  const out =
+
+  const getCRUDContainer = () =>
     // <div>{id}</div>
     <CRUDContainer
       profile={profile}
@@ -42,10 +43,13 @@ const getChild = ({ match: { params: { id }}, profile, settings, dashboard, }) =
       starrable={starrable}
       alertable={alertable}
     />
+
+  const out = getCRUDContainer();
+
   return out;
 };
 
-const getCRUDRouter = props => {
+const getComponentRouter = props => {
   const { profile, settings, dashboard, } = props;
   const ready1 = !_.isEmpty(profile) && !_.isEmpty(settings) && !_.isEmpty(dashboard);
   // console.log('ready1\n', ready1,);
@@ -60,7 +64,7 @@ const getCRUDRouter = props => {
 }
 
 // ref: https://reacttraining.com/react-router/web/example/url-params
-const CRUDRouter = props => getCRUDRouter(props)
+const ComponentRouter = props => getComponentRouter(props)
 
 // begin add
 
@@ -85,8 +89,8 @@ const mapStateToProps = state => {
   return { profile, settings, dashboard, };
 }
 
-// export default CRUDRouter;
+// export default ComponentRouter;
 export default compose(
   // withStyles(styles, { withTheme: true }),  
   connect( mapStateToProps, ), // mapDispatchToProps,
-)(CRUDRouter)
+)(ComponentRouter)
