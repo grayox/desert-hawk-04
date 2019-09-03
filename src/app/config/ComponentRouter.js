@@ -25,23 +25,11 @@ const getChild = ({ match: { params: { id }}, profile, settings, dashboard, }) =
   const getCRUDContainer = () =>
     // <div>{id}</div>
     <CRUDContainer
-      profile={profile}
-      settings={settings}
-      dashboard={dashboard}
-      navComponentId={item && item.id}
-      // items={items} // these will be acquired as state, not props
-      miniDashboard={miniDashboard}
-      condensed={condensed}
-      actionable={actionable}
-      creatable={creatable}
-      readable={readable}
-      updatable={updatable}
-      deletable={deletable}
-      searchable={searchable}
-      filterable={filterable}
-      sortable={sortable}
-      starrable={starrable}
-      alertable={alertable}
+      profile={profile} settings={settings} dashboard={dashboard}
+      navComponentId={item && item.id} // items={items} // these will be acquired as state, not props
+      miniDashboard={miniDashboard} condensed={condensed} actionable={actionable} creatable={creatable}
+      readable={readable} updatable={updatable} deletable={deletable} searchable={searchable}
+      filterable={filterable} sortable={sortable} starrable={starrable} alertable={alertable}
     />
 
   const out = getCRUDContainer();
