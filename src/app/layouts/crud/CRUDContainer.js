@@ -332,4 +332,4 @@ class CRUDContainer extends Component {
 }
 
 // export default CRUDContainer;
-export default withStyles(styles, {withTheme: true})(CRUDContainer);
+export default withStyles( styles, {withTheme: true,}, )(CRUDContainer);
