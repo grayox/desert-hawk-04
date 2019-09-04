@@ -7,13 +7,19 @@ import {
 } from '@material-ui/core';
 
 import { Link, } from 'react-router-dom';
-import { getComponentsNavConfig, } from 'app/config/AppConfig.js';
+import {
+  getComponentsNavConfig, overheadConfig,
+  getFilterArrayOfObjectsByPropValueContainedInArray,
+} from 'app/config/AppConfig.js';
 
 const getItems = () => {
-  // const out = getComponentsNavConfig().filter(r => r.overhead); // filters in only objects with overhead property
-  const out = getComponentsNavConfig().filter(r => r && r.type && r.type.component === 'overhead');
-  // console.log('out\n', out,);
-  return out;
+  // // const out = getComponentsNavConfig().filter(r => r.overhead); // filters in only objects with overhead property
+  // const out = getComponentsNavConfig().filter(r => r && r.type && r.type.component === 'overhead');
+  // // console.log('out\n', out,);
+  // return out;
+  const componentsNavConfig = getComponentsNavConfig();
+  const items = getFilterArrayOfObjectsByPropValueContainedInArray( componentsNavConfig, 'id', overheadConfig, );
+  return items;
 }
 
 // class SimpleMenu extends Component {

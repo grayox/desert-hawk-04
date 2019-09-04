@@ -4,8 +4,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import { DashboardGridConfig } from 'app/config/DashboardGridConfig';
+import { DashboardGridConfig, } from 'app/config/DashboardGridConfig';
+import { getFilterArrayOfObjectsByPropValueContainedInArray, } from 'src/app/config/AppConfig';
 import DashboardWidget from './DashboardWidget';
+
 import {
   withStyles, Grid, Paper, Divider, List, // GridList, CircularProgress, HashAvatar, Tooltip,
 } from '@material-ui/core';
@@ -80,14 +82,8 @@ const styles = theme => ({
 const DashboardWidgets = ({ classes, data, settings, config, }) => { // classes,
   // const items = DashboardGridConfig.cells; // getItems();
   const { cells, } = DashboardGridConfig;
+  const items = getFilterArrayOfObjectsByPropValueContainedInArray( cells, 'id', config, );
 
-  // select subset of items from cells array where
-  // value of 'id' property is contained in config array
-  const items =
-    _.filter( cells,
-      _.conforms({ 'id': id =>
-        _.indexOf( config, id, ) > -1
-    }));
   // console.log('cells\n', cells,);
   // console.log('items\n', items,);
   const count = items && items.length;

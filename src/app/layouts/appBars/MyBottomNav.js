@@ -18,8 +18,12 @@ import {
   // withRouter,
   Link,
 } from 'react-router-dom'; //
-import { getComponentsNavConfig, } from 'app/config/AppConfig.js';
+import {
+  getComponentsNavConfig, bottomNavConfig,
+  getFilterArrayOfObjectsByPropValueContainedInArray,
+} from 'app/config/AppConfig.js';
 // import { FuseScrollbars, FuseMessage, FuseThemes, FuseDialog } from '@fuse';
+import _ from '@lodash';
 
 const styles = theme => ({
   // ref: https://stackoverflow.com/a/54375949/1640892
@@ -60,7 +64,10 @@ const styles = theme => ({
   // },
 });
 
-const items = getComponentsNavConfig().filter(r => r.bottomNav) // filters in only objects with bottomNav property
+// const items = getComponentsNavConfig().filter(r => r.bottomNav) // filters in only objects with bottomNav property
+const componentsNavConfig = getComponentsNavConfig();
+const items = getFilterArrayOfObjectsByPropValueContainedInArray( componentsNavConfig, 'id', bottomNavConfig, );
+
 // [
 //   { title: 'Dashboard' , url: '/dashboard' , icon: <Icon>star</Icon> , } ,
 //   { title: 'Inbox'     , url: '/inbox'     , icon: <Icon>star</Icon> , } ,
