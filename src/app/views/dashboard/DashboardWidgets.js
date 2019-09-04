@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import { DashboardGridConfig, } from 'app/config/DashboardGridConfig';
-import { getFilterArrayOfObjectsByPropValueContainedInArray, } from 'src/app/config/AppConfig';
+import { getFilterArrayOfObjectsByPropValueContainedInArray, } from 'app/config/AppConfig';
 import DashboardWidget from './DashboardWidget';
 
 import {
@@ -16,7 +16,7 @@ import { FuseAnimateGroup } from '@fuse'; // FuseScrollbars, FuseAnimate,
 import MediaWidth from 'app/layouts/MediaWidth';
 
 // lodash
-import _ from '@lodash';
+// import _ from '@lodash';
 
 import hash from 'object-hash'; // https://www.npmjs.com/package/object-hash
 
