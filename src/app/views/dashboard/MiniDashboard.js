@@ -4,7 +4,7 @@ import _ from '@lodash';
 import numeral from 'numeral';
 
 import {
-  Chip, Badge, Avatar, Divider, IconButton, Icon,
+  Chip, Badge, Avatar, Divider, IconButton, Icon, Paper,
   List, ListItem, ListItemText, ListItemSecondaryAction, ListSubheader, // ListItemIcon,
   // ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails,
 } from '@material-ui/core';
@@ -156,26 +156,31 @@ const MiniDashboard = ({ data, micro, }) => {
   const pickedData = getPickedData(data, picker, cells,);
   // console.log('pickedData\n', pickedData,);
 
+  const getMicroDashboard = () =>
+    <Paper className="flex content-center flex-wrap p-8 mb-8">
+      <List dense subheader={getSubheader()}>
+        {
+          pickedData && pickedData.length &&
+          pickedData.map(({ key, value, }) => getMicro(key, value,))
+        }
+      </List>
+    </Paper>
+
+  const getMiniDashboardMain = () =>
+    <Paper>
+      <List className="p-0 mb-12" dense subheader={getSubheader()}>
+        <Divider/>
+        { 
+          pickedData && pickedData.length &&
+          pickedData.map(({ key, value, }) => (showMini && getMini(key, value,)))
+        }
+      </List>
+    </Paper>
+    
   const getMiniDashboard = () =>
     <React.Fragment>
       <Route path="/:path" component={handleRouter} />
-      {
-        pickedData && pickedData.length &&
-        <List className="p-0 mb-12" dense subheader={getSubheader()}>
-          <Divider/>
-            {
-              pickedData.map( item =>
-                ( 
-                  micro
-                  ?
-                  getMicro(item.key, item.value,)
-                  :
-                  ( showMini && getMini(item.key, item.value,) )
-                )
-              )
-            }
-        </List>
-      }
+      { micro ? getMicroDashboard() : getMiniDashboardMain() }
     </React.Fragment>
   
   return getMiniDashboard();

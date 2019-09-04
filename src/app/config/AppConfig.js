@@ -1470,10 +1470,8 @@ export const getComponentsNavConfig = props => {
     },
 
     // divider
-    {
-      // id:'div1', title:'', type:'divider', icon:'', url:'', path:'',
-      id:'div1', type:'divider',
-    },
+    // {id:'div1', type:'divider',},
+    {type:'divider'},
 
     // overhead views
     // see specs here: https://material.io/design/communication/help-feedback.html#use-placement

@@ -9,7 +9,7 @@ import { compose, } from 'redux';
 import _ from '@lodash';
 
 // @material-ui/core
-import { withStyles, Paper, } from '@material-ui/core';
+import { withStyles, } from '@material-ui/core';
 
 // import dashboardStyle from "app/vendors/creative-tim/assets/jss/material-dashboard-react/views/dashboardStyle";
 // import SettingsMessage from 'app/components/SettingsMessage';
@@ -98,20 +98,12 @@ const Dashboard = ({ classes, dashboard, settings, profile, show, type, saveUser
   // }
 
   const dashConfig = {
-    standard: // includes laptop and mobile variants
+    mini     : <MiniDashboard data={dashboard}       />,
+    micro    : <MiniDashboard data={dashboard} micro />,
+    standard : // includes laptop and mobile variants
       <div className={classes.wrapper}>
         <DashboardWidgets data={dashboard} settings={settings} />
       </div>,
-
-    mini:
-      <Paper>
-        <MiniDashboard data={dashboard} />
-      </Paper>,
-
-    micro:
-      <Paper className="flex content-center flex-wrap p-8 border border-red">
-        <MiniDashboard data={dashboard} micro />
-      </Paper>,
   }
 
   const getDashConfig = type => dashConfig[type]
