@@ -123,11 +123,13 @@ const DashboardWidgets = ({ classes, data, settings, config, }) => { // classes,
     </FuseAnimateGroup>
 
   const getListGroupMobile = ( subheader, group, ) =>
+    !!group.length
+    ?
     <List
       className="m-0 p-0" component="nav"
       subheader={
         <ListSubheader
-          className="text-left uppercase"
+          className="text-left uppercase text-12"
           component="div" id="nested-list-subheader"
         >
           {subheader}
@@ -137,6 +139,8 @@ const DashboardWidgets = ({ classes, data, settings, config, }) => { // classes,
       <Divider />
       {getListGroupMobileWidgets(group)}
     </List>
+    :
+    null
 
   const getListGroupsMobile = () =>
     groupsKeys.map( key => {

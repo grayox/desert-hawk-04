@@ -44,7 +44,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.default,
     // padding: theme.spacing.unit * 3,
 
-    border: '1px solid red',
+    // border: '1px solid red',
     overflow: 'auto',
     paddingBottom: '100vh',
     marginBottom: '100vh',

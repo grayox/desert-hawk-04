@@ -27,7 +27,7 @@ import reducer from 'app/store/reducers';
 const styles = theme => ({
   wrapper: {
     minHeight: '100vh',
-    border: '1px solid blue',
+    // border: '1px solid blue',
     // overflow: 'auto',
     // paddingBottom: '100vh',
     // marginBottom: '100vh',

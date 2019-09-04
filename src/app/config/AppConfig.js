@@ -1160,6 +1160,7 @@ export const getComponentsNavConfig = props => {
       // component: () => FuseLoadable({loader: () => import('app/views/dashboard/DashboardContainer')}),
       component: () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
       dashboardConfig: [
+        'challenges-net',
         'challenges-inbound', 'challenges-inbound-pending',
         'challenges-inbound-won', 'challenges-inbound-lost',
         'challenges-outbound', 'challenges-outbound-pending',

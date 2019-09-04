@@ -103,6 +103,13 @@ export const DashboardGridConfig = {
         We also use this information to help send leads from you to the correct geographical location.\
       ',
     },
+    challenges: {
+      label: 'Challenges',
+      // eslint-disable-next-line
+      description: '\
+        The net result of all your won and lost inbound and outbound challenges\
+      ',
+    },
     inbound: {
       label: 'Inbound',
       // eslint-disable-next-line
@@ -387,7 +394,7 @@ export const DashboardGridConfig = {
     },
     {
       id: 'challenges-inbound',
-      label: 'Total inbound',
+      label: 'Inbound',
       initialValue: 0,
       group: 'inbound',
       links: [
@@ -402,7 +409,7 @@ export const DashboardGridConfig = {
     },
     {
       id: 'challenges-inbound-pending',
-      label: 'Inbound pending',
+      label: 'Pending',
       initialValue: 0,
       group: 'inbound',
       links: [
@@ -418,7 +425,7 @@ export const DashboardGridConfig = {
     },
     {
       id: 'challenges-inbound-won',
-      label: 'Inbound won',
+      label: 'Won',
       initialValue: 0,
       group: 'inbound',
       links: [
@@ -433,7 +440,7 @@ export const DashboardGridConfig = {
     },
     {
       id: 'challenges-inbound-lost',
-      label: 'Inbound lost',
+      label: 'Lost',
       initialValue: 0,
       group: 'inbound',
       links: [
@@ -448,7 +455,7 @@ export const DashboardGridConfig = {
     },
     {
       id: 'challenges-outbound',
-      label: 'Total outbound',
+      label: 'Outbound',
       initialValue: 0,
       group: 'outbound',
       links: [
@@ -463,7 +470,7 @@ export const DashboardGridConfig = {
     },
     {
       id: 'challenges-outbound-pending',
-      label: 'Outbound pending',
+      label: 'Pending',
       initialValue: 0,
       group: 'outbound',
       links: [
@@ -479,7 +486,7 @@ export const DashboardGridConfig = {
     },
     {
       id: 'challenges-outbound-won',
-      label: 'Outbound won',
+      label: 'Won',
       initialValue: 0,
       group: 'outbound',
       links: [
@@ -494,7 +501,7 @@ export const DashboardGridConfig = {
     },
     {
       id: 'challenges-outbound-lost',
-      label: 'Outbound lost',
+      label: 'Lost',
       initialValue: 0,
       group: 'outbound',
       links: [
