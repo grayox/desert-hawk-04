@@ -21,7 +21,7 @@ import {
 import {
   getComponentsNavConfig, bottomNavConfig,
   getFilterArrayOfObjectsByPropValueContainedInArray,
-} from 'app/config/AppConfig.js';
+} from 'app/config/AppConfig';
 // import { FuseScrollbars, FuseMessage, FuseThemes, FuseDialog } from '@fuse';
 // import _ from '@lodash';
 

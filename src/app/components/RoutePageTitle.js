@@ -1,6 +1,6 @@
 import React, { useState, } from 'react';
 import { Route, Redirect, } from "react-router-dom";
-import { getComponentsNavConfig, getFilterNested, } from 'app/config/AppConfig.js';
+import { getComponentsNavConfig, getFilterNested, } from 'app/config/AppConfig';
 
 import {
   Button, Slide, Tooltip, Zoom, // Chip, Typography, // withStyles

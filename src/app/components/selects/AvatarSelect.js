@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 // import classNames from 'classnames';
 
-import { avatarOptions } from 'app/config/AppConfig.js';
+import { avatarOptions } from 'app/config/AppConfig';
 import HashAvatar from 'app/components/HashAvatar';
 
 // material-ui
