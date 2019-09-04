@@ -674,7 +674,7 @@ export const getComponentsNavConfig = props => {
       // type      : 'item', // 'item' | 'group' | 'collapse' | 'divider' // see: src/@fuse/components/FuseNavigation/FuseNavigation.js
       // deprecated: 'collapse' | 'group' // use dashboards to achieve nesting; recursively if necessary
       type: {
-        navList: 'item', // [ 'item', 'hidden', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        navList: 'item', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
         component: 'dashboard', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js
       },
       // see src/app/config/Routes.js
@@ -703,7 +703,7 @@ export const getComponentsNavConfig = props => {
       bottomNav : true,
       // type      : 'item',
       type: {
-        navList: 'item', // [ 'item', 'hidden', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        navList: 'item', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
         component: 'crud', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
       },
       // see src/app/config/Routes.js
@@ -851,7 +851,7 @@ export const getComponentsNavConfig = props => {
       bottomNav : true,
       // type      : 'item',
       type: {
-        navList: 'item', // [ 'item', 'hidden', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        navList: 'item', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
         component: 'crud', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
       },
       // see src/app/config/Routes.js
@@ -932,7 +932,7 @@ export const getComponentsNavConfig = props => {
       bottomNav : false,
       // type      : 'item',
       type: {
-        navList: 'item', // [ 'item', 'hidden', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        navList: 'item', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
         component: 'crud', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
       },
       // see src/app/config/Routes.js
@@ -1052,7 +1052,7 @@ export const getComponentsNavConfig = props => {
       bottomNav : false,
       // type      : 'item',
       type: {
-        navList: 'item', // [ 'item', 'hidden', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        navList: 'item', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
         component: 'crud', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
       },
       // see src/app/config/Routes.js
@@ -1134,7 +1134,7 @@ export const getComponentsNavConfig = props => {
       bottomNav : false,
       // type      : 'item', // 'collapse', // deprecated: 'collapse' | 'group' // use dashboards to achieve nesting; recursively if necessary
       type: {
-        navList: 'item', // [ 'item', 'hidden', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        navList: 'item', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
         component: 'dashboard', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
       },
       // component: () => FuseLoadable({loader: () => import('app/views/dashboard/DashboardContainer')}),
@@ -1158,7 +1158,7 @@ export const getComponentsNavConfig = props => {
       icon      : false,
       bottomNav : false,
       type: {
-        navList: 'hidden', // [ 'item', 'hidden', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        navList: 'nested', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
         component: 'crud', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
       },
       // see src/app/config/Routes.js
@@ -1168,8 +1168,8 @@ export const getComponentsNavConfig = props => {
         miniDashboard: [
           'challenges-inbound', 'challenges-inbound-pending',
           'challenges-inbound-won', 'challenges-inbound-lost',
-          'challenges-outbound', 'challenges-outbound-pending',
-          'challenges-outbound-won', 'challenges-outbound-lost',
+          // 'challenges-outbound', 'challenges-outbound-pending',
+          // 'challenges-outbound-won', 'challenges-outbound-lost',
         ],
         condensed: true,
         searchable: false, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
@@ -1209,7 +1209,7 @@ export const getComponentsNavConfig = props => {
       icon      : false,
       bottomNav : false,
       type: {
-        navList: 'hidden', // [ 'item', 'hidden', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        navList: 'nested', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
         component: 'crud', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
       },
       // see src/app/config/Routes.js
@@ -1219,8 +1219,8 @@ export const getComponentsNavConfig = props => {
         miniDashboard: [
           'challenges-inbound', 'challenges-inbound-pending',
           'challenges-inbound-won', 'challenges-inbound-lost',
-          'challenges-outbound', 'challenges-outbound-pending',
-          'challenges-outbound-won', 'challenges-outbound-lost',
+          // 'challenges-outbound', 'challenges-outbound-pending',
+          // 'challenges-outbound-won', 'challenges-outbound-lost',
         ],
         condensed: true,
         searchable: false, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
@@ -1260,7 +1260,7 @@ export const getComponentsNavConfig = props => {
       icon      : false,
       bottomNav : false,
       type: {
-        navList: 'hidden', // [ 'item', 'hidden', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        navList: 'nested', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
         component: 'crud', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
       },
       // see src/app/config/Routes.js
@@ -1270,8 +1270,8 @@ export const getComponentsNavConfig = props => {
         miniDashboard: [
           'challenges-inbound', 'challenges-inbound-pending',
           'challenges-inbound-won', 'challenges-inbound-lost',
-          'challenges-outbound', 'challenges-outbound-pending',
-          'challenges-outbound-won', 'challenges-outbound-lost',
+          // 'challenges-outbound', 'challenges-outbound-pending',
+          // 'challenges-outbound-won', 'challenges-outbound-lost',
         ],
         condensed: true,
         searchable: false, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
@@ -1311,7 +1311,7 @@ export const getComponentsNavConfig = props => {
       icon      : false,
       bottomNav : false,
       type: {
-        navList: 'hidden', // [ 'item', 'hidden', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        navList: 'nested', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
         component: 'crud', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
       },
       // see src/app/config/Routes.js
@@ -1319,8 +1319,8 @@ export const getComponentsNavConfig = props => {
       component  : () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
       crudConfig : {
         miniDashboard: [
-          'challenges-inbound', 'challenges-inbound-pending',
-          'challenges-inbound-won', 'challenges-inbound-lost',
+          // 'challenges-inbound', 'challenges-inbound-pending',
+          // 'challenges-inbound-won', 'challenges-inbound-lost',
           'challenges-outbound', 'challenges-outbound-pending',
           'challenges-outbound-won', 'challenges-outbound-lost',
         ],
@@ -1362,7 +1362,7 @@ export const getComponentsNavConfig = props => {
       icon      : false,
       bottomNav : false,
       type: {
-        navList: 'hidden', // [ 'item', 'hidden', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        navList: 'nested', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
         component: 'crud', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
       },
       // see src/app/config/Routes.js
@@ -1370,8 +1370,8 @@ export const getComponentsNavConfig = props => {
       component  : () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
       crudConfig : {
         miniDashboard: [
-          'challenges-inbound', 'challenges-inbound-pending',
-          'challenges-inbound-won', 'challenges-inbound-lost',
+          // 'challenges-inbound', 'challenges-inbound-pending',
+          // 'challenges-inbound-won', 'challenges-inbound-lost',
           'challenges-outbound', 'challenges-outbound-pending',
           'challenges-outbound-won', 'challenges-outbound-lost',
         ],
@@ -1413,7 +1413,7 @@ export const getComponentsNavConfig = props => {
       icon      : false,
       bottomNav : false,
       type: {
-        navList: 'hidden', // [ 'item', 'hidden', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        navList: 'nested', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
         component: 'crud', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
       },
       // see src/app/config/Routes.js
@@ -1421,8 +1421,8 @@ export const getComponentsNavConfig = props => {
       component  : () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
       crudConfig : {
         miniDashboard: [
-          'challenges-inbound', 'challenges-inbound-pending',
-          'challenges-inbound-won', 'challenges-inbound-lost',
+          // 'challenges-inbound', 'challenges-inbound-pending',
+          // 'challenges-inbound-won', 'challenges-inbound-lost',
           'challenges-outbound', 'challenges-outbound-pending',
           'challenges-outbound-won', 'challenges-outbound-lost',
         ],
@@ -1479,7 +1479,7 @@ export const getComponentsNavConfig = props => {
       overhead  : true,
       // type      : 'item',
       type: {
-        navList: 'item', // [ 'item', 'hidden', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        navList: 'item', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
         component: 'overhead', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
       },
       // see src/app/config/Routes.js
@@ -1498,7 +1498,7 @@ export const getComponentsNavConfig = props => {
       overhead  : true,
       // type      : 'item',
       type: {
-        navList: 'item', // [ 'item', 'hidden', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        navList: 'item', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
         component: 'overhead', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
       },
       // see src/app/config/Routes.js
@@ -1517,7 +1517,7 @@ export const getComponentsNavConfig = props => {
       overhead  : true,
       // type      : 'item',
       type: {
-        navList: 'item', // [ 'item', 'hidden', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        navList: 'item', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
         component: 'overhead', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
       },
       // see src/app/config/Routes.js
@@ -1540,7 +1540,7 @@ export const getComponentsNavConfig = props => {
       overhead  : true,
       // type      : 'item',
       type: {
-        navList: 'item', // [ 'item', 'hidden', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        navList: 'item', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
         component: 'overhead', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
       },
       // see src/app/config/Routes.js

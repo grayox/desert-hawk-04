@@ -6,7 +6,9 @@ import {
 } from 'react-router-dom';
 import { FuseLoadable, } from '@fuse';
 
-import { getComponentsNavConfig, getFilterNested, } from 'app/config/AppConfig';
+import _ from '@lodash';
+
+import { getComponentsNavConfig, } from 'app/config/AppConfig'; // getFilterNested,
 
 // import Error404 from 'app/views/Error404';
 // import Dashboard from 'app/views/dashboard/Dashboard';
@@ -32,7 +34,12 @@ const getItems = () => {
   // const items = componentsNavConfig.filter(r => (r.type==='item' || r.type==='route'));
   // const items = componentsNavConfig.filter(r => (r.type==='item'));
   // const items = getFilterNested( componentsNavConfig, 'type', 'item', );
-  const items = getFilterNested( componentsNavConfig, 'type.navList', 'item', );
+  // const items = getFilterNested( componentsNavConfig, 'type.navList', 'item', );
+  
+  const item = _.filter( componentsNavConfig, ['type.navList' , 'item'   ,], );
+  const nest = _.filter( componentsNavConfig, ['type.navList' , 'nested' ,], );
+  const items = [ ...item, ...nest, ];
+
   // console.log('items\n', items,);
   return items;
 }
