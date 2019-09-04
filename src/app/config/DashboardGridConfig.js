@@ -103,6 +103,20 @@ export const DashboardGridConfig = {
         We also use this information to help send leads from you to the correct geographical location.\
       ',
     },
+    inbound: {
+      label: 'Inbound',
+      // eslint-disable-next-line
+      description: '\
+        Callenges made against you\
+      ',
+    },
+    outbound: {
+      label: 'Outbound',
+      // eslint-disable-next-line
+      description: '\
+        Callenges you made against others\
+      ',
+    },
   },
   cells: [
     {
@@ -369,6 +383,128 @@ export const DashboardGridConfig = {
       // eslint-disable-next-line
       description: '\
         The first level of your location selection\
+      ',
+    },
+    {
+      id: 'challenges-inbound',
+      label: 'Total inbound',
+      initialValue: 0,
+      group: 'inbound',
+      links: [
+        { label: 'Pending' , id: 'challenges-inbound-pending' , },
+        { label: 'Won'     , id: 'challenges-inbound-won'     , },
+        { label: 'Lost'    , id: 'challenges-inbound-lost'    , },
+      ],
+      // eslint-disable-next-line
+      description: '\
+        Inbound challenges includes all challenges made against you\
+      ',
+    },
+    {
+      id: 'challenges-inbound-pending',
+      label: 'Inbound pending',
+      initialValue: 0,
+      group: 'inbound',
+      links: [
+        { label: 'Pending' , id: 'challenges-inbound-pending' , },
+        { label: 'Won'     , id: 'challenges-inbound-won'     , },
+        { label: 'Lost'    , id: 'challenges-inbound-lost'    , },
+      ],
+      // eslint-disable-next-line
+      description: '\
+        Pending challenges includes all challenges in the process of resolving\
+        but have not resolved yet\
+      ',
+    },
+    {
+      id: 'challenges-inbound-won',
+      label: 'Inbound won',
+      initialValue: 0,
+      group: 'inbound',
+      links: [
+        { label: 'Pending' , id: 'challenges-inbound-pending' , },
+        { label: 'Won'     , id: 'challenges-inbound-won'     , },
+        { label: 'Lost'    , id: 'challenges-inbound-lost'    , },
+      ],
+      // eslint-disable-next-line
+      description: '\
+        Won challenges includes all challenges resolved in your favor\
+      ',
+    },
+    {
+      id: 'challenges-inbound-lost',
+      label: 'Inbound lost',
+      initialValue: 0,
+      group: 'inbound',
+      links: [
+        { label: 'Pending' , id: 'challenges-inbound-pending' , },
+        { label: 'Won'     , id: 'challenges-inbound-won'     , },
+        { label: 'Lost'    , id: 'challenges-inbound-lost'    , },
+      ],
+      // eslint-disable-next-line
+      description: '\
+        Lost challenges includes all challenges resolved not in your favor\
+      ',
+    },
+    {
+      id: 'challenges-outbound',
+      label: 'Total outbound',
+      initialValue: 0,
+      group: 'outbound',
+      links: [
+        { label: 'Pending' , id: 'challenges-outbound-pending' , },
+        { label: 'Won'     , id: 'challenges-outbound-won'     , },
+        { label: 'Lost'    , id: 'challenges-outbound-lost'    , },
+      ],
+      // eslint-disable-next-line
+      description: '\
+        Outbound challenges includes all challenges you made against others\
+      ',
+    },
+    {
+      id: 'challenges-outbound-pending',
+      label: 'Outbound pending',
+      initialValue: 0,
+      group: 'outbound',
+      links: [
+        { label: 'Pending' , id: 'challenges-outbound-pending' , },
+        { label: 'Won'     , id: 'challenges-outbound-won'     , },
+        { label: 'Lost'    , id: 'challenges-outbound-lost'    , },
+      ],
+      // eslint-disable-next-line
+      description: '\
+        Pending challenges includes all challenges in the process of resolving\
+        but have not resolved yet\
+      ',
+    },
+    {
+      id: 'challenges-outbound-won',
+      label: 'Outbound won',
+      initialValue: 0,
+      group: 'outbound',
+      links: [
+        { label: 'Pending' , id: 'challenges-outbound-pending' , },
+        { label: 'Won'     , id: 'challenges-outbound-won'     , },
+        { label: 'Lost'    , id: 'challenges-outbound-lost'    , },
+      ],
+      // eslint-disable-next-line
+      description: '\
+        Won challenges includes all challenges resolved in your favor\
+      ',
+    },
+    {
+      id: 'challenges-outbound-lost',
+      label: 'Outbound lost',
+      initialValue: 0,
+      group: 'outbound',
+      links: [
+        { label: 'Pending' , id: 'challenges-outbound-pending' , },
+        { label: 'Won'     , id: 'challenges-outbound-won'     , },
+        { label: 'Lost'    , id: 'challenges-outbound-lost'    , },
+      ],
+      // eslint-disable-next-line
+      description: '\
+        Lost challenges includes all challenges resolved not in your favor\
       ',
     },
   ],

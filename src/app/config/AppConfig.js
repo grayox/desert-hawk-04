@@ -674,7 +674,7 @@ export const getComponentsNavConfig = props => {
       // type      : 'item', // 'item' | 'group' | 'collapse' | 'divider' // see: src/@fuse/components/FuseNavigation/FuseNavigation.js
       // deprecated: 'collapse' | 'group' // use dashboards to achieve nesting; recursively if necessary
       type: {
-        navList: 'item', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        navList: 'item', // [ 'item', 'hidden', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
         component: 'dashboard', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js
       },
       // see src/app/config/Routes.js
@@ -703,7 +703,7 @@ export const getComponentsNavConfig = props => {
       bottomNav : true,
       // type      : 'item',
       type: {
-        navList: 'item', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        navList: 'item', // [ 'item', 'hidden', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
         component: 'crud', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
       },
       // see src/app/config/Routes.js
@@ -851,7 +851,7 @@ export const getComponentsNavConfig = props => {
       bottomNav : true,
       // type      : 'item',
       type: {
-        navList: 'item', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        navList: 'item', // [ 'item', 'hidden', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
         component: 'crud', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
       },
       // see src/app/config/Routes.js
@@ -932,7 +932,7 @@ export const getComponentsNavConfig = props => {
       bottomNav : false,
       // type      : 'item',
       type: {
-        navList: 'item', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        navList: 'item', // [ 'item', 'hidden', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
         component: 'crud', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
       },
       // see src/app/config/Routes.js
@@ -1052,7 +1052,7 @@ export const getComponentsNavConfig = props => {
       bottomNav : false,
       // type      : 'item',
       type: {
-        navList: 'item', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        navList: 'item', // [ 'item', 'hidden', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
         component: 'crud', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
       },
       // see src/app/config/Routes.js
@@ -1123,7 +1123,6 @@ export const getComponentsNavConfig = props => {
         actionable: false,
       },
     },
-
     {
       // eslint-disable-next-line
       description: '\
@@ -1135,20 +1134,16 @@ export const getComponentsNavConfig = props => {
       bottomNav : false,
       // type      : 'item', // 'collapse', // deprecated: 'collapse' | 'group' // use dashboards to achieve nesting; recursively if necessary
       type: {
-        navList: 'item', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        navList: 'item', // [ 'item', 'hidden', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
         component: 'dashboard', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
       },
       // component: () => FuseLoadable({loader: () => import('app/views/dashboard/DashboardContainer')}),
       component: () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
       dashboardConfig: [
-        'challenges-inbound'          ,
-        'challenges-inbound-pending'  ,
-        'challenges-inbound-won'      ,
-        'challenges-inbound-lost'     ,
-        'challenges-outbound'         ,
-        'challenges-outbound-pending' ,
-        'challenges-outbound-won'     ,
-        'challenges-outbound-lost'    ,
+        'challenges-inbound', 'challenges-inbound-pending',
+        'challenges-inbound-won', 'challenges-inbound-lost',
+        'challenges-outbound', 'challenges-outbound-pending',
+        'challenges-outbound-won', 'challenges-outbound-lost',
       ],
       // indentLevel can be used in the future to programmatically set the indentation level at:
       //   src/@fuse/components/FuseNavigation/vertical/FuseNavVerticalItem.js
@@ -1156,332 +1151,312 @@ export const getComponentsNavConfig = props => {
       // the latter, FuseNavVerticalCollapse, already uses a variable called: nestedLevel,
       // but that variable doesn't seem to be in operation at present.
       // indentLevel : 0,
-      children1   : [
-        {
-          title       : 'Inbound',
-          id          : 'challenges-inbound',
-          icon        : false,
-          type        : 'collapse',
-          // indentLevel : 1,
-          children    : [
-            {
-              title       : 'Pending',
-              id          : 'challenges-inbound-pending',
-              icon        : false,
-              type        : 'item',
-              // indentLevel : 2,
-              // exact: true,
-              // see src/app/config/Routes.js
-              // also update in: src/main/content/components/ComponentsConfig.js
-              component   : () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
-              crudConfig  : {
-                miniDashboard: [
-                  'challenges-inbound-pending'  ,
-                  'challenges-inbound-won'      ,
-                  'challenges-inbound-lost'     ,
-                  'challenges-outbound-pending' ,
-                  'challenges-outbound-won'     ,
-                  'challenges-outbound-lost'    ,
-                ],
-                condensed: true,
-                searchable: false, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
-                filterable: false,
-                sortable: false, // see searchable
-                starrable: false, // true,
-                taggable: false,
-                alertable: false,
-                creatable: false,
-                readable: {
-                  path: 'leads',
-                  // src/app/containers/LoadAsync.js
-                  where: [
-                    [ 'createdBy' , '==' , uid , ] ,
-                    [ 'deletedAt' , '==' , 0   , ] ,
-                  ],
-                  orderBy: [ 'createdAt', 'desc', ] ,
-                  itemSummary: {
-                    primaryText: item && item.name, // item.bizCategory && _.filter(bizCategoryItems, {value:item.bizCategory,},)[0].label, // || item.geoLocal,
-                    // secondaryText: `${item && getValueMaskBizCategory(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
-                    secondaryChips: [
-                      (item && getValueMaskBizCategory(item.bizCategory,)),
-                      // (item && item.zipInput && item.zipInput.city),
-                      // moment(item.createdAt).fromNow(),
-                    ],
-                  },
-                  listPaneHeaderChips: [ 'challenges', 'inbound', 'pending', ],
-                },
-                updatable: false,
-                deletable: false,
-                actionable: false,
-              },              
-            },
-            {
-              title       : 'Won',
-              id          : 'challenges-inbound-won',
-              icon        : false,
-              type        : 'item',
-              // indentLevel : 2,
-              // exact: true,
-              // see src/app/config/Routes.js
-              // also update in: src/main/content/components/ComponentsConfig.js
-              component   : () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
-              crudConfig  : {
-                miniDashboard: [
-                  'challenges-inbound-pending'  ,
-                  'challenges-inbound-won'      ,
-                  'challenges-inbound-lost'     ,
-                  'challenges-outbound-pending' ,
-                  'challenges-outbound-won'     ,
-                  'challenges-outbound-lost'    ,
-                ],
-                condensed: true,
-                searchable: false, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
-                filterable: false,
-                sortable: false, // see searchable
-                starrable: false, // true,
-                taggable: false,
-                alertable: false,
-                creatable: false,
-                readable: {
-                  path: 'leads',
-                  // src/app/containers/LoadAsync.js
-                  where: [
-                    [ 'createdBy' , '==' , uid , ] ,
-                    [ 'deletedAt' , '==' , 0   , ] ,
-                  ],
-                  orderBy: [ 'createdAt', 'desc', ] ,
-                  itemSummary: {
-                    primaryText: item && item.name, // item.bizCategory && _.filter(bizCategoryItems, {value:item.bizCategory,},)[0].label, // || item.geoLocal,
-                    // secondaryText: `${item && getValueMaskBizCategory(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
-                    secondaryChips: [
-                      (item && getValueMaskBizCategory(item.bizCategory,)),
-                      // (item && item.zipInput && item.zipInput.city),
-                      // moment(item.createdAt).fromNow(),
-                    ],
-                  },
-                  listPaneHeaderChips: [ 'challenges', 'inbound', 'won', ],
-                },
-                updatable: false,
-                deletable: false,
-                actionable: false,
-              },
-            },
-            {
-              title       : 'Lost',
-              id          : 'challenges-inbound-lost',
-              icon        : false,
-              type        : 'item',
-              // indentLevel : 2,
-              // exact: true,
-              // see src/app/config/Routes.js
-              // also update in: src/main/content/components/ComponentsConfig.js
-              component   : () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
-              crudConfig  : {
-                miniDashboard: [
-                  'challenges-inbound-pending'  ,
-                  'challenges-inbound-won'      ,
-                  'challenges-inbound-lost'     ,
-                  'challenges-outbound-pending' ,
-                  'challenges-outbound-won'     ,
-                  'challenges-outbound-lost'    ,
-                ],
-                condensed: true,
-                searchable: false, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
-                filterable: false,
-                sortable: false, // see searchable
-                starrable: false, // true,
-                taggable: false,
-                alertable: false,
-                creatable: false,
-                readable: {
-                  path: 'leads',
-                  // src/app/containers/LoadAsync.js
-                  where: [
-                    [ 'createdBy' , '==' , uid , ] ,
-                    [ 'deletedAt' , '==' , 0   , ] ,
-                  ],
-                  orderBy: [ 'createdAt', 'desc', ] ,
-                  itemSummary: {
-                    primaryText: item && item.name, // item.bizCategory && _.filter(bizCategoryItems, {value:item.bizCategory,},)[0].label, // || item.geoLocal,
-                    // secondaryText: `${item && getValueMaskBizCategory(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
-                    secondaryChips: [
-                      (item && getValueMaskBizCategory(item.bizCategory,)),
-                      // (item && item.zipInput && item.zipInput.city),
-                      // moment(item.createdAt).fromNow(),
-                    ],
-                  },
-                  listPaneHeaderChips: [ 'challenges', 'inbound', 'lost', ],
-                },
-                updatable: false,
-                deletable: false,
-                actionable: false,
-              },
-            },
+    },
+    {
+      title     : 'Challenges',
+      id        : 'challenges-inbound-pending',
+      icon      : false,
+      bottomNav : false,
+      type: {
+        navList: 'hidden', // [ 'item', 'hidden', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        component: 'crud', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
+      },
+      // see src/app/config/Routes.js
+      // also update in: src/main/content/components/ComponentsConfig.js
+      component  : () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
+      crudConfig : {
+        miniDashboard: [
+          'challenges-inbound', 'challenges-inbound-pending',
+          'challenges-inbound-won', 'challenges-inbound-lost',
+          'challenges-outbound', 'challenges-outbound-pending',
+          'challenges-outbound-won', 'challenges-outbound-lost',
+        ],
+        condensed: true,
+        searchable: false, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
+        filterable: false,
+        sortable: false, // see searchable
+        starrable: false, // true,
+        taggable: false,
+        alertable: false,
+        creatable: false,
+        readable: {
+          path: 'leads',
+          // src/app/containers/LoadAsync.js
+          where: [
+            [ 'createdBy' , '==' , uid , ] ,
+            [ 'deletedAt' , '==' , 0   , ] ,
           ],
+          orderBy: [ 'createdAt', 'desc', ] ,
+          itemSummary: {
+            primaryText: item && item.name, // item.bizCategory && _.filter(bizCategoryItems, {value:item.bizCategory,},)[0].label, // || item.geoLocal,
+            // secondaryText: `${item && getValueMaskBizCategory(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
+            secondaryChips: [
+              (item && getValueMaskBizCategory(item.bizCategory,)),
+              // (item && item.zipInput && item.zipInput.city),
+              // moment(item.createdAt).fromNow(),
+            ],
+          },
+          listPaneHeaderChips: [ 'challenges', 'inbound', 'pending', ],
         },
-        {
-          title       : 'Outbound',
-          id          : 'challenges-outbound',
-          icon        : false,
-          type        : 'collapse',
-          // indentLevel : 1,
-          children    : [
-            {
-              title       : 'Pending',
-              id          : 'challenges-outbound-pending',
-              icon        : false,
-              type        : 'item',
-              // indentLevel : 2,
-              // exact: true,
-              // see src/app/config/Routes.js
-              // also update in: src/main/content/components/ComponentsConfig.js
-              component   : () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
-              crudConfig  : {
-                miniDashboard: [
-                  'challenges-inbound-pending'  ,
-                  'challenges-inbound-won'      ,
-                  'challenges-inbound-lost'     ,
-                  'challenges-outbound-pending' ,
-                  'challenges-outbound-won'     ,
-                  'challenges-outbound-lost'    ,
-                ],
-                condensed: true,
-                searchable: false, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
-                filterable: false,
-                sortable: false, // see searchable
-                starrable: false, // true,
-                taggable: false,
-                alertable: false,
-                creatable: false,
-                readable: {
-                  path: 'leads',
-                  // src/app/containers/LoadAsync.js
-                  where: [
-                    [ 'createdBy' , '==' , uid , ] ,
-                    [ 'deletedAt' , '==' , 0   , ] ,
-                  ],
-                  orderBy: [ 'createdAt', 'desc', ] ,
-                  itemSummary: {
-                    primaryText: item && item.name, // item.bizCategory && _.filter(bizCategoryItems, {value:item.bizCategory,},)[0].label, // || item.geoLocal,
-                    // secondaryText: `${item && getValueMaskBizCategory(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
-                    secondaryChips: [
-                      (item && getValueMaskBizCategory(item.bizCategory,)),
-                      // (item && item.zipInput && item.zipInput.city),
-                      // moment(item.createdAt).fromNow(),
-                    ],
-                  },
-                  listPaneHeaderChips: [ 'challenges', 'outbound', 'pending', ],
-                },
-                updatable: false,
-                deletable: false,
-                actionable: false,
-              },
-            },
-            {
-              title       : 'Won',
-              id          : 'challenges-outbound-won',
-              icon        : false,
-              type        : 'item',
-              // indentLevel : 2,
-              // exact: true,
-              // see src/app/config/Routes.js
-              // also update in: src/main/content/components/ComponentsConfig.js
-              component   : () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
-              crudConfig  : {
-                miniDashboard: [
-                  'challenges-inbound-pending'  ,
-                  'challenges-inbound-won'      ,
-                  'challenges-inbound-lost'     ,
-                  'challenges-outbound-pending' ,
-                  'challenges-outbound-won'     ,
-                  'challenges-outbound-lost'    ,
-                ],
-                condensed: true,
-                searchable: false, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
-                filterable: false,
-                sortable: false, // see searchable
-                starrable: false, // true,
-                taggable: false,
-                alertable: false,
-                creatable: false,
-                readable: {
-                  path: 'leads',
-                  // src/app/containers/LoadAsync.js
-                  where: [
-                    [ 'createdBy' , '==' , uid , ] ,
-                    [ 'deletedAt' , '==' , 0   , ] ,
-                  ],
-                  orderBy: [ 'createdAt', 'desc', ] ,
-                  itemSummary: {
-                    primaryText: item && item.name, // item.bizCategory && _.filter(bizCategoryItems, {value:item.bizCategory,},)[0].label, // || item.geoLocal,
-                    // secondaryText: `${item && getValueMaskBizCategory(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
-                    secondaryChips: [
-                      (item && getValueMaskBizCategory(item.bizCategory,)),
-                      // (item && item.zipInput && item.zipInput.city),
-                      // moment(item.createdAt).fromNow(),
-                    ],
-                  },
-                  listPaneHeaderChips: [ 'challenges', 'outbound', 'won', ],
-                },
-                updatable: false,
-                deletable: false,
-                actionable: false,
-              },
-            },
-            {
-              title       : 'Lost',
-              id          : 'challenges-outbound-lost',
-              icon        : false,
-              type        : 'item',
-              // indentLevel : 2,
-              // exact: true,
-              // see src/app/config/Routes.js
-              // also update in: src/main/content/components/ComponentsConfig.js
-              component   : () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
-              crudConfig  : {
-                miniDashboard: [
-                  'challenges-inbound-pending'  ,
-                  'challenges-inbound-won'      ,
-                  'challenges-inbound-lost'     ,
-                  'challenges-outbound-pending' ,
-                  'challenges-outbound-won'     ,
-                  'challenges-outbound-lost'    ,
-                ],
-                condensed: true,
-                searchable: false, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
-                filterable: false,
-                sortable: false, // see searchable
-                starrable: false, // true,
-                taggable: false,
-                alertable: false,
-                creatable: false,
-                readable: {
-                  path: 'leads',
-                  // src/app/containers/LoadAsync.js
-                  where: [
-                    [ 'createdBy' , '==' , uid , ] ,
-                    [ 'deletedAt' , '==' , 0   , ] ,
-                  ],
-                  orderBy: [ 'createdAt', 'desc', ] ,
-                  itemSummary: {
-                    primaryText: item && item.name, // item.bizCategory && _.filter(bizCategoryItems, {value:item.bizCategory,},)[0].label, // || item.geoLocal,
-                    // secondaryText: `${item && getValueMaskBizCategory(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
-                    secondaryChips: [
-                      (item && getValueMaskBizCategory(item.bizCategory,)),
-                      // (item && item.zipInput && item.zipInput.city),
-                      // moment(item.createdAt).fromNow(),
-                    ],
-                  },
-                  listPaneHeaderChips: [ 'challenges', 'outbound', 'lost', ],
-                },
-                updatable: false,
-                deletable: false,
-                actionable: false,
-              },
-            },
+        updatable: false,
+        deletable: false,
+        actionable: false,
+      },              
+    },
+    {
+      title     : 'Won',
+      id        : 'challenges-inbound-won',
+      icon      : false,
+      bottomNav : false,
+      type: {
+        navList: 'hidden', // [ 'item', 'hidden', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        component: 'crud', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
+      },
+      // see src/app/config/Routes.js
+      // also update in: src/main/content/components/ComponentsConfig.js
+      component  : () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
+      crudConfig : {
+        miniDashboard: [
+          'challenges-inbound', 'challenges-inbound-pending',
+          'challenges-inbound-won', 'challenges-inbound-lost',
+          'challenges-outbound', 'challenges-outbound-pending',
+          'challenges-outbound-won', 'challenges-outbound-lost',
+        ],
+        condensed: true,
+        searchable: false, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
+        filterable: false,
+        sortable: false, // see searchable
+        starrable: false, // true,
+        taggable: false,
+        alertable: false,
+        creatable: false,
+        readable: {
+          path: 'leads',
+          // src/app/containers/LoadAsync.js
+          where: [
+            [ 'createdBy' , '==' , uid , ] ,
+            [ 'deletedAt' , '==' , 0   , ] ,
           ],
+          orderBy: [ 'createdAt', 'desc', ] ,
+          itemSummary: {
+            primaryText: item && item.name, // item.bizCategory && _.filter(bizCategoryItems, {value:item.bizCategory,},)[0].label, // || item.geoLocal,
+            // secondaryText: `${item && getValueMaskBizCategory(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
+            secondaryChips: [
+              (item && getValueMaskBizCategory(item.bizCategory,)),
+              // (item && item.zipInput && item.zipInput.city),
+              // moment(item.createdAt).fromNow(),
+            ],
+          },
+          listPaneHeaderChips: [ 'challenges', 'inbound', 'won', ],
         },
-      ],
+        updatable: false,
+        deletable: false,
+        actionable: false,
+      },
+    },
+    {
+      title     : 'Lost',
+      id        : 'challenges-inbound-lost',
+      icon      : false,
+      bottomNav : false,
+      type: {
+        navList: 'hidden', // [ 'item', 'hidden', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        component: 'crud', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
+      },
+      // see src/app/config/Routes.js
+      // also update in: src/main/content/components/ComponentsConfig.js
+      component  : () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
+      crudConfig : {
+        miniDashboard: [
+          'challenges-inbound', 'challenges-inbound-pending',
+          'challenges-inbound-won', 'challenges-inbound-lost',
+          'challenges-outbound', 'challenges-outbound-pending',
+          'challenges-outbound-won', 'challenges-outbound-lost',
+        ],
+        condensed: true,
+        searchable: false, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
+        filterable: false,
+        sortable: false, // see searchable
+        starrable: false, // true,
+        taggable: false,
+        alertable: false,
+        creatable: false,
+        readable: {
+          path: 'leads',
+          // src/app/containers/LoadAsync.js
+          where: [
+            [ 'createdBy' , '==' , uid , ] ,
+            [ 'deletedAt' , '==' , 0   , ] ,
+          ],
+          orderBy: [ 'createdAt', 'desc', ] ,
+          itemSummary: {
+            primaryText: item && item.name, // item.bizCategory && _.filter(bizCategoryItems, {value:item.bizCategory,},)[0].label, // || item.geoLocal,
+            // secondaryText: `${item && getValueMaskBizCategory(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
+            secondaryChips: [
+              (item && getValueMaskBizCategory(item.bizCategory,)),
+              // (item && item.zipInput && item.zipInput.city),
+              // moment(item.createdAt).fromNow(),
+            ],
+          },
+          listPaneHeaderChips: [ 'challenges', 'inbound', 'lost', ],
+        },
+        updatable: false,
+        deletable: false,
+        actionable: false,
+      },
+    },
+    {
+      title     : 'Challenges',
+      id        : 'challenges-outbound-pending',
+      icon      : false,
+      bottomNav : false,
+      type: {
+        navList: 'hidden', // [ 'item', 'hidden', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        component: 'crud', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
+      },
+      // see src/app/config/Routes.js
+      // also update in: src/main/content/components/ComponentsConfig.js
+      component  : () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
+      crudConfig : {
+        miniDashboard: [
+          'challenges-inbound', 'challenges-inbound-pending',
+          'challenges-inbound-won', 'challenges-inbound-lost',
+          'challenges-outbound', 'challenges-outbound-pending',
+          'challenges-outbound-won', 'challenges-outbound-lost',
+        ],
+        condensed: true,
+        searchable: false, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
+        filterable: false,
+        sortable: false, // see searchable
+        starrable: false, // true,
+        taggable: false,
+        alertable: false,
+        creatable: false,
+        readable: {
+          path: 'leads',
+          // src/app/containers/LoadAsync.js
+          where: [
+            [ 'createdBy' , '==' , uid , ] ,
+            [ 'deletedAt' , '==' , 0   , ] ,
+          ],
+          orderBy: [ 'createdAt', 'desc', ] ,
+          itemSummary: {
+            primaryText: item && item.name, // item.bizCategory && _.filter(bizCategoryItems, {value:item.bizCategory,},)[0].label, // || item.geoLocal,
+            // secondaryText: `${item && getValueMaskBizCategory(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
+            secondaryChips: [
+              (item && getValueMaskBizCategory(item.bizCategory,)),
+              // (item && item.zipInput && item.zipInput.city),
+              // moment(item.createdAt).fromNow(),
+            ],
+          },
+          listPaneHeaderChips: [ 'challenges', 'outbound', 'pending', ],
+        },
+        updatable: false,
+        deletable: false,
+        actionable: false,
+      },
+    },
+    {
+      title     : 'Won',
+      id        : 'challenges-outbound-won',
+      icon      : false,
+      bottomNav : false,
+      type: {
+        navList: 'hidden', // [ 'item', 'hidden', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        component: 'crud', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
+      },
+      // see src/app/config/Routes.js
+      // also update in: src/main/content/components/ComponentsConfig.js
+      component  : () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
+      crudConfig : {
+        miniDashboard: [
+          'challenges-inbound', 'challenges-inbound-pending',
+          'challenges-inbound-won', 'challenges-inbound-lost',
+          'challenges-outbound', 'challenges-outbound-pending',
+          'challenges-outbound-won', 'challenges-outbound-lost',
+        ],
+        condensed: true,
+        searchable: false, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
+        filterable: false,
+        sortable: false, // see searchable
+        starrable: false, // true,
+        taggable: false,
+        alertable: false,
+        creatable: false,
+        readable: {
+          path: 'leads',
+          // src/app/containers/LoadAsync.js
+          where: [
+            [ 'createdBy' , '==' , uid , ] ,
+            [ 'deletedAt' , '==' , 0   , ] ,
+          ],
+          orderBy: [ 'createdAt', 'desc', ] ,
+          itemSummary: {
+            primaryText: item && item.name, // item.bizCategory && _.filter(bizCategoryItems, {value:item.bizCategory,},)[0].label, // || item.geoLocal,
+            // secondaryText: `${item && getValueMaskBizCategory(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
+            secondaryChips: [
+              (item && getValueMaskBizCategory(item.bizCategory,)),
+              // (item && item.zipInput && item.zipInput.city),
+              // moment(item.createdAt).fromNow(),
+            ],
+          },
+          listPaneHeaderChips: [ 'challenges', 'outbound', 'won', ],
+        },
+        updatable: false,
+        deletable: false,
+        actionable: false,
+      },
+    },
+    {
+      title     : 'Lost',
+      id        : 'challenges-outbound-lost',
+      icon      : false,
+      bottomNav : false,
+      type: {
+        navList: 'hidden', // [ 'item', 'hidden', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        component: 'crud', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
+      },
+      // see src/app/config/Routes.js
+      // also update in: src/main/content/components/ComponentsConfig.js
+      component  : () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
+      crudConfig : {
+        miniDashboard: [
+          'challenges-inbound', 'challenges-inbound-pending',
+          'challenges-inbound-won', 'challenges-inbound-lost',
+          'challenges-outbound', 'challenges-outbound-pending',
+          'challenges-outbound-won', 'challenges-outbound-lost',
+        ],
+        condensed: true,
+        searchable: false, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
+        filterable: false,
+        sortable: false, // see searchable
+        starrable: false, // true,
+        taggable: false,
+        alertable: false,
+        creatable: false,
+        readable: {
+          path: 'leads',
+          // src/app/containers/LoadAsync.js
+          where: [
+            [ 'createdBy' , '==' , uid , ] ,
+            [ 'deletedAt' , '==' , 0   , ] ,
+          ],
+          orderBy: [ 'createdAt', 'desc', ] ,
+          itemSummary: {
+            primaryText: item && item.name, // item.bizCategory && _.filter(bizCategoryItems, {value:item.bizCategory,},)[0].label, // || item.geoLocal,
+            // secondaryText: `${item && getValueMaskBizCategory(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
+            secondaryChips: [
+              (item && getValueMaskBizCategory(item.bizCategory,)),
+              // (item && item.zipInput && item.zipInput.city),
+              // moment(item.createdAt).fromNow(),
+            ],
+          },
+          listPaneHeaderChips: [ 'challenges', 'outbound', 'lost', ],
+        },
+        updatable: false,
+        deletable: false,
+        actionable: false,
+      },
     },
 
     // divider
@@ -1504,7 +1479,7 @@ export const getComponentsNavConfig = props => {
       overhead  : true,
       // type      : 'item',
       type: {
-        navList: 'item', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        navList: 'item', // [ 'item', 'hidden', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
         component: 'overhead', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
       },
       // see src/app/config/Routes.js
@@ -1523,7 +1498,7 @@ export const getComponentsNavConfig = props => {
       overhead  : true,
       // type      : 'item',
       type: {
-        navList: 'item', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        navList: 'item', // [ 'item', 'hidden', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
         component: 'overhead', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
       },
       // see src/app/config/Routes.js
@@ -1542,7 +1517,7 @@ export const getComponentsNavConfig = props => {
       overhead  : true,
       // type      : 'item',
       type: {
-        navList: 'item', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        navList: 'item', // [ 'item', 'hidden', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
         component: 'overhead', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
       },
       // see src/app/config/Routes.js
@@ -1565,7 +1540,7 @@ export const getComponentsNavConfig = props => {
       overhead  : true,
       // type      : 'item',
       type: {
-        navList: 'item', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
+        navList: 'item', // [ 'item', 'hidden', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
         component: 'overhead', // [ 'dashboard', 'crud', 'overhead', ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
       },
       // see src/app/config/Routes.js
