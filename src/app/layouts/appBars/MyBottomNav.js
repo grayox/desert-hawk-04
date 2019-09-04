@@ -14,10 +14,7 @@ import {
   // MuiThemeProvider, AppBar, IconButton, FormHelperText,
 } from '@material-ui/core';
 
-import {
-  // withRouter,
-  Link,
-} from 'react-router-dom'; //
+import { Link, } from 'react-router-dom'; // withRouter,
 import {
   getComponentsNavConfig, bottomNavConfig,
   getFilterArrayOfObjectsByPropValueContainedInArray,

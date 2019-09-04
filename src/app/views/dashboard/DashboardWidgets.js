@@ -4,12 +4,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
+import _ from '@lodash';
+
 import { DashboardGridConfig, } from 'app/config/DashboardGridConfig';
 import { getFilterArrayOfObjectsByPropValueContainedInArray, } from 'app/config/AppConfig';
 import DashboardWidget from './DashboardWidget';
 
 import {
-  withStyles, Grid, Paper, Divider, List, // GridList, CircularProgress, HashAvatar, Tooltip,
+  withStyles, Grid, Paper, Divider, List, ListSubheader,
+  // GridList, CircularProgress, HashAvatar, Tooltip,
 } from '@material-ui/core';
 
 import { FuseAnimateGroup } from '@fuse'; // FuseScrollbars, FuseAnimate,
@@ -81,14 +84,15 @@ const styles = theme => ({
 
 const DashboardWidgets = ({ classes, data, settings, config, }) => { // classes,
   // const items = DashboardGridConfig.cells; // getItems();
-  const { cells, } = DashboardGridConfig;
+  const { groups, cells, } = DashboardGridConfig;
   const items = getFilterArrayOfObjectsByPropValueContainedInArray( cells, 'id', config, );
+  const groupsKeys = Object.keys(groups);
 
   // console.log('cells\n', cells,);
-  // console.log('items\n', items,);
+  console.log('items\n', items,);
   const count = items && items.length;
   
-  const getList = () =>
+  const getListGroupMobileWidgets = items =>
     <FuseAnimateGroup
       delay={500}
       enter={{ animation: "transition.slideUpBigIn" }}
@@ -118,13 +122,32 @@ const DashboardWidgets = ({ classes, data, settings, config, }) => { // classes,
       }
     </FuseAnimateGroup>
 
+  const getListGroupMobile = ( subheader, group, ) =>
+    <List
+      className="m-0 p-0" component="nav"
+      subheader={
+        <ListSubheader
+          className="text-left uppercase"
+          component="div" id="nested-list-subheader"
+        >
+          {subheader}
+        </ListSubheader>
+      }
+    >
+      <Divider />
+      {getListGroupMobileWidgets(group)}
+    </List>
+
+  const getListGroupsMobile = () =>
+    groupsKeys.map( key => {
+      const group = _.filter(items, {group: key,},);
+      return getListGroupMobile( key, group, );
+    })
+
   const getDashboardWidgetsMobile = () =>
     <React.Fragment>
       <Paper className={classNames(classes.paper, "z-10",)}>
-        <List className="m-0 p-0" component="nav">
-          {/* <ListSubheader className="text-left">Items</ListSubheader> */}
-          {getList()}
-        </List>
+        {getListGroupsMobile()}
       </Paper>
     </React.Fragment>
 
