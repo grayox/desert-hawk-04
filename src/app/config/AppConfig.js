@@ -424,7 +424,7 @@ const getFormFieldProps = (s, n,) => {
 // value of 'id' property is contained in config array
 // use case 2
 // select subset of items from componentsNavConfig array where
-// value of 'id' property is contained in config array
+// value of 'id' property is contained in bottomNavConfig or overheadConfig, array
 export const getFilterArrayOfObjectsByPropValueContainedInArray =
   ( superset, propToMatch, subsetTarget, ) =>
   // superset: array of objects: to be filtered: cells, componentsNavConfig,
