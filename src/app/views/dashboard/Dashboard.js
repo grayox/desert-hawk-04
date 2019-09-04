@@ -39,8 +39,12 @@ const styles = theme => ({
 });
 
 
-const Dashboard = ({ classes, dashboard, settings, profile, show, type, saveUserDataToFirestore, }) => { // onChange,
+const Dashboard = ({
+  classes, dashboard, settings, profile, config, show, type, saveUserDataToFirestore,
+}) => { // onChange,
 
+  // console.log('dashboard\n', dashboard,);
+  
   const handleSaveSettingsStepper = data => {
     // console.log('data\n', data,);
     // const { saveUserDataToFirestore, settings, dashboard, } = this.props; // updateUserData,
@@ -74,8 +78,8 @@ const Dashboard = ({ classes, dashboard, settings, profile, show, type, saveUser
     // );
 
     const { uid, } = profile;
-    const settingsPath  = [ 'settings'  , uid , ].join('/'); // getPath( uid , 'settings'  , );
-    // const dashboardPath = [ 'dashboard' , uid , ].join('/'); // getPath( uid , 'dashboard' , );
+    const settingsPath  = [ 'settings', uid, ].join('/'); // getPath( uid , 'settings'  , );
+    // const dashboardPath = [ 'dashboard', uid, ].join('/'); // getPath( uid , 'dashboard' , );
     // console.log('settingsPath\n', settingsPath,);
     // console.log('dashboardPath\n', dashboardPath,);
     // console.log('settingsPath\n', newSettings,);
@@ -102,7 +106,7 @@ const Dashboard = ({ classes, dashboard, settings, profile, show, type, saveUser
     micro    : <MiniDashboard data={dashboard} micro />,
     standard : // includes laptop and mobile variants
       <div className={classes.wrapper}>
-        <DashboardWidgets data={dashboard} settings={settings} />
+        <DashboardWidgets data={dashboard} settings={settings} config={config} />
       </div>,
   }
 
@@ -116,8 +120,8 @@ const Dashboard = ({ classes, dashboard, settings, profile, show, type, saveUser
    
   const showConfig = {
     // greet : <SettingsMessage onClick={handleClickGeo} /> ,
-    step  : <SettingsStepper onSave={handleSaveSettingsStepper} /> ,
-    main  : getMainContent(),
+    step : <SettingsStepper onSave={handleSaveSettingsStepper} /> ,
+    main : getMainContent(),
   }
 
   const getDashboard = () => ( type === 'standard' ) ? showConfig[show] : getMainContent();

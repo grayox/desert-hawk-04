@@ -11,8 +11,10 @@ import {
 } from '@material-ui/core';
 
 import { FuseAnimateGroup } from '@fuse'; // FuseScrollbars, FuseAnimate,
-
 import MediaWidth from 'app/layouts/MediaWidth';
+
+// lodash
+import _ from '@lodash';
 
 import hash from 'object-hash'; // https://www.npmjs.com/package/object-hash
 
@@ -75,8 +77,19 @@ const styles = theme => ({
 //   </div>
 // )
 
-const DashboardWidgets = ({ classes, data, settings, }) => { // classes,
-  const items = DashboardGridConfig.cells; // getItems();
+const DashboardWidgets = ({ classes, data, settings, config, }) => { // classes,
+  // const items = DashboardGridConfig.cells; // getItems();
+  const { cells, } = DashboardGridConfig;
+
+  // select subset of items from cells array where
+  // value of 'id' property is contained in config array
+  const items =
+    _.filter( cells,
+      _.conforms({ 'id': id =>
+        _.indexOf( config, id, ) > -1
+    }));
+  // console.log('cells\n', cells,);
+  // console.log('items\n', items,);
   const count = items && items.length;
   
   const getList = () =>

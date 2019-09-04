@@ -87,7 +87,7 @@ class DashboardContainer extends Component {
     // const { handleChange, } = this;
     const { getShow, } = this;
     const { isError, } = this.state; // isLoading, show,
-    const { dashboard, settings, profile, type, } = this.props; // isLoading, dataHasLoaded,
+    const { dashboard, settings, profile, config, type, } = this.props; // isLoading, dataHasLoaded,
 
     const dataHasLoaded = !!profile && !!dashboard && !!settings; // && !!leads && !!user &&
     const isLoading = !dataHasLoaded;  
@@ -109,7 +109,8 @@ class DashboardContainer extends Component {
 
     const getDashboard = () =>
       <Dashboard
-        dashboard={dashboard} settings={settings} profile={profile} type={type} show={show}
+        dashboard={dashboard} settings={settings} profile={profile}
+        config={config} type={type} show={show}
         // onChange={handleChange} // search "old data structure"; see changes to === 3 and pathArray[2] in src/app/store/actions/my-actions/userDataActions.js
       />
 

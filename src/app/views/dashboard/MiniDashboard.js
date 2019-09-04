@@ -157,7 +157,7 @@ const MiniDashboard = ({ data, micro, }) => {
   // console.log('pickedData\n', pickedData,);
 
   const getMicroDashboard = () =>
-    <Paper className="flex content-center flex-wrap p-8 mb-8">
+    <Paper className="flex content-center flex-wrap p-8 mb-4">
       <List dense subheader={getSubheader()}>
         {
           pickedData && pickedData.length &&

@@ -581,7 +581,8 @@ export const getAlert = ( dashboard, content, ) => {
     <CustomAlert
       // shadow
       variant="traditional"
-      heading="⚠️ Your lead balance is zero!"
+      // heading="⚠️ Your lead balance is zero!"
+      heading="Your lead balance is zero"
       body="To access referrals in your Inbox, you must refer a new lead now."
       dialog={
         <React.Fragment>
@@ -681,6 +682,10 @@ export const getComponentsNavConfig = props => {
       // component: () => FuseLoadable({loader: () => import('app/views/dashboard/Dashboard')}),
       // component: () => FuseLoadable({loader: () => import('app/views/dashboard/DashboardContainer')}),
       component: () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
+      dashboardConfig: [
+        'net', 'deposits', 'withdrawals', 'challenges', 'inbox', 'archive',
+        'outbox', 'contacts', 'bizCategory', 'geoLocal', 'geoRegion', 'geoNation',
+      ],
     },
     {
       // eslint-disable-next-line
@@ -1135,6 +1140,16 @@ export const getComponentsNavConfig = props => {
       },
       // component: () => FuseLoadable({loader: () => import('app/views/dashboard/DashboardContainer')}),
       component: () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
+      dashboardConfig: [
+        'challenges-inbound'          ,
+        'challenges-inbound-pending'  ,
+        'challenges-inbound-won'      ,
+        'challenges-inbound-lost'     ,
+        'challenges-outbound'         ,
+        'challenges-outbound-pending' ,
+        'challenges-outbound-won'     ,
+        'challenges-outbound-lost'    ,
+      ],
       // indentLevel can be used in the future to programmatically set the indentation level at:
       //   src/@fuse/components/FuseNavigation/vertical/FuseNavVerticalItem.js
       //   src/@fuse/components/FuseNavigation/vertical/FuseNavVerticalCollapse.js
