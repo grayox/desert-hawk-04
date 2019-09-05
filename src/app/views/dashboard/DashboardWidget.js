@@ -5,14 +5,14 @@ import React, { useState, } from 'react';
 import { Link, NavLink, } from 'react-router-dom'; // withRouter // see src/@fuse/components/FuseNavigation/vertical/FuseNavVerticalItem.js
 
 import {
-  Slide, Paper, Tooltip, Zoom, Button, Avatar, Hidden,
+  Slide, Paper, Tooltip, Zoom, Button, Avatar, Hidden, Chip,
   ListItem, ListItemAvatar, ListItemText, ListItemSecondaryAction,
   Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
 } from '@material-ui/core'; // withStyles, Icon, IconButton, Typography,
 
-import { DashboardGridConfig, } from 'app/config/DashboardGridConfig';
-import WidgetNugget from './WidgetNugget';
 import WidgetMenu from './WidgetMenu';
+import WidgetNugget from './WidgetNugget';
+import { DashboardGridConfig, } from 'app/config/DashboardGridConfig';
 
 // import { FuseAnimate, } from '@fuse';
 
@@ -30,7 +30,8 @@ const DashboardWidget = ({
   // count: number: total number of widgets on the dashboard (for purpose of calculating entry animation)
   // index: number: sequence number of this widget relative to all widgets on the dashboard (for purpose of calculating entry animation)
   // widget: object: data defining the widget content
-  // console.log('widget\n', widget,);
+  // console.log('group\n', group,);
+  console.log('label\n', label,);
   // console.log('dataSource\n', dataSource,);
 
   const [ dialogIsOpen , setDialogIsOpen , ] = useState(false);
@@ -49,6 +50,7 @@ const DashboardWidget = ({
 
   const chipDescription = groups[group].description;
   const chipLabel =  groups[group].label;
+  // console.log('chipLabel\n', chipLabel,);
 
   const handleOpenDialog  = ()   => setDialogIsOpen(true)
   const handleCloseDialog = ()   => setDialogIsOpen(false)
@@ -85,28 +87,26 @@ const DashboardWidget = ({
       </DialogActions>
     </Dialog>
 
-  const getWidgetNugget = (
-    type, label=label, description=description, handleOpenDialog=handleOpenDialog,
-    ) =>
-      <WidgetNugget
-        data={data} dataSource={dataSource}
-        label={label} message={description}
-        mobile={mobile} type={type} settings={settings}
-        onChangeData={handleChangeData}
-        onOpenDialog={handleOpenDialog}
-      />
+  const getWidgetChip = () => <Chip label={chipLabel} onClick={handleOpenDialog}/>
+
+  const getWidgetNugget = () =>
+    <WidgetNugget
+      data={data} dataSource={dataSource}
+      label={label} message={description}
+      mobile={mobile} settings={settings}
+      onChangeData={handleChangeData}
+      onOpenDialog={handleOpenDialog}
+    />
 
   const getWidgetNuggetAssembly = () =>
     // console.log( 'dataSource\n', !!dataSource, );
     // console.log( 'widgetData\n', widgetData, );
     !!dataSource
     ?
-      <Hidden>
-        {getWidgetNugget('kernel')}
-      </Hidden>
-      && widgetData
+    <Hidden>{getWidgetNugget()}</Hidden>
+    && widgetData
     :
-      getWidgetNugget('kernel')
+    getWidgetNugget()
      
   const getPrimary = () =>
     ( getTypeOfData() === 'string' )
@@ -135,7 +135,7 @@ const DashboardWidget = ({
       // selected={!!index && (selectedIndex === index)}
       // onClick={handleClick}
       component={NavLink}
-      to={`/${links[0].id}`}
+      to={links[0] && `/${links[0].id}`}
     >
       <ListItemAvatar>
         <Avatar>{label.charAt(0)}</Avatar>
@@ -172,7 +172,7 @@ const DashboardWidget = ({
           // substitutions: desc > description, rowName > chipLabel, rowDesc > chipDescription, rowName > group,
           }
           <Tooltip TransitionComponent={Zoom} title={chipDescription}>
-            <div>{getWidgetNugget('chip', chipLabel, null, )}</div>
+            <div>{getWidgetChip()}</div>
           </Tooltip>
           <Tooltip TransitionComponent={Zoom} title="Action links" placement="left-start">
             <div>
@@ -181,8 +181,8 @@ const DashboardWidget = ({
           </Tooltip>
         </div>
         <Tooltip TransitionComponent={Zoom} title={description}>
-          <Link to={`/${links[0].id}`} className="no-underline text-grey-darker">
-            <div className="mb-24">{getWidgetNugget('kernel')}</div>
+          <Link to={links[0] && `/${links[0].id}`} className="no-underline text-grey-darker">
+            <div className="mb-24">{getWidgetNugget()}</div>
           </Link>
         </Tooltip>
         {

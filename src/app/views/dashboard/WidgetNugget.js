@@ -2,12 +2,12 @@
 
 import React from 'react'; // useState, useEffect,
 
-import {
-  Chip, // Button, Slide, Typography, // withStyles
-  // Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
-} from '@material-ui/core';
+// import {
+//   // Chip, // Button, Slide, Typography, // withStyles
+//   // Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
+// } from '@material-ui/core';
 
-import WidgetData from './WidgetData';
+import WidgetKernel from './WidgetKernel';
 
 import _ from '@lodash';
 import numeral from 'numeral';
@@ -90,8 +90,8 @@ const getFontSize = ( data = '' ) => {
 // const WidgetNugget = props => <Chip className={classes.chip} />
 // const WidgetNugget = ({ label, message, }) => <Chip label={label} onClick={() => handleClick(message)} />
 const WidgetNugget = ({
-  mobile=false, settings, type, data, label,
-  onOpenDialog, onChangeData=() => {}, dataSource, // message,
+  mobile=false, settings, data, dataSource, label, onChangeData=() => {},
+  // message, type, onOpenDialog,
 }) => {
   // if(dataSource) console.log('dataSource\n', dataSource,);
 
@@ -128,23 +128,16 @@ const WidgetNugget = ({
     return out;
   }
 
-  const getChip = () =>
-    <Chip
-      label={label}
-      // direction: 'up',
-      // onClick={() => handleOpenDialog()}
-      onClick={onOpenDialog}
-    />
-
-  const getKernelData = () =>
+  const getWidgetKernel = () =>
     <WidgetData
       onChangeData={onChangeData}
       settings={settings} dataSource={dataSource}
       handleFontSize={mobile ? () => {} : getFontSize}
     />
 
-  const getKernel = () => {
-    const result = ( !!data || data===0 ) ? data : getKernelData();
+  // const getWidgetKernel = () => {
+  const getWidgetNugget = () => {
+    const result = ( !!data || data===0 ) ? data : getWidgetKernel();
     // console.log('result\n', result,);
     const formattedResult = getFormat(result);
     // console.log('formattedResult\n', formattedResult,);
@@ -168,12 +161,12 @@ const WidgetNugget = ({
     )
   }
 
-  const config = {
-    chip: getChip(),
-    kernel: getKernel(),
-  };
+  // const config = {
+  //   chip: getChip(),
+  //   kernel: getWidgetKernel(),
+  // };
 
-  const getConfig = type => config[type];
+  // const getConfig = type => config[type];
 
   // const getDialog = () =>
   //   <Dialog
@@ -203,7 +196,7 @@ const WidgetNugget = ({
 
   // const getWidgetNugget = () => <div> {getConfig(type)} {getDialog()} </div>
   // const getWidgetNugget = () => mobile ? (data ? getFormat(data) : null) : getConfig(type)
-  const getWidgetNugget = () => getConfig(type)
+  // const getWidgetNugget = () => getConfig(type)
 
   return getWidgetNugget();
 }
