@@ -5,7 +5,7 @@ import React, { useState, } from 'react';
 import { Link, NavLink, } from 'react-router-dom'; // withRouter // see src/@fuse/components/FuseNavigation/vertical/FuseNavVerticalItem.js
 
 import {
-  Slide, Paper, Tooltip, Zoom, Button, Avatar,
+  Slide, Paper, Tooltip, Zoom, Button, Avatar, Hidden,
   ListItem, ListItemAvatar, ListItemText, ListItemSecondaryAction,
   Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
 } from '@material-ui/core'; // withStyles, Icon, IconButton, Typography,
@@ -31,8 +31,10 @@ const DashboardWidget = ({
   // index: number: sequence number of this widget relative to all widgets on the dashboard (for purpose of calculating entry animation)
   // widget: object: data defining the widget content
   // console.log('widget\n', widget,);
+  // console.log('dataSource\n', dataSource,);
 
   const [ dialogIsOpen , setDialogIsOpen , ] = useState(false);
+  const [ widgetData   , setwidgetData   , ] = useState(null);
 
   // const { group, label, description, links, dataSource, } = widget; // data, desc, rowDesc,rowName,
   // if(dataSource) console.log('dataSource\n', dataSource,);
@@ -48,14 +50,17 @@ const DashboardWidget = ({
   const chipDescription = groups[group].description;
   const chipLabel =  groups[group].label;
 
-  const handleOpenDialog = () => setDialogIsOpen(true)
-  const handleCloseDialog = () => setDialogIsOpen(false)
+  const handleOpenDialog  = ()   => setDialogIsOpen(true)
+  const handleCloseDialog = ()   => setDialogIsOpen(false)
+  const handleChangeData  = data => { setwidgetData(data); console.log('data\n', data,); }
 
   // transitions are buggish // makes pointer non-responsive after closing dialog
   // const Transition = props => <Slide direction="up" {...props} />
   // const Transition = React.forwardRef(function Transition(props, ref) {
   //   return <Slide direction="up" ref={ref} {...props} />;
   // });
+
+  const getTypeOfData = () => data && typeof data;
 
   const getDialog = () =>
     <Dialog
@@ -80,6 +85,48 @@ const DashboardWidget = ({
       </DialogActions>
     </Dialog>
 
+  const getWidgetNugget = (
+    type, label=label, description=description, handleOpenDialog=handleOpenDialog,
+    ) =>
+      <WidgetNugget
+        data={data} dataSource={dataSource}
+        label={label} message={description}
+        mobile={mobile} type={type} settings={settings}
+        onChangeData={handleChangeData}
+        onOpenDialog={handleOpenDialog}
+      />
+
+  const getWidgetNuggetAssembly = () =>
+    // console.log( 'dataSource\n', !!dataSource, );
+    // console.log( 'widgetData\n', widgetData, );
+    !!dataSource
+    ?
+      <Hidden>
+        {getWidgetNugget('kernel')}
+      </Hidden>
+      && widgetData
+    :
+      getWidgetNugget('kernel')
+     
+  const getPrimary = () =>
+    ( getTypeOfData() === 'string' )
+    ?
+    label
+    :
+    <React.Fragment>
+      <span className="mr-8">{`${label}:`}</span>
+      {getWidgetNuggetAssembly()}
+    </React.Fragment>
+
+  const getSecondary = () =>
+    ( getTypeOfData() === 'string' )
+    ?
+    <span className="text-12">
+      {getWidgetNuggetAssembly()}
+    </span>
+    :
+    null
+
   const getDashboardWidgetMobile = () =>
     <ListItem
       button
@@ -99,24 +146,8 @@ const DashboardWidget = ({
         // primary={getItemConfig('primary')}
         // secondary={getItemConfig('secondary')}
         // primary={data}
-        primary={
-          <React.Fragment>
-            <span className="mr-8">{`${label}:`}</span>
-            <WidgetNugget
-              mobile className="inline"
-              type="kernel" settings={settings}
-              label={label} message={description}
-              data={data} dataSource={dataSource}
-            />
-          </React.Fragment>
-        }
-        // secondary={
-        //   <WidgetNugget mobile
-        //     type="kernel" settings={settings}
-        //     label={label} message={description}
-        //     data={data} dataSource={dataSource}
-        //   />
-        // }
+        primary={getPrimary()}
+        secondary={getSecondary()}
       />
       <ListItemSecondaryAction className="mr-8">
         <WidgetMenu mobile links={links} onOpenDialog={handleOpenDialog} />
@@ -141,14 +172,7 @@ const DashboardWidget = ({
           // substitutions: desc > description, rowName > chipLabel, rowDesc > chipDescription, rowName > group,
           }
           <Tooltip TransitionComponent={Zoom} title={chipDescription}>
-            <div>
-              <WidgetNugget
-                type="chip"
-                label={chipLabel}
-                onOpenDialog={handleOpenDialog}
-                // message={chipDescription}
-              />
-            </div>
+            <div>{getWidgetNugget('chip', chipLabel, null, )}</div>
           </Tooltip>
           <Tooltip TransitionComponent={Zoom} title="Action links" placement="left-start">
             <div>
@@ -158,13 +182,7 @@ const DashboardWidget = ({
         </div>
         <Tooltip TransitionComponent={Zoom} title={description}>
           <Link to={`/${links[0].id}`} className="no-underline text-grey-darker">
-            <div className="mb-24">
-              <WidgetNugget
-                type="kernel" settings={settings}
-                label={label} // message={description}
-                data={data} dataSource={dataSource}
-              />
-            </div>
+            <div className="mb-24">{getWidgetNugget('kernel')}</div>
           </Link>
         </Tooltip>
         {

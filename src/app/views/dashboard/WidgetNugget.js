@@ -1,6 +1,6 @@
 // inspired by // https://material-ui.com/demos/chips/#chip | https://material-ui.com/demos/dialogs/
 
-import React from 'react'; // useState,, useEffect,
+import React from 'react'; // useState, useEffect,
 
 import {
   Chip, // Button, Slide, Typography, // withStyles
@@ -89,7 +89,10 @@ const getFontSize = ( data = '' ) => {
 
 // const WidgetNugget = props => <Chip className={classes.chip} />
 // const WidgetNugget = ({ label, message, }) => <Chip label={label} onClick={() => handleClick(message)} />
-const WidgetNugget = ({ mobile=false, settings, type, data, label, onOpenDialog, dataSource, }) => { // message,
+const WidgetNugget = ({
+  mobile=false, settings, type, data, label,
+  onOpenDialog, onChangeData=() => {}, dataSource, // message,
+}) => {
   // if(dataSource) console.log('dataSource\n', dataSource,);
 
   // const [ dialogIsOpen    , setDialogIsOpen    , ] = useState(false);
@@ -135,6 +138,7 @@ const WidgetNugget = ({ mobile=false, settings, type, data, label, onOpenDialog,
 
   const getKernelData = () =>
     <WidgetData
+      onChangeData={onChangeData}
       settings={settings} dataSource={dataSource}
       handleFontSize={mobile ? () => {} : getFontSize}
     />
@@ -198,6 +202,7 @@ const WidgetNugget = ({ mobile=false, settings, type, data, label, onOpenDialog,
   // const Transition = props => (<Slide direction={config[type].direction} {...props} />);
 
   // const getWidgetNugget = () => <div> {getConfig(type)} {getDialog()} </div>
+  // const getWidgetNugget = () => mobile ? (data ? getFormat(data) : null) : getConfig(type)
   const getWidgetNugget = () => getConfig(type)
 
   return getWidgetNugget();

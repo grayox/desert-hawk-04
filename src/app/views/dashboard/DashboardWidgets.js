@@ -89,7 +89,7 @@ const DashboardWidgets = ({ classes, data, settings, config, }) => { // classes,
   const groupsKeys = Object.keys(groups);
 
   // console.log('cells\n', cells,);
-  console.log('items\n', items,);
+  // console.log('items\n', items,);
   const count = items && items.length;
   
   const getListGroupMobileWidgets = items =>
@@ -126,6 +126,7 @@ const DashboardWidgets = ({ classes, data, settings, config, }) => { // classes,
     !!group.length
     ?
     <List
+      key={subheader}
       className="m-0 p-0" component="nav"
       subheader={
         <ListSubheader
@@ -143,9 +144,9 @@ const DashboardWidgets = ({ classes, data, settings, config, }) => { // classes,
     null
 
   const getListGroupsMobile = () =>
-    groupsKeys.map( key => {
-      const group = _.filter(items, {group: key,},);
-      return getListGroupMobile( key, group, );
+    groupsKeys.map( groupKey => {
+      const group = _.filter(items, {group: groupKey,},);
+      return getListGroupMobile( groupKey, group, );
     })
 
   const getDashboardWidgetsMobile = () =>

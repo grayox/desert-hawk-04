@@ -53,8 +53,14 @@ class WidgetData extends Component {
   handleLoad = () => {
     this.fetchData()
     .then( data => {
-      // console.log('data\n', data,);
-      this.setState({ data, hasLoaded: true, });
+      console.log('data\n', data,);
+      this.setState(
+        { data, hasLoaded: true, },
+        () => {
+          console.log('data\n', data,);
+          this.props.onChangeData(data);
+        },
+      );
     })
     // .then( () => {
       // console.log('state\n', this.state);
@@ -70,7 +76,7 @@ class WidgetData extends Component {
     if(!ready1) return null;
 
     const { path, } = dataSource; // getField,
-    // console.log('path\n', path,);
+    console.log('path\n', path,);
     const ready2 = path;
     if(!ready2) return null;
     // this._asyncRequest = await loadUserData(path,);
@@ -78,7 +84,7 @@ class WidgetData extends Component {
     // const data = await loadUserData(path,);
     // console.log('path\n', path,);
     const out = await loadUserData(path,);
-    // console.log('out\n', out,);
+    console.log('out\n', out,);
     return out;
   }
 

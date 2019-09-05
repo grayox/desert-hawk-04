@@ -97,7 +97,8 @@ class CRUDView extends Component {
   // }
 
   // componentDidMount = () => {
-  //   this.getInitialItemsFromProps();
+  //   window.scrollTo(0, 0,);
+  //   // this.getInitialItemsFromProps();
   // }
 
   // componentDidUpdate(prevProps) {
