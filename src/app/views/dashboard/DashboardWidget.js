@@ -5,8 +5,8 @@ import React, { useState, } from 'react';
 import { Link, NavLink, } from 'react-router-dom'; // withRouter // see src/@fuse/components/FuseNavigation/vertical/FuseNavVerticalItem.js
 
 import {
-  Slide, Paper, Tooltip, Zoom, Button,
-  Avatar, ListItem, ListItemAvatar, ListItemText, ListItemSecondaryAction,
+  Slide, Paper, Tooltip, Zoom, Button, Avatar,
+  ListItem, ListItemAvatar, ListItemText, ListItemSecondaryAction,
   Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
 } from '@material-ui/core'; // withStyles, Icon, IconButton, Typography,
 
@@ -90,25 +90,33 @@ const DashboardWidget = ({
       component={NavLink}
       to={`/${links[0].id}`}
     >
-      <Zoom key={index} in mountOnEnter unmountOnExit>
-        <ListItemAvatar>
-          <Avatar>{label.charAt(0)}</Avatar>
-        </ListItemAvatar>
-      </Zoom>
+      <ListItemAvatar>
+        <Avatar>{label.charAt(0)}</Avatar>
+      </ListItemAvatar>
       <ListItemText
         // primary={item.geoLocal}
         // secondary={moment(createdAt).fromNow()}
         // primary={getItemConfig('primary')}
         // secondary={getItemConfig('secondary')}
         // primary={data}
-        primary={label}
-        secondary={
-          <WidgetNugget mobile
-            type="kernel" settings={settings}
-            label={label} message={description}
-            data={data} dataSource={dataSource}
-          />
+        primary={
+          <React.Fragment>
+            <span className="mr-8">{`${label}:`}</span>
+            <WidgetNugget
+              mobile className="inline"
+              type="kernel" settings={settings}
+              label={label} message={description}
+              data={data} dataSource={dataSource}
+            />
+          </React.Fragment>
         }
+        // secondary={
+        //   <WidgetNugget mobile
+        //     type="kernel" settings={settings}
+        //     label={label} message={description}
+        //     data={data} dataSource={dataSource}
+        //   />
+        // }
       />
       <ListItemSecondaryAction className="mr-8">
         <WidgetMenu mobile links={links} onOpenDialog={handleOpenDialog} />
@@ -174,10 +182,12 @@ const DashboardWidget = ({
     // </FuseAnimate>
 
   const getDashboardWidget = () =>
+    // <Zoom key={index} in mountOnEnter unmountOnExit>
     <React.Fragment>
       { getDialog() }
       { mobile ? getDashboardWidgetMobile() : getDashboardWidgetLaptop() }
     </React.Fragment>
+    // </Zoom>
     
   return getDashboardWidget();
 }
