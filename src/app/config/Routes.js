@@ -45,6 +45,11 @@ const getItems = () => {
 }
 
 class Routes extends Component {
+  
+  componentWillMount() {
+    window.scrollTo( 0, 0, );
+  }
+
   render() {
     const { classes, } = this.props;
     // const Settings = FuseLoadable({loader: () => import('app/views/settings/Settings')});
