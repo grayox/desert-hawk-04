@@ -107,7 +107,7 @@ const DashboardWidget = ({
   // }
 
   const getWidgetNuggetAssembly = () =>
-    (typeof kernelData != 'object' && kernelData)
+    ( typeof kernelData != 'object' && kernelData )
     || getWidgetNugget() || <CircularProgress /> || ''
 
   const getPrimary = () =>
