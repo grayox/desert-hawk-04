@@ -1,7 +1,7 @@
 // inspired by: https://github.com/withinpixels/fuse-react/blob/v2.2.3/src/app/main/apps/dashboards/project/widgets/Widget4.js
 
 // import React, { Component } from 'react';
-import React, { useState, } from 'react';
+import React, { useState, useEffect, } from 'react';
 import { Link, NavLink, } from 'react-router-dom'; // withRouter // see src/@fuse/components/FuseNavigation/vertical/FuseNavVerticalItem.js
 
 import {
@@ -31,11 +31,18 @@ const DashboardWidget = ({
   // index: number: sequence number of this widget relative to all widgets on the dashboard (for purpose of calculating entry animation)
   // widget: object: data defining the widget content
   // console.log('group\n', group,);
-  console.log('label\n', label,);
+  // console.log('label\n', label,);
   // console.log('dataSource\n', dataSource,);
 
-  const [ dialogIsOpen , setDialogIsOpen , ] = useState(false);
   const [ widgetData   , setwidgetData   , ] = useState(null);
+  const [ dialogIsOpen , setDialogIsOpen , ] = useState(false);
+  const [ dialogIsChip , setDialogIsChip , ] = useState(false);
+  useEffect(() => {
+    const ready1 = dialogIsChip;
+    if (!ready1) return;
+    setDialogIsOpen(true);
+  }, [ dialogIsChip, ]);
+
 
   // const { group, label, description, links, dataSource, } = widget; // data, desc, rowDesc,rowName,
   // if(dataSource) console.log('dataSource\n', dataSource,);
@@ -50,11 +57,22 @@ const DashboardWidget = ({
 
   const chipDescription = groups[group].description;
   const chipLabel =  groups[group].label;
+  const topLink = (links && links[0] && `/${links[0].id}`) || null;
   // console.log('chipLabel\n', chipLabel,);
 
-  const handleOpenDialog  = ()   => setDialogIsOpen(true)
-  const handleCloseDialog = ()   => setDialogIsOpen(false)
-  const handleChangeData  = data => { setwidgetData(data); console.log('data\n', data,); }
+  const handleOpenDialog = () => setDialogIsOpen(true)
+
+  const handleCloseDialog = () => {
+    setDialogIsOpen(false);
+    setDialogIsChip(false);
+  }
+
+  const handleClickChip = () => setDialogIsChip(true);
+
+  const handleChangeData = data => {
+    setwidgetData(data);
+    console.log('data\n', data,);
+  }
 
   // transitions are buggish // makes pointer non-responsive after closing dialog
   // const Transition = props => <Slide direction="up" {...props} />
@@ -74,9 +92,13 @@ const DashboardWidget = ({
       aria-labelledby="alert-dialog-slide-title"
       aria-describedby="alert-dialog-slide-description"
     >
-      <DialogTitle id="alert-dialog-slide-title">{label}</DialogTitle>
+      <DialogTitle id="alert-dialog-slide-title">
+        { dialogIsChip ? chipLabel : label}
+      </DialogTitle>
       <DialogContent>
-        <DialogContentText id="alert-dialog-slide-description">{description}</DialogContentText>
+        <DialogContentText id="alert-dialog-slide-description">
+          { dialogIsChip ? chipDescription : description}
+        </DialogContentText>
       </DialogContent>
       <DialogActions>
         {
@@ -87,7 +109,7 @@ const DashboardWidget = ({
       </DialogActions>
     </Dialog>
 
-  const getWidgetChip = () => <Chip label={chipLabel} onClick={handleOpenDialog}/>
+  const getWidgetChip = () => <Chip label={chipLabel} onClick={handleClickChip} />
 
   const getWidgetNugget = () =>
     <WidgetNugget
@@ -135,7 +157,7 @@ const DashboardWidget = ({
       // selected={!!index && (selectedIndex === index)}
       // onClick={handleClick}
       component={NavLink}
-      to={links[0] && `/${links[0].id}`}
+      to={topLink}
     >
       <ListItemAvatar>
         <Avatar>{label.charAt(0)}</Avatar>
@@ -181,7 +203,7 @@ const DashboardWidget = ({
           </Tooltip>
         </div>
         <Tooltip TransitionComponent={Zoom} title={description}>
-          <Link to={links[0] && `/${links[0].id}`} className="no-underline text-grey-darker">
+          <Link to={topLink} className="no-underline text-grey-darker">
             <div className="mb-24">{getWidgetNugget()}</div>
           </Link>
         </Tooltip>

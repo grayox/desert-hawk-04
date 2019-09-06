@@ -90,8 +90,8 @@ const getFontSize = ( data = '' ) => {
 // const WidgetNugget = props => <Chip className={classes.chip} />
 // const WidgetNugget = ({ label, message, }) => <Chip label={label} onClick={() => handleClick(message)} />
 const WidgetNugget = ({
-  mobile=false, settings, data, dataSource, label, onChangeData=() => {},
   // message, type, onOpenDialog,
+  mobile=false, settings, data, dataSource, label, onChangeData=() => {},
 }) => {
   // if(dataSource) console.log('dataSource\n', dataSource,);
 
@@ -129,7 +129,7 @@ const WidgetNugget = ({
   }
 
   const getWidgetKernel = () =>
-    <WidgetData
+    <WidgetKernel
       onChangeData={onChangeData}
       settings={settings} dataSource={dataSource}
       handleFontSize={mobile ? () => {} : getFontSize}

@@ -76,7 +76,7 @@ class WidgetData extends Component {
     if(!ready1) return null;
 
     const { path, } = dataSource; // getField,
-    console.log('path\n', path,);
+    // console.log('path\n', path,);
     const ready2 = path;
     if(!ready2) return null;
     // this._asyncRequest = await loadUserData(path,);

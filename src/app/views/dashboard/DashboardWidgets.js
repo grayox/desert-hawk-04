@@ -84,6 +84,7 @@ const styles = theme => ({
 
 const DashboardWidgets = ({ classes, data, settings, config, }) => { // classes,
   // const items = DashboardGridConfig.cells; // getItems();
+  // console.log('config\n', config,);
   const { groups, cells, } = DashboardGridConfig;
   const items = getFilterArrayOfObjectsByPropValueContainedInArray( cells, 'id', config, );
   const groupsKeys = Object.keys(groups);
@@ -177,28 +178,29 @@ const DashboardWidgets = ({ classes, data, settings, config, }) => { // classes,
     // console.log('data\n', data,);
     <div className="pt-16 sm:pt-0">
       <Grid container spacing={16}>
-        {items && items.map((item, index,) => {
-          // console.log('data\n', data,);
-          const { id, } = item;
-          // console.log('id\n', id,);
-          // console.log('settings[id]\n', settings[id],);
-          // console.log('data[id]\n', data[id],);
-          const itemData = settings[id] || data[id];
-          // item.data = 
-          return (
-            <Grid
-            // item key={`${item.name}${item.label}`}
-              item key={id}
-              // className={classes.gridList}
-              className="widget flex w-full mx-16 sm:mx-0 sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-16"
-            >
-              <DashboardWidget
-                settings={settings} data={itemData}
-                widget={item} index={index} count={count}
-              />
-            </Grid>
-          )}
-        )}
+        {
+          items && items.map((item, index,) => {
+            // console.log('data\n', data,);
+            const { id, } = item;
+            // console.log('id\n', id,);
+            // console.log('settings[id]\n', settings[id],);
+            // console.log('data[id]\n', data[id],);
+            const itemData = settings[id] || data[id];
+            // item.data = 
+            return (
+              <Grid
+              // item key={`${item.name}${item.label}`}
+                item key={id}
+                // className={classes.gridList}
+                className="widget flex w-full mx-16 sm:mx-0 sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-16"
+              >
+                <DashboardWidget
+                  settings={settings} data={itemData}
+                  widget={item} index={index} count={count}
+                />
+              </Grid>
+          )})
+        }
       </Grid>
     </div>
 
