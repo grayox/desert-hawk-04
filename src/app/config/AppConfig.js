@@ -606,6 +606,10 @@ export const getAlert = ( dashboard, content, ) => {
       dialog={
         <React.Fragment>
           <p className="mb-6">
+            This is our accountability system.
+            It helps keep a supply of leads available for everyone as much as possible.
+          </p>
+          <p>
             It is very important to keep your net lead balance above zero.
             Your net lead balance is the number of lead referrals you deposited
             into your Outbox minus the number of leads you withdrew from your Inbox.
