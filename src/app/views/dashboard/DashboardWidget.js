@@ -24,12 +24,10 @@ const SCALAR = 1.5; // compensation for random factor; when combined with index,
 // const { groups, } = DashboardGridConfig;
 
 const DashboardWidget = ({
-  onOpenDialog, onClickChip,
   mobile=false, settings, data, index, count,
+  chipLabel, chipDescription, onOpenDialog, // onClickChip,
   widget: {
-    links, dataSource, // group,
-    label, description,
-    chipLabel, chipDescription,
+    links, dataSource, label, description, // group,
   },
 }) => { // data, classes,
   // count: number: total number of widgets on the dashboard (for purpose of calculating entry animation)
@@ -37,6 +35,8 @@ const DashboardWidget = ({
   // widget: object: data defining the widget content
   // console.log('group\n', group,);
   // console.log('label\n', label,);
+  // console.log('chipLabel\n', chipLabel,);
+  // console.log('chipDescription\n', chipDescription,);
   // console.log('dataSource\n', dataSource,);
 
   const [ widgetData, setwidgetData, ] = useState(null);

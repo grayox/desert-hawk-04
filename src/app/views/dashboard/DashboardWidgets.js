@@ -95,16 +95,23 @@ const DashboardWidgets = ({ classes, data, settings, config, }) => { // classes,
   const count = items && items.length;
 
   const [ dialogIsOpen , setDialogIsOpen , ] = useState(false);
-  const [ dialogIsChip , setDialogIsChip , ] = useState(false);
+  const [ label        , setLabel        , ] = useState(null);
+  const [ description  , setDescription  , ] = useState(null);
+
   useEffect( () => {
-    if(dialogIsChip) setDialogIsOpen(true);
-  }, [ dialogIsChip, ]);
+    setDialogIsOpen(!!label && !!description);
+  }, [ label, description, ]);
 
-  const handleOpenDialog = () => setDialogIsOpen(true)
+  const handleOpenDialog = ( newLabel, newDescription, ) => {
+    setLabel(newLabel);
+    setDescription(newDescription);
+  } 
 
-  const handleCloseDialog = () => {
-    setDialogIsOpen(false);
-    setDialogIsChip(false);
+  const handleClickCloseDialog = () => setDialogIsOpen(false);
+
+  const handleDialogExited = () => {
+    setLabel(null);
+    setDescription(null);
   }
 
   // const handleClickChip = () => setDialogIsChip(true);
@@ -112,23 +119,21 @@ const DashboardWidgets = ({ classes, data, settings, config, }) => { // classes,
   const getChipDescription = group => groups[group].description;
   const getChipLabel = group => groups[group].label;
   
-  const getDialog = ( label, description, ) =>
+  const getDialog = () =>
     <Dialog
       // keepMounted
       open={dialogIsOpen}
-      // onClose={handleCloseDialog}
+      onExited={handleDialogExited}
       // TransitionComponent={Transition} // buggish // see below and above comments
       // disableFocusListener={true} // https://stackoverflow.com/a/51663448/1640892
       aria-labelledby="alert-dialog-slide-title"
       aria-describedby="alert-dialog-slide-description"
     >
       <DialogTitle id="alert-dialog-slide-title">
-        {/* { dialogIsChip ? chipLabel : label } */}
         { label }
       </DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-slide-description">
-          {/* { dialogIsChip ? chipDescription : description } */}
           { description }
         </DialogContentText>
       </DialogContent>
@@ -137,7 +142,7 @@ const DashboardWidgets = ({ classes, data, settings, config, }) => { // classes,
         // <Button onClick={handleCloseDialog} color="primary">Disagree</Button>
         // <Button onClick={handleCloseDialog} color="primary">Agree</Button>
         }
-        <Button onClick={handleCloseDialog} color="primary">Ok, got it</Button>
+        <Button onClick={handleClickCloseDialog} color="primary">Ok, got it</Button>
       </DialogActions>
     </Dialog>
   
@@ -155,6 +160,10 @@ const DashboardWidgets = ({ classes, data, settings, config, }) => { // classes,
           // console.log('settings[id]\n', settings[id],);
           // console.log('data[id]\n', data[id],);
           const itemData = settings[id] || data[id];
+          const chipLabel = getChipLabel(item.group);
+          const chipDescription = getChipDescription(item.group);
+          // console.log('chipLabel\n', chipLabel,);
+          // console.log('chipDescription\n', chipDescription,);
           return (
             <div
               key={hash([item, (item && item.createdAt),])}
@@ -163,8 +172,7 @@ const DashboardWidgets = ({ classes, data, settings, config, }) => { // classes,
               <DashboardWidget mobile
                 settings={settings} data={itemData}
                 widget={item} index={index} count={count}
-                chipLabel={() => getChipLabel(item.group)}
-                chipDescription={() => getChipDescription(item.group)}
+                chipLabel={chipLabel} chipDescription={chipDescription}
                 onOpenDialog={handleOpenDialog} // onClickChip={handleClickChip}
               />
               <Divider />
@@ -174,26 +182,39 @@ const DashboardWidgets = ({ classes, data, settings, config, }) => { // classes,
       }
     </FuseAnimateGroup>
 
-  const getListGroupMobile = ( subheader, group, ) =>
-    !!group.length
-    ?
-    <List
-      key={subheader}
-      className="m-0 p-0" component="nav"
-      subheader={
-        <ListSubheader
-          className="text-left uppercase text-12"
-          component="div" id="nested-list-subheader"
-        >
-          {subheader}
-        </ListSubheader>
-      }
-    >
-      <Divider />
-      {getListGroupMobileWidgets(group)}
-    </List>
-    :
-    null
+  const getListGroupMobile = ( subheader, group, ) => {
+    // console.log('subheader\n', subheader,);
+    // console.log('group\n', group,);
+    const groupsConfig = groups[subheader];
+    const { label: subgroupLabel, description: subgroupDescription, } = groupsConfig;
+    const out = (
+      !!group.length
+      ?
+      <List
+        key={subheader}
+        className="m-0 p-0" component="nav"
+        subheader={
+          <ListSubheader
+            button
+            className="text-left uppercase text-12" id="nested-list-subheader"
+            // component="button" // component="div"
+            // onClick={() => alert('clicked')}
+            // onClick={() => alert(subgroupLabel, subgroupDescription,)}
+            onClick={() => handleOpenDialog(subgroupLabel, subgroupDescription,)}
+          >
+            {subgroupLabel}
+          </ListSubheader>
+        }
+      >
+        <Divider />
+        {getListGroupMobileWidgets(group)}
+      </List>
+      :
+      null
+    );
+    return out;
+  }
+    
 
   const getListGroupsMobile = () =>
     groupsKeys.map( groupKey => {
@@ -238,6 +259,8 @@ const DashboardWidgets = ({ classes, data, settings, config, }) => { // classes,
             // console.log('data[id]\n', data[id],);
             const itemData = settings[id] || data[id];
             // item.data = 
+            const chipLabel = getChipLabel(item.group);
+            const chipDescription = getChipDescription(item.group);
             return (
               <Grid
               // item key={`${item.name}${item.label}`}
@@ -248,8 +271,7 @@ const DashboardWidgets = ({ classes, data, settings, config, }) => { // classes,
                 <DashboardWidget
                   settings={settings} data={itemData}
                   widget={item} index={index} count={count}
-                  chipLabel={() => getChipLabel(item.group)}
-                  chipDescription={() => getChipDescription(item.group)}
+                  chipLabel={chipLabel} chipDescription={chipDescription}
                   onOpenDialog={handleOpenDialog} // onClickChip={handleClickChip}
                 />
               </Grid>

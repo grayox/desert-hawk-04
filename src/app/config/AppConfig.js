@@ -1481,9 +1481,8 @@ export const getComponentsNavConfig = props => {
     },
 
     // divider
-    // {id:'div1', type:'divider',},
-    {type:'divider'},
-
+    {id:'div1', type:'divider',}, // id is necessary to meet unique key requirement in src/@fuse/components/FuseNavigation/FuseNavigation.js
+    
     // overhead views
     // see specs here: https://material.io/design/communication/help-feedback.html#use-placement
     {
