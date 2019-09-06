@@ -91,7 +91,7 @@ const getFontSize = ( data = '' ) => {
 // const WidgetNugget = ({ label, message, }) => <Chip label={label} onClick={() => handleClick(message)} />
 const WidgetNugget = ({
   // message, type, onOpenDialog,
-  mobile=false, settings, data, dataSource, label, onDataChanged=() => {},
+  mobile=false, settings, data, dataSource, label, onDataChanged,
 }) => {
   // if(dataSource) console.log('dataSource\n', dataSource,);
 

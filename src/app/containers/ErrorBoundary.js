@@ -1,7 +1,7 @@
 // ref: https://reactjs.org/docs/error-boundaries.html | https://fb.me/react-error-boundaries 
 // ref: https://codepen.io/gaearon/pen/wqvxGa?editors=0010
 
-import React, { Component } from 'react';
+import React, { Component, } from 'react';
 
 class ErrorBoundary extends Component {
   constructor(props) {
@@ -45,8 +45,8 @@ class ErrorBoundary extends Component {
     //     <p>All content and graphics on this web site are the property of the company Refsnes Data.</p>
     //   </details>
     // }
-    const { children } = this.props;
-    const { error, errorInfo } = this.state;
+    const { children, } = this.props;
+    const { error, errorInfo, } = this.state;
     if (errorInfo) {
       // Error path
       return (

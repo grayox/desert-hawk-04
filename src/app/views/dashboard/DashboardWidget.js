@@ -12,6 +12,7 @@ import {
 
 import _ from '@lodash';
 import { loadUserData, } from 'app/containers/LoadAsync';
+// import ErrorBoundary from 'app/containers/ErrorBoundary';
 
 import WidgetMenu from './WidgetMenu';
 import WidgetNugget from './WidgetNugget';
@@ -42,7 +43,7 @@ const DashboardWidget = ({
   // console.log('chipDescription\n', chipDescription,);
   // console.log('dataSource\n', dataSource,);
 
-  const [ kernelData, setKernelData, ] = useState(null);
+  const [ kernelData, setKernelData, ] = useState('');
 
   // const { group, label, description, links, dataSource, } = widget; // data, desc, rowDesc,rowName,
   // if(dataSource) console.log('dataSource\n', dataSource,);
@@ -83,27 +84,31 @@ const DashboardWidget = ({
       onOpenDialog={() => onOpenDialog(label, description,)}
     />
 
-  const getWidgetNuggetAssembly = async () => {
-    // console.log( 'dataSource\n', dataSource, ); // debugger;
-    // console.log( 'kernelData\n', kernelData, );
-    const ready1 = !!dataSource && !_.isEmpty(dataSource);
-    if(!ready1) return null;
-    const { path, getField, } = dataSource;
-    const ready2 = !!path && path.length && getField;
-    if(!ready2) return null;
-    try {
+  const getKernelData = async () => {
+    // try {
+      // console.log( 'dataSource\n', dataSource, ); // debugger;
+      // console.log( 'kernelData\n', kernelData, );
+      const ready1 = !!dataSource && !_.isEmpty(dataSource);
+      if(!ready1) return null;
+      const { path, getField, } = dataSource;
+      const ready2 = !!path && path.length && getField;
+      if(!ready2) return null;
       // console.log( 'dataSource\n', dataSource, ); debugger;
       const data = await loadUserData( path, );
       const field = getField(settings);
       const result = _.get(data, field, '',);
       const out = result || 0;
+      console.log('out\n', out,); debugger;
       setKernelData(out);
       // return out;
-    } catch (e) {
-      console.error(e);
-    } 
+    // } catch (e) {
+    //   console.error(e);
+    // } 
   }
-     
+
+  const getWidgetNuggetAssembly = () =>
+    (typeof kernelData != 'object' && kernelData) || getWidgetNugget() || ''
+
   const getPrimary = () =>
     ( getTypeOfData() === 'string' )
     ?
@@ -111,16 +116,14 @@ const DashboardWidget = ({
     :
     <React.Fragment>
       <span className="mr-8">{`${label}:`}</span>
-      {/* { kernelData || getWidgetNuggetAssembly() } */}
-      {2}
+      {getWidgetNuggetAssembly()}
     </React.Fragment>
 
   const getSecondary = () =>
     ( getTypeOfData() === 'string' )
     ?
     <span className="text-12">
-      {/* { kernelData || getWidgetNuggetAssembly() } */}
-      {2}
+      {getWidgetNuggetAssembly()}
     </span>
     :
     null
