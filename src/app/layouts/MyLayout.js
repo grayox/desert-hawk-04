@@ -104,7 +104,6 @@ const MyLayout = props => {
       className={classNames( "w-full overflow-scroll", classes.wrapper, )} // overflow-auto
     >
       {getFetchUserData()} {getMediaWidth()}
-      <div className="mb-256px border border-green">.</div>
     </div>
 
   return getMyLayout();

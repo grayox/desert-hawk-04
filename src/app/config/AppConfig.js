@@ -600,7 +600,9 @@ export const getAlert = ( dashboard, content, ) => {
       variant="traditional"
       // heading="⚠️ Your lead balance is zero!"
       heading="Your lead balance is zero"
-      body="To access referrals in your Inbox, you must refer a new lead now."
+      body="You must refer a new lead before you claim another."
+      actionButtonLabel="Refer lead"
+      actionButtonHref="/outbox"
       dialog={
         <React.Fragment>
           <p className="mb-6">

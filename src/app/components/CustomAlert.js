@@ -49,7 +49,10 @@ import {
 //     <CustomAlert variant="banner"      />
 //   </React.Fragment>
 
-const CustomAlert = ({ variant, heading, body, buttonText, dialog, }) => {
+const CustomAlert = ({
+  variant, heading, body, buttonText, dialog,
+  actionButtonLabel, actionButtonHref,
+}) => {
 
   const [ isOpen, setIsOpen, ] = useState(false);
   const handleOpen  = () => setIsOpen(true)
@@ -101,14 +104,22 @@ const CustomAlert = ({ variant, heading, body, buttonText, dialog, }) => {
 
   const getTraditional = () =>
     <div className="mb-16 p-16 bg-red-lightest border border-red-light text-red-dark rounded relative xshadow-md" role="alert">
-      <strong className="font-bold">{heading}</strong>
-      <span className="block sm:inline ml-6">{body}</span>
+      <strong className="font-bold mb-8">{heading}</strong>
+      <p className="mt-8">{body}</p>
       {
       // <span className="absolute pin-t pin-b pin-r px-4 py-3">
       //   <svg className="fill-current h-6 w-6 text-red" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
       // </span>
       }
-      <Button className="ml-4 text-red-dark" size="small" onClick={handleClick}>{buttonText}</Button>
+      <div className="mt-8 text-right">
+        <Button className="text-red-dark" size="small" onClick={handleClick}>{buttonText}</Button>
+        <Button
+          className="ml-8" size="small" color="secondary"
+          variant="contained" href={actionButtonHref}
+        >
+          {actionButtonLabel}
+        </Button>
+      </div>
     </div>
 
   const getModernWithBadge = () =>
@@ -187,6 +198,8 @@ CustomAlert.propTypes = {
   heading: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,
   buttonText: PropTypes.string,
+  actionButtonLabel: PropTypes.string,
+  actionButtonHref: PropTypes.string,
   dialog: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object,
@@ -197,7 +210,9 @@ CustomAlert.defaultProps = {
   variant: 'traditional',
   heading: 'Holy smokes!',
   body: 'Something seriously bad happened.',
-  buttonText: 'Learn more ℹ️',
+  buttonText: 'Learn more', // ️️ℹ️
+  actionButtonLabel: '',
+  actionButtonHref: '',
   dialog: '',
 };
 
