@@ -438,6 +438,8 @@ class CRUDView extends Component {
         sortable={sortable}
         starrable={starrable}
 
+        dashboard={dashboard}
+        miniDashboard={miniDashboard}
         searchMenuOptions={searchMenuOptions}
         filterMenuOptions={filterMenuOptions}
         sortMenuOptions={sortMenuOptions}
@@ -464,8 +466,8 @@ class CRUDView extends Component {
         deletable={deletable}
         actionable={actionable}
         starrable={starrable}
-        miniDashboard={miniDashboard}
         dashboard={dashboard}
+        miniDashboard={miniDashboard}
         onClickStar={handleClickStar}
         onToggle={handleToggle}
         onUpdate={handleOpenUpdateDialog}

@@ -4,6 +4,8 @@ import { FuseAnimateGroup } from '@fuse'; // FuseScrollbars, FuseAnimate,
 
 import { withStyles, Zoom, Paper, Chip, Tooltip, Divider, List, CircularProgress, } from '@material-ui/core';
 
+import MediaWidth from 'app/layouts/MediaWidth';
+import Dashboard from 'app/views/dashboard/Dashboard';
 import hash from 'object-hash'; // https://www.npmjs.com/package/object-hash
 import ButtonsTierList from './ButtonsTierList'; // CRUDButtons,
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -18,7 +20,7 @@ const styles = theme => ({
 });
 
 const ListPane = ({
-  classes, items, hasMore, navComponentId,
+  classes, items, hasMore, navComponentId, dashboard, miniDashboard,
   creatable, readable, searchable, filterable, sortable, starrable,
   searchMenuOptions, filterMenuOptions, sortMenuOptions, searchFilterSortModelWithLabels,
   selectedIndex, onClickStar, onNext, onToggle, onClickCreateButton, onSearchFilterSort,
@@ -26,6 +28,13 @@ const ListPane = ({
 
   const ready1 = items && items.length;
   if(!ready1) return null;
+
+  const getDashboard = () =>
+    <MediaWidth
+      mobile={<Dashboard dashboard={dashboard} type="micro" />}
+      // tablet={<Dashboard dashboard={dashboard} type="mini"  />}
+      // laptop={<Dashboard dashboard={dashboard} type="mini"  />}
+    />
 
   const getHeaderChips = () => {
     const { listPaneHeaderChips, } = readable;
@@ -125,6 +134,7 @@ const ListPane = ({
 
   const getListPane = () =>
     <React.Fragment>
+      { miniDashboard && !!miniDashboard.length && getDashboard() }
       {getHeaderButtons()}
       {getHeaderChips()}
       <Paper className={classNames(classes.paper, "z-10",)}>

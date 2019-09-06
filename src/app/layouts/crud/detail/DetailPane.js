@@ -380,7 +380,7 @@ const DetailPane = ({
 
   const getDetailPane = () =>
     <React.Fragment>
-      { miniDashboard && !!miniDashboard.length && getDashboard() }      
+      { miniDashboard && !!miniDashboard.length && getDashboard() } 
       <Slide // <Zoom // <Grow 
         in //={detail}
         direction="right"
