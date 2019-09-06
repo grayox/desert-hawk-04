@@ -91,7 +91,7 @@ const getFontSize = ( data = '' ) => {
 // const WidgetNugget = ({ label, message, }) => <Chip label={label} onClick={() => handleClick(message)} />
 const WidgetNugget = ({
   // message, type, onOpenDialog,
-  mobile=false, settings, data, dataSource, label, onChangeData=() => {},
+  mobile=false, settings, data, dataSource, label, onDataChanged=() => {},
 }) => {
   // if(dataSource) console.log('dataSource\n', dataSource,);
 
@@ -130,14 +130,21 @@ const WidgetNugget = ({
 
   const getWidgetKernel = () =>
     <WidgetKernel
-      onChangeData={onChangeData}
+      onDataChanged={onDataChanged}
       settings={settings} dataSource={dataSource}
       handleFontSize={mobile ? () => {} : getFontSize}
     />
 
   // const getWidgetKernel = () => {
   const getWidgetNugget = () => {
-    const result = ( !!data || data===0 ) ? data : getWidgetKernel();
+    let result;
+    const dataExists = ( !!data || data===0 );
+    if(dataExists) {
+      result = data;
+    } else {
+      result = getWidgetKernel();
+      // console.log('result\n', result,);
+    }
     // console.log('result\n', result,);
     const formattedResult = getFormat(result);
     // console.log('formattedResult\n', formattedResult,);

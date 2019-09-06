@@ -5,10 +5,13 @@ import React, { useState, } from 'react'; // useEffect,
 import { Link, NavLink, } from 'react-router-dom'; // withRouter // see src/@fuse/components/FuseNavigation/vertical/FuseNavVerticalItem.js
 
 import {
-  // withStyles, Icon, Button, IconButton, Typography,
-  Slide, Paper, Tooltip, Zoom, Avatar, Hidden, Chip,
+  // withStyles, Icon, Button, IconButton, Typography, Hidden,
+  Slide, Paper, Tooltip, Zoom, Avatar, Chip,
   ListItem, ListItemAvatar, ListItemText, ListItemSecondaryAction,
 } from '@material-ui/core';
+
+import _ from '@lodash';
+import { loadUserData, } from 'app/containers/LoadAsync';
 
 import WidgetMenu from './WidgetMenu';
 import WidgetNugget from './WidgetNugget';
@@ -39,7 +42,7 @@ const DashboardWidget = ({
   // console.log('chipDescription\n', chipDescription,);
   // console.log('dataSource\n', dataSource,);
 
-  const [ widgetData, setwidgetData, ] = useState(null);
+  const [ kernelData, setKernelData, ] = useState(null);
 
   // const { group, label, description, links, dataSource, } = widget; // data, desc, rowDesc,rowName,
   // if(dataSource) console.log('dataSource\n', dataSource,);
@@ -55,9 +58,8 @@ const DashboardWidget = ({
   const topLink = (links && links[0] && `/${links[0].id}`) || null;
   // console.log('chipLabel\n', chipLabel,);
 
-
-  const handleChangeData = data => {
-    setwidgetData(data);
+  const handleDataChanged = data => {
+    setKernelData(data);
     console.log('data\n', data,);
   }
 
@@ -77,19 +79,30 @@ const DashboardWidget = ({
       data={data} dataSource={dataSource}
       label={label} message={description}
       mobile={mobile} settings={settings}
-      onChangeData={handleChangeData}
-      onOpenDialog={onOpenDialog}
+      onDataChanged={handleDataChanged}
+      onOpenDialog={() => onOpenDialog(label, description,)}
     />
 
-  const getWidgetNuggetAssembly = () =>
-    // console.log( 'dataSource\n', !!dataSource, );
-    // console.log( 'widgetData\n', widgetData, );
-    !!dataSource
-    ?
-    <Hidden>{getWidgetNugget()}</Hidden>
-    && widgetData
-    :
-    getWidgetNugget()
+  const getWidgetNuggetAssembly = async () => {
+    // console.log( 'dataSource\n', dataSource, ); // debugger;
+    // console.log( 'kernelData\n', kernelData, );
+    const ready1 = !!dataSource && !_.isEmpty(dataSource);
+    if(!ready1) return null;
+    const { path, getField, } = dataSource;
+    const ready2 = !!path && path.length && getField;
+    if(!ready2) return null;
+    try {
+      // console.log( 'dataSource\n', dataSource, ); debugger;
+      const data = await loadUserData( path, );
+      const field = getField(settings);
+      const result = _.get(data, field, '',);
+      const out = result || 0;
+      setKernelData(out);
+      // return out;
+    } catch (e) {
+      console.error(e);
+    } 
+  }
      
   const getPrimary = () =>
     ( getTypeOfData() === 'string' )
@@ -98,14 +111,16 @@ const DashboardWidget = ({
     :
     <React.Fragment>
       <span className="mr-8">{`${label}:`}</span>
-      {getWidgetNuggetAssembly()}
+      {/* { kernelData || getWidgetNuggetAssembly() } */}
+      {2}
     </React.Fragment>
 
   const getSecondary = () =>
     ( getTypeOfData() === 'string' )
     ?
     <span className="text-12">
-      {getWidgetNuggetAssembly()}
+      {/* { kernelData || getWidgetNuggetAssembly() } */}
+      {2}
     </span>
     :
     null
@@ -133,7 +148,7 @@ const DashboardWidget = ({
         secondary={getSecondary()}
       />
       <ListItemSecondaryAction className="mr-8">
-        <WidgetMenu mobile links={links} onOpenDialog={onOpenDialog} />
+        <WidgetMenu mobile links={links} onOpenDialog={() => onOpenDialog(label, description,)}/>
       </ListItemSecondaryAction>
     </ListItem>
 
@@ -159,7 +174,7 @@ const DashboardWidget = ({
           </Tooltip>
           <Tooltip TransitionComponent={Zoom} title="Action links" placement="left-start">
             <div>
-              <WidgetMenu links={links} onOpenDialog={onOpenDialog} />
+              <WidgetMenu links={links} onOpenDialog={() => onOpenDialog(label, description,)} />
             </div>
           </Tooltip>
         </div>

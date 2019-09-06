@@ -21,7 +21,7 @@ class FuseNavigation extends Component {
   render() {
     const { navigation, layout, active, } = this.props; // onPress,
     // console.log('item\n', item,);
-    console.log('navigation\n', navigation,);
+    // console.log('navigation\n', navigation,);
 
     // const handleClick = () => alert('clicked')
 

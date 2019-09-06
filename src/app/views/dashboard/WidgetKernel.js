@@ -53,13 +53,13 @@ class WidgetData extends Component {
   handleLoad = () => {
     this.fetchData()
     .then( data => {
-      console.log('data\n', data,);
+      // console.log('data\n', data,);
       this.setState(
         { data, hasLoaded: true, },
-        () => {
-          console.log('data\n', data,);
-          this.props.onChangeData(data);
-        },
+        // () => {
+        //   // console.log('data\n', data,);
+        //   this.props.onDataChanged(data);
+        // },
       );
     })
     // .then( () => {
@@ -84,7 +84,7 @@ class WidgetData extends Component {
     // const data = await loadUserData(path,);
     // console.log('path\n', path,);
     const out = await loadUserData(path,);
-    console.log('out\n', out,);
+    // console.log('out\n', out,);
     return out;
   }
 
@@ -112,6 +112,7 @@ class WidgetData extends Component {
     // const out = (typeof result === 'number') ? result : '⚠️';
     const out = result || 0;
     // console.log('out\n', out,);
+    this.props.onDataChanged(out);
     return out;
   }
 

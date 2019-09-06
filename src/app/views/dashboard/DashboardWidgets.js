@@ -94,9 +94,9 @@ const DashboardWidgets = ({ classes, data, settings, config, }) => { // classes,
   // console.log('items\n', items,);
   const count = items && items.length;
 
-  const [ dialogIsOpen , setDialogIsOpen , ] = useState(false);
   const [ label        , setLabel        , ] = useState(null);
   const [ description  , setDescription  , ] = useState(null);
+  const [ dialogIsOpen , setDialogIsOpen , ] = useState(false);
 
   useEffect( () => {
     setDialogIsOpen(!!label && !!description);
@@ -195,7 +195,7 @@ const DashboardWidgets = ({ classes, data, settings, config, }) => { // classes,
         className="m-0 p-0" component="nav"
         subheader={
           <ListSubheader
-            button
+            button="true"
             className="text-left uppercase text-12" id="nested-list-subheader"
             // component="button" // component="div"
             // onClick={() => alert('clicked')}
