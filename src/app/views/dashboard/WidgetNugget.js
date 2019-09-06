@@ -99,7 +99,7 @@ const WidgetNugget = ({
   // // const [ formattedResult , setFormattedResult , ] = useState('');
   // // const [ fontSize        , setFontSize        , ] = useState('text-72');
 
-  // useEffect(() => {
+  // useEffect( () => {
   //   const newFontSize = computeFontSize(formattedResult);
   //   console.log('formattedResult\n', formattedResult,);
   //   console.log('fontSize\n', fontSize,);

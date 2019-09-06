@@ -1,6 +1,6 @@
 // inspired by https://github.com/withinpixels/fuse-react/blob/v2.2.3/src/app/main/apps/dashboards/project/ProjectDashboardApp.js
     
-import React from 'react';
+import React, { useState, useEffect, } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -11,7 +11,8 @@ import { getFilterArrayOfObjectsByPropValueContainedInArray, } from 'app/config/
 import DashboardWidget from './DashboardWidget';
 
 import {
-  withStyles, Grid, Paper, Divider, List, ListSubheader,
+  withStyles, Grid, Paper, Button, Divider, List, ListSubheader,
+  Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
   // GridList, CircularProgress, HashAvatar, Tooltip,
 } from '@material-ui/core';
 
@@ -92,6 +93,53 @@ const DashboardWidgets = ({ classes, data, settings, config, }) => { // classes,
   // console.log('cells\n', cells,);
   // console.log('items\n', items,);
   const count = items && items.length;
+
+  const [ dialogIsOpen , setDialogIsOpen , ] = useState(false);
+  const [ dialogIsChip , setDialogIsChip , ] = useState(false);
+  useEffect( () => {
+    if(dialogIsChip) setDialogIsOpen(true);
+  }, [ dialogIsChip, ]);
+
+  const handleOpenDialog = () => setDialogIsOpen(true)
+
+  const handleCloseDialog = () => {
+    setDialogIsOpen(false);
+    setDialogIsChip(false);
+  }
+
+  // const handleClickChip = () => setDialogIsChip(true);
+
+  const getChipDescription = group => groups[group].description;
+  const getChipLabel = group => groups[group].label;
+  
+  const getDialog = ( label, description, ) =>
+    <Dialog
+      // keepMounted
+      open={dialogIsOpen}
+      // onClose={handleCloseDialog}
+      // TransitionComponent={Transition} // buggish // see below and above comments
+      // disableFocusListener={true} // https://stackoverflow.com/a/51663448/1640892
+      aria-labelledby="alert-dialog-slide-title"
+      aria-describedby="alert-dialog-slide-description"
+    >
+      <DialogTitle id="alert-dialog-slide-title">
+        {/* { dialogIsChip ? chipLabel : label } */}
+        { label }
+      </DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-slide-description">
+          {/* { dialogIsChip ? chipDescription : description } */}
+          { description }
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        {
+        // <Button onClick={handleCloseDialog} color="primary">Disagree</Button>
+        // <Button onClick={handleCloseDialog} color="primary">Agree</Button>
+        }
+        <Button onClick={handleCloseDialog} color="primary">Ok, got it</Button>
+      </DialogActions>
+    </Dialog>
   
   const getListGroupMobileWidgets = items =>
     <FuseAnimateGroup
@@ -115,6 +163,9 @@ const DashboardWidgets = ({ classes, data, settings, config, }) => { // classes,
               <DashboardWidget mobile
                 settings={settings} data={itemData}
                 widget={item} index={index} count={count}
+                chipLabel={() => getChipLabel(item.group)}
+                chipDescription={() => getChipDescription(item.group)}
+                onOpenDialog={handleOpenDialog} // onClickChip={handleClickChip}
               />
               <Divider />
             </div>
@@ -197,6 +248,9 @@ const DashboardWidgets = ({ classes, data, settings, config, }) => { // classes,
                 <DashboardWidget
                   settings={settings} data={itemData}
                   widget={item} index={index} count={count}
+                  chipLabel={() => getChipLabel(item.group)}
+                  chipDescription={() => getChipDescription(item.group)}
+                  onOpenDialog={handleOpenDialog} // onClickChip={handleClickChip}
                 />
               </Grid>
           )})
@@ -205,11 +259,14 @@ const DashboardWidgets = ({ classes, data, settings, config, }) => { // classes,
     </div>
 
   const getDashboardWidgets = () =>
-    <MediaWidth
-      mobile={getDashboardWidgetsMobile()}
-      tablet={getDashboardWidgetsLaptop()}
-      laptop={getDashboardWidgetsLaptop()}
-    />
+    <React.Fragment>
+      {getDialog()}
+      <MediaWidth
+        mobile={getDashboardWidgetsMobile()}
+        tablet={getDashboardWidgetsLaptop()}
+        laptop={getDashboardWidgetsLaptop()}
+      />
+    </React.Fragment>
     
   return getDashboardWidgets();
 }

@@ -1,18 +1,18 @@
 // inspired by: https://github.com/withinpixels/fuse-react/blob/v2.2.3/src/app/main/apps/dashboards/project/widgets/Widget4.js
 
 // import React, { Component } from 'react';
-import React, { useState, useEffect, } from 'react';
+import React, { useState, } from 'react'; // useEffect,
 import { Link, NavLink, } from 'react-router-dom'; // withRouter // see src/@fuse/components/FuseNavigation/vertical/FuseNavVerticalItem.js
 
 import {
-  Slide, Paper, Tooltip, Zoom, Button, Avatar, Hidden, Chip,
+  // withStyles, Icon, Button, IconButton, Typography,
+  Slide, Paper, Tooltip, Zoom, Avatar, Hidden, Chip,
   ListItem, ListItemAvatar, ListItemText, ListItemSecondaryAction,
-  Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
-} from '@material-ui/core'; // withStyles, Icon, IconButton, Typography,
+} from '@material-ui/core';
 
 import WidgetMenu from './WidgetMenu';
 import WidgetNugget from './WidgetNugget';
-import { DashboardGridConfig, } from 'app/config/DashboardGridConfig';
+// import { DashboardGridConfig, } from 'app/config/DashboardGridConfig';
 
 // import { FuseAnimate, } from '@fuse';
 
@@ -21,11 +21,16 @@ import { DashboardGridConfig, } from 'app/config/DashboardGridConfig';
 const TARGET = 850; // target in milliseconds of entry animation duration
 const SCALAR = 1.5; // compensation for random factor; when combined with index, makes higher indexes trend differently than lower indexes
 
-const { groups, } = DashboardGridConfig;
+// const { groups, } = DashboardGridConfig;
 
 const DashboardWidget = ({
+  onOpenDialog, onClickChip,
   mobile=false, settings, data, index, count,
-  widget: { group, label, description, links, dataSource, },
+  widget: {
+    links, dataSource, // group,
+    label, description,
+    chipLabel, chipDescription,
+  },
 }) => { // data, classes,
   // count: number: total number of widgets on the dashboard (for purpose of calculating entry animation)
   // index: number: sequence number of this widget relative to all widgets on the dashboard (for purpose of calculating entry animation)
@@ -34,15 +39,7 @@ const DashboardWidget = ({
   // console.log('label\n', label,);
   // console.log('dataSource\n', dataSource,);
 
-  const [ widgetData   , setwidgetData   , ] = useState(null);
-  const [ dialogIsOpen , setDialogIsOpen , ] = useState(false);
-  const [ dialogIsChip , setDialogIsChip , ] = useState(false);
-  useEffect(() => {
-    const ready1 = dialogIsChip;
-    if (!ready1) return;
-    setDialogIsOpen(true);
-  }, [ dialogIsChip, ]);
-
+  const [ widgetData, setwidgetData, ] = useState(null);
 
   // const { group, label, description, links, dataSource, } = widget; // data, desc, rowDesc,rowName,
   // if(dataSource) console.log('dataSource\n', dataSource,);
@@ -55,19 +52,9 @@ const DashboardWidget = ({
   const reverseIndex = count - forwardIndex; // loads first index last
   const timeout = Math.round(Math.random() * TARGET * SCALAR * reverseIndex / count);
 
-  const chipDescription = groups[group].description;
-  const chipLabel =  groups[group].label;
   const topLink = (links && links[0] && `/${links[0].id}`) || null;
   // console.log('chipLabel\n', chipLabel,);
 
-  const handleOpenDialog = () => setDialogIsOpen(true)
-
-  const handleCloseDialog = () => {
-    setDialogIsOpen(false);
-    setDialogIsChip(false);
-  }
-
-  const handleClickChip = () => setDialogIsChip(true);
 
   const handleChangeData = data => {
     setwidgetData(data);
@@ -82,34 +69,8 @@ const DashboardWidget = ({
 
   const getTypeOfData = () => data && typeof data;
 
-  const getDialog = () =>
-    <Dialog
-      // keepMounted
-      open={dialogIsOpen}
-      // onClose={handleCloseDialog}
-      // TransitionComponent={Transition} // buggish // see below and above comments
-      // disableFocusListener={true} // https://stackoverflow.com/a/51663448/1640892
-      aria-labelledby="alert-dialog-slide-title"
-      aria-describedby="alert-dialog-slide-description"
-    >
-      <DialogTitle id="alert-dialog-slide-title">
-        { dialogIsChip ? chipLabel : label}
-      </DialogTitle>
-      <DialogContent>
-        <DialogContentText id="alert-dialog-slide-description">
-          { dialogIsChip ? chipDescription : description}
-        </DialogContentText>
-      </DialogContent>
-      <DialogActions>
-        {
-        // <Button onClick={handleCloseDialog} color="primary">Disagree</Button>
-        // <Button onClick={handleCloseDialog} color="primary">Agree</Button>
-        }
-        <Button onClick={handleCloseDialog} color="primary">Ok, got it</Button>
-      </DialogActions>
-    </Dialog>
-
-  const getWidgetChip = () => <Chip label={chipLabel} onClick={handleClickChip} />
+  const getWidgetChip = () =>
+    <Chip label={chipLabel} onClick={() => onOpenDialog(chipLabel, chipDescription,)} />
 
   const getWidgetNugget = () =>
     <WidgetNugget
@@ -117,7 +78,7 @@ const DashboardWidget = ({
       label={label} message={description}
       mobile={mobile} settings={settings}
       onChangeData={handleChangeData}
-      onOpenDialog={handleOpenDialog}
+      onOpenDialog={onOpenDialog}
     />
 
   const getWidgetNuggetAssembly = () =>
@@ -172,7 +133,7 @@ const DashboardWidget = ({
         secondary={getSecondary()}
       />
       <ListItemSecondaryAction className="mr-8">
-        <WidgetMenu mobile links={links} onOpenDialog={handleOpenDialog} />
+        <WidgetMenu mobile links={links} onOpenDialog={onOpenDialog} />
       </ListItemSecondaryAction>
     </ListItem>
 
@@ -198,7 +159,7 @@ const DashboardWidget = ({
           </Tooltip>
           <Tooltip TransitionComponent={Zoom} title="Action links" placement="left-start">
             <div>
-              <WidgetMenu links={links} onOpenDialog={handleOpenDialog} />
+              <WidgetMenu links={links} onOpenDialog={onOpenDialog} />
             </div>
           </Tooltip>
         </div>
@@ -222,12 +183,7 @@ const DashboardWidget = ({
     // </FuseAnimate>
 
   const getDashboardWidget = () =>
-    // <Zoom key={index} in mountOnEnter unmountOnExit>
-    <React.Fragment>
-      { getDialog() }
-      { mobile ? getDashboardWidgetMobile() : getDashboardWidgetLaptop() }
-    </React.Fragment>
-    // </Zoom>
+    mobile ? getDashboardWidgetMobile() : getDashboardWidgetLaptop()
     
   return getDashboardWidget();
 }

@@ -398,12 +398,12 @@ export const DashboardGridConfig = {
       initialValue: 0,
       group: 'challenges',
       links: [
-        { label: 'Outbound pending' , id: 'challenges-outbound-pending' , },
-        { label: 'Outbound won'     , id: 'challenges-outbound-won'     , },
-        { label: 'Outbound lost'    , id: 'challenges-outbound-lost'    , },
-        { label: 'Inbound pending'  , id: 'challenges-inbound-pending'  , },
-        { label: 'Inbound won'      , id: 'challenges-inbound-won'      , },
-        { label: 'Inbound lost'     , id: 'challenges-inbound-lost'     , },
+        { label: 'See all outbound pending' , id: 'challenges-outbound-pending' , },
+        { label: 'See all outbound won'     , id: 'challenges-outbound-won'     , },
+        { label: 'See all outbound lost'    , id: 'challenges-outbound-lost'    , },
+        { label: 'See all inbound pending'  , id: 'challenges-inbound-pending'  , },
+        { label: 'See all inbound won'      , id: 'challenges-inbound-won'      , },
+        { label: 'See all inbound lost'     , id: 'challenges-inbound-lost'     , },
       ],
       // eslint-disable-next-line
       description: '\
@@ -416,9 +416,9 @@ export const DashboardGridConfig = {
       initialValue: 0,
       group: 'challenges',
       links: [
-        { label: 'Outbound pending' , id: 'challenges-outbound-pending' , },
-        { label: 'Outbound won'     , id: 'challenges-outbound-won'     , },
-        { label: 'Outbound lost'    , id: 'challenges-outbound-lost'    , },
+        { label: 'See all outbound pending' , id: 'challenges-outbound-pending' , },
+        { label: 'See all outbound won'     , id: 'challenges-outbound-won'     , },
+        { label: 'See all outbound lost'    , id: 'challenges-outbound-lost'    , },
       ],
       // eslint-disable-next-line
       description: '\
@@ -431,9 +431,9 @@ export const DashboardGridConfig = {
       initialValue: 0,
       group: 'challenges',
       links: [
-        { label: 'Inbound pending'  , id: 'challenges-inbound-pending'  , },
-        { label: 'Inbound won'      , id: 'challenges-inbound-won'      , },
-        { label: 'Inbound lost'     , id: 'challenges-inbound-lost'     , },
+        { label: 'See all inbound pending'  , id: 'challenges-inbound-pending'  , },
+        { label: 'See all inbound won'      , id: 'challenges-inbound-won'      , },
+        { label: 'See all inbound lost'     , id: 'challenges-inbound-lost'     , },
       ],
       // eslint-disable-next-line
       description: '\
@@ -446,9 +446,7 @@ export const DashboardGridConfig = {
       initialValue: 0,
       group: 'outbound',
       links: [
-        { label: 'Pending' , id: 'challenges-outbound-pending' , },
-        { label: 'Won'     , id: 'challenges-outbound-won'     , },
-        { label: 'Lost'    , id: 'challenges-outbound-lost'    , },
+        { label: 'See all outbound pending', id: 'challenges-outbound-pending', },
       ],
       // eslint-disable-next-line
       description: '\
@@ -462,9 +460,7 @@ export const DashboardGridConfig = {
       initialValue: 0,
       group: 'outbound',
       links: [
-        { label: 'Pending' , id: 'challenges-outbound-pending' , },
-        { label: 'Won'     , id: 'challenges-outbound-won'     , },
-        { label: 'Lost'    , id: 'challenges-outbound-lost'    , },
+        { label: 'See all outbound won', id: 'challenges-outbound-won', },
       ],
       // eslint-disable-next-line
       description: '\
@@ -477,9 +473,7 @@ export const DashboardGridConfig = {
       initialValue: 0,
       group: 'outbound',
       links: [
-        { label: 'Pending' , id: 'challenges-outbound-pending' , },
-        { label: 'Won'     , id: 'challenges-outbound-won'     , },
-        { label: 'Lost'    , id: 'challenges-outbound-lost'    , },
+        { label: 'See all outbound lost', id: 'challenges-outbound-lost', },
       ],
       // eslint-disable-next-line
       description: '\
@@ -492,9 +486,7 @@ export const DashboardGridConfig = {
       initialValue: 0,
       group: 'inbound',
       links: [
-        { label: 'Pending' , id: 'challenges-inbound-pending' , },
-        { label: 'Won'     , id: 'challenges-inbound-won'     , },
-        { label: 'Lost'    , id: 'challenges-inbound-lost'    , },
+        { label: 'See all inbound pending', id: 'challenges-inbound-pending', },
       ],
       // eslint-disable-next-line
       description: '\
@@ -508,9 +500,7 @@ export const DashboardGridConfig = {
       initialValue: 0,
       group: 'inbound',
       links: [
-        { label: 'Pending' , id: 'challenges-inbound-pending' , },
-        { label: 'Won'     , id: 'challenges-inbound-won'     , },
-        { label: 'Lost'    , id: 'challenges-inbound-lost'    , },
+        { label: 'See all inbound won', id: 'challenges-inbound-won', },
       ],
       // eslint-disable-next-line
       description: '\
@@ -523,9 +513,7 @@ export const DashboardGridConfig = {
       initialValue: 0,
       group: 'inbound',
       links: [
-        { label: 'Pending' , id: 'challenges-inbound-pending' , },
-        { label: 'Won'     , id: 'challenges-inbound-won'     , },
-        { label: 'Lost'    , id: 'challenges-inbound-lost'    , },
+        { label: 'See all inbound lost', id: 'challenges-inbound-lost', },
       ],
       // eslint-disable-next-line
       description: '\

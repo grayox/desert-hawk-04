@@ -36,7 +36,7 @@ const SelectField = ({ onChange, id, label, options, required, value: valueInit=
   // solves "labelWidth error": "The prop `labelWidth` is marked as required in `OutlinedInput`, but its value is `undefined`."
   const inputLabel = useRef(null);
   const [ labelWidth, setLabelWidth, ] = useState(0);
-  useEffect(() => {
+  useEffect( () => {
     setLabelWidth(inputLabel.current.offsetWidth);
   }, []);
 
