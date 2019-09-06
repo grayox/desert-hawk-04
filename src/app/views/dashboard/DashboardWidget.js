@@ -6,7 +6,7 @@ import { Link, NavLink, } from 'react-router-dom'; // withRouter // see src/@fus
 
 import {
   // withStyles, Icon, Button, IconButton, Typography, Hidden,
-  Slide, Paper, Tooltip, Zoom, Avatar, Chip,
+  Slide, Paper, Tooltip, Zoom, Avatar, Chip, CircularProgress,
   ListItem, ListItemAvatar, ListItemText, ListItemSecondaryAction,
 } from '@material-ui/core';
 
@@ -107,7 +107,8 @@ const DashboardWidget = ({
   // }
 
   const getWidgetNuggetAssembly = () =>
-    (typeof kernelData != 'object' && kernelData) || getWidgetNugget() || ''
+    (typeof kernelData != 'object' && kernelData)
+    || getWidgetNugget() || <CircularProgress /> || ''
 
   const getPrimary = () =>
     ( getTypeOfData() === 'string' )
