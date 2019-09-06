@@ -10,8 +10,8 @@ import {
   ListItem, ListItemAvatar, ListItemText, ListItemSecondaryAction,
 } from '@material-ui/core';
 
-import _ from '@lodash';
-import { loadUserData, } from 'app/containers/LoadAsync';
+// import _ from '@lodash';
+// import { loadUserData, } from 'app/containers/LoadAsync';
 // import ErrorBoundary from 'app/containers/ErrorBoundary';
 
 import WidgetMenu from './WidgetMenu';
@@ -61,7 +61,7 @@ const DashboardWidget = ({
 
   const handleDataChanged = data => {
     setKernelData(data);
-    console.log('data\n', data,);
+    // console.log('data\n', data,);
   }
 
   // transitions are buggish // makes pointer non-responsive after closing dialog
@@ -84,27 +84,27 @@ const DashboardWidget = ({
       onOpenDialog={() => onOpenDialog(label, description,)}
     />
 
-  const getKernelData = async () => {
-    // try {
-      // console.log( 'dataSource\n', dataSource, ); // debugger;
-      // console.log( 'kernelData\n', kernelData, );
-      const ready1 = !!dataSource && !_.isEmpty(dataSource);
-      if(!ready1) return null;
-      const { path, getField, } = dataSource;
-      const ready2 = !!path && path.length && getField;
-      if(!ready2) return null;
-      // console.log( 'dataSource\n', dataSource, ); debugger;
-      const data = await loadUserData( path, );
-      const field = getField(settings);
-      const result = _.get(data, field, '',);
-      const out = result || 0;
-      console.log('out\n', out,); debugger;
-      setKernelData(out);
-      // return out;
-    // } catch (e) {
-    //   console.error(e);
-    // } 
-  }
+  // const getKernelData = async () => {
+  //   // try {
+  //     // console.log( 'dataSource\n', dataSource, ); // debugger;
+  //     // console.log( 'kernelData\n', kernelData, );
+  //     const ready1 = !!dataSource && !_.isEmpty(dataSource);
+  //     if(!ready1) return null;
+  //     const { path, getField, } = dataSource;
+  //     const ready2 = !!path && path.length && getField;
+  //     if(!ready2) return null;
+  //     // console.log( 'dataSource\n', dataSource, ); debugger;
+  //     const data = await loadUserData( path, );
+  //     const field = getField(settings);
+  //     const result = _.get(data, field, '',);
+  //     const out = result || 0;
+  //     console.log('out\n', out,); debugger;
+  //     setKernelData(out);
+  //     // return out;
+  //   // } catch (e) {
+  //   //   console.error(e);
+  //   // } 
+  // }
 
   const getWidgetNuggetAssembly = () =>
     (typeof kernelData != 'object' && kernelData) || getWidgetNugget() || ''
