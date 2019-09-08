@@ -15,10 +15,12 @@ import ViewEmpty from './ViewEmpty';
 import ListPane from './list/ListPane';
 import DetailPane from './detail/DetailPane';
 import { CreateDialog, UpdateDialog, DeleteDialog, ActionDialog, } from './ItemDialogs';
+
+import MediaWidth from 'app/layouts/MediaWidth';
 import {
   getFormFields, getIdHash, getAlert,
   // getForm, getSearchableFields, getItemsFilteredBySearch,
-} from 'app/config/AppConfig';import MediaWidth from 'app/layouts/MediaWidth';
+} from 'app/config/AppConfig';
 
 
 const styles = theme => ({
@@ -167,7 +169,7 @@ class CRUDView extends Component {
     // type: string: enum: 'loadNewData' | 'loadSavedData'
     this.setState(
       { crudForm : getFormFields(type, this.props.creatable.fields, this.state.detail,) }
-      // ,() => console.log('state\n', this.state)
+      // ,() => { console.log('state\n', this.state); debugger; }
     )
 
   handleCloseDialog = () => {
@@ -340,7 +342,7 @@ class CRUDView extends Component {
       handleClickCreateButton, handleClickStar, handleToggle, handleAction,
       handleOpenUpdateDialog, handleOpenDeleteDialog, handleOpenActionDialog,
       handleEnterDialog, handleChangeForm, handleCreateItem, handleUpdateItem,
-      handleNavBack, handleNavNext, getFormFields,
+      handleNavBack, handleNavNext, // getFormFields,
     } = this;
 
     // console.log('props\n', this.props,);
@@ -452,7 +454,7 @@ class CRUDView extends Component {
         onAction={handleOpenActionDialog}
         onNavBack={handleNavBack}
         onNavNext={handleNavNext}
-        getFormFields={getFormFields}
+        // getFormFields={getFormFields}
         // index={index} // never select summary on detail side
       />    
 

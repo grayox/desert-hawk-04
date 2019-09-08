@@ -10,7 +10,7 @@ import { FuseAnimateGroup } from '@fuse'; // FuseScrollbars, FuseAnimate,
 // import _ from '@lodash';
 
 import MediaWidth from 'app/layouts/MediaWidth';
-import { uiSpecs, formFieldConfig, getCreatableFields, } from 'app/config/AppConfig'; // getCleanFieldNames,
+import { uiSpecs, formFieldConfig, getFormFields, getCreatableFields, } from 'app/config/AppConfig'; // getCleanFieldNames,
 import Dashboard from 'app/views/dashboard/Dashboard';
 import SimpleExpansionPanel from 'app/components/SimpleExpansionPanel';
 import ButtonsTierDetail from './ButtonsTierDetail'; // CRUDButtons,
@@ -195,7 +195,7 @@ const getDetailListItem = ({ label, value, valueMask, }, condensed,) => {
 const DetailPane = ({
   classes, detail, condensed, itemsLength, selectedIndex, navComponentId,
   creatable, readable, updatable, deletable, actionable, starrable, dashboard, miniDashboard,
-  onAction, onClickStar, onToggle, onUpdate, onDelete, onNavBack, onNavNext, getFormFields,
+  onAction, onClickStar, onToggle, onUpdate, onDelete, onNavBack, onNavNext, // getFormFields,
 }) => {
 
   // console.log('detail\n', detail,);
@@ -238,7 +238,11 @@ const DetailPane = ({
     // object: getFormFieldsMap(field.value), // recursion
   };
 
-  const getConfigFormFieldsMap = (type, field,) => configFormFieldsMap[type](field);
+  const getConfigFormFieldsMap = (type, field,) => {
+    // console.log('type\n', type,);
+    // console.log('field\n', field,);
+    return configFormFieldsMap[type](field);
+  }
 
   const getFormFieldsMap = formFields => {
     // formFields: array of objects: [ {label: [string], value: [string | object]} ,... ] 
@@ -293,7 +297,7 @@ const DetailPane = ({
 
     const targetFields = (creatable && creatable.fields) || getTargetFields();
 
-    const formFields = getFormFields('loadSavedData', targetFields,);
+    const formFields = getFormFields('loadSavedData', targetFields, detail,);
     // console.log('formFields\n', formFields);
     
     return (

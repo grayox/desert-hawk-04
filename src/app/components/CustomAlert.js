@@ -55,8 +55,8 @@ const CustomAlert = ({
   variant, heading, body, buttonText, dialog, actionButtonLabel,
 }) => {
 
-  const [ InfoIsOpen   , setInfoIsOpen   , ] = useState(false);
-  const [ ActionIsOpen , setActionIsOpen , ] = useState(false);
+  const [ infoIsOpen   , setInfoIsOpen   , ] = useState(false);
+  const [ actionIsOpen , setActionIsOpen , ] = useState(false);
 
   const handleOpenInfo  = () => setInfoIsOpen(true)
   const handleCloseInfo = () => setInfoIsOpen(false)
@@ -66,12 +66,12 @@ const CustomAlert = ({
   const handleCloseAction = () => setActionIsOpen(false)
   const handleClickAction = () => {
     handleOpenAction();
-    alert('You clicked the action button');
+    // alert('You clicked the action button');
   }
 
   const getInfoDialog = () =>
     <Dialog
-      open={InfoIsOpen}
+      open={infoIsOpen}
       onClose={handleCloseInfo}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
