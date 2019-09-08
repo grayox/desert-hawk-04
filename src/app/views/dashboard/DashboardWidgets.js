@@ -142,7 +142,7 @@ const DashboardWidgets = ({ classes, data, settings, config, }) => { // classes,
         // <Button onClick={handleCloseDialog} color="primary">Disagree</Button>
         // <Button onClick={handleCloseDialog} color="primary">Agree</Button>
         }
-        <Button onClick={handleClickCloseDialog} color="primary">Ok, got it</Button>
+        <Button onClick={handleClickCloseDialog} color="primary">Okay, got it</Button>
       </DialogActions>
     </Dialog>
   

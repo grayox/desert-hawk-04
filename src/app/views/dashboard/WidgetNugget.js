@@ -193,7 +193,7 @@ const WidgetNugget = ({
   //       // <Button onClick={handleCloseDialog} color="primary">Disagree</Button>
   //       // <Button onClick={handleCloseDialog} color="primary">Agree</Button>
   //       }
-  //       <Button onClick={handleCloseDialog} color="primary">Ok, got it</Button>
+  //       <Button onClick={handleCloseDialog} color="primary">Okay, got it</Button>
   //     </DialogActions>
   //   </Dialog>
   

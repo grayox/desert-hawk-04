@@ -59,7 +59,7 @@ const pageTitle = ({ location, }) => {
           <DialogContentText id="alert-dialog-slide-description">{item.description}</DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDialog} color="primary">Ok, got it</Button>
+          <Button onClick={handleCloseDialog} color="primary">Okay, got it</Button>
         </DialogActions>
       </Dialog>
     </div>

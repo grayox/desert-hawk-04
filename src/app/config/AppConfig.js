@@ -634,6 +634,7 @@ export const getAlert = ( dashboard, content, ) => {
     showAlert
     ?
     <CustomAlert
+      // className="m-2"
       // shadow
       variant="traditional"
       heading="Your lead balance is zero" // ⚠️

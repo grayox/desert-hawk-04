@@ -82,7 +82,7 @@ const CustomAlert = ({
       </DialogContent>
       <DialogActions>
         <Button onClick={handleCloseInfo} color="primary">
-          Ok, got it
+          Okay, got it
         </Button>
       </DialogActions>
     </Dialog>
