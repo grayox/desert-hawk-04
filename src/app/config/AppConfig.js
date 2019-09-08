@@ -510,6 +510,44 @@ export const getCreatableFields = readablePath => {
   return out;
 }
 
+export const getFormFields = ( type='loadNewData', fields=[], detail={}, ) => {
+  // type: string: enum: 'loadSavedData' | 'loadNewData'
+  // fields: arrayOfStrings: example: ['name*', 'phone*', 'email*', 'zip*', 'notes', ]
+  // detail: object: { docId, item=items[newSelectedIndex] > field.id, }: 
+  // console.log('type\n', type);
+  // console.log('fields\n', fields);
+  // console.log('state\n', this.state);
+
+  const ready1 = fields && typeof fields === 'object';
+  if(!ready1) return;
+
+  // const { detail, } = this.state;
+  // console.log('detail\n', detail);
+  const formFields = getForm(fields);
+  // console.log('formFields\n', formFields); // debugger;
+  formFields.forEach( field => {
+    // console.log('field\n', field); // debugger;
+    switch(type) {
+      case 'loadNewData':
+        field.value = '';
+        break;
+      case 'loadSavedData':
+        field.value = detail && detail[field.id];
+        if(field.getValueMask) field.valueMask = field.getValueMask(field.value);
+        // console.log('valueMask\n', field.valueMask);
+        break;
+      default:
+        // console.error('Type must be one of: "loadSavedData" or "loadNewData"');
+        throw new Error('Type must be one of: "loadSavedData" or "loadNewData"');
+    }
+    // console.log(`field: ${field.id}\n`, field,);
+    // for non-text fields, include a mask to deal with capitalization, formatting, etc.
+  });
+  // console.log('formFields\n', formFields);
+  // console.log('state\n', this.state);
+  return formFields;
+}
+
 // begin SEARCH section
 
 export const getSearchableFields = ( searchable, readable, ) => {
@@ -598,8 +636,7 @@ export const getAlert = ( dashboard, content, ) => {
     <CustomAlert
       // shadow
       variant="traditional"
-      // heading="⚠️ Your lead balance is zero!"
-      heading="Your lead balance is zero"
+      heading="Your lead balance is zero" // ⚠️
       body="You must refer a new lead before you claim another."
       actionButtonLabel="Refer lead"
       actionButtonHref="/outbox"

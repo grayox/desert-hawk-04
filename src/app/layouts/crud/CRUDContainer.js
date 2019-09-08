@@ -115,9 +115,9 @@ class CRUDContainer extends Component {
     // console.log('searchFilterSortModelWithLabels\n', searchFilterSortModelWithLabels,);
 
     const ready1 = searchFilterSortModelWithLabels;
-    if(!ready1) return;
+    if(!ready1) return null;
     const ready2 = !_.isEmpty(searchFilterSortModelWithLabels);
-    if(!ready2) return;
+    if(!ready2) return null;
     
     const { searchBy, filterBy, sortBy, } = searchFilterSortModelWithLabels;
 
@@ -144,7 +144,7 @@ class CRUDContainer extends Component {
     // console.log('readable\n', readable,);
     // console.log('searchable\n', searchable,);
     const ready1 = readable && searchable;
-    if(!ready1) return;
+    if(!ready1) return null;
     const searchableFieldIds = getSearchableFields(searchable, readable,);
     // console.log('searchableFieldIds\n', searchableFieldIds,);
     const form = getForm(searchableFieldIds);
@@ -168,7 +168,7 @@ class CRUDContainer extends Component {
     // console.log('readable\n', readable,);
     // console.log('sortable\n', sortable,);
     const ready1 = readable && sortable;
-    if(!ready1) return;
+    if(!ready1) return null;
     const sortableFieldIds = getSearchableFields(sortable, readable,);
     // console.log('sortableFieldIds\n', sortableFieldIds,);
     const form = getForm(sortableFieldIds);
@@ -249,7 +249,7 @@ class CRUDContainer extends Component {
   // handleFetchMoreData = () => {
   //   if (this.state.items.length >= 500) {
   //     this.setState({ hasMore: false });
-  //     return;
+  //     return null;
   //   }
   //   this.setState({
   //     items: this.state.items.concat(Array.from({ length: 20 }))

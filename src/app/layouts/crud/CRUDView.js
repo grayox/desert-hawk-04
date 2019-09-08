@@ -11,12 +11,15 @@ import FetchUserData from 'app/containers/FetchUserData';
 // @material-ui/core
 import { withStyles, withWidth, Grid, } from '@material-ui/core';
 
-import { getForm, getIdHash, getAlert, } from 'app/config/AppConfig'; // getSearchableFields, getItemsFilteredBySearch,
-import MediaWidth from 'app/layouts/MediaWidth';
+import ViewEmpty from './ViewEmpty';
 import ListPane from './list/ListPane';
 import DetailPane from './detail/DetailPane';
-import ViewEmpty from './ViewEmpty';
 import { CreateDialog, UpdateDialog, DeleteDialog, ActionDialog, } from './ItemDialogs';
+import {
+  getFormFields, getIdHash, getAlert,
+  // getForm, getSearchableFields, getItemsFilteredBySearch,
+} from 'app/config/AppConfig';import MediaWidth from 'app/layouts/MediaWidth';
+
 
 const styles = theme => ({
   root: {
@@ -125,43 +128,6 @@ class CRUDView extends Component {
     return out;
   }
 
-  getFormFields = ( type, fields, ) => {
-    // type: string: enum: 'loadSavedData' | 'loadNewData'
-    // fields: arrayOfStrings: example: ['name*', 'phone*', 'email*', 'zip*', 'notes', ]
-    // console.log('type\n', type);
-    // console.log('fields\n', fields);
-    // console.log('state\n', this.state);
-
-    const ready1 = fields && typeof fields === 'object';
-    if(!ready1) return;
-
-    const { detail, } = this.state;
-    // console.log('detail\n', detail);
-    const formFields = getForm(fields);
-    // console.log('formFields\n', formFields); // debugger;
-    formFields.forEach( field => {
-      // console.log('field\n', field); // debugger;
-      switch(type) {
-        case 'loadNewData':
-          field.value = '';
-          break;
-        case 'loadSavedData':
-          field.value = detail && detail[field.id];
-          if(field.getValueMask) field.valueMask = field.getValueMask(field.value);
-          // console.log('valueMask\n', field.valueMask);
-          break;
-        default:
-          // console.error('Type must be one of: "loadSavedData" or "loadNewData"');
-          throw new Error('Type must be one of: "loadSavedData" or "loadNewData"');
-      }
-      // console.log(`field: ${field.id}\n`, field,);
-      // for non-text fields, include a mask to deal with capitalization, formatting, etc.
-    });
-    // console.log('formFields\n', formFields);
-    // console.log('state\n', this.state);
-    return formFields;
-  }
-
   handleChangeUserData = ( path, newData, ) => { // saveDataToFirestore, 
     // console.log('handleChangeUserData-path\n', path,)
     // console.log('handleChangeUserData-data\n', newData,)
@@ -200,7 +166,7 @@ class CRUDView extends Component {
   handleEnterDialog = type =>
     // type: string: enum: 'loadNewData' | 'loadSavedData'
     this.setState(
-      { crudForm : this.getFormFields(type, this.props.creatable.fields,) }
+      { crudForm : getFormFields(type, this.props.creatable.fields, this.state.detail,) }
       // ,() => console.log('state\n', this.state)
     )
 
@@ -388,7 +354,14 @@ class CRUDView extends Component {
 
     const { uid, } = profile;
     
-    const getFetchUserData = () => <FetchUserData /*path="dashboard"*/ path="settings" uid={uid} onChange={handleChangeUserData} />
+    const getFetchUserData = () =>
+      <FetchUserData
+        // path="dashboard"
+        path="settings"
+        uid={uid}
+        onChange={handleChangeUserData}
+      />
+
     const getViewEmpty = () =>
       <React.Fragment>
         { getCreateDialog() }
@@ -401,23 +374,27 @@ class CRUDView extends Component {
     
     const getCreateDialog = () =>
       <CreateDialog
-        crudForm={crudForm} crudFormTimestamp={crudFormTimestamp} crudFormIdHash={crudFormIdHash}
+        crudFormIdHash={crudFormIdHash}
+        crudForm={crudForm} crudFormTimestamp={crudFormTimestamp}
         creatable={creatable} createDialogIsOpen={createDialogIsOpen}
         onEnterDialog={handleEnterDialog} onChangeForm={handleChangeForm}
         onCloseDialog={handleCloseDialog} onCreateItem={handleCreateItem}
-      /> 
+      />
+
     const getUpdateDialog = () =>
       <UpdateDialog
         detail={detail} crudForm={crudForm} 
         updatable={updatable} updateDialogIsOpen={updateDialogIsOpen}
         onChangeForm={handleChangeForm} onCloseDialog={handleCloseDialog}
         onUpdateItem={handleUpdateItem} onEnterDialog={handleEnterDialog}
-      />  
+      />
+
     const getDeleteDialog = () =>
       <DeleteDialog
         isOpen={deleteDialogIsOpen} onCancel={handleCloseDialog}
         onDelete={handleDeleteItem} onClose={handleCloseDialog}
       />
+    
     const getActionDialog = () =>
       <ActionDialog
         isOpen={actionDialogIsOpen} actionable={actionable} onAction={handleAction}

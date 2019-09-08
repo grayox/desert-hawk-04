@@ -12,6 +12,8 @@ import {
   Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
 } from '@material-ui/core';
 
+import CreateDialogContainer from 'app/containers/CreateDialogContainer';
+
 // const styles = theme => ({
 //   success: {
 //     backgroundColor: 'green', //green[600],
@@ -50,19 +52,27 @@ import {
 //   </React.Fragment>
 
 const CustomAlert = ({
-  variant, heading, body, buttonText, dialog,
-  actionButtonLabel, actionButtonHref,
+  variant, heading, body, buttonText, dialog, actionButtonLabel,
 }) => {
 
-  const [ isOpen, setIsOpen, ] = useState(false);
-  const handleOpen  = () => setIsOpen(true)
-  const handleClose = () => setIsOpen(false)
-  const handleClick = () => handleOpen() // alert("I'm a button.")
+  const [ InfoIsOpen   , setInfoIsOpen   , ] = useState(false);
+  const [ ActionIsOpen , setActionIsOpen , ] = useState(false);
 
-  const getDialog = () =>
+  const handleOpenInfo  = () => setInfoIsOpen(true)
+  const handleCloseInfo = () => setInfoIsOpen(false)
+  const handleClickInfo = () => handleOpenInfo() // alert('You clicked the info button')
+  
+  const handleOpenAction  = () => setActionIsOpen(true)
+  const handleCloseAction = () => setActionIsOpen(false)
+  const handleClickAction = () => {
+    handleOpenAction();
+    alert('You clicked the action button');
+  }
+
+  const getInfoDialog = () =>
     <Dialog
-      open={isOpen}
-      onClose={handleClose}
+      open={InfoIsOpen}
+      onClose={handleCloseInfo}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
@@ -71,11 +81,13 @@ const CustomAlert = ({
         <DialogContentText id="alert-dialog-description">{dialog}</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} color="primary">
+        <Button onClick={handleCloseInfo} color="primary">
           Ok, got it
         </Button>
       </DialogActions>
     </Dialog>
+
+  const getActionDialog = () => <CreateDialogContainer id='outbox' />
 
   // const onClose = () => {}
 
@@ -112,10 +124,10 @@ const CustomAlert = ({
       // </span>
       }
       <div className="mt-8 text-right">
-        <Button className="text-red-dark" size="small" onClick={handleClick}>{buttonText}</Button>
+        <Button className="text-red-dark" size="small" onClick={handleClickInfo}>{buttonText}</Button>
         <Button
           className="ml-8" size="small" color="secondary"
-          variant="contained" href={actionButtonHref}
+          variant="contained" onClick={handleClickAction}
         >
           {actionButtonLabel}
         </Button>
@@ -189,7 +201,14 @@ const CustomAlert = ({
 
   const getAlertConfig = () => alertConfig[variant]
 
-  return <React.Fragment> {getAlertConfig()} {getDialog()} </React.Fragment>
+  const getCustomAlert = () =>
+    <React.Fragment>
+      { getAlertConfig()  }
+      { getInfoDialog()   }
+      { getActionDialog() }
+    </React.Fragment>
+
+  return getCustomAlert();
 }
 
 CustomAlert.propTypes = {
