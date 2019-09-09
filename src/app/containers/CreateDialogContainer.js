@@ -35,6 +35,10 @@ const CreateDialogContainer = ({ id, profile, settings, dialogIsOpen, createItem
   const [ state, setState, ] = useState(INITIAL_STATE);
 
   useEffect( () => {
+    console.log('state\n', state,);
+  }, [ state, ],);
+
+  useEffect( () => {
     const creatable = getCreatable();
     setState({ ...state, creatable, });
   }, [],);
@@ -53,19 +57,19 @@ const CreateDialogContainer = ({ id, profile, settings, dialogIsOpen, createItem
 
   // this: handlers: from: src/app/layouts/crud/CRUDView.js
 
-  const handleClickCreateButton = () => this.setState(
-    this.getStateOpenCreateDialog()
-    // , () => console.log('state\n', this.state,)
+  const handleClickCreateButton = () => setState(
+    getStateOpenCreateDialog()
+    // , () => console.log('state\n', state,)
   );
 
   // app/layouts/crud/CRUDView.js
   const handleCreateItem = e => {
-    // console.log('state\n', this.state);
+    // console.log('state\n', state);
     // const { handleCloseDialog, handleRefresh, } = this;
     const handleRefresh = () => {}; // test to see if we need to do more
-    const { crudForm, crudFormTimestamp, crudFormIdHash, creatable, } = this.state;
+    const { crudForm, crudFormTimestamp, crudFormIdHash, creatable, } = state;
     // console.log('creatable\n', creatable);
-    // const { createItem, } = this.props; // profile, settings, dashboard,
+    // const { createItem, } = props; // profile, settings, dashboard,
     // const { uid, } = profile;
     // const { path, } = creatable;
 
@@ -77,7 +81,7 @@ const CreateDialogContainer = ({ id, profile, settings, dialogIsOpen, createItem
 
   // app/layouts/crud/CRUDView.js
   const handleChangeForm = event => {
-    const { crudForm, } = this.state;
+    const { crudForm, } = state;
     // console.log('target\n', event.target);
     const { id, value, } = event.target;
     // console.log('id\n', id); // 'name'
@@ -86,17 +90,17 @@ const CreateDialogContainer = ({ id, profile, settings, dialogIsOpen, createItem
     const targetFieldIndex = crudForm.findIndex( field => field.id === id );
     // console.log('targetFieldIndex\n', targetFieldIndex); // 'john doe'
     crudForm[targetFieldIndex].value = value;
-    this.setState({ crudForm, }
-      // ,() => console.log('state\n', this.state)
+    setState({ ...state, crudForm, }
+      // ,() => console.log('state\n', state)
     );
   }
 
   const handleEnterDialog = () => { // type
     const TYPE = 'loadNewData'; // create only, no update
     // type: string: enum: 'loadNewData' | 'loadSavedData'
-    // this.setState(
-    //   { crudForm : getFormFields(type, this.props.creatable.fields, null,) }
-    //   // ,() => console.log('state\n', this.state)
+    // setState(
+    //   { ...state, crudForm : getFormFields(type, props.creatable.fields, null,) }
+    //   // ,() => console.log('state\n', state)
     // )
     // const { fields, } = creatable;
     const { fields, } = state.creatable;
@@ -106,9 +110,9 @@ const CreateDialogContainer = ({ id, profile, settings, dialogIsOpen, createItem
   }
 
   const handleCloseDialog = () => {
-    // this.setState({
+    // setState({
     //   ...INITIAL_STATE_DIALOG,
-    //   crudForm: null, // this.state.createFormInitialState,
+    //   crudForm: null, // state.createFormInitialState,
     // });
     setState(INITIAL_STATE);
   };
@@ -173,7 +177,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   // CRUD item
-  // common mistakes: 1. forget to use this.props... when calling function in class 2. copy/paste forget to change function name in mapStateToProps => dispatch
+  // common mistakes: 1. forget to use props... when calling function in class 2. copy/paste forget to change function name in mapStateToProps => dispatch
   createItem: ( item, creatable, ) => dispatch(createItem( item, creatable, )), // uid, settings, path , dashboard, // inspired by: src/app/components/forms/CreateLead.js
   // updateItem: ( path   , docId , newItem , oldItem   , updatable , ) => dispatch(updateItem( path , docId , newItem , oldItem   , updatable , )),
   // deleteItem: ( path   , docId , uid     , creatable , ) => dispatch(deleteItem( path , docId , uid     , creatable , )), // dashboard, 
