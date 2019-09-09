@@ -18,7 +18,7 @@ import { CreateDialog, UpdateDialog, DeleteDialog, ActionDialog, } from './ItemD
 
 import MediaWidth from 'app/layouts/MediaWidth';
 import {
-  getFormFields, getIdHash, getAlert,
+  getFormFields, getIdHash, getAlert, getCreateItem,
   // getForm, getSearchableFields, getItemsFilteredBySearch,
 } from 'app/config/AppConfig';
 
@@ -151,11 +151,11 @@ class CRUDView extends Component {
   );
  
   handleChangeForm = event => {
+    const { crudForm, } = this.state;
     // console.log('target\n', event.target);
     const { id, value, } = event.target;
     // console.log('id\n', id); // 'name'
     // console.log('value\n', value); // 'john doe'
-    const { crudForm, } = { ...this.state, }; // use spread syntax to create and modify a copy only
     // console.log('crudForm\n', crudForm); // 'john doe'
     const targetFieldIndex = crudForm.findIndex( field => field.id === id );
     // console.log('targetFieldIndex\n', targetFieldIndex); // 'john doe'
@@ -188,32 +188,9 @@ class CRUDView extends Component {
     const { createItem, creatable, } = this.props; // profile, settings, dashboard,
     // const { uid, } = profile;
     // const { path, } = creatable;
-    
-    // inspired by: src/app/components/forms/CreateLead.js
-    e.preventDefault();
-    console.log(this.state);
-    // this.props.createItem('leads', crudForm,);
 
-    const newItem = {
-      idHash: crudFormIdHash,
-      createdAt: crudFormTimestamp,
-    };
-    crudForm.forEach( item => {
-      let newVal = item.value;
-      if(newVal === undefined || newVal === null) return; // newVal = null; //
-      newItem[item.id] = newVal;
-    });
-
-    // // console.log('path\n', path,);
-    // // console.log('profile\n', profile,);
-    // // console.log('uid\n', uid,);
-    // // console.log('dashboard\n', dashboard,);
-    // // console.log('settings\n', settings,);
-    // console.log('newItem\n', newItem,);
-    // console.log('creatable\n', creatable,);
-    createItem( newItem, creatable, ); // uid, settings, path, dashboard,
-    // this.props.history.push('/');
-
+    getCreateItem({ e, crudForm, crudFormTimestamp, crudFormIdHash, createItem, creatable, });
+  
     handleCloseDialog();
     handleRefresh();
   }

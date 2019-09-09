@@ -87,7 +87,7 @@ const CustomAlert = ({
       </DialogActions>
     </Dialog>
 
-  const getActionDialog = () => <CreateDialogContainer id='outbox' />
+  const getActionDialog = () => <CreateDialogContainer id='outbox' dialogIsOpen={actionIsOpen} />
 
   // const onClose = () => {}
 

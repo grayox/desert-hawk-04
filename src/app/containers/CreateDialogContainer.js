@@ -4,8 +4,10 @@ import { CreateDialog, } from 'app/layouts/crud/ItemDialogs.js';
 import { compose, } from 'redux';
 import { connect, } from 'react-redux';
 
+import { createItem, } from 'app/layouts/crud/store/actions';
+
 import {
-  getFormFields, getIdHash, // app/layouts/crud/CRUDView.js
+  getFormFields, getIdHash, getCreateItem, // app/layouts/crud/CRUDView.js
   getComponentsNavConfig, getFindNested, // app/config/ComponentRouter.js
 } from 'app/config/AppConfig';
 
@@ -14,10 +16,9 @@ const INITIAL_STATE = {
   crudForm           : null  ,
   crudFormIdHash     : null  ,
   crudFormTimestamp  : null  ,
-  createDialogIsOpen : false ,
 };
 
-const CreateDialogContainer = ({ id, profile, settings, }) => { // dashboard,
+const CreateDialogContainer = ({ id, profile, settings, dialogIsOpen, createItem, }) => { // dashboard,
 
   // state
 
@@ -25,7 +26,6 @@ const CreateDialogContainer = ({ id, profile, settings, }) => { // dashboard,
   // const [ crudForm           , setCrudForm           , ] = useState( null  );
   // const [ crudFormIdHash     , setCrudFormIdHash     , ] = useState( null  );
   // const [ crudFormTimestamp  , setCrudFormTimestamp  , ] = useState( null  );
-  // const [ createDialogIsOpen , setCreateDialogIsOpen , ] = useState( false );
 
   // useEffect(() => {
   //   const r = getCreatable();
@@ -44,12 +44,8 @@ const CreateDialogContainer = ({ id, profile, settings, }) => { // dashboard,
     const crudFormTimestamp = Date.now();
     const crudFormIdHash = getIdHash( profile.uid, crudFormTimestamp, );
     const out = {
-      crudFormIdHash              ,
-      crudFormTimestamp           ,
-      createDialogIsOpen : true   ,
-      updateDialogIsOpen : false  ,
-      deleteDialogIsOpen : false  ,
-      actionDialogIsOpen : false  ,
+      crudFormIdHash    ,
+      crudFormTimestamp ,
     }
     // console.log('out\n', out,);
     return out;
@@ -61,6 +57,39 @@ const CreateDialogContainer = ({ id, profile, settings, }) => { // dashboard,
     this.getStateOpenCreateDialog()
     // , () => console.log('state\n', this.state,)
   );
+
+  // app/layouts/crud/CRUDView.js
+  const handleCreateItem = e => {
+    // console.log('state\n', this.state);
+    // const { handleCloseDialog, handleRefresh, } = this;
+    const handleRefresh = () => {}; // test to see if we need to do more
+    const { crudForm, crudFormTimestamp, crudFormIdHash, creatable, } = this.state;
+    // console.log('creatable\n', creatable);
+    // const { createItem, } = this.props; // profile, settings, dashboard,
+    // const { uid, } = profile;
+    // const { path, } = creatable;
+
+    getCreateItem({ e, crudForm, crudFormTimestamp, crudFormIdHash, createItem, creatable, });
+  
+    handleCloseDialog();
+    handleRefresh();
+  }
+
+  // app/layouts/crud/CRUDView.js
+  const handleChangeForm = event => {
+    const { crudForm, } = this.state;
+    // console.log('target\n', event.target);
+    const { id, value, } = event.target;
+    // console.log('id\n', id); // 'name'
+    // console.log('value\n', value); // 'john doe'
+    // console.log('crudForm\n', crudForm); // 'john doe'
+    const targetFieldIndex = crudForm.findIndex( field => field.id === id );
+    // console.log('targetFieldIndex\n', targetFieldIndex); // 'john doe'
+    crudForm[targetFieldIndex].value = value;
+    this.setState({ crudForm, }
+      // ,() => console.log('state\n', this.state)
+    );
+  }
 
   const handleEnterDialog = () => { // type
     const TYPE = 'loadNewData'; // create only, no update
@@ -100,19 +129,20 @@ const CreateDialogContainer = ({ id, profile, settings, }) => { // dashboard,
   }
 
   // from: src/app/layouts/crud/CRUDView.js
-
   const getCreateDialogContainer = () => {
-    const { creatable, crudForm, crudFormIdHash, crudFormTimestamp, createDialogIsOpen, } = state;
+    // console.log('dialogIsOpen\n', dialogIsOpen,);
+    const { creatable, crudForm, crudFormIdHash, crudFormTimestamp, } = state;
     return (
       <CreateDialog
+        // props
+        createDialogIsOpen={dialogIsOpen} // createDialogIsOpen is props in crudView
         // state
         crudFormIdHash={crudFormIdHash}
         crudFormTimestamp={crudFormTimestamp}
-        createDialogIsOpen={createDialogIsOpen}
         crudForm={crudForm} creatable={creatable} // creatable is props in crudView
         // "this"
-        onEnterDialog={handleEnterDialog} // onChangeForm={handleChangeForm}
-        onCloseDialog={handleCloseDialog} // onCreateItem={handleCreateItem}
+        onEnterDialog={handleEnterDialog} onChangeForm={handleChangeForm}
+        onCloseDialog={handleCloseDialog} onCreateItem={handleCreateItem}
       />
     );
   }
@@ -141,9 +171,20 @@ const mapStateToProps = state => {
   return { profile, settings, dashboard, };
 }
 
+const mapDispatchToProps = dispatch => ({
+  // CRUD item
+  // common mistakes: 1. forget to use this.props... when calling function in class 2. copy/paste forget to change function name in mapStateToProps => dispatch
+  createItem: ( item, creatable, ) => dispatch(createItem( item, creatable, )), // uid, settings, path , dashboard, // inspired by: src/app/components/forms/CreateLead.js
+  // updateItem: ( path   , docId , newItem , oldItem   , updatable , ) => dispatch(updateItem( path , docId , newItem , oldItem   , updatable , )),
+  // deleteItem: ( path   , docId , uid     , creatable , ) => dispatch(deleteItem( path , docId , uid     , creatable , )), // dashboard, 
+  // actionItem: ( detail, actionable, ) => dispatch(actionItem( detail, actionable, )), // uid, navComponentId, dashboard, 
+  // update dashboard
+  // updateUserData: (path, newData,) => dispatch(updateUserData(path, newData,)),
+})
+
 // export default ComponentRouter;
 // export default CreateDialogContainer;
 export default compose(
   // withStyles(styles, { withTheme: true }),  
-  connect( mapStateToProps, ), // mapDispatchToProps,
+  connect( mapStateToProps, mapDispatchToProps, ), // 
 )(CreateDialogContainer)

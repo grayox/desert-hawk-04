@@ -669,6 +669,36 @@ export const getAlert = ( dashboard, content, ) => {
   )
 }
 
+export const getCreateItem = ({
+  e, crudForm, crudFormTimestamp, crudFormIdHash, createItem, creatable,
+}) => {
+  // inspired by: src/app/components/forms/CreateLead.js
+  e.preventDefault();
+  // console.log(this.state);
+  // this.props.createItem('leads', crudForm,);
+
+  const newItem = {
+    idHash: crudFormIdHash,
+    createdAt: crudFormTimestamp,
+  };
+
+  crudForm.forEach(item => {
+    let newVal = item.value;
+    if (newVal === undefined || newVal === null) return; // newVal = null; //
+    newItem[item.id] = newVal;
+  });
+
+  // // console.log('path\n', path,);
+  // // console.log('profile\n', profile,);
+  // // console.log('uid\n', uid,);
+  // // console.log('dashboard\n', dashboard,);
+  // // console.log('settings\n', settings,);
+  // console.log('newItem\n', newItem,);
+  // console.log('creatable\n', creatable,);
+  createItem(newItem, creatable); // uid, settings, path, dashboard,
+  // this.props.history.push('/');
+}
+
 export const bottomNavConfig = [ 'dashboard', 'inbox', 'archive', ]
 export const overheadConfig = [ 'settings', 'feedback', 'help', 'logout', ]
 
