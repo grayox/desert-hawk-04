@@ -9,7 +9,7 @@ import { updateUserData, } from 'app/store/actions/my-actions'; // updateSetting
 import FetchUserData from 'app/containers/FetchUserData';
 
 // @material-ui/core
-import { withStyles, withWidth, Grid, } from '@material-ui/core';
+import { withStyles, withWidth, Grid, Snackbar, } from '@material-ui/core';
 
 import ViewEmpty from './ViewEmpty';
 import ListPane from './list/ListPane';
@@ -47,6 +47,8 @@ const styles = theme => ({
   // },
 });
 
+const AUTOHIDE_DURATION = 4500;
+
 const STATE_OPEN_UPDATE_DIALOG = {
   createDialogIsOpen : false ,
   updateDialogIsOpen : true  ,
@@ -78,6 +80,11 @@ const INITIAL_STATE_DIALOG = {
   crudFormTimestamp  : undefined ,
 }
 
+const INITIAL_STATE_SNACKBAR = {
+  snackbarIsOpen  : false ,
+  snackbarMessage : null  ,
+}
+
 const INITIAL_STATE_DETAIL = {
   detail        : undefined ,
   selectedIndex : undefined ,
@@ -86,6 +93,7 @@ const INITIAL_STATE_DETAIL = {
 const INITIAL_STATE = {
   ...INITIAL_STATE_DETAIL,
   ...INITIAL_STATE_DIALOG,
+  ...INITIAL_STATE_SNACKBAR,
 }
 
 class CRUDView extends Component {
@@ -149,6 +157,15 @@ class CRUDView extends Component {
     this.getStateOpenCreateDialog()
     // , () => console.log('state\n', this.state,)
   );
+  handleOpenSnackbar = snackbarMessage => this.setState({snackbarIsOpen: true, snackbarMessage,});
+
+  handleCloseSnackbar = ( event, reason, ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    // setSnackBarIsOpen(false);
+    this.setState({snackbarIsOpen: false,});
+  }
  
   handleChangeForm = event => {
     const { crudForm, } = this.state;
@@ -183,7 +200,7 @@ class CRUDView extends Component {
 
   handleCreateItem = e => {
     // console.log('state\n', this.state);
-    const { handleCloseDialog, handleRefresh, } = this;
+    const { handleCloseDialog, handleRefresh, handleOpenSnackbar, } = this;
     const { crudForm, crudFormTimestamp, crudFormIdHash, } = this.state;
     const { createItem, creatable, } = this.props; // profile, settings, dashboard,
     // const { uid, } = profile;
@@ -193,12 +210,13 @@ class CRUDView extends Component {
   
     handleCloseDialog();
     handleRefresh();
+    handleOpenSnackbar('Item created');
   }
   
   handleUpdateItem = () => {
     // console.log('state\n', this.state);
     // console.log('props\n', this.props);
-    const { handleCloseDialog, handleRefresh, } = this;
+    const { handleCloseDialog, handleRefresh, handleOpenSnackbar, } = this;
     const { detail, crudForm, } = this.state; // selectedIndex,
     const { readable, updatable, updateItem, } = this.props; // items, profile, // settings,
     // const { uid, } = profile;
@@ -221,12 +239,13 @@ class CRUDView extends Component {
     updateItem( readable, docId, newItem, detail, updatable, ); // note: readable is the path // uid, // settings,
     handleCloseDialog();
     handleRefresh();
+    handleOpenSnackbar('Item updated');
   }
 
   handleDeleteItem = () => {
     // console.log('state\n', this.state);
     // console.log('props\n', this.props);
-    const { handleCloseDialog, handleRefresh, } = this;
+    const { handleCloseDialog, handleRefresh, handleOpenSnackbar, } = this;
     const { selectedIndex, } = this.state;
     const { items, readable, deletable, deleteItem, profile, dashboard, } = this.props; // settings,
     const { uid, } = profile;
@@ -238,6 +257,7 @@ class CRUDView extends Component {
     deleteItem( readable, docId, uid, dashboard, deletable, ); // readable is the path // settings,
     handleCloseDialog();
     handleRefresh();
+    handleOpenSnackbar('Item deleted');
   }
 
   handleListItemClick = ( event, selectedIndex, ) => {
@@ -350,6 +370,36 @@ class CRUDView extends Component {
           onResetSearchFilterSort={onResetSearchFilterSort}
         />
       </React.Fragment>
+
+    const getSnackbar = message =>
+      <Snackbar
+        className="mb-24" 
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center', // 'left',
+        }}
+        open={this.state.snackBarIsOpen}
+        autoHideDuration={AUTOHIDE_DURATION}
+        onClose={this.handleCloseSnackbar}
+        ContentProps={{
+          'aria-describedby': 'message-id',
+        }}
+        message={<span id="message-id">{this.state.snackbarMessage}</span>}
+        // action={[
+        //   <Button key="undo" color="secondary" size="small" onClick={handleClose}>
+        //     UNDO
+        //   </Button>,
+        //   <IconButton
+        //     key="close"
+        //     aria-label="close"
+        //     color="inherit"
+        //     className={classes.close}
+        //     onClick={handleClose}
+        //   >
+        //     <CloseIcon />
+        //   </IconButton>,
+        // ]}
+      />
     
     const getCreateDialog = () =>
       <CreateDialog
@@ -461,6 +511,7 @@ class CRUDView extends Component {
           { getUpdateDialog()  }
           { getDeleteDialog()  }
           { getActionDialog()  }
+          { getSnackbar()      }
           { getMediaContent()  }
         </React.Fragment>
       // );

@@ -6,10 +6,15 @@ import { connect, } from 'react-redux';
 
 import { createItem, } from 'app/layouts/crud/store/actions';
 
+import { Snackbar, } from '@material-ui/core'; // withStyles, withWidth, Grid,
+
 import {
   getFormFields, getIdHash, getCreateItem, // app/layouts/crud/CRUDView.js
   getComponentsNavConfig, getFindNested, // app/config/ComponentRouter.js
 } from 'app/config/AppConfig';
+
+const AUTOHIDE_DURATION = 4500;
+const SNACKBAR_MESSAGE = 'Item created';
 
 const INITIAL_STATE = {
   creatable          : null  ,
@@ -43,14 +48,51 @@ const CreateDialogContainer = ({ id, profile, settings, dialogIsOpen, createItem
     setState({ ...state, creatable, });
   }, [],);
 
+  const handleOpenSnackbar = () => setState({ ...state, snackbarIsOpen: true, });
+
+  const handleCloseSnackbar = ( event, reason, ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    // setSnackBarIsOpen(false);
+    setState({ ...state, snackbarIsOpen: false, });
+  }
+
+  const getSnackbar = () =>
+    <Snackbar
+      className="mb-24" 
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'center', // 'left',
+      }}
+      open={state.snackBarIsOpen}
+      autoHideDuration={AUTOHIDE_DURATION}
+      onClose={this.handleCloseSnackbar}
+      ContentProps={{
+        'aria-describedby': 'message-id',
+      }}
+      message={<span id="message-id">{SNACKBAR_MESSAGE}</span>}
+      // action={[
+      //   <Button key="undo" color="secondary" size="small" onClick={handleClose}>
+      //     UNDO
+      //   </Button>,
+      //   <IconButton
+      //     key="close"
+      //     aria-label="close"
+      //     color="inherit"
+      //     className={classes.close}
+      //     onClick={handleClose}
+      //   >
+      //     <CloseIcon />
+      //   </IconButton>,
+      // ]}
+    />
+
   // app/layouts/crud/CRUDView.js
   const getStateOpenCreateDialog = () => {
     const crudFormTimestamp = Date.now();
     const crudFormIdHash = getIdHash( profile.uid, crudFormTimestamp, );
-    const out = {
-      crudFormIdHash    ,
-      crudFormTimestamp ,
-    }
+    const out = { crudFormIdHash, crudFormTimestamp, }
     // console.log('out\n', out,);
     return out;
   }
@@ -77,6 +119,7 @@ const CreateDialogContainer = ({ id, profile, settings, dialogIsOpen, createItem
   
     handleCloseDialog();
     handleRefresh();
+    handleOpenSnackbar();
   }
 
   // app/layouts/crud/CRUDView.js
@@ -132,8 +175,7 @@ const CreateDialogContainer = ({ id, profile, settings, dialogIsOpen, createItem
     return creatable;
   }
 
-  // from: src/app/layouts/crud/CRUDView.js
-  const getCreateDialogContainer = () => {
+  const getCreateDialog = () => {
     // console.log('dialogIsOpen\n', dialogIsOpen,);
     const { creatable, crudForm, crudFormIdHash, crudFormTimestamp, } = state;
     return (
@@ -150,6 +192,13 @@ const CreateDialogContainer = ({ id, profile, settings, dialogIsOpen, createItem
       />
     );
   }
+
+  // from: src/app/layouts/crud/CRUDView.js
+  const getCreateDialogContainer = () =>
+    <React.Fragment>
+      {getSnackbar()}
+      {getCreateDialog()}
+    </React.Fragment>
 
   return getCreateDialogContainer();
 }

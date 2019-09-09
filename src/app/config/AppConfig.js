@@ -321,26 +321,40 @@ export const formFieldConfig = {
   // Deprecated: type must be an HTML5 input type | https://www.w3schools.com/html/html_form_input_types.asp | https://material-ui.com/api/text-field/
   // Deprecated: button|checkbox|color|date|datetime-local|email|file|hidden|image|month|number|password|radio|range|reset|search|submit|tel|text|time|url|week
   // Add new component types to src/app/components/forms/FormTemplate.js > FormTemplate > getConfig()
-  name        : { type : 'text'      , label : 'Name'       , icon : 'account_circle' , } ,
-  firstName   : { type : 'text'      , label : 'First name' , icon : 'account_circle' , } ,
-  lastName    : { type : 'text'      , label : 'Last name'  , icon : 'account_circle' , } ,
-  nickname    : { type : 'text'      , label : 'Nickname'   , icon : 'star'           , } ,
-  address     : { type : 'text'      , label : 'Address'    , icon : 'home'           , } ,
-  bizCategory : { type : 'select'    , label : 'Type'       , icon : 'extension'      , options: bizCategoryItems, getValueMask: value => getValueMaskBizCategory(value), }, // curry first attempt -- does not work: getValueMask: value => bizCategoryItems => getValueMaskSelectOrMenuOptions(bizCategoryItems, value,), },
-  zipInput    : { type : 'component' , label : 'Zip code'   , icon : 'place'          , component: <ZipCodeInput />, fields: ['city', 'state', 'zip', 'county',],},
-  zip         : { type : 'text'      , label : 'Zip'        , icon : 'place'          , } ,
-  city        : { type : 'text'      , label : 'City'       , icon : 'place'          , } ,
-  state       : { type : 'text'      , label : 'State'      , icon : 'place'          , } ,
-  county      : { type : 'text'      , label : 'County'     , icon : 'place'          , } ,
-  lat         : { type : 'text'      , label : 'Latitude'   , icon : 'place'          , } ,
-  lon         : { type : 'text'      , label : 'Longitude'  , icon : 'place'          , } ,
-  phone       : { type : 'text'      , label : 'Phone'      , icon : 'phone'          , } ,
-  email       : { type : 'text'      , label : 'Email'      , icon : 'email'          , } ,
-  company     : { type : 'text'      , label : 'Company'    , icon : 'domain'         , } ,
-  jobTitle    : { type : 'text'      , label : 'Job title'  , icon : 'work'           , } ,
-  birthday    : { type : 'date'      , label : 'Birthday'   , icon : 'cake'           , InputLabelProps: {shrink: true,},},
-  notes       : { type : 'text'      , label : 'Notes'      , icon : 'note'           , multiline: true, rows: 5,},
+  name        : { type : 'text'      , label : 'Name'       , icon : 'account_circle' , mask : 'name'  , } ,
+  firstName   : { type : 'text'      , label : 'First name' , icon : 'account_circle' , mask : 'name'  , } ,
+  lastName    : { type : 'text'      , label : 'Last name'  , icon : 'account_circle' , mask : 'name'  , } ,
+  nickname    : { type : 'text'      , label : 'Nickname'   , icon : 'star'           , mask : 'name'  , } ,
+  address     : { type : 'text'      , label : 'Address'    , icon : 'home'           , mask : 'name'  , } ,
+  bizCategory : { type : 'select'    , label : 'Type'       , icon : 'extension'      , mask :  null   , options: bizCategoryItems, getValueMask: value => getValueMaskBizCategory(value), }, // curry first attempt -- does not work: getValueMask: value => bizCategoryItems => getValueMaskSelectOrMenuOptions(bizCategoryItems, value,), },
+  zipInput    : { type : 'component' , label : 'Zip code'   , icon : 'place'          , mask :  null   , component: <ZipCodeInput />, fields: ['city', 'state', 'zip', 'county',],},
+  zip         : { type : 'text'      , label : 'Zip'        , icon : 'place'          , mask : 'zip'   , } ,
+  city        : { type : 'text'      , label : 'City'       , icon : 'place'          , mask : 'name'  , } ,
+  state       : { type : 'text'      , label : 'State'      , icon : 'place'          , mask : 'name'  , } ,
+  county      : { type : 'text'      , label : 'County'     , icon : 'place'          , mask : 'name'  , } ,
+  lat         : { type : 'text'      , label : 'Latitude'   , icon : 'place'          , mask :  null   , } ,
+  lon         : { type : 'text'      , label : 'Longitude'  , icon : 'place'          , mask :  null   , } ,
+  phone       : { type : 'text'      , label : 'Phone'      , icon : 'phone'          , mask : 'phone' , } ,
+  email       : { type : 'text'      , label : 'Email'      , icon : 'email'          , mask : 'email' , } ,
+  company     : { type : 'text'      , label : 'Company'    , icon : 'domain'         , mask : 'name'  , } ,
+  jobTitle    : { type : 'text'      , label : 'Job title'  , icon : 'work'           , mask : 'name'  , } ,
+  birthday    : { type : 'date'      , label : 'Birthday'   , icon : 'cake'           , mask : 'date'  , InputLabelProps: {shrink: true,},},
+  notes       : { type : 'text'      , label : 'Notes'      , icon : 'note'           , mask :  null   , multiline: true, rows: 5,},
 }
+
+// const getMaskConfig = {
+//   name  : getMaskName()  ,
+//   zip   : getMaskZip()   ,
+//   phone : getMaskPhone() ,
+//   email : getMaskEmail() ,
+//   date  : getMaskDate()  ,
+// }
+
+// const getMaskName = s => _.startCase(_.toLower(_.deburr(_.trim(s))));
+// const getMaskZip = s => _.  
+// const getMaskPhone = s => _.
+// const getMaskEmail = s => _.
+// const getMaskDate = s => _. 
 
 // GLOBAL UTILITY FUNCTIONS
 // These are utility, helper functions stored here as a centralized location
