@@ -161,10 +161,11 @@ class CRUDView extends Component {
 
   handleCloseSnackbar = ( event, reason, ) => {
     if (reason === 'clickaway') {
+      this.handleRefresh();
       return;
     }
-    // setSnackBarIsOpen(false);
-    this.setState({snackbarIsOpen: false,});
+    // setSnackbarIsOpen(false);
+    this.setState({snackbarIsOpen: false,}, this.handleRefresh());
   }
  
   handleChangeForm = event => {
@@ -200,7 +201,7 @@ class CRUDView extends Component {
 
   handleCreateItem = e => {
     // console.log('state\n', this.state);
-    const { handleCloseDialog, handleRefresh, handleOpenSnackbar, } = this;
+    const { handleCloseDialog, handleOpenSnackbar, } = this; // handleRefresh,
     const { crudForm, crudFormTimestamp, crudFormIdHash, } = this.state;
     const { createItem, creatable, } = this.props; // profile, settings, dashboard,
     // const { uid, } = profile;
@@ -209,14 +210,14 @@ class CRUDView extends Component {
     getCreateItem({ e, crudForm, crudFormTimestamp, crudFormIdHash, createItem, creatable, });
   
     handleCloseDialog();
-    handleRefresh();
+    // handleRefresh();
     handleOpenSnackbar('Item created');
   }
   
   handleUpdateItem = () => {
     // console.log('state\n', this.state);
     // console.log('props\n', this.props);
-    const { handleCloseDialog, handleRefresh, handleOpenSnackbar, } = this;
+    const { handleCloseDialog, handleOpenSnackbar, } = this; // handleRefresh,
     const { detail, crudForm, } = this.state; // selectedIndex,
     const { readable, updatable, updateItem, } = this.props; // items, profile, // settings,
     // const { uid, } = profile;
@@ -238,14 +239,14 @@ class CRUDView extends Component {
     // new item: crudForm => newItem
     updateItem( readable, docId, newItem, detail, updatable, ); // note: readable is the path // uid, // settings,
     handleCloseDialog();
-    handleRefresh();
+    // handleRefresh();
     handleOpenSnackbar('Item updated');
   }
 
   handleDeleteItem = () => {
     // console.log('state\n', this.state);
     // console.log('props\n', this.props);
-    const { handleCloseDialog, handleRefresh, handleOpenSnackbar, } = this;
+    const { handleCloseDialog, handleOpenSnackbar, } = this; // handleRefresh,
     const { selectedIndex, } = this.state;
     const { items, readable, deletable, deleteItem, profile, dashboard, } = this.props; // settings,
     const { uid, } = profile;
@@ -256,7 +257,7 @@ class CRUDView extends Component {
     // console.log('docId', docId,);
     deleteItem( readable, docId, uid, dashboard, deletable, ); // readable is the path // settings,
     handleCloseDialog();
-    handleRefresh();
+    // handleRefresh();
     handleOpenSnackbar('Item deleted');
   }
 
@@ -292,7 +293,7 @@ class CRUDView extends Component {
     // alert('You clicked me!');
     // console.log('state\n', this.state);
     // console.log('props\n', this.props);
-    const { handleRefresh, } = this;
+    const { handleOpenSnackbar, } = this; // handleRefresh,
     const { detail, } = this.state;
     const { actionItem, actionable, } = this.props; // settings, profile, dashboard, readable, navComponentId,
     // const { uid, } = profile;
@@ -302,7 +303,8 @@ class CRUDView extends Component {
     // const { docId } = detail;
     actionItem( detail, actionable, ); // uid, navComponentId, dashboard,
 
-    handleRefresh();
+    // handleRefresh();
+    handleOpenSnackbar('Action complete');
   }
 
   handleToggle = ( detail, side, selectedIndex, ) => {
@@ -378,7 +380,7 @@ class CRUDView extends Component {
           vertical: 'bottom',
           horizontal: 'center', // 'left',
         }}
-        open={this.state.snackBarIsOpen}
+        open={this.state.snackbarIsOpen}
         autoHideDuration={AUTOHIDE_DURATION}
         onClose={this.handleCloseSnackbar}
         ContentProps={{

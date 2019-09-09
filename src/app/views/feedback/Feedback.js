@@ -56,7 +56,7 @@ const SNACKBAR_MESSAGE = 'Feedback sent';
 const Feedback = props => {
   const { classes, createItem, profile: { uid, }, } = props;
 
-  const [ snackBarIsOpen, setSnackBarIsOpen, ] = useState(false);
+  const [ snackbarIsOpen, setSnackbarIsOpen, ] = useState(false);
 
   const handleSave = ( value, type, ) => {
     // console.log('event\n', event,);
@@ -79,14 +79,14 @@ const Feedback = props => {
       path: type,
     }
     createItem( newItem, creatable, ); // uid, settings, path, dashboard,
-    setSnackBarIsOpen(true);
+    setSnackbarIsOpen(true);
   }
 
   const handleCloseSnackbar = ( event, reason, ) => {
     if (reason === 'clickaway') {
       return;
     }
-    setSnackBarIsOpen(false);
+    setSnackbarIsOpen(false);
   }
 
   const getSnackbar = () =>
@@ -96,7 +96,7 @@ const Feedback = props => {
         vertical: 'bottom',
         horizontal: 'center', // 'left',
       }}
-      open={snackBarIsOpen}
+      open={snackbarIsOpen}
       autoHideDuration={AUTOHIDE_DURATION}
       onClose={handleCloseSnackbar}
       ContentProps={{

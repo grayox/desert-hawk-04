@@ -54,7 +54,7 @@ const CreateDialogContainer = ({ id, profile, settings, dialogIsOpen, createItem
     if (reason === 'clickaway') {
       return;
     }
-    // setSnackBarIsOpen(false);
+    // setSnackbarIsOpen(false);
     setState({ ...state, snackbarIsOpen: false, });
   }
 
@@ -65,7 +65,7 @@ const CreateDialogContainer = ({ id, profile, settings, dialogIsOpen, createItem
         vertical: 'bottom',
         horizontal: 'center', // 'left',
       }}
-      open={state.snackBarIsOpen}
+      open={state.snackbarIsOpen}
       autoHideDuration={AUTOHIDE_DURATION}
       onClose={this.handleCloseSnackbar}
       ContentProps={{
