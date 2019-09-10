@@ -13,8 +13,10 @@ import {
   getComponentsNavConfig, getFindNested, // app/config/ComponentRouter.js
 } from 'app/config/AppConfig';
 
-const AUTOHIDE_DURATION = 4500;
-const SNACKBAR_MESSAGE = 'Item created';
+// const AUTOHIDE_DURATION = 4500;
+// const SNACKBAR_MESSAGE = 'Item created';
+const AUTOHIDE_DURATION = 2000;
+const SNACKBAR_MESSAGE = 'Processing...'
 
 const INITIAL_STATE = {
   creatable         : null ,

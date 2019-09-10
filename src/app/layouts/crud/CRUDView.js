@@ -47,7 +47,8 @@ const styles = theme => ({
   // },
 });
 
-const AUTOHIDE_DURATION = 4500;
+// const AUTOHIDE_DURATION = 4500;
+const AUTOHIDE_DURATION = 2000;
 
 const STATE_OPEN_UPDATE_DIALOG = {
   createDialogIsOpen : false ,
