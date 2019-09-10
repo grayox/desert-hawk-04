@@ -29,7 +29,7 @@ const CreateDialog = ({
   const ready2 = title && fields;
   // console.log('ready2\n', ready2);
   if(!ready2) {
-    console.warning('Variable not defined')
+    console.warning('Variable not defined');
     return null;
   }
   const ready3 = onChangeForm && onCloseDialog && onCreateItem;
