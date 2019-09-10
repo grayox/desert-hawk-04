@@ -2,7 +2,7 @@
 // v1.x upgrade         : https://tailwindcss.com/components/alerts/#app
 // snackbar inspired by : https://material-ui.com/components/snackbars/
 
-import React, { useState, } from 'react';
+import React, { useState, useEffect,  useRef, } from 'react'; //
 // import React, { useState, } from 'react';
 import PropTypes from 'prop-types';
 
@@ -55,9 +55,36 @@ const CustomAlert = ({
   variant, heading, body, buttonText, dialog, actionButtonLabel,
 }) => {
 
-  const [ infoIsOpen   , setInfoIsOpen   , ] = useState(false);
-  const [ actionIsOpen , setActionIsOpen , ] = useState(false);
+  const [ infoIsOpen     , setInfoIsOpen     , ] = useState(false);
+  const [ actionIsOpen   , setActionIsOpen   , ] = useState(false);
+  const [ snackbarIsOpen , setSnackbarIsOpen , ] = useState(false);
 
+  const firstRenderAction = useRef(true);
+  const firstRenderSnackbar = useRef(true);
+  // console.log('firstRenderAction\n', firstRenderAction,);
+  // console.log('firstRenderSnackbar\n', firstRenderSnackbar,);
+
+  useEffect( () => {
+    if( firstRenderAction.current ) {
+      firstRenderAction.current = false;
+      return;
+    } else if(!actionIsOpen) {
+      setSnackbarIsOpen(true);
+      return;
+    }
+  }, [ actionIsOpen, ],);
+
+  useEffect( () => {
+    if (firstRenderSnackbar.current) {
+      firstRenderSnackbar.current = false;
+      return;
+    } else if(!snackbarIsOpen) {
+      handleRefresh();
+      return;
+    }
+  }, [ snackbarIsOpen, ],);
+
+  const handleRefresh = () => console.log('We will refresh now',);
   const handleOpenInfo  = () => setInfoIsOpen(true)
   const handleCloseInfo = () => setInfoIsOpen(false)
   const handleClickInfo = () => handleOpenInfo() // alert('You clicked the info button')
@@ -67,6 +94,15 @@ const CustomAlert = ({
   const handleClickAction = () => {
     handleOpenAction();
     // alert('You clicked the action button');
+  }
+
+  // const handleOpenSnackbar = () => setSnackbarIsOpen(true)
+
+  const handleCloseSnackbar = ( event, reason, ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackbarIsOpen(false);
   }
 
   const getInfoDialog = () =>
@@ -87,10 +123,17 @@ const CustomAlert = ({
       </DialogActions>
     </Dialog>
 
-  const getActionDialog = () => <CreateDialogContainer id='outbox' dialogIsOpen={actionIsOpen} />
+  const getActionDialog = () =>
+    <CreateDialogContainer
+      id='outbox'
+      dialogIsOpen={actionIsOpen} snackbarIsOpen={snackbarIsOpen}
+      // onOpenDialog={handleOpenAction}
+      onCloseDialog={handleCloseAction}
+      // onOpenSnackbar={handleOpenSnackbar}
+      onCloseSnackbar={handleCloseSnackbar}
+    />
 
-  // const onClose = () => {}
-
+  // const onClose = () Action
   // const getSnackbar = () =>
   //   <SnackbarContent
   //     // className={clsx(classes[variant], className)}

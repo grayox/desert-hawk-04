@@ -165,7 +165,7 @@ class CRUDView extends Component {
       return;
     }
     // setSnackbarIsOpen(false);
-    this.setState({snackbarIsOpen: false,}, this.handleRefresh());
+    this.setState({snackbarIsOpen: false,}, () => this.handleRefresh());
   }
  
   handleChangeForm = event => {
@@ -211,7 +211,8 @@ class CRUDView extends Component {
   
     handleCloseDialog();
     // handleRefresh();
-    handleOpenSnackbar('Item created');
+    // handleOpenSnackbar('Item created');
+    handleOpenSnackbar('Processing...');
   }
   
   handleUpdateItem = () => {
@@ -240,7 +241,8 @@ class CRUDView extends Component {
     updateItem( readable, docId, newItem, detail, updatable, ); // note: readable is the path // uid, // settings,
     handleCloseDialog();
     // handleRefresh();
-    handleOpenSnackbar('Item updated');
+    // handleOpenSnackbar('Item updated');
+    handleOpenSnackbar('Processing...');
   }
 
   handleDeleteItem = () => {
@@ -258,7 +260,8 @@ class CRUDView extends Component {
     deleteItem( readable, docId, uid, dashboard, deletable, ); // readable is the path // settings,
     handleCloseDialog();
     // handleRefresh();
-    handleOpenSnackbar('Item deleted');
+    // handleOpenSnackbar('Item deleted');
+    handleOpenSnackbar('Processing...');
   }
 
   handleListItemClick = ( event, selectedIndex, ) => {
@@ -304,7 +307,8 @@ class CRUDView extends Component {
     actionItem( detail, actionable, ); // uid, navComponentId, dashboard,
 
     // handleRefresh();
-    handleOpenSnackbar('Action complete');
+    // handleOpenSnackbar('Action complete');
+    handleOpenSnackbar('Processing...');
   }
 
   handleToggle = ( detail, side, selectedIndex, ) => {

@@ -17,13 +17,16 @@ const AUTOHIDE_DURATION = 4500;
 const SNACKBAR_MESSAGE = 'Item created';
 
 const INITIAL_STATE = {
-  creatable          : null  ,
-  crudForm           : null  ,
-  crudFormIdHash     : null  ,
-  crudFormTimestamp  : null  ,
+  creatable         : null ,
+  crudForm          : null ,
+  crudFormIdHash    : null ,
+  crudFormTimestamp : null ,
 };
 
-const CreateDialogContainer = ({ id, profile, settings, dialogIsOpen, createItem, }) => { // dashboard,
+const CreateDialogContainer = ({
+  profile, settings, createItem,
+  id, dialogIsOpen, snackbarIsOpen, onCloseDialog, onCloseSnackbar,
+}) => { // dashboard,
 
   // state
 
@@ -32,31 +35,34 @@ const CreateDialogContainer = ({ id, profile, settings, dialogIsOpen, createItem
   // const [ crudFormIdHash     , setCrudFormIdHash     , ] = useState( null  );
   // const [ crudFormTimestamp  , setCrudFormTimestamp  , ] = useState( null  );
 
+  const [ state, setState, ] = useState(INITIAL_STATE);
+
+  useEffect(() => {
+    setState({
+      ...state,
+      creatable: getCreatable(),
+      crudFormIdHash: getIdHash( profile.uid, state.crudFormTimestamp, ),
+    })
+  }, [ state.crudFormTimestamp, ],);
+  
   // useEffect(() => {
   //   const r = getCreatable();
   //   setCreatable(r);
   // }, [],);
 
-  const [ state, setState, ] = useState(INITIAL_STATE);
+  // useEffect( () => {
+  //   console.log('state\n', state,);
+  // }, [ state, ],);
 
-  useEffect( () => {
-    console.log('state\n', state,);
-  }, [ state, ],);
+  // useEffect( () => {
+  //   const creatable = getCreatable();
+  //   setState({ ...state, creatable, });
+  // }, [], );
 
-  useEffect( () => {
-    const creatable = getCreatable();
-    setState({ ...state, creatable, });
-  }, [],);
-
-  const handleOpenSnackbar = () => setState({ ...state, snackbarIsOpen: true, });
-
-  const handleCloseSnackbar = ( event, reason, ) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    // setSnackbarIsOpen(false);
-    setState({ ...state, snackbarIsOpen: false, });
-  }
+  // const handleOpenDialog = () => {
+  //   const creatable = getCreatable();
+  //   setState({ ...state, creatable, });
+  // }
 
   const getSnackbar = () =>
     <Snackbar
@@ -65,9 +71,9 @@ const CreateDialogContainer = ({ id, profile, settings, dialogIsOpen, createItem
         vertical: 'bottom',
         horizontal: 'center', // 'left',
       }}
-      open={state.snackbarIsOpen}
+      open={snackbarIsOpen}
       autoHideDuration={AUTOHIDE_DURATION}
-      onClose={this.handleCloseSnackbar}
+      onClose={onCloseSnackbar}
       ContentProps={{
         'aria-describedby': 'message-id',
       }}
@@ -88,38 +94,34 @@ const CreateDialogContainer = ({ id, profile, settings, dialogIsOpen, createItem
       // ]}
     />
 
-  // app/layouts/crud/CRUDView.js
-  const getStateOpenCreateDialog = () => {
-    const crudFormTimestamp = Date.now();
-    const crudFormIdHash = getIdHash( profile.uid, crudFormTimestamp, );
-    const out = { crudFormIdHash, crudFormTimestamp, }
-    // console.log('out\n', out,);
-    return out;
-  }
+  // // app/layouts/crud/CRUDView.js
+  // const getStateOpenCreateDialog = () => {
+  //   const crudFormTimestamp = Date.now();
+  //   const crudFormIdHash = getIdHash( profile.uid, crudFormTimestamp, );
+  //   const out = { crudFormIdHash, crudFormTimestamp, }
+  //   // console.log('out\n', out,);
+  //   return out;
+  // }
 
   // this: handlers: from: src/app/layouts/crud/CRUDView.js
 
-  const handleClickCreateButton = () => setState(
-    getStateOpenCreateDialog()
-    // , () => console.log('state\n', state,)
-  );
+  // const handleClickCreateButton = () => setState(
+  //   getStateOpenCreateDialog()
+  //   // , () => console.log('state\n', state,)
+  // );
 
   // app/layouts/crud/CRUDView.js
   const handleCreateItem = e => {
     // console.log('state\n', state);
     // const { handleCloseDialog, handleRefresh, } = this;
-    const handleRefresh = () => {}; // test to see if we need to do more
     const { crudForm, crudFormTimestamp, crudFormIdHash, creatable, } = state;
     // console.log('creatable\n', creatable);
     // const { createItem, } = props; // profile, settings, dashboard,
     // const { uid, } = profile;
     // const { path, } = creatable;
 
-    getCreateItem({ e, crudForm, crudFormTimestamp, crudFormIdHash, createItem, creatable, });
-  
-    handleCloseDialog();
-    handleRefresh();
-    handleOpenSnackbar();
+    getCreateItem({ e, crudForm, crudFormTimestamp, crudFormIdHash, createItem, creatable, });  
+    onCloseDialog();
   }
 
   // app/layouts/crud/CRUDView.js
@@ -152,13 +154,13 @@ const CreateDialogContainer = ({ id, profile, settings, dialogIsOpen, createItem
     setState({ ...state, crudForm, });
   }
 
-  const handleCloseDialog = () => {
-    // setState({
-    //   ...INITIAL_STATE_DIALOG,
-    //   crudForm: null, // state.createFormInitialState,
-    // });
-    setState(INITIAL_STATE);
-  };
+  // const handleCloseDialog = () => {
+  //   // setState({
+  //   //   ...INITIAL_STATE_DIALOG,
+  //   //   crudForm: null, // state.createFormInitialState,
+  //   // });
+  //   setState(INITIAL_STATE);
+  // };
 
   // props: creatable from: src/app/config/ComponentRouter.js
 
@@ -177,7 +179,8 @@ const CreateDialogContainer = ({ id, profile, settings, dialogIsOpen, createItem
 
   const getCreateDialog = () => {
     // console.log('dialogIsOpen\n', dialogIsOpen,);
-    const { creatable, crudForm, crudFormIdHash, crudFormTimestamp, } = state;
+    if(!state.crudFormTimestamp) setState({ ...state, crudFormTimestamp: Date.now(), });
+    const { crudForm, creatable, crudFormIdHash, crudFormTimestamp, } = state; //
     return (
       <CreateDialog
         // props
@@ -188,7 +191,7 @@ const CreateDialogContainer = ({ id, profile, settings, dialogIsOpen, createItem
         crudForm={crudForm} creatable={creatable} // creatable is props in crudView
         // "this"
         onEnterDialog={handleEnterDialog} onChangeForm={handleChangeForm}
-        onCloseDialog={handleCloseDialog} onCreateItem={handleCreateItem}
+        onCloseDialog={onCloseDialog} onCreateItem={handleCreateItem}
       />
     );
   }

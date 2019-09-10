@@ -5,7 +5,8 @@ import React from 'react';
 
 // firebase
 // import { firestoreConnect } from 'react-redux-firebase';
-import firebase from 'firebase';
+// import firebase from 'firebase';
+import * as firebase from 'firebase/app';
 
 // fuse
 import { FuseLoadable, } from '@fuse';
