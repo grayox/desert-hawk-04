@@ -137,10 +137,12 @@ const CreateDialogContainer = ({
     const targetFieldIndex = crudForm.findIndex( field => field.id === id );
     // console.log('targetFieldIndex\n', targetFieldIndex); // 'john doe'
 
+    // begin mask
     // console.log('targetFieldIndex\n', crudForm[targetFieldIndex],);
     // crudForm[targetFieldIndex].value = value;
     const maskedValue = getMaskedValue( value, crudForm[targetFieldIndex].mask, );
     crudForm[targetFieldIndex].value = maskedValue;
+    // end mask
 
     setState({ ...state, crudForm, }
       // ,() => console.log('state\n', state)

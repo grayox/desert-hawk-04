@@ -27,12 +27,7 @@ import hash from 'object-hash'; // https://www.npmjs.com/package/object-hash
 
 import CustomAlert from 'app/components/CustomAlert';
 import ZipCodeInput from 'app/components/CustomFormFields/ZipCodeInput';
-
-// https://www.npmjs.com/package/material-ui-phone-number
-// import MuiPhoneNumber from 'material-ui-phone-number';
-// https://www.npmjs.com/package/react-phone-input-2
-import ReactPhoneInput from 'react-phone-input-2'
-import 'react-phone-input-2/dist/style.css'
+import ReactPhoneInputContainer from 'app/containers/ReactPhoneInputContainer';
 
 // end custom components
 
@@ -337,22 +332,22 @@ export const formFieldConfig = {
   lastName    : { type : 'text'      , label : 'Last name'  , icon : 'account_circle' , mask : 'title' , } ,
   nickname    : { type : 'text'      , label : 'Nickname'   , icon : 'star'           , mask : 'title' , } ,
   address     : { type : 'text'      , label : 'Address'    , icon : 'home'           , mask : 'title' , } ,
-  bizCategory : { type : 'select'    , label : 'Type'       , icon : 'extension'      , mask :  null   , options: bizCategoryItems, getValueMask: value => getValueMaskBizCategory(value), }, // curry first attempt -- does not work: getValueMask: value => bizCategoryItems => getValueMaskSelectOrMenuOptions(bizCategoryItems, value,), },
-  zipInput    : { type : 'component' , label : 'Zip code'   , icon : 'place'          , mask :  null   , component: <ZipCodeInput />, fields: ['city', 'state', 'zip', 'county',],},
+  bizCategory : { type : 'select'    , label : 'Type'       , icon : 'extension'      , mask : 'none'  , options: bizCategoryItems, getValueMask: value => getValueMaskBizCategory(value), }, // curry first attempt -- does not work: getValueMask: value => bizCategoryItems => getValueMaskSelectOrMenuOptions(bizCategoryItems, value,), },
+  zipInput    : { type : 'component' , label : 'Zip code'   , icon : 'place'          , mask : 'none'  , component: <ZipCodeInput />, fields: ['city', 'state', 'zip', 'county',],},
   zip         : { type : 'text'      , label : 'Zip'        , icon : 'place'          , mask : 'zip'   , } ,
   city        : { type : 'text'      , label : 'City'       , icon : 'place'          , mask : 'title' , } ,
   state       : { type : 'text'      , label : 'State'      , icon : 'place'          , mask : 'title' , } ,
   county      : { type : 'text'      , label : 'County'     , icon : 'place'          , mask : 'title' , } ,
-  lat         : { type : 'text'      , label : 'Latitude'   , icon : 'place'          , mask :  null   , } ,
-  lon         : { type : 'text'      , label : 'Longitude'  , icon : 'place'          , mask :  null   , } ,
+  lat         : { type : 'text'      , label : 'Latitude'   , icon : 'place'          , mask : 'none'  , } ,
+  lon         : { type : 'text'      , label : 'Longitude'  , icon : 'place'          , mask : 'none'  , } ,
   // phone       : { type : 'text'      , label : 'Phone'      , icon : 'phone'          , mask : 'phone' , } ,
   // phone       : { type : 'component' , label : 'Phone'      , icon : 'phone'          , mask :  null   , component: <MuiPhoneNumber />, } ,
-  phone       : { type : 'component' , label : 'Phone'      , icon : 'phone'          , mask :  null   , component: <ReactPhoneInput defaultCountry={'us'} onChange={getNoMask} />, } ,
+  phone       : { type : 'component' , label : 'Phone'      , icon : 'phone'          , mask : 'none'  , component: <ReactPhoneInputContainer /> } ,
   email       : { type : 'text'      , label : 'Email'      , icon : 'email'          , mask : 'email' , } ,
   company     : { type : 'text'      , label : 'Company'    , icon : 'domain'         , mask : 'title' , } ,
   jobTitle    : { type : 'text'      , label : 'Job title'  , icon : 'work'           , mask : 'title' , } ,
   birthday    : { type : 'date'      , label : 'Birthday'   , icon : 'cake'           , mask : 'date'  , InputLabelProps: {shrink: true,},},
-  notes       : { type : 'text'      , label : 'Notes'      , icon : 'note'           , mask :  null   , multiline: true, rows: 5,},
+  notes       : { type : 'text'      , label : 'Notes'      , icon : 'note'           , mask : 'none'  , multiline: true, rows: 5,},
 }
 
 // Begin mask project
@@ -362,7 +357,7 @@ export const formFieldConfig = {
 //   2. src/app/containers/CreateDialogContainer.js
 //   3. src/app/views/feedback/NarrativeForm.js (handleChangeContent)
 
-const getNoMask = s => s;
+const getMaskNone = s => s;
 
 const getMaskName = s => {
   const a = s.replace( /\d/g, '', );
@@ -404,11 +399,12 @@ const getMaskEmail = s => {
 // const getMaskDate = s => _. 
 
 const maskConfig = ({
+  none  : getMaskNone  ,
   name  : getMaskName  , // for single proper (first or last) name: e.g., John
   title : getMaskTitle , // for full name: e.g., John Doe
   email : getMaskEmail , // foe email: e.g., JohnDoe@example.com
-  // zip   : getMaskZip   ,
-  // phone : getMaskPhone ,
+  // zip   : getMaskZip   , // custom component
+  // phone : getMaskPhone , // custom component
   // date  : getMaskDate  ,
 })
 
