@@ -24,8 +24,17 @@ import moment from 'moment';
 import hash from 'object-hash'; // https://www.npmjs.com/package/object-hash
 
 // custom components
+
 import CustomAlert from 'app/components/CustomAlert';
-import ZipCodeInput from 'app/components/CustomFormFields/ZipCodeInput.js';
+import ZipCodeInput from 'app/components/CustomFormFields/ZipCodeInput';
+
+// https://www.npmjs.com/package/material-ui-phone-number
+// import MuiPhoneNumber from 'material-ui-phone-number';
+// https://www.npmjs.com/package/react-phone-input-2
+import ReactPhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/dist/style.css'
+
+// end custom components
 
 // creatable
 // import UserMultiForm from 'app/components/forms/UserMultiForm';
@@ -321,41 +330,106 @@ export const getValueMaskBizCategory = value => { // home
 export const formFieldConfig = {
   // Deprecated: type must be an HTML5 input type | https://www.w3schools.com/html/html_form_input_types.asp | https://material-ui.com/api/text-field/
   // Deprecated: button|checkbox|color|date|datetime-local|email|file|hidden|image|month|number|password|radio|range|reset|search|submit|tel|text|time|url|week
-  // Add new component types to src/app/components/forms/FormTemplate.js > FormTemplate > getConfig()
-  name        : { type : 'text'      , label : 'Name'       , icon : 'account_circle' , mask : 'name'  , } ,
-  firstName   : { type : 'text'      , label : 'First name' , icon : 'account_circle' , mask : 'name'  , } ,
-  lastName    : { type : 'text'      , label : 'Last name'  , icon : 'account_circle' , mask : 'name'  , } ,
-  nickname    : { type : 'text'      , label : 'Nickname'   , icon : 'star'           , mask : 'name'  , } ,
-  address     : { type : 'text'      , label : 'Address'    , icon : 'home'           , mask : 'name'  , } ,
+  // Add new field types to src/app/components/forms/FormTemplate.js > FormTemplate > getConfig()
+  // Add new components by importing to this file AppConfig and adding a components property tothe below config object
+  name        : { type : 'text'      , label : 'Name'       , icon : 'account_circle' , mask : 'title' , } ,
+  firstName   : { type : 'text'      , label : 'First name' , icon : 'account_circle' , mask : 'title' , } ,
+  lastName    : { type : 'text'      , label : 'Last name'  , icon : 'account_circle' , mask : 'title' , } ,
+  nickname    : { type : 'text'      , label : 'Nickname'   , icon : 'star'           , mask : 'title' , } ,
+  address     : { type : 'text'      , label : 'Address'    , icon : 'home'           , mask : 'title' , } ,
   bizCategory : { type : 'select'    , label : 'Type'       , icon : 'extension'      , mask :  null   , options: bizCategoryItems, getValueMask: value => getValueMaskBizCategory(value), }, // curry first attempt -- does not work: getValueMask: value => bizCategoryItems => getValueMaskSelectOrMenuOptions(bizCategoryItems, value,), },
   zipInput    : { type : 'component' , label : 'Zip code'   , icon : 'place'          , mask :  null   , component: <ZipCodeInput />, fields: ['city', 'state', 'zip', 'county',],},
   zip         : { type : 'text'      , label : 'Zip'        , icon : 'place'          , mask : 'zip'   , } ,
-  city        : { type : 'text'      , label : 'City'       , icon : 'place'          , mask : 'name'  , } ,
-  state       : { type : 'text'      , label : 'State'      , icon : 'place'          , mask : 'name'  , } ,
-  county      : { type : 'text'      , label : 'County'     , icon : 'place'          , mask : 'name'  , } ,
+  city        : { type : 'text'      , label : 'City'       , icon : 'place'          , mask : 'title' , } ,
+  state       : { type : 'text'      , label : 'State'      , icon : 'place'          , mask : 'title' , } ,
+  county      : { type : 'text'      , label : 'County'     , icon : 'place'          , mask : 'title' , } ,
   lat         : { type : 'text'      , label : 'Latitude'   , icon : 'place'          , mask :  null   , } ,
   lon         : { type : 'text'      , label : 'Longitude'  , icon : 'place'          , mask :  null   , } ,
-  phone       : { type : 'text'      , label : 'Phone'      , icon : 'phone'          , mask : 'phone' , } ,
+  // phone       : { type : 'text'      , label : 'Phone'      , icon : 'phone'          , mask : 'phone' , } ,
+  // phone       : { type : 'component' , label : 'Phone'      , icon : 'phone'          , mask :  null   , component: <MuiPhoneNumber />, } ,
+  phone       : { type : 'component' , label : 'Phone'      , icon : 'phone'          , mask :  null   , component: <ReactPhoneInput defaultCountry={'us'} onChange={getNoMask} />, } ,
   email       : { type : 'text'      , label : 'Email'      , icon : 'email'          , mask : 'email' , } ,
-  company     : { type : 'text'      , label : 'Company'    , icon : 'domain'         , mask : 'name'  , } ,
-  jobTitle    : { type : 'text'      , label : 'Job title'  , icon : 'work'           , mask : 'name'  , } ,
+  company     : { type : 'text'      , label : 'Company'    , icon : 'domain'         , mask : 'title' , } ,
+  jobTitle    : { type : 'text'      , label : 'Job title'  , icon : 'work'           , mask : 'title' , } ,
   birthday    : { type : 'date'      , label : 'Birthday'   , icon : 'cake'           , mask : 'date'  , InputLabelProps: {shrink: true,},},
   notes       : { type : 'text'      , label : 'Notes'      , icon : 'note'           , mask :  null   , multiline: true, rows: 5,},
 }
 
-// const getMaskConfig = {
-//   name  : getMaskName()  ,
-//   zip   : getMaskZip()   ,
-//   phone : getMaskPhone() ,
-//   email : getMaskEmail() ,
-//   date  : getMaskDate()  ,
-// }
+// Begin mask project
+// The purpose of the mask project is to add some degree of quality control to the input variables of a form
+// Also change handleChangeForm at:
+//   1. src/app/layouts/crud/CRUDView.js
+//   2. src/app/containers/CreateDialogContainer.js
+//   3. src/app/views/feedback/NarrativeForm.js (handleChangeContent)
 
-// const getMaskName = s => _.startCase(_.toLower(_.deburr(_.trim(s))));
+const getNoMask = s => s;
+
+const getMaskName = s => {
+  const a = s.replace( /\d/g, '', );
+  const b = _.startCase(_.trim(_.toLower(_.deburr(a))));
+  return b;
+}
+
+const getMaskTitle = s => {
+  const a = getMaskName(s);
+  const b = _.endsWith( s, ' ', ) ? `${a} ` : a; // could also use _.padEnd(a, 1,)
+  return b;
+}
+
+const getMaskEmail = s => {
+  // // test
+  // const email1 = 'thisIsAtestEmail';
+  // const email2 = 'thisIsAtestEmail@';
+  // const email3 = 'thisIsAtestEmail@example.com';
+  // console.log([
+  //   getMaskEmail(email1),
+  //   getMaskEmail(email2),
+  //   getMaskEmail(email3),
+  // ]);
+  // // end test
+  const a = _.trim(_.deburr(s));
+  const b = _.endsWith( s, '@', ) ? `${a}@` : a; // could also use _.padEnd(a, 1,)
+  let c, d, e;
+  if( b.indexOf('@') > -1 ) {
+    c = b.split('@');
+    d = _.toLower(c[1]);
+    e = [ c[0], d, ].join('@');
+    return e;
+  }
+  return b;
+}
+
 // const getMaskZip = s => _.  
 // const getMaskPhone = s => _.
-// const getMaskEmail = s => _.
 // const getMaskDate = s => _. 
+
+const maskConfig = ({
+  name  : getMaskName  , // for single proper (first or last) name: e.g., John
+  title : getMaskTitle , // for full name: e.g., John Doe
+  email : getMaskEmail , // foe email: e.g., JohnDoe@example.com
+  // zip   : getMaskZip   ,
+  // phone : getMaskPhone ,
+  // date  : getMaskDate  ,
+})
+
+export const getMaskedValue = ( value, mask, ) => maskConfig[mask](value)
+
+// // Convert a string to title case
+// // titleCase
+// // https://codepen.io/cferdinandi/pen/aXzNbe
+// // https://vanillajstoolkit.com/helpers/totitlecase/
+// // source: https://gist.github.com/SonyaMoisset/aa79f51d78b39639430661c03d9b1058#file-title-case-a-sentence-for-loop-wc-js
+// // @param  {String} str The string to convert to title case
+// // @return {String}     The converted string
+// const toTitleCase = s => {
+//  str = str.toLowerCase().split(' ');
+//  for (var i = 0; i < str.length; i++) {
+//    str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
+//  }
+//  return str.join(' ');
+// };
+
+// End mask project
 
 // GLOBAL UTILITY FUNCTIONS
 // These are utility, helper functions stored here as a centralized location

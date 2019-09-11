@@ -112,7 +112,7 @@ const FormTemplate = ({ fields, onChange, }) => {
     return out;
   }
 
-  const getField = (icon, id, type, rest, component,) =>
+  const getField = ( icon, id, type, rest, component, ) =>
     <div key={id} className="flex">
       <div className="min-w-48 pt-20">
         <Icon color="action">{icon}</Icon>
@@ -120,12 +120,16 @@ const FormTemplate = ({ fields, onChange, }) => {
       { getConfig(id, type, rest, component,) }
     </div>
 
-  return (
+  const getFormTemplate = () =>
     <div className="p-24px">
-      {fields.map(({ icon, id, type, component, ...rest, }) => getField(icon, id, type, rest, component,))}          
+      {
+        fields.map(({ icon, id, type, component, ...rest, }) =>
+          getField( icon, id, type, rest, component, )
+        )
+      }          
     </div>
-  );
 
+  return getFormTemplate();
 }
 
 // export default withStyles(styles, { withTheme: true })(connect(mapStateToProps, mapDispatchToProps)(FormTemplate));

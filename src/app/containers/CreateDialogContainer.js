@@ -1,5 +1,5 @@
 import React, { useState, useEffect, } from 'react';
-import { CreateDialog, } from 'app/layouts/crud/ItemDialogs.js';
+import { CreateDialog, } from 'app/layouts/crud/ItemDialogs';
 
 import { compose, } from 'redux';
 import { connect, } from 'react-redux';
@@ -9,7 +9,7 @@ import { createItem, } from 'app/layouts/crud/store/actions';
 import { Snackbar, } from '@material-ui/core'; // withStyles, withWidth, Grid,
 
 import {
-  getFormFields, getIdHash, getCreateItem, // app/layouts/crud/CRUDView.js
+  getFormFields, getIdHash, getCreateItem, getMaskedValue, // app/layouts/crud/CRUDView.js
   getComponentsNavConfig, getFindNested, // app/config/ComponentRouter.js
 } from 'app/config/AppConfig';
 
@@ -136,7 +136,12 @@ const CreateDialogContainer = ({
     // console.log('crudForm\n', crudForm); // 'john doe'
     const targetFieldIndex = crudForm.findIndex( field => field.id === id );
     // console.log('targetFieldIndex\n', targetFieldIndex); // 'john doe'
-    crudForm[targetFieldIndex].value = value;
+
+    // console.log('targetFieldIndex\n', crudForm[targetFieldIndex],);
+    // crudForm[targetFieldIndex].value = value;
+    const maskedValue = getMaskedValue( value, crudForm[targetFieldIndex].mask, );
+    crudForm[targetFieldIndex].value = maskedValue;
+
     setState({ ...state, crudForm, }
       // ,() => console.log('state\n', state)
     );
