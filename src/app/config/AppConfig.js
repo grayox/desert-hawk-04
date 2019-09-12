@@ -28,7 +28,7 @@ import hash from 'object-hash'; // https://www.npmjs.com/package/object-hash
 import MaskedInput from 'react-text-mask';
 import CustomAlert from 'app/components/CustomAlert';
 import ZipCodeInput from 'app/components/CustomFormFields/ZipCodeInput';
-import ReactPhoneInputContainer from 'app/containers/ReactPhoneInputContainer';
+// import ReactPhoneInputContainer from 'app/containers/ReactPhoneInputContainer';
 
 // end custom components
 
@@ -323,6 +323,21 @@ export const getValueMaskBizCategory = value => { // home
 
 // end app-specific parameters
 
+const getMaskedInput = props => {
+  const { inputRef, ...other } = props;
+  return (
+    <MaskedInput
+      // showMask
+      {...other}
+      placeholderChar={'\u2000'}
+      ref={ref => {
+        inputRef(ref ? ref.inputElement : null);
+      }}
+      mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+    />
+  );
+}
+
 export const formFieldConfig = {
   // Deprecated: type must be an HTML5 input type | https://www.w3schools.com/html/html_form_input_types.asp | https://material-ui.com/api/text-field/
   // Deprecated: button|checkbox|color|date|datetime-local|email|file|hidden|image|month|number|password|radio|range|reset|search|submit|tel|text|time|url|week
@@ -343,7 +358,8 @@ export const formFieldConfig = {
   lon         : { type : 'text'      , label : 'Longitude'  , icon : 'place'          , mask : 'none'  , } ,
   // phone       : { type : 'text'      , label : 'Phone'      , icon : 'phone'          , mask : 'phone' , } ,
   // phone       : { type : 'component' , label : 'Phone'      , icon : 'phone'          , mask :  null   , component: <MuiPhoneNumber />, } ,
-  phone       : { type : 'component' , label : 'Phone'      , icon : 'phone'          , mask : 'none'  , component: <ReactPhoneInputContainer /> } ,
+  // phone       : { type : 'component' , label : 'Phone'      , icon : 'phone'          , mask : 'none'  , component: <ReactPhoneInputContainer /> } ,
+  phone       : { type : 'text'      , label : 'Phone'      , icon : 'phone'          , mask : 'none'  , InputProps: {inputComponent: getMaskedInput,},},
   email       : { type : 'text'      , label : 'Email'      , icon : 'email'          , mask : 'email' , } ,
   company     : { type : 'text'      , label : 'Company'    , icon : 'domain'         , mask : 'title' , } ,
   jobTitle    : { type : 'text'      , label : 'Job title'  , icon : 'work'           , mask : 'title' , } ,
@@ -361,7 +377,7 @@ export const formFieldConfig = {
 const getMaskNone = s => s;
 
 const getMaskName = s => {
-  console.log('s\n', s,);
+  // console.log('s\n', s,);
   if(s === '') return s;
   const a = s.replace( /\d/g, '', );
   const b = _.startCase(_.trim(_.toLower(_.deburr(a))));
@@ -369,7 +385,7 @@ const getMaskName = s => {
 }
 
 const getMaskTitle = s => {
-  console.log('s\n', s,);
+  // console.log('s\n', s,);
   if(s === '') return s;
   const a = getMaskName(s);
   const b = _.endsWith( s, ' ', ) ? `${a} ` : a; // could also use _.padEnd(a, 1,)

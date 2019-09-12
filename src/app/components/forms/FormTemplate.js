@@ -55,27 +55,29 @@ import SelectField from '../CustomFormFields/SelectField';
 // }
 
 const getTextField = (
-  onChange, id, { value, label, autoFocus, type, required, multiline, rows, InputLabelProps, },
+  onChange, id,
+  { value, label, autoFocus, type, required, multiline, rows, InputProps, InputLabelProps, },
 ) =>
     <TextField
       // className={classes.formControl}
       className="mb-24"
       fullWidth
       // margin="normal"
-      label={label}
-      autoFocus={autoFocus}
       id={id}
       name={id}
       type={type}
+      rows={rows}
+      label={label}
+      autoFocus={autoFocus}
       // value={this.state.name}
       // value={"hello"}
       value={value && value.length && value} // solves error when passed empty string
       // defaultValue={'hi'}//{id && values && values[id]}//
-      onChange={onChange}
       variant="outlined"
+      onChange={onChange}
       required={required}
       multiline={multiline}
-      rows={rows}
+      InputProps={InputProps}
       InputLabelProps={InputLabelProps}
     />
 
