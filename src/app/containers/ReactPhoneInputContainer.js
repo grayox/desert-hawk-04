@@ -1,23 +1,125 @@
-import React, { useState, } from 'react';
+// inspired by
+// https://material-ui.com/components/text-fields/#integration-with-3rd-party-input-libraries
 
-// https://www.npmjs.com/package/material-ui-phone-number
-// import MuiPhoneNumber from 'material-ui-phone-number';
-// https://www.npmjs.com/package/react-phone-input-2
+import React from 'react';
+import PropTypes from 'prop-types';
+import MaskedInput from 'react-text-mask';
+// import NumberFormat from 'react-number-format';
+// import { makeStyles } from '@material-ui/core/styles';
+// import Input from '@material-ui/core/Input';
+// import InputLabel from '@material-ui/core/InputLabel';
+// import FormControl from '@material-ui/core/FormControl';
+import TextField from '@material-ui/core/TextField';
 
-import ReactPhoneInput from 'react-phone-input-2'
-import 'react-phone-input-2/dist/style.css'
+// const useStyles = makeStyles(theme => ({
+//   container: {
+//     display: 'flex',
+//     flexWrap: 'wrap',
+//   },
+//   formControl: {
+//     margin: theme.spacing(1),
+//   },
+// }));
 
-const ReactPhoneInputContainer = ({ defaultCountry='us', }) => {
-  const [ value, setValue, ] = useState('');
+const TextMaskCustom = props => {
+  const { inputRef, ...other } = props;
 
-  const handleChange = data => setValue(data);
-
-  const getReactPhoneInputContainer = () =>
-    <div className="mb-12">
-      <ReactPhoneInput defaultCountry={'us'} onChange={handleChange} value={value} />
-    </div>
-
-  return getReactPhoneInputContainer();
+  return (
+    <MaskedInput
+      {...other}
+      ref={ref => {
+        inputRef(ref ? ref.inputElement : null);
+      }}
+      mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+      placeholderChar={'\u2000'}
+      showMask
+    />
+  );
 }
 
-export default ReactPhoneInputContainer;
+TextMaskCustom.propTypes = {
+  inputRef: PropTypes.func.isRequired,
+};
+
+// function NumberFormatCustom(props) {
+//   const { inputRef, onChange, ...other } = props;
+
+//   return (
+//     <NumberFormat
+//       {...other}
+//       getInputRef={inputRef}
+//       onValueChange={values => {
+//         onChange({
+//           target: {
+//             value: values.value,
+//           },
+//         });
+//       }}
+//       thousandSeparator
+//       prefix="$"
+//     />
+//   );
+// }
+
+// NumberFormatCustom.propTypes = {
+//   inputRef: PropTypes.func.isRequired,
+//   onChange: PropTypes.func.isRequired,
+// };
+
+export default function FormattedInputs() {
+  // const classes = useStyles();
+  const [values, setValues] = React.useState({
+    textmask: '(1  )    -    ',
+    // numberformat: '1320',
+  });
+
+  const handleChange = name => event => {
+    setValues({
+      ...values,
+      [name]: event.target.value,
+    });
+  };
+
+  return (
+    <div
+      // className={classes.container}
+    >
+      <TextField
+        // className={classes.formControl}
+        label="Phone"
+        variant="outlined"
+        value={values.textmask}
+        onChange={handleChange('textmask')}
+        id="formatted-numberformat-input"
+        InputProps={{
+          inputComponent: TextMaskCustom,
+        }}
+      />
+      {
+      // <FormControl
+      //   // className={classes.formControl}
+      // >
+      //   <InputLabel htmlFor="formatted-text-mask-input">Phone</InputLabel>
+      //   <Input
+      //     value={values.textmask}
+      //     onChange={handleChange('textmask')}
+      //     id="formatted-text-mask-input"
+      //     inputComponent={TextMaskCustom}
+      //   />
+      // </FormControl>
+      }
+      {
+      // <TextField
+      //   className={classes.formControl}
+      //   label="react-number-format"
+      //   value={values.numberformat}
+      //   onChange={handleChange('numberformat')}
+      //   id="formatted-numberformat-input"
+      //   InputProps={{
+      //     inputComponent: NumberFormatCustom,
+      //   }}
+      // />
+      }
+    </div>
+  );
+}

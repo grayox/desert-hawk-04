@@ -10871,7 +10871,7 @@ react-table@6.8.6:
   dependencies:
     classnames "^2.2.5"
 
-react-text-mask@5.4.3:
+react-text-mask@^5.4.3:
   version "5.4.3"
   resolved "https://registry.yarnpkg.com/react-text-mask/-/react-text-mask-5.4.3.tgz#991efb4299e30c2e6c2c46d13f617169463e0d2d"
   integrity sha1-mR77QpnjDC5sLEbRP2FxaUY+DS0=

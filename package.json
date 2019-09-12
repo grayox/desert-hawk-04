@@ -71,7 +71,7 @@
         "react-select": "2.1.2",
         "react-swipeable-views": "^0.13.0",
         "react-table": "6.8.6",
-        "react-text-mask": "5.4.3",
+        "react-text-mask": "^5.4.3",
         "react-visibility-sensor": "^5.0.2",
         "redux": "4.0.1",
         "redux-firestore": "^0.6.0",

@@ -37,8 +37,10 @@ const NarrativeForm = props => {
   const [ labelWidth , setLabelWidth , ] = useState(0);
   // const [ typeSelectIsOpen , setTypeSelectIsOpen , ] = useState(initialTypeSelectIsOpen);
 
-  const inputLabel = useRef(null);
+  const inputLabel = useRef();
   useEffect( () => {
+    // const ready1 = inputLabel && inputLabel.current && inputLabel.current.offsetWidth
+    // if(!ready1) return;
     setLabelWidth(inputLabel.current.offsetWidth);
     handleEnableButton();
   }, [ type, content, ]);

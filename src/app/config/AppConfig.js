@@ -25,6 +25,7 @@ import hash from 'object-hash'; // https://www.npmjs.com/package/object-hash
 
 // custom components
 
+import MaskedInput from 'react-text-mask';
 import CustomAlert from 'app/components/CustomAlert';
 import ZipCodeInput from 'app/components/CustomFormFields/ZipCodeInput';
 import ReactPhoneInputContainer from 'app/containers/ReactPhoneInputContainer';
@@ -360,12 +361,16 @@ export const formFieldConfig = {
 const getMaskNone = s => s;
 
 const getMaskName = s => {
+  console.log('s\n', s,);
+  if(s === '') return s;
   const a = s.replace( /\d/g, '', );
   const b = _.startCase(_.trim(_.toLower(_.deburr(a))));
   return b;
 }
 
 const getMaskTitle = s => {
+  console.log('s\n', s,);
+  if(s === '') return s;
   const a = getMaskName(s);
   const b = _.endsWith( s, ' ', ) ? `${a} ` : a; // could also use _.padEnd(a, 1,)
   return b;
@@ -403,8 +408,8 @@ const maskConfig = ({
   name  : getMaskName  , // for single proper (first or last) name: e.g., John
   title : getMaskTitle , // for full name: e.g., John Doe
   email : getMaskEmail , // foe email: e.g., JohnDoe@example.com
-  // zip   : getMaskZip   , // custom component
   // phone : getMaskPhone , // custom component
+  // zip   : getMaskZip   , // custom component
   // date  : getMaskDate  ,
 })
 
