@@ -44,7 +44,7 @@ yarn add email-validator # https://www.npmjs.com/package/email-validator
 yarn add react-number-format # https://www.npmjs.com/package/react-number-format
 
 # integrate git
-# ref: https://stackoverflow.com/a/53325899/1640892
+# ref: https://stackoverflow.com/a/53325899
 # git init
 # git clone <url_of_the_github_repository_extension_dot_git>
 # git clone https://github.com/username/repo_name.git

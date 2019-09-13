@@ -1,6 +1,6 @@
 // inspired by:
 // https://codesandbox.io/s/lrvwm88pv7
-// https://stackoverflow.com/a/55093394/1640892
+// https://stackoverflow.com/a/55093394
 // https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#fetching-external-data
 
 import React, { Component } from 'react';
@@ -188,7 +188,7 @@ class CRUDContainer extends Component {
   // end buttons tier list
 
   // refs: https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#fetching-external-data
-  // https://stackoverflow.com/a/55093394/1640892 | https://codesandbox.io/s/lrvwm88pv7
+  // https://stackoverflow.com/a/55093394 | https://codesandbox.io/s/lrvwm88pv7
   // handleFetchMoreData() {
   //   this._asyncRequest = loadAsyncData().then(
   //     externalData => {
@@ -207,7 +207,7 @@ class CRUDContainer extends Component {
     const ready2 = this && this.state && this.state.hasMore;
     if( !ready2 ) return null;
     
-    // ref: https://stackoverflow.com/a/49906662/1640892
+    // ref: https://stackoverflow.com/a/49906662
     let isMounted = true;
 
     // this._asyncRequest = loadAsyncData();

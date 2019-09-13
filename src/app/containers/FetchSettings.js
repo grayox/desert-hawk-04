@@ -46,7 +46,7 @@ class FetchSettings extends Component {
   }
 
   // refs: https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#fetching-external-data
-  // https://stackoverflow.com/a/55093394/1640892 | https://codesandbox.io/s/lrvwm88pv7
+  // https://stackoverflow.com/a/55093394 | https://codesandbox.io/s/lrvwm88pv7
   // handleLoad() {
   //   this._asyncRequest = loadSettingsData().then(
   //     externalData => {

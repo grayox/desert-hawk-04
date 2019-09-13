@@ -1,8 +1,8 @@
 // inspired by:
 // https://codepen.io/WebSeed/pen/pvgqEq?editors=0010
-// https://stackoverflow.com/a/1855903/1640892
+// https://stackoverflow.com/a/1855903
 // http://stackoverflow.com/a/1855903/186965
-// rgb to hex: https://stackoverflow.com/a/5624139/1640892
+// rgb to hex: https://stackoverflow.com/a/5624139
 
 // Exports random background color (as bgTextColors.bgHex)
 // and foreground text color (as bgTextColors.textHex) optimized for contrast

@@ -150,11 +150,11 @@ class firebaseService {
       saveDocToFirestore( picked, `users/user/${uid}`, )
 
     // // maybe we have no reason to pick fields and should just save the entire authuser object
-    // // ref: https://stackoverflow.com/a/51551781/1640892
+    // // ref: https://stackoverflow.com/a/51551781
     // const picked = _.pick(user, [
     //   'uid', 'displayName', 'photoURL', 'email', 'emailVerified', 'phoneNumber', 'isAnonymous', 'providerData',
     // ]);
-    // // const picked = _.pick(user, ['displayName', 'email',]); // ref: https://stackoverflow.com/a/51551781/1640892
+    // // const picked = _.pick(user, ['displayName', 'email',]); // ref: https://stackoverflow.com/a/51551781
     // // console.log('picked\n', picked);
     // const photoURLTemp = picked && picked.providerData && picked.providerData[0] && picked.providerData[0].photoURL;
     // // console.log('photoURLTemp\n', photoURLTemp);
@@ -166,7 +166,7 @@ class firebaseService {
     // return this.firestore //.doc(`users/${user.uid}`);
     //   .collection('users')
     //   .doc(user.uid)
-    // ref: https://stackoverflow.com/a/48158848/1640892
+    // ref: https://stackoverflow.com/a/48158848
     // .set(user);
     // .set(Object.assign({}, user));
     // .set({ ...user});

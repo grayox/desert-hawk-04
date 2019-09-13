@@ -9,7 +9,7 @@ import { createItem, } from 'app/layouts/crud/store/actions';
 import { Snackbar, } from '@material-ui/core'; // withStyles, withWidth, Grid,
 
 import {
-  getFormFields, getIdHash, getCreateItem, getMaskedValue, // app/layouts/crud/CRUDView.js
+  getFormFields, getIdHash, getCreateItem, // getMaskedValue, // app/layouts/crud/CRUDView.js
   getComponentsNavConfig, getFindNested, // app/config/ComponentRouter.js
 } from 'app/config/AppConfig';
 
@@ -139,9 +139,9 @@ const CreateDialogContainer = ({
 
     // begin mask
     // console.log('targetFieldIndex\n', crudForm[targetFieldIndex],);
-    // crudForm[targetFieldIndex].value = value;
-    const maskedValue = getMaskedValue( value, crudForm[targetFieldIndex].mask, );
-    crudForm[targetFieldIndex].value = maskedValue;
+    crudForm[targetFieldIndex].value = value;
+    // const maskedValue = getMaskedValue( value, crudForm[targetFieldIndex].mask, );
+    // crudForm[targetFieldIndex].value = maskedValue;
     // end mask
 
     setState({ ...state, crudForm, }

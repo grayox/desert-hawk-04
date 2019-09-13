@@ -148,7 +148,7 @@ const MiniDashboard = ({ data, micro, }) => {
   
   // data => { net: 1, deposits: 3, withdrawals: 2, }
   // dataAsArray => [ {key: 'net', value: 1,} , ... ]
-  // ref: https://stackoverflow.com/a/37595559/1640892
+  // ref: https://stackoverflow.com/a/37595559
   // test: https://lodash.com/docs/4.17.11#map
   // const dataAsArray = _.map( data, (value, key,) => ({ key, value, }));
   const { cells, } = DashboardGridConfig;

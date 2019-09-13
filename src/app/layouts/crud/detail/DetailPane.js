@@ -10,7 +10,7 @@ import { FuseAnimateGroup } from '@fuse'; // FuseScrollbars, FuseAnimate,
 // import _ from '@lodash';
 
 import MediaWidth from 'app/layouts/MediaWidth';
-import { uiSpecs, formFieldConfig, getFormFields, getCreatableFields, } from 'app/config/AppConfig'; // getCleanFieldNames,
+import { uiSpecs, getFormFieldsConfig, getFormFields, getCreatableFields, } from 'app/config/AppConfig'; // getCleanFieldNames,
 import Dashboard from 'app/views/dashboard/Dashboard';
 import SimpleExpansionPanel from 'app/components/SimpleExpansionPanel';
 import ButtonsTierDetail from './ButtonsTierDetail'; // CRUDButtons,
@@ -107,12 +107,15 @@ const styles = theme => ({
 //     }
 //   </ListItem>
 
-const appendObjectToArray = ( a, o, ) => {
+const appendObjectToArray = ( a, o, formFieldConfig, ) => {
   // a: arrayOfObjects: [ {id: [string], value: [string], valueMask: [string], required: [bool], ... } ]
   // o: object: {city: [string], county: [string], state: [string], zip: [string], ...}
+  // formFieldConfig: computed from imported getFormFieldsConfig()
   // return: arrayOfObjects: [{ label: [string], value: [string], [optional] valueMask: [string],}, ...]
   // console.log('a\n', a,);
-  const out = a.map( item => ({label: formFieldConfig[item].label, value: o[item],}));
+  const out = a.map( item => {
+    return ({label: formFieldConfig[item].label, value: o[item],});
+  });
   // keys.forEach( key => newArray.push({id: key, value: value[key],}));
   // console.log('out\n', out,);
   return out;
@@ -220,10 +223,11 @@ const DetailPane = ({
   
     // turn object into array
     // console.log('value\n', value,);
+    const formFieldConfig = getFormFieldsConfig();
     const keys = formFieldConfig[formFieldConfigKey].fields; // Object.keys(value);
     // console.log('keys\n', keys,); // ['city', 'state', 'zip', 'county',]
     // const newArray = getFormFields('loadSavedData', keys,);
-    const newArray = appendObjectToArray(keys, value,);
+    const newArray = appendObjectToArray(keys, value, formFieldConfig,);
     // console.log('newArray\n', newArray,);
     const out = getFormFieldsMap(newArray);
     // console.log('out\n', out,);

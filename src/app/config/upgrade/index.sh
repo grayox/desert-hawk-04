@@ -55,7 +55,7 @@ chmod a+x "v$old/$localpath/update.sh"
 
 # step 2 of 9
 # make backup archive in case of accidental overwrite or deletion
-# ref: https://linux.die.net/man/1/rsync | https://stackoverflow.com/a/14789400/1640892
+# ref: https://linux.die.net/man/1/rsync | https://stackoverflow.com/a/14789400
 mkdir "v$old-$backup-$timestamp/"
 rsync -av --progress v$old "v$old-$backup-$timestamp/" \
   --exclude node_modules \
@@ -71,7 +71,7 @@ rsync -av --progress v$old "v$old-$backup-$timestamp/" \
 # git clone https://grayox@github.com/withinpixels/fuse-react v05
 # git clone https://withinpixels@github.com/withinpixels/fuse-react v05
 # git clone https://<username>:<password>@github.com/<ORG_NAME>/<PROJECT-NAME>.git
-# https://stackoverflow.com/q/53548940/1640892
+# https://stackoverflow.com/q/53548940
 
 # step 4 of 9
 # copy files and directories to upgraged version

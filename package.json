@@ -76,6 +76,7 @@
         "redux": "4.0.1",
         "redux-firestore": "^0.6.0",
         "redux-thunk": "2.3.0",
+        "text-mask-addons": "^3.8.0",
         "typeface-muli": "0.0.54",
         "velocity-react": "1.4.1"
     },

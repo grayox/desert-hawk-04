@@ -11,7 +11,7 @@
 # while IFS= read -r fullfile || [ -n "$fullfile" ]; # path/to/foo.bar
 # # while read
 # # while read line || [ -n "$line" ]; do
-# # https://stackoverflow.com/a/12919766/1640892
+# # https://stackoverflow.com/a/12919766
 # # https://www.cyberciti.biz/faq/bash-loop-over-file/
 # # files=/src/app/config/upgrade/xfer.txt
 # # for fullfile in $files

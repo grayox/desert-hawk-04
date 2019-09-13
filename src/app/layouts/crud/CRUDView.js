@@ -18,7 +18,7 @@ import { CreateDialog, UpdateDialog, DeleteDialog, ActionDialog, } from './ItemD
 
 import MediaWidth from 'app/layouts/MediaWidth';
 import {
-  getFormFields, getIdHash, getAlert, getCreateItem, getMaskedValue,
+  getFormFields, getIdHash, getAlert, getCreateItem, // getMaskedValue,
   // getForm, getSearchableFields, getItemsFilteredBySearch,
 } from 'app/config/AppConfig';
 
@@ -193,9 +193,9 @@ class CRUDView extends Component {
 
     // begin mask
     // console.log('targetFieldIndex\n', crudForm[targetFieldIndex],);
-    // crudForm[targetFieldIndex].value = value;
-    const maskedValue = getMaskedValue( value, crudForm[targetFieldIndex].mask, );
-    crudForm[targetFieldIndex].value = maskedValue;
+    crudForm[targetFieldIndex].value = value;
+    // const maskedValue = getMaskedValue( value, crudForm[targetFieldIndex].mask, );
+    // crudForm[targetFieldIndex].value = maskedValue;
     // end mask
 
     this.setState({ crudForm, }

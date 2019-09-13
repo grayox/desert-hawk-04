@@ -18,7 +18,7 @@ how to deploy a react app to firebase hosting
   firebase login
   firebase init
   firebase deploy
-  - if empty, edit firebase.json with: {"hosting":{"public":"dist"}} | https://stackoverflow.com/a/47695000/1640892
+  - if empty, edit firebase.json with: {"hosting":{"public":"dist"}} | https://stackoverflow.com/a/47695000
   - ongoing commands can be reduced from setup
   yarn build
   firebase deploy
@@ -103,7 +103,7 @@ c3 = c1 then c2
     src/main/content/login/Login.js
     src/app/components/AuthProviders.js
  5. transfer files with terminal command
-    ref: https://stackoverflow.com/a/53245169/1640892
+    ref: https://stackoverflow.com/a/53245169
     `xargs -I{} -a v02/src/app/config/xfer.txt cp v02/{} v03/{}` # does not work
     ref: https://unix.stackexchange.com/a/481043/167174
     `cd dropbox/swap/fuse`

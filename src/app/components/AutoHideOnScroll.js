@@ -1,5 +1,5 @@
 // inspired by this demo: https://codesandbox.io/s/4z56yl6rm4
-// based on this SO answer: https://stackoverflow.com/a/50427181/1640892
+// based on this SO answer: https://stackoverflow.com/a/50427181
 
 import React from 'react';
 import PropTypes from 'prop-types';

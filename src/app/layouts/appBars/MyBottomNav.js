@@ -1,6 +1,6 @@
 // inpired by:
 // https://material-ui.com/demos/bottom-navigation/#bottom-navigation
-// https://stackoverflow.com/a/51255699/1640892
+// https://stackoverflow.com/a/51255699
 
 // import React from 'react';
 import React, { Component } from 'react';
@@ -23,7 +23,7 @@ import {
 // import _ from '@lodash';
 
 const styles = theme => ({
-  // ref: https://stackoverflow.com/a/54375949/1640892
+  // ref: https://stackoverflow.com/a/54375949
   // demo: https://codesandbox.io/s/wq02759kk
   
   // root: {

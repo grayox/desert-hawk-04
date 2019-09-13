@@ -42,7 +42,7 @@ function DashboardGridItem(props) {
   const { label, backgroundColor } = props;
   return (
     <GridItem xs={12} sm={6} md={3} key={item.label}>
-    {/* https://stackoverflow.com/a/48905261/1640892 */}
+    {/* https://stackoverflow.com/a/48905261 */}
       <Card className={classnames(classes.card)}
             style={{ backgroundColor }}
             label={label}

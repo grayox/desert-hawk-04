@@ -62,7 +62,7 @@ class MyForm extends Component {
   handleSubmit = () => this.setState({isLoading: true,}, () => this.fetchmoviesData(this.state.zip))
 
   string2html = xs => {
-    // ref: https://stackoverflow.com/a/35385518/1640892
+    // ref: https://stackoverflow.com/a/35385518
     const s = '<div id="myDiv"></div>';
     const template = document.createElement('template');
     const str = s.trim(); // Never return a text node of whitespace as the result

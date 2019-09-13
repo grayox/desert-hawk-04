@@ -135,7 +135,7 @@ class HashAvatar extends Component {
   //     src={getSrc(props)}
 
   //     // handle errors
-  //     // ref: https://stackoverflow.com/a/9891041/1640892
+  //     // ref: https://stackoverflow.com/a/9891041
   //     // src="assets/images/avatars/profile.jpg"
   //     // src={getSrcMp}
   //     // onerror="this.onerror=null;this.src='assets/images/avatars/profile.jpg';"

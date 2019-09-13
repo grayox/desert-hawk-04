@@ -125,7 +125,7 @@ const DashboardWidgets = ({ classes, data, settings, config, }) => { // classes,
       open={dialogIsOpen}
       onExited={handleDialogExited}
       // TransitionComponent={Transition} // buggish // see below and above comments
-      // disableFocusListener={true} // https://stackoverflow.com/a/51663448/1640892
+      // disableFocusListener={true} // https://stackoverflow.com/a/51663448
       aria-labelledby="alert-dialog-slide-title"
       aria-describedby="alert-dialog-slide-description"
     >

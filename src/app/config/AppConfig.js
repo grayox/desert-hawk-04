@@ -26,6 +26,7 @@ import hash from 'object-hash'; // https://www.npmjs.com/package/object-hash
 // custom components
 
 import MaskedInput from 'react-text-mask';
+import emailMask from 'text-mask-addons/dist/emailMask'
 import CustomAlert from 'app/components/CustomAlert';
 import ZipCodeInput from 'app/components/CustomFormFields/ZipCodeInput';
 // import ReactPhoneInputContainer from 'app/containers/ReactPhoneInputContainer';
@@ -323,22 +324,54 @@ export const getValueMaskBizCategory = value => { // home
 
 // end app-specific parameters
 
-const getMaskedInput = props => {
+// const getMaskedInput = props => {
+//   // ref: src/app/containers/ReactPhoneInputContainer.js
+//   const { inputRef, ...other } = props;
+//   return (
+//     <MaskedInput
+//       // showMask
+//       {...other}
+//       placeholderChar={'\u2000'}
+//       ref={ref => {
+//         inputRef(ref ? ref.inputElement : null);
+//       }}
+//       mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+//     />
+//   );
+// }
+
+const masksConfig = {
+  // ref: https://www.npmjs.com/package/react-text-mask
+  // ref: https://github.com/text-mask/text-mask/blob/master/componentDocumentation.md#readme
+  title: [ /^[a-z ,.'-]+$/, ], // ref: https://stackoverflow.com/a/2385967
+  // title: [ /^[A-Z][a-z]+[,.'-]?(?: [A-Z][a-z]+[,.'-]?)*$/, ], // ref: https://stackoverflow.com/a/57921308
+  phone: [ '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, ],
+  email: emailMask, // add-ons ref: https://github.com/text-mask/text-mask/tree/master/addons/#readme
+}
+
+const getMaskedInput = mask => props => {
+  // ref: src/app/containers/ReactPhoneInputContainer.js
   const { inputRef, ...other } = props;
   return (
     <MaskedInput
+    {...other}
       // showMask
-      {...other}
+      mask={mask} // masksConfig pipes here
+      guide={false}
       placeholderChar={'\u2000'}
       ref={ref => {
         inputRef(ref ? ref.inputElement : null);
       }}
-      mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+      // className="form-control"
+      // placeholder="Enter a phone number"
+      // id="my-input-id"
+      onBlur={() => {}}
+      onChange={() => {}}
     />
   );
 }
 
-export const formFieldConfig = {
+const formFieldsConfig = {  // notice the 's' at the end of formFields, makes it "unique"
   // Deprecated: type must be an HTML5 input type | https://www.w3schools.com/html/html_form_input_types.asp | https://material-ui.com/api/text-field/
   // Deprecated: button|checkbox|color|date|datetime-local|email|file|hidden|image|month|number|password|radio|range|reset|search|submit|tel|text|time|url|week
   // Add new field types to src/app/components/forms/FormTemplate.js > FormTemplate > getConfig()
@@ -359,7 +392,8 @@ export const formFieldConfig = {
   // phone       : { type : 'text'      , label : 'Phone'      , icon : 'phone'          , mask : 'phone' , } ,
   // phone       : { type : 'component' , label : 'Phone'      , icon : 'phone'          , mask :  null   , component: <MuiPhoneNumber />, } ,
   // phone       : { type : 'component' , label : 'Phone'      , icon : 'phone'          , mask : 'none'  , component: <ReactPhoneInputContainer /> } ,
-  phone       : { type : 'text'      , label : 'Phone'      , icon : 'phone'          , mask : 'none'  , InputProps: {inputComponent: getMaskedInput,},},
+  // phone       : { type : 'text'      , label : 'Phone'      , icon : 'phone'          , mask : 'none'  , InputProps: {inputComponent: getMaskedInput,},},
+  phone       : { type : 'text'      , label : 'Phone'      , icon : 'phone'          , mask : 'phone' , } ,
   email       : { type : 'text'      , label : 'Email'      , icon : 'email'          , mask : 'email' , } ,
   company     : { type : 'text'      , label : 'Company'    , icon : 'domain'         , mask : 'title' , } ,
   jobTitle    : { type : 'text'      , label : 'Job title'  , icon : 'work'           , mask : 'title' , } ,
@@ -367,86 +401,104 @@ export const formFieldConfig = {
   notes       : { type : 'text'      , label : 'Notes'      , icon : 'note'           , mask : 'none'  , multiline: true, rows: 5,},
 }
 
-// Begin mask project
-// The purpose of the mask project is to add some degree of quality control to the input variables of a form
-// Also change handleChangeForm at:
-//   1. src/app/layouts/crud/CRUDView.js
-//   2. src/app/containers/CreateDialogContainer.js
-//   3. src/app/views/feedback/NarrativeForm.js (handleChangeContent)
+export const getFormFieldsConfig = () => {
+  const out = formFieldsConfig; // notice the 's' at the end of formFields, makes it "unique"
+  for( let x in out ) {
+    // out[x].InputProps = { inputComponent: getMaskedInput, };
+    
+    const mask = out[x].mask;
+    const maskConfig = masksConfig[mask];
 
-const getMaskNone = s => s;
+    const ready1 = !!maskConfig;
+    if(!ready1) continue;
 
-const getMaskName = s => {
-  // console.log('s\n', s,);
-  if(s === '') return s;
-  const a = s.replace( /\d/g, '', );
-  const b = _.startCase(_.trim(_.toLower(_.deburr(a))));
-  return b;
-}
-
-const getMaskTitle = s => {
-  // console.log('s\n', s,);
-  if(s === '') return s;
-  const a = getMaskName(s);
-  const b = _.endsWith( s, ' ', ) ? `${a} ` : a; // could also use _.padEnd(a, 1,)
-  return b;
-}
-
-const getMaskEmail = s => {
-  // // test
-  // const email1 = 'thisIsAtestEmail';
-  // const email2 = 'thisIsAtestEmail@';
-  // const email3 = 'thisIsAtestEmail@example.com';
-  // console.log([
-  //   getMaskEmail(email1),
-  //   getMaskEmail(email2),
-  //   getMaskEmail(email3),
-  // ]);
-  // // end test
-  const a = _.trim(_.deburr(s));
-  const b = _.endsWith( s, '@', ) ? `${a}@` : a; // could also use _.padEnd(a, 1,)
-  let c, d, e;
-  if( b.indexOf('@') > -1 ) {
-    c = b.split('@');
-    d = _.toLower(c[1]);
-    e = [ c[0], d, ].join('@');
-    return e;
+    out[x].InputProps = { inputComponent: getMaskedInput(maskConfig), };
   }
-  return b;
+  // console.log('out\n', out,);
+  return out;
 }
 
-// const getMaskZip = s => _.  
-// const getMaskPhone = s => _.
-// const getMaskDate = s => _. 
+// // Begin mask project (deprecated)
 
-const maskConfig = ({
-  none  : getMaskNone  ,
-  name  : getMaskName  , // for single proper (first or last) name: e.g., John
-  title : getMaskTitle , // for full name: e.g., John Doe
-  email : getMaskEmail , // foe email: e.g., JohnDoe@example.com
-  // phone : getMaskPhone , // custom component
-  // zip   : getMaskZip   , // custom component
-  // date  : getMaskDate  ,
-})
+// // The purpose of the mask project is to add some degree of quality control to the input variables of a form
+// // Also change handleChangeForm at:
+// //   1. src/app/layouts/crud/CRUDView.js
+// //   2. src/app/containers/CreateDialogContainer.js
+// //   3. src/app/views/feedback/NarrativeForm.js (handleChangeContent)
 
-export const getMaskedValue = ( value, mask, ) => maskConfig[mask](value)
+// const getMaskNone = s => s;
 
-// // Convert a string to title case
-// // titleCase
-// // https://codepen.io/cferdinandi/pen/aXzNbe
-// // https://vanillajstoolkit.com/helpers/totitlecase/
-// // source: https://gist.github.com/SonyaMoisset/aa79f51d78b39639430661c03d9b1058#file-title-case-a-sentence-for-loop-wc-js
-// // @param  {String} str The string to convert to title case
-// // @return {String}     The converted string
-// const toTitleCase = s => {
-//  str = str.toLowerCase().split(' ');
-//  for (var i = 0; i < str.length; i++) {
-//    str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
-//  }
-//  return str.join(' ');
-// };
+// const getMaskName = s => {
+//   // console.log('s\n', s,);
+//   if(s === '') return s;
+//   const a = s.replace( /\d/g, '', );
+//   const b = _.startCase(_.trim(_.toLower(_.deburr(a))));
+//   return b;
+// }
 
-// End mask project
+// const getMaskTitle = s => {
+//   // console.log('s\n', s,);
+//   if(s === '') return s;
+//   const a = getMaskName(s);
+//   const b = _.endsWith( s, ' ', ) ? `${a} ` : a; // could also use _.padEnd(a, 1,)
+//   return b;
+// }
+
+// const getMaskEmail = s => {
+//   // // test
+//   // const email1 = 'thisIsAtestEmail';
+//   // const email2 = 'thisIsAtestEmail@';
+//   // const email3 = 'thisIsAtestEmail@example.com';
+//   // console.log([
+//   //   getMaskEmail(email1),
+//   //   getMaskEmail(email2),
+//   //   getMaskEmail(email3),
+//   // ]);
+//   // // end test
+//   const a = _.trim(_.deburr(s));
+//   const b = _.endsWith( s, '@', ) ? `${a}@` : a; // could also use _.padEnd(a, 1,)
+//   let c, d, e;
+//   if( b.indexOf('@') > -1 ) {
+//     c = b.split('@');
+//     d = _.toLower(c[1]);
+//     e = [ c[0], d, ].join('@');
+//     return e;
+//   }
+//   return b;
+// }
+
+// // const getMaskZip = s => _.  
+// // const getMaskPhone = s => _.
+// // const getMaskDate = s => _. 
+
+// const maskConfig = ({
+//   none  : getMaskNone  ,
+//   name  : getMaskName  , // for single proper (first or last) name: e.g., John
+//   title : getMaskTitle , // for full name: e.g., John Doe
+//   email : getMaskEmail , // foe email: e.g., JohnDoe@example.com
+//   // phone : getMaskPhone , // custom component
+//   // zip   : getMaskZip   , // custom component
+//   // date  : getMaskDate  ,
+// })
+
+// export const getMaskedValue = ( value, mask, ) => maskConfig[mask](value)
+
+// // // Convert a string to title case
+// // // titleCase
+// // // https://codepen.io/cferdinandi/pen/aXzNbe
+// // // https://vanillajstoolkit.com/helpers/totitlecase/
+// // // source: https://gist.github.com/SonyaMoisset/aa79f51d78b39639430661c03d9b1058#file-title-case-a-sentence-for-loop-wc-js
+// // // @param  {String} str The string to convert to title case
+// // // @return {String}     The converted string
+// // const toTitleCase = s => {
+// //  str = str.toLowerCase().split(' ');
+// //  for (var i = 0; i < str.length; i++) {
+// //    str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
+// //  }
+// //  return str.join(' ');
+// // };
+
+// // End mask project
 
 // GLOBAL UTILITY FUNCTIONS
 // These are utility, helper functions stored here as a centralized location
@@ -487,7 +539,7 @@ export const replaceFormFieldsArrayWithLabels = form =>
   form.map(({ label, }) => label); // form: array, output of: getForm(searchableFieldIds);
 
 export const replaceFormFieldLabelWithKeyId = formFieldLabel =>
-  _.findKey(formFieldConfig, {label: formFieldLabel,},) // formFieldLabel: string, 'Name'
+  _.findKey(formFieldsConfig, {label: formFieldLabel,},) // formFieldLabel: string, 'Name'
 
 export const replaceFormFieldsLabelArrayWithKeyIds = formFieldLabels =>
   formFieldLabels.map( label => replaceFormFieldLabelWithKeyId(label,) )
@@ -513,6 +565,7 @@ const getFormFieldProps = (s, n,) => {
   // console.log('s\n', s);
   // console.log('n\n', n);
   const str = getOnlyAlpha(s); // 'name*' => 'name'
+  const formFieldConfig = getFormFieldsConfig();
   const out = {...formFieldConfig[str]}; // form field
   // console.log('out\n', out);
   if(!out) return;
@@ -543,7 +596,7 @@ export const getFilterArrayOfObjectsByPropValueContainedInArray =
     }));
 
 // function to create a nice, single level structure
-// ref: https://stackoverflow.com/a/57714910/1640892
+// ref: https://stackoverflow.com/a/57714910
 const getFlatten = ( a, trigger='children', ) => {
   // a: array: flattens sub arrays containing trigger property
   // trigger: string: recursively flattens when encountering this critical property: 'children'
@@ -554,7 +607,7 @@ const getFlatten = ( a, trigger='children', ) => {
   }, []);
 };
 
-// returns all found // ref: https://stackoverflow.com/a/57714910/1640892
+// returns all found // ref: https://stackoverflow.com/a/57714910
 export const getFilterNested = ( searchable , key , value , trigger='children', ) => {
   // searchable: array: array contains elements to iterate search over;
   // !imoportant: must contain property named 'children' to recursively search deeper nested levels
@@ -568,7 +621,7 @@ export const getFilterNested = ( searchable , key , value , trigger='children', 
   return out;
 }
 
-// returns first found // ref: https://stackoverflow.com/a/57714572/1640892
+// returns first found // ref: https://stackoverflow.com/a/57714572
 // use this one (over getFilterNested()) to replace the following pattern:
 // const matches = _.filter(componentsNavConfig, {id: navComponentId,},);
 // const component = matches[0];
@@ -859,7 +912,7 @@ export const getComponentsNavConfig = props => {
     // 5. src/app/layouts/appBars/OverflowMenu.js
     // 6. src/app/views/dashboard/WidgetMenu.js
     // search: `/${id}
-    // How to recursively filter for nested .id: https://stackoverflow.com/a/57714572/1640892
+    // How to recursively filter for nested .id: https://stackoverflow.com/a/57714572
 
   const out = [
     {
