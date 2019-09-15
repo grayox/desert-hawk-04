@@ -21,6 +21,9 @@ import TextField from '@material-ui/core/TextField';
 //   },
 // }));
 
+// DEPRECATED
+// moved logic to AppConfig.js
+
 const TextMaskCustom = props => {
   const { inputRef, ...other } = props;
 

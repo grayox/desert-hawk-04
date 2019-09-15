@@ -171,19 +171,21 @@ class CRUDView extends Component {
 
   // handleChangeFormObject = event => {
   handleChangeForm = event => {
-    // console.log('target\n', event.target);
     const { crudForm, } = this.state;
     
-    // console.log('target\n', event.target);
-    // const { id, value, } = event.target;
-    let id, value;
-    if ( event.target && event.target.id && event.target.value ) {
-      id = event.target.id;
-      value = event.target.value;
-    } else {
-      id = 'phone';
-      value = event;
-    }
+    const target = event && event.target;
+    // console.log('target\n', target);
+    
+    const { id, value, } = target;
+    console.log('value\n', value,);
+    // let id, value;
+    // if ( event.target && event.target.id && event.target.value ) {
+    //   id = event.target.id;
+    //   value = event.target.value;
+    // } else {
+    //   id = 'phone';
+    //   value = event;
+    // }
 
     // console.log('id\n', id); // 'name'
     // console.log('value\n', value); // 'john doe'
@@ -191,32 +193,38 @@ class CRUDView extends Component {
     const targetFieldIndex = crudForm.findIndex( field => field.id === id );
     // console.log('targetFieldIndex\n', targetFieldIndex); // 'john doe'
 
-    // begin mask
-    // console.log('targetFieldIndex\n', crudForm[targetFieldIndex],);
+    // // begin mask
+    // // console.log('targetFieldIndex\n', crudForm[targetFieldIndex],);
     crudForm[targetFieldIndex].value = value;
-    // const maskedValue = getMaskedValue( value, crudForm[targetFieldIndex].mask, );
-    // crudForm[targetFieldIndex].value = maskedValue;
-    // end mask
+    // // const maskedValue = getMaskedValue( value, crudForm[targetFieldIndex].mask, );
+    // // crudForm[targetFieldIndex].value = maskedValue;
+    // // end mask
 
     this.setState({ crudForm, }
       // ,() => console.log('state\n', this.state)
     );
   }
 
-  // handleChangeFormString = callback => {
-  //   id = 'phone'; value = event;
-  // }
+  handleChangeFormString = callback => {
+    console.log('callback\n', callback,);
+    // id = 'phone'; value = event;
+  }
 
-  // handleChangeFormConfig = callback => ({
-  //   string: handleChangeFormString(callback),
-  //   object: handleChangeFormObject(callback),
-  // })
+  getChangeFormConfig = () => ({
+    string: this.handleChangeFormString,
+    object: this.handleChangeFormObject,
+  })
 
-  // handleChangeForm = callback => {
-  //   const type = typeof callback;
-  //   const out = handleChangeFormConfig[type];
-  //   return out;
-  // } 
+  handleChangeForm1 = event => {
+    const value = event && event.target && event.target.value;
+    console.log('value\n', value,);
+    // const type = typeof callback;
+    // console.log('type\n', type,);
+    // const changeFormConfig = this.getChangeFormConfig();
+    // const out = changeFormConfig[type](callback);
+    // console.log('out\n', out,);
+    // return out;
+  } 
 
   handleEnterDialog = type =>
     // type: string: enum: 'loadNewData' | 'loadSavedData'
@@ -265,7 +273,7 @@ class CRUDView extends Component {
     // console.log('docId', docId,);
 
     const newItem = {};
-    crudForm.forEach(item => {
+    crudForm.forEach( item => {
       let newVal = item.value;
       if(newVal === undefined || newVal === null) return; // newVal = null; //
       newItem[item.id] = newVal;

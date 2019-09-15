@@ -26,7 +26,8 @@ import hash from 'object-hash'; // https://www.npmjs.com/package/object-hash
 // custom components
 
 import MaskedInput from 'react-text-mask';
-import emailMask from 'text-mask-addons/dist/emailMask'
+import emailMask from 'text-mask-addons/dist/emailMask';
+import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import CustomAlert from 'app/components/CustomAlert';
 import ZipCodeInput from 'app/components/CustomFormFields/ZipCodeInput';
 // import ReactPhoneInputContainer from 'app/containers/ReactPhoneInputContainer';
@@ -340,43 +341,68 @@ export const getValueMaskBizCategory = value => { // home
 //   );
 // }
 
+const getTitleMask = ( rawValue, {currentCaretPosition=0, placeholderChar='', previousConformedValue=''}, ) => {
+  // console.log('Hello world');
+  console.log('rawValue\n', rawValue,);
+  // let out = [];
+  // const words = rawValue.split(' ');
+  // const letters = words.forEach( word => )
+  // return [ rawValue.charAt(0).toUpperCase() + rawValue.substring(1) ];
+  return [ /\d/, ];
+  // return [ /^[A-Z][a-z]+[,.'-]?(?: [A-Z][a-z]+[,.'-]?)*$/, ];
+}
+
+const numberMask = createNumberMask({
+  // ref: https://github.com/text-mask/text-mask/tree/master/addons#usage
+  prefix: '',
+  suffix: ' $' // This will put the dollar sign at the end, with a space.
+})
+
 const masksConfig = {
   // ref: https://www.npmjs.com/package/react-text-mask
   // ref: https://github.com/text-mask/text-mask/blob/master/componentDocumentation.md#readme
-  title: [ /^[a-z ,.'-]+$/, ], // ref: https://stackoverflow.com/a/2385967
+  // title: [ /^[a-z ,.'-]+$/, ], // ref: https://stackoverflow.com/a/2385967
   // title: [ /^[A-Z][a-z]+[,.'-]?(?: [A-Z][a-z]+[,.'-]?)*$/, ], // ref: https://stackoverflow.com/a/57921308
+  // title: [ /^[A-Z]/, /[a-z]*/, ' ', /^[A-Z]/, /[a-z]*/, ],
+  // title: getTitleMask(),
+  title: getTitleMask,
+  // title: [ '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, ],
   phone: [ '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, ],
   email: emailMask, // add-ons ref: https://github.com/text-mask/text-mask/tree/master/addons/#readme
+  number: numberMask, // add-ons ref: https://github.com/text-mask/text-mask/tree/master/addons/#readme
 }
 
-const getMaskedInput = mask => props => {
+const getMaskedInput = mask => ({ inputRef, onChange, ...other, }) =>
   // ref: src/app/containers/ReactPhoneInputContainer.js
-  const { inputRef, ...other } = props;
-  return (
-    <MaskedInput
+  <MaskedInput
     {...other}
-      // showMask
-      mask={mask} // masksConfig pipes here
-      guide={false}
-      placeholderChar={'\u2000'}
-      ref={ref => {
-        inputRef(ref ? ref.inputElement : null);
-      }}
-      // className="form-control"
-      // placeholder="Enter a phone number"
-      // id="my-input-id"
-      onBlur={() => {}}
-      onChange={() => {}}
-    />
-  );
-}
+    // showMask
+    mask={mask} // masksConfig pipes here
+    // mask={getTitleMask}
+    // mask={ () => {
+    //   console.log('Hello world');
+    //   return [ /\d/, ];
+    // }}
+    // mask={[ '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, ]}
+    guide={false}
+    placeholderChar={'\u2000'}
+    ref={ ref => {
+      inputRef(ref ? ref.inputElement : null);
+    }}
+    // className="form-control"
+    // placeholder="Enter a phone number"
+    // id="my-input-id"
+    onBlur={() => {}}
+    // onChange={() => {}}
+    onChange={onChange}
+  />
 
 const formFieldsConfig = {  // notice the 's' at the end of formFields, makes it "unique"
   // Deprecated: type must be an HTML5 input type | https://www.w3schools.com/html/html_form_input_types.asp | https://material-ui.com/api/text-field/
   // Deprecated: button|checkbox|color|date|datetime-local|email|file|hidden|image|month|number|password|radio|range|reset|search|submit|tel|text|time|url|week
   // Add new field types to src/app/components/forms/FormTemplate.js > FormTemplate > getConfig()
   // Add new components by importing to this file AppConfig and adding a components property tothe below config object
-  name        : { type : 'text'      , label : 'Name'       , icon : 'account_circle' , mask : 'title' , } ,
+  name        : { type : 'text'      , label : 'Name'       , icon : 'account_circle' , mask : 'number' , } ,
   firstName   : { type : 'text'      , label : 'First name' , icon : 'account_circle' , mask : 'title' , } ,
   lastName    : { type : 'text'      , label : 'Last name'  , icon : 'account_circle' , mask : 'title' , } ,
   nickname    : { type : 'text'      , label : 'Nickname'   , icon : 'star'           , mask : 'title' , } ,
