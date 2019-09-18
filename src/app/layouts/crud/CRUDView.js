@@ -175,6 +175,15 @@ class CRUDView extends Component {
     
     const target = event && event.target;
     // console.log('target\n', target);
+
+    // // below does not work to fix cursor jumping bug
+    // // ref: https://stackoverflow.com/a/49648061/1640892
+    // const caret = event.target.selectionStart
+    // const element = event.target
+    // window.requestAnimationFrame(() => {
+    //   element.selectionStart = caret
+    //   element.selectionEnd = caret
+    // });
     
     const { id, value, } = target;
     console.log('value\n', value,);

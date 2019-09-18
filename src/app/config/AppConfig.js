@@ -341,50 +341,123 @@ export const getValueMaskBizCategory = value => { // home
 //   );
 // }
 
-const getTitleMask = ( rawValue, {currentCaretPosition=0, placeholderChar='', previousConformedValue=''}, ) => {
-  // console.log('Hello world');
-  console.log('rawValue\n', rawValue,);
-  // let out = [];
-  // const words = rawValue.split(' ');
-  // const letters = words.forEach( word => )
-  // return [ rawValue.charAt(0).toUpperCase() + rawValue.substring(1) ];
-  return [ /\d/, ];
-  // return [ /^[A-Z][a-z]+[,.'-]?(?: [A-Z][a-z]+[,.'-]?)*$/, ];
-}
+// Begin mask project
 
-const numberMask = createNumberMask({
-  // ref: https://github.com/text-mask/text-mask/tree/master/addons#usage
-  prefix: '',
-  suffix: ' $' // This will put the dollar sign at the end, with a space.
-})
+// const getArrayOfCharsFromStr = word => {
+//   const emptyString = '';
+//   const out = word.split(emptyString);
+//   return out;
+// }
+// const getLastCharOfStr = word => {
+//   const allLetters = getArrayOfCharsFromStr(word);
+//   const lastLetter = allLetters.pop();
+//   return lastLetter;
+// }
+
+// const getTitleMask = ( rawValue, {currentCaretPosition=0, placeholderChar='', previousConformedValue=''}, ) => {
+//   // console.log('Hello world');
+//   // console.log('rawValue\n', rawValue,);
+//   const capitalRe = /[A-Z]/;
+//   const lowercaseRe = /[a-z]/;
+//   const whitespaceRe = /\s/;
+//   const whitespace = ' ';
+   
+//   let out = [];
+//   const arrayOfWords = rawValue.split(whitespace); // [ 'John', 'Doe', ]
+//   let i = 0;
+//   arrayOfWords.forEach( (word, wordIndex,) => {
+//     const arrayOfLetters = getArrayOfCharsFromStr(word); // [ 'D', 'o', 'e', ]
+//     arrayOfLetters.forEach( (letter, letterIndex,) => {
+//       out[i++] = !!letterIndex ? lowercaseRe : capitalRe;
+//     })
+//   })
+//   // const lastLetter = getLastCharOfStr(rawValue);
+//   // if(lastLetter === whitespace) out.push(whitespaceRe);
+//   out.push(whitespaceRe);
+//   console.log('currentCaretPosition\n', currentCaretPosition,);
+//   return out;
+// }
+
+// const getTitlePipe = (
+//   conformingValue, // params,
+//   {
+//     rawValue = "",
+//     previousConformedValue = null,
+//     guide = false,
+//     placeholder = "",
+//     placeholderChar = " ",
+//     currentCaretPosition = 0,
+//     keepCharPositions = false,
+//   },
+// ) => {
+//   // console.log( 'params\n', params, );
+//   console.log( 'rawValue\n', rawValue, );
+//   console.log( 'conformingValue\n', conformingValue, );
+//   console.log( 'currentCaretPosition\n', currentCaretPosition, );
+//   console.log( 'previousConformedValue\n', previousConformedValue, );
+//   const emptyString = '';
+//   const whitespace = ' ';
+//   const stem = _.startCase(_.toLower(params.rawValue));
+//   const lastRawChar = getLastCharOfStr(params.rawValue);
+//   const lastChar = (lastRawChar === whitespace) ? whitespace : emptyString;
+//   const out = `${stem}${lastChar}`;
+//   console.log( 'currentCaretPosition\n', currentCaretPosition, );
+//   return out;
+//   // // test // https://lodash.com/docs/4.17.15#startCase
+//   // const a = [
+//   //   "MacAfee", "McAfee", "Martin Luther King, Jr.", "Betty d'Angelo", " One space", "  Two spaces ",
+//   //   "Alice Worthington-Smythe", "Betty D'Angelo", "Charlie Van der Humpton", "Ben & Jerry", "Sierra O'Neil",
+//   //   '--foo-bar--', 'fooBar', '__FOO_BAR__', 'FOO BAR', 'This string ShouLD be ALL in title CASe',
+//   //   'myString', 'my_string', 'MY_STRING', 'my string', 'My string', "a Simple string",
+//   //   "I’m a little tea pot", "I’m a little tea pot", "I’m A Little Tea Pot", "sHoRt AnD sToUt", "Short And Stout", "HERE IS MY HANDLE HERE IS MY SPOUT", "Here Is My Handle Here Is My Spout",  
+//   // ];
+//   // const result1 = a.map( s => _.startCase(_.camelCase(s)));
+//   // const result2 = a.map( s => _.startCase(_.toLower(s)));
+//   // [result1, result2,]
+// }
+
+const nullFunc = () => {}
+
+const numberMask = createNumberMask(); // use all defaults (see below for default values and link to source code)
+// or we can use below if we need to modify any parameters: prefix, suffix, includeThousandsSeparator, thousandsSeparatorSymbol, allowDecimal, decimalSymbol, decimalLimit, requireDecimal, allowNegative, allowLeadingZeroes, integerLimit
+// const numberMask = createNumberMask({
+//   // ref: https://github.com/text-mask/text-mask/tree/master/addons#usage
+//   // ref: parameters and defaults >
+//   // https://github.com/text-mask/text-mask/blob/master/addons/src/createNumberMask.js
+//   // prefix = dollarSign, suffix = emptyString, includeThousandsSeparator = true, thousandsSeparatorSymbol = comma, allowDecimal = false, decimalSymbol = period, decimalLimit = 2, requireDecimal = false, allowNegative = false, allowLeadingZeroes = false, integerLimit = null
+//   prefix: '$', // default
+//   suffix: '', // default
+// })
 
 const masksConfig = {
-  // ref: https://www.npmjs.com/package/react-text-mask
-  // ref: https://github.com/text-mask/text-mask/blob/master/componentDocumentation.md#readme
-  // title: [ /^[a-z ,.'-]+$/, ], // ref: https://stackoverflow.com/a/2385967
-  // title: [ /^[A-Z][a-z]+[,.'-]?(?: [A-Z][a-z]+[,.'-]?)*$/, ], // ref: https://stackoverflow.com/a/57921308
-  // title: [ /^[A-Z]/, /[a-z]*/, ' ', /^[A-Z]/, /[a-z]*/, ],
-  // title: getTitleMask(),
-  title: getTitleMask,
-  // title: [ '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, ],
+  // ref: https://www.npmjs.com/package/react-text-mask | https://github.com/text-mask/text-mask/blob/master/componentDocumentation.md#readme
+  // title: getTitleMask,
+  title: null,
   phone: [ '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, ],
-  email: emailMask, // add-ons ref: https://github.com/text-mask/text-mask/tree/master/addons/#readme
-  number: numberMask, // add-ons ref: https://github.com/text-mask/text-mask/tree/master/addons/#readme
+  // add-ons ref: https://github.com/text-mask/text-mask/tree/master/addons/#readme
+  email: emailMask,
+  number: numberMask,
 }
 
+// const pipesConfig = {
+//   // ref: https://www.npmjs.com/package/react-text-mask | https://github.com/text-mask/text-mask/blob/master/componentDocumentation.md#readme
+//   title: getTitlePipe,
+//   phone: nullFunc,
+//   // add-ons ref: https://github.com/text-mask/text-mask/tree/master/addons/#readme
+//   email: nullFunc,
+//   number: nullFunc,
+// }
+
 const getMaskedInput = mask => ({ inputRef, onChange, ...other, }) =>
+// const getMaskedInput = ( mask, pipe, ) => ({ inputRef, onChange, ...other, }) =>
   // ref: src/app/containers/ReactPhoneInputContainer.js
   <MaskedInput
     {...other}
     // showMask
-    mask={mask} // masksConfig pipes here
-    // mask={getTitleMask}
-    // mask={ () => {
-    //   console.log('Hello world');
-    //   return [ /\d/, ];
-    // }}
-    // mask={[ '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, ]}
+    mask={mask}
+    // pipe={pipe}
     guide={false}
+    // keepCharPositions
     placeholderChar={'\u2000'}
     ref={ ref => {
       inputRef(ref ? ref.inputElement : null);
@@ -402,29 +475,30 @@ const formFieldsConfig = {  // notice the 's' at the end of formFields, makes it
   // Deprecated: button|checkbox|color|date|datetime-local|email|file|hidden|image|month|number|password|radio|range|reset|search|submit|tel|text|time|url|week
   // Add new field types to src/app/components/forms/FormTemplate.js > FormTemplate > getConfig()
   // Add new components by importing to this file AppConfig and adding a components property tothe below config object
-  name        : { type : 'text'      , label : 'Name'       , icon : 'account_circle' , mask : 'number' , } ,
-  firstName   : { type : 'text'      , label : 'First name' , icon : 'account_circle' , mask : 'title' , } ,
-  lastName    : { type : 'text'      , label : 'Last name'  , icon : 'account_circle' , mask : 'title' , } ,
-  nickname    : { type : 'text'      , label : 'Nickname'   , icon : 'star'           , mask : 'title' , } ,
-  address     : { type : 'text'      , label : 'Address'    , icon : 'home'           , mask : 'title' , } ,
-  bizCategory : { type : 'select'    , label : 'Type'       , icon : 'extension'      , mask : 'none'  , options: bizCategoryItems, getValueMask: value => getValueMaskBizCategory(value), }, // curry first attempt -- does not work: getValueMask: value => bizCategoryItems => getValueMaskSelectOrMenuOptions(bizCategoryItems, value,), },
-  zipInput    : { type : 'component' , label : 'Zip code'   , icon : 'place'          , mask : 'none'  , component: <ZipCodeInput />, fields: ['city', 'state', 'zip', 'county',],},
-  zip         : { type : 'text'      , label : 'Zip'        , icon : 'place'          , mask : 'zip'   , } ,
-  city        : { type : 'text'      , label : 'City'       , icon : 'place'          , mask : 'title' , } ,
-  state       : { type : 'text'      , label : 'State'      , icon : 'place'          , mask : 'title' , } ,
-  county      : { type : 'text'      , label : 'County'     , icon : 'place'          , mask : 'title' , } ,
-  lat         : { type : 'text'      , label : 'Latitude'   , icon : 'place'          , mask : 'none'  , } ,
-  lon         : { type : 'text'      , label : 'Longitude'  , icon : 'place'          , mask : 'none'  , } ,
-  // phone       : { type : 'text'      , label : 'Phone'      , icon : 'phone'          , mask : 'phone' , } ,
-  // phone       : { type : 'component' , label : 'Phone'      , icon : 'phone'          , mask :  null   , component: <MuiPhoneNumber />, } ,
-  // phone       : { type : 'component' , label : 'Phone'      , icon : 'phone'          , mask : 'none'  , component: <ReactPhoneInputContainer /> } ,
-  // phone       : { type : 'text'      , label : 'Phone'      , icon : 'phone'          , mask : 'none'  , InputProps: {inputComponent: getMaskedInput,},},
-  phone       : { type : 'text'      , label : 'Phone'      , icon : 'phone'          , mask : 'phone' , } ,
-  email       : { type : 'text'      , label : 'Email'      , icon : 'email'          , mask : 'email' , } ,
-  company     : { type : 'text'      , label : 'Company'    , icon : 'domain'         , mask : 'title' , } ,
-  jobTitle    : { type : 'text'      , label : 'Job title'  , icon : 'work'           , mask : 'title' , } ,
-  birthday    : { type : 'date'      , label : 'Birthday'   , icon : 'cake'           , mask : 'date'  , InputLabelProps: {shrink: true,},},
-  notes       : { type : 'text'      , label : 'Notes'      , icon : 'note'           , mask : 'none'  , multiline: true, rows: 5,},
+  name        : { type : 'text'      , label : 'Name'         , icon : 'account_circle' , mask : 'title'  , } ,
+  firstName   : { type : 'text'      , label : 'First name'   , icon : 'account_circle' , mask : 'title'  , } ,
+  lastName    : { type : 'text'      , label : 'Last name'    , icon : 'account_circle' , mask : 'title'  , } ,
+  nickname    : { type : 'text'      , label : 'Nickname'     , icon : 'star'           , mask : 'title'  , } ,
+  address     : { type : 'text'      , label : 'Address'      , icon : 'home'           , mask : 'title'  , } ,
+  price       : { type : 'text'      , label : 'Price'        , icon : 'attach_money'   , mask : 'number' , } ,
+  ask         : { type : 'text'      , label : 'Ask'          , icon : 'attach_money'   , mask : 'number' , } ,
+  bid         : { type : 'text'      , label : 'Bid'          , icon : 'attach_money'   , mask : 'number' , } ,
+  askingPrice : { type : 'text'      , label : 'Asking price' , icon : 'attach_money'   , mask : 'number' , } ,
+  offer       : { type : 'text'      , label : 'Offer'        , icon : 'attach_money'   , mask : 'number' , } ,
+  bizCategory : { type : 'select'    , label : 'Type'         , icon : 'extension'      , mask : 'none'   , options: bizCategoryItems, getValueMask: value => getValueMaskBizCategory(value), }, // curry first attempt -- does not work: getValueMask: value => bizCategoryItems => getValueMaskSelectOrMenuOptions(bizCategoryItems, value,), },
+  zipInput    : { type : 'component' , label : 'Zip code'     , icon : 'place'          , mask : 'none'   , component: <ZipCodeInput />, fields: ['city', 'state', 'zip', 'county',],},
+  zip         : { type : 'text'      , label : 'Zip'          , icon : 'place'          , mask : 'zip'    , } ,
+  city        : { type : 'text'      , label : 'City'         , icon : 'place'          , mask : 'title'  , } ,
+  state       : { type : 'text'      , label : 'State'        , icon : 'place'          , mask : 'title'  , } ,
+  county      : { type : 'text'      , label : 'County'       , icon : 'place'          , mask : 'title'  , } ,
+  lat         : { type : 'text'      , label : 'Latitude'     , icon : 'place'          , mask : 'none'   , } ,
+  lon         : { type : 'text'      , label : 'Longitude'    , icon : 'place'          , mask : 'none'   , } ,
+  phone       : { type : 'text'      , label : 'Phone'        , icon : 'phone'          , mask : 'phone'  , } ,
+  email       : { type : 'text'      , label : 'Email'        , icon : 'email'          , mask : 'email'  , } ,
+  company     : { type : 'text'      , label : 'Company'      , icon : 'domain'         , mask : 'title'  , } ,
+  jobTitle    : { type : 'text'      , label : 'Job title'    , icon : 'work'           , mask : 'title'  , } ,
+  birthday    : { type : 'date'      , label : 'Birthday'     , icon : 'cake'           , mask : 'date'   , InputLabelProps: {shrink: true,},},
+  notes       : { type : 'text'      , label : 'Notes'        , icon : 'note'           , mask : 'none'   , multiline: true, rows: 5,},
 }
 
 export const getFormFieldsConfig = () => {
@@ -434,11 +508,16 @@ export const getFormFieldsConfig = () => {
     
     const mask = out[x].mask;
     const maskConfig = masksConfig[mask];
+    // const pipeConfig = pipesConfig[mask];
 
     const ready1 = !!maskConfig;
     if(!ready1) continue;
 
-    out[x].InputProps = { inputComponent: getMaskedInput(maskConfig), };
+    // const ready2 = !!pipeConfig;
+    // if(!ready2) continue;
+
+    out[x].InputProps = { inputComponent: getMaskedInput(maskConfig,), };
+    // out[x].InputProps = { inputComponent: getMaskedInput(maskConfig, pipeConfig,), };
   }
   // console.log('out\n', out,);
   return out;
