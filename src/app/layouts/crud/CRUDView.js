@@ -186,7 +186,7 @@ class CRUDView extends Component {
     // });
     
     const { id, value, } = target;
-    console.log('value\n', value,);
+    // console.log('value\n', value,);
     // let id, value;
     // if ( event.target && event.target.id && event.target.value ) {
     //   id = event.target.id;

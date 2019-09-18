@@ -397,15 +397,15 @@ export const getValueMaskBizCategory = value => { // home
 //   console.log( 'previousConformedValue\n', previousConformedValue, );
 //   const emptyString = '';
 //   const whitespace = ' ';
-//   const stem = _.startCase(_.toLower(params.rawValue));
-//   const lastRawChar = getLastCharOfStr(params.rawValue);
+//   const stem = _.startCase(_.toLower(rawValue));
+//   const lastRawChar = getLastCharOfStr(rawValue);
 //   const lastChar = (lastRawChar === whitespace) ? whitespace : emptyString;
 //   const out = `${stem}${lastChar}`;
 //   console.log( 'currentCaretPosition\n', currentCaretPosition, );
 //   return out;
 //   // // test // https://lodash.com/docs/4.17.15#startCase
 //   // const a = [
-//   //   "MacAfee", "McAfee", "Martin Luther King, Jr.", "Betty d'Angelo", " One space", "  Two spaces ",
+//   //   "GERALD P. HENDON", "MacAfee", "McAfee", "Martin Luther King, Jr.", "Betty d'Angelo", " One space", "  Two spaces ",
 //   //   "Alice Worthington-Smythe", "Betty D'Angelo", "Charlie Van der Humpton", "Ben & Jerry", "Sierra O'Neil",
 //   //   '--foo-bar--', 'fooBar', '__FOO_BAR__', 'FOO BAR', 'This string ShouLD be ALL in title CASe',
 //   //   'myString', 'my_string', 'MY_STRING', 'my string', 'My string', "a Simple string",
@@ -429,7 +429,7 @@ const numberMask = createNumberMask(); // use all defaults (see below for defaul
 
 const masksConfig = {
   // ref: https://www.npmjs.com/package/react-text-mask | https://github.com/text-mask/text-mask/blob/master/componentDocumentation.md#readme
-  // title: getTitleMask,
+  // title: getTitleMask, // deprecated. causes cursor jumping bug; mask display on read with: _.startCase(_.toLower(rawValue)); // https://www.mutuallyhuman.com/blog/the-curious-case-of-cursor-jumping/ // http://dimafeldman.com/js/maintain-cursor-position-after-changing-an-input-value-programatically/
   title: null,
   phone: [ '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, ],
   // add-ons ref: https://github.com/text-mask/text-mask/tree/master/addons/#readme
@@ -995,6 +995,8 @@ export const getComponentsNavConfig = props => {
 
   const geoLocationKey = [ geoNation, geoRegion, geoLocal, ].join(' | ');
   const geoLocationTypeKey = [ geoLocationKey, bizCategory, ].join(' | ');
+  const valueMaskBizCategory = getValueMaskBizCategory(bizCategory);
+  const valueMaskBizCategoryItem = getValueMaskBizCategory(item && item.bizCategory);
     
     // import { componentsNavConfig, } from 'app/config/AppConfig';
     // * Note: It is currently not possible to use expressions like `loader : () => import(item.path)`
@@ -1091,9 +1093,9 @@ export const getComponentsNavConfig = props => {
           ],
           visibleFields: [ 'bizCategory', 'zipInput', ], // 'name', 'notes', 'email', 'phone',
           // listPaneHeaderText: '',
-          listPaneHeaderChips: [ getValueMaskBizCategory(bizCategory), geoLocal, geoRegion, geoNation, ],
+          listPaneHeaderChips: [ valueMaskBizCategory, geoLocal, geoRegion, geoNation, ],
           itemSummary: {
-            // primaryText: getValueMaskBizCategory(item && item.bizCategory), // || item.geoLocal,
+            // primaryText: valueMaskBizCategoryItem, // || item.geoLocal,
             // primaryText: <Chip label={item && item.zip && item.zip.city} />,
             // primaryChips: [ (item && item.zip && item.zip.city), ],
             primaryText: moment(item.createdAt).fromNow(),
@@ -1232,9 +1234,9 @@ export const getComponentsNavConfig = props => {
           ],
           itemSummary: {
             primaryText: item && item.name, // item.bizCategory && _.filter(bizCategoryItems, {value:item.bizCategory,},)[0].label, // || item.geoLocal,
-            // secondaryText: `${item && getValueMaskBizCategory(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
+            // secondaryText: `${valueMaskBizCategoryItem} in ${item && item.local}` // moment(item.createdAt).fromNow(),
             secondaryChips: [
-              (item && getValueMaskBizCategory(item.bizCategory,)),
+              valueMaskBizCategoryItem,
               (item && item.zipInput && item.zipInput.city),
               // moment(item.createdAt).fromNow(),
             ],
@@ -1378,9 +1380,9 @@ export const getComponentsNavConfig = props => {
           orderBy: [ 'createdAt', 'desc', ],
           itemSummary: {
             primaryText: item && item.name, // item.bizCategory && _.filter(bizCategoryItems, {value:item.bizCategory,},)[0].label, // || item.geoLocal,
-            // secondaryText: `${item && getValueMaskBizCategory(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
+            // secondaryText: `${valueMaskBizCategoryItem} in ${item && item.local}` // moment(item.createdAt).fromNow(),
             secondaryChips: [
-              (item && getValueMaskBizCategory(item.bizCategory,)),
+              valueMaskBizCategoryItem,
               (item && item.zipInput && item.zipInput.city),
               // moment(item.createdAt).fromNow(),
             ],
@@ -1462,9 +1464,9 @@ export const getComponentsNavConfig = props => {
           orderBy: [ 'createdAt', 'desc', ] ,
           itemSummary: {
             primaryText: item && item.name, // item.bizCategory && _.filter(bizCategoryItems, {value:item.bizCategory,},)[0].label, // || item.geoLocal,
-            // secondaryText: `${item && getValueMaskBizCategory(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
+            // secondaryText: `${valueMaskBizCategoryItem} in ${item && item.local}` // moment(item.createdAt).fromNow(),
             secondaryChips: [
-              (item && getValueMaskBizCategory(item.bizCategory,)),
+              valueMaskBizCategoryItem,
               // (item && item.zipInput && item.zipInput.city),
               // moment(item.createdAt).fromNow(),
             ],
@@ -1546,9 +1548,9 @@ export const getComponentsNavConfig = props => {
           orderBy: [ 'createdAt', 'desc', ] ,
           itemSummary: {
             primaryText: item && item.name, // item.bizCategory && _.filter(bizCategoryItems, {value:item.bizCategory,},)[0].label, // || item.geoLocal,
-            // secondaryText: `${item && getValueMaskBizCategory(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
+            // secondaryText: `${valueMaskBizCategoryItem} in ${item && item.local}` // moment(item.createdAt).fromNow(),
             secondaryChips: [
-              (item && getValueMaskBizCategory(item.bizCategory,)),
+              valueMaskBizCategoryItem,
               // (item && item.zipInput && item.zipInput.city),
               // moment(item.createdAt).fromNow(),
             ],
@@ -1597,9 +1599,9 @@ export const getComponentsNavConfig = props => {
           orderBy: [ 'createdAt', 'desc', ] ,
           itemSummary: {
             primaryText: item && item.name, // item.bizCategory && _.filter(bizCategoryItems, {value:item.bizCategory,},)[0].label, // || item.geoLocal,
-            // secondaryText: `${item && getValueMaskBizCategory(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
+            // secondaryText: `${valueMaskBizCategoryItem} in ${item && item.local}` // moment(item.createdAt).fromNow(),
             secondaryChips: [
-              (item && getValueMaskBizCategory(item.bizCategory,)),
+              valueMaskBizCategoryItem,
               // (item && item.zipInput && item.zipInput.city),
               // moment(item.createdAt).fromNow(),
             ],
@@ -1648,9 +1650,9 @@ export const getComponentsNavConfig = props => {
           orderBy: [ 'createdAt', 'desc', ] ,
           itemSummary: {
             primaryText: item && item.name, // item.bizCategory && _.filter(bizCategoryItems, {value:item.bizCategory,},)[0].label, // || item.geoLocal,
-            // secondaryText: `${item && getValueMaskBizCategory(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
+            // secondaryText: `${valueMaskBizCategoryItem} in ${item && item.local}` // moment(item.createdAt).fromNow(),
             secondaryChips: [
-              (item && getValueMaskBizCategory(item.bizCategory,)),
+              valueMaskBizCategoryItem,
               // (item && item.zipInput && item.zipInput.city),
               // moment(item.createdAt).fromNow(),
             ],
@@ -1699,9 +1701,9 @@ export const getComponentsNavConfig = props => {
           orderBy: [ 'createdAt', 'desc', ] ,
           itemSummary: {
             primaryText: item && item.name, // item.bizCategory && _.filter(bizCategoryItems, {value:item.bizCategory,},)[0].label, // || item.geoLocal,
-            // secondaryText: `${item && getValueMaskBizCategory(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
+            // secondaryText: `${valueMaskBizCategoryItem} in ${item && item.local}` // moment(item.createdAt).fromNow(),
             secondaryChips: [
-              (item && getValueMaskBizCategory(item.bizCategory,)),
+              valueMaskBizCategoryItem,
               // (item && item.zipInput && item.zipInput.city),
               // moment(item.createdAt).fromNow(),
             ],
@@ -1750,9 +1752,9 @@ export const getComponentsNavConfig = props => {
           orderBy: [ 'createdAt', 'desc', ] ,
           itemSummary: {
             primaryText: item && item.name, // item.bizCategory && _.filter(bizCategoryItems, {value:item.bizCategory,},)[0].label, // || item.geoLocal,
-            // secondaryText: `${item && getValueMaskBizCategory(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
+            // secondaryText: `${valueMaskBizCategoryItem} in ${item && item.local}` // moment(item.createdAt).fromNow(),
             secondaryChips: [
-              (item && getValueMaskBizCategory(item.bizCategory,)),
+              valueMaskBizCategoryItem,
               // (item && item.zipInput && item.zipInput.city),
               // moment(item.createdAt).fromNow(),
             ],
@@ -1801,9 +1803,9 @@ export const getComponentsNavConfig = props => {
           orderBy: [ 'createdAt', 'desc', ] ,
           itemSummary: {
             primaryText: item && item.name, // item.bizCategory && _.filter(bizCategoryItems, {value:item.bizCategory,},)[0].label, // || item.geoLocal,
-            // secondaryText: `${item && getValueMaskBizCategory(item.bizCategory)} in ${item && item.local}` // moment(item.createdAt).fromNow(),
+            // secondaryText: `${valueMaskBizCategoryItem} in ${item && item.local}` // moment(item.createdAt).fromNow(),
             secondaryChips: [
-              (item && getValueMaskBizCategory(item.bizCategory,)),
+              valueMaskBizCategoryItem,
               // (item && item.zipInput && item.zipInput.city),
               // moment(item.createdAt).fromNow(),
             ],
