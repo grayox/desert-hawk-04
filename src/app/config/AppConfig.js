@@ -416,8 +416,6 @@ export const getValueMaskBizCategory = value => { // home
 //   // [result1, result2,]
 // }
 
-const nullFunc = () => {}
-
 const numberMask = createNumberMask(); // use all defaults (see below for default values and link to source code)
 // or we can use below if we need to modify any parameters: prefix, suffix, includeThousandsSeparator, thousandsSeparatorSymbol, allowDecimal, decimalSymbol, decimalLimit, requireDecimal, allowNegative, allowLeadingZeroes, integerLimit
 // const numberMask = createNumberMask({
@@ -442,10 +440,10 @@ const masksConfig = {
 // const pipesConfig = {
 //   // ref: https://www.npmjs.com/package/react-text-mask | https://github.com/text-mask/text-mask/blob/master/componentDocumentation.md#readme
 //   title: getTitlePipe,
-//   phone: nullFunc,
+//   phone: null,
 //   // add-ons ref: https://github.com/text-mask/text-mask/tree/master/addons/#readme
-//   email: nullFunc,
-//   number: nullFunc,
+//   email: null,
+//   number: null,
 // }
 
 const getMaskedInput = mask => ({ inputRef, onChange, ...other, }) =>
