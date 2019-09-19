@@ -97,6 +97,8 @@ const INITIAL_STATE = {
   ...INITIAL_STATE_SNACKBAR,
 }
 
+const SNACKBAR_MESSAGE = 'Sending';
+
 class CRUDView extends Component {
 
   state = INITIAL_STATE;
@@ -128,12 +130,12 @@ class CRUDView extends Component {
     const crudFormTimestamp = Date.now();
     const crudFormIdHash = getIdHash(this.props.profile.uid, crudFormTimestamp,);
     const out = {
-      crudFormIdHash              ,
-      crudFormTimestamp           ,
-      createDialogIsOpen : true   ,
-      updateDialogIsOpen : false  ,
-      deleteDialogIsOpen : false  ,
-      actionDialogIsOpen : false  ,
+      crudFormIdHash             ,
+      crudFormTimestamp          ,
+      createDialogIsOpen : true  ,
+      updateDialogIsOpen : false ,
+      deleteDialogIsOpen : false ,
+      actionDialogIsOpen : false ,
     }
     // console.log('out\n', out,);
     return out;
@@ -264,7 +266,7 @@ class CRUDView extends Component {
     handleCloseDialog();
     // handleRefresh();
     // handleOpenSnackbar('Item created');
-    handleOpenSnackbar('Processing...');
+    handleOpenSnackbar(SNACKBAR_MESSAGE);
   }
   
   handleUpdateItem = () => {
@@ -294,7 +296,7 @@ class CRUDView extends Component {
     handleCloseDialog();
     // handleRefresh();
     // handleOpenSnackbar('Item updated');
-    handleOpenSnackbar('Processing...');
+    handleOpenSnackbar(SNACKBAR_MESSAGE);
   }
 
   handleDeleteItem = () => {
@@ -313,7 +315,7 @@ class CRUDView extends Component {
     handleCloseDialog();
     // handleRefresh();
     // handleOpenSnackbar('Item deleted');
-    handleOpenSnackbar('Processing...');
+    handleOpenSnackbar(SNACKBAR_MESSAGE);
   }
 
   handleListItemClick = ( event, selectedIndex, ) => {
@@ -360,7 +362,7 @@ class CRUDView extends Component {
 
     // handleRefresh();
     // handleOpenSnackbar('Action complete');
-    handleOpenSnackbar('Processing...');
+    handleOpenSnackbar(SNACKBAR_MESSAGE);
   }
 
   handleToggle = ( detail, side, selectedIndex, ) => {

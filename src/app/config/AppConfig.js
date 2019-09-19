@@ -429,11 +429,36 @@ const numberMask = createNumberMask(); // use all defaults (see below for defaul
 //   suffix: '', // default
 // })
 
+const dash = '-';
+const leftParen = '(';
+const rightParen = ')';
+const whitespace = ' ';
+const digitRe = /\d/;
+const nonZeroDigitRe = /[1-9]/;
+const phoneRe = /^\([1-9]\d{2}\)\s\d{3}-\d{4}$/; // https://regex101.com/r/mrvZZC/1
+const emailRe = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; // https://www.w3resource.com/javascript/form/email-validation.php // https://regex101.com/r/sKxhYp/1
+const titleRe = /^[a-zA-Z\s]+$/; // https://www.w3resource.com/javascript/form/letters-numbers-field.php // https://regex101.com/r/fCsBHm/1
+const matchAllRe = /^.*$/; // matches all characters (.) zero or more times (*) 
+const phoneMask = [
+  leftParen, nonZeroDigitRe, digitRe, digitRe, rightParen, whitespace, // '(212) '
+  digitRe, digitRe, digitRe, dash, digitRe, digitRe, digitRe, digitRe, // '555-1212'
+]
+
+const getVerification = ( target=matchAllRe, data, ) => target.test(data) // verify field input
+
+const validationConfig = {
+  title  : titleRe    ,
+  phone  : phoneRe    ,
+  email  : emailRe    ,
+  number : matchAllRe ,
+}
+
 const masksConfig = {
   // ref: https://www.npmjs.com/package/react-text-mask | https://github.com/text-mask/text-mask/blob/master/componentDocumentation.md#readme
   // title: getTitleMask, // deprecated. causes cursor jumping bug; mask display on read with: _.startCase(_.toLower(rawValue)); // https://www.mutuallyhuman.com/blog/the-curious-case-of-cursor-jumping/ // http://dimafeldman.com/js/maintain-cursor-position-after-changing-an-input-value-programatically/
   title: null,
-  phone: [ '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, ],
+  // phone: [ '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, ],
+  phone: phoneMask,
   // add-ons ref: https://github.com/text-mask/text-mask/tree/master/addons/#readme
   email: emailMask,
   number: numberMask,
@@ -648,6 +673,18 @@ export const replaceFormFieldLabelWithKeyId = formFieldLabel =>
 
 export const replaceFormFieldsLabelArrayWithKeyIds = formFieldLabels =>
   formFieldLabels.map( label => replaceFormFieldLabelWithKeyId(label,) )
+
+const getOnlyNumbers = ( s, convertStringToNumber=false, ) => {
+  // const convertStringToNumber = false;
+  // const s = 'SJQF5DzIVzgIAYZsWXNKc8i83BxKTb2bBM98ha5zIJkORJZLyAOTNXHO4q8Gn03WQmFwdLuinkO8VVaXKtv7eZ35FBfzrCJtubStzwvkl1vSPaylHAD7baCYZwFOPzGsXTV7FgfzYdCTJNVD2GgmJUWbzoNcHLNceOcwg0gyUYRtaz9CsOq2V2022Mo1vKgM3xNNd1TjgNxnWya4FGTOsdjeFL6th7HrHd4DmIgF5uRjA6VbE1Aq0eja6zr3MIk2NTsMvoH1fRKDodkyb995zYoSpw4cBKUpjQ4PoqSk2T9oxGm3c2msleeOF4aCe7fxM32KSdPSxjH3fdLEbFFFRZhzu3wsmiA6Twi3aVcXrjfRIjZmlSln4J6YCaCxv5ygDjFJ6tVHCOOjMNJy';
+  const nonDigitRe = /\D/;
+  const emptyString = '';
+  const a = s.split(nonDigitRe);
+  let out = a.join(emptyString);
+  if(convertStringToNumber) out = parseInt(out);
+  // console.log('out\n', out,);
+  return out;
+}
 
 const getOnlyAlpha = s => {
   // s: string: 'name*'
@@ -946,10 +983,14 @@ export const getCreateItem = ({
     createdAt: crudFormTimestamp,
   };
 
-  crudForm.forEach(item => {
-    let newVal = item.value;
-    if (newVal === undefined || newVal === null) return; // newVal = null; //
-    newItem[item.id] = newVal;
+  crudForm.forEach( item => {
+    console.log('item\n', item,);
+    const { value, mask, id, } = item;
+    if (value === undefined || value === null) return; // value = null; //
+    const target = validationConfig[mask];
+    const verified = getVerification(target, value,);
+    console.log('verified\n', verified,);
+    newItem[id] = value;
   });
 
   // // console.log('path\n', path,);
@@ -959,7 +1000,7 @@ export const getCreateItem = ({
   // // console.log('settings\n', settings,);
   // console.log('newItem\n', newItem,);
   // console.log('creatable\n', creatable,);
-  createItem(newItem, creatable); // uid, settings, path, dashboard,
+  createItem(newItem, creatable,); // uid, settings, path, dashboard,
   // this.props.history.push('/');
 }
 
@@ -1311,7 +1352,7 @@ export const getComponentsNavConfig = props => {
         creatable: {
           title: 'Send new referral', // form: <UserMultiForm />,
           path: 'leads',
-          fields: [ 'name*', 'bizCategory*', 'email*', 'phone*', 'zipInput*', 'notes', ], // 'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
+          fields: [ 'name*', 'bizCategory*', 'email*', 'phone*', 'zipInput*', 'price', 'notes', ], // 'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
           addOns: {
             // createdAt: 'timestamp', // added in cred.actions at save time
             createdBy: uid,
