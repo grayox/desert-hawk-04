@@ -435,28 +435,38 @@ const rightParen = ')';
 const whitespace = ' ';
 const digitRe = /\d/;
 const nonZeroDigitRe = /[1-9]/;
+const zipRe = /^\d{5}$/;
 const phoneRe = /^\([1-9]\d{2}\)\s\d{3}-\d{4}$/; // https://regex101.com/r/mrvZZC/1
-const emailRe = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; // https://www.w3resource.com/javascript/form/email-validation.php // https://regex101.com/r/sKxhYp/1
-const titleRe = /^[a-zA-Z\s]+$/; // https://www.w3resource.com/javascript/form/letters-numbers-field.php // https://regex101.com/r/fCsBHm/1
+const emailRe = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/; // https://www.w3resource.com/javascript/form/email-validation.php // https://regex101.com/r/sKxhYp/2
+const lettersOnlyRe = /^[a-zA-Z\s]+$/; // https://www.w3resource.com/javascript/form/letters-numbers-field.php // https://regex101.com/r/fCsBHm/1
 const matchAllRe = /^.*$/; // matches all characters (.) zero or more times (*) 
+const getZipInputValidation = data => typeof data === 'object'
 const phoneMask = [
   leftParen, nonZeroDigitRe, digitRe, digitRe, rightParen, whitespace, // '(212) '
   digitRe, digitRe, digitRe, dash, digitRe, digitRe, digitRe, digitRe, // '555-1212'
 ]
 
-const getVerification = ( target=matchAllRe, data, ) => target.test(data) // verify field input
+const getValidation = ( target=matchAllRe, data, ) => {
+  // validate field input
+  if(target instanceof RegExp) return target.test(data); // test regular expression
+  if(typeof target === 'function') return target(data); // run validator function
+}
 
 const validationConfig = {
-  title  : titleRe    ,
-  phone  : phoneRe    ,
-  email  : emailRe    ,
-  number : matchAllRe ,
+  zip         : zipRe                 ,
+  zipInput    : getZipInputValidation ,
+  lettersOnly : lettersOnlyRe         ,
+  matchAll    : matchAllRe            ,
+  phone       : phoneRe               ,
+  email       : emailRe               ,
+  number      : matchAllRe            ,
 }
 
 const masksConfig = {
   // ref: https://www.npmjs.com/package/react-text-mask | https://github.com/text-mask/text-mask/blob/master/componentDocumentation.md#readme
   // title: getTitleMask, // deprecated. causes cursor jumping bug; mask display on read with: _.startCase(_.toLower(rawValue)); // https://www.mutuallyhuman.com/blog/the-curious-case-of-cursor-jumping/ // http://dimafeldman.com/js/maintain-cursor-position-after-changing-an-input-value-programatically/
-  title: null,
+  // title: null,
+  textOnly: null,
   // phone: [ '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, ],
   phone: phoneMask,
   // add-ons ref: https://github.com/text-mask/text-mask/tree/master/addons/#readme
@@ -500,30 +510,30 @@ const formFieldsConfig = {  // notice the 's' at the end of formFields, makes it
   // Deprecated: button|checkbox|color|date|datetime-local|email|file|hidden|image|month|number|password|radio|range|reset|search|submit|tel|text|time|url|week
   // Add new field types to src/app/components/forms/FormTemplate.js > FormTemplate > getConfig()
   // Add new components by importing to this file AppConfig and adding a components property tothe below config object
-  name        : { type : 'text'      , label : 'Name'         , icon : 'account_circle' , mask : 'title'  , } ,
-  firstName   : { type : 'text'      , label : 'First name'   , icon : 'account_circle' , mask : 'title'  , } ,
-  lastName    : { type : 'text'      , label : 'Last name'    , icon : 'account_circle' , mask : 'title'  , } ,
-  nickname    : { type : 'text'      , label : 'Nickname'     , icon : 'star'           , mask : 'title'  , } ,
-  address     : { type : 'text'      , label : 'Address'      , icon : 'home'           , mask : 'title'  , } ,
-  price       : { type : 'text'      , label : 'Price'        , icon : 'attach_money'   , mask : 'number' , } ,
-  ask         : { type : 'text'      , label : 'Ask'          , icon : 'attach_money'   , mask : 'number' , } ,
-  bid         : { type : 'text'      , label : 'Bid'          , icon : 'attach_money'   , mask : 'number' , } ,
-  askingPrice : { type : 'text'      , label : 'Asking price' , icon : 'attach_money'   , mask : 'number' , } ,
-  offer       : { type : 'text'      , label : 'Offer'        , icon : 'attach_money'   , mask : 'number' , } ,
-  bizCategory : { type : 'select'    , label : 'Type'         , icon : 'extension'      , mask : 'none'   , options: bizCategoryItems, getValueMask: value => getValueMaskBizCategory(value), }, // curry first attempt -- does not work: getValueMask: value => bizCategoryItems => getValueMaskSelectOrMenuOptions(bizCategoryItems, value,), },
-  zipInput    : { type : 'component' , label : 'Zip code'     , icon : 'place'          , mask : 'none'   , component: <ZipCodeInput />, fields: ['city', 'state', 'zip', 'county',],},
-  zip         : { type : 'text'      , label : 'Zip'          , icon : 'place'          , mask : 'zip'    , } ,
-  city        : { type : 'text'      , label : 'City'         , icon : 'place'          , mask : 'title'  , } ,
-  state       : { type : 'text'      , label : 'State'        , icon : 'place'          , mask : 'title'  , } ,
-  county      : { type : 'text'      , label : 'County'       , icon : 'place'          , mask : 'title'  , } ,
-  lat         : { type : 'text'      , label : 'Latitude'     , icon : 'place'          , mask : 'none'   , } ,
-  lon         : { type : 'text'      , label : 'Longitude'    , icon : 'place'          , mask : 'none'   , } ,
-  phone       : { type : 'text'      , label : 'Phone'        , icon : 'phone'          , mask : 'phone'  , } ,
-  email       : { type : 'text'      , label : 'Email'        , icon : 'email'          , mask : 'email'  , } ,
-  company     : { type : 'text'      , label : 'Company'      , icon : 'domain'         , mask : 'title'  , } ,
-  jobTitle    : { type : 'text'      , label : 'Job title'    , icon : 'work'           , mask : 'title'  , } ,
-  birthday    : { type : 'date'      , label : 'Birthday'     , icon : 'cake'           , mask : 'date'   , InputLabelProps: {shrink: true,},},
-  notes       : { type : 'text'      , label : 'Notes'        , icon : 'note'           , mask : 'none'   , multiline: true, rows: 5,},
+  name        : { type : 'text'      , label : 'Name'         , icon : 'account_circle' , mask : 'lettersOnly' , } ,
+  firstName   : { type : 'text'      , label : 'First name'   , icon : 'account_circle' , mask : 'lettersOnly' , } ,
+  lastName    : { type : 'text'      , label : 'Last name'    , icon : 'account_circle' , mask : 'lettersOnly' , } ,
+  nickname    : { type : 'text'      , label : 'Nickname'     , icon : 'star'           , mask : 'lettersOnly' , } ,
+  address     : { type : 'text'      , label : 'Address'      , icon : 'home'           , mask : 'lettersOnly' , } ,
+  price       : { type : 'text'      , label : 'Price'        , icon : 'attach_money'   , mask : 'number'      , } ,
+  ask         : { type : 'text'      , label : 'Ask'          , icon : 'attach_money'   , mask : 'number'      , } ,
+  bid         : { type : 'text'      , label : 'Bid'          , icon : 'attach_money'   , mask : 'number'      , } ,
+  askingPrice : { type : 'text'      , label : 'Asking price' , icon : 'attach_money'   , mask : 'number'      , } ,
+  offer       : { type : 'text'      , label : 'Offer'        , icon : 'attach_money'   , mask : 'number'      , } ,
+  bizCategory : { type : 'select'    , label : 'Type'         , icon : 'extension'      , mask : 'lettersOnly' , options: bizCategoryItems, getValueMask: value => getValueMaskBizCategory(value), }, // curry first attempt -- does not work: getValueMask: value => bizCategoryItems => getValueMaskSelectOrMenuOptions(bizCategoryItems, value,), },
+  zipInput    : { type : 'component' , label : 'Zip code'     , icon : 'place'          , mask : 'zipInput'    , component: <ZipCodeInput />, fields: ['city', 'state', 'zip', 'county',],},
+  zip         : { type : 'text'      , label : 'Zip'          , icon : 'place'          , mask : 'zip'         , } ,
+  city        : { type : 'text'      , label : 'City'         , icon : 'place'          , mask : 'lettersOnly' , } ,
+  state       : { type : 'text'      , label : 'State'        , icon : 'place'          , mask : 'lettersOnly' , } ,
+  county      : { type : 'text'      , label : 'County'       , icon : 'place'          , mask : 'lettersOnly' , } ,
+  lat         : { type : 'text'      , label : 'Latitude'     , icon : 'place'          , mask : 'matchAll'    , } ,
+  lon         : { type : 'text'      , label : 'Longitude'    , icon : 'place'          , mask : 'matchAll'    , } ,
+  phone       : { type : 'text'      , label : 'Phone'        , icon : 'phone'          , mask : 'phone'       , } ,
+  email       : { type : 'text'      , label : 'Email'        , icon : 'email'          , mask : 'email'       , } ,
+  company     : { type : 'text'      , label : 'Company'      , icon : 'domain'         , mask : 'lettersOnly' , } ,
+  jobTitle    : { type : 'text'      , label : 'Job title'    , icon : 'work'           , mask : 'lettersOnly' , } ,
+  birthday    : { type : 'date'      , label : 'Birthday'     , icon : 'cake'           , mask : 'date'        , InputLabelProps: {shrink: true,},},
+  notes       : { type : 'text'      , label : 'Notes'        , icon : 'note'           , mask : 'matchAll'    , multiline: true, rows: 5,},
 }
 
 export const getFormFieldsConfig = () => {
@@ -973,6 +983,15 @@ export const getAlert = ( dashboard, content, ) => {
 export const getCreateItem = ({
   e, crudForm, crudFormTimestamp, crudFormIdHash, createItem, creatable,
 }) => {
+  const errors = {};
+  const REQUIRED = 'REQUIRED';
+  const VALIDATE = 'VALIDATE';
+
+  const mergeArray = (o, prop, data,) => {
+    if(!Array.isArray(o[prop])) o[prop] = [];
+    return o[prop].push(data);
+  }
+  
   // inspired by: src/app/components/forms/CreateLead.js
   e.preventDefault();
   // console.log(this.state);
@@ -985,13 +1004,28 @@ export const getCreateItem = ({
 
   crudForm.forEach( item => {
     console.log('item\n', item,);
-    const { value, mask, id, } = item;
+    const { value: rawValue, mask, id, required, } = item;
+    let value = rawValue;
     if (value === undefined || value === null) return; // value = null; //
+
+    // validate
     const target = validationConfig[mask];
-    const verified = getVerification(target, value,);
-    console.log('verified\n', verified,);
+    console.log('target\n', target,);
+    const validated = getValidation(target, value,);
+    console.log('validated\n', validated,);
+    if(!validated) mergeArray( errors, id, VALIDATE, );
+
+    // required
+    if(required && !value.length) mergeArray( errors, id, REQUIRED, );
+
+    // extract numbers where appropriate
+    if(mask === 'number') value = getOnlyNumbers(value, true,);
+
     newItem[id] = value;
   });
+
+  console.log('errors\n', errors,);
+  if(!_.isEmpty(errors)) return errors;
 
   // // console.log('path\n', path,);
   // // console.log('profile\n', profile,);
@@ -1002,6 +1036,7 @@ export const getCreateItem = ({
   // console.log('creatable\n', creatable,);
   createItem(newItem, creatable,); // uid, settings, path, dashboard,
   // this.props.history.push('/');
+  return false;
 }
 
 export const bottomNavConfig = [ 'dashboard', 'inbox', 'archive', ]

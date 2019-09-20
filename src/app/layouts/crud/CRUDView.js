@@ -5,6 +5,8 @@ import compose from 'recompose/compose';
 import { connect, } from 'react-redux';
 import { createItem, updateItem, deleteItem, actionItem, } from './store/actions';
 
+import _ from '@lodash';
+
 import { updateUserData, } from 'app/store/actions/my-actions'; // updateSettings, updateDashboard, saveUserDataToFirestore,
 import FetchUserData from 'app/containers/FetchUserData';
 
@@ -77,6 +79,7 @@ const INITIAL_STATE_DIALOG = {
   deleteDialogIsOpen : false     ,
   actionDialogIsOpen : false     ,
   crudForm           : undefined ,
+  crudFormErrors     : undefined ,
   crudFormIdHash     : undefined ,
   crudFormTimestamp  : undefined ,
 }
@@ -255,18 +258,24 @@ class CRUDView extends Component {
 
   handleCreateItem = e => {
     // console.log('state\n', this.state);
-    const { handleCloseDialog, handleOpenSnackbar, } = this; // handleRefresh,
+    const { handleCloseDialog, handleOpenSnackbar, setState, } = this; // handleRefresh,
     const { crudForm, crudFormTimestamp, crudFormIdHash, } = this.state;
     const { createItem, creatable, } = this.props; // profile, settings, dashboard,
     // const { uid, } = profile;
     // const { path, } = creatable;
 
-    getCreateItem({ e, crudForm, crudFormTimestamp, crudFormIdHash, createItem, creatable, });
+    const errors = getCreateItem({ e, crudForm, crudFormTimestamp, crudFormIdHash, createItem, creatable, });
   
-    handleCloseDialog();
-    // handleRefresh();
-    // handleOpenSnackbar('Item created');
-    handleOpenSnackbar(SNACKBAR_MESSAGE);
+    if(!_.isEmpty(errors)) {
+      setState({crudFormErrors: errors,});
+      console.log('errors\n', errors,);
+      return null;
+    } else {
+      handleCloseDialog();
+      // handleRefresh();
+      // handleOpenSnackbar('Item created');
+      handleOpenSnackbar(SNACKBAR_MESSAGE);
+    }
   }
   
   handleUpdateItem = () => {

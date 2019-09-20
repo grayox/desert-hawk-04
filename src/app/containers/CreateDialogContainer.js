@@ -19,6 +19,7 @@ const AUTOHIDE_DURATION = 2000;
 const SNACKBAR_MESSAGE = 'Sending'
 
 const INITIAL_STATE = {
+  errors            : null ,
   creatable         : null ,
   crudForm          : null ,
   crudFormIdHash    : null ,
@@ -122,8 +123,9 @@ const CreateDialogContainer = ({
     // const { uid, } = profile;
     // const { path, } = creatable;
 
-    getCreateItem({ e, crudForm, crudFormTimestamp, crudFormIdHash, createItem, creatable, });  
-    onCloseDialog();
+    const errors = getCreateItem({ e, crudForm, crudFormTimestamp, crudFormIdHash, createItem, creatable, });
+    if(errors) setState({...state, errors,});
+    else onCloseDialog();
   }
 
   // app/layouts/crud/CRUDView.js
