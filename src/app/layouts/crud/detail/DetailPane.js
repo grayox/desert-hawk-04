@@ -244,8 +244,8 @@ const DetailPane = ({
   };
 
   const getConfigFormFieldsMap = (type, field,) => {
-    console.log('type\n', type,);
-    console.log('field\n', field,);
+    // console.log('type\n', type,);
+    // console.log('field\n', field,);
     return configFormFieldsMap[type](field);
   }
 
