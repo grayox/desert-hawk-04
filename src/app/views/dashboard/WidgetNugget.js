@@ -108,22 +108,22 @@ const WidgetNugget = ({
   //   if(newFontSize !== fontSize) setFontSize(newFontSize);
   // }, [ formattedResult, ]);
 
-  const getFormat = unformatted => {
+  const getFormat = rawValue => {
     let out;
-    const typeOfData = typeof unformatted;
+    const typeOfData = typeof rawValue;
     // console.log( 'typeOfData\n', typeOfData, );
     switch (typeOfData) {
       case 'number':
-        out = numeral(unformatted).format('0,0');
+        out = numeral(rawValue).format('0,0');
         break;
       case 'string':
-        out = unformatted.toUpperCase();
+        out = rawValue.toUpperCase();
         break;
       case 'object':
-        out = unformatted;
+        out = rawValue;
         break;
       default:
-        out = unformatted;
+        out = rawValue;
     }
     return out;
   }

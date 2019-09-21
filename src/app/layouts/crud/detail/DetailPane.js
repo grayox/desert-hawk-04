@@ -236,9 +236,9 @@ const DetailPane = ({
   }
 
   const configFormFieldsMap = {
-    string: field => getDetailListItemString(field),
-    number: field => getDetailListItemString(field),
-    object: field => getDetailListItemObject(field),
+    string : field => getDetailListItemString( field ) ,
+    number : field => getDetailListItemString( field ) ,
+    object : field => getDetailListItemObject( field ) ,
     // object: getDetailListItemObject(field.value),
     // object: getFormFieldsMap(field.value), // recursion
   };

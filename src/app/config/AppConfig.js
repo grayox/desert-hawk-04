@@ -21,6 +21,7 @@ import { FuseLoadable, } from '@fuse';
 // utilities
 import _ from '@lodash';
 import moment from 'moment';
+import numeral from 'numeral';
 import hash from 'object-hash'; // https://www.npmjs.com/package/object-hash
 
 // custom components
@@ -503,45 +504,48 @@ const getMaskedInput = mask => ({ inputRef, onChange, ...other, }) =>
     onChange={onChange}
   />
 
-const getTitleDisplay = rawValue => _.startCase(_.camelCase(rawValue))
+const getDisplayMaskTitle = rawValue => _.startCase(_.camelCase(rawValue))
+const getDisplayMaskPrice = rawValue => numeral(rawValue).format('$0,0[.]00') // http://numeraljs.com
 
-const displayMasksConfig = {
-  name: getTitleDisplay,
-  bizCategory: getDisplayMaskBizCategory,
-}
+// const displayMasksConfig = {
+//   name: getDisplayMaskTitle,
+//   price: getDisplayMaskPrice,
+//   bizCategory: getDisplayMaskBizCategory,
+// }
 
 export const getDisplayMask = ( id, rawValue, ) =>
-  displayMasksConfig[id] ? displayMasksConfig[id](rawValue) : rawValue
+  // displayMasksConfig[id] ? displayMasksConfig[id](rawValue) : rawValue
+  formFieldsConfig[id].display ? formFieldsConfig[id].display(rawValue) : rawValue
 
 const formFieldsConfig = {  // notice the 's' at the end of formFields, makes it "unique"
   // Deprecated: type must be an HTML5 input type | https://www.w3schools.com/html/html_form_input_types.asp | https://material-ui.com/api/text-field/
   // Deprecated: button|checkbox|color|date|datetime-local|email|file|hidden|image|month|number|password|radio|range|reset|search|submit|tel|text|time|url|week
   // Add new field types to src/app/components/forms/FormTemplate.js > FormTemplate > getConfig()
   // Add new components by importing to this file AppConfig and adding a components property tothe below config object
-  name        : { type : 'text'      , label : 'Name'         , icon : 'account_circle' , mask : 'title'       , } ,
-  firstName   : { type : 'text'      , label : 'First name'   , icon : 'account_circle' , mask : 'title'       , } ,
-  lastName    : { type : 'text'      , label : 'Last name'    , icon : 'account_circle' , mask : 'title'       , } ,
-  nickname    : { type : 'text'      , label : 'Nickname'     , icon : 'star'           , mask : 'title'       , } ,
-  address     : { type : 'text'      , label : 'Address'      , icon : 'home'           , mask : 'title'       , } ,
-  price       : { type : 'text'      , label : 'Price'        , icon : 'attach_money'   , mask : 'number'      , } ,
-  ask         : { type : 'text'      , label : 'Ask'          , icon : 'attach_money'   , mask : 'number'      , } ,
-  bid         : { type : 'text'      , label : 'Bid'          , icon : 'attach_money'   , mask : 'number'      , } ,
-  askingPrice : { type : 'text'      , label : 'Asking price' , icon : 'attach_money'   , mask : 'number'      , } ,
-  offer       : { type : 'text'      , label : 'Offer'        , icon : 'attach_money'   , mask : 'number'      , } ,
-  bizCategory : { type : 'select'    , label : 'Type'         , icon : 'extension'      , mask : 'lettersOnly' , options: bizCategoryItems, getDisplayMask: value => getDisplayMaskBizCategory(value), }, // curry first attempt -- does not work: getDisplayMask: value => bizCategoryItems => getValueMaskSelectOrMenuOptions(bizCategoryItems, value,), },
-  zipInput    : { type : 'component' , label : 'Zip code'     , icon : 'place'          , mask : 'zipInput'    , component: <ZipCodeInput />, fields: ['city', 'state', 'zip', 'county',],},
-  zip         : { type : 'text'      , label : 'Zip'          , icon : 'place'          , mask : 'zip'         , } ,
-  city        : { type : 'text'      , label : 'City'         , icon : 'place'          , mask : 'lettersOnly' , } ,
-  state       : { type : 'text'      , label : 'State'        , icon : 'place'          , mask : 'lettersOnly' , } ,
-  county      : { type : 'text'      , label : 'County'       , icon : 'place'          , mask : 'lettersOnly' , } ,
-  lat         : { type : 'text'      , label : 'Latitude'     , icon : 'place'          , mask : 'matchAll'    , } ,
-  lon         : { type : 'text'      , label : 'Longitude'    , icon : 'place'          , mask : 'matchAll'    , } ,
-  phone       : { type : 'text'      , label : 'Phone'        , icon : 'phone'          , mask : 'phone'       , } ,
-  email       : { type : 'text'      , label : 'Email'        , icon : 'email'          , mask : 'email'       , } ,
-  company     : { type : 'text'      , label : 'Company'      , icon : 'domain'         , mask : 'lettersOnly' , } ,
-  jobTitle    : { type : 'text'      , label : 'Job title'    , icon : 'work'           , mask : 'lettersOnly' , } ,
-  birthday    : { type : 'date'      , label : 'Birthday'     , icon : 'cake'           , mask : 'date'        , InputLabelProps: {shrink: true,},},
-  notes       : { type : 'text'      , label : 'Notes'        , icon : 'note'           , mask : 'matchAll'    , multiline: true, rows: 5,},
+  name        : { type : 'text'      , label : 'Name'         , icon : 'account_circle' , mask : 'title'       , display : getDisplayMaskTitle       , } ,
+  firstName   : { type : 'text'      , label : 'First name'   , icon : 'account_circle' , mask : 'title'       , display : null                      , } ,
+  lastName    : { type : 'text'      , label : 'Last name'    , icon : 'account_circle' , mask : 'title'       , display : null                      , } ,
+  nickname    : { type : 'text'      , label : 'Nickname'     , icon : 'star'           , mask : 'title'       , display : null                      , } ,
+  address     : { type : 'text'      , label : 'Address'      , icon : 'home'           , mask : 'title'       , display : null                      , } ,
+  price       : { type : 'text'      , label : 'Price'        , icon : 'attach_money'   , mask : 'number'      , display : getDisplayMaskPrice       , } ,
+  ask         : { type : 'text'      , label : 'Ask'          , icon : 'attach_money'   , mask : 'number'      , display : getDisplayMaskPrice       , } ,
+  bid         : { type : 'text'      , label : 'Bid'          , icon : 'attach_money'   , mask : 'number'      , display : getDisplayMaskPrice       , } ,
+  askingPrice : { type : 'text'      , label : 'Asking price' , icon : 'attach_money'   , mask : 'number'      , display : getDisplayMaskPrice       , } ,
+  offer       : { type : 'text'      , label : 'Offer'        , icon : 'attach_money'   , mask : 'number'      , display : getDisplayMaskPrice       , } ,
+  bizCategory : { type : 'select'    , label : 'Type'         , icon : 'extension'      , mask : 'lettersOnly' , display : getDisplayMaskBizCategory , options: bizCategoryItems, }, // getDisplayMask: value => getDisplayMaskBizCategory(value), // curry first attempt -- does not work: getDisplayMask: value => bizCategoryItems => getValueMaskSelectOrMenuOptions(bizCategoryItems, value,), },
+  zipInput    : { type : 'component' , label : 'Zip code'     , icon : 'place'          , mask : 'zipInput'    , display : null                      , component: <ZipCodeInput />, fields: ['city', 'state', 'zip', 'county',],},
+  zip         : { type : 'text'      , label : 'Zip'          , icon : 'place'          , mask : 'zip'         , display : null                      , } ,
+  city        : { type : 'text'      , label : 'City'         , icon : 'place'          , mask : 'lettersOnly' , display : null                      , } ,
+  state       : { type : 'text'      , label : 'State'        , icon : 'place'          , mask : 'lettersOnly' , display : null                      , } ,
+  county      : { type : 'text'      , label : 'County'       , icon : 'place'          , mask : 'lettersOnly' , display : null                      , } ,
+  lat         : { type : 'text'      , label : 'Latitude'     , icon : 'place'          , mask : 'matchAll'    , display : null                      , } ,
+  lon         : { type : 'text'      , label : 'Longitude'    , icon : 'place'          , mask : 'matchAll'    , display : null                      , } ,
+  phone       : { type : 'text'      , label : 'Phone'        , icon : 'phone'          , mask : 'phone'       , display : null                      , } ,
+  email       : { type : 'text'      , label : 'Email'        , icon : 'email'          , mask : 'email'       , display : null                      , } ,
+  company     : { type : 'text'      , label : 'Company'      , icon : 'domain'         , mask : 'lettersOnly' , display : null                      , } ,
+  jobTitle    : { type : 'text'      , label : 'Job title'    , icon : 'work'           , mask : 'lettersOnly' , display : null                      , } ,
+  birthday    : { type : 'date'      , label : 'Birthday'     , icon : 'cake'           , mask : 'date'        , display : null                      , InputLabelProps: {shrink: true,},},
+  notes       : { type : 'text'      , label : 'Notes'        , icon : 'note'           , mask : 'matchAll'    , display : null                      , multiline: true, rows: 5,},
 }
 
 export const getFormFieldsConfig = () => {
@@ -1084,7 +1088,7 @@ export const getComponentsNavConfig = props => {
   const geoLocationTypeKey = [ geoLocationKey, bizCategory, ].join(' | ');
   const valueMaskBizCategory = getDisplayMaskBizCategory(bizCategory);
   const valueMaskBizCategoryItem = item && item.bizCategory && getDisplayMaskBizCategory(item.bizCategory);
-  const valueMaskName = item && item.name && getTitleDisplay(item.name);
+  const valueMaskName = item && item.name && getDisplayMaskTitle(item.name);
     
     // import { componentsNavConfig, } from 'app/config/AppConfig';
     // * Note: It is currently not possible to use expressions like `loader : () => import(item.path)`
