@@ -523,10 +523,10 @@ const formFieldsConfig = {  // notice the 's' at the end of formFields, makes it
   // Add new field types to src/app/components/forms/FormTemplate.js > FormTemplate > getConfig()
   // Add new components by importing to this file AppConfig and adding a components property tothe below config object
   name        : { type : 'text'      , label : 'Name'         , icon : 'account_circle' , mask : 'title'       , display : getDisplayMaskTitle       , } ,
-  firstName   : { type : 'text'      , label : 'First name'   , icon : 'account_circle' , mask : 'title'       , display : null                      , } ,
-  lastName    : { type : 'text'      , label : 'Last name'    , icon : 'account_circle' , mask : 'title'       , display : null                      , } ,
-  nickname    : { type : 'text'      , label : 'Nickname'     , icon : 'star'           , mask : 'title'       , display : null                      , } ,
-  address     : { type : 'text'      , label : 'Address'      , icon : 'home'           , mask : 'title'       , display : null                      , } ,
+  firstName   : { type : 'text'      , label : 'First name'   , icon : 'account_circle' , mask : 'title'       , display : getDisplayMaskTitle       , } ,
+  lastName    : { type : 'text'      , label : 'Last name'    , icon : 'account_circle' , mask : 'title'       , display : getDisplayMaskTitle       , } ,
+  nickname    : { type : 'text'      , label : 'Nickname'     , icon : 'star'           , mask : 'title'       , display : getDisplayMaskTitle       , } ,
+  address     : { type : 'text'      , label : 'Address'      , icon : 'home'           , mask : 'title'       , display : getDisplayMaskTitle       , } ,
   price       : { type : 'text'      , label : 'Price'        , icon : 'attach_money'   , mask : 'number'      , display : getDisplayMaskPrice       , } ,
   ask         : { type : 'text'      , label : 'Ask'          , icon : 'attach_money'   , mask : 'number'      , display : getDisplayMaskPrice       , } ,
   bid         : { type : 'text'      , label : 'Bid'          , icon : 'attach_money'   , mask : 'number'      , display : getDisplayMaskPrice       , } ,
@@ -542,8 +542,8 @@ const formFieldsConfig = {  // notice the 's' at the end of formFields, makes it
   lon         : { type : 'text'      , label : 'Longitude'    , icon : 'place'          , mask : 'matchAll'    , display : null                      , } ,
   phone       : { type : 'text'      , label : 'Phone'        , icon : 'phone'          , mask : 'phone'       , display : null                      , } ,
   email       : { type : 'text'      , label : 'Email'        , icon : 'email'          , mask : 'email'       , display : null                      , } ,
-  company     : { type : 'text'      , label : 'Company'      , icon : 'domain'         , mask : 'lettersOnly' , display : null                      , } ,
-  jobTitle    : { type : 'text'      , label : 'Job title'    , icon : 'work'           , mask : 'lettersOnly' , display : null                      , } ,
+  company     : { type : 'text'      , label : 'Company'      , icon : 'domain'         , mask : 'lettersOnly' , display : getDisplayMaskTitle       , } ,
+  jobTitle    : { type : 'text'      , label : 'Job title'    , icon : 'work'           , mask : 'lettersOnly' , display : getDisplayMaskTitle       , } ,
   birthday    : { type : 'date'      , label : 'Birthday'     , icon : 'cake'           , mask : 'date'        , display : null                      , InputLabelProps: {shrink: true,},},
   notes       : { type : 'text'      , label : 'Notes'        , icon : 'note'           , mask : 'matchAll'    , display : null                      , multiline: true, rows: 5,},
 }
