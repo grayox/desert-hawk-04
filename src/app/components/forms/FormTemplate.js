@@ -55,7 +55,7 @@ import SelectField from '../CustomFormFields/SelectField';
 // }
 
 const getTextField = (
-  onChange, id,
+  onChange, id, errors,
   { value, label, autoFocus, type, required, multiline, rows, InputProps, InputLabelProps, },
 ) =>
     <TextField
@@ -71,6 +71,7 @@ const getTextField = (
       autoFocus={autoFocus}
       // value={this.state.name}
       // value={"hello"}
+      error={errors[id] && errors[id].length}
       value={value && value.length && value} // solves error when passed empty string
       // defaultValue={'hi'}//{id && values && values[id]}//
       variant="outlined"
@@ -83,16 +84,24 @@ const getTextField = (
 
 // note: add value field to: populate non-text fields including menu, select and zipInput
 
-const getComponent = ( onChange, component, key, { required, value, }, ) =>
-  component && React.cloneElement( component, { key, onChange, required, value, }, )
+const getComponent = ( onChange, component, key, errors, { required, value, }, ) =>
+  component && React.cloneElement( component, { key, errors, onChange, required, value, }, )
 
-const getMenuField = ( onChange, id, { label, options, required, value, }, ) =>
-  <MenuField key={id} onChange={onChange} id={id} label={label} options={options} required={required} value={value} />
+const getMenuField = ( onChange, id, errors, { label, options, required, value, }, ) =>
+  <MenuField
+    error={errors[id] && errors[id].length}
+    key={id} onChange={onChange} id={id} label={label}
+    options={options} required={required} value={value}
+  />
 
-const getSelectField = ( onChange, id, { label, options, required, value, }, ) =>
-  <SelectField key={id} onChange={onChange} id={id} label={label} options={options} required={required} value={value} />
+const getSelectField = ( onChange, id, errors, { label, options, required, value, }, ) =>
+  <SelectField
+    error={errors[id] && errors[id].length}
+    key={id} onChange={onChange} id={id} label={label}
+    options={options} required={required} value={value}
+  />
 
-const FormTemplate = ({ fields, onChange, }) => {
+const FormTemplate = ({ fields, errors={}, onChange, }) => {
   // console.log('fields\n', fields);
   // debugger;
   const ready1 = fields;
@@ -105,10 +114,10 @@ const FormTemplate = ({ fields, onChange, }) => {
     // console.log('type\n', type,);
     // console.log('rest\n', rest,);
     const config = {
-      text: getTextField(onChange, id, rest,),
-      menu: getMenuField(onChange, id, rest,),
-      select: getSelectField(onChange, id, rest,),
-      component: getComponent(onChange, component, id, rest,), // includes: zipInput
+      text: getTextField(onChange, id, errors, rest,),
+      menu: getMenuField(onChange, id, errors, rest,),
+      select: getSelectField(onChange, id, errors, rest,),
+      component: getComponent(onChange, component, id, errors, rest,), // includes: zipInput
     };
     const out = config[type];
     return out;

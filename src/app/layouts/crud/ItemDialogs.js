@@ -14,7 +14,7 @@ const findFormField = ( formName, fieldName, ) => formName && formName.find(x =>
 
 // getCreateDialog = () => {
 const CreateDialog = ({
-  creatable, createDialogIsOpen, crudForm, crudFormTimestamp, crudFormIdHash,
+  creatable, createDialogIsOpen, crudForm, crudFormErrors, crudFormTimestamp, crudFormIdHash,
   onEnterDialog, onChangeForm, onCloseDialog, onCreateItem, // findFormField,
 }) => {
   // console.log('props\n', this.props);
@@ -99,6 +99,7 @@ const CreateDialog = ({
           }
           <FormTemplate
             fields={crudForm}
+            errors={crudFormErrors}
             onChange={onChangeForm}
           />
         </DialogContent>

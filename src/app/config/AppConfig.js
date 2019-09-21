@@ -311,7 +311,7 @@ export const getValueMaskSelectOrMenuOptions = ( optionItems, value, ) => {
 
 }
 
-export const getValueMaskBizCategory = value => { // home
+export const getDisplayMaskBizCategory = value => { // home
   // console.log('value\n', value,);
   // console.log('bizCategoryItems\n', bizCategoryItems,);
   
@@ -322,8 +322,6 @@ export const getValueMaskBizCategory = value => { // home
   // console.log( 'out\n', out, );
   return out;
 }
-
-const getValueMaskTitle = value => _.startCase(_.camelCase(value))
 
 // end app-specific parameters
 
@@ -505,22 +503,32 @@ const getMaskedInput = mask => ({ inputRef, onChange, ...other, }) =>
     onChange={onChange}
   />
 
+const getTitleDisplay = rawValue => _.startCase(_.camelCase(rawValue))
+
+const displayMasksConfig = {
+  name: getTitleDisplay,
+  bizCategory: getDisplayMaskBizCategory,
+}
+
+export const getDisplayMask = ( id, rawValue, ) =>
+  displayMasksConfig[id] ? displayMasksConfig[id](rawValue) : rawValue
+
 const formFieldsConfig = {  // notice the 's' at the end of formFields, makes it "unique"
   // Deprecated: type must be an HTML5 input type | https://www.w3schools.com/html/html_form_input_types.asp | https://material-ui.com/api/text-field/
   // Deprecated: button|checkbox|color|date|datetime-local|email|file|hidden|image|month|number|password|radio|range|reset|search|submit|tel|text|time|url|week
   // Add new field types to src/app/components/forms/FormTemplate.js > FormTemplate > getConfig()
   // Add new components by importing to this file AppConfig and adding a components property tothe below config object
-  name        : { type : 'text'      , label : 'Name'         , icon : 'account_circle' , mask : 'lettersOnly' , } ,
-  firstName   : { type : 'text'      , label : 'First name'   , icon : 'account_circle' , mask : 'lettersOnly' , } ,
-  lastName    : { type : 'text'      , label : 'Last name'    , icon : 'account_circle' , mask : 'lettersOnly' , } ,
-  nickname    : { type : 'text'      , label : 'Nickname'     , icon : 'star'           , mask : 'lettersOnly' , } ,
-  address     : { type : 'text'      , label : 'Address'      , icon : 'home'           , mask : 'lettersOnly' , } ,
+  name        : { type : 'text'      , label : 'Name'         , icon : 'account_circle' , mask : 'title'       , } ,
+  firstName   : { type : 'text'      , label : 'First name'   , icon : 'account_circle' , mask : 'title'       , } ,
+  lastName    : { type : 'text'      , label : 'Last name'    , icon : 'account_circle' , mask : 'title'       , } ,
+  nickname    : { type : 'text'      , label : 'Nickname'     , icon : 'star'           , mask : 'title'       , } ,
+  address     : { type : 'text'      , label : 'Address'      , icon : 'home'           , mask : 'title'       , } ,
   price       : { type : 'text'      , label : 'Price'        , icon : 'attach_money'   , mask : 'number'      , } ,
   ask         : { type : 'text'      , label : 'Ask'          , icon : 'attach_money'   , mask : 'number'      , } ,
   bid         : { type : 'text'      , label : 'Bid'          , icon : 'attach_money'   , mask : 'number'      , } ,
   askingPrice : { type : 'text'      , label : 'Asking price' , icon : 'attach_money'   , mask : 'number'      , } ,
   offer       : { type : 'text'      , label : 'Offer'        , icon : 'attach_money'   , mask : 'number'      , } ,
-  bizCategory : { type : 'select'    , label : 'Type'         , icon : 'extension'      , mask : 'lettersOnly' , options: bizCategoryItems, getValueMask: value => getValueMaskBizCategory(value), }, // curry first attempt -- does not work: getValueMask: value => bizCategoryItems => getValueMaskSelectOrMenuOptions(bizCategoryItems, value,), },
+  bizCategory : { type : 'select'    , label : 'Type'         , icon : 'extension'      , mask : 'lettersOnly' , options: bizCategoryItems, getDisplayMask: value => getDisplayMaskBizCategory(value), }, // curry first attempt -- does not work: getDisplayMask: value => bizCategoryItems => getValueMaskSelectOrMenuOptions(bizCategoryItems, value,), },
   zipInput    : { type : 'component' , label : 'Zip code'     , icon : 'place'          , mask : 'zipInput'    , component: <ZipCodeInput />, fields: ['city', 'state', 'zip', 'county',],},
   zip         : { type : 'text'      , label : 'Zip'          , icon : 'place'          , mask : 'zip'         , } ,
   city        : { type : 'text'      , label : 'City'         , icon : 'place'          , mask : 'lettersOnly' , } ,
@@ -844,8 +852,9 @@ export const getFormFields = ( type='loadNewData', fields=[], detail={}, ) => {
         break;
       case 'loadSavedData':
         field.value = detail && detail[field.id];
-        if(field.getValueMask) field.valueMask = field.getValueMask(field.value);
-        // console.log('valueMask\n', field.valueMask);
+        // if(field.getDisplayMask) field.displayMask = field.getDisplayMask(field.value);
+        field.displayMask = getDisplayMask(field.id, field.value,);
+        // console.log('displayMask\n', field.displayMask);
         break;
       default:
         // console.error('Type must be one of: "loadSavedData" or "loadNewData"');
@@ -1003,16 +1012,16 @@ export const getCreateItem = ({
   };
 
   crudForm.forEach( item => {
-    console.log('item\n', item,);
+    // console.log('item\n', item,);
     const { value: rawValue, mask, id, required, } = item;
     let value = rawValue;
     if (value === undefined || value === null) return; // value = null; //
 
     // validate
     const target = validationConfig[mask];
-    console.log('target\n', target,);
+    // console.log('target\n', target,);
     const validated = getValidation(target, value,);
-    console.log('validated\n', validated,);
+    // console.log('validated\n', validated,);
     if(!validated) mergeArray( errors, id, VALIDATE, );
 
     // required
@@ -1024,7 +1033,7 @@ export const getCreateItem = ({
     newItem[id] = value;
   });
 
-  console.log('errors\n', errors,);
+  // console.log('errors\n', errors,);
   if(!_.isEmpty(errors)) return errors;
 
   // // console.log('path\n', path,);
@@ -1073,9 +1082,9 @@ export const getComponentsNavConfig = props => {
 
   const geoLocationKey = [ geoNation, geoRegion, geoLocal, ].join(' | ');
   const geoLocationTypeKey = [ geoLocationKey, bizCategory, ].join(' | ');
-  const valueMaskBizCategory = getValueMaskBizCategory(bizCategory);
-  const valueMaskBizCategoryItem = item && item.bizCategory && getValueMaskBizCategory(item.bizCategory);
-  const valueMaskName = item && item.name && getValueMaskTitle(item.name);
+  const valueMaskBizCategory = getDisplayMaskBizCategory(bizCategory);
+  const valueMaskBizCategoryItem = item && item.bizCategory && getDisplayMaskBizCategory(item.bizCategory);
+  const valueMaskName = item && item.name && getTitleDisplay(item.name);
     
     // import { componentsNavConfig, } from 'app/config/AppConfig';
     // * Note: It is currently not possible to use expressions like `loader : () => import(item.path)`
@@ -1387,7 +1396,7 @@ export const getComponentsNavConfig = props => {
         creatable: {
           title: 'Send new referral', // form: <UserMultiForm />,
           path: 'leads',
-          fields: [ 'name*', 'bizCategory*', 'email*', 'phone*', 'zipInput*', 'price', 'notes', ], // 'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
+          fields: [ 'name*', 'bizCategory*', 'email*', 'phone*', 'zipInput*', 'price*', 'notes', ], // 'name*', 'lastName', 'nickname', 'phone', 'company', 'email*', 'jobTitle', 'birthday', 'address', 'notes',
           addOns: {
             // createdAt: 'timestamp', // added in cred.actions at save time
             createdBy: uid,

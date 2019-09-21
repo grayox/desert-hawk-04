@@ -79,7 +79,7 @@ const INITIAL_STATE_DIALOG = {
   deleteDialogIsOpen : false     ,
   actionDialogIsOpen : false     ,
   crudForm           : undefined ,
-  crudFormErrors     : undefined ,
+  crudFormErrors     : {}        ,
   crudFormIdHash     : undefined ,
   crudFormTimestamp  : undefined ,
 }
@@ -219,26 +219,26 @@ class CRUDView extends Component {
     );
   }
 
-  handleChangeFormString = callback => {
-    console.log('callback\n', callback,);
-    // id = 'phone'; value = event;
-  }
+  // handleChangeFormString = callback => {
+  //   console.log('callback\n', callback,);
+  //   // id = 'phone'; value = event;
+  // }
 
-  getChangeFormConfig = () => ({
-    string: this.handleChangeFormString,
-    object: this.handleChangeFormObject,
-  })
+  // getChangeFormConfig = () => ({
+  //   string: this.handleChangeFormString,
+  //   object: this.handleChangeFormObject,
+  // })
 
-  handleChangeForm1 = event => {
-    const value = event && event.target && event.target.value;
-    console.log('value\n', value,);
-    // const type = typeof callback;
-    // console.log('type\n', type,);
-    // const changeFormConfig = this.getChangeFormConfig();
-    // const out = changeFormConfig[type](callback);
-    // console.log('out\n', out,);
-    // return out;
-  } 
+  // handleChangeForm1 = event => {
+  //   const value = event && event.target && event.target.value;
+  //   console.log('value\n', value,);
+  //   // const type = typeof callback;
+  //   // console.log('type\n', type,);
+  //   // const changeFormConfig = this.getChangeFormConfig();
+  //   // const out = changeFormConfig[type](callback);
+  //   // console.log('out\n', out,);
+  //   // return out;
+  // } 
 
   handleEnterDialog = type =>
     // type: string: enum: 'loadNewData' | 'loadSavedData'
@@ -258,7 +258,7 @@ class CRUDView extends Component {
 
   handleCreateItem = e => {
     // console.log('state\n', this.state);
-    const { handleCloseDialog, handleOpenSnackbar, setState, } = this; // handleRefresh,
+    const { handleCloseDialog, handleOpenSnackbar, } = this; // handleRefresh,
     const { crudForm, crudFormTimestamp, crudFormIdHash, } = this.state;
     const { createItem, creatable, } = this.props; // profile, settings, dashboard,
     // const { uid, } = profile;
@@ -267,7 +267,7 @@ class CRUDView extends Component {
     const errors = getCreateItem({ e, crudForm, crudFormTimestamp, crudFormIdHash, createItem, creatable, });
   
     if(!_.isEmpty(errors)) {
-      setState({crudFormErrors: errors,});
+      this.setState({ crudFormErrors: errors, },);
       console.log('errors\n', errors,);
       return null;
     } else {
@@ -395,7 +395,7 @@ class CRUDView extends Component {
     const {
       detail, deleteDialogIsOpen, actionDialogIsOpen, selectedIndex,
       createDialogIsOpen, updateDialogIsOpen,
-      crudForm, crudFormTimestamp, crudFormIdHash,
+      crudForm, crudFormErrors, crudFormTimestamp, crudFormIdHash,
     } = this.state;
     const {
       classes, profile, settings, dashboard, items, condensed, onNext, hasMore, miniDashboard, navComponentId,
@@ -472,8 +472,8 @@ class CRUDView extends Component {
     
     const getCreateDialog = () =>
       <CreateDialog
-        crudFormIdHash={crudFormIdHash}
         crudForm={crudForm} crudFormTimestamp={crudFormTimestamp}
+        crudFormIdHash={crudFormIdHash} crudFormErrors={crudFormErrors}
         creatable={creatable} createDialogIsOpen={createDialogIsOpen}
         onEnterDialog={handleEnterDialog} onChangeForm={handleChangeForm}
         onCloseDialog={handleCloseDialog} onCreateItem={handleCreateItem}
@@ -481,7 +481,7 @@ class CRUDView extends Component {
 
     const getUpdateDialog = () =>
       <UpdateDialog
-        detail={detail} crudForm={crudForm} 
+        detail={detail} crudForm={crudForm} crudFormErrors={crudFormErrors}
         updatable={updatable} updateDialogIsOpen={updateDialogIsOpen}
         onChangeForm={handleChangeForm} onCloseDialog={handleCloseDialog}
         onUpdateItem={handleUpdateItem} onEnterDialog={handleEnterDialog}

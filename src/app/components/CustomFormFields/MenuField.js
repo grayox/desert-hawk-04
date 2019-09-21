@@ -26,7 +26,7 @@ import Menu from '@material-ui/core/Menu';
 
 const HEADER = 'Select one';
 
-const MenuField = ({onChange, id, label, options, required,}) => {
+const MenuField = ({onChange, id, label, options, required, error,}) => {
   // console.log('id\n', id,);
   // console.log('icon\n', icon,);
   // console.log('options\n', options,);
@@ -93,10 +93,11 @@ const MenuField = ({onChange, id, label, options, required,}) => {
       >
         {
           // options.map(( option, index, ) => (
-          options.map(( { value, label, }, index, ) => (
+          options.map(( { value, label, error, }, index, ) => (
             <MenuItem
               // key={option}
               key={value}
+              error={error}
               disabled={index === 0}
               selected={index === selectedIndex}
               onClick={event => handleMenuItemClick(event, index,)}

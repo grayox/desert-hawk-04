@@ -10,7 +10,9 @@ import { FuseAnimateGroup } from '@fuse'; // FuseScrollbars, FuseAnimate,
 // import _ from '@lodash';
 
 import MediaWidth from 'app/layouts/MediaWidth';
-import { uiSpecs, getFormFieldsConfig, getFormFields, getCreatableFields, } from 'app/config/AppConfig'; // getCleanFieldNames,
+import {
+  uiSpecs, getFormFieldsConfig, getFormFields, getCreatableFields, getDisplayMask,
+} from 'app/config/AppConfig'; // getCleanFieldNames,
 import Dashboard from 'app/views/dashboard/Dashboard';
 import SimpleExpansionPanel from 'app/components/SimpleExpansionPanel';
 import ButtonsTierDetail from './ButtonsTierDetail'; // CRUDButtons,
@@ -108,14 +110,12 @@ const styles = theme => ({
 //   </ListItem>
 
 const appendObjectToArray = ( a, o, formFieldConfig, ) => {
-  // a: arrayOfObjects: [ {id: [string], value: [string], valueMask: [string], required: [bool], ... } ]
+  // a: arrayOfObjects: [ {id: [string], value: [string], displayMask: [string], required: [bool], ... } ]
   // o: object: {city: [string], county: [string], state: [string], zip: [string], ...}
-  // formFieldConfig: computed from imported getFormFieldsConfig()
-  // return: arrayOfObjects: [{ label: [string], value: [string], [optional] valueMask: [string],}, ...]
-  // console.log('a\n', a,);
-  const out = a.map( item => {
-    return ({label: formFieldConfig[item].label, value: o[item],});
-  });
+  // formFieldConfig: object: computed from imported getFormFieldsConfig()
+  // return: arrayOfObjects: [{ label: [string], value: [string], [optional] displayMask: [string],}, ...]
+  console.log('a\n', a,);
+  const out = a.map( item => ({label: formFieldConfig[item].label, value: o[item],}));
   // keys.forEach( key => newArray.push({id: key, value: value[key],}));
   // console.log('out\n', out,);
   return out;
@@ -124,11 +124,11 @@ const appendObjectToArray = ( a, o, formFieldConfig, ) => {
 // const getDetailListItem = data => {
 //   let display, label;
 //   // data: can be one of two formats:
-//   // 1st format: { label: [string], value: [string | number], valueMask: [string], }
+//   // 1st format: { label: [string], value: [string | number], displayMask: [string], }
 //   // 2nd format: { [string]: [string | number] }
 //   // case: 1st format
-//   if( data.label && (data.value || data.valueMask)) {
-//     display = data.valueMask || data.value;
+//   if( data.label && (data.value || data.displayMask)) {
+//     display = data.displayMask || data.value;
 //     label = data.label;
 //   } else {
 //     // case: 2nd format
@@ -137,8 +137,8 @@ const appendObjectToArray = ( a, o, formFieldConfig, ) => {
 //     display = data[key];
 //   }
 // below only considers 1st format as above defined
-const getDetailListItem = ({ label, value, valueMask, }, condensed,) => {
-  const display = valueMask || value;
+const getDetailListItem = ({ label, value, displayMask, }, condensed,) => {
+  const display = displayMask || value;
   return (
     // Prevent React from throwing an error if the 'update' field is an object
     (
@@ -237,14 +237,15 @@ const DetailPane = ({
 
   const configFormFieldsMap = {
     string: field => getDetailListItemString(field),
+    number: field => getDetailListItemString(field),
     object: field => getDetailListItemObject(field),
     // object: getDetailListItemObject(field.value),
     // object: getFormFieldsMap(field.value), // recursion
   };
 
   const getConfigFormFieldsMap = (type, field,) => {
-    // console.log('type\n', type,);
-    // console.log('field\n', field,);
+    console.log('type\n', type,);
+    console.log('field\n', field,);
     return configFormFieldsMap[type](field);
   }
 
@@ -255,12 +256,15 @@ const DetailPane = ({
     // console.log('flattened\n', flattened,); debugger;
     const out = [];
     formFields.forEach( field => {
+      const ready1 = field.value;
+      if(!ready1) return null;
+
       const type = typeof (field.value); // || field);
       // console.log('type\n', type,);
       // console.log('field\n', field,);
       // console.log('label\n', field.label,);
-      // console.log('value\n', field.valueMask || field.Value,);
-      // console.log('field-core\n', `${field.label}: ${field.valueMask || field.value}`,);
+      // console.log('value\n', field.displayMask || field.Value,);
+      // console.log('field-core\n', `${field.label}: ${field.displayMask || field.value}`,);
       const outInner = getConfigFormFieldsMap(type, field,);
       // console.log('outInner\n', outInner,);
       if(outInner) out.push(outInner); // setGetFormFieldsMap(outInner) // 
@@ -272,7 +276,7 @@ const DetailPane = ({
   const getDetailListItemString = field =>
     ( field.value && field.value.length ) > uiSpecs.maxCharsForDetailItemField // MAX_LENGTH
     ?
-    <SimpleExpansionPanel key={field.label} heading={field.label} content={field.valueMask || field.value} />
+    <SimpleExpansionPanel key={field.label} heading={field.label} content={field.displayMask || field.value} />
     :
     getDetailListItem(field, condensed,)
   
