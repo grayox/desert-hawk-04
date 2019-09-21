@@ -11,7 +11,7 @@ import { FuseAnimateGroup } from '@fuse'; // FuseScrollbars, FuseAnimate,
 
 import MediaWidth from 'app/layouts/MediaWidth';
 import {
-  uiSpecs, getFormFieldsConfig, getFormFields, getCreatableFields, getDisplayMask,
+  uiSpecs, getFormFieldsConfig, getFormFields, getCreatableFields,
 } from 'app/config/AppConfig'; // getCleanFieldNames,
 import Dashboard from 'app/views/dashboard/Dashboard';
 import SimpleExpansionPanel from 'app/components/SimpleExpansionPanel';
