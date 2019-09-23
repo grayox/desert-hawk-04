@@ -128,6 +128,45 @@
 //   });
 // }
 
+const sendBatchToFirebase = ( protocol, batchConfig, getFirestore, { path='', newData={}, }, ) => { // 
+  // protocol: string: 'create' | 'action' | 'update' | 'delete'
+  // batchConfig: object: returned by: getCreatable | getActionable | getUpdateable | getDeleteable
+  // getFirestore: function: Firestore API
+  // path: string (if protocol='create')
+  // newData: object: data to send (if protocol='create')
+  // const protocolConfig = {
+  //   create: getCreatable,
+  //   action: getActionable,
+  //   update: getUpdateable,
+  //   delete: getDeleteable,
+  // }
+  const db = getFirestore();
+  const batch = db.batch();
+
+  switch(protocol) {
+    case 'create':
+      const newDocRef = db.collection(path).doc(); // .doc() generates autoID
+      batch.set( newDocRef, newData, );
+      break;
+    case 'action':
+      // code
+      break;
+    case 'update':
+      // code
+      break;
+    case 'delete':
+      // code
+      break;
+    default:
+      // code
+      break;
+  }
+  batchConfig.forEach(
+    ({ collection, doc, data, }) => batch.set(db.collection(collection).doc(doc), data, { merge: true, },)
+  );
+  batch.commit();
+}
+
 // source: https://github.com/iamshaunjp/React-Redux-Firebase-App/blob/lesson-18/marioplan/src/store/actions/projectActions.js
 export const createItem = ( item, { addOns, path, getCreatable, }, ) => // uid, settings, path, dashboard,
   (dispatch, getState, { getFirebase, getFirestore, }) => {
@@ -163,43 +202,47 @@ export const createItem = ( item, { addOns, path, getCreatable, }, ) => // uid, 
       // authorId: 12345,
     };
 
-    // make async call to database
-    const db = getFirestore();
-    // console.log('item\n', item);
-    // console.log('db\n', db);
-    // console.log('getState\n', getState);
-    // console.log('newData\n', newData);
+    // // make async call to database
+    // const db = getFirestore();
+    // // console.log('item\n', item);
+    // // console.log('db\n', db);
+    // // console.log('getState\n', getState);
+    // // console.log('newData\n', newData);
 
-    // // replace this:
-    // // ref: https://firebase.google.com/docs/firestore/manage-data/add-data#add_a_document
-    // // db.collection('test').add({
-    // db
-    //   .collection(path)
-    //   .add(newData) // use 'add' for firestore auto generated ID, use 'set' for custom ID
-    // .then( docRef => {
-    //   // console.log('uid\n', uid,); // 'abcxyz'
-    //   // console.log('path\n', path,); // 'leads'
-    //   // console.log('docRef\n', docRef,);
-    //   handleEditDashboard( uid, path, dashboard, 1, docRef.id, dispatch, getFirestore, creatable, );
-    //   // dispatch({ type: 'CREATE_ITEM_SUCCESS', });
-    // })
-    // .catch( error => {
-    //   console.error('error\n', error,);
-    //   dispatch({ type: 'CREATE_ITEM_ERROR', }, error);
-    // });
-    // // end replace this
+    // // // replace this:
+    // // // ref: https://firebase.google.com/docs/firestore/manage-data/add-data#add_a_document
+    // // // db.collection('test').add({
+    // // db
+    // //   .collection(path)
+    // //   .add(newData) // use 'add' for firestore auto generated ID, use 'set' for custom ID
+    // // .then( docRef => {
+    // //   // console.log('uid\n', uid,); // 'abcxyz'
+    // //   // console.log('path\n', path,); // 'leads'
+    // //   // console.log('docRef\n', docRef,);
+    // //   handleEditDashboard( uid, path, dashboard, 1, docRef.id, dispatch, getFirestore, creatable, );
+    // //   // dispatch({ type: 'CREATE_ITEM_SUCCESS', });
+    // // })
+    // // .catch( error => {
+    // //   console.error('error\n', error,);
+    // //   dispatch({ type: 'CREATE_ITEM_ERROR', }, error);
+    // // });
+    // // // end replace this
 
-    // replace with:
-    const batch = db.batch();
-    const newDocRef = db.collection(path).doc(); // .doc() generates autoID
-    batch.set( newDocRef, newData, );
-    const batchConfig = getCreatable(newData,);
-    batchConfig && batchConfig.map(
-      ({ collection, doc, data, }) => batch.set(db.collection(collection).doc(doc), data, { merge: true, },)
-    );
-    batch.commit();
-    // end replace with
+    // // replace with:
+    // const batch = db.batch();
+    // const newDocRef = db.collection(path).doc(); // .doc() generates autoID
+    // batch.set( newDocRef, newData, );
+    // const batchConfig = getCreatable(newData,);
+    // batchConfig && batchConfig.map(
+    //   ({ collection, doc, data, }) => batch.set(db.collection(collection).doc(doc), data, { merge: true, },)
+    // );
+    // batch.commit();
+    // // end replace with
 
+    const batchConfig = getCreatable(path,);
+    const args = { path, newData, }
+
+    sendBatchToFirebase( 'create', batchConfig, getFirestore, args, );
   }
 
 // const assembleBatchWrite = ( db, batch, navComponentId, uid, docId, ) => { // dashboard, use getIncrement()
@@ -283,55 +326,60 @@ export const createItem = ( item, { addOns, path, getCreatable, }, ) => // uid, 
 //   return batch;
 // }
 
-export const actionItem = ( { docId, }, { getActionable, }, ) => // detail, actionable, uid, settings, dashboard, readable, navComponentId,
+export const actionItem = ( detail, { getActionable, }, ) => // actionable, uid, settings, dashboard, readable, navComponentId,
   (dispatch, getState, { getFirebase, getFirestore, }) => {
-    // console.log('uid\n', uid,);
+    // console.log('detail\n', detail,);
+    // console.log('docId\n', docId,);
     // console.log('actionable\n', actionable,);
+    // console.log('uid\n', uid,);
     // console.log('settings\n', settings,);
     // console.log('dashboard\n', dashboard,);
-    // console.log('detail\n', detail,);
     // console.log('readable\n', readable,);
     // const { path, } = readable;
     // const { docId, } = detail;
     
-    // const newData = actionable.updates[0].fields;
-    // console.log('newData\n', newData,);
-    // dispatch({ type: 'ACTION_ITEM_SUCCESS', });
+    // // const newData = actionable.updates[0].fields;
+    // // console.log('newData\n', newData,);
+    // // dispatch({ type: 'ACTION_ITEM_SUCCESS', });
     
-    // const firestore = getFirestore();
-    // firestore
-    //   .collection(path)
-    //   .doc(docId)
-    //   .update( newData // use .update() method: https://firebase.google.com/docs/firestore/manage-data/add-data#update-data
-    //     , { merge: true, } ,
-    //   )
+    // // const firestore = getFirestore();
+    // // firestore
+    // //   .collection(path)
+    // //   .doc(docId)
+    // //   .update( newData // use .update() method: https://firebase.google.com/docs/firestore/manage-data/add-data#update-data
+    // //     , { merge: true, } ,
+    // //   )
 
-    const db = getFirestore();
-    // ref: https://firebase.google.com/docs/firestore/manage-data/transactions
+    // const db = getFirestore();
+    // // ref: https://firebase.google.com/docs/firestore/manage-data/transactions
 
-    // Get a new write batch
-    const batch = db.batch();
-
-    // // begin replace this
-    // const assembledBatchWrite = assembleBatchWrite(db, batch, navComponentId, uid, docId, dashboard,);
-    // // console.log('assembledBatchWrite\n', assembledBatchWrite,);
-    // // Commit the batch
-    // // batch.commit().then( () => {
-    // assembledBatchWrite.commit().then( docRef => {
-    //   // console.log('docRef\n', docRef,);
-    // });
-    // // end replace this
-
-    // replace with:
+    // // Get a new write batch
     // const batch = db.batch();
-    // const newDocRef = db.collection(path).doc(); // only used with creatable(), not actionable() // .doc() generates autoID
-    // batch.set( newDocRef, newData, ); // only used with creatable(), not actionable() 
-    const batchConfig = getActionable(docId,);
-    batchConfig.map(
-      ({ collection, doc, data, }) => batch.set(db.collection(collection).doc(doc), data, { merge: true, },)
-    );
-    batch.commit();
-    // end replace with
+
+    // // // begin replace this
+    // // const assembledBatchWrite = assembleBatchWrite(db, batch, navComponentId, uid, docId, dashboard,);
+    // // // console.log('assembledBatchWrite\n', assembledBatchWrite,);
+    // // // Commit the batch
+    // // // batch.commit().then( () => {
+    // // assembledBatchWrite.commit().then( docRef => {
+    // //   // console.log('docRef\n', docRef,);
+    // // });
+    // // // end replace this
+
+    // // replace with:
+    // // const batch = db.batch();
+    // // const newDocRef = db.collection(path).doc(); // only used with creatable(), not actionable() // .doc() generates autoID
+    // // batch.set( newDocRef, newData, ); // only used with creatable(), not actionable() 
+    // const batchConfig = getActionable(docId,);
+    // batchConfig.map(
+    //   ({ collection, doc, data, }) => batch.set(db.collection(collection).doc(doc), data, { merge: true, },)
+    // );
+    // batch.commit();
+    // // end replace with
+
+    const batchConfig = getActionable(detail);
+
+    sendBatchToFirebase( 'action', batchConfig, getFirestore, {}, );
 }
 
 export const updateItem = ( path, docId, newItem, oldItem, ) => // uid,

@@ -15,6 +15,7 @@ const getChild = ({ match: { params: { id }}, profile, settings, dashboard, }) =
   const componentsNavConfig = getComponentsNavConfig(args);
   // const matches = _.filter(componentsNavConfig, {id,},);
   // const item = matches[0];
+  // console.log('id\n', id,);
   const item = getFindNested(componentsNavConfig, 'id', id,);
   const { type: {component: type,}, dashboardConfig={}, crudConfig={}, } = item;
   // console.log('crudConfig\n', crudConfig,);

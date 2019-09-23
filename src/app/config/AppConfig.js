@@ -106,7 +106,11 @@ export const firebaseConfig = {
   databaseURL: 'https://green-comet-e2c85.firebaseio.com',
 }
 
-const getIncrement = amount => firebase.firestore.FieldValue.increment(amount);
+// ref: https://firebase.google.com/docs/firestore/manage-data/add-data#update_elements_in_an_array
+const getArrayUnion = data => firebase.firestore.FieldValue.arrayUnion(data); // Atomically add new data to an array
+const getArrayRemove = data => firebase.firestore.FieldValue.arrayRemove(data); // Atomically remove data from an array
+// ref: https://firebase.google.com/docs/firestore/manage-data/add-data#increment_a_numeric_value
+const getIncrement = amount => firebase.firestore.FieldValue.increment(amount); // // Atomically increment a field value
 
 export const defaultSettings = {
   // default settings
@@ -513,9 +517,12 @@ const getDisplayMaskPrice = rawValue => numeral(rawValue).format('$0,0[.]00') //
 //   bizCategory: getDisplayMaskBizCategory,
 // }
 
-export const getDisplayMask = ( id, rawValue, ) =>
-  // displayMasksConfig[id] ? displayMasksConfig[id](rawValue) : rawValue
-  formFieldsConfig[id].display ? formFieldsConfig[id].display(rawValue) : rawValue
+export const getDisplayMask = ( id, rawValue, ) => {
+  // console.log('id\n', id,);
+  // console.log('rawValue\n', rawValue,);
+  const out = formFieldsConfig[id].display ? formFieldsConfig[id].display(rawValue) : rawValue;
+  return out;
+}
 
 const formFieldsConfig = {  // notice the 's' at the end of formFields, makes it "unique"
   // Deprecated: type must be an HTML5 input type | https://www.w3schools.com/html/html_form_input_types.asp | https://material-ui.com/api/text-field/
@@ -710,9 +717,10 @@ const getOnlyNumbers = ( s, convertStringToNumber=false, ) => {
 
 const getOnlyAlpha = s => {
   // s: string: 'name*'
-  const re = /[a-zA-Z]+/gm;
-  const a = s.match(re); // expected result: ['name']
-  const out = a[0]; // expected result: 'name'
+  const p = /(^[a-zA-Z]+)[*]?$/;
+  const r = p.exec(s); // expected result: ["name*", "name"]
+  const out = r[1]; // expected result: 'name'
+  // console.log('out\n', out,); // 'name'
   return out; // 'name'
 }
 
@@ -1203,27 +1211,8 @@ export const getComponentsNavConfig = props => {
           dialogHeader: 'Claim lead',
           dialogBody: 'Do you want to claim this lead and send it to your archive?',
           buttonLabel: 'Claim it now!',
-          // dashboard: {
-          //   local: { // path: `users/${uid}/dashboard`,
-          //     net: -1,
-          //     inbox: -1,
-          //     archive: 1,
-          //     withdrawals: 1,
-          //   },
-          //   // remotes: {},
-          // },
-          // sets: [],
-          // deletes: [],
-          // updates: [
-          //   {
-          //     path: `leads/${docId}`,
-          //     fields: {
-          //       archivedBy: uid,
-          //       archivedAt: Date.now(),
-          //     },
-          //   },
-          // ],
-          getActionable: docId => { // { getIncrement, uid, settings, }
+          getActionable: item => { // { getIncrement, uid, settings, }
+            const { docId, } = item; // createdBy,
             const out = [
               {
                 // comment: 'update key fields of subject doc',
@@ -1240,7 +1229,7 @@ export const getComponentsNavConfig = props => {
                 doc: uid,
                 data: {
                   dashboard: {
-                    net: getIncrement(-1), 
+                    net: getIncrement(-1),
                     // inbox: getIncrement(-1), // covered in seperate element of this array
                     archive: getIncrement(1),
                     withdrawals: getIncrement(1),
@@ -1284,6 +1273,26 @@ export const getComponentsNavConfig = props => {
             ];
             return out;
           },
+          // dashboard: {
+          //   local: { // path: `users/${uid}/dashboard`,
+          //     net: -1,
+          //     inbox: -1,
+          //     archive: 1,
+          //     withdrawals: 1,
+          //   },
+          //   // remotes: {},
+          // },
+          // sets: [],
+          // deletes: [],
+          // updates: [
+          //   {
+          //     path: `leads/${docId}`,
+          //     fields: {
+          //       archivedBy: uid,
+          //       archivedAt: Date.now(),
+          //     },
+          //   },
+          // ],
         },
       },
     },
@@ -1336,24 +1345,89 @@ export const getComponentsNavConfig = props => {
         },
         updatable: false,
         deletable: true,
-        actionable : {
+        actionable: {
           icon: 'thumb_down', // 'priority_high', // 'warning', // 'report',
           label: 'Challenge this lead for poor quality',
           dialogHeader: 'Challenge lead',
           dialogBody: 'Do you want to return this lead and challenge it for poor quality?',
           buttonLabel: 'Challenge',
-          dashboard: {
-            local: {
-              'challenges.made.pending': 1,
-            },
-            remotes: [
+          getActionable: item => { // { getIncrement, uid, settings, }
+            const { docId, createdBy, } = item;
+            const out = [
               {
-                path: `dashboard/${item && item.createdBy}`,
-                fields: {
-                  challenges: 1,
+                // comment: 'update key fields of subject doc',
+                collection: 'leads',
+                doc: docId,
+                data: {
+                  challenges: {
+                    count: getIncrement(1),
+                    detail: getArrayUnion({
+                      challengedBy: uid,
+                      challengedAt: Date.now(),
+                    }),
+                  }
                 },
               },
-            ],
+              {
+                // comment: 'update dashboard of local user',
+                collection: 'settings',
+                doc: uid,
+                data: {
+                  dashboard: {
+                    // net: getIncrement(-1), 
+                    // inbox: getIncrement(-1), // covered in seperate element of this array
+                    archive: getIncrement(-1),
+                    // withdrawals: getIncrement(1),
+                  },
+                },
+              },
+              {
+                // comment: 'update dashboard of local user',
+                collection: 'settings',
+                doc: createdBy,
+                data: {
+                  dashboard: {
+                    net: getIncrement(-1),
+                    deposits: getIncrement(-1),
+                  },
+                },
+              },
+              {
+                // comment: 'decrease count when lead is claimed',
+                collection: 'stats',
+                doc: 'level_1',
+                data: {
+                  leads: {
+                    geoLocations: {
+                      // [settings.geoNation]: {
+                      //   [settings.geoRegion]: {
+                      //     [settings.geoLocal]: {
+                      //       [newData.bizCategory]: getIncrement(1),
+                      //     },
+                      //   },
+                      // },
+                      [geoLocationTypeKey]: getIncrement(-1),
+                    },
+                  },
+                },
+              },
+              // {
+              //   comment: 'no need to collect',
+              //   collection: 'stats',
+              //   doc: 'level_2',
+              //   data: {
+              //     leads: {
+              //       deposited: getIncrement(1),
+              //     },
+              //     zipCodes: {
+              //       [newData.zipInput.zip]: {
+              //         [geoLocationKey]: getIncrement(1),
+              //       },
+              //     },
+              //   },
+              // },
+            ];
+            return out;
           },
           // sets: [],
           // deletes: [],

@@ -114,7 +114,7 @@ const appendObjectToArray = ( a, o, formFieldConfig, ) => {
   // o: object: {city: [string], county: [string], state: [string], zip: [string], ...}
   // formFieldConfig: object: computed from imported getFormFieldsConfig()
   // return: arrayOfObjects: [{ label: [string], value: [string], [optional] displayMask: [string],}, ...]
-  console.log('a\n', a,);
+  // console.log('a\n', a,);
   const out = a.map( item => ({label: formFieldConfig[item].label, value: o[item],}));
   // keys.forEach( key => newArray.push({id: key, value: value[key],}));
   // console.log('out\n', out,);
