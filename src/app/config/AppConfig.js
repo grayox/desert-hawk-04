@@ -108,7 +108,7 @@ export const firebaseConfig = {
 
 // ref: https://firebase.google.com/docs/firestore/manage-data/add-data#update_elements_in_an_array
 const getArrayUnion = data => firebase.firestore.FieldValue.arrayUnion(data); // Atomically add new data to an array
-const getArrayRemove = data => firebase.firestore.FieldValue.arrayRemove(data); // Atomically remove data from an array
+// const getArrayRemove = data => firebase.firestore.FieldValue.arrayRemove(data); // Atomically remove data from an array
 // ref: https://firebase.google.com/docs/firestore/manage-data/add-data#increment_a_numeric_value
 const getIncrement = amount => firebase.firestore.FieldValue.increment(amount); // // Atomically increment a field value
 
@@ -1411,35 +1411,9 @@ export const getComponentsNavConfig = props => {
                   },
                 },
               },
-              // {
-              //   comment: 'no need to collect',
-              //   collection: 'stats',
-              //   doc: 'level_2',
-              //   data: {
-              //     leads: {
-              //       deposited: getIncrement(1),
-              //     },
-              //     zipCodes: {
-              //       [newData.zipInput.zip]: {
-              //         [geoLocationKey]: getIncrement(1),
-              //       },
-              //     },
-              //   },
-              // },
             ];
             return out;
           },
-          // sets: [],
-          // deletes: [],
-          updates: [
-            {
-              path: ``,
-              fields: {
-                challengedBy: uid,
-                //challengesCount: 'incrementBy1',
-              },
-            },
-          ],
         },
       },
     },

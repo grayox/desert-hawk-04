@@ -1,6 +1,7 @@
-// ref: https://firebase.google.com/docs/firestore/security/rules-structure
 // firebase deploy --only firestore:rules
+// ref: https://firebase.google.com/docs/firestore/security/rules-structure
 // rules_version = '2';
+
 service cloud.firestore {
   match /databases/{database}/documents {
     
@@ -20,11 +21,8 @@ service cloud.firestore {
     }
 
     match /settings/{userId} {
-      allow read, write: if request.auth.uid == userId;
-    }
-
-    match /dashboard/{userId} {
-      allow read, write: if request.auth.uid == userId;
+      allow create, read: if request.auth.uid == userId;
+      allow update: if request.auth.uid != null;
     }
 
     match /leads/{lead} {
@@ -53,6 +51,10 @@ service cloud.firestore {
       allow read, update, delete: if request.auth.uid == resource.data.createdBy;
       allow create: if request.auth.uid != null;
     }
+
+    // match /stats {
+    //   allow read, write: if request.auth.uid != null;
+    // }
 
     match /stats/level_1 {
       allow create, read, update: if request.auth.uid != null;

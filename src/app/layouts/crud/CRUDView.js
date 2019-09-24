@@ -100,7 +100,7 @@ const INITIAL_STATE = {
   ...INITIAL_STATE_SNACKBAR,
 }
 
-const SNACKBAR_MESSAGE = 'Sending';
+const SNACKBAR_MESSAGE = 'Processing...';
 
 class CRUDView extends Component {
 

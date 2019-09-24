@@ -16,7 +16,7 @@ import {
 // const AUTOHIDE_DURATION = 4500;
 // const SNACKBAR_MESSAGE = 'Item created';
 const AUTOHIDE_DURATION = 2000;
-const SNACKBAR_MESSAGE = 'Sending'
+const SNACKBAR_MESSAGE = 'Processing...'
 
 const INITIAL_STATE = {
   errors            : null ,
