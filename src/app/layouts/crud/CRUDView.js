@@ -247,14 +247,8 @@ class CRUDView extends Component {
       // ,() => { console.log('state\n', this.state); debugger; }
     )
 
-  handleCloseDialog = () => {
-    this.setState({
-      ...INITIAL_STATE_DIALOG,
-      crudForm: null, // this.state.createFormInitialState,
-    });
-  };
-
-  handleRefresh = () => this.props.onRefresh();
+  handleRefresh = () => this.props.onRefresh()
+  handleCloseDialog = () => this.setState(INITIAL_STATE_DIALOG)
 
   handleCreateItem = e => {
     // console.log('state\n', this.state);
@@ -359,7 +353,7 @@ class CRUDView extends Component {
     // alert('You clicked me!');
     // console.log('state\n', this.state);
     // console.log('props\n', this.props);
-    const { handleOpenSnackbar, } = this; // handleRefresh,
+    const { handleCloseDialog, handleOpenSnackbar, } = this; // handleRefresh,
     const { detail, } = this.state;
     const { actionItem, actionable, } = this.props; // settings, profile, dashboard, readable, navComponentId,
     // const { uid, } = profile;
@@ -369,6 +363,7 @@ class CRUDView extends Component {
     // const { docId } = detail;
     actionItem( detail, actionable, ); // uid, navComponentId, dashboard,
 
+    handleCloseDialog();
     // handleRefresh();
     // handleOpenSnackbar('Action complete');
     handleOpenSnackbar(SNACKBAR_MESSAGE);
