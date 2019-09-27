@@ -140,6 +140,7 @@ const sendBatchToFirebase = ( protocol, batchConfig, getFirestore, { path='', ne
   //   update: getUpdateable,
   //   delete: getDeleteable,
   // }
+
   const db = getFirestore();
   const batch = db.batch();
 
@@ -241,7 +242,6 @@ export const createItem = ( item, { addOns, path, getCreatable, }, ) => // uid, 
 
     const batchConfig = getCreatable(path,);
     const args = { path, newData, }
-
     sendBatchToFirebase( 'create', batchConfig, getFirestore, args, );
   }
 
@@ -326,7 +326,7 @@ export const createItem = ( item, { addOns, path, getCreatable, }, ) => // uid, 
 //   return batch;
 // }
 
-export const actionItem = ( detail, { getActionable, }, ) => // actionable, uid, settings, dashboard, readable, navComponentId,
+export const actionItem = ( detail, { getActionable, getTransaction, }, ) => // actionable, uid, settings, dashboard, readable, navComponentId,
   (dispatch, getState, { getFirebase, getFirestore, }) => {
     // console.log('detail\n', detail,);
     // console.log('docId\n', docId,);
@@ -378,16 +378,19 @@ export const actionItem = ( detail, { getActionable, }, ) => // actionable, uid,
     // // end replace with
 
     const batchConfig = getActionable(detail);
-
     sendBatchToFirebase( 'action', batchConfig, getFirestore, {}, );
+    
+    const transactionResult = getTransaction && getTransaction(detail, getFirestore,);
+    // returns false if no subsequent action is necessary
+    console.log('transactionResult\n', transactionResult,);
 }
 
 export const updateItem = ( path, docId, newItem, oldItem, ) => // uid,
   (dispatch, getState, { getFirebase, getFirestore, }) => {
     // ref: https://firebase.google.com/docs/firestore/manage-data/add-data#update-data
-    console.log('path\n', path);
-    console.log('docId\n', docId);
-    console.log('getState\n', getState);
+    // console.log('path\n', path);
+    // console.log('docId\n', docId);
+    // console.log('getState\n', getState);
 
     const timestamp = Date.now();
     const newDoc = {

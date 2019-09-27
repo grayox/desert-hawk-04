@@ -8,13 +8,13 @@ import './react-table-defaults';
 import './styles/index.css';
 import './fake-db/fake-db'
 import JssProvider from 'react-jss/lib/JssProvider';
-import { create } from 'jss';
-import { createGenerateClassName, jssPreset } from '@material-ui/core/styles';
+import { create, } from 'jss';
+import { createGenerateClassName, jssPreset, } from '@material-ui/core/styles';
 import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux';
 // import { BrowserRouter as Router } from 'react-router-dom';
 import { Router, } from 'react-router-dom';
-import { routes } from './fuse-configs/fuseRoutesConfig';
+import { routes, } from './fuse-configs/fuseRoutesConfig';
 import { FuseTheme, FuseAuthorization, } from '@fuse'; // FuseLayout,
 // import MainToolbar from './main/MainToolbar';
 // import MainNavbarContent from './main/MainNavbarContent';
@@ -25,7 +25,7 @@ import jssExtend from 'jss-extend';
 import store from 'store';
 // import SettingsPanel from 'main/SettingsPanel';
 // import ChatPanel from 'main/chatPanel/ChatPanel';
-import { Auth } from 'auth';
+import { Auth, } from 'auth';
 
 // begin my add
 import MyLayout from 'app/layouts/MyLayout';

@@ -1182,9 +1182,10 @@ export const getComponentsNavConfig = props => {
           path: 'leads',
           orderBy: [ 'createdAt', 'desc', ],
           where: [
-            [ 'deletedAt'       , '==' , 0    , ] ,
             [ 'archivedBy'      , '==' , null , ] ,
             [ 'archivedAt'      , '==' , 0    , ] ,
+            [ 'rejectedAt'      , '==' , 0    , ] , // eliminates settled challenges
+            [ 'deletedAt'       , '==' , 0    , ] ,
             // [ 'challengesCount' , '<=' , CHALLENGES_LIMIT     , ] , // Unhandled Rejection (FirebaseError): Invalid query. You have a where filter with an inequality (<, <=, >, or >=) on field 'challengesCount' and so you must also use 'challengesCount' as your first Query.orderBy(), but your first Query.orderBy() is on field 'createdAt' instead.
             [ 'geoNation'       , '==' , geoNation   , ] , // 'Asia, Pacific, and Middle East' | 'Latin America and Caribbean'
             [ 'geoRegion'       , '==' , geoRegion   , ] , // 'Kazakhstan' | 'Chile'
@@ -1212,7 +1213,8 @@ export const getComponentsNavConfig = props => {
           dialogBody: 'Do you want to claim this lead and send it to your archive?',
           buttonLabel: 'Claim it now!',
           getActionable: item => { // { getIncrement, uid, settings, }
-            const { docId, } = item; // createdBy,
+            const { docId, createdBy, } = item; // createdBy,
+            const timestamp = Date.now();
             const out = [
               {
                 // comment: 'update key fields of subject doc',
@@ -1220,7 +1222,7 @@ export const getComponentsNavConfig = props => {
                 doc: docId,
                 data: {
                   archivedBy: uid,
-                  archivedAt: Date.now(),
+                  archivedAt: timestamp,
                 },
               },
               {
@@ -1237,12 +1239,22 @@ export const getComponentsNavConfig = props => {
                 },
               },
               {
+                // comment: 'update dashboard of remote user',
+                collection: 'settings',
+                doc: createdBy,
+                data: {
+                  dashboard: {
+                    reputation: getIncrement(1),
+                  },
+                },
+              },
+              {
                 // comment: 'decrease count when lead is claimed',
                 collection: 'stats',
                 doc: 'level_1',
                 data: {
                   leads: {
-                    geoLocations: {
+                    geoLocationTypes: {
                       // [settings.geoNation]: {
                       //   [settings.geoRegion]: {
                       //     [settings.geoLocal]: {
@@ -1273,26 +1285,6 @@ export const getComponentsNavConfig = props => {
             ];
             return out;
           },
-          // dashboard: {
-          //   local: { // path: `users/${uid}/dashboard`,
-          //     net: -1,
-          //     inbox: -1,
-          //     archive: 1,
-          //     withdrawals: 1,
-          //   },
-          //   // remotes: {},
-          // },
-          // sets: [],
-          // deletes: [],
-          // updates: [
-          //   {
-          //     path: `leads/${docId}`,
-          //     fields: {
-          //       archivedBy: uid,
-          //       archivedAt: Date.now(),
-          //     },
-          //   },
-          // ],
         },
       },
     },
@@ -1352,20 +1344,43 @@ export const getComponentsNavConfig = props => {
           dialogBody: 'Do you want to return this lead and challenge it for poor quality?',
           buttonLabel: 'Challenge',
           getActionable: item => { // { getIncrement, uid, settings, }
-            const { docId, createdBy, } = item;
+            const { docId, createdBy, name, bizCategory, } = item;
+            const timestamp = Date.now();
             const out = [
               {
                 // comment: 'update key fields of subject doc',
                 collection: 'leads',
                 doc: docId,
                 data: {
-                  challenges: {
-                    count: getIncrement(1),
-                    detail: getArrayUnion({
-                      challengedBy: uid,
-                      challengedAt: Date.now(),
-                    }),
-                  }
+                  archivedBy: null,
+                  archivedAt: 0,
+                  challengesCount: getIncrement(1),
+                  challenges: getArrayUnion({
+                    challengedBy: uid,
+                    challengedAt: timestamp,
+                  }),
+                },
+              },
+              {
+                // comment: 'create pending outbound challenge record for the local user',
+                collection: 'challenges',
+                doc: uid,
+                data: {
+                  docId, name, bizCategory,
+                  createdAt: timestamp,
+                  direction: 'outbound',
+                  status: 'pending',
+                },
+              },
+              {
+                // comment: 'create pending inbound challenge record for the remote user',
+                collection: 'challenges',
+                doc: createdBy,
+                data: {
+                  docId, name, bizCategory,
+                  updatedAt: timestamp,
+                  direction: 'inbound',
+                  status: 'pending',
                 },
               },
               {
@@ -1374,38 +1389,41 @@ export const getComponentsNavConfig = props => {
                 doc: uid,
                 data: {
                   dashboard: {
-                    // net: getIncrement(-1), 
-                    // inbox: getIncrement(-1), // covered in seperate element of this array
                     archive: getIncrement(-1),
-                    // withdrawals: getIncrement(1),
+                    reputation: getIncrement(-1),
+                    challenges: {
+                      outbound: {
+                        pending: getIncrement(-1),
+                      },
+                    },
                   },
                 },
               },
               {
-                // comment: 'update dashboard of local user',
+                // comment: 'update dashboard of remote user who created lead',
                 collection: 'settings',
                 doc: createdBy,
                 data: {
                   dashboard: {
                     net: getIncrement(-1),
                     deposits: getIncrement(-1),
+                    challenges: {
+                      net: getIncrement(-1),
+                      outbound: {
+                        total: getIncrement(1),
+                        pending: getIncrement(1),
+                      },
+                    },
                   },
                 },
               },
               {
-                // comment: 'decrease count when lead is claimed',
+                // comment: 'return lead to unclaimed pile, reverse stats impact when archived
                 collection: 'stats',
                 doc: 'level_1',
                 data: {
                   leads: {
-                    geoLocations: {
-                      // [settings.geoNation]: {
-                      //   [settings.geoRegion]: {
-                      //     [settings.geoLocal]: {
-                      //       [newData.bizCategory]: getIncrement(1),
-                      //     },
-                      //   },
-                      // },
+                    geoLocationTypes: {
                       [geoLocationTypeKey]: getIncrement(-1),
                     },
                   },
@@ -1413,6 +1431,94 @@ export const getComponentsNavConfig = props => {
               },
             ];
             return out;
+          },
+          // getTransaction = db => {
+          //   // ref: https://firebase.google.com/docs/firestore/manage-data/transactions#passing_information_out_of_transactions
+          //   // Create a reference to the SF doc.
+          //   const sfDocRef = db.collection('cities').doc('SF');
+          //   db.runTransaction( transaction =>
+          //     transaction.get(sfDocRef).then( sfDoc => {
+          //       if (!sfDoc.exists) throw new Error('Document does not exist!');
+          //       const newPopulation = sfDoc.data().population + 1;
+          //       if (newPopulation <= 1000000) {
+          //         transaction.update(sfDocRef, { population: newPopulation, },);
+          //         return newPopulation;
+          //       } else {
+          //         return Promise.reject('Sorry! Population is too big.');
+          //       }
+          //     })
+          //   ).then( newPopulation =>
+          //     console.log('Population increased to ', newPopulation,)
+          //   ).catch( err => console.error(err)) // This will be an "population is too big" error.
+          // },
+          getTransaction: ( item, getFirestore, ) => {
+            const { docId, createdBy, } = item;
+            const timestamp = Date.now();
+            const db = getFirestore();
+            const getDocRef = ( collection, doc, ) => db.collection(collection).doc(doc)
+            // multiple updates:
+            // ref: https://stackoverflow.com/a/47546657/1640892
+            // ref: https://firebase.google.com/docs/firestore/manage-data/transactions#passing_information_out_of_transactions
+            // Create a reference to the doc.
+            const dbDocRef = getDocRef('leads', docId,);
+            db.runTransaction( transaction =>
+              transaction.get(dbDocRef).then( dbDoc => {
+                if (!dbDoc.exists) throw new Error('Document does not exist!');
+                // start logic here
+                const challengesCount = dbDoc.data().challengesCount;
+                // console.log('challengesCount\n', challengesCount,);
+                if(challengesCount >= CHALLENGES_LIMIT) {
+                  const result = {
+                    rejectedAt: timestamp,
+                  };
+                  // settle incoming and outgoing challenges
+                  // settle other challengers reputation via refund
+                  // decrement creator reputation
+                  transaction.update( dbDoc, result, );
+
+                  const docRef_challengesUid = getDocRef('challenges', uid,);
+                  transaction.update( docRef_challengesUid, {
+                    status: 'rejected',
+                  });
+
+                  const docRef_challengesCreatedBy = getDocRef('challenges', createdBy,);
+                  transaction.update( docRef_challengesCreatedBy, {
+                    status: 'rejected',
+                  });
+
+                  const docRef_settingsUid = getDocRef('settings', uid,);
+                  transaction.update( docRef_settingsUid, {
+                    dashboard: {
+                      reputation: getIncrement(1),
+                      challenges: {
+                        outbound: {
+                          pending: getIncrement(-1),
+                          rejected: getIncrement(1),
+                        },
+                      },
+                    },
+                  });
+
+                  const docRef_settingsCreatedBy = getDocRef('settings', createdBy,);
+                  transaction.update( docRef_settingsCreatedBy, {
+                    dashboard: {
+                      reputation: getIncrement(-1),
+                      challenges: {
+                        inbound: {
+                          pending: getIncrement(-1),
+                          rejected: getIncrement(1),
+                        },
+                      },
+                    },
+                  });
+
+                  return result;
+                } else return Promise.reject(false)
+              })
+            ).then( result =>
+              // null
+              console.log('bad lead', result,)
+            ).catch( e => console.error(e)) // This will be 'bad lead' error.
           },
         },
       },
@@ -1452,9 +1558,10 @@ export const getComponentsNavConfig = props => {
           addOns: {
             // createdAt: 'timestamp', // added in cred.actions at save time
             createdBy: uid,
-            deletedAt: 0,
             archivedBy: null,
             archivedAt: 0,
+            rejectedAt: 0,
+            deletedAt: 0,
             geoNation,
             geoRegion,
             geoLocal,
@@ -1478,7 +1585,7 @@ export const getComponentsNavConfig = props => {
                 doc: 'level_1',
                 data: {
                   leads: {
-                    geoLocations: {
+                    geoLocationTypes: {
                       // [settings.geoNation]: {
                       //   [settings.geoRegion]: {
                       //     [settings.geoLocal]: {
@@ -1501,6 +1608,11 @@ export const getComponentsNavConfig = props => {
                   zipCodes: {
                     [newData.zipInput.zip]: {
                       [geoLocationKey]: getIncrement(1),
+                    },
+                  },
+                  geoLocations: {
+                    [geoLocationKey]: {
+                      [newData.zipInput.zip]: getIncrement(1),
                     },
                   },
                 },
