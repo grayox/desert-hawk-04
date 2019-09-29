@@ -70,7 +70,7 @@ class ZipCodeInput extends Component {
     this.setState({ showError: true, });
   }
 
-  handleOnChange = () => {
+  getOnChange = () => {
     // make arg conform to canonical structure of event.target
     const data = {
       target: {
@@ -114,15 +114,21 @@ class ZipCodeInput extends Component {
     const ready1 = ( length <= TARGET_LENGTH ); // 5
     if(!ready1) return null;
 
-    if ( length < TARGET_LENGTH ) this.setState({
-      // isValid: false,
-      ...INITIAL_STATE,
-    });
+    // if ( length < TARGET_LENGTH ) this.setState({
+    //   // isValid: false,
+    //   ...INITIAL_STATE,
+    // });
     
+    // this.setState({ zip: value, }, () => {
+    //   this.getOnChange();
+    //   if( length === TARGET_LENGTH ) this.setValid();
+    // });
+
     this.setState({ zip: value, }, () => {
-      this.handleOnChange();
-      if( length === TARGET_LENGTH ) this.setValid();
+      this.setValid();
+      this.getOnChange();
     });
+
   }
 
   render() {
