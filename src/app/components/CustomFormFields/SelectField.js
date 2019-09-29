@@ -21,7 +21,7 @@ import {
 //   },
 // }));
 
-const SelectField = ({ onChange, id, label, options, required, error, value: valueInit='', }) => {
+const SelectField = ({ onChange, id, label, options, required, error: isError, value: valueInit='', }) => {
   // const classes = useStyles();
   // const [ values, setValues, ] = useState({
   //   age: '',
@@ -87,7 +87,7 @@ const SelectField = ({ onChange, id, label, options, required, error, value: val
           // fullWidth
           // value={values.age}
           value={value}
-          error={error}
+          error={!!isError}
           onChange={handleChange}
           input={
             <OutlinedInput

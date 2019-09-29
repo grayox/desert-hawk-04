@@ -191,12 +191,13 @@ const CreateDialogContainer = ({
   const getCreateDialog = () => {
     // console.log('dialogIsOpen\n', dialogIsOpen,);
     if(!state.crudFormTimestamp) setState({ ...state, crudFormTimestamp: Date.now(), });
-    const { crudForm, creatable, crudFormIdHash, crudFormTimestamp, } = state; //
+    const { errors, crudForm, creatable, crudFormIdHash, crudFormTimestamp, } = state; //
     return (
       <CreateDialog
         // props
         createDialogIsOpen={dialogIsOpen} // createDialogIsOpen is props in crudView
         // state
+        crudFormErrors={errors}
         crudFormIdHash={crudFormIdHash}
         crudFormTimestamp={crudFormTimestamp}
         crudForm={crudForm} creatable={creatable} // creatable is props in crudView

@@ -437,17 +437,32 @@ const leftParen = '(';
 const rightParen = ')';
 const whitespace = ' ';
 const digitRe = /\d/;
-const nonZeroDigitRe = /[1-9]/;
 const zipRe = /^\d{5}$/;
+const nonZeroDigitRe = /[1-9]/;
 const phoneRe = /^\([1-9]\d{2}\)\s\d{3}-\d{4}$/; // https://regex101.com/r/mrvZZC/1
-const emailRe = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/; // https://www.w3resource.com/javascript/form/email-validation.php // https://regex101.com/r/sKxhYp/2
+const emailRe = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/; // modified: w{2,3} -> w{2,} (top-level domains can have more than three characters)// https://www.w3resource.com/javascript/form/email-validation.php // https://regex101.com/r/sKxhYp/2
 const lettersOnlyRe = /^[a-zA-Z\s]+$/; // https://www.w3resource.com/javascript/form/letters-numbers-field.php // https://regex101.com/r/fCsBHm/1
 const matchAllRe = /^.*$/; // matches all characters (.) zero or more times (*) 
-const getZipInputValidation = data => typeof data === 'object'
 const phoneMask = [
   leftParen, nonZeroDigitRe, digitRe, digitRe, rightParen, whitespace, // '(212) '
   digitRe, digitRe, digitRe, dash, digitRe, digitRe, digitRe, digitRe, // '555-1212'
 ]
+const getZipInputValidation = data => {
+  console.log('data\n', data,);
+  const TARGET_TYPE = 'object';
+  const TARGET_KEYS_LENGTH = 8;
+  const typeOfData = typeof data;
+  console.log('typeOfData\n', typeOfData,);
+  const ready1 = (typeOfData === TARGET_TYPE);
+  const keys = Object.keys(data);
+  console.log('keys\n', keys,);
+  const keysLength = keys.length;
+  console.log('keysLength\n', keysLength,);
+  const ready2 = (keysLength === TARGET_KEYS_LENGTH);
+  const out = ready1 && ready2;
+  return out;
+}
+
 
 const getValidation = ( target=matchAllRe, data, ) => {
   // validate field input
@@ -1008,6 +1023,22 @@ export const getCreateItem = ({
   const REQUIRED = 'REQUIRED';
   const VALIDATE = 'VALIDATE';
 
+  const getRequired = value => {
+    let out;
+    const typeOfValue = typeof value;
+    switch(typeOfValue) {
+      case 'string':
+        out = !!value.length;
+        break;
+      case 'object':
+        out = !_.isEmpty(value);
+        break;
+      default:
+        // code goes here
+    }
+    return out;
+  }
+
   const mergeArray = (o, prop, data,) => {
     if(!Array.isArray(o[prop])) o[prop] = [];
     return o[prop].push(data);
@@ -1031,13 +1062,14 @@ export const getCreateItem = ({
 
     // validate
     const target = validationConfig[mask];
+    // console.log('value\n', value,);
     // console.log('target\n', target,);
     const validated = getValidation(target, value,);
     // console.log('validated\n', validated,);
     if(!validated) mergeArray( errors, id, VALIDATE, );
 
     // required
-    if(required && !value.length) mergeArray( errors, id, REQUIRED, );
+    if(required && !getRequired(value)) mergeArray( errors, id, REQUIRED, );
 
     // extract numbers where appropriate
     if(mask === 'number') value = getOnlyNumbers(value, true,);
@@ -1568,6 +1600,9 @@ export const getComponentsNavConfig = props => {
             // bizCategory,
           },
           getCreatable: newData => { // { getIncrement, uid, settings, }
+            const zip = newData.zipInput && newData.zipInput.zip;
+            const ready1 = newData && zip;
+            if(!ready1) return null;
             const out = [
               {
                 collection: 'settings',
@@ -1606,13 +1641,13 @@ export const getComponentsNavConfig = props => {
                     deposited: getIncrement(1),
                   },
                   zipCodes: {
-                    [newData.zipInput.zip]: {
+                    [zip]: {
                       [geoLocationKey]: getIncrement(1),
                     },
                   },
                   geoLocations: {
                     [geoLocationKey]: {
-                      [newData.zipInput.zip]: getIncrement(1),
+                      [zip]: getIncrement(1),
                     },
                   },
                 },

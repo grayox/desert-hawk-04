@@ -12,6 +12,18 @@ import _ from '@lodash';
 // must be customized for custom components
 const FORM_FIELD_ID = 'zipInput';
 
+const INITIAL_STATE = {
+  zip       : ''    ,
+  lat       : ''    ,
+  lon       : ''    ,
+  city      : ''    ,
+  state     : ''    ,
+  county    : ''    ,
+  isValid   : false ,
+  showError : false ,
+  // errors  : {}    ,
+}
+
 class ZipCodeInput extends Component {
   
   // state = { 
@@ -24,26 +36,57 @@ class ZipCodeInput extends Component {
   //   county  : ''    ,
   // }
 
+  // state = {
+  //   zip     : this.props.value.zip     || ''    ,
+  //   lat     : this.props.value.lat     || ''    ,
+  //   lon     : this.props.value.lon     || ''    ,
+  //   city    : this.props.value.city    || ''    ,
+  //   state   : this.props.value.state   || ''    ,
+  //   county  : this.props.value.county  || ''    ,
+  //   isValid : this.props.value.isValid || false ,
+  //   // errors  : this.props.errors        || {}    ,
+  // }
+
   // ref: https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#recommendation-fully-uncontrolled-component-with-a-key
-  state = { 
-    isValid : this.props.value.isValid || false ,
-    zip     : this.props.value.zip     || ''    ,
-    lat     : this.props.value.lat     || ''    ,
-    lon     : this.props.value.lon     || ''    ,
-    city    : this.props.value.city    || ''    ,
-    state   : this.props.value.state   || ''    ,
-    county  : this.props.value.county  || ''    ,
+  state = INITIAL_STATE;
+
+  componentDidMount = () => {
+    this.handleLoad();
   }
 
-  onValid = data => {
+  handleLoad = () => {
+    const ready1 = this.props && this.props.value && this.props.value.isValid;
+    if(!ready1) return null;
+    const { zip, lat, lon, city, state, county, isValid, } = this.props.value;
+    this.setState({ zip, lat, lon, city, state, county, isValid, });
+  }
+
+  handleIsValid = data => {
     // console.log('data\n', data,);
     // const { onChange, } = this.props;
-    this.props.onChange(data);
+    // this.setState({ showError: true, }, () =>
+    //   this.props.onChange(data)
+    // );
+    this.setState({ showError: true, });
   }
+
+  handleOnChange = () => {
+    // make arg conform to canonical structure of event.target
+    const data = {
+      target: {
+        id: FORM_FIELD_ID,
+        value: {
+          ...this.state,
+          formFieldConfigKey: FORM_FIELD_ID,
+        }
+      },
+    };
+    this.props.onChange(data);
+  } 
 
   setValid = () => {
     const { zip, } = this.state;
-    const { onValid, } = this;
+    const { handleIsValid, } = this;
     const zipData = zipCodeData[zip];
     // console.log('zipData\n', zipData,);
 
@@ -56,19 +99,7 @@ class ZipCodeInput extends Component {
       isValid, ...zipData, // lat, lon, city, state, county,
     },
       () => {
-        if(isValid) {
-          // make arg conform to canonical structure of event.target
-          const arg = {
-            target: {
-              id: FORM_FIELD_ID,
-              value: {
-                ...this.state,
-                formFieldConfigKey: FORM_FIELD_ID,
-              }
-            },
-          };
-          onValid(arg);
-        }
+        if(isValid) this.handleIsValid();
       }
     );
   }
@@ -80,22 +111,27 @@ class ZipCodeInput extends Component {
     const { value, } = event.target; // id,
     const length = value && value.length;
 
-    const ready1 = length < ( TARGET_LENGTH + 1 ); // 6
+    const ready1 = ( length <= TARGET_LENGTH ); // 5
     if(!ready1) return null;
 
-    if ( length < TARGET_LENGTH ) this.setState({ isValid: false, });
+    if ( length < TARGET_LENGTH ) this.setState({
+      // isValid: false,
+      ...INITIAL_STATE,
+    });
     
     this.setState({ zip: value, }, () => {
+      this.handleOnChange();
       if( length === TARGET_LENGTH ) this.setValid();
     });
   }
 
   render() {
-    const { required, } = this.props; // onChange, onValid,
+    const { required: isRequired, } = this.props; // onChange, onValid,
     const { handleChange, } = this;
-    const { isValid, zip, city, state, county, } = this.state; // lat, lon,
+    const { zip, city, state, county, isValid, showError, } = this.state; // lat, lon,
+    console.log('state\n', this.state);
 
-    return (
+    const getZipCodeInput = () =>
       <TextField
         // className={classes.formControl}
         className="mb-24"
@@ -114,11 +150,12 @@ class ZipCodeInput extends Component {
         // defaultValue={'hi'}//{id && values && values[id]}//
         onChange={handleChange}
         variant="outlined"
-        required={required}
+        required={isRequired}
+        error={isRequired && showError && !isValid}
         // multiline={multiline}
         // rows={rows}
         // InputLabelProps={InputLabelProps}
-
+    
         helperText={
           isValid
           ?
@@ -144,21 +181,22 @@ class ZipCodeInput extends Component {
         //   ),
         // }}
       />
-    );
+
+    return getZipCodeInput();
   }
 }
 
 ZipCodeInput.propTypes = {
   icon: PropTypes.string,
   required: PropTypes.bool,
-  onValid: PropTypes.func,
+  // onValid: PropTypes.func,
   onChange: PropTypes.func,
 };
 
 ZipCodeInput.defaultProps = {
   icon: 'place',
   required: false, //true,
-  onValid: () => console.log('is valid. I am default.'),
+  // onValid: () => console.log('is valid. I am default.'),
   onChange: () => console.log('I changed. I am default.'),
 };
  

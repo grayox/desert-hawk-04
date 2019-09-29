@@ -215,7 +215,7 @@ class CRUDView extends Component {
     // // end mask
 
     this.setState({ crudForm, }
-      // ,() => console.log('state\n', this.state)
+      ,() => console.log('state\n', this.state)
     );
   }
 
