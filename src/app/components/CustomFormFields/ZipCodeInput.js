@@ -12,16 +12,28 @@ import _ from '@lodash';
 // must be customized for custom components
 const FORM_FIELD_ID = 'zipInput';
 
-const INITIAL_STATE = {
+const INITIAL_STATE_ZIP = {
   zip       : ''    ,
+};
+
+const INITIAL_STATE_DATA = {
   lat       : ''    ,
   lon       : ''    ,
   city      : ''    ,
   state     : ''    ,
   county    : ''    ,
+};
+
+const INITIAL_STATE_ERROR = {
   isValid   : false ,
   showError : false ,
   // errors  : {}    ,
+};
+
+const INITIAL_STATE = {
+  ...INITIAL_STATE_ZIP   ,
+  ...INITIAL_STATE_DATA  ,
+  ...INITIAL_STATE_ERROR ,
 }
 
 class ZipCodeInput extends Component {
@@ -61,15 +73,6 @@ class ZipCodeInput extends Component {
     this.setState({ zip, lat, lon, city, state, county, isValid, });
   }
 
-  handleIsValid = data => {
-    // console.log('data\n', data,);
-    // const { onChange, } = this.props;
-    // this.setState({ showError: true, }, () =>
-    //   this.props.onChange(data)
-    // );
-    this.setState({ showError: true, });
-  }
-
   getOnChange = () => {
     // make arg conform to canonical structure of event.target
     const data = {
@@ -86,20 +89,21 @@ class ZipCodeInput extends Component {
 
   setValid = () => {
     const { zip, } = this.state;
-    const { handleIsValid, } = this;
-    const zipData = zipCodeData[zip];
-    // console.log('zipData\n', zipData,);
+    let zipData = zipCodeData[zip];
+    console.log('zipData\n', zipData,);
+    const bool1 = !!zipData;
+    const bool2 = ( typeof zipData === 'object' );
+    const bool3 = !_.isEmpty(zipData);
+    const isValid = bool1 && bool2 && bool3;
+    const showError = this.state.showError || isValid;
 
-    const isValid = zipData && !_.isEmpty(zipData);
-    const ready1 = isValid;
-    if(!ready1) return null;
-
+    if(!isValid) zipData = INITIAL_STATE_DATA;
+    
     // const { lat, lon, city, state, county, } = zipData;
-    this.setState({
-      isValid, ...zipData, // lat, lon, city, state, county,
-    },
+    this.setState({ isValid, showError, ...zipData, }, // lat, lon, city, state, county,
       () => {
-        if(isValid) this.handleIsValid();
+        console.log('state\n', this.state,);
+        this.getOnChange();
       }
     );
   }
@@ -126,7 +130,6 @@ class ZipCodeInput extends Component {
 
     this.setState({ zip: value, }, () => {
       this.setValid();
-      this.getOnChange();
     });
 
   }
