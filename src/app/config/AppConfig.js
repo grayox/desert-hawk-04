@@ -410,7 +410,8 @@ export const getDisplayMaskBizCategory = value => { // home
 //   return out;
 //   // // test // https://lodash.com/docs/4.17.15#startCase
 //   // const a = [
-//   //   "GERALD P. HENDON", "MacAfee", "McAfee", "Martin Luther King, Jr.", "Betty d'Angelo", " One space", "  Two spaces ",
+//   //   "jolly roGER", "JOLLY ROger", "GERALD P. HENDON", "MacAfee", "McAfee", "Martin Luther King, Jr.",
+//   //   "Betty d'Angelo", " One space", "  Two spaces ",
 //   //   "Alice Worthington-Smythe", "Betty D'Angelo", "Charlie Van der Humpton", "Ben & Jerry", "Sierra O'Neil",
 //   //   '--foo-bar--', 'fooBar', '__FOO_BAR__', 'FOO BAR', 'This string ShouLD be ALL in title CASe',
 //   //   'myString', 'my_string', 'MY_STRING', 'my string', 'My string', "a Simple string",
@@ -524,7 +525,7 @@ const getMaskedInput = mask => ({ inputRef, onChange, ...other, }) =>
     onChange={onChange}
   />
 
-const getDisplayMaskTitle = rawValue => _.startCase(_.camelCase(rawValue))
+const getDisplayMaskTitle = rawValue => _.startCase(_.toLower(rawValue)) // _.camelCase
 const getDisplayMaskPrice = rawValue => numeral(rawValue).format('$0,0[.]00') // http://numeraljs.com
 
 // const displayMasksConfig = {
