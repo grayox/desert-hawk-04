@@ -1170,7 +1170,7 @@ export const getComponentsNavConfig = props => {
         navList: 'item', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
         component: 'dashboard', // [ 'dashboard', 'crud', null, ] 'overhead' (deprecated), ] => src/app/config/ComponentRouter.js
       },
-      // see src/app/config/Routes.js
+      // see: src/app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
       // component: () => FuseLoadable({loader: () => import('app/views/dashboard/Dashboard')}),
       // component: () => FuseLoadable({loader: () => import('app/views/dashboard/DashboardContainer')}),

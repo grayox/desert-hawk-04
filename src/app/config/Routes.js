@@ -120,8 +120,8 @@ class Routes extends Component {
       // </Switch>
       
       // latest working
-      // <Redirect from='/'       to='/dashboard' />
-      // <Redirect from='/login'  to='/dashboard' />
+      <Redirect from='/'       to='/dashboard' />
+      <Redirect from='/login'  to='/dashboard' />
       <div className={classes.wrapper}>
         <Switch>
           {
