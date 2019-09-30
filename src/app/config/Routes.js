@@ -120,9 +120,9 @@ class Routes extends Component {
       // </Switch>
       
       // latest working
-      <Redirect from='/'      to='/dashboard' />
-      <Redirect from='/login' to='/dashboard' />
       <div className={classes.wrapper}>
+        <Redirect from='/'      to='/dashboard' />
+        <Redirect from='/login' to='/dashboard' />
         <Switch>
           {
           // <Route path='/' exact component={FuseLoadable({loader: () => import('app/views/dashboard/Dashboard')})} />
