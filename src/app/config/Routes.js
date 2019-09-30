@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { withStyles, } from '@material-ui/core';
 import {
-  Switch, Route,
-  // Redirect,
+  Switch, Route, Redirect,
 } from 'react-router-dom';
 import { FuseLoadable, } from '@fuse';
 
