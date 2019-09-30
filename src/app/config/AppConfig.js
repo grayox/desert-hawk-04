@@ -476,10 +476,11 @@ const validationConfig = {
   zip         : zipRe                 ,
   zipInput    : getZipInputValidation ,
   lettersOnly : lettersOnlyRe         ,
-  matchAll    : matchAllRe            ,
   phone       : phoneRe               ,
   email       : emailRe               ,
+  title       : matchAllRe            ,
   number      : matchAllRe            ,
+  matchAll    : matchAllRe            ,
 }
 
 const masksConfig = {
