@@ -13,15 +13,15 @@ import _ from '@lodash';
 const FORM_FIELD_ID = 'zipInput';
 
 const INITIAL_STATE_ZIP = {
-  zip       : ''    ,
+  zip : '',
 };
 
 const INITIAL_STATE_DATA = {
-  lat       : ''    ,
-  lon       : ''    ,
-  city      : ''    ,
-  state     : ''    ,
-  county    : ''    ,
+  lat    : '' ,
+  lon    : '' ,
+  city   : '' ,
+  state  : '' ,
+  county : '' ,
 };
 
 const INITIAL_STATE_ERROR = {
@@ -34,7 +34,7 @@ const INITIAL_STATE = {
   ...INITIAL_STATE_ZIP   ,
   ...INITIAL_STATE_DATA  ,
   ...INITIAL_STATE_ERROR ,
-}
+};
 
 class ZipCodeInput extends Component {
   

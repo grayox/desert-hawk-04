@@ -162,7 +162,7 @@ const sendBatchToFirebase = ( protocol, batchConfig, getFirestore, { path='', ne
       // code
       break;
   }
-  batchConfig.forEach(
+  batchConfig && batchConfig.forEach(
     ({ collection, doc, data, }) => batch.set(db.collection(collection).doc(doc), data, { merge: true, },)
   );
   batch.commit();

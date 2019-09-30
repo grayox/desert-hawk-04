@@ -447,21 +447,22 @@ const phoneMask = [
   leftParen, nonZeroDigitRe, digitRe, digitRe, rightParen, whitespace, // '(212) '
   digitRe, digitRe, digitRe, dash, digitRe, digitRe, digitRe, digitRe, // '555-1212'
 ]
-const getZipInputValidation = data => {
-  console.log('data\n', data,);
-  const TARGET_TYPE = 'object';
-  const TARGET_KEYS_LENGTH = 8;
-  const typeOfData = typeof data;
-  console.log('typeOfData\n', typeOfData,);
-  const ready1 = (typeOfData === TARGET_TYPE);
-  const keys = Object.keys(data);
-  console.log('keys\n', keys,);
-  const keysLength = keys.length;
-  console.log('keysLength\n', keysLength,);
-  const ready2 = (keysLength === TARGET_KEYS_LENGTH);
-  const out = ready1 && ready2;
-  return out;
-}
+const getZipInputValidation = data => !!data.isValid
+// {
+//   console.log('data\n', data,);
+//   const TARGET_TYPE = 'object';
+//   const TARGET_KEYS_LENGTH = 9;
+//   const typeOfData = typeof data;
+//   console.log('typeOfData\n', typeOfData,);
+//   const bool1 = (typeOfData === TARGET_TYPE);
+//   const keys = Object.keys(data);
+//   console.log('keys\n', keys,);
+//   const keysLength = keys.length;
+//   console.log('keysLength\n', keysLength,);
+//   const bool2 = (keysLength === TARGET_KEYS_LENGTH);
+//   const out = bool1 && bool2;
+//   return out;
+// }
 
 
 const getValidation = ( target=matchAllRe, data, ) => {
