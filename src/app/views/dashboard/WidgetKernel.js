@@ -3,7 +3,8 @@
 // see canonical data fetch pattern at above link and recopied below at the bottom of this file
 
 import React, { Component, } from 'react'; // useState, Suspense,
-import { CircularProgress, } from '@material-ui/core';
+// import { CircularProgress, } from '@material-ui/core';
+import Skeleton from 'app/components/Skeleton';
 
 import { loadUserData, } from 'app/containers/LoadAsync';
 import _ from '@lodash';
@@ -150,7 +151,8 @@ class WidgetData extends Component {
           ?
           data
           :
-          <CircularProgress color="secondary" />
+          // <CircularProgress color="secondary" />
+          <Skeleton type='circle' radius='30' />
         }
       </div>
   

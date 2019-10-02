@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { withStyles } from "@material-ui/core";
 
 import { Typography, LinearProgress, } from '@material-ui/core';
+// import Skeleton from './Skeleton';
 
 const styles = theme => ({
   root: {
@@ -21,6 +22,9 @@ const Loading = props => {
     <div className={classNames(classes.root, "flex flex-1 flex-col items-center justify-center")}>
       <Typography className="text-20 mb-16" color="textSecondary">Loading...</Typography>
       <LinearProgress className="w-xs" color="secondary"/>
+      {
+      // <Skeleton />
+      }
     </div>
   );
 }

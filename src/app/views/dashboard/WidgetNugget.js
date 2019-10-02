@@ -7,10 +7,13 @@ import React from 'react'; // useState, useEffect,
 //   // Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
 // } from '@material-ui/core';
 
+import Skeleton from 'app/components/Skeleton';
 import WidgetKernel from './WidgetKernel';
 
 import _ from '@lodash';
 import numeral from 'numeral';
+
+const getTypeIsObject = () => <Skeleton type='circle' radius={5} />
 
 const getFontSize = ( data = '' ) => {
   // console.log('data\n', data,);
@@ -93,6 +96,7 @@ const WidgetNugget = ({
   // message, type, onOpenDialog,
   mobile=false, settings, data, dataSource, label, onDataChanged,
 }) => {
+  console.log('label\n', label,);
   // if(dataSource) console.log('dataSource\n', dataSource,);
 
   // const [ dialogIsOpen    , setDialogIsOpen    , ] = useState(false);
@@ -109,9 +113,10 @@ const WidgetNugget = ({
   // }, [ formattedResult, ]);
 
   const getFormat = rawValue => {
+    console.log( 'rawValue\n', rawValue, );
     let out;
     const typeOfData = typeof rawValue;
-    // console.log( 'typeOfData\n', typeOfData, );
+    console.log( 'typeOfData\n', typeOfData, );
     switch (typeOfData) {
       case 'number':
         out = numeral(rawValue).format('0,0');
@@ -120,7 +125,7 @@ const WidgetNugget = ({
         out = rawValue.toUpperCase();
         break;
       case 'object':
-        out = rawValue;
+        out = getTypeIsObject();
         break;
       default:
         out = rawValue;
@@ -151,21 +156,20 @@ const WidgetNugget = ({
     // setFormattedResult(formattedResult);
     const fontSize = getFontSize(result); // formattedResult converts all to text
     // console.log('computedFontSize\n', computedFontSize,);
-    return (
-      mobile
-      ?
-      formattedResult
-      :
+    // console.log('fontSize\n', fontSize,);
+
+    const getLaptop = () =>
       <div
         className="flex flex-col h-116 text-center cursor-pointer" // direction: 'right', text-16 text-72
-        // onClick={() => handleOpenDialog()}
+      // onClick={() => handleOpenDialog()}
       >
         <div className={`${fontSize} h-72 flex items-end leading-none text-blue`}>
           <span className="flex-1">{formattedResult}</span>
         </div>
         <div className="text-xs uppercase mt-8" color="textSecondary">{label}</div>
       </div>
-    )
+
+    return ( mobile ? formattedResult : getLaptop() )
   }
 
   // const config = {

@@ -1172,9 +1172,9 @@ export const getComponentsNavConfig = props => {
       },
       // see: src/app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
-      // component: () => FuseLoadable({loader: () => import('app/views/dashboard/Dashboard')}),
-      // component: () => FuseLoadable({loader: () => import('app/views/dashboard/DashboardContainer')}),
-      component: () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
+      // getComponent: () => FuseLoadable({loader: () => import('app/views/dashboard/Dashboard')}),
+      // getComponent: () => FuseLoadable({loader: () => import('app/views/dashboard/DashboardContainer')}),
+      getComponent: () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
       dashboardConfig: [
         'net', 'deposits', 'withdrawals', 'challenges', 'inbox', 'archive',
         'outbox', 'contacts', 'bizCategory', 'geoLocal', 'geoRegion', 'geoNation',
@@ -1201,7 +1201,7 @@ export const getComponentsNavConfig = props => {
       },
       // see src/app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
-      component: () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
+      getComponent: () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
       crudConfig: {
         miniDashboard: [ 'net', 'deposits', 'withdrawals', ],
         condensed: true,
@@ -1342,7 +1342,7 @@ export const getComponentsNavConfig = props => {
       },
       // see src/app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
-      component: () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
+      getComponent: () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
       crudConfig: {
         condensed: true,
         searchable: true, // manually list array of searchable fields, i.e., [ 'name', 'phone', 'email', 'zip', 'notes', ] // otherwise, if true, getSearchableFields() uses all fields in 1. readable.path => creatable.fields
@@ -1576,7 +1576,7 @@ export const getComponentsNavConfig = props => {
       },
       // see src/app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
-      component: () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
+      getComponent: () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
       crudConfig: {
         miniDashboard: [ 'net', 'deposits', 'withdrawals', ],
         condensed: true,
@@ -1705,7 +1705,7 @@ export const getComponentsNavConfig = props => {
       },
       // see src/app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
-      component: () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
+      getComponent: () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
       crudConfig: {
         miniDashboard: [ 'contacts', ],
         condensed: true,
@@ -1785,8 +1785,8 @@ export const getComponentsNavConfig = props => {
         navList: 'item', // [ 'item', 'nested', ] => src/@fuse/components/FuseNavigation/FuseNavigation.js
         component: 'dashboard', // [ 'dashboard', 'crud', null, ] 'overhead' (deprecated), ] => src/app/config/ComponentRouter.js // should match dashboardConfig and crudConfig
       },
-      // component: () => FuseLoadable({loader: () => import('app/views/dashboard/DashboardContainer')}),
-      component: () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
+      // getComponent: () => FuseLoadable({loader: () => import('app/views/dashboard/DashboardContainer')}),
+      getComponent: () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
       dashboardConfig: [
         'challenges-net',
         'challenges-inbound', 'challenges-inbound-pending',
@@ -1812,7 +1812,7 @@ export const getComponentsNavConfig = props => {
       },
       // see src/app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
-      component: () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
+      getComponent: () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
       crudConfig: {
         miniDashboard: [
           'challenges-inbound', 'challenges-inbound-pending',
@@ -1863,7 +1863,7 @@ export const getComponentsNavConfig = props => {
       },
       // see src/app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
-      component: () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
+      getComponent: () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
       crudConfig: {
         miniDashboard: [
           'challenges-inbound', 'challenges-inbound-pending',
@@ -1914,7 +1914,7 @@ export const getComponentsNavConfig = props => {
       },
       // see src/app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
-      component: () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
+      getComponent: () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
       crudConfig: {
         miniDashboard: [
           'challenges-inbound', 'challenges-inbound-pending',
@@ -1965,7 +1965,7 @@ export const getComponentsNavConfig = props => {
       },
       // see src/app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
-      component: () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
+      getComponent: () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
       crudConfig: {
         miniDashboard: [
           // 'challenges-inbound', 'challenges-inbound-pending',
@@ -2016,7 +2016,7 @@ export const getComponentsNavConfig = props => {
       },
       // see src/app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
-      component: () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
+      getComponent: () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
       crudConfig: {
         miniDashboard: [
           // 'challenges-inbound', 'challenges-inbound-pending',
@@ -2067,7 +2067,7 @@ export const getComponentsNavConfig = props => {
       },
       // see src/app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
-      component: () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
+      getComponent: () => FuseLoadable({loader: () => import('app/config/ComponentRouter')}),
       crudConfig: {
         miniDashboard: [
           // 'challenges-inbound', 'challenges-inbound-pending',
@@ -2132,7 +2132,7 @@ export const getComponentsNavConfig = props => {
       },
       // see src/app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
-      component : () => FuseLoadable({loader: () => import('app/views/settings/Settings')}),
+      getComponent: () => FuseLoadable({loader: () => import('app/views/settings/Settings')}),
     },
     {
       // eslint-disable-next-line
@@ -2151,7 +2151,7 @@ export const getComponentsNavConfig = props => {
       },
       // see src/app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
-      component : () => FuseLoadable({loader: () => import('app/views/feedback/Feedback')}),
+      getComponent: () => FuseLoadable({loader: () => import('app/views/feedback/Feedback')}),
     },
     {
       // eslint-disable-next-line
@@ -2170,7 +2170,7 @@ export const getComponentsNavConfig = props => {
       },
       // see src/app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
-      component : () => FuseLoadable({loader: () => import('app/views/Help')}),
+      getComponent: () => FuseLoadable({loader: () => import('app/views/Help')}),
     },
     {
       // eslint-disable-next-line
@@ -2193,7 +2193,7 @@ export const getComponentsNavConfig = props => {
       },
       // see src/app/config/Routes.js
       // also update in: src/main/content/components/ComponentsConfig.js
-      component : () => FuseLoadable({loader: () => import('app/views/Logout')}),
+      getComponent: () => FuseLoadable({loader: () => import('app/views/Logout')}),
     },
   ];
 

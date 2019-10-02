@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, } from 'react';
 import { withStyles, } from '@material-ui/core';
 import {
   Switch, Route, Redirect,
@@ -10,6 +10,7 @@ import _ from '@lodash';
 import { getComponentsNavConfig, } from 'app/config/AppConfig'; // getFilterNested,
 
 // import Error404 from 'app/views/Error404';
+import DashboardContainer from 'app/views/dashboard/DashboardContainer';
 // import Dashboard from 'app/views/dashboard/Dashboard';
 // import Inbox from 'app/views/app/inbox/Inbox';
 // import Inbox from 'app/containers/Inbox';
@@ -111,7 +112,7 @@ class Routes extends Component {
       //   <Route path='/contacts'  component={FuseLoadable({loader: () => import('app/views/app/contacts/Contacts'   )})} />
       //     <Route path='/xsettings'  component={FuseLoadable({loader: () => import('app/views/settings/Settings')})} />
       //     <Route path='/xsettings'  component={Settings} />
-      //   <Route path='/settings'  component={componentsNavConfig[6].component()} />
+      //   <Route path='/settings'  component={componentsNavConfig[6].getComponent()} />
       //   <Route path='/feedback'  component={FuseLoadable({loader: () => import('app/views/Feedback'       )})} />
       //   <Route path='/help'      component={FuseLoadable({loader: () => import('app/views/Help'           )})} />
       //   <Route path='/logout'    component={FuseLoadable({loader: () => import('app/views/Logout'         )})} />
@@ -119,19 +120,32 @@ class Routes extends Component {
       // </Switch>
       
       // latest working
+      // <Redirect from='/'      to='/dashboard' />
+      // <Redirect from='/login' to='/dashboard' />
       <div className={classes.wrapper}>
-        <Redirect from='/'      to='/dashboard' />
-        <Redirect from='/login' to='/dashboard' />
         <Switch>
+          {
+          // <Route path='/'      component={DashboardContainer} />
+          // <Route path='/login' component={DashboardContainer} />
+          }
           {
           // <Route path='/' exact component={FuseLoadable({loader: () => import('app/views/dashboard/Dashboard')})} />
           // <Route path='/login'  component={FuseLoadable({loader: () => import('app/views/dashboard/Dashboard')})} />
           }
+          {
+          // <Redirect from='/'      to='/dashboard' />
+          // <Redirect from='/login' to='/dashboard' />
+          }
+          
           <Route path='/' exact component={FuseLoadable({loader: () => import('app/views/dashboard/DashboardContainer')})} />
           <Route path='/login'  component={FuseLoadable({loader: () => import('app/views/dashboard/DashboardContainer')})} />
+          
           {
-          // items.map(({ id, path, component, }) => <Route key={id} path={path} component={component()} />)
-          items.map(({ id, component, }) => <Route key={id} path={`/${id}`} component={component()} />)
+          // items.map(({ id, path, component, }) => <Route key={id} path={path} component={getComponent()} />)
+          items.map( ({ id, getComponent, }) => {
+            console.log('id\n', id,);
+            return <Route key={id} path={`/${id}`} component={getComponent()} />
+          })
           }
           <Route path='/logout' component={FuseLoadable({loader: () => import('app/views/Logout'  )})} />
           <Route                component={FuseLoadable({loader: () => import('app/views/Error404')})} />

@@ -63,7 +63,9 @@ class Error404Page extends Component {
 
           <Link className="no-underline" to="/dashboard">
             <Button variant="contained" color="secondary" size="large" className={classes.button}>
-              <Icon className={classes.leftIcon}>home</Icon>
+              {
+              // <Icon className={classes.leftIcon}>home</Icon>
+              }
               Return to home page
             </Button>
           </Link>
