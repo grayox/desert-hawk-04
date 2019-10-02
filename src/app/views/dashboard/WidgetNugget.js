@@ -13,7 +13,9 @@ import WidgetKernel from './WidgetKernel';
 import _ from '@lodash';
 import numeral from 'numeral';
 
-const getTypeIsObject = () => <Skeleton type='circle' radius={5} />
+const getTypeIsObject = () =>
+  <Skeleton type='circle' radius={30} />
+  // <Skeleton type='rect' height={70} width={70} />
 
 const getFontSize = ( data = '' ) => {
   // console.log('data\n', data,);
@@ -113,10 +115,10 @@ const WidgetNugget = ({
   // }, [ formattedResult, ]);
 
   const getFormat = rawValue => {
-    console.log( 'rawValue\n', rawValue, );
+    // console.log( 'rawValue\n', rawValue, );
     let out;
     const typeOfData = typeof rawValue;
-    console.log( 'typeOfData\n', typeOfData, );
+    // console.log( 'typeOfData\n', typeOfData, );
     switch (typeOfData) {
       case 'number':
         out = numeral(rawValue).format('0,0');
