@@ -15,7 +15,7 @@ import numeral from 'numeral';
 
 const getTypeIsObject = () =>
   <Skeleton type='circle' radius={30} />
-  // <Skeleton type='rect' height={70} width={70} />
+  // <Skeleton className="block" type='rect' height={30} width={70} />
 
 const getFontSize = ( data = '' ) => {
   // console.log('data\n', data,);
@@ -165,8 +165,8 @@ const WidgetNugget = ({
         className="flex flex-col h-116 text-center cursor-pointer" // direction: 'right', text-16 text-72
       // onClick={() => handleOpenDialog()}
       >
-        <div className={`${fontSize} h-72 flex items-end leading-none text-blue`}>
-          <span className="flex-1">{formattedResult}</span>
+        <div className={`${fontSize} h-72 flex items-end m-auto leading-none text-blue`}> {/* m-auto: horizontal margin */}
+          <span className="flex-1 object-center m-auto border border-red">{formattedResult}</span> {/* m-auto: vertical margin */}
         </div>
         <div className="text-xs uppercase mt-8" color="textSecondary">{label}</div>
       </div>
