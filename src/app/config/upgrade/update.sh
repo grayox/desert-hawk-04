@@ -2,6 +2,8 @@
 #
 # Update yarn and all dependencies
 
+# steps 1-3
+brew install node && brew update && brew upgrade node && brew install yarn && brew upgrade yarn && cd && cd dropbox/swap/fuse && git clone https://maria-le:teleworm1@github.com/withinpixels/fuse-react.git && mv fuse-react/ v05/ && cd v05 && yarn && yarn add --dev @fortawesome/fontawesome-free @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/free-brands-svg-icons @fortawesome/react-fontawesome nuka-carousel material-auto-rotating-carousel react-swipeable-views react-chartist chartist email-validator react-number-format moment numeral object-hash react-text-mask text-mask-addons react-icons
 #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   #   
 
 # define variables
@@ -16,10 +18,28 @@ chmod a+x "v$new/$localpath/update.sh"
 # navigate to destination directory
 cd "v$new"
 
-# upgrade yarn
-brew upgrade yarn
+# Get latest tooling
+# step 1
+brew install node && brew update && brew upgrade node && brew install yarn && brew upgrade yarn
+brew install node # &&
+brew update       # &&
+brew upgrade node # &&
+brew install yarn # &&
+brew upgrade yarn # &&
 
-# install dependencies
+# Clone latest repo
+# step 2
+cd && cd dropbox/swap/fuse && git clone https://maria-le:teleworm1@github.com/withinpixels/fuse-react.git && mv fuse-react/ v05/
+cd
+cd dropbox/swap/fuse
+git clone https://maria-le:teleworm1@github.com/withinpixels/fuse-react.git
+mv fuse-react/ v05/
+
+# step 3
+cd v05 && yarn && yarn add --dev @fortawesome/fontawesome-free @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/free-brands-svg-icons @fortawesome/react-fontawesome nuka-carousel material-auto-rotating-carousel react-swipeable-views react-chartist chartist email-validator react-number-format moment numeral object-hash react-text-mask text-mask-addons react-icons
+
+cd v05
+# Install dependencies
 yarn
 
 # install react-redux-firebase
@@ -42,6 +62,14 @@ yarn add react-chartist
 yarn add chartist
 yarn add email-validator # https://www.npmjs.com/package/email-validator
 yarn add react-number-format # https://www.npmjs.com/package/react-number-format
+
+# yarn add lodash
+yarn add moment # https://www.npmjs.com/package/moment
+yarn add numeral # https://www.npmjs.com/package/numeral
+yarn add object-hash # https://www.npmjs.com/package/object-hash
+yarn add react-text-mask # https://www.npmjs.com/package/react-text-mask
+yarn add text-mask-addons # https://www.npmjs.com/package/text-mask-addons
+yarn add react-icons # https://www.npmjs.com/package/react-icons
 
 # integrate git
 # ref: https://stackoverflow.com/a/53325899

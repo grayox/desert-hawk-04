@@ -1,4 +1,5 @@
-- - - - - BEGIN EDITS - - - - -
+- - - - - Update Fuse React Template - - - - -
+The preferred method for updating Material UI and React
 
 Key directories:
 src/store.js:96 | main store state subscription log

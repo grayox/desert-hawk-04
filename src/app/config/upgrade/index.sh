@@ -69,13 +69,14 @@ rsync -av --progress v$old "v$old-$backup-$timestamp/" \
 # # "./v$old/$localpath/clone.sh" $old $new $targetrepo
 # git clone "$targetrepo.git" "v$new"
 # git clone https://grayox@github.com/withinpixels/fuse-react v05
-# git clone https://withinpixels@github.com/withinpixels/fuse-react v05
+# git clone https://maria-le@github.com/withinpixels/fuse-react v05
 # git clone https://<username>:<password>@github.com/<ORG_NAME>/<PROJECT-NAME>.git
 # https://stackoverflow.com/q/53548940
 
 # step 4 of 9
 # copy files and directories to upgraged version
-"./v$old/$localpath/copy.sh" $old $new $localpath $compareto
+# ./v04/src/app/config/upgrade/copy.sh
+# "./v$old/$localpath/copy.sh" $old $new $localpath $compareto
 
 # step 5 of 9
 # make this script executable for next run
